@@ -1,0 +1,801 @@
+[
+  {
+    "type": "mcq",
+    "q": "A company has an API Gateway REST API with caching enabled. They notice that two different users making the same GET request are receiving each other's cached data. What is the root cause and solution?",
+    "opts": {
+      "a": "Caching is working as designed; all users share the same cache",
+      "b": "The cache key does not include user-specific parameters; they should add the Authorization header or user identifier to the cache key parameters",
+      "c": "Caching should be disabled entirely",
+      "d": "The Lambda function is returning incorrect data"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While cache is shared by default, user-specific data should use cache key parameters.",
+      "b": "Correct. By default, caching is based on the URL path. Adding Authorization header or user-specific query parameters as cache keys ensures per-user cache entries.",
+      "c": "Incorrect. Disabling cache is not necessary; proper cache key configuration resolves the issue.",
+      "d": "Incorrect. The issue is caching behavior, not Lambda logic."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An architect is designing a multi-region active-active API using API Gateway. The API modifies data in DynamoDB Global Tables. What is the correct architecture?",
+    "opts": {
+      "a": "Single edge-optimized API Gateway with DynamoDB in one region",
+      "b": "Regional API Gateway in each region, Route 53 latency-based routing, DynamoDB Global Tables for data replication, ACM certificates in each region",
+      "c": "Private API Gateway with Transit Gateway",
+      "d": "Single HTTP API with CloudFront distribution"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Edge-optimized still has a single regional backend and is not active-active.",
+      "b": "Correct. Regional APIs in multiple regions with Route 53 latency routing and DynamoDB Global Tables provides true active-active multi-region architecture.",
+      "c": "Incorrect. Private endpoints are VPC-only and Transit Gateway doesn't solve multi-region API routing.",
+      "d": "Incorrect. A single HTTP API is not multi-region active-active."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A Lambda Authorizer is configured with a 300-second cache TTL. The authorizer uses the Authorization header as the identity source. A user's token is revoked, but they can still access the API. What is happening and how should it be fixed?",
+    "opts": {
+      "a": "The cached authorization policy is still valid for up to 300 seconds; implement shorter TTL or add token revocation check in the backend",
+      "b": "The Lambda Authorizer is ignoring the revocation",
+      "c": "API Gateway doesn't support token revocation",
+      "d": "The user is using a different endpoint"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The cached policy remains valid until TTL expires. Solutions include shorter TTL, disabling cache for sensitive operations, or implementing backend-level token validation.",
+      "b": "Incorrect. The authorizer isn't called because the result is cached.",
+      "c": "Incorrect. Token revocation can be handled architecturally.",
+      "d": "Incorrect. The issue is cache TTL, not endpoint routing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to implement request throttling where different HTTP methods on the same resource have different rate limits (e.g., GET at 1000 RPS, POST at 100 RPS). How should this be configured?",
+    "opts": {
+      "a": "This is not possible in API Gateway",
+      "b": "Use method-level throttling in the usage plan or stage-level method throttling settings to set different limits per method",
+      "c": "Create separate APIs for each method",
+      "d": "Use WAF rate rules per method"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Method-level throttling is supported.",
+      "b": "Correct. Usage plans and stage settings support method-level throttling, allowing different rate/burst limits per HTTP method on a resource.",
+      "c": "Incorrect. Separate APIs are unnecessary and increase complexity.",
+      "d": "Incorrect. WAF rate rules don't natively distinguish HTTP methods for rate limiting at this level."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company migrates from REST API to HTTP API for cost savings. After migration, they notice that request/response transformation previously done via VTL mapping templates no longer works. Why?",
+    "opts": {
+      "a": "HTTP APIs do not support VTL mapping templates; they support only simple parameter mapping",
+      "b": "The migration script had a bug",
+      "c": "HTTP APIs require a different VTL syntax",
+      "d": "Mapping templates need to be redeployed"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. HTTP APIs only support simple parameter mapping (header, query string, path remapping) but not full VTL mapping templates like REST APIs.",
+      "b": "Incorrect. This is a fundamental feature difference, not a script bug.",
+      "c": "Incorrect. HTTP APIs don't support VTL at all.",
+      "d": "Incorrect. Redeploying won't add unsupported features."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An API Gateway WebSocket API needs to maintain connection state (e.g., which chat room a user belongs to). Where should this state be stored?",
+    "opts": {
+      "a": "In API Gateway's internal memory",
+      "b": "In an external data store like DynamoDB with connectionId as the key",
+      "c": "In the Lambda function's /tmp directory",
+      "d": "In CloudWatch Logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway doesn't maintain custom connection state.",
+      "b": "Correct. DynamoDB is the recommended store for WebSocket connection state, using connectionId as the partition key for fast lookups.",
+      "c": "Incorrect. Lambda's /tmp is ephemeral and not shared across invocations.",
+      "d": "Incorrect. CloudWatch Logs are for logging, not state management."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer implements a Lambda Authorizer that returns a policy with 'Resource': 'arn:aws:execute-api:*:*:*/*/GET/*'. The authorizer cache TTL is 300 seconds. What is the security concern?",
+    "opts": {
+      "a": "No security concern exists",
+      "b": "The wildcard policy is cached, so the user can access ANY GET endpoint on the API for 300 seconds even if their permissions should be more restrictive",
+      "c": "The TTL is too short",
+      "d": "The authorizer will fail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Overly broad cached policies are a security risk.",
+      "b": "Correct. A cached wildcard policy grants access to all GET endpoints for the cache duration. Authorizers should return the most restrictive policy possible.",
+      "c": "Incorrect. The TTL isn't the core issue; the overly permissive policy is.",
+      "d": "Incorrect. The authorizer will work but with security implications."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses API Gateway with a backend on EC2 instances behind a Network Load Balancer in a private subnet. The API works intermittently, returning 503 errors. What should be investigated?",
+    "opts": {
+      "a": "API Gateway caching configuration",
+      "b": "NLB target health checks, security group rules between NLB and EC2, and VPC Link status",
+      "c": "Lambda concurrency limits",
+      "d": "Route 53 DNS configuration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Caching doesn't cause 503 errors.",
+      "b": "Correct. 503 with VPC Link integration suggests unhealthy NLB targets, security group issues blocking traffic, or VPC Link connectivity problems.",
+      "c": "Incorrect. Lambda is not involved in this architecture.",
+      "d": "Incorrect. Route 53 issues would cause DNS resolution failures, not 503."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An architect needs to implement API Gateway with a circuit breaker pattern. API Gateway doesn't have native circuit breaker support. What is the best approach?",
+    "opts": {
+      "a": "It cannot be implemented",
+      "b": "Use API Gateway → Step Functions (with error handling and retry logic) → Backend service, or implement circuit breaker in a Lambda integration layer",
+      "c": "Use API Gateway caching as a circuit breaker",
+      "d": "Use CloudWatch alarms to manually disable the API"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It can be implemented with supporting services.",
+      "b": "Correct. Step Functions provide native retry/catch logic, or a Lambda layer can maintain circuit state in DynamoDB/ElastiCache.",
+      "c": "Incorrect. Caching is not a circuit breaker.",
+      "d": "Incorrect. Manual intervention is not an automated circuit breaker pattern."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A REST API has the following throttling configuration: Account level=10,000 RPS, Stage level=5,000 RPS, Method level=2,000 RPS, Usage plan=500 RPS for a specific API key. What is the effective rate limit for that API key on that method?",
+    "opts": {
+      "a": "10,000 RPS",
+      "b": "5,000 RPS",
+      "c": "2,000 RPS",
+      "d": "500 RPS"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The most restrictive limit applies.",
+      "b": "Incorrect. Stage level is not the most restrictive.",
+      "c": "Incorrect. Method level is not the most restrictive for this key.",
+      "d": "Correct. The most restrictive limit wins. The usage plan limits this specific API key to 500 RPS regardless of higher limits at other levels."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer configures API Gateway to directly integrate with SQS. The integration works but they notice messages in SQS don't contain the original request body. What is likely missing?",
+    "opts": {
+      "a": "SQS queue permissions",
+      "b": "A mapping template that transforms the request body into the Action=SendMessage&MessageBody=$input.body format required by SQS API",
+      "c": "A Lambda function between API Gateway and SQS",
+      "d": "CORS headers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. If permissions were wrong, the integration would fail entirely.",
+      "b": "Correct. SQS requires specific URL-encoded format. The mapping template must transform the request into Action=SendMessage&MessageBody=<encoded body> format.",
+      "c": "Incorrect. Direct integration doesn't require Lambda.",
+      "d": "Incorrect. CORS doesn't affect the message content."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to implement API versioning where v1 and v2 of the same API coexist. They want minimal infrastructure duplication. What is the most efficient approach?",
+    "opts": {
+      "a": "Create completely separate APIs for each version",
+      "b": "Use a single API with resource path-based versioning (/v1/resource, /v2/resource) pointing to different Lambda aliases via stage variables",
+      "c": "Use different AWS accounts per version",
+      "d": "Use different regions per version"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Separate APIs increase maintenance overhead.",
+      "b": "Correct. Path-based versioning with stage variables pointing to different Lambda function aliases/versions minimizes duplication while supporting multiple versions.",
+      "c": "Incorrect. Different accounts for versioning is extreme overhead.",
+      "d": "Incorrect. Different regions is not a versioning strategy."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An API Gateway REST API with edge-optimized endpoint returns higher latency than expected for clients in the same region as the API. What could be the cause and solution?",
+    "opts": {
+      "a": "Edge-optimized routes same-region traffic through CloudFront, adding unnecessary hops; switch to Regional endpoint for same-region clients",
+      "b": "The Lambda function is slow",
+      "c": "Caching is disabled",
+      "d": "The API key is expired"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Edge-optimized endpoints route ALL traffic through CloudFront, which adds latency for same-region clients. Regional endpoints eliminate this overhead.",
+      "b": "Incorrect. Lambda latency would affect all endpoint types equally.",
+      "c": "Incorrect. Caching helps but doesn't explain the architectural latency overhead.",
+      "d": "Incorrect. Expired keys cause 403, not latency."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to implement request transformation where the incoming JSON body needs to be converted to a query string format for a legacy HTTP backend. Which approach works?",
+    "opts": {
+      "a": "Lambda Proxy integration",
+      "b": "Non-proxy HTTP integration with a VTL mapping template in Integration Request that maps JSON body fields to query string parameters",
+      "c": "API Gateway cannot transform body to query strings",
+      "d": "Use CloudFront Functions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda Proxy passes requests as-is and doesn't transform format.",
+      "b": "Correct. VTL mapping templates can extract JSON body fields and map them to integration request query string parameters for the backend.",
+      "c": "Incorrect. This transformation is fully supported with mapping templates.",
+      "d": "Incorrect. CloudFront Functions don't handle API Gateway request transformation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company's API Gateway returns 'Endpoint request timed out' in CloudWatch logs but the IntegrationLatency metric shows only 5 seconds average. However, some requests still timeout. What metric should they examine?",
+    "opts": {
+      "a": "Average IntegrationLatency only",
+      "b": "p99 IntegrationLatency (99th percentile) to identify tail latency outliers exceeding 29 seconds",
+      "c": "Count metric",
+      "d": "CacheMissCount"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Averages can hide outliers that cause timeouts.",
+      "b": "Correct. p99/p95 percentiles reveal tail latency. Some requests may exceed 29 seconds even if the average is low.",
+      "c": "Incorrect. Count shows volume, not latency distribution.",
+      "d": "Incorrect. Cache misses don't explain timeout patterns."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A security team requires that all API Gateway access logs include the caller's source IP, request path, response status, and integration latency in a specific format for their SIEM tool. How should this be configured?",
+    "opts": {
+      "a": "Use execution logs which have a fixed format",
+      "b": "Configure custom access log format using $context variables (e.g., $context.identity.sourceIp, $context.path, $context.status, $context.integrationLatency)",
+      "c": "Use CloudTrail logs",
+      "d": "Export CloudWatch metrics to the SIEM"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Execution logs have fixed format and are for debugging, not custom SIEM ingestion.",
+      "b": "Correct. Access logs support custom formats using $context variables, allowing precise control over what data is logged for SIEM integration.",
+      "c": "Incorrect. CloudTrail logs management API calls, not API execution details.",
+      "d": "Incorrect. Metrics don't contain per-request details."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An organization has multiple teams each owning different microservices. They want a shared API Gateway with team-level isolation for deployment and management. What is the recommended approach?",
+    "opts": {
+      "a": "Single API with all resources managed by one team",
+      "b": "Use separate APIs per team with custom domain name base path mappings to unify them under one domain (e.g., api.com/team-a → API-A, api.com/team-b → API-B)",
+      "c": "Use a single Lambda function for all teams",
+      "d": "Use separate AWS accounts with no integration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Single API ownership creates a bottleneck.",
+      "b": "Correct. Separate APIs per team with base path mappings on a shared custom domain provides team autonomy while presenting a unified API surface.",
+      "c": "Incorrect. A single Lambda doesn't provide isolation.",
+      "d": "Incorrect. Separate accounts without integration defeats the purpose of a unified API."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer uses API Gateway with mutual TLS. After configuring the truststore in S3, some clients receive 403 errors while others connect successfully. What should be checked?",
+    "opts": {
+      "a": "The API key configuration",
+      "b": "Whether the failing clients' certificates are signed by a CA included in the truststore, certificate expiration, and certificate chain completeness",
+      "c": "Lambda function permissions",
+      "d": "VPC Link status"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API keys are separate from mTLS.",
+      "b": "Correct. mTLS 403 errors indicate client certificate issues: untrusted CA, expired cert, incomplete chain, or revoked certificate.",
+      "c": "Incorrect. Lambda permissions are unrelated to mTLS handshake.",
+      "d": "Incorrect. VPC Link doesn't affect mTLS authentication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses API Gateway HTTP API with JWT authorizer backed by an external identity provider. They need to extract custom claims from the JWT and pass them to the Lambda function. How is this achieved?",
+    "opts": {
+      "a": "The Lambda function must decode the JWT itself",
+      "b": "HTTP API automatically maps JWT claims to request context and they are available in the Lambda event via $request.auth.claims",
+      "c": "Custom claims cannot be passed",
+      "d": "Use a separate Cognito User Pool"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While Lambda can decode JWT, HTTP API provides claims automatically.",
+      "b": "Correct. HTTP API JWT authorizer extracts claims and makes them available in the request context, accessible in Lambda integration.",
+      "c": "Incorrect. Claims are automatically available.",
+      "d": "Incorrect. External IdP works directly with HTTP API JWT authorizer."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer notices that after enabling API Gateway caching, the CacheHitCount metric stays at 0 even for repeated identical GET requests. What are the possible causes?",
+    "opts": {
+      "a": "Caching only works for POST requests",
+      "b": "Cache is not deployed (requires redeployment), the cache is still warming up, or the method-level caching override is set to disable caching",
+      "c": "The API key is missing",
+      "d": "X-Ray is interfering with caching"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Caching works for GET, HEAD, and OPTIONS by default.",
+      "b": "Correct. Common causes: stage needs redeployment after enabling cache, method-level overrides disabling cache, or cache hasn't populated yet.",
+      "c": "Incorrect. API keys are not required for caching.",
+      "d": "Incorrect. X-Ray doesn't interfere with caching."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An API Gateway REST API needs to support both API key-based clients and IAM-authenticated internal services on the same method. How can this be achieved?",
+    "opts": {
+      "a": "This is not possible on the same method",
+      "b": "Enable IAM authorization on the method AND require API key; IAM-authenticated clients must also provide an API key in the x-api-key header",
+      "c": "Use two separate stages",
+      "d": "Use Lambda Authorizer only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Both can be enabled on the same method.",
+      "b": "Correct. IAM auth and API key requirement can coexist. Clients need both valid IAM signatures AND a valid API key.",
+      "c": "Incorrect. Separate stages create operational overhead.",
+      "d": "Incorrect. Lambda Authorizer is a different approach entirely."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A WebSocket API needs to broadcast a message to all connected clients in a specific chat room. The system has 10,000 concurrent connections. What is the most efficient architecture?",
+    "opts": {
+      "a": "Single Lambda function iterating through all connections sequentially",
+      "b": "Store connections per room in DynamoDB, use Lambda with fan-out via SQS/SNS to parallelize @connections POST calls, with error handling for stale connections",
+      "c": "Use API Gateway's built-in broadcast feature",
+      "d": "Recreate WebSocket connections for each message"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Sequential iteration would be too slow for 10,000 connections and risk Lambda timeout.",
+      "b": "Correct. DynamoDB stores room membership, fan-out with SQS/SNS parallelizes message delivery, and error handling removes stale connections (410 Gone).",
+      "c": "Incorrect. API Gateway doesn't have a native broadcast feature.",
+      "d": "Incorrect. Recreating connections defeats the purpose of WebSocket."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer configures a REST API with a resource policy that denies access from a specific VPC endpoint. However, requests from that VPC endpoint still succeed. What could be wrong?",
+    "opts": {
+      "a": "Resource policies don't support VPC endpoint conditions",
+      "b": "The resource policy has an explicit Allow that takes precedence, or the policy was not deployed (requires redeployment for changes to take effect)",
+      "c": "VPC endpoints bypass resource policies",
+      "d": "The API is edge-optimized and ignores VPC conditions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Resource policies support aws:sourceVpce condition.",
+      "b": "Correct. An explicit Allow combined with the Deny (depending on policy structure), or forgetting to redeploy after policy changes, can cause this behavior.",
+      "c": "Incorrect. VPC endpoints are subject to resource policies.",
+      "d": "Incorrect. Edge-optimized APIs can still use resource policies with VPC conditions for private access patterns."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs to migrate their API Gateway REST API to a different AWS region for compliance. The API has custom domain names, Lambda authorizers, and usage plans. What must be recreated in the new region?",
+    "opts": {
+      "a": "Only the API definition",
+      "b": "Everything: API definition, Lambda functions, Lambda authorizers, ACM certificates (for regional endpoints), custom domain names, usage plans, API keys, and Route 53 records",
+      "c": "Only the custom domain name",
+      "d": "Nothing; API Gateway is global"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Many dependent resources must also be recreated.",
+      "b": "Correct. API Gateway is regional; all components including Lambda functions, certificates, authorizers, and configurations must be recreated in the target region.",
+      "c": "Incorrect. Much more than the domain name needs to be recreated.",
+      "d": "Incorrect. API Gateway is a regional service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer implements a request pipeline: API Gateway → SQS → Lambda (async processing). The client needs to know if the message was successfully queued. What response should API Gateway return?",
+    "opts": {
+      "a": "200 OK with the processing result",
+      "b": "202 Accepted with the SQS MessageId indicating the message was queued; processing result is retrieved later",
+      "c": "204 No Content",
+      "d": "301 Redirect to the result endpoint"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The processing hasn't completed yet in async pattern.",
+      "b": "Correct. 202 Accepted indicates the request was received and queued. The SQS MessageId confirms queuing. Client can poll for results later.",
+      "c": "Incorrect. 204 doesn't convey queuing confirmation.",
+      "d": "Incorrect. 301 redirect is not appropriate for async acknowledgment."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has a private API Gateway accessible via VPC endpoint. They want to allow access from a peered VPC in a different account. What must be configured?",
+    "opts": {
+      "a": "Nothing additional; peered VPCs automatically have access",
+      "b": "Create a VPC endpoint in the peered VPC, configure DNS resolution, and update the API resource policy to allow the new VPC endpoint ID (aws:sourceVpce)",
+      "c": "Use Transit Gateway only",
+      "d": "Make the API public"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC endpoints are not shared across peered VPCs automatically.",
+      "b": "Correct. Each VPC needs its own VPC endpoint, DNS must resolve, and the resource policy must explicitly allow the new vpce ID.",
+      "c": "Incorrect. Transit Gateway alone doesn't solve VPC endpoint access for private APIs.",
+      "d": "Incorrect. Making it public defeats the purpose of private API."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An API Gateway deployment uses a canary release with 10% traffic. The canary shows increased 5XX errors. What automated action can be taken?",
+    "opts": {
+      "a": "API Gateway automatically rolls back",
+      "b": "Configure CloudWatch Alarms on canary metrics to trigger a Lambda function or CodeDeploy automatic rollback that removes the canary deployment",
+      "c": "Nothing; manual intervention is required",
+      "d": "The canary automatically stops after errors"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway doesn't have built-in automatic rollback.",
+      "b": "Correct. CloudWatch Alarms monitoring canary 5XXError metrics can trigger automated rollback via Lambda/CodeDeploy/Step Functions.",
+      "c": "Incorrect. Automation is possible with CloudWatch + Lambda.",
+      "d": "Incorrect. Canary doesn't self-heal automatically."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer wants to implement field-level encryption where specific sensitive fields in the API response are encrypted before reaching the client. How can this be achieved with API Gateway?",
+    "opts": {
+      "a": "API Gateway has built-in field-level encryption",
+      "b": "Implement encryption in the backend Lambda function using KMS to encrypt specific fields before returning the response",
+      "c": "Use CloudFront field-level encryption",
+      "d": "Use WAF encryption rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway doesn't have native field-level encryption.",
+      "b": "Correct. The backend Lambda can use KMS to encrypt specific sensitive fields in the response body before returning through API Gateway.",
+      "c": "Incorrect. CloudFront field-level encryption is for form POST data, not API responses.",
+      "d": "Incorrect. WAF doesn't provide encryption features."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses API Gateway with a Lambda function that writes to DynamoDB. During high traffic, some requests fail with 'Rate exceeded' from DynamoDB. The API Gateway is not throttling. What is the solution?",
+    "opts": {
+      "a": "Increase API Gateway throttle limits",
+      "b": "Implement one or more: DynamoDB auto-scaling/on-demand capacity, SQS queue between API Gateway and Lambda for buffering, or implement exponential backoff in Lambda",
+      "c": "Increase Lambda memory",
+      "d": "Enable API Gateway caching for write requests"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway isn't the bottleneck; DynamoDB is.",
+      "b": "Correct. Solutions include DynamoDB capacity adjustments, SQS buffering to smooth traffic spikes, or retry logic with backoff in Lambda.",
+      "c": "Incorrect. Lambda memory doesn't fix DynamoDB throttling.",
+      "d": "Incorrect. Caching doesn't help with write operations."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can API Gateway be configured to return different responses based on the error type from a non-proxy Lambda integration (e.g., 400 for validation errors, 404 for not found)?",
+    "opts": {
+      "a": "Lambda must use proxy integration for custom error codes",
+      "b": "Configure Integration Response with regex patterns on the Lambda error message (errorMessage) to map specific error patterns to different HTTP status codes",
+      "c": "Use multiple Lambda functions",
+      "d": "API Gateway always returns 200 for Lambda responses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Non-proxy integration can also return custom status codes.",
+      "b": "Correct. Integration Response uses Lambda Error Regex patterns (e.g., '.*NotFound.*' → 404, '.*Validation.*' → 400) to map error types to HTTP status codes.",
+      "c": "Incorrect. A single Lambda can return different error types.",
+      "d": "Incorrect. Proper configuration enables various status codes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has 50 microservices each with their own API Gateway. They want centralized authentication and rate limiting across all APIs. What architecture should they implement?",
+    "opts": {
+      "a": "Duplicate authentication logic in each API",
+      "b": "Use a shared Lambda Authorizer across APIs, centralized usage plans per API, and optionally a service mesh or shared Cognito User Pool for token issuance",
+      "c": "Use a single API Gateway for all 50 services",
+      "d": "Implement authentication in each microservice"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Duplication increases maintenance burden.",
+      "b": "Correct. Shared Lambda Authorizer (cross-account if needed), centralized Cognito for token issuance, and per-API usage plans provide centralized control.",
+      "c": "Incorrect. 500 resource limit per API makes this impractical for 50 microservices.",
+      "d": "Incorrect. Authentication at the service level bypasses API Gateway benefits."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to implement API Gateway access control where users in Group A can access /admin/* resources and users in Group B can only access /public/* resources. Using Cognito, what is the best approach?",
+    "opts": {
+      "a": "Use API keys per group",
+      "b": "Use a Lambda Authorizer that reads Cognito groups from the JWT token's cognito:groups claim and returns an IAM policy allowing only the appropriate resource paths",
+      "c": "Create separate APIs per group",
+      "d": "Use resource policies with Cognito groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API keys don't support group-based resource access.",
+      "b": "Correct. Lambda Authorizer can inspect cognito:groups claim and dynamically generate an IAM policy allowing only the specific resource ARNs for that group.",
+      "c": "Incorrect. Separate APIs create unnecessary duplication.",
+      "d": "Incorrect. Resource policies don't integrate with Cognito group claims."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An API Gateway REST API uses a backend that occasionally returns responses larger than 10 MB. What architectural pattern should be used?",
+    "opts": {
+      "a": "Increase the API Gateway payload limit",
+      "b": "Backend stores the large response in S3, returns a pre-signed URL through API Gateway; client downloads directly from S3",
+      "c": "Use chunked transfer encoding",
+      "d": "Compress all responses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The 10 MB payload limit cannot be increased.",
+      "b": "Correct. The 'claim check' pattern: store large payloads in S3 and return a pre-signed URL for direct client download, bypassing API Gateway size limits.",
+      "c": "Incorrect. Chunked encoding doesn't bypass the payload size limit.",
+      "d": "Incorrect. Compression helps but may not reduce below 10 MB for all responses."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer is using API Gateway with X-Ray tracing enabled. They notice that traces show high latency between API Gateway and Lambda, but the Lambda execution itself is fast. What could cause this?",
+    "opts": {
+      "a": "X-Ray is adding latency",
+      "b": "Lambda cold starts are causing initialization latency before code execution begins; the time between API Gateway sending the request and Lambda starting execution includes cold start time",
+      "c": "API Gateway caching is slow",
+      "d": "The VPC Link is misconfigured"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. X-Ray adds negligible latency.",
+      "b": "Correct. Cold starts show as latency between API Gateway dispatch and Lambda execution start. Provisioned Concurrency can mitigate this.",
+      "c": "Incorrect. Caching would reduce latency, not increase it.",
+      "d": "Incorrect. VPC Link is not involved in Lambda integration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to implement request signing for API-to-API communication where Service A calls Service B through API Gateway. Service B needs to verify the request came from Service A. What should be used?",
+    "opts": {
+      "a": "API keys",
+      "b": "IAM authorization with SigV4 signing, where Service A assumes a role with execute-api:Invoke permission for Service B's API",
+      "c": "Basic authentication",
+      "d": "OAuth client credentials with public IdP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API keys identify callers but don't cryptographically prove identity.",
+      "b": "Correct. IAM auth with SigV4 provides cryptographic request signing that proves the caller's identity and ensures request integrity.",
+      "c": "Incorrect. Basic auth sends credentials in cleartext (base64) and is less secure.",
+      "d": "Incorrect. While OAuth works, IAM + SigV4 is the AWS-native approach for service-to-service communication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An organization wants to expose their API Gateway to on-premises applications via AWS Direct Connect without going over the public internet. What architecture is needed?",
+    "opts": {
+      "a": "Use edge-optimized endpoint with Direct Connect",
+      "b": "Use a Private API Gateway with VPC Interface Endpoint, connected to on-premises via Direct Connect + private VIF to the VPC",
+      "c": "Use a Regional endpoint with no additional configuration",
+      "d": "Use CloudFront with Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Edge-optimized endpoints use public internet via CloudFront.",
+      "b": "Correct. Private API + VPC endpoint + Direct Connect with private VIF ensures traffic stays entirely on private network from on-premises to API.",
+      "c": "Incorrect. Regional endpoints are publicly accessible.",
+      "d": "Incorrect. CloudFront uses public edge locations."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to implement idempotency for a payment API. The same payment request might be sent multiple times due to client retries. Using API Gateway + Lambda + DynamoDB, what is the recommended implementation?",
+    "opts": {
+      "a": "Use API Gateway request deduplication feature",
+      "b": "Client sends an Idempotency-Key header; Lambda checks DynamoDB for existing key, processes only if new, stores result with TTL; returns stored result for duplicates",
+      "c": "Use API Gateway caching",
+      "d": "Use SQS FIFO deduplication only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway doesn't have built-in request deduplication.",
+      "b": "Correct. Idempotency-Key + DynamoDB conditional writes (PutItem with condition) ensures each payment is processed exactly once, with TTL for cleanup.",
+      "c": "Incorrect. Caching returns stored GET responses, not suitable for payment idempotency.",
+      "d": "Incorrect. SQS FIFO deduplication works within 5-minute window only and requires SQS in the architecture."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company's API Gateway REST API experiences intermittent 'Authorizer configuration error' (500) responses. The Lambda Authorizer function has no code errors. What should be investigated?",
+    "opts": {
+      "a": "API Gateway cache settings",
+      "b": "Lambda Authorizer timeout (max 10 seconds), Lambda concurrency throttling, IAM role permissions for API Gateway to invoke the authorizer, and authorizer Lambda memory limits",
+      "c": "DNS configuration",
+      "d": "S3 bucket policy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cache settings don't cause authorizer configuration errors.",
+      "b": "Correct. Intermittent authorizer errors can be caused by: authorizer Lambda timeout (max 10s), concurrency throttling, insufficient memory causing timeouts, or permission issues.",
+      "c": "Incorrect. DNS doesn't affect authorizer execution.",
+      "d": "Incorrect. S3 is not involved in Lambda authorization."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum time a Lambda Authorizer function can execute before API Gateway considers it timed out?",
+    "opts": {
+      "a": "5 seconds",
+      "b": "10 seconds",
+      "c": "29 seconds",
+      "d": "60 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 seconds is not the limit.",
+      "b": "Correct. Lambda Authorizers have a maximum execution time of 10 seconds (separate from the 29-second integration timeout).",
+      "c": "Incorrect. 29 seconds is the integration timeout for backend calls, not authorizer timeout.",
+      "d": "Incorrect. 60 seconds exceeds the authorizer timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to implement response pagination in API Gateway where the backend returns large datasets. The backend Lambda returns 5 MB responses, but they want to limit client responses to 1 MB pages. What approach works best?",
+    "opts": {
+      "a": "Use API Gateway response size limits",
+      "b": "Implement pagination logic in the Lambda function using query parameters (limit, offset/cursor); API Gateway passes pagination parameters to Lambda which returns only the requested page",
+      "c": "Use mapping templates to truncate responses",
+      "d": "Enable response compression to reduce size"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway doesn't have configurable response size limits for pagination.",
+      "b": "Correct. Backend implements cursor/offset pagination, API Gateway passes pagination parameters, and clients receive appropriately sized pages.",
+      "c": "Incorrect. Truncation loses data and doesn't implement proper pagination.",
+      "d": "Incorrect. Compression reduces transfer size but doesn't implement pagination."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company runs API Gateway with WAF and needs to implement bot detection that blocks automated scraping while allowing legitimate API clients. What WAF configuration should they use?",
+    "opts": {
+      "a": "IP-based blocking only",
+      "b": "AWS WAF Bot Control managed rule group combined with custom rules for rate limiting and header validation (User-Agent, custom client headers)",
+      "c": "Disable all API keys",
+      "d": "Use CAPTCHA on all API endpoints"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Bots can use rotating IPs, making IP-only blocking ineffective.",
+      "b": "Correct. Bot Control rules detect and categorize bots. Combined with rate limiting and header validation, this provides comprehensive bot protection.",
+      "c": "Incorrect. Disabling API keys removes a layer of identification.",
+      "d": "Incorrect. CAPTCHA is not practical for API endpoints."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs API Gateway to forward the original client IP to the backend when the API uses an edge-optimized endpoint. Where is the client IP available?",
+    "opts": {
+      "a": "In the source IP of the TCP connection",
+      "b": "In the X-Forwarded-For header, since CloudFront and API Gateway add this header; the original client IP is the leftmost value",
+      "c": "It's not available with edge-optimized endpoints",
+      "d": "In the Authorization header"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The source IP would be CloudFront's IP, not the original client.",
+      "b": "Correct. X-Forwarded-For header contains the client IP chain. The leftmost IP is the original client. In Lambda Proxy, it's available in event.requestContext.identity.sourceIp.",
+      "c": "Incorrect. Client IP is available via X-Forwarded-For.",
+      "d": "Incorrect. Authorization header contains auth tokens."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company implements API Gateway with a backend service that requires OAuth 2.0 client credentials token for authentication. API Gateway needs to obtain and manage this token. What is the recommended architecture?",
+    "opts": {
+      "a": "Store the token in API Gateway stage variables",
+      "b": "Use a Lambda function (or Lambda@Edge) that fetches/caches the OAuth token from the IdP (storing in ElastiCache/Secrets Manager) and adds it to the integration request before calling the backend",
+      "c": "Hardcode the token in mapping templates",
+      "d": "Use API keys as the OAuth token"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Stage variables are not suitable for token management (no refresh mechanism).",
+      "b": "Correct. Lambda can implement token caching, automatic refresh, and add the token to backend requests. Secrets Manager or ElastiCache stores the cached token.",
+      "c": "Incorrect. Hardcoded tokens expire and cannot be refreshed.",
+      "d": "Incorrect. API keys are not OAuth tokens."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An API Gateway REST API has 200 methods. After enabling detailed CloudWatch metrics, the operations team notices significantly increased CloudWatch costs. What is the reason and mitigation?",
+    "opts": {
+      "a": "Detailed metrics have no cost impact",
+      "b": "Detailed metrics create per-method metrics (200 methods × multiple metrics each = thousands of custom metrics). Mitigation: enable detailed metrics only for critical methods, use CloudWatch metric filters, or switch to access logs for analysis",
+      "c": "CloudWatch Logs are too verbose",
+      "d": "X-Ray is causing the cost increase"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Detailed metrics significantly increase costs.",
+      "b": "Correct. Each method generates separate metrics (Count, Latency, IntegrationLatency, 4XX, 5XX), multiplied across methods creates substantial CloudWatch charges.",
+      "c": "Incorrect. Logs are separate from metrics costs.",
+      "d": "Incorrect. X-Ray costs are separate and usually lower."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer uses API Gateway with non-proxy Lambda integration and VTL mapping templates. They need to conditionally transform the response based on a field value in the Lambda response. Which VTL construct should they use?",
+    "opts": {
+      "a": "#if ... #else ... #end directives in the Integration Response mapping template",
+      "b": "JavaScript conditionals",
+      "c": "Python if-else statements",
+      "d": "SQL CASE statements"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. VTL supports #if/#elseif/#else/#end directives for conditional logic in mapping templates.",
+      "b": "Incorrect. JavaScript is not used in VTL mapping templates.",
+      "c": "Incorrect. Python is not used in VTL mapping templates.",
+      "d": "Incorrect. SQL is not used in VTL mapping templates."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs to implement an API that supports both synchronous (immediate response) and asynchronous (long-running) operations on the same resource. How should this be designed with API Gateway?",
+    "opts": {
+      "a": "Use two different API Gateways",
+      "b": "Use the Prefer: respond-async header pattern: if the header is present, API Gateway invokes Lambda asynchronously (Event InvocationType) and returns 202; otherwise, it invokes synchronously and returns 200 with results",
+      "c": "Always use synchronous calls",
+      "d": "Always use WebSocket"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single API can handle both patterns.",
+      "b": "Correct. Using header-based routing or mapping templates to set Lambda InvocationType (Event for async, RequestResponse for sync) allows both patterns on one endpoint.",
+      "c": "Incorrect. Synchronous calls will timeout for long operations.",
+      "d": "Incorrect. WebSocket is not needed for simple async patterns."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A security audit reveals that an API Gateway REST API's execution logs contain sensitive data (PII) in request/response bodies. How should this be addressed while maintaining debugging capability?",
+    "opts": {
+      "a": "Disable all logging",
+      "b": "Disable full request/response data logging in execution logs, use access logs with only non-sensitive $context variables, implement application-level logging in Lambda with data masking",
+      "c": "Encrypt CloudWatch Logs with KMS",
+      "d": "Use X-Ray instead of CloudWatch"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Disabling all logging removes debugging capability.",
+      "b": "Correct. Disable 'Log full requests/responses data' in execution logs, use structured access logs without body content, and implement masked logging in Lambda.",
+      "c": "Incorrect. KMS encryption protects at rest but doesn't prevent PII from being logged.",
+      "d": "Incorrect. X-Ray can also capture sensitive data in segments."
+    }
+  }
+]

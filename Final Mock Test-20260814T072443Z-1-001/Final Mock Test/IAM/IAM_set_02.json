@@ -1,0 +1,1005 @@
+[
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of IAM instance profiles you can create per AWS account?",
+    "opts": {
+      "a": "500",
+      "b": "1000",
+      "c": "1500",
+      "d": "5000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is not 500.",
+      "b": "Correct. The default limit for IAM instance profiles per AWS account is 1000.",
+      "c": "Incorrect. The limit is not 1500.",
+      "d": "Incorrect. The limit is not 5000."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of SAML identity providers you can create per AWS account?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "128",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is not 50.",
+      "b": "Incorrect. The limit is not 100.",
+      "c": "Correct. You can create a maximum of 128 SAML identity providers per AWS account.",
+      "d": "Incorrect. The limit is not 200."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of OpenID Connect (OIDC) identity providers per AWS account?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "128",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is not 50.",
+      "b": "Incorrect. The limit is not 100.",
+      "c": "Correct. You can create a maximum of 128 OIDC identity providers per AWS account.",
+      "d": "Incorrect. The limit is not 200."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following actions can ONLY be performed by the AWS root user?",
+    "opts": {
+      "a": "Creating IAM users",
+      "b": "Changing the AWS account name and root user password",
+      "c": "Launching EC2 instances",
+      "d": "Creating S3 buckets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Any IAM user with appropriate permissions can create IAM users.",
+      "b": "Correct. Changing the AWS account name, root user email, and root user password are tasks that can only be performed by the root user.",
+      "c": "Incorrect. Any authorized IAM user can launch EC2 instances.",
+      "d": "Incorrect. Any authorized IAM user can create S3 buckets."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum size of an inline policy for an IAM user?",
+    "opts": {
+      "a": "2,048 characters",
+      "b": "5,120 characters",
+      "c": "6,144 characters",
+      "d": "10,240 characters"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The maximum size of an inline policy for an IAM user is 2,048 characters.",
+      "b": "Incorrect. 5,120 characters is the limit for inline policies on a group.",
+      "c": "Incorrect. 6,144 characters is the limit for managed policies.",
+      "d": "Incorrect. 10,240 characters is the limit for inline policies on a role."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum size of an inline policy for an IAM group?",
+    "opts": {
+      "a": "2,048 characters",
+      "b": "5,120 characters",
+      "c": "6,144 characters",
+      "d": "10,240 characters"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 2,048 is the limit for users.",
+      "b": "Correct. The maximum size of an inline policy for an IAM group is 5,120 characters.",
+      "c": "Incorrect. 6,144 is for managed policies.",
+      "d": "Incorrect. 10,240 is the limit for roles."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum size of an inline policy for an IAM role?",
+    "opts": {
+      "a": "2,048 characters",
+      "b": "5,120 characters",
+      "c": "6,144 characters",
+      "d": "10,240 characters"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 2,048 is the limit for users.",
+      "b": "Incorrect. 5,120 is the limit for groups.",
+      "c": "Incorrect. 6,144 is the limit for managed policies.",
+      "d": "Correct. The maximum size of an inline policy for an IAM role is 10,240 characters."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which STS API call is used for web identity federation without using Amazon Cognito?",
+    "opts": {
+      "a": "sts:AssumeRole",
+      "b": "sts:AssumeRoleWithWebIdentity",
+      "c": "sts:AssumeRoleWithSAML",
+      "d": "sts:GetFederationToken"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AssumeRole is for general role assumption, not web identity federation.",
+      "b": "Correct. AssumeRoleWithWebIdentity is used to assume a role using web identity tokens from providers like Google, Facebook, or Amazon.",
+      "c": "Incorrect. AssumeRoleWithSAML is for SAML-based federation.",
+      "d": "Incorrect. GetFederationToken is for creating temporary credentials for federated users through a custom broker."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which STS API call is used for SAML-based enterprise federation?",
+    "opts": {
+      "a": "sts:AssumeRole",
+      "b": "sts:AssumeRoleWithWebIdentity",
+      "c": "sts:AssumeRoleWithSAML",
+      "d": "sts:DecodeAuthorizationMessage"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AssumeRole is for general role assumption.",
+      "b": "Incorrect. AssumeRoleWithWebIdentity is for web identity federation.",
+      "c": "Correct. AssumeRoleWithSAML returns temporary credentials for users authenticated through a SAML 2.0 identity provider.",
+      "d": "Incorrect. DecodeAuthorizationMessage decodes error messages."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum session duration for credentials obtained via sts:GetFederationToken?",
+    "opts": {
+      "a": "1 hour",
+      "b": "12 hours",
+      "c": "36 hours",
+      "d": "72 hours"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 hour is too short for GetFederationToken.",
+      "b": "Incorrect. 12 hours is the max for AssumeRole.",
+      "c": "Correct. The maximum session duration for credentials obtained via GetFederationToken is 36 hours.",
+      "d": "Incorrect. 72 hours exceeds the allowed maximum."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the minimum session duration for credentials obtained via sts:AssumeRole?",
+    "opts": {
+      "a": "5 minutes",
+      "b": "15 minutes",
+      "c": "30 minutes",
+      "d": "1 hour"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The minimum is not 5 minutes.",
+      "b": "Correct. The minimum session duration for AssumeRole is 15 minutes (900 seconds).",
+      "c": "Incorrect. The minimum is shorter than 30 minutes.",
+      "d": "Incorrect. 1 hour is the default, not the minimum."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the 'Version' element in an IAM policy used for?",
+    "opts": {
+      "a": "To track how many times the policy was edited",
+      "b": "To specify the IAM policy language version",
+      "c": "To define the user who created the policy",
+      "d": "To set the expiry date of the policy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Version does not track edits.",
+      "b": "Correct. The Version element specifies the policy language version. The current version is '2012-10-17'. Using this ensures access to all policy features.",
+      "c": "Incorrect. Version does not identify the creator.",
+      "d": "Incorrect. IAM policies do not have expiry dates set by the Version field."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which condition key would you use to restrict access based on the time of the request?",
+    "opts": {
+      "a": "aws:SourceIp",
+      "b": "aws:CurrentTime",
+      "c": "aws:SecureTransport",
+      "d": "aws:PrincipalOrgID"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. aws:SourceIp restricts based on IP address.",
+      "b": "Correct. aws:CurrentTime is used to restrict access based on the date and time of the request.",
+      "c": "Incorrect. aws:SecureTransport checks if the request was made using SSL/TLS.",
+      "d": "Incorrect. aws:PrincipalOrgID checks the organization ID of the requester."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What does the condition key 'aws:SecureTransport' check?",
+    "opts": {
+      "a": "Whether the request was made from a VPN",
+      "b": "Whether the request was sent using SSL/TLS (HTTPS)",
+      "c": "Whether MFA was used",
+      "d": "Whether the user is in a specific region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This key does not check for VPN usage.",
+      "b": "Correct. aws:SecureTransport checks whether the request was made using SSL/TLS (HTTPS). Setting it to 'true' ensures encrypted connections.",
+      "c": "Incorrect. MFA is checked using aws:MultiFactorAuthPresent.",
+      "d": "Incorrect. Region is checked with aws:RequestedRegion."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is Attribute-Based Access Control (ABAC) in IAM?",
+    "opts": {
+      "a": "A strategy that uses VPC IDs for access control",
+      "b": "A strategy that defines permissions based on attributes (tags) attached to users and resources",
+      "c": "A type of encryption",
+      "d": "A method to create IAM groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ABAC does not use VPC IDs.",
+      "b": "Correct. ABAC uses tags (attributes) attached to IAM principals and AWS resources to control access. It allows fine-grained permissions that scale dynamically.",
+      "c": "Incorrect. ABAC is not related to encryption.",
+      "d": "Incorrect. ABAC is not about creating groups."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between an IAM user and an IAM role?",
+    "opts": {
+      "a": "Users have permanent credentials; roles provide temporary credentials",
+      "b": "Users are for services; roles are for humans",
+      "c": "There is no difference",
+      "d": "Roles have permanent credentials; users provide temporary credentials"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. IAM users have permanent long-term credentials (password, access keys). IAM roles provide temporary security credentials when assumed.",
+      "b": "Incorrect. It's the opposite; users are typically for humans, and roles are often for services.",
+      "c": "Incorrect. There are significant differences.",
+      "d": "Incorrect. This is reversed."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS service would you use for identity management for mobile and web applications?",
+    "opts": {
+      "a": "IAM",
+      "b": "Amazon Cognito",
+      "c": "AWS Shield",
+      "d": "AWS WAF"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM is for managing access to AWS services, not for application end-users.",
+      "b": "Correct. Amazon Cognito provides identity management for web and mobile app users, including sign-up, sign-in, and access control.",
+      "c": "Incorrect. Shield is for DDoS protection.",
+      "d": "Incorrect. WAF is a web application firewall."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of server certificates you can store in IAM per AWS account?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is not 10.",
+      "b": "Correct. You can store a maximum of 20 server certificates in IAM per AWS account.",
+      "c": "Incorrect. The limit is not 50.",
+      "d": "Incorrect. The limit is not 100."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What does the 'Sid' element in an IAM policy statement represent?",
+    "opts": {
+      "a": "Security ID of the user",
+      "b": "Statement ID — an optional identifier for the policy statement",
+      "c": "Service ID of the AWS service",
+      "d": "Session ID for temporary credentials"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Sid is not a security ID.",
+      "b": "Correct. Sid (Statement ID) is an optional identifier that you provide for the policy statement. It must be unique within a JSON policy.",
+      "c": "Incorrect. Sid is not a service identifier.",
+      "d": "Incorrect. Sid is not a session ID."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which IAM feature helps you implement the principle of least privilege by showing unused permissions?",
+    "opts": {
+      "a": "IAM Credential Report",
+      "b": "IAM Access Advisor",
+      "c": "IAM Policy Simulator",
+      "d": "AWS CloudTrail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Credential reports show credential status, not unused permissions.",
+      "b": "Correct. IAM Access Advisor shows when services were last accessed, helping you identify and remove unused permissions to implement least privilege.",
+      "c": "Incorrect. Policy Simulator tests policies but doesn't show usage history.",
+      "d": "Incorrect. CloudTrail logs API calls but doesn't directly show unused permissions in the same way."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the 'NotResource' element in an IAM policy?",
+    "opts": {
+      "a": "It specifies all resources",
+      "b": "It explicitly matches every resource EXCEPT those specified",
+      "c": "It denies access to all resources",
+      "d": "It creates a new resource"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NotResource does not mean all resources.",
+      "b": "Correct. NotResource matches every resource except the ones listed. Use it carefully as it can grant broader access than intended.",
+      "c": "Incorrect. NotResource doesn't inherently deny access.",
+      "d": "Incorrect. NotResource does not create resources."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum path length for IAM entities (users, groups, roles)?",
+    "opts": {
+      "a": "128 characters",
+      "b": "256 characters",
+      "c": "512 characters",
+      "d": "1024 characters"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The path limit is not 128.",
+      "b": "Incorrect. The path limit is not 256.",
+      "c": "Correct. The maximum path length for IAM entities is 512 characters.",
+      "d": "Incorrect. The path limit is not 1024."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What AWS feature allows you to set a permission boundary for actions that IAM administrators can delegate?",
+    "opts": {
+      "a": "IAM Groups",
+      "b": "Permissions Boundaries",
+      "c": "VPC Endpoints",
+      "d": "Security Groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Groups organize users but don't set boundaries.",
+      "b": "Correct. Permissions Boundaries allow administrators to set the maximum permissions that a user or role can have, preventing privilege escalation.",
+      "c": "Incorrect. VPC endpoints are for private network access.",
+      "d": "Incorrect. Security groups are for network traffic control."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Access Key ID length in AWS?",
+    "opts": {
+      "a": "16 characters",
+      "b": "20 characters",
+      "c": "32 characters",
+      "d": "40 characters"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The Access Key ID is not 16 characters.",
+      "b": "Correct. The Access Key ID is 20 characters long and begins with AKIA for long-term keys or ASIA for temporary credentials.",
+      "c": "Incorrect. The Access Key ID is not 32 characters.",
+      "d": "Incorrect. 40 characters is the length of the Secret Access Key, not the Access Key ID."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Secret Access Key length in AWS?",
+    "opts": {
+      "a": "20 characters",
+      "b": "32 characters",
+      "c": "40 characters",
+      "d": "64 characters"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 20 characters is the Access Key ID length.",
+      "b": "Incorrect. The Secret Access Key is not 32 characters.",
+      "c": "Correct. The Secret Access Key is 40 characters long.",
+      "d": "Incorrect. The Secret Access Key is not 64 characters."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "When can you view or download the Secret Access Key for an IAM user?",
+    "opts": {
+      "a": "Anytime from the IAM console",
+      "b": "Only at the time of creation",
+      "c": "After 24 hours",
+      "d": "Only through the CLI"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The secret key cannot be retrieved after creation.",
+      "b": "Correct. The Secret Access Key can only be viewed or downloaded at the time it is created. If lost, you must create a new access key.",
+      "c": "Incorrect. There is no 24-hour window.",
+      "d": "Incorrect. Even the CLI cannot retrieve a previously created secret key."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What does the IAM condition key 'aws:RequestedRegion' allow you to do?",
+    "opts": {
+      "a": "Encrypt data in a specific region",
+      "b": "Restrict API calls to specific AWS regions",
+      "c": "Create resources in all regions",
+      "d": "Monitor costs per region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This key doesn't handle encryption.",
+      "b": "Correct. aws:RequestedRegion allows you to restrict which AWS regions users can make API calls to, useful for data residency requirements.",
+      "c": "Incorrect. This key restricts, not enables, regional access.",
+      "d": "Incorrect. Cost monitoring is done through Cost Explorer."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which API call is used to get temporary credentials for an IAM user with MFA?",
+    "opts": {
+      "a": "sts:AssumeRole",
+      "b": "sts:GetSessionToken",
+      "c": "sts:AssumeRoleWithSAML",
+      "d": "iam:CreateLoginProfile"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AssumeRole is for assuming roles, not getting session tokens with MFA.",
+      "b": "Correct. sts:GetSessionToken is typically used when an IAM user needs temporary credentials with MFA authentication for API access.",
+      "c": "Incorrect. AssumeRoleWithSAML is for SAML federation.",
+      "d": "Incorrect. CreateLoginProfile creates a console password."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of an IAM path?",
+    "opts": {
+      "a": "To set network routing rules",
+      "b": "To organize IAM entities and provide a way to structure them hierarchically",
+      "c": "To define the order of policy evaluation",
+      "d": "To set up VPC peering"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Paths are not related to network routing.",
+      "b": "Correct. IAM paths allow you to organize IAM users, groups, and roles in a hierarchical structure (e.g., /division/department/team/) for easier management.",
+      "c": "Incorrect. Policy evaluation order is not determined by paths.",
+      "d": "Incorrect. VPC peering is unrelated to IAM paths."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of signing certificates per IAM user?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Users can have more than 1.",
+      "b": "Correct. Each IAM user can have a maximum of 2 signing certificates (X.509 certificates).",
+      "c": "Incorrect. The limit is not 5.",
+      "d": "Incorrect. The limit is not 10."
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "IAM users can belong to multiple IAM groups.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. An IAM user can belong to up to 10 IAM groups simultaneously.",
+      "b": "Incorrect. IAM users can belong to multiple groups (up to 10).",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "IAM groups can be nested inside other IAM groups.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM groups cannot contain other groups; they can only contain users.",
+      "b": "Correct. IAM groups cannot be nested. Groups can only contain IAM users, not other groups.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "An IAM policy can be attached directly to an AWS resource like an S3 bucket.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Resource-based policies (like S3 bucket policies) can be attached directly to AWS resources.",
+      "b": "Incorrect. Resource-based policies exist and can be directly attached to resources.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "The root account can be restricted by Service Control Policies (SCPs) in an AWS Organization member account.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. SCPs can restrict the root user in member accounts of an AWS Organization (but not in the management/master account).",
+      "b": "Incorrect. SCPs do apply to root users in member accounts.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "IAM roles have permanent access keys associated with them.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Roles do not have permanent credentials; they provide temporary security credentials.",
+      "b": "Correct. IAM roles do not have permanent access keys. When a role is assumed, AWS STS provides temporary credentials.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "An explicit Deny in an IAM policy can be overridden by an explicit Allow in another policy.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. An explicit Deny can never be overridden by an Allow.",
+      "b": "Correct. An explicit Deny always takes precedence over any Allow in IAM policy evaluation. This is a fundamental rule.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "IAM is a regional service, meaning users created in one region are not available in another.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM is a global service.",
+      "b": "Correct. IAM is a global service. Users, groups, roles, and policies are available across all AWS regions.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "AWS charges a monthly fee for using the IAM service.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM is free of charge.",
+      "b": "Correct. AWS IAM is provided at no additional charge. You only pay for other AWS services accessed by your IAM users.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "A permissions boundary grants permissions to an IAM user.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Permissions boundaries do not grant permissions.",
+      "b": "Correct. A permissions boundary only sets the maximum permissions an entity can have. It does not grant any permissions on its own. Permissions must still be granted through identity-based policies.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "You can use IAM tags to implement Attribute-Based Access Control (ABAC).",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. IAM tags can be used in policy conditions to implement ABAC, allowing dynamic permissions based on matching tags between principals and resources.",
+      "b": "Incorrect. ABAC with tags is a supported and recommended strategy in AWS.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "An IAM user can have both console access and programmatic access at the same time.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. An IAM user can be configured with both a password for console access and access keys for programmatic access simultaneously.",
+      "b": "Incorrect. Both types of access can be enabled for the same user.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "The Secret Access Key can be retrieved from the IAM console after it has been created.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The Secret Access Key cannot be retrieved after creation.",
+      "b": "Correct. The Secret Access Key is only shown once at the time of creation. If lost, you must delete the old key and create a new one.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "IAM Access Analyzer can identify resources shared with external entities outside your AWS account.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. IAM Access Analyzer identifies resources (like S3 buckets, IAM roles, KMS keys) that are shared with external entities, helping you detect unintended access.",
+      "b": "Incorrect. This is exactly what Access Analyzer does.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "Service Control Policies (SCPs) can grant permissions to IAM users.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SCPs cannot grant permissions.",
+      "b": "Correct. SCPs only define the maximum available permissions (guardrails). They do not grant permissions. Permissions must still be granted through IAM policies.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "An IAM role can be assumed by an AWS service like EC2 or Lambda.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS services like EC2, Lambda, and others can assume IAM roles to obtain temporary credentials for accessing other AWS resources.",
+      "b": "Incorrect. Service roles are commonly used for AWS services to assume roles.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "You can attach a managed policy to multiple IAM users, groups, and roles simultaneously.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Managed policies are standalone policies that can be attached to multiple users, groups, and roles. This is one of their key advantages over inline policies.",
+      "b": "Incorrect. Reusability across entities is the primary benefit of managed policies.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "The IAM credential report can be generated in CSV format.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The IAM credential report is generated and downloaded in CSV (Comma Separated Values) format.",
+      "b": "Incorrect. The credential report is indeed in CSV format.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "IAM policies can be written in YAML format.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM policies must be in JSON format.",
+      "b": "Correct. IAM policies can only be written in JSON format. While CloudFormation templates support YAML, IAM policy documents themselves must be JSON.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "An IAM group is an identity that can be used to authenticate to AWS.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Groups are not identities that can authenticate.",
+      "b": "Correct. An IAM group is not an identity and cannot be used to authenticate. It is simply a collection of IAM users for easier permission management. You cannot log in as a group.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "By default, all requests in AWS are implicitly denied unless explicitly allowed.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. By default, all requests are implicitly denied. An explicit Allow in a policy is required to grant access (except for the root user).",
+      "b": "Incorrect. The default behavior in AWS is implicit deny.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "You can use IAM to configure multi-factor authentication for the AWS root account.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. MFA can and should be enabled for the root account. This is an AWS security best practice.",
+      "b": "Incorrect. MFA is fully supported for the root account.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "IAM supports identity federation using SAML 2.0.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS IAM supports SAML 2.0-based federation, allowing users from enterprise identity providers to access AWS resources.",
+      "b": "Incorrect. SAML 2.0 federation is fully supported by IAM.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "An IAM user can assume an IAM role in the same AWS account.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. IAM users can assume roles within the same account if the role's trust policy allows it and the user has permission to call sts:AssumeRole.",
+      "b": "Incorrect. Same-account role assumption is a common and supported practice.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "Inline policies are automatically deleted when the associated IAM entity is deleted.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Inline policies are embedded directly in the entity. When the user, group, or role is deleted, the inline policy is also deleted.",
+      "b": "Incorrect. Inline policies have a one-to-one relationship with their entity and are deleted with it.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "You can use the IAM Policy Simulator to test policies without actually making real API calls to AWS services.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The IAM Policy Simulator simulates the effect of policies without making actual API calls. It helps you test and debug permissions.",
+      "b": "Incorrect. The Policy Simulator does not make real API calls; it only simulates policy evaluation.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "The Principal element is required in identity-based IAM policies.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The Principal element is not used in identity-based policies.",
+      "b": "Correct. The Principal element is NOT included in identity-based policies because the principal is implicitly the entity (user, group, role) the policy is attached to. Principal is used in resource-based policies and trust policies.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "AWS recommends using access keys for the root account for automation tasks.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS strongly recommends against creating access keys for the root account.",
+      "b": "Correct. AWS best practice is to never create access keys for the root account. Instead, create IAM users or roles with appropriate permissions for automation.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "A customer managed policy can be shared across multiple AWS accounts directly.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Customer managed policies cannot be directly shared across accounts.",
+      "b": "Correct. Customer managed policies are specific to an AWS account and cannot be directly shared with other accounts. You would need to recreate them in each account or use AWS Organizations.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "True/False",
+    "q": "An IAM role can have both a permissions policy and a trust policy.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Every IAM role has two types of policies: a trust policy (defines who can assume the role) and permissions policies (define what the role can do once assumed).",
+      "b": "Incorrect. Roles always have both a trust policy and one or more permissions policies.",
+      "c": "A",
+      "d": "A"
+    }
+  }
+]

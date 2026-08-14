@@ -1,0 +1,1107 @@
+[
+  {
+    "type": "easy",
+    "q": "What does Amazon S3 stand for?",
+    "opts": {
+      "a": "Simple Storage Service",
+      "b": "Secure Storage Service",
+      "c": "Scalable Storage System",
+      "d": "Simple System Storage"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon S3 stands for Simple Storage Service.",
+      "b": "Incorrect. S3 does not stand for Secure Storage Service.",
+      "c": "Incorrect. S3 does not stand for Scalable Storage System.",
+      "d": "Incorrect. S3 does not stand for Simple System Storage."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the maximum size of a single object that can be stored in Amazon S3?",
+    "opts": {
+      "a": "5 GB",
+      "b": "5 TB",
+      "c": "10 TB",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 GB is the maximum size for a single PUT operation, not the maximum object size.",
+      "b": "Correct. The maximum size of a single object in S3 is 5 TB (5 terabytes).",
+      "c": "Incorrect. The limit is 5 TB, not 10 TB.",
+      "d": "Incorrect. There is a 5 TB limit per object, though total storage is virtually unlimited."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the maximum size of a single PUT upload in Amazon S3?",
+    "opts": {
+      "a": "5 MB",
+      "b": "100 MB",
+      "c": "5 GB",
+      "d": "5 TB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 5 MB is not the limit for a single PUT; it is the minimum part size for multipart upload.",
+      "b": "Incorrect. AWS recommends multipart upload for objects over 100 MB, but the PUT limit is 5 GB.",
+      "c": "Correct. A single PUT operation can upload an object up to 5 GB in size.",
+      "d": "Incorrect. 5 TB is the maximum object size, not the single PUT limit."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Amazon S3 bucket names must be globally unique across which scope?",
+    "opts": {
+      "a": "Within the same AWS account only",
+      "b": "Within the same AWS Region only",
+      "c": "Across all existing AWS accounts worldwide",
+      "d": "Within the same VPC"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Bucket names must be unique across all AWS accounts, not just one account.",
+      "b": "Incorrect. Bucket names are globally unique, not just within a region.",
+      "c": "Correct. S3 bucket names must be globally unique across all AWS accounts worldwide.",
+      "d": "Incorrect. S3 is not tied to a VPC; bucket names are globally unique."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which S3 storage class is designed for frequently accessed data?",
+    "opts": {
+      "a": "S3 Standard",
+      "b": "S3 Standard-IA",
+      "c": "S3 One Zone-IA",
+      "d": "S3 Glacier"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 Standard is designed for frequently accessed data with low latency and high throughput.",
+      "b": "Incorrect. S3 Standard-IA (Infrequent Access) is for data accessed less frequently.",
+      "c": "Incorrect. S3 One Zone-IA is for infrequently accessed data stored in a single AZ.",
+      "d": "Incorrect. S3 Glacier is designed for long-term archival storage."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "How many Availability Zones does S3 Standard replicate data across?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3 or more",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. S3 One Zone-IA stores data in 1 AZ, not S3 Standard.",
+      "b": "Incorrect. S3 Standard replicates across a minimum of 3 AZs.",
+      "c": "Correct. S3 Standard automatically replicates data across a minimum of 3 Availability Zones.",
+      "d": "Incorrect. The minimum is 3 AZs, not necessarily 5."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the durability guarantee of Amazon S3 Standard?",
+    "opts": {
+      "a": "99.9%",
+      "b": "99.99%",
+      "c": "99.999999999% (11 nines)",
+      "d": "99.99999% (7 nines)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 99.9% is too low; that relates to availability SLA for some classes.",
+      "b": "Incorrect. 99.99% is the availability SLA for S3 Standard, not durability.",
+      "c": "Correct. S3 Standard provides 99.999999999% (11 nines) durability.",
+      "d": "Incorrect. The durability is 11 nines, not 7 nines."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the availability SLA for S3 Standard?",
+    "opts": {
+      "a": "99%",
+      "b": "99.5%",
+      "c": "99.9%",
+      "d": "99.99%"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 99% availability is for S3 Glacier Flexible Retrieval.",
+      "b": "Incorrect. 99.5% availability applies to S3 One Zone-IA.",
+      "c": "Incorrect. 99.9% availability applies to S3 Standard-IA and S3 Glacier Instant Retrieval.",
+      "d": "Correct. S3 Standard is designed for 99.99% availability."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which S3 storage class stores data in only one Availability Zone?",
+    "opts": {
+      "a": "S3 Standard",
+      "b": "S3 Standard-IA",
+      "c": "S3 One Zone-IA",
+      "d": "S3 Glacier Deep Archive"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. S3 Standard replicates across 3+ AZs.",
+      "b": "Incorrect. S3 Standard-IA also replicates across 3+ AZs.",
+      "c": "Correct. S3 One Zone-IA stores data in a single Availability Zone, reducing cost.",
+      "d": "Incorrect. S3 Glacier Deep Archive replicates across 3+ AZs."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the minimum storage duration charge for S3 Standard-IA?",
+    "opts": {
+      "a": "No minimum",
+      "b": "30 days",
+      "c": "90 days",
+      "d": "180 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 Standard has no minimum storage duration, but Standard-IA does.",
+      "b": "Correct. S3 Standard-IA has a minimum storage duration charge of 30 days.",
+      "c": "Incorrect. 90 days is the minimum for S3 Glacier Flexible Retrieval.",
+      "d": "Incorrect. 180 days is the minimum for S3 Glacier Deep Archive."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the minimum storage duration charge for S3 Glacier Flexible Retrieval?",
+    "opts": {
+      "a": "30 days",
+      "b": "60 days",
+      "c": "90 days",
+      "d": "180 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 30 days is the minimum for S3 Standard-IA and One Zone-IA.",
+      "b": "Incorrect. There is no S3 class with a 60-day minimum duration.",
+      "c": "Correct. S3 Glacier Flexible Retrieval has a minimum storage duration charge of 90 days.",
+      "d": "Incorrect. 180 days is the minimum for S3 Glacier Deep Archive."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the minimum storage duration charge for S3 Glacier Deep Archive?",
+    "opts": {
+      "a": "30 days",
+      "b": "90 days",
+      "c": "180 days",
+      "d": "365 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 30 days applies to S3 Standard-IA.",
+      "b": "Incorrect. 90 days applies to S3 Glacier Flexible Retrieval.",
+      "c": "Correct. S3 Glacier Deep Archive has a minimum storage duration charge of 180 days.",
+      "d": "Incorrect. No S3 class has a 365-day minimum duration charge."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the minimum object size charge for S3 Standard-IA?",
+    "opts": {
+      "a": "No minimum",
+      "b": "64 KB",
+      "c": "128 KB",
+      "d": "256 KB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. S3 Standard has no minimum object size charge, but IA classes do.",
+      "b": "Incorrect. 64 KB is not the correct minimum for Standard-IA.",
+      "c": "Correct. S3 Standard-IA has a minimum billable object size of 128 KB.",
+      "d": "Incorrect. The minimum is 128 KB, not 256 KB."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which feature allows you to automatically move objects between S3 storage classes based on rules?",
+    "opts": {
+      "a": "S3 Replication",
+      "b": "S3 Lifecycle Policies",
+      "c": "S3 Versioning",
+      "d": "S3 Event Notifications"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 Replication copies objects to another bucket, not between storage classes.",
+      "b": "Correct. S3 Lifecycle Policies allow automatic transitions between storage classes and object expiration.",
+      "c": "Incorrect. Versioning keeps multiple versions of objects but doesn't move them between classes.",
+      "d": "Incorrect. Event Notifications trigger actions on events, not storage class transitions."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is S3 Versioning used for?",
+    "opts": {
+      "a": "To encrypt objects at rest",
+      "b": "To keep multiple variants of an object in the same bucket",
+      "c": "To replicate objects across regions",
+      "d": "To compress objects for storage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption at rest is handled by SSE-S3, SSE-KMS, or SSE-C.",
+      "b": "Correct. Versioning preserves, retrieves, and restores every version of every object in a bucket.",
+      "c": "Incorrect. Cross-region replication handles replication, not versioning alone.",
+      "d": "Incorrect. S3 does not automatically compress objects; versioning keeps multiple versions."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "When versioning is enabled and an object is deleted, what does S3 create?",
+    "opts": {
+      "a": "A tombstone record in DynamoDB",
+      "b": "A delete marker",
+      "c": "A CloudTrail log entry only",
+      "d": "The object is permanently deleted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DynamoDB is not involved in S3 versioning.",
+      "b": "Correct. When versioning is enabled, deleting an object creates a delete marker instead of permanently removing it.",
+      "c": "Incorrect. CloudTrail logs the API call but S3 itself creates a delete marker.",
+      "d": "Incorrect. With versioning enabled, objects are not permanently deleted unless a specific version ID is used."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which S3 encryption method uses keys managed entirely by AWS without customer involvement?",
+    "opts": {
+      "a": "SSE-C",
+      "b": "SSE-KMS",
+      "c": "SSE-S3",
+      "d": "Client-side encryption"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. SSE-C requires the customer to provide and manage their own encryption keys.",
+      "b": "Incorrect. SSE-KMS uses AWS KMS keys which can be customer-managed or AWS-managed, but still involve KMS.",
+      "c": "Correct. SSE-S3 uses keys managed entirely by AWS S3 with no customer key management required.",
+      "d": "Incorrect. Client-side encryption is performed by the client before uploading."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which S3 encryption method allows you to use AWS KMS customer managed keys (CMKs) for envelope encryption?",
+    "opts": {
+      "a": "SSE-S3",
+      "b": "SSE-KMS",
+      "c": "SSE-C",
+      "d": "TLS encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SSE-S3 uses Amazon S3-managed keys, not KMS CMKs.",
+      "b": "Correct. SSE-KMS uses AWS KMS customer managed keys and provides envelope encryption with audit trail via CloudTrail.",
+      "c": "Incorrect. SSE-C uses customer-provided keys sent with each request.",
+      "d": "Incorrect. TLS encrypts data in transit, not at rest."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "With SSE-C encryption, who is responsible for managing the encryption keys?",
+    "opts": {
+      "a": "AWS S3 service",
+      "b": "AWS KMS",
+      "c": "The customer",
+      "d": "AWS CloudHSM automatically"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. SSE-S3 is where AWS S3 manages the keys.",
+      "b": "Incorrect. SSE-KMS is where KMS manages the keys.",
+      "c": "Correct. With SSE-C, the customer provides and manages the encryption keys with each request.",
+      "d": "Incorrect. CloudHSM can be used separately but SSE-C means customer-provided keys."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What protocol must be used when uploading objects with SSE-C?",
+    "opts": {
+      "a": "HTTP",
+      "b": "HTTPS",
+      "c": "FTP",
+      "d": "SFTP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. HTTP is not allowed for SSE-C because the key would be sent unencrypted.",
+      "b": "Correct. HTTPS is mandatory for SSE-C to protect the encryption key in transit.",
+      "c": "Incorrect. FTP is not a supported S3 protocol for this purpose.",
+      "d": "Incorrect. SFTP is available via AWS Transfer Family but SSE-C specifically requires HTTPS for S3 API calls."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the default encryption behavior for new S3 buckets as of January 2023?",
+    "opts": {
+      "a": "No encryption is applied by default",
+      "b": "SSE-KMS is applied by default",
+      "c": "SSE-S3 is applied by default",
+      "d": "Client-side encryption is required"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Since January 2023, AWS applies encryption by default.",
+      "b": "Incorrect. SSE-KMS is not the default; it must be configured explicitly.",
+      "c": "Correct. As of January 2023, all new objects in S3 are encrypted with SSE-S3 (AES-256) by default.",
+      "d": "Incorrect. Client-side encryption is not a default; server-side SSE-S3 is."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which S3 feature allows you to replicate objects across different AWS Regions?",
+    "opts": {
+      "a": "Same-Region Replication (SRR)",
+      "b": "Cross-Region Replication (CRR)",
+      "c": "S3 Transfer Acceleration",
+      "d": "S3 Batch Operations"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SRR replicates within the same region, not across regions.",
+      "b": "Correct. Cross-Region Replication (CRR) replicates objects across different AWS Regions.",
+      "c": "Incorrect. Transfer Acceleration speeds up uploads via CloudFront edge locations.",
+      "d": "Incorrect. Batch Operations performs bulk operations on existing objects."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is a prerequisite for enabling S3 Replication (CRR or SRR)?",
+    "opts": {
+      "a": "Server-side encryption must be disabled",
+      "b": "Versioning must be enabled on both source and destination buckets",
+      "c": "The buckets must be in the same AWS account",
+      "d": "Objects must be less than 1 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption can be enabled; replication works with encrypted objects.",
+      "b": "Correct. Versioning must be enabled on both the source and destination buckets for replication.",
+      "c": "Incorrect. Replication can work across different AWS accounts.",
+      "d": "Incorrect. There is no 1 GB size restriction for replication."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which S3 feature speeds up long-distance data transfers to S3 using AWS edge locations?",
+    "opts": {
+      "a": "S3 Cross-Region Replication",
+      "b": "S3 Transfer Acceleration",
+      "c": "S3 Multipart Upload",
+      "d": "AWS Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CRR replicates data between buckets, not for speeding uploads.",
+      "b": "Correct. S3 Transfer Acceleration uses CloudFront edge locations to accelerate uploads over long distances.",
+      "c": "Incorrect. Multipart Upload splits large files into parts but doesn't use edge locations.",
+      "d": "Incorrect. Direct Connect is a dedicated network connection, not an S3-specific feature."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "AWS recommends using S3 Multipart Upload for files larger than what size?",
+    "opts": {
+      "a": "5 MB",
+      "b": "100 MB",
+      "c": "1 GB",
+      "d": "5 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 MB is the minimum part size, not the recommended threshold.",
+      "b": "Correct. AWS recommends using Multipart Upload for objects larger than 100 MB.",
+      "c": "Incorrect. The recommendation is 100 MB, not 1 GB.",
+      "d": "Incorrect. 5 GB is the maximum single PUT size, and multipart is mandatory above this."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the maximum number of parts allowed in a single S3 Multipart Upload?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 1,000 parts.",
+      "b": "Incorrect. 5,000 is the listing limit for ListParts, not the maximum number of parts.",
+      "c": "Correct. S3 Multipart Upload supports up to 10,000 parts.",
+      "d": "Incorrect. The maximum is 10,000 parts, not 100,000."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is S3 Object Lock used for?",
+    "opts": {
+      "a": "Encrypting objects with customer-managed keys",
+      "b": "Preventing objects from being deleted or overwritten for a fixed period (WORM model)",
+      "c": "Locking bucket policies from modification",
+      "d": "Restricting access to a single IAM user"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption is handled by SSE-S3, SSE-KMS, or SSE-C.",
+      "b": "Correct. S3 Object Lock provides Write Once Read Many (WORM) protection to prevent deletion or modification.",
+      "c": "Incorrect. Bucket policies are managed via IAM and bucket policy settings.",
+      "d": "Incorrect. Access control is managed through IAM policies and bucket policies."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which S3 Object Lock retention mode allows a user with special permissions to delete or overwrite a protected object?",
+    "opts": {
+      "a": "Compliance mode",
+      "b": "Governance mode",
+      "c": "Legal Hold mode",
+      "d": "Standard mode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Compliance mode does not allow anyone, including root, to delete or modify the object during retention.",
+      "b": "Correct. Governance mode allows users with the s3:BypassGovernanceRetention permission to remove the lock.",
+      "c": "Incorrect. Legal Hold is not a retention mode; it can be placed/removed by users with permission but doesn't have a retention period.",
+      "d": "Incorrect. There is no 'Standard mode' in S3 Object Lock."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "In S3 Object Lock Compliance mode, who can delete a protected object before the retention period expires?",
+    "opts": {
+      "a": "The root account user",
+      "b": "Any IAM user with admin permissions",
+      "c": "No one, not even the root account",
+      "d": "Only AWS Support"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Even the root user cannot override Compliance mode retention.",
+      "b": "Incorrect. No IAM user regardless of permissions can delete the object.",
+      "c": "Correct. In Compliance mode, no one can delete or overwrite the object until the retention period expires.",
+      "d": "Incorrect. AWS Support also cannot override Compliance mode."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is an S3 presigned URL used for?",
+    "opts": {
+      "a": "Permanently making a bucket public",
+      "b": "Granting temporary access to a private object via a time-limited URL",
+      "c": "Encrypting objects at rest",
+      "d": "Enabling versioning on a bucket"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Presigned URLs are temporary and do not make buckets permanently public.",
+      "b": "Correct. Presigned URLs grant temporary, time-limited access to private S3 objects.",
+      "c": "Incorrect. Encryption is separate from presigned URLs.",
+      "d": "Incorrect. Versioning is a bucket-level setting, not related to presigned URLs."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the maximum expiration time for an S3 presigned URL generated using IAM credentials (long-term)?",
+    "opts": {
+      "a": "1 hour",
+      "b": "6 hours",
+      "c": "7 days (604800 seconds)",
+      "d": "30 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 hour is the max when using STS temporary credentials with a 1-hour session.",
+      "b": "Incorrect. 6 hours is the max when using STS with a 6-hour session limit.",
+      "c": "Correct. Presigned URLs generated with IAM user long-term credentials can be valid up to 7 days (604800 seconds).",
+      "d": "Incorrect. 30 days exceeds the maximum allowed expiration."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which S3 feature allows hosting a static website?",
+    "opts": {
+      "a": "S3 Transfer Acceleration",
+      "b": "S3 Static Website Hosting",
+      "c": "S3 Glacier",
+      "d": "S3 Replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Transfer Acceleration speeds up uploads, not website hosting.",
+      "b": "Correct. S3 Static Website Hosting allows you to host static web content directly from an S3 bucket.",
+      "c": "Incorrect. Glacier is for archival, not website hosting.",
+      "d": "Incorrect. Replication copies data between buckets."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "When using S3 static website hosting, what is the format of the website endpoint?",
+    "opts": {
+      "a": "http://bucket-name.s3.amazonaws.com",
+      "b": "http://bucket-name.s3-website-region.amazonaws.com",
+      "c": "https://bucket-name.cloudfront.net",
+      "d": "http://bucket-name.ec2.amazonaws.com"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is the REST API endpoint, not the website endpoint.",
+      "b": "Correct. The S3 website endpoint format is http://bucket-name.s3-website-region.amazonaws.com (or s3-website.region).",
+      "c": "Incorrect. This would be a CloudFront distribution URL.",
+      "d": "Incorrect. EC2 endpoints are not related to S3 website hosting."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What must be configured to allow public read access for S3 static website hosting?",
+    "opts": {
+      "a": "Enable versioning",
+      "b": "Disable Block Public Access settings and add a bucket policy allowing public read",
+      "c": "Enable server-side encryption",
+      "d": "Configure CORS only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Versioning is not required for public website access.",
+      "b": "Correct. You must disable Block Public Access settings and attach a bucket policy granting s3:GetObject to everyone (*).",
+      "c": "Incorrect. Encryption is not required and does not grant public access.",
+      "d": "Incorrect. CORS is for cross-origin requests, not for granting public read access."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is S3 CORS (Cross-Origin Resource Sharing) used for?",
+    "opts": {
+      "a": "Encrypting cross-region replicated objects",
+      "b": "Allowing web browsers to make requests to S3 from a different origin domain",
+      "c": "Compressing objects during transfer",
+      "d": "Restricting access to specific IP addresses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CORS is not related to encryption.",
+      "b": "Correct. CORS configuration allows web browsers to make cross-origin requests to S3 from different domains.",
+      "c": "Incorrect. Compression is not the purpose of CORS.",
+      "d": "Incorrect. IP restrictions are handled via bucket policies, not CORS."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is S3 Select used for?",
+    "opts": {
+      "a": "Selecting which storage class to use",
+      "b": "Retrieving a subset of data from an object using SQL-like expressions",
+      "c": "Selecting objects for replication",
+      "d": "Choosing between encryption methods"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Storage class selection is done via lifecycle policies or at upload time.",
+      "b": "Correct. S3 Select allows you to use simple SQL expressions to retrieve only the needed subset of data from an object (CSV, JSON, Parquet).",
+      "c": "Incorrect. Replication rules handle object selection for replication.",
+      "d": "Incorrect. Encryption method selection is a configuration choice, not related to S3 Select."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which AWS service can be used to query S3 data in-place using standard SQL without loading it into a database?",
+    "opts": {
+      "a": "Amazon RDS",
+      "b": "Amazon Athena",
+      "c": "Amazon DynamoDB",
+      "d": "Amazon ElastiCache"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS is a managed relational database, not for querying S3 directly.",
+      "b": "Correct. Amazon Athena is a serverless query service that uses SQL to analyze data directly in S3.",
+      "c": "Incorrect. DynamoDB is a NoSQL database, not for querying S3.",
+      "d": "Incorrect. ElastiCache is an in-memory caching service."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which S3 storage class provides instant retrieval with lower cost for infrequently accessed data?",
+    "opts": {
+      "a": "S3 Standard",
+      "b": "S3 Glacier Instant Retrieval",
+      "c": "S3 Glacier Flexible Retrieval",
+      "d": "S3 Glacier Deep Archive"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 Standard is for frequently accessed data.",
+      "b": "Correct. S3 Glacier Instant Retrieval provides millisecond access for data accessed once per quarter, at lower cost than Standard-IA.",
+      "c": "Incorrect. Glacier Flexible Retrieval has retrieval times from minutes to hours.",
+      "d": "Incorrect. Glacier Deep Archive has retrieval times of 12-48 hours."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What are the retrieval options available for S3 Glacier Flexible Retrieval?",
+    "opts": {
+      "a": "Instant only",
+      "b": "Expedited (1-5 min), Standard (3-5 hours), Bulk (5-12 hours)",
+      "c": "Standard (12 hours), Bulk (48 hours)",
+      "d": "Real-time and Batch"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Instant retrieval is for S3 Glacier Instant Retrieval class.",
+      "b": "Correct. Glacier Flexible Retrieval offers Expedited (1-5 min), Standard (3-5 hours), and Bulk (5-12 hours) options.",
+      "c": "Incorrect. These are retrieval times for Glacier Deep Archive.",
+      "d": "Incorrect. There are no options called 'Real-time and Batch' in S3 Glacier."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What are the retrieval times for S3 Glacier Deep Archive?",
+    "opts": {
+      "a": "Expedited: 1-5 min, Standard: 3-5 hours",
+      "b": "Standard: 12 hours, Bulk: 48 hours",
+      "c": "Instant access",
+      "d": "Standard: 1 hour, Bulk: 6 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are the retrieval times for Glacier Flexible Retrieval.",
+      "b": "Correct. Glacier Deep Archive has Standard retrieval of 12 hours and Bulk retrieval of 48 hours.",
+      "c": "Incorrect. Glacier Deep Archive does not provide instant access.",
+      "d": "Incorrect. These times are too short for Deep Archive."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which S3 storage class automatically moves objects between access tiers based on access patterns?",
+    "opts": {
+      "a": "S3 Standard",
+      "b": "S3 Intelligent-Tiering",
+      "c": "S3 Standard-IA",
+      "d": "S3 Glacier Flexible Retrieval"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 Standard does not automatically tier objects.",
+      "b": "Correct. S3 Intelligent-Tiering automatically moves objects between Frequent, Infrequent, Archive Instant, Archive, and Deep Archive tiers based on usage patterns.",
+      "c": "Incorrect. Standard-IA is a fixed storage class.",
+      "d": "Incorrect. Glacier Flexible Retrieval is a fixed archival class."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "How many access tiers does S3 Intelligent-Tiering support?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "5",
+      "d": "7"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Intelligent-Tiering has more than 2 tiers.",
+      "b": "Incorrect. It has more than 3 tiers.",
+      "c": "Correct. S3 Intelligent-Tiering has 5 tiers: Frequent Access, Infrequent Access (30 days), Archive Instant Access (90 days), Archive Access (optional, 90 days), and Deep Archive Access (optional, 180 days).",
+      "d": "Incorrect. There are 5 tiers, not 7."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the consistency model for Amazon S3 as of December 2020?",
+    "opts": {
+      "a": "Eventual consistency for all operations",
+      "b": "Strong read-after-write consistency for all operations",
+      "c": "Strong consistency for PUTs only",
+      "d": "Eventual consistency for GETs, strong for DELETEs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 previously had eventual consistency for overwrite PUTs and DELETEs, but this changed in December 2020.",
+      "b": "Correct. Since December 2020, S3 provides strong read-after-write consistency for all GET, PUT, LIST, and DELETE operations.",
+      "c": "Incorrect. Strong consistency applies to all operations, not just PUTs.",
+      "d": "Incorrect. All operations now have strong consistency."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "How many S3 buckets can you create per AWS account by default?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The default is higher than 10.",
+      "b": "Incorrect. The default is 100, not 50.",
+      "c": "Correct. By default, you can create up to 100 buckets per AWS account (can be increased to 1000 via service quota request).",
+      "d": "Incorrect. There is a default limit of 100 buckets per account."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the maximum number of S3 buckets you can have per AWS account after requesting a quota increase?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1000",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 100 is the default, not the maximum after increase.",
+      "b": "Incorrect. The maximum after increase is 1000, not 500.",
+      "c": "Correct. You can request a service quota increase to have up to 1000 buckets per AWS account.",
+      "d": "Incorrect. The hard limit is 1000 buckets."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Is there a limit on the number of objects you can store in a single S3 bucket?",
+    "opts": {
+      "a": "Yes, 1 million objects",
+      "b": "Yes, 1 billion objects",
+      "c": "No, there is no limit",
+      "d": "Yes, 100,000 objects"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is no limit on the number of objects per bucket.",
+      "b": "Incorrect. There is no numerical limit.",
+      "c": "Correct. You can store an unlimited number of objects in a single S3 bucket.",
+      "d": "Incorrect. There is no 100,000 object limit."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the S3 request rate performance for GET/HEAD requests per prefix?",
+    "opts": {
+      "a": "1,000 requests per second",
+      "b": "3,500 requests per second",
+      "c": "5,500 requests per second",
+      "d": "10,000 requests per second"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. S3 supports more than 1,000 GET requests per prefix.",
+      "b": "Incorrect. 3,500 requests per second is the rate for PUT/COPY/POST/DELETE per prefix.",
+      "c": "Correct. S3 supports 5,500 GET/HEAD requests per second per prefix.",
+      "d": "Incorrect. The rate is 5,500, not 10,000."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the S3 request rate performance for PUT/COPY/POST/DELETE requests per prefix?",
+    "opts": {
+      "a": "1,000 requests per second",
+      "b": "3,500 requests per second",
+      "c": "5,500 requests per second",
+      "d": "10,000 requests per second"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The rate is higher than 1,000 per second.",
+      "b": "Correct. S3 supports 3,500 PUT/COPY/POST/DELETE requests per second per prefix.",
+      "c": "Incorrect. 5,500 is the rate for GET/HEAD requests per prefix.",
+      "d": "Incorrect. The rate is 3,500, not 10,000."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which S3 feature sends notifications when specific events occur on a bucket (e.g., object creation)?",
+    "opts": {
+      "a": "S3 Lifecycle Policies",
+      "b": "S3 Event Notifications",
+      "c": "S3 Analytics",
+      "d": "S3 Inventory"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lifecycle Policies transition or expire objects, not send notifications.",
+      "b": "Correct. S3 Event Notifications can trigger SNS, SQS, Lambda, or EventBridge when events like object creation or deletion occur.",
+      "c": "Incorrect. S3 Analytics provides storage class usage analysis.",
+      "d": "Incorrect. S3 Inventory provides reports of objects and their metadata."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which of the following are valid destinations for S3 Event Notifications? (Choose the best answer)",
+    "opts": {
+      "a": "SNS, SQS, Lambda, and Amazon EventBridge",
+      "b": "Only SNS and Lambda",
+      "c": "Only SQS and Lambda",
+      "d": "Only CloudWatch Alarms"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 Event Notifications can be sent to SNS, SQS, Lambda functions, and Amazon EventBridge.",
+      "b": "Incorrect. SQS and EventBridge are also valid destinations.",
+      "c": "Incorrect. SNS and EventBridge are also valid destinations.",
+      "d": "Incorrect. CloudWatch Alarms are not a direct destination for S3 Event Notifications."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What does S3 Inventory provide?",
+    "opts": {
+      "a": "Real-time alerts for unauthorized access",
+      "b": "A scheduled report listing objects and their metadata in a bucket",
+      "c": "Automatic object compression",
+      "d": "Real-time object replication status"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GuardDuty and CloudTrail handle security alerts.",
+      "b": "Correct. S3 Inventory generates scheduled (daily or weekly) reports listing objects along with metadata like size, storage class, encryption status, etc.",
+      "c": "Incorrect. S3 does not automatically compress objects.",
+      "d": "Incorrect. Replication status is available per object, but Inventory provides scheduled bulk reports."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What does S3 Storage Lens provide?",
+    "opts": {
+      "a": "Object-level encryption management",
+      "b": "Organization-wide visibility into S3 usage and activity with metrics and recommendations",
+      "c": "Automatic storage class transitions",
+      "d": "Data compression services"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption management is done via bucket settings and KMS.",
+      "b": "Correct. S3 Storage Lens provides organization-wide visibility into storage usage, activity trends, and cost optimization recommendations.",
+      "c": "Incorrect. Lifecycle policies handle storage class transitions.",
+      "d": "Incorrect. S3 does not provide a compression service."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is an S3 Access Point?",
+    "opts": {
+      "a": "A CDN endpoint for S3",
+      "b": "A named network endpoint with its own access policy to simplify managing access to shared datasets",
+      "c": "A VPN connection to S3",
+      "d": "A backup endpoint for S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudFront provides CDN endpoints, not Access Points.",
+      "b": "Correct. S3 Access Points are named network endpoints with dedicated access policies, simplifying management for shared buckets with many users/applications.",
+      "c": "Incorrect. VPN is not related to S3 Access Points.",
+      "d": "Incorrect. Access Points are for access management, not backup."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which S3 feature allows you to perform large-scale batch operations on existing objects?",
+    "opts": {
+      "a": "S3 Lifecycle Policies",
+      "b": "S3 Batch Operations",
+      "c": "S3 Event Notifications",
+      "d": "S3 Select"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lifecycle Policies handle transitions/expirations based on rules.",
+      "b": "Correct. S3 Batch Operations allows you to perform operations (copy, invoke Lambda, restore, tag, etc.) on billions of objects with a single request.",
+      "c": "Incorrect. Event Notifications trigger actions on new events.",
+      "d": "Incorrect. S3 Select retrieves subsets of object data."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which type of S3 policy is attached directly to the bucket and uses JSON format?",
+    "opts": {
+      "a": "IAM Policy",
+      "b": "Bucket Policy",
+      "c": "ACL (Access Control List)",
+      "d": "Security Group"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM Policies are attached to users, groups, or roles, not directly to buckets.",
+      "b": "Correct. Bucket Policies are JSON-based policies attached directly to S3 buckets for resource-based access control.",
+      "c": "Incorrect. ACLs are a legacy access control mechanism and use XML, not JSON.",
+      "d": "Incorrect. Security Groups are for EC2/VPC, not S3."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the S3 Block Public Access feature designed to do?",
+    "opts": {
+      "a": "Block all access to the bucket including the owner",
+      "b": "Provide account-level and bucket-level settings to prevent public access regardless of individual policies",
+      "c": "Encrypt all objects automatically",
+      "d": "Block cross-region replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Block Public Access prevents public access, not all access.",
+      "b": "Correct. S3 Block Public Access provides settings at account and bucket level to override policies and ACLs that would grant public access.",
+      "c": "Incorrect. Encryption is handled separately.",
+      "d": "Incorrect. CRR is not affected by Block Public Access."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is MFA Delete in S3?",
+    "opts": {
+      "a": "A feature that requires MFA to create a bucket",
+      "b": "A feature that requires MFA to permanently delete object versions or change versioning state",
+      "c": "A feature that requires MFA to upload objects",
+      "d": "A feature that requires MFA to enable encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. MFA is not required for bucket creation.",
+      "b": "Correct. MFA Delete requires MFA authentication to permanently delete object versions or to suspend/enable versioning on a bucket.",
+      "c": "Incorrect. MFA is not required for uploading objects.",
+      "d": "Incorrect. MFA Delete is about deletion protection, not encryption."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which AWS service can be used with S3 to provide a fully managed file transfer service supporting SFTP, FTPS, and FTP?",
+    "opts": {
+      "a": "AWS DataSync",
+      "b": "AWS Transfer Family",
+      "c": "AWS Storage Gateway",
+      "d": "AWS Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DataSync is for migrating data between on-premises and AWS, but does not provide SFTP/FTP endpoints.",
+      "b": "Correct. AWS Transfer Family provides managed SFTP, FTPS, FTP, and AS2 endpoints that store data directly in S3.",
+      "c": "Incorrect. Storage Gateway provides hybrid storage but does not offer managed FTP/SFTP.",
+      "d": "Incorrect. Direct Connect is a dedicated network connection."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What does S3 Requester Pays mean?",
+    "opts": {
+      "a": "The bucket owner pays for all requests and data transfer",
+      "b": "The requester (not the bucket owner) pays for requests and data transfer out",
+      "c": "AWS pays for all S3 costs",
+      "d": "Only authenticated users can access the bucket"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is the default behavior, not Requester Pays.",
+      "b": "Correct. With Requester Pays, the requester (authenticated AWS user) pays for request and data transfer costs instead of the bucket owner.",
+      "c": "Incorrect. AWS does not pay for customer S3 costs.",
+      "d": "Incorrect. While requesters must be authenticated, the key feature is cost shifting."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which S3 feature enables you to analyze access patterns to determine the optimal storage class?",
+    "opts": {
+      "a": "S3 Storage Lens",
+      "b": "S3 Analytics – Storage Class Analysis",
+      "c": "S3 Inventory",
+      "d": "S3 Select"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Storage Lens provides broader usage metrics but does not specifically recommend transitions per object group.",
+      "b": "Correct. S3 Analytics – Storage Class Analysis observes access patterns and provides recommendations on when to transition objects to IA classes.",
+      "c": "Incorrect. S3 Inventory lists objects and metadata but does not analyze access patterns.",
+      "d": "Incorrect. S3 Select retrieves data subsets from objects."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the purpose of S3 Object Lambda?",
+    "opts": {
+      "a": "To automatically compress objects on upload",
+      "b": "To transform data retrieved from S3 using Lambda functions before returning it to the application",
+      "c": "To trigger Lambda on object deletion only",
+      "d": "To encrypt objects with custom algorithms"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 does not automatically compress objects.",
+      "b": "Correct. S3 Object Lambda allows you to add your own code via Lambda to process/transform data as it is retrieved from S3 (e.g., redact PII, resize images).",
+      "c": "Incorrect. S3 Event Notifications can trigger Lambda on deletion; Object Lambda transforms GET responses.",
+      "d": "Incorrect. Encryption is handled by SSE options, not Object Lambda."
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which AWS service is commonly placed in front of S3 to cache content globally and reduce latency?",
+    "opts": {
+      "a": "Amazon Route 53",
+      "b": "Amazon CloudFront",
+      "c": "AWS Global Accelerator",
+      "d": "Amazon ElastiCache"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Route 53 is a DNS service, not a content caching service.",
+      "b": "Correct. Amazon CloudFront is a CDN that caches S3 content at edge locations to reduce latency globally.",
+      "c": "Incorrect. Global Accelerator optimizes network routing but doesn't cache content.",
+      "d": "Incorrect. ElastiCache is an in-memory cache for databases, not for S3 content distribution."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is an S3 VPC Endpoint (Gateway Endpoint) used for?",
+    "opts": {
+      "a": "To make S3 buckets public",
+      "b": "To allow private access to S3 from within a VPC without traversing the public internet",
+      "c": "To speed up S3 uploads using edge locations",
+      "d": "To encrypt data in transit to S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC Endpoints do not make buckets public.",
+      "b": "Correct. S3 Gateway Endpoints allow EC2 instances and other resources in a VPC to access S3 privately without going over the internet.",
+      "c": "Incorrect. Transfer Acceleration uses edge locations for upload speed.",
+      "d": "Incorrect. HTTPS handles encryption in transit."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What logging feature records all requests made to an S3 bucket for audit purposes?",
+    "opts": {
+      "a": "S3 Server Access Logging",
+      "b": "S3 Versioning",
+      "c": "S3 Lifecycle Policies",
+      "d": "S3 Storage Lens"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 Server Access Logging records detailed information about requests made to a bucket, stored in a target bucket.",
+      "b": "Incorrect. Versioning preserves object versions, not access logs.",
+      "c": "Incorrect. Lifecycle Policies manage object transitions and expiration.",
+      "d": "Incorrect. Storage Lens provides aggregate metrics, not per-request logs."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "When enabling S3 Server Access Logging, where should the logs be stored?",
+    "opts": {
+      "a": "In the same bucket being logged",
+      "b": "In a different bucket in the same region (target/logging bucket)",
+      "c": "In CloudWatch Logs only",
+      "d": "In an EBS volume"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Storing logs in the same bucket can create an infinite logging loop and is not recommended.",
+      "b": "Correct. Logs should be stored in a separate target bucket (must be in the same AWS Region) to avoid logging loops.",
+      "c": "Incorrect. S3 Server Access Logs are stored in an S3 bucket, not directly in CloudWatch Logs.",
+      "d": "Incorrect. EBS volumes cannot be configured as a log destination for S3."
+    }
+  }
+]

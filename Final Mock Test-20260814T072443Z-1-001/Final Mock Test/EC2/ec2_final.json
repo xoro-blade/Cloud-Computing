@@ -1,0 +1,937 @@
+[
+  {
+    "type": "MCQ",
+    "q": "What is the default maximum number of EC2 instances you can launch per region in a new AWS account (On-Demand)?",
+    "opts": {
+      "a": "5",
+      "b": "20",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – 5 is the default limit for Elastic IPs, not EC2 instances.",
+      "b": "Correct – The default On-Demand instance limit per region is 20 (for most instance families). You can request an increase.",
+      "c": "Incorrect – 50 is not the default limit for On-Demand EC2 instances.",
+      "d": "Incorrect – 100 exceeds the default limit for new accounts."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default number of Elastic IP addresses allowed per AWS account per region?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The default is 5, not 3.",
+      "b": "Correct – AWS allows 5 Elastic IP addresses per region per account by default.",
+      "c": "Incorrect – 10 exceeds the default limit.",
+      "d": "Incorrect – 15 exceeds the default limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 pricing model offers the highest discount (up to 90%) compared to On-Demand pricing?",
+    "opts": {
+      "a": "Reserved Instances",
+      "b": "Spot Instances",
+      "c": "Dedicated Hosts",
+      "d": "Savings Plans"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Reserved Instances offer up to 72% discount, not 90%.",
+      "b": "Correct – Spot Instances can offer up to 90% discount compared to On-Demand pricing, but can be interrupted.",
+      "c": "Incorrect – Dedicated Hosts do not offer the highest discount.",
+      "d": "Incorrect – Savings Plans offer up to 72% discount, not 90%."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum discount offered by Reserved Instances compared to On-Demand pricing?",
+    "opts": {
+      "a": "50%",
+      "b": "60%",
+      "c": "72%",
+      "d": "90%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Reserved Instances can offer more than 50% discount.",
+      "b": "Incorrect – The maximum is higher than 60%.",
+      "c": "Correct – Reserved Instances offer up to 72% discount compared to On-Demand pricing.",
+      "d": "Incorrect – 90% discount is associated with Spot Instances, not Reserved Instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum duration for a Spot Instance interruption notice before AWS reclaims the instance?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "1 minute",
+      "c": "2 minutes",
+      "d": "5 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – AWS provides more than 30 seconds notice.",
+      "b": "Incorrect – The notice period is 2 minutes, not 1 minute.",
+      "c": "Correct – AWS provides a 2-minute interruption notice before terminating a Spot Instance.",
+      "d": "Incorrect – The notice is 2 minutes, not 5 minutes."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum size of a single EBS volume?",
+    "opts": {
+      "a": "1 TiB",
+      "b": "8 TiB",
+      "c": "16 TiB",
+      "d": "64 TiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – EBS volumes can be much larger than 1 TiB.",
+      "b": "Incorrect – 8 TiB is not the maximum.",
+      "c": "Correct – The maximum size of a single EBS volume is 16 TiB.",
+      "d": "Incorrect – 64 TiB exceeds the maximum EBS volume size."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EBS volume type provides the highest IOPS performance (up to 256,000 IOPS)?",
+    "opts": {
+      "a": "gp3 (General Purpose SSD)",
+      "b": "io2 Block Express",
+      "c": "st1 (Throughput Optimized HDD)",
+      "d": "sc1 (Cold HDD)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – gp3 supports up to 16,000 IOPS.",
+      "b": "Correct – io2 Block Express supports up to 256,000 IOPS, designed for the most demanding workloads.",
+      "c": "Incorrect – st1 is HDD-based and optimized for throughput, not IOPS.",
+      "d": "Incorrect – sc1 is designed for infrequent access and has the lowest performance."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum IOPS supported by a gp3 EBS volume?",
+    "opts": {
+      "a": "3,000",
+      "b": "10,000",
+      "c": "16,000",
+      "d": "64,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 3,000 is the baseline IOPS for gp3, not the maximum.",
+      "b": "Incorrect – 10,000 is not the max for gp3.",
+      "c": "Correct – gp3 volumes support up to 16,000 IOPS.",
+      "d": "Incorrect – 64,000 IOPS is the maximum for io2 (non-Block Express)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the baseline IOPS provided by a gp3 EBS volume?",
+    "opts": {
+      "a": "1,000",
+      "b": "3,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The baseline is 3,000 IOPS.",
+      "b": "Correct – gp3 provides a baseline of 3,000 IOPS regardless of volume size.",
+      "c": "Incorrect – 5,000 is not the baseline.",
+      "d": "Incorrect – 10,000 exceeds the baseline."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What port number is used for SSH access to a Linux EC2 instance?",
+    "opts": {
+      "a": "22",
+      "b": "80",
+      "c": "443",
+      "d": "3389"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Port 22 is the default port for SSH (Secure Shell) connections.",
+      "b": "Incorrect – Port 80 is for HTTP traffic.",
+      "c": "Incorrect – Port 443 is for HTTPS traffic.",
+      "d": "Incorrect – Port 3389 is for RDP (Remote Desktop Protocol) used with Windows instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What port number is used for RDP access to a Windows EC2 instance?",
+    "opts": {
+      "a": "22",
+      "b": "80",
+      "c": "443",
+      "d": "3389"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – Port 22 is for SSH (Linux).",
+      "b": "Incorrect – Port 80 is for HTTP.",
+      "c": "Incorrect – Port 443 is for HTTPS.",
+      "d": "Correct – Port 3389 is used for Remote Desktop Protocol (RDP) to connect to Windows EC2 instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of instances per Availability Zone in a Spread Placement Group?",
+    "opts": {
+      "a": "5",
+      "b": "7",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The limit is 7, not 5.",
+      "b": "Correct – A Spread Placement Group supports a maximum of 7 running instances per AZ.",
+      "c": "Incorrect – 10 exceeds the limit.",
+      "d": "Incorrect – 15 exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default cooldown period for an Auto Scaling Group?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "120 seconds",
+      "c": "300 seconds",
+      "d": "600 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 60 seconds is not the default cooldown.",
+      "b": "Incorrect – 120 seconds is not the default.",
+      "c": "Correct – The default cooldown period is 300 seconds (5 minutes).",
+      "d": "Incorrect – 600 seconds exceeds the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum size of EC2 User Data?",
+    "opts": {
+      "a": "4 KB",
+      "b": "16 KB",
+      "c": "64 KB",
+      "d": "128 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The maximum is 16 KB.",
+      "b": "Correct – EC2 User Data is limited to 16 KB in size.",
+      "c": "Incorrect – 64 KB exceeds the limit.",
+      "d": "Incorrect – 128 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum RAM size supported for EC2 Hibernate?",
+    "opts": {
+      "a": "16 GB",
+      "b": "64 GB",
+      "c": "150 GB",
+      "d": "256 GB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is higher than 16 GB.",
+      "b": "Incorrect – The limit is higher than 64 GB.",
+      "c": "Correct – EC2 Hibernate supports instances with up to 150 GB of RAM.",
+      "d": "Incorrect – 256 GB exceeds the hibernate limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum duration an EC2 instance can be in hibernation?",
+    "opts": {
+      "a": "24 hours",
+      "b": "48 hours",
+      "c": "60 days",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is much longer than 24 hours.",
+      "b": "Incorrect – The limit is more than 48 hours.",
+      "c": "Correct – An EC2 instance can remain in hibernation for up to 60 days.",
+      "d": "Incorrect – There is a 60-day limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the IP address used to access EC2 instance metadata?",
+    "opts": {
+      "a": "192.168.1.1",
+      "b": "10.0.0.1",
+      "c": "169.254.169.254",
+      "d": "172.16.0.1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – This is a private IP range, not for metadata.",
+      "b": "Incorrect – This is a VPC default IP, not for metadata.",
+      "c": "Correct – EC2 instance metadata is accessed at http://169.254.169.254/latest/meta-data/.",
+      "d": "Incorrect – This is a private IP range."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of instances you can attach to an EBS io1/io2 volume using Multi-Attach?",
+    "opts": {
+      "a": "4",
+      "b": "8",
+      "c": "16",
+      "d": "32"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is 16.",
+      "b": "Incorrect – The limit is 16.",
+      "c": "Correct – EBS Multi-Attach supports up to 16 Nitro-based instances in the same AZ.",
+      "d": "Incorrect – 32 exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the SLA uptime commitment for Amazon EC2?",
+    "opts": {
+      "a": "99%",
+      "b": "99.9%",
+      "c": "99.95%",
+      "d": "99.99%"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – EC2 SLA is higher than 99%.",
+      "b": "Incorrect – EC2 SLA is higher than 99.9%.",
+      "c": "Incorrect – EC2 SLA is 99.99%.",
+      "d": "Correct – Amazon EC2 has a 99.99% SLA for each region."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default monitoring interval for EC2 instances in CloudWatch?",
+    "opts": {
+      "a": "1 minute",
+      "b": "5 minutes",
+      "c": "10 minutes",
+      "d": "15 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – 1-minute interval requires detailed monitoring (additional cost).",
+      "b": "Correct – Basic monitoring provides metrics at 5-minute intervals by default.",
+      "c": "Incorrect – 10 minutes is not a standard interval.",
+      "d": "Incorrect – 15 minutes is not a standard interval."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of security groups you can assign to a single EC2 instance (network interface)?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "16"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The default limit is 5.",
+      "b": "Correct – By default, you can assign up to 5 security groups per network interface.",
+      "c": "Incorrect – 10 exceeds the default.",
+      "d": "Incorrect – 16 exceeds the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default maximum number of rules per security group?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "60",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The default is 60 inbound and 60 outbound rules.",
+      "b": "Incorrect – The limit is 60, not 50.",
+      "c": "Correct – Each security group allows up to 60 inbound rules and 60 outbound rules by default.",
+      "d": "Incorrect – 100 exceeds the default limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum throughput for an st1 (Throughput Optimized HDD) EBS volume?",
+    "opts": {
+      "a": "250 MiB/s",
+      "b": "500 MiB/s",
+      "c": "750 MiB/s",
+      "d": "1,000 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – 250 MiB/s is the max for sc1.",
+      "b": "Correct – st1 supports a maximum throughput of 500 MiB/s.",
+      "c": "Incorrect – 750 MiB/s exceeds st1 limits.",
+      "d": "Incorrect – 1,000 MiB/s exceeds st1 limits."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default health check grace period for an Auto Scaling Group?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "120 seconds",
+      "c": "300 seconds",
+      "d": "600 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 60 seconds is too short.",
+      "b": "Incorrect – 120 seconds is not the default.",
+      "c": "Correct – The default health check grace period is 300 seconds, allowing instances time to boot before being checked.",
+      "d": "Incorrect – 600 seconds is not the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default deregistration delay (connection draining) timeout for an ELB target group?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "60 seconds",
+      "c": "300 seconds",
+      "d": "600 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 30 seconds is not the default.",
+      "b": "Incorrect – 60 seconds is not the default.",
+      "c": "Correct – The default deregistration delay is 300 seconds (5 minutes).",
+      "d": "Incorrect – 600 seconds is not the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of partitions per Availability Zone in a Partition Placement Group?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "7",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The maximum is 7.",
+      "b": "Incorrect – The maximum is 7.",
+      "c": "Correct – You can have up to 7 partitions per AZ in a Partition Placement Group.",
+      "d": "Incorrect – 10 exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum duration an instance can remain in a lifecycle hook wait state?",
+    "opts": {
+      "a": "1 hour",
+      "b": "2 hours",
+      "c": "24 hours",
+      "d": "48 hours"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – The default is 1 hour but maximum is 48 hours.",
+      "b": "Incorrect – 2 hours is not the maximum.",
+      "c": "Incorrect – 24 hours is not the maximum.",
+      "d": "Correct – The maximum wait time for a lifecycle hook is 48 hours (or 100 times the heartbeat timeout, whichever is smaller)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of VPCs you can have per region by default?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The default is 5.",
+      "b": "Correct – By default, you can have 5 VPCs per region (can be increased via service quotas).",
+      "c": "Incorrect – 10 is not the default.",
+      "d": "Incorrect – 20 is not the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of subnets per VPC by default?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The default is 200.",
+      "b": "Incorrect – The default is 200.",
+      "c": "Correct – By default, you can have up to 200 subnets per VPC.",
+      "d": "Incorrect – 500 exceeds the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of key pairs you can have per AWS region?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "5,000",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is higher than 100.",
+      "b": "Incorrect – The limit is higher than 500.",
+      "c": "Correct – You can have up to 5,000 key pairs per AWS region.",
+      "d": "Incorrect – There is a limit of 5,000."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum discount offered by Convertible Reserved Instances?",
+    "opts": {
+      "a": "36%",
+      "b": "54%",
+      "c": "66%",
+      "d": "72%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Convertible RIs offer more than 36%.",
+      "b": "Incorrect – The maximum is approximately 66%.",
+      "c": "Correct – Convertible Reserved Instances offer up to approximately 66% discount (compared to 72% for Standard RIs).",
+      "d": "Incorrect – 72% is the maximum for Standard Reserved Instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum ratio of provisioned IOPS to volume size (in GiB) for io1/io2 EBS volumes?",
+    "opts": {
+      "a": "10:1",
+      "b": "50:1",
+      "c": "500:1",
+      "d": "1000:1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The ratio for io1 is 50:1, not 10:1.",
+      "b": "Incorrect – 50:1 is the ratio for io1. io2 supports 500:1.",
+      "c": "Correct – io2 volumes support up to 500 IOPS per GiB of volume size.",
+      "d": "Incorrect – 1000:1 exceeds the maximum ratio."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the ALB idle timeout default value?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "60 seconds",
+      "c": "120 seconds",
+      "d": "300 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The default is 60 seconds.",
+      "b": "Correct – ALB default idle timeout is 60 seconds. If no data is sent over the connection for 60 seconds, ALB closes it.",
+      "c": "Incorrect – 120 seconds is not the default.",
+      "d": "Incorrect – 300 seconds is not the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum network bandwidth available on EC2 instances with ENA (Elastic Network Adapter)?",
+    "opts": {
+      "a": "10 Gbps",
+      "b": "25 Gbps",
+      "c": "100 Gbps",
+      "d": "400 Gbps"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Many instance types support more than 10 Gbps.",
+      "b": "Incorrect – Some instances support up to 100 Gbps.",
+      "c": "Correct – With ENA, certain instance types (like C5n, P4d) support up to 100 Gbps network bandwidth.",
+      "d": "Incorrect – 400 Gbps exceeds standard ENA capabilities."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of EBS volumes you can attach to a single EC2 instance (Nitro)?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "28",
+      "d": "40"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is higher.",
+      "b": "Incorrect – 20 is not the correct limit for Nitro instances.",
+      "c": "Correct – Nitro-based instances support up to 28 EBS volume attachments.",
+      "d": "Incorrect – 40 exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of Elastic Load Balancers (ALB/NLB) per region by default?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The default is 50 per region.",
+      "b": "Correct – By default, you can have up to 50 load balancers per region.",
+      "c": "Incorrect – 100 is not the default.",
+      "d": "Incorrect – 200 exceeds the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of targets per target group for an ALB?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "5,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is higher.",
+      "b": "Incorrect – The limit is 1,000.",
+      "c": "Correct – Each target group can have up to 1,000 targets.",
+      "d": "Incorrect – 5,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum EBS throughput for a gp3 volume?",
+    "opts": {
+      "a": "125 MiB/s",
+      "b": "250 MiB/s",
+      "c": "500 MiB/s",
+      "d": "1,000 MiB/s"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – 125 MiB/s is the baseline throughput for gp3.",
+      "b": "Incorrect – 250 MiB/s is less than the maximum.",
+      "c": "Incorrect – 500 MiB/s is less than the maximum.",
+      "d": "Correct – gp3 volumes support up to 1,000 MiB/s of throughput."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the baseline throughput for a gp3 EBS volume?",
+    "opts": {
+      "a": "50 MiB/s",
+      "b": "125 MiB/s",
+      "c": "250 MiB/s",
+      "d": "500 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The baseline is 125 MiB/s.",
+      "b": "Correct – gp3 provides a baseline throughput of 125 MiB/s regardless of volume size.",
+      "c": "Incorrect – 250 MiB/s requires provisioning additional throughput.",
+      "d": "Incorrect – 500 MiB/s requires provisioning additional throughput."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum duration for a Spot Block?",
+    "opts": {
+      "a": "1 hour",
+      "b": "6 hours",
+      "c": "12 hours",
+      "d": "24 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Spot Blocks can last up to 6 hours.",
+      "b": "Correct – Spot Blocks allow you to request Spot Instances for a defined duration of 1 to 6 hours.",
+      "c": "Incorrect – Maximum is 6 hours.",
+      "d": "Incorrect – Maximum is 6 hours."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 instance type is best suited for memory-intensive applications like in-memory databases?",
+    "opts": {
+      "a": "C-series (Compute Optimized)",
+      "b": "R-series (Memory Optimized)",
+      "c": "T-series (General Purpose)",
+      "d": "I-series (Storage Optimized)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – C-series is optimized for compute-intensive tasks, not memory.",
+      "b": "Correct – R-series instances are memory optimized and ideal for in-memory databases like Redis, SAP HANA.",
+      "c": "Incorrect – T-series is general purpose with burstable performance.",
+      "d": "Incorrect – I-series is storage optimized for high sequential read/write access."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following instance families is optimized for compute-intensive tasks?",
+    "opts": {
+      "a": "T-series",
+      "b": "M-series",
+      "c": "C-series",
+      "d": "R-series"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – T-series is general purpose with burstable performance.",
+      "b": "Incorrect – M-series is general purpose.",
+      "c": "Correct – C-series (Compute Optimized) is designed for compute-intensive workloads like batch processing, gaming servers.",
+      "d": "Incorrect – R-series is memory optimized."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 instance family is best for high-performance databases requiring fast storage?",
+    "opts": {
+      "a": "T-series",
+      "b": "I-series",
+      "c": "C-series",
+      "d": "A-series"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – T-series is general purpose.",
+      "b": "Correct – I-series (Storage Optimized) instances provide high sequential read/write access and NVMe storage for databases.",
+      "c": "Incorrect – C-series is compute optimized.",
+      "d": "Incorrect – A-series is ARM-based general purpose."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What does the 'T' in T3 instance type represent?",
+    "opts": {
+      "a": "Throughput",
+      "b": "Turbo",
+      "c": "Burstable (General Purpose)",
+      "d": "Temporal"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – T stands for burstable general purpose.",
+      "b": "Incorrect – T does not stand for Turbo.",
+      "c": "Correct – T-series instances are burstable general purpose instances that earn CPU credits when idle.",
+      "d": "Incorrect – T does not stand for Temporal."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have a Spread Placement Group across 3 AZs. What is the maximum number of instances you can run in this placement group?",
+    "opts": {
+      "a": "7",
+      "b": "14",
+      "c": "21",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 7 is the limit per AZ, not total.",
+      "b": "Incorrect – 14 would be for 2 AZs.",
+      "c": "Correct – Spread Placement Group allows 7 instances per AZ. Across 3 AZs: 7 × 3 = 21 instances maximum.",
+      "d": "Incorrect – There is a hard limit of 7 per AZ."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You notice that your gp2 EBS volume performance is limited. The volume is 100 GiB. What is the baseline IOPS for this volume?",
+    "opts": {
+      "a": "100 IOPS",
+      "b": "300 IOPS",
+      "c": "1,000 IOPS",
+      "d": "3,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – gp2 provides 3 IOPS per GiB with a minimum of 100, so 100 GiB = 300 IOPS.",
+      "b": "Correct – gp2 baseline is 3 IOPS per GiB. For a 100 GiB volume: 100 × 3 = 300 IOPS.",
+      "c": "Incorrect – 1,000 IOPS would require a ~333 GiB volume.",
+      "d": "Incorrect – 3,000 IOPS is the burst level for small gp2 volumes or the baseline for gp3."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the minimum volume size needed for a gp2 EBS volume to achieve the maximum baseline of 16,000 IOPS?",
+    "opts": {
+      "a": "1,000 GiB",
+      "b": "3,334 GiB",
+      "c": "5,334 GiB",
+      "d": "16,000 GiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 1,000 GiB × 3 = 3,000 IOPS only.",
+      "b": "Incorrect – 3,334 GiB × 3 = 10,002 IOPS, not 16,000.",
+      "c": "Correct – gp2 provides 3 IOPS per GiB. To get 16,000 IOPS: 16,000 ÷ 3 ≈ 5,334 GiB.",
+      "d": "Incorrect – 16,000 GiB would far exceed what's needed."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an io1 EBS volume with 10,000 provisioned IOPS. What is the minimum volume size required?",
+    "opts": {
+      "a": "4 GiB",
+      "b": "100 GiB",
+      "c": "200 GiB",
+      "d": "500 GiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 4 GiB is the minimum EBS size but cannot support 10,000 IOPS.",
+      "b": "Incorrect – io1 ratio is 50:1, so 100 GiB supports max 5,000 IOPS.",
+      "c": "Correct – io1 supports 50 IOPS per GiB. For 10,000 IOPS: 10,000 ÷ 50 = 200 GiB minimum.",
+      "d": "Incorrect – 500 GiB would support up to 25,000 IOPS, more than needed."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an io2 EBS volume of 100 GiB. What is the maximum IOPS you can provision for this volume?",
+    "opts": {
+      "a": "5,000 IOPS",
+      "b": "16,000 IOPS",
+      "c": "50,000 IOPS",
+      "d": "64,000 IOPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – io2 supports 500:1 ratio. 100 × 500 = 50,000.",
+      "b": "Incorrect – 16,000 is the max for gp3.",
+      "c": "Correct – io2 supports 500 IOPS per GiB. For 100 GiB: 100 × 500 = 50,000 IOPS.",
+      "d": "Incorrect – 64,000 is the overall io2 max, but the per-GiB ratio limits this volume to 50,000."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What are the normalization factors for EC2 instance sizes?",
+    "opts": {
+      "a": "nano=1, micro=2, small=4, medium=8, large=16, xlarge=32",
+      "b": "nano=1, micro=2, small=2, medium=4, large=8, xlarge=16",
+      "c": "nano=0.25, micro=0.5, small=1, medium=2, large=4, xlarge=8",
+      "d": "nano=1, micro=1, small=2, medium=4, large=8, xlarge=16"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – These factors are too large.",
+      "b": "Incorrect – The starting point for nano is 0.25, not 1.",
+      "c": "Correct – AWS normalization factors: nano=0.25, micro=0.5, small=1, medium=2, large=4, xlarge=8, 2xlarge=16, etc.",
+      "d": "Incorrect – Nano starts at 0.25, not 1."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an ASG with a mixed instances policy. On-Demand base capacity is 2, On-Demand percentage above base is 25%. Desired capacity is 10. How many On-Demand and Spot instances?",
+    "opts": {
+      "a": "4 On-Demand, 6 Spot",
+      "b": "3 On-Demand, 7 Spot",
+      "c": "4 On-Demand (2 base + 2 from 25%), 6 Spot",
+      "d": "5 On-Demand, 5 Spot"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Let's calculate: Base = 2 On-Demand. Remaining = 10 - 2 = 8. 25% of 8 = 2 On-Demand. Total On-Demand = 4, Spot = 6.",
+      "b": "Incorrect – Calculation shows 4 On-Demand.",
+      "c": "Correct – On-Demand base = 2. Above base: 8 remaining × 25% = 2 On-Demand. Total: 4 On-Demand + 6 Spot = 10.",
+      "d": "Incorrect – 5 On-Demand doesn't match the formula."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an Auto Scaling Group with a Target Tracking policy set to maintain CPU at 50%. The group currently has 4 instances with average CPU at 80%. How many instances will ASG approximately scale to?",
+    "opts": {
+      "a": "5 instances",
+      "b": "6 instances",
+      "c": "7 instances",
+      "d": "8 instances"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The formula is: current capacity × (current metric / target metric) = 4 × (80/50) = 6.4, rounded up to 7.",
+      "b": "Incorrect – 6 would not bring CPU down to 50%.",
+      "c": "Correct – ASG calculates: 4 × (80/50) = 6.4, rounds up to 7 instances to bring average CPU close to 50%.",
+      "d": "Incorrect – 8 would over-provision."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have a gp3 volume with 3,000 IOPS baseline and need 10,000 IOPS. What is the additional monthly cost for provisioned IOPS? (Rate: $0.005/provisioned IOPS-month above baseline)",
+    "opts": {
+      "a": "$15/month",
+      "b": "$35/month",
+      "c": "$50/month",
+      "d": "$65/month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Additional IOPS = 10,000 - 3,000 = 7,000. Cost = 7,000 × $0.005 = $35.",
+      "b": "Correct – gp3 baseline is 3,000 IOPS. Additional IOPS needed: 10,000 - 3,000 = 7,000. Cost: 7,000 × $0.005 = $35/month.",
+      "c": "Incorrect – $50 would be for 10,000 additional IOPS.",
+      "d": "Incorrect – Calculation doesn't match."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are using EBS Fast Snapshot Restore in 3 AZs at $0.75 per DSU per hour, enabled for 24 hours. What is the cost?",
+    "opts": {
+      "a": "$18",
+      "b": "$36",
+      "c": "$54",
+      "d": "$72"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Must account for 3 AZs.",
+      "b": "Incorrect – 1 AZ × 24 hours × $0.75 = $18. For 3 AZs: $18 × 3 = $54.",
+      "c": "Correct – FSR charges per AZ per hour: $0.75 × 24 hours × 3 AZs = $54.",
+      "d": "Incorrect – $72 assumes 4 AZs."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "NLB with cross-zone disabled: AZ-A has 2 targets, AZ-B has 8 targets. What percentage of traffic does each target in AZ-A receive?",
+    "opts": {
+      "a": "5%",
+      "b": "10%",
+      "c": "25%",
+      "d": "50%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Without cross-zone, each AZ gets 50% of traffic. AZ-A's 2 targets split 50%, so each gets 25%.",
+      "b": "Incorrect – 10% would be the case if traffic was evenly split across all 10 targets (cross-zone enabled).",
+      "c": "Correct – Without cross-zone LB, each AZ gets 50% of traffic. AZ-A has 2 targets: 50% ÷ 2 = 25% per target.",
+      "d": "Incorrect – 50% is the total for AZ-A, not per target."
+    }
+  }
+]

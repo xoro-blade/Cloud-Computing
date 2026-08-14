@@ -1,0 +1,818 @@
+[
+  {
+    "type": "mcq",
+    "q": "How many edge locations does Amazon CloudFront have globally (approximate as of 2024)?",
+    "opts": {
+      "a": "50+",
+      "b": "100+",
+      "c": "450+",
+      "d": "1000+"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "CloudFront has far more than 50 edge locations.",
+      "b": "CloudFront has far more than 100 edge locations.",
+      "c": "Correct. Amazon CloudFront has 450+ Points of Presence (PoPs) including edge locations and Regional Edge Caches across the globe.",
+      "d": "CloudFront does not have 1000+ edge locations currently."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default TTL (Time to Live) for CloudFront cached objects if no Cache-Control header is specified?",
+    "opts": {
+      "a": "1 hour",
+      "b": "24 hours",
+      "c": "48 hours",
+      "d": "7 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "The default TTL is not 1 hour.",
+      "b": "Correct. The default TTL for CloudFront is 24 hours (86,400 seconds) if no Cache-Control or Expires header is specified by the origin.",
+      "c": "48 hours is not the default TTL.",
+      "d": "7 days is not the default TTL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum file size that can be delivered through CloudFront using a single GET request?",
+    "opts": {
+      "a": "5 GB",
+      "b": "10 GB",
+      "c": "20 GB",
+      "d": "30 GB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "5 GB is the limit for S3 single PUT, not CloudFront delivery.",
+      "b": "10 GB is not the correct maximum file size for CloudFront.",
+      "c": "Correct. CloudFront can deliver files up to 20 GB in size using a single GET request.",
+      "d": "30 GB exceeds CloudFront's maximum file size for a single GET request."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of alternate domain names (CNAMEs) you can associate with a single CloudFront distribution?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "10 is not the correct limit.",
+      "b": "25 is not the correct limit.",
+      "c": "Correct. You can associate up to 100 alternate domain names (CNAMEs) with a single CloudFront distribution.",
+      "d": "200 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Regional Edge Cache locations does CloudFront have (approximate)?",
+    "opts": {
+      "a": "5",
+      "b": "13",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "5 is too few for CloudFront's Regional Edge Caches.",
+      "b": "Correct. CloudFront has approximately 13 Regional Edge Cache locations globally that sit between the origin and the edge locations.",
+      "c": "50 is too many for Regional Edge Caches.",
+      "d": "100 is the number closer to edge locations, not Regional Edge Caches."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many invalidation paths can you submit per month at no additional charge?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "10,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "100 is not the correct free tier for invalidation paths.",
+      "b": "500 is not the correct free tier for invalidation paths.",
+      "c": "Correct. CloudFront provides 1,000 invalidation paths per month at no additional charge. After that, each path costs $0.005.",
+      "d": "10,000 exceeds the free tier for invalidation paths."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum execution time for CloudFront Functions?",
+    "opts": {
+      "a": "Less than 1 millisecond",
+      "b": "5 milliseconds",
+      "c": "5 seconds",
+      "d": "30 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront Functions are designed to execute in sub-millisecond time (less than 1ms) and handle millions of requests per second for lightweight operations.",
+      "b": "5 milliseconds is longer than the CloudFront Functions execution limit.",
+      "c": "5 seconds is the limit for Lambda@Edge on viewer events.",
+      "d": "30 seconds is the limit for Lambda@Edge on origin events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum execution time for Lambda@Edge on origin-facing events (origin request/response)?",
+    "opts": {
+      "a": "5 seconds",
+      "b": "15 seconds",
+      "c": "30 seconds",
+      "d": "60 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "5 seconds is the limit for viewer-facing events, not origin events.",
+      "b": "15 seconds is not the correct limit.",
+      "c": "Correct. Lambda@Edge functions triggered by origin request or origin response events can run for up to 30 seconds.",
+      "d": "60 seconds exceeds the Lambda@Edge timeout for origin events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum execution time for Lambda@Edge on viewer-facing events (viewer request/response)?",
+    "opts": {
+      "a": "1 second",
+      "b": "5 seconds",
+      "c": "15 seconds",
+      "d": "30 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1 second is not the correct limit for viewer events.",
+      "b": "Correct. Lambda@Edge functions triggered by viewer request or viewer response events can run for up to 5 seconds.",
+      "c": "15 seconds is not the correct limit.",
+      "d": "30 seconds is the limit for origin events, not viewer events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum memory for Lambda@Edge functions?",
+    "opts": {
+      "a": "128 MB",
+      "b": "256 MB",
+      "c": "512 MB",
+      "d": "10,240 MB (10 GB)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "128 MB is the minimum memory, not maximum.",
+      "b": "256 MB is not the maximum.",
+      "c": "512 MB is not the maximum.",
+      "d": "Correct. Lambda@Edge functions can use up to 10,240 MB (10 GB) of memory for origin-facing events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum package size for CloudFront Functions?",
+    "opts": {
+      "a": "2 KB",
+      "b": "10 KB",
+      "c": "1 MB",
+      "d": "50 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "2 KB is too small for CloudFront Functions.",
+      "b": "Correct. CloudFront Functions have a maximum package size of 10 KB.",
+      "c": "1 MB is the limit for Lambda@Edge viewer events.",
+      "d": "50 MB is the limit for Lambda@Edge origin events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the CloudFront free tier for data transfer out per month?",
+    "opts": {
+      "a": "1 TB",
+      "b": "50 GB",
+      "c": "10 GB",
+      "d": "100 GB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront offers 1 TB of data transfer out to the internet per month as part of the always-free tier (not limited to 12 months).",
+      "b": "50 GB is not the correct free tier amount.",
+      "c": "10 GB is not the correct free tier amount.",
+      "d": "100 GB is not the correct free tier amount."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many HTTP/HTTPS requests are included in the CloudFront free tier per month?",
+    "opts": {
+      "a": "1,000,000",
+      "b": "2,000,000",
+      "c": "10,000,000",
+      "d": "100,000,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1 million is not the correct free tier amount.",
+      "b": "2 million is not the correct free tier amount.",
+      "c": "Correct. CloudFront free tier includes 10,000,000 HTTP/HTTPS requests per month.",
+      "d": "100 million exceeds the free tier allowance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of origins you can configure per CloudFront distribution?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 is not the default limit for origins.",
+      "b": "Correct. By default, you can have up to 25 origins per CloudFront distribution (can be increased via service quota request).",
+      "c": "50 is not the default limit.",
+      "d": "100 is not the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of cache behaviors per CloudFront distribution?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 is not the default limit.",
+      "b": "Correct. By default, you can have up to 25 cache behaviors per CloudFront distribution (can be increased).",
+      "c": "50 is not the default limit.",
+      "d": "100 is not the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of CloudFront distributions per AWS account (default limit)?",
+    "opts": {
+      "a": "25",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "25 is not the default limit for distributions.",
+      "b": "100 is not the default limit for distributions.",
+      "c": "Correct. The default limit is 200 CloudFront distributions per AWS account, which can be increased by requesting a service quota increase.",
+      "d": "500 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum TTL that can be set for a CloudFront cache behavior?",
+    "opts": {
+      "a": "24 hours",
+      "b": "7 days",
+      "c": "30 days",
+      "d": "365 days (31,536,000 seconds)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "24 hours is the default TTL, not the maximum.",
+      "b": "7 days is not the maximum TTL.",
+      "c": "30 days is not the maximum TTL.",
+      "d": "Correct. The maximum TTL for CloudFront can be set up to 365 days (31,536,000 seconds)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default minimum TTL that can be set for a CloudFront distribution?",
+    "opts": {
+      "a": "0 seconds",
+      "b": "60 seconds",
+      "c": "300 seconds",
+      "d": "3600 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The minimum TTL can be set to 0 seconds, which means CloudFront will always check with the origin if the content is up to date (using conditional requests like If-Modified-Since).",
+      "b": "60 seconds is not the minimum configurable TTL.",
+      "c": "300 seconds is not the minimum configurable TTL.",
+      "d": "3600 seconds is not the minimum configurable TTL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront Functions' maximum memory allocation?",
+    "opts": {
+      "a": "2 MB",
+      "b": "10 MB",
+      "c": "128 MB",
+      "d": "256 MB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront Functions are allocated a maximum of 2 MB of memory, keeping them lightweight for high-scale operations.",
+      "b": "10 MB exceeds the CloudFront Functions memory limit.",
+      "c": "128 MB is the minimum for Lambda@Edge.",
+      "d": "256 MB exceeds CloudFront Functions limits."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the cost per invalidation path after exceeding the 1,000 free paths per month?",
+    "opts": {
+      "a": "$0.001 per path",
+      "b": "$0.005 per path",
+      "c": "$0.01 per path",
+      "d": "$0.05 per path"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "$0.001 is too low.",
+      "b": "Correct. After the first 1,000 free invalidation paths per month, each additional path costs $0.005.",
+      "c": "$0.01 is not the correct price.",
+      "d": "$0.05 is too high."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many concurrent invalidation requests can be in progress at the same time per distribution?",
+    "opts": {
+      "a": "1",
+      "b": "3",
+      "c": "10",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "You can have more than 1 concurrent invalidation.",
+      "b": "Correct. You can have up to 3 wildcard invalidation requests in progress at the same time per CloudFront distribution, or up to 3,000 individual file invalidation paths.",
+      "c": "10 exceeds the concurrent limit.",
+      "d": "There is a defined limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum body size for a request that Lambda@Edge can generate when intercepting viewer requests?",
+    "opts": {
+      "a": "10 KB",
+      "b": "40 KB",
+      "c": "1 MB",
+      "d": "5 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 KB is too small.",
+      "b": "Correct. When Lambda@Edge generates a response directly (without forwarding to the origin) on viewer request/response events, the body is limited to 40 KB.",
+      "c": "1 MB is the function package size limit for viewer events, not the body size.",
+      "d": "5 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the connection timeout for CloudFront to origin (how long CloudFront waits to establish a connection)?",
+    "opts": {
+      "a": "5 seconds",
+      "b": "10 seconds (default, configurable 1-10 seconds)",
+      "c": "30 seconds",
+      "d": "60 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "5 seconds is not the default.",
+      "b": "Correct. The default origin connection timeout is 10 seconds, and it can be configured between 1 and 10 seconds.",
+      "c": "30 seconds is the origin response timeout, not connection timeout.",
+      "d": "60 seconds exceeds the maximum connection timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default origin response timeout (how long CloudFront waits for a response from the origin)?",
+    "opts": {
+      "a": "10 seconds",
+      "b": "30 seconds",
+      "c": "60 seconds",
+      "d": "120 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 seconds is the connection timeout, not response timeout.",
+      "b": "Correct. The default origin response timeout is 30 seconds, configurable between 1 and 60 seconds (or up to 180 seconds with a quota increase).",
+      "c": "60 seconds is the maximum without a quota increase, not the default.",
+      "d": "120 seconds exceeds the default and requires special configuration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront's origin connection attempts default value?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1 attempt is the minimum, not the default.",
+      "b": "2 is not the default.",
+      "c": "Correct. CloudFront attempts to connect to the origin 3 times by default (configurable between 1 and 3) before either failing over to a secondary origin or returning an error.",
+      "d": "5 exceeds the maximum connection attempts."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of a Lambda@Edge function deployment package for origin-facing events?",
+    "opts": {
+      "a": "1 MB",
+      "b": "5 MB",
+      "c": "50 MB",
+      "d": "250 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1 MB is the limit for viewer-facing events.",
+      "b": "5 MB is not the correct limit.",
+      "c": "Correct. Lambda@Edge functions for origin request/response events can have a deployment package up to 50 MB.",
+      "d": "250 MB is the limit for regular Lambda with layers, not Lambda@Edge."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of headers you can forward to the origin (whitelist) in a CloudFront cache behavior?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "30",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "5 is too few.",
+      "b": "Correct. You can whitelist up to 10 headers to forward to the origin in a cache behavior (this can be increased via quota request).",
+      "c": "30 exceeds the default limit.",
+      "d": "There is a defined limit on whitelisted headers."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of SSL/TLS certificates you can associate with a CloudFront distribution?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Each CloudFront distribution can have only 1 custom SSL/TLS certificate (from ACM or IAM) associated with it. However, that certificate can cover multiple domain names (SAN/wildcard).",
+      "b": "You cannot associate 2 certificates.",
+      "c": "5 is not correct.",
+      "d": "10 is not correct."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the monthly cost of using Dedicated IP Custom SSL with CloudFront?",
+    "opts": {
+      "a": "Free",
+      "b": "$100/month",
+      "c": "$600/month per distribution",
+      "d": "$1,000/month"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "SNI Custom SSL is free, not Dedicated IP.",
+      "b": "$100/month is not the correct price.",
+      "c": "Correct. Dedicated IP Custom SSL costs $600/month per distribution. It's needed for legacy clients that don't support SNI.",
+      "d": "$1,000/month is not the correct price."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of CloudFront Functions that can be created per AWS account?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "10 is too low.",
+      "b": "25 is too low.",
+      "c": "50 is not the default limit.",
+      "d": "Correct. The default limit is 100 CloudFront Functions per AWS account (this can be increased via service quota request)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of CloudFront distributions that can be associated with a single AWS WAF web ACL?",
+    "opts": {
+      "a": "1",
+      "b": "10",
+      "c": "100",
+      "d": "No limit (any number)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Multiple distributions can share a web ACL.",
+      "b": "10 is not the correct limit.",
+      "c": "Correct. A single AWS WAF web ACL can be associated with up to 100 CloudFront distributions.",
+      "d": "There is a limit of 100 distributions per web ACL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum rate limit threshold for a WAF rate-based rule?",
+    "opts": {
+      "a": "10 requests per 5 minutes",
+      "b": "100 requests per 5 minutes",
+      "c": "500 requests per 5 minutes",
+      "d": "2,000 requests per 5 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 is below the minimum threshold.",
+      "b": "Correct. The minimum rate limit for AWS WAF rate-based rules is 100 requests per 5-minute period.",
+      "c": "500 is above the minimum.",
+      "d": "2,000 is the default example but not the minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of IP addresses (or IP ranges) that can be included in a single AWS WAF IP set used with CloudFront?",
+    "opts": {
+      "a": "100",
+      "b": "1,000",
+      "c": "10,000",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "100 is too low.",
+      "b": "1,000 is not the correct limit.",
+      "c": "Correct. A single WAF IP set can contain up to 10,000 IP addresses or IP address ranges (CIDR blocks).",
+      "d": "100,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the monthly cost of AWS Shield Advanced?",
+    "opts": {
+      "a": "$100/month",
+      "b": "$500/month",
+      "c": "$3,000/month",
+      "d": "$10,000/month"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "$100/month is too low.",
+      "b": "$500/month is not correct.",
+      "c": "Correct. AWS Shield Advanced costs $3,000 per month per organization (with a 1-year commitment), plus data transfer fees.",
+      "d": "$10,000/month is too high."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical propagation time for a new CloudFront distribution to be deployed globally?",
+    "opts": {
+      "a": "Under 1 minute",
+      "b": "5-10 minutes",
+      "c": "1-2 hours",
+      "d": "24 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Under 1 minute is too fast for global propagation.",
+      "b": "Correct. New CloudFront distributions or configuration changes typically propagate globally within 5-10 minutes.",
+      "c": "1-2 hours is longer than typical propagation time.",
+      "d": "24 hours is much longer than needed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of custom headers you can configure CloudFront to add to origin requests?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "25",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "5 is not the limit.",
+      "b": "Correct. You can add up to 10 custom headers per origin in CloudFront that are sent with every request to that origin.",
+      "c": "25 exceeds the limit.",
+      "d": "50 exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum file size for CloudFront to apply compression?",
+    "opts": {
+      "a": "100 bytes",
+      "b": "1,000 bytes (1 KB)",
+      "c": "10,000 bytes (10 KB)",
+      "d": "1 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "100 bytes is too small; compression overhead would make it inefficient.",
+      "b": "Correct. CloudFront compresses files between 1,000 bytes and 10,000,000 bytes (10 MB) when compression is enabled and the viewer supports it.",
+      "c": "10,000 bytes is not the minimum.",
+      "d": "1 MB is far above the minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum file size that CloudFront will compress?",
+    "opts": {
+      "a": "1 MB",
+      "b": "5 MB",
+      "c": "10 MB",
+      "d": "50 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1 MB is below the maximum.",
+      "b": "5 MB is below the maximum.",
+      "c": "Correct. CloudFront will compress files up to 10,000,000 bytes (10 MB). Files larger than 10 MB are not compressed by CloudFront.",
+      "d": "50 MB exceeds the compression size limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of key groups you can associate with a single CloudFront distribution for signed URLs/cookies?",
+    "opts": {
+      "a": "1",
+      "b": "4",
+      "c": "8",
+      "d": "16"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "You can associate more than 1 key group.",
+      "b": "Correct. You can associate up to 4 key groups per cache behavior in a CloudFront distribution for managing signed URLs and signed cookies.",
+      "c": "8 exceeds the limit.",
+      "d": "16 exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of key pairs you can have in a key group for CloudFront signed URLs?",
+    "opts": {
+      "a": "1",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "You can have more than 1 key pair.",
+      "b": "3 is not the maximum.",
+      "c": "Correct. Each key group can contain up to 5 public keys, allowing for key rotation without service disruption.",
+      "d": "10 exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What percentage of traffic can you route to a staging distribution using CloudFront Continuous Deployment?",
+    "opts": {
+      "a": "Only 1% or 5%",
+      "b": "Any percentage from 1% to 15%",
+      "c": "Any percentage from 0% to 100%",
+      "d": "Fixed at 10%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "The range is broader than just 1% or 5%.",
+      "b": "Correct. You can configure between 1% and 15% of traffic to be routed to the staging distribution for testing.",
+      "c": "The maximum percentage for staging traffic is 15%.",
+      "d": "It is not fixed at 10%."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of query string parameters that can be included in the cache key using a CloudFront cache policy?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "50",
+      "d": "All query strings (no specific limit on count)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "5 is not the limit.",
+      "b": "Correct. When using a whitelist approach, you can include up to 10 query string parameters in the cache key via a cache policy.",
+      "c": "50 exceeds the limit.",
+      "d": "While you can select 'All' query strings, the whitelist is limited to 10."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum total size of all custom headers that CloudFront can send to the origin per request?",
+    "opts": {
+      "a": "4 KB",
+      "b": "8,192 bytes (8 KB)",
+      "c": "10,240 bytes (10 KB)",
+      "d": "16 KB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "4 KB is not the correct limit.",
+      "b": "8 KB is not the correct limit.",
+      "c": "Correct. The total size of all custom header names and values combined cannot exceed 10,240 bytes (10 KB) per origin.",
+      "d": "16 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default error caching minimum TTL for CloudFront when the origin returns an error?",
+    "opts": {
+      "a": "0 seconds",
+      "b": "10 seconds",
+      "c": "60 seconds",
+      "d": "5 minutes (300 seconds)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "0 seconds is not the default error caching TTL.",
+      "b": "Correct. The default error caching minimum TTL is 10 seconds. This prevents CloudFront from overwhelming the origin with requests for objects that are generating errors.",
+      "c": "60 seconds is not the default.",
+      "d": "5 minutes was the old default; it has been reduced to 10 seconds."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront's idle timeout for WebSocket connections?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "60 seconds",
+      "c": "10 minutes",
+      "d": "No timeout for WebSocket connections"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "30 seconds is too short for WebSocket idle timeout.",
+      "b": "60 seconds is too short.",
+      "c": "Correct. CloudFront has a 10-minute idle timeout for WebSocket connections. If no data (including ping/pong frames) is sent in either direction for 10 minutes, CloudFront closes the connection.",
+      "d": "There is a defined idle timeout for WebSocket connections."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default per-distribution request rate limit for CloudFront?",
+    "opts": {
+      "a": "10,000 requests per second",
+      "b": "100,000 requests per second",
+      "c": "150,000 requests per second",
+      "d": "250,000 requests per second"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "10,000 RPS is too low.",
+      "b": "100,000 RPS is below the default limit.",
+      "c": "150,000 RPS is not the current default.",
+      "d": "Correct. The default per-distribution request rate limit is 250,000 requests per second. This can be increased by contacting AWS support for high-traffic distributions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum concurrent executions limit for Lambda@Edge per region per account (default)?",
+    "opts": {
+      "a": "1,000 per region",
+      "b": "10,000 per region (with up to 100,000 via quota increase)",
+      "c": "Unlimited, same as regular Lambda",
+      "d": "500 per edge location"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1,000 is too low for Lambda@Edge.",
+      "b": "Correct. Lambda@Edge has a default regional concurrency limit of 10,000 concurrent executions per region, which can be increased up to 100,000 or more via a quota increase request.",
+      "c": "Lambda@Edge has specific limits different from regular Lambda.",
+      "d": "The limit is per region, not per edge location."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default maximum WCU (Web ACL Capacity Units) limit for a WAF web ACL?",
+    "opts": {
+      "a": "700 WCU",
+      "b": "1,500 WCU",
+      "c": "5,000 WCU",
+      "d": "10,000 WCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "700 WCU is too low.",
+      "b": "Correct. The default maximum WCU (Web ACL Capacity Units) limit for a web ACL is 1,500. This can be increased via a service quota request to AWS.",
+      "c": "5,000 WCU exceeds the default limit.",
+      "d": "10,000 WCU exceeds the default limit."
+    }
+  }
+]

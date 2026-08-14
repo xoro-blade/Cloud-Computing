@@ -1,0 +1,1158 @@
+[
+  {
+    "type": "mcq",
+    "q": "A company needs a shared file system accessible by EC2 instances across three Availability Zones running Linux. The data is accessed frequently for the first week and then rarely accessed afterward. Which EFS configuration is most cost-effective?",
+    "opts": {
+      "a": "EFS Standard with no lifecycle policy",
+      "b": "EFS Standard with Lifecycle Management set to move files to IA after 7 days",
+      "c": "EFS One Zone with no lifecycle policy",
+      "d": "EFS One Zone-IA only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Without lifecycle management, all data stays in Standard tier which is expensive for rarely accessed data.",
+      "b": "Correct. EFS Standard provides multi-AZ access, and lifecycle policy moves infrequently accessed files to IA after 7 days, reducing costs up to 92%.",
+      "c": "Incorrect. One Zone doesn't provide multi-AZ redundancy as required, and no lifecycle policy means higher costs.",
+      "d": "Incorrect. One Zone-IA doesn't provide multi-AZ redundancy and storing all data in IA from the start isn't optimal for frequently accessed data in the first week."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An application running on EC2 requires a shared file system with consistent low latency under 1ms. Which storage solution should be chosen?",
+    "opts": {
+      "a": "Amazon EFS General Purpose mode",
+      "b": "Amazon EBS io2 Block Express",
+      "c": "Amazon EFS Max I/O mode",
+      "d": "Amazon S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EFS General Purpose provides single-digit millisecond latency, not sub-millisecond.",
+      "b": "Correct. EBS io2 Block Express provides sub-millisecond latency, but note it's not shared. If shared is mandatory, EFS cannot achieve sub-1ms. The question asks for consistent low latency under 1ms.",
+      "c": "Incorrect. Max I/O mode has slightly higher latencies than General Purpose.",
+      "d": "Incorrect. S3 is object storage with higher latency for file operations."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A development team has an EFS file system with 500 GiB of data in Bursting Throughput mode. What is the baseline throughput available?",
+    "opts": {
+      "a": "50 MiB/s",
+      "b": "25 MiB/s",
+      "c": "100 MiB/s",
+      "d": "12.5 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 50 MiB/s would be the baseline for 1 TiB of storage.",
+      "b": "Correct. Baseline throughput is 50 MiB/s per TiB. For 500 GiB (0.5 TiB), baseline = 50 × 0.5 = 25 MiB/s.",
+      "c": "Incorrect. 100 MiB/s would be the burst for 1 TiB.",
+      "d": "Incorrect. 12.5 MiB/s would be for 250 GiB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An EFS file system has 2 TiB of data in Bursting Throughput mode. What is the maximum burst throughput?",
+    "opts": {
+      "a": "100 MiB/s",
+      "b": "200 MiB/s",
+      "c": "300 MiB/s",
+      "d": "50 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 100 MiB/s is the burst for 1 TiB.",
+      "b": "Correct. Burst throughput = 100 MiB/s per TiB × 2 TiB = 200 MiB/s.",
+      "c": "Incorrect. 300 MiB/s would require 3 TiB of data.",
+      "d": "Incorrect. 50 MiB/s is the baseline for 1 TiB, not the burst for 2 TiB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to use EFS but needs throughput of 500 MiB/s with only 100 GiB of data stored. Which throughput mode should they use?",
+    "opts": {
+      "a": "Bursting Throughput",
+      "b": "Provisioned Throughput",
+      "c": "Max I/O performance mode",
+      "d": "General Purpose performance mode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. With 100 GiB, bursting would only provide ~5 MiB/s baseline, far below 500 MiB/s requirement.",
+      "b": "Correct. Provisioned Throughput allows you to specify throughput independent of storage amount, enabling 500 MiB/s even with little data.",
+      "c": "Incorrect. Max I/O is a performance mode (not throughput mode) and doesn't guarantee specific throughput levels.",
+      "d": "Incorrect. General Purpose is a performance mode, not a throughput mode."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which combination of EFS settings would you recommend for a machine learning training cluster with hundreds of instances performing highly parallel reads?",
+    "opts": {
+      "a": "General Purpose performance mode + Bursting Throughput",
+      "b": "Max I/O performance mode + Provisioned or Elastic Throughput",
+      "c": "General Purpose performance mode + Provisioned Throughput",
+      "d": "Max I/O performance mode + Bursting Throughput"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. General Purpose limits total operations per second and Bursting may not provide enough throughput.",
+      "b": "Correct. Max I/O supports higher levels of aggregate throughput and IOPS for highly parallelized workloads. Provisioned or Elastic ensures sufficient throughput.",
+      "c": "Incorrect. General Purpose may throttle with hundreds of parallel instances.",
+      "d": "Incorrect. While Max I/O is correct, Bursting may not provide consistent high throughput for ML training."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to share files between a Linux EC2 fleet and AWS Lambda functions. Which storage service should they use?",
+    "opts": {
+      "a": "Amazon S3",
+      "b": "Amazon EBS Multi-Attach",
+      "c": "Amazon EFS",
+      "d": "Amazon FSx for Lustre"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. S3 is object storage and doesn't provide a POSIX file system interface for EC2.",
+      "b": "Incorrect. EBS Multi-Attach is limited to io1/io2, works within a single AZ, and doesn't support Lambda.",
+      "c": "Correct. EFS can be mounted by both EC2 instances and Lambda functions simultaneously.",
+      "d": "Incorrect. FSx for Lustre doesn't natively integrate with Lambda."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An architect needs to ensure EFS data is encrypted both when stored and during transfer. What must be configured?",
+    "opts": {
+      "a": "Enable encryption at rest during file system creation and use the EFS mount helper with TLS option",
+      "b": "Enable only encryption at rest; in-transit encryption is automatic",
+      "c": "Use an encrypted EBS volume as the backend",
+      "d": "Enable only a VPN connection; encryption is automatic"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Encryption at rest is enabled at creation time using KMS. Encryption in transit requires mounting with the TLS option (mount -t efs -o tls).",
+      "b": "Incorrect. In-transit encryption is NOT automatic; you must explicitly use the TLS mount option.",
+      "c": "Incorrect. EFS does not use EBS volumes as backend.",
+      "d": "Incorrect. VPN encrypts network traffic but doesn't replace EFS-native encryption features."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Can you enable encryption at rest on an existing unencrypted EFS file system?",
+    "opts": {
+      "a": "Yes, you can enable it at any time through the console",
+      "b": "No, encryption at rest must be enabled at file system creation time",
+      "c": "Yes, but it requires a maintenance window",
+      "d": "Yes, by changing the KMS key association"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You cannot enable encryption at rest on an existing unencrypted EFS.",
+      "b": "Correct. Encryption at rest must be enabled when the EFS file system is created. To encrypt existing data, you must create a new encrypted EFS and migrate data.",
+      "c": "Incorrect. It cannot be enabled after creation regardless of maintenance windows.",
+      "d": "Incorrect. Changing KMS keys doesn't enable encryption on an unencrypted file system."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A team notices their EFS file system performance is being throttled. They have 256 GiB of data in Bursting mode. What is the most likely cause?",
+    "opts": {
+      "a": "They exceeded the 7,000 IOPS limit of General Purpose mode",
+      "b": "They exhausted their burst credits due to sustained throughput above the baseline",
+      "c": "EFS has reached its maximum storage capacity",
+      "d": "The mount targets are misconfigured"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While possible, the more common issue with small file systems in Bursting mode is credit exhaustion.",
+      "b": "Correct. With only 256 GiB, baseline is ~12.8 MiB/s. Sustained throughput above this depletes burst credits, causing throttling.",
+      "c": "Incorrect. EFS scales to petabytes automatically.",
+      "d": "Incorrect. Misconfigured mount targets would prevent connectivity, not cause throttling."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum burst throughput guaranteed for all EFS file systems in Bursting mode, regardless of size?",
+    "opts": {
+      "a": "50 MiB/s",
+      "b": "100 MiB/s",
+      "c": "10 MiB/s",
+      "d": "25 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. All EFS file systems can burst to at least 100 MiB/s.",
+      "b": "Correct. Regardless of file system size, EFS guarantees a minimum burst throughput of 100 MiB/s.",
+      "c": "Incorrect. The minimum burst is higher than 10 MiB/s.",
+      "d": "Incorrect. The guaranteed minimum burst is 100 MiB/s."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An organization uses EFS with Lifecycle Management to move files to IA after 30 days. A user accesses a file in IA. What happens?",
+    "opts": {
+      "a": "The file is automatically moved back to Standard storage class",
+      "b": "The file remains in IA but incurs a per-access fee; it can be moved back if a transition-to-Standard policy is configured",
+      "c": "The file cannot be accessed from IA without manual restoration",
+      "d": "The file is permanently in IA and cannot return to Standard"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Files are not automatically moved back unless a lifecycle policy for transition to Standard is configured.",
+      "b": "Correct. Accessing IA files incurs per-access charges. Files can be moved back to Standard if a 'Transition into Standard' lifecycle policy is enabled.",
+      "c": "Incorrect. IA files are immediately accessible without manual restoration.",
+      "d": "Incorrect. Files can be transitioned back to Standard with the appropriate lifecycle policy."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following EFS configurations provides the lowest cost for a development/testing environment with non-critical data in a single AZ?",
+    "opts": {
+      "a": "EFS Standard with Lifecycle Management",
+      "b": "EFS One Zone-IA with Lifecycle Management",
+      "c": "EFS Standard-IA",
+      "d": "EFS One Zone with Provisioned Throughput"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard stores across multiple AZs, which is more expensive for non-critical data.",
+      "b": "Correct. One Zone-IA combines single-AZ storage (47% cheaper) with IA pricing (92% cheaper for storage), making it the lowest cost option.",
+      "c": "Incorrect. Standard-IA still stores across multiple AZs, costing more than One Zone-IA.",
+      "d": "Incorrect. Provisioned Throughput adds additional cost and isn't needed for dev/test."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of EFS access points you can create per file system?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "120",
+      "d": "1,000"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is much higher than 10.",
+      "b": "Incorrect. The limit is higher than 50.",
+      "c": "Incorrect. 120 was an older limit that has been increased.",
+      "d": "Correct. You can create up to 1,000 access points per EFS file system."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company requires their EFS file system to be accessible from two different VPCs in the same region. What is the recommended approach?",
+    "opts": {
+      "a": "Create two separate EFS file systems and sync data between them",
+      "b": "Use VPC Peering or Transit Gateway to connect the VPCs and access the same EFS",
+      "c": "Use EFS Replication between VPCs",
+      "d": "This is not possible with EFS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This creates data duplication and complexity.",
+      "b": "Correct. VPC Peering or Transit Gateway allows instances in different VPCs to access the same EFS mount targets.",
+      "c": "Incorrect. EFS Replication is for cross-region or cross-AZ disaster recovery, not cross-VPC access.",
+      "d": "Incorrect. Cross-VPC access is fully supported."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When using EFS with AWS Lambda, what is required for the Lambda function to access the file system?",
+    "opts": {
+      "a": "Lambda must be in the same VPC as the EFS mount target and have appropriate security group rules",
+      "b": "Lambda does not need VPC configuration to access EFS",
+      "c": "Lambda needs an S3 bucket as intermediary",
+      "d": "Lambda can only read from EFS, not write"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Lambda must be configured with VPC access (same VPC and subnets as EFS mount targets) and security groups must allow NFS traffic on port 2049.",
+      "b": "Incorrect. VPC configuration is mandatory for Lambda to access EFS.",
+      "c": "Incorrect. Lambda accesses EFS directly without S3.",
+      "d": "Incorrect. Lambda can both read and write to EFS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the impact on Lambda cold start times when using EFS?",
+    "opts": {
+      "a": "No impact on cold start times",
+      "b": "Cold start times may increase due to VPC ENI attachment and EFS mount operations",
+      "c": "Cold start times decrease because EFS pre-warms Lambda",
+      "d": "Lambda cannot have cold starts when using EFS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Using EFS with Lambda requires VPC configuration which affects cold starts.",
+      "b": "Correct. Lambda functions using EFS require VPC access, and creating ENIs during cold starts adds latency.",
+      "c": "Incorrect. EFS doesn't pre-warm Lambda functions.",
+      "d": "Incorrect. Cold starts still occur with EFS-connected Lambda functions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A file system has EFS Intelligent-Tiering enabled. What does this feature do?",
+    "opts": {
+      "a": "Automatically moves data between Standard and IA storage classes based on access patterns without lifecycle policies",
+      "b": "Moves data between EFS and S3 automatically",
+      "c": "Automatically selects the best performance mode",
+      "d": "Replicates data to another region"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EFS Intelligent-Tiering (via lifecycle management) automatically moves files between Standard and IA classes based on access patterns.",
+      "b": "Incorrect. EFS Intelligent-Tiering operates within EFS storage classes, not between EFS and S3.",
+      "c": "Incorrect. Performance mode is set at creation and doesn't auto-select.",
+      "d": "Incorrect. This is EFS Replication, not Intelligent-Tiering."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the per-access charge for reading data from EFS Infrequent Access storage class?",
+    "opts": {
+      "a": "$0.01 per GB transferred",
+      "b": "$0.03 per GB transferred",
+      "c": "$0.06 per GB transferred",
+      "d": "No per-access charge"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EFS IA charges approximately $0.01 per GB of data read/written when accessing IA files.",
+      "b": "Incorrect. $0.03 per GB is not the correct per-access rate.",
+      "c": "Incorrect. $0.06 per GB is too high.",
+      "d": "Incorrect. There is a per-access charge for IA data."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An EFS file system in us-east-1 needs disaster recovery in us-west-2. What is the best approach?",
+    "opts": {
+      "a": "Use AWS Backup to create cross-region backups",
+      "b": "Use EFS Replication to automatically replicate to us-west-2",
+      "c": "Use AWS DataSync scheduled transfers",
+      "d": "All of the above are valid approaches"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. While valid, this is not the only approach.",
+      "b": "Incorrect. While EFS Replication is designed for this, other approaches also work.",
+      "c": "Incorrect. DataSync is valid but not the only option.",
+      "d": "Correct. All three are valid DR strategies: EFS Replication (automatic, ~15 min RPO), AWS Backup (cross-region), and DataSync (scheduled transfers)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens to the destination file system during EFS Replication?",
+    "opts": {
+      "a": "It is read-write enabled",
+      "b": "It is read-only until you stop replication or failover",
+      "c": "It is not accessible at all",
+      "d": "It automatically becomes primary if the source fails"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The destination is read-only during active replication.",
+      "b": "Correct. The destination file system is read-only during replication. You must stop replication to make it writable for failover.",
+      "c": "Incorrect. It is accessible for read operations.",
+      "d": "Incorrect. Failover is not automatic; you must manually stop replication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following statements about EFS and security groups is correct?",
+    "opts": {
+      "a": "Security groups are attached to the EFS file system directly",
+      "b": "Security groups are attached to the EFS mount targets",
+      "c": "EFS does not use security groups",
+      "d": "Security groups are attached to the EFS access points"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security groups are not attached to the file system itself.",
+      "b": "Correct. Security groups are associated with EFS mount targets to control network access on port 2049.",
+      "c": "Incorrect. EFS mount targets use security groups.",
+      "d": "Incorrect. Access points don't have security groups; mount targets do."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company is migrating 10 TB of data from an on-premises NFS server to Amazon EFS. They need the migration completed within 2 days. Which service should they use?",
+    "opts": {
+      "a": "AWS Snowball Edge",
+      "b": "AWS DataSync",
+      "c": "AWS Transfer Family",
+      "d": "Manual scp over VPN"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Snowball transfers data to S3, not directly to EFS, and has longer turnaround times.",
+      "b": "Correct. AWS DataSync can transfer data at speeds up to 10 Gbps, making 10 TB transfer feasible within 2 days over Direct Connect.",
+      "c": "Incorrect. Transfer Family is for ongoing SFTP/FTPS workflows, not large-scale migrations.",
+      "d": "Incorrect. Manual scp would be extremely slow and unreliable for 10 TB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum provisioned throughput you can set for an EFS file system in Provisioned Throughput mode?",
+    "opts": {
+      "a": "1 GiB/s",
+      "b": "3 GiB/s",
+      "c": "10 GiB/s",
+      "d": "1,024 MiB/s"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The maximum provisioned throughput for EFS in Provisioned Throughput mode is 1 GiB/s (can request increase).",
+      "b": "Incorrect. 3 GiB/s is the write limit in Elastic throughput mode.",
+      "c": "Incorrect. 10 GiB/s is the read throughput in Elastic mode.",
+      "d": "Incorrect. 1,024 MiB/s equals 1 GiB/s, which is correct but option a states it more clearly."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which IAM action is required to create an EFS file system?",
+    "opts": {
+      "a": "elasticfilesystem:CreateFileSystem",
+      "b": "efs:CreateFileSystem",
+      "c": "ec2:CreateFileSystem",
+      "d": "storage:CreateEFS"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The IAM action for EFS uses the elasticfilesystem namespace: elasticfilesystem:CreateFileSystem.",
+      "b": "Incorrect. The namespace is elasticfilesystem, not efs.",
+      "c": "Incorrect. ec2 namespace is for EC2 actions.",
+      "d": "Incorrect. There is no storage namespace in IAM."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An EFS file system has a file system policy that denies all anonymous access. What does this mean?",
+    "opts": {
+      "a": "Only root users can access the file system",
+      "b": "Clients must use IAM authorization to mount the file system",
+      "c": "The file system is publicly accessible",
+      "d": "Only AWS services can access the file system"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Denying anonymous access means IAM authentication is required, not just root users.",
+      "b": "Correct. When anonymous access is denied, clients must authenticate using IAM to mount and access the file system.",
+      "c": "Incorrect. Denying anonymous access makes it MORE restrictive, not public.",
+      "d": "Incorrect. Authenticated users and roles can access it, not just AWS services."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of connections per EFS mount target?",
+    "opts": {
+      "a": "1,000",
+      "b": "10,000",
+      "c": "No documented hard limit (supports thousands)",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is no documented 1,000 connection limit per mount target.",
+      "b": "Incorrect. While EFS can handle many connections, there's no specific 10,000 limit.",
+      "c": "Correct. AWS does not document a hard connection limit per mount target; EFS supports thousands of concurrent connections.",
+      "d": "Incorrect. EFS supports far more than 500 connections."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company runs containers on Amazon EKS and needs shared persistent storage. Which solution integrates best?",
+    "opts": {
+      "a": "Amazon EBS with CSI driver",
+      "b": "Amazon EFS with EFS CSI driver",
+      "c": "Amazon S3 mounted as filesystem",
+      "d": "Instance store volumes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS CSI driver provides block storage but is not shared across pods on different nodes.",
+      "b": "Correct. EFS CSI driver allows multiple pods across multiple nodes to share the same persistent storage with ReadWriteMany access mode.",
+      "c": "Incorrect. S3 is not a native POSIX file system and mounting it has limitations.",
+      "d": "Incorrect. Instance store is ephemeral and not shared."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What ReadWriteMany (RWX) capability does EFS provide for Kubernetes PersistentVolumes?",
+    "opts": {
+      "a": "Multiple pods can read but only one can write",
+      "b": "Multiple pods across multiple nodes can simultaneously read and write",
+      "c": "Only one pod at a time can access the volume",
+      "d": "Pods must take turns accessing the volume"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. That describes ReadOnlyMany (ROX) with a single writer.",
+      "b": "Correct. EFS supports ReadWriteMany (RWX), allowing concurrent read/write from multiple pods on multiple nodes.",
+      "c": "Incorrect. That describes ReadWriteOnce (RWO), typical of EBS.",
+      "d": "Incorrect. EFS allows simultaneous access without turn-taking."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is TRUE about EFS General Purpose mode IOPS?",
+    "opts": {
+      "a": "It supports up to 35,000 read IOPS and 7,000 write IOPS per file system",
+      "b": "It has no IOPS limit",
+      "c": "It supports exactly 3,000 IOPS baseline",
+      "d": "IOPS scales with storage size like EBS gp3"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EFS General Purpose mode supports up to 35,000 read IOPS and 7,000 write IOPS.",
+      "b": "Incorrect. There are IOPS limits in General Purpose mode (use Max I/O for higher).",
+      "c": "Incorrect. 3,000 IOPS baseline is for EBS gp3, not EFS.",
+      "d": "Incorrect. EFS IOPS limits are per file system and don't scale with storage size in the same way as EBS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the IOPS capability of EFS Max I/O performance mode?",
+    "opts": {
+      "a": "35,000 IOPS",
+      "b": "500,000+ IOPS",
+      "c": "7,000 IOPS",
+      "d": "100,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 35,000 is the read IOPS limit for General Purpose mode.",
+      "b": "Correct. Max I/O mode can scale to 500,000+ IOPS for highly parallelized applications.",
+      "c": "Incorrect. 7,000 is the write IOPS limit for General Purpose mode.",
+      "d": "Incorrect. Max I/O can exceed 100,000 IOPS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A team wants to use EFS for a WordPress deployment across multiple AZs. Which performance and throughput mode combination is most appropriate?",
+    "opts": {
+      "a": "Max I/O + Provisioned Throughput",
+      "b": "General Purpose + Elastic Throughput",
+      "c": "Max I/O + Bursting Throughput",
+      "d": "General Purpose + Bursting Throughput"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Max I/O has higher latency, which affects WordPress user experience.",
+      "b": "Correct. WordPress is latency-sensitive (General Purpose) and Elastic Throughput automatically scales based on traffic patterns.",
+      "c": "Incorrect. Max I/O adds unnecessary latency for web workloads.",
+      "d": "Incorrect. Bursting may not provide sufficient throughput during traffic spikes if the file system is small."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does EFS handle concurrent writes from multiple instances to the same file?",
+    "opts": {
+      "a": "It uses optimistic locking to prevent conflicts",
+      "b": "It provides close-to-open consistency semantics as per NFS standard",
+      "c": "It prevents multiple writers to the same file",
+      "d": "It uses eventual consistency with no guarantees"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EFS doesn't implement application-level locking.",
+      "b": "Correct. EFS provides close-to-open consistency semantics following NFS v4 standards for concurrent access.",
+      "c": "Incorrect. EFS allows multiple writers but applications must manage coordination.",
+      "d": "Incorrect. EFS provides read-after-write consistency and close-to-open semantics."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum latency achievable with EFS General Purpose mode?",
+    "opts": {
+      "a": "Sub-millisecond",
+      "b": "As low as 250 microseconds for read operations",
+      "c": "10 milliseconds",
+      "d": "100 milliseconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Sub-millisecond is the general category; AWS specifies 250 microseconds for reads.",
+      "b": "Correct. EFS General Purpose mode can achieve read latencies as low as 250 microseconds with Elastic throughput.",
+      "c": "Incorrect. 10 ms is too high for EFS General Purpose.",
+      "d": "Incorrect. 100 ms is far too high for EFS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A DevOps team needs to monitor EFS performance metrics. Which AWS service should they use?",
+    "opts": {
+      "a": "AWS CloudTrail only",
+      "b": "Amazon CloudWatch",
+      "c": "AWS X-Ray",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudTrail logs API calls, not performance metrics.",
+      "b": "Correct. Amazon CloudWatch provides EFS metrics including TotalIOBytes, PermittedThroughput, BurstCreditBalance, etc.",
+      "c": "Incorrect. X-Ray is for tracing application requests.",
+      "d": "Incorrect. AWS Config tracks resource configuration changes, not performance metrics."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudWatch metric should you monitor to predict EFS Bursting throughput throttling?",
+    "opts": {
+      "a": "TotalIOBytes",
+      "b": "BurstCreditBalance",
+      "c": "PermittedThroughput",
+      "d": "ClientConnections"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. TotalIOBytes shows total bytes but doesn't predict throttling.",
+      "b": "Correct. BurstCreditBalance shows remaining burst credits. When it reaches zero, throughput is limited to baseline.",
+      "c": "Incorrect. PermittedThroughput shows current allowed throughput but doesn't predict future throttling.",
+      "d": "Incorrect. ClientConnections shows connected clients, not throughput capacity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the CloudWatch metric that shows the number of connections to an EFS file system?",
+    "opts": {
+      "a": "ActiveConnections",
+      "b": "ClientConnections",
+      "c": "MountTargetConnections",
+      "d": "NFSConnections"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ActiveConnections is not the correct metric name.",
+      "b": "Correct. ClientConnections is the CloudWatch metric showing the number of client connections to the EFS file system.",
+      "c": "Incorrect. MountTargetConnections is not a valid EFS metric.",
+      "d": "Incorrect. NFSConnections is not a valid EFS CloudWatch metric."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to use EFS for a containerized application on AWS Fargate. Is this possible?",
+    "opts": {
+      "a": "No, Fargate only supports ephemeral storage",
+      "b": "Yes, Fargate tasks can mount EFS volumes",
+      "c": "Only with EC2 launch type, not Fargate",
+      "d": "Only for read-only access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Fargate supports EFS as persistent storage.",
+      "b": "Correct. AWS Fargate tasks can mount EFS file systems for persistent, shared storage across tasks.",
+      "c": "Incorrect. Both EC2 and Fargate launch types support EFS.",
+      "d": "Incorrect. Fargate can both read and write to EFS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between an EFS file system policy and a POSIX-level permission?",
+    "opts": {
+      "a": "They are the same thing",
+      "b": "File system policy controls IAM-level access (mount, read, write); POSIX permissions control file/directory-level access within the mounted file system",
+      "c": "POSIX permissions are more restrictive than file system policies",
+      "d": "File system policies only work with access points"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They operate at different levels.",
+      "b": "Correct. File system policies use IAM to control who can mount/access the file system. POSIX permissions (rwx) control access at the file/directory level after mounting.",
+      "c": "Incorrect. They complement each other; neither is inherently more restrictive.",
+      "d": "Incorrect. File system policies apply to all access, not just access points."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the effect of setting the 'enforce in-transit encryption' option in an EFS file system policy?",
+    "opts": {
+      "a": "All data at rest is encrypted",
+      "b": "Only clients connecting with TLS can access the file system; unencrypted NFS connections are denied",
+      "c": "Encryption keys are rotated automatically",
+      "d": "Data is compressed during transit"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This policy affects in-transit encryption, not at-rest.",
+      "b": "Correct. When enforced, only NFS clients using TLS encryption can connect; plain NFS connections are rejected.",
+      "c": "Incorrect. Key rotation is a KMS feature, not related to in-transit enforcement.",
+      "d": "Incorrect. This ensures encryption, not compression."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has 50 TiB in EFS Standard with Bursting Throughput. What is their baseline throughput?",
+    "opts": {
+      "a": "2,500 MiB/s",
+      "b": "5,000 MiB/s",
+      "c": "500 MiB/s",
+      "d": "1,000 MiB/s"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Baseline = 50 MiB/s per TiB × 50 TiB = 2,500 MiB/s.",
+      "b": "Incorrect. 5,000 MiB/s would be the burst throughput (100 × 50).",
+      "c": "Incorrect. 500 MiB/s would be baseline for 10 TiB.",
+      "d": "Incorrect. 1,000 MiB/s would be baseline for 20 TiB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which EFS feature allows you to create a point-in-time snapshot of your file system?",
+    "opts": {
+      "a": "EFS Snapshots (native)",
+      "b": "AWS Backup",
+      "c": "EFS Replication",
+      "d": "EFS versioning"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EFS does not have a native snapshot feature like EBS.",
+      "b": "Correct. AWS Backup is used to create point-in-time backups (recovery points) of EFS file systems.",
+      "c": "Incorrect. Replication maintains a copy, not point-in-time snapshots.",
+      "d": "Incorrect. EFS does not have versioning like S3."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the recovery point objective (RPO) for AWS Backup with EFS?",
+    "opts": {
+      "a": "Based on backup schedule (can be as frequent as every 1 hour)",
+      "b": "Always 24 hours",
+      "c": "Real-time (0 RPO)",
+      "d": "15 minutes fixed"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Backup RPO depends on your backup frequency schedule, which can be set as frequently as every hour.",
+      "b": "Incorrect. You can schedule backups more frequently than every 24 hours.",
+      "c": "Incorrect. AWS Backup is periodic, not real-time.",
+      "d": "Incorrect. 15 minutes is the RPO for EFS Replication, not AWS Backup."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does AWS DataSync transfer data to EFS?",
+    "opts": {
+      "a": "Through S3 as an intermediary",
+      "b": "Directly over a network connection using a DataSync agent",
+      "c": "Using physical devices shipped to AWS",
+      "d": "Through CloudFront CDN"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DataSync transfers directly to EFS without S3 intermediary.",
+      "b": "Correct. DataSync uses a software agent deployed on-premises that transfers data directly to EFS over Direct Connect or internet.",
+      "c": "Incorrect. Physical devices are used by Snowball, not DataSync.",
+      "d": "Incorrect. CloudFront is a CDN, not a data transfer service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum transfer speed that AWS DataSync can achieve?",
+    "opts": {
+      "a": "1 Gbps",
+      "b": "Up to 10 Gbps per task",
+      "c": "100 Mbps",
+      "d": "5 Gbps"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DataSync can achieve higher speeds than 1 Gbps.",
+      "b": "Correct. AWS DataSync can transfer data at speeds up to 10 Gbps per task.",
+      "c": "Incorrect. 100 Mbps is far below DataSync capabilities.",
+      "d": "Incorrect. DataSync can exceed 5 Gbps."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company accidentally deleted files from their EFS file system. They have AWS Backup enabled with daily backups. How can they recover?",
+    "opts": {
+      "a": "Restore from the latest recovery point to a new EFS file system",
+      "b": "Use EFS undelete feature",
+      "c": "Restore individual files from S3 versioning",
+      "d": "Data cannot be recovered"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. You can restore from an AWS Backup recovery point to a new EFS file system, then copy needed files back.",
+      "b": "Incorrect. EFS does not have a native undelete feature.",
+      "c": "Incorrect. EFS backups are stored in AWS Backup vault, not S3 with versioning.",
+      "d": "Incorrect. Data can be recovered from AWS Backup recovery points."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Can you restore a single file from an AWS Backup recovery point of an EFS file system?",
+    "opts": {
+      "a": "No, you must restore the entire file system",
+      "b": "Yes, you can perform an item-level restore of individual files or directories",
+      "c": "Only directories, not individual files",
+      "d": "Only files under 5 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS Backup supports item-level restores for EFS.",
+      "b": "Correct. AWS Backup supports item-level recovery, allowing you to restore specific files or directories from EFS backups.",
+      "c": "Incorrect. Both files and directories can be restored individually.",
+      "d": "Incorrect. There is no 5 GB limit on item-level restore."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following correctly describes the pricing difference between EFS Standard and EFS One Zone?",
+    "opts": {
+      "a": "One Zone is 25% cheaper",
+      "b": "One Zone is 47% cheaper than Standard",
+      "c": "They cost the same",
+      "d": "Standard is cheaper than One Zone"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The savings are greater than 25%.",
+      "b": "Correct. EFS One Zone storage is approximately 47% less expensive than EFS Standard.",
+      "c": "Incorrect. One Zone is significantly cheaper due to single-AZ storage.",
+      "d": "Incorrect. Standard costs more because it stores data across multiple AZs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the total number of EFS storage classes available?",
+    "opts": {
+      "a": "2 (Standard and IA)",
+      "b": "4 (Standard, Standard-IA, One Zone, One Zone-IA)",
+      "c": "6",
+      "d": "3 (Standard, IA, Archive)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There are more than 2 storage classes when including One Zone variants.",
+      "b": "Correct. EFS has 4 storage classes: Standard, Standard-IA, One Zone, and One Zone-IA.",
+      "c": "Incorrect. There are 4 storage classes (EFS Archive was added later as a 5th, but traditionally 4).",
+      "d": "Incorrect. There are 4 main storage classes, not 3."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company is evaluating costs. They have 10 TiB in EFS Standard ($0.30/GB/month) and 40 TiB in EFS Standard-IA ($0.025/GB/month). What is their approximate monthly storage cost?",
+    "opts": {
+      "a": "$3,072 + $1,024 = $4,096",
+      "b": "$3,072 + $10,240 = $13,312",
+      "c": "$1,024 + $3,072 = $4,096",
+      "d": "$30,720 + $10,240 = $40,960"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Standard: 10 TiB ≈ 10,240 GB × $0.30 = $3,072. IA: 40 TiB ≈ 40,960 GB × $0.025 = $1,024. Total ≈ $4,096.",
+      "b": "Incorrect. IA cost calculation is wrong.",
+      "c": "Incorrect. The Standard and IA cost values are swapped.",
+      "d": "Incorrect. These calculations don't match the given pricing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the EFS Archive storage class designed for?",
+    "opts": {
+      "a": "Frequently accessed data that needs highest performance",
+      "b": "Data accessed a few times a year or less, with up to 50% savings over EFS IA",
+      "c": "Real-time streaming data",
+      "d": "Data that needs sub-millisecond access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Archive is for rarely accessed data.",
+      "b": "Correct. EFS Archive is designed for data accessed a few times per year or less, offering significant savings over IA.",
+      "c": "Incorrect. Streaming data needs low latency, not archive storage.",
+      "d": "Incorrect. Archive has higher first-byte latency than Standard or IA."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service can monitor EFS API calls for auditing and compliance?",
+    "opts": {
+      "a": "Amazon CloudWatch",
+      "b": "AWS CloudTrail",
+      "c": "Amazon GuardDuty",
+      "d": "AWS Inspector"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch monitors performance metrics, not API calls.",
+      "b": "Correct. AWS CloudTrail logs all EFS API calls for auditing, compliance, and governance.",
+      "c": "Incorrect. GuardDuty is for threat detection, not API auditing.",
+      "d": "Incorrect. Inspector is for vulnerability scanning."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An EFS file system is configured with Provisioned Throughput of 256 MiB/s but the file system only has 100 GiB of data. What is the additional throughput cost?",
+    "opts": {
+      "a": "No additional cost; it's included in storage pricing",
+      "b": "You pay for the provisioned throughput above the baseline (256 MiB/s minus ~5 MiB/s baseline) at $6 per MiB/s/month",
+      "c": "You only pay for actual throughput consumed",
+      "d": "Provisioned throughput is free for the first year"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Provisioned throughput has an additional monthly charge.",
+      "b": "Correct. You pay ~$6/month per MiB/s for throughput provisioned above the baseline throughput your storage would provide in Bursting mode.",
+      "c": "Incorrect. In Provisioned mode, you pay for what you provision, regardless of usage.",
+      "d": "Incorrect. There is no free tier for provisioned throughput."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between EFS and FSx for NetApp ONTAP in terms of protocol support?",
+    "opts": {
+      "a": "Both only support NFS",
+      "b": "EFS supports NFS only; FSx for NetApp ONTAP supports NFS, SMB, and iSCSI",
+      "c": "EFS supports SMB; FSx for NetApp ONTAP supports NFS only",
+      "d": "Both support NFS and SMB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. FSx for NetApp ONTAP supports multiple protocols.",
+      "b": "Correct. EFS is NFS-only (Linux). FSx for NetApp ONTAP is multi-protocol supporting NFS, SMB, and iSCSI.",
+      "c": "Incorrect. EFS uses NFS, not SMB.",
+      "d": "Incorrect. EFS only supports NFS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which scenario would require you to choose FSx for Windows File Server instead of EFS?",
+    "opts": {
+      "a": "Linux-based web servers needing shared storage",
+      "b": "Windows-based application requiring SMB protocol, Active Directory integration, and DFS namespaces",
+      "c": "Lambda functions needing persistent storage",
+      "d": "Highly parallel Linux HPC workloads"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Linux workloads should use EFS.",
+      "b": "Correct. FSx for Windows provides SMB, AD integration, DFS namespaces, and Windows NTFS features that EFS cannot provide.",
+      "c": "Incorrect. Lambda uses EFS for persistent storage.",
+      "d": "Incorrect. Linux HPC workloads would use FSx for Lustre."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when you delete a mount target from an EFS file system?",
+    "opts": {
+      "a": "All data associated with that AZ is deleted",
+      "b": "EC2 instances in that AZ can no longer access the file system through that mount target, but data is preserved",
+      "c": "The entire file system is deleted",
+      "d": "A new mount target is automatically created"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Data is stored at the file system level, not tied to a specific mount target.",
+      "b": "Correct. Deleting a mount target removes the access point in that AZ, but all data remains intact in the file system.",
+      "c": "Incorrect. Deleting a mount target does not delete the file system.",
+      "d": "Incorrect. Mount targets are not recreated automatically."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs to ensure that their EFS file system complies with specific regulatory requirements. Which feature helps enforce that root access is disabled?",
+    "opts": {
+      "a": "EFS Access Points with a specific UID/GID enforcement",
+      "b": "EFS file system policy denying root access",
+      "c": "Both A and B",
+      "d": "Security groups"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. While access points can enforce UID/GID, file system policies also help.",
+      "b": "Incorrect. While file system policies can deny root access, access points complement this.",
+      "c": "Correct. Both EFS Access Points (enforce non-root UID/GID) and file system policies (deny root access) work together for compliance.",
+      "d": "Incorrect. Security groups control network access, not root user permissions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the Network File System version used by Amazon EFS for encryption in transit?",
+    "opts": {
+      "a": "NFSv3 with SSL",
+      "b": "NFSv4.1 with TLS 1.2",
+      "c": "NFSv4.0 with IPSec",
+      "d": "NFSv2 with TLS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EFS uses NFSv4, not v3.",
+      "b": "Correct. EFS uses NFSv4.1 protocol and TLS 1.2 for encryption in transit via the EFS mount helper.",
+      "c": "Incorrect. EFS uses TLS, not IPSec for in-transit encryption.",
+      "d": "Incorrect. NFSv2 is outdated and not used by EFS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does EFS handle the scenario where a file system grows beyond available burst credits?",
+    "opts": {
+      "a": "The file system becomes read-only",
+      "b": "Throughput is throttled to the baseline rate until credits are replenished",
+      "c": "AWS automatically provisions additional throughput at extra cost",
+      "d": "The file system becomes unavailable"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The file system remains read-write.",
+      "b": "Correct. When burst credits are depleted, throughput drops to baseline (50 MiB/s per TiB) until credits accumulate again.",
+      "c": "Incorrect. AWS does not automatically change to provisioned mode.",
+      "d": "Incorrect. The file system remains available, just at reduced throughput."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following EFS metrics in CloudWatch indicates the percentage of permitted throughput being used?",
+    "opts": {
+      "a": "TotalIOBytes",
+      "b": "PercentIOLimit",
+      "c": "BurstCreditBalance",
+      "d": "MeteredIOBytes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. TotalIOBytes shows absolute throughput bytes, not percentage.",
+      "b": "Correct. PercentIOLimit shows how close the file system is to reaching General Purpose mode I/O limits.",
+      "c": "Incorrect. BurstCreditBalance shows remaining burst credits.",
+      "d": "Incorrect. MeteredIOBytes shows metered I/O for billing purposes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to use EFS across AWS accounts within the same organization. Is this possible?",
+    "opts": {
+      "a": "No, EFS is strictly single-account",
+      "b": "Yes, by using VPC Peering or Transit Gateway between accounts and configuring appropriate mount target security groups",
+      "c": "Only by replicating the file system to each account",
+      "d": "Only with AWS RAM (Resource Access Manager)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cross-account access is possible.",
+      "b": "Correct. EFS can be accessed cross-account using VPC Peering or Transit Gateway with proper security group and IAM configuration.",
+      "c": "Incorrect. You don't need to replicate; direct cross-account mounting is possible.",
+      "d": "Incorrect. While RAM can share some resources, EFS cross-account access is done via network connectivity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum Provisioned Throughput value you can configure for a single EFS file system without requesting a limit increase?",
+    "opts": {
+      "a": "256 MiB/s",
+      "b": "512 MiB/s",
+      "c": "1,024 MiB/s (1 GiB/s)",
+      "d": "3,072 MiB/s (3 GiB/s)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can provision higher than 256 MiB/s.",
+      "b": "Incorrect. You can provision higher than 512 MiB/s.",
+      "c": "Correct. The default maximum for Provisioned Throughput is 1 GiB/s (1,024 MiB/s). Higher requires a limit increase request.",
+      "d": "Incorrect. 3 GiB/s is the Elastic mode write throughput maximum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When using EFS with Auto Scaling groups, what is the recommended approach for mounting?",
+    "opts": {
+      "a": "Manually mount EFS on each new instance after launch",
+      "b": "Use user data scripts or /etc/fstab with the _netdev option to automatically mount at boot",
+      "c": "Create a new EFS file system for each instance",
+      "d": "Use EBS volumes instead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual mounting doesn't scale with Auto Scaling.",
+      "b": "Correct. Using user data scripts or /etc/fstab with _netdev ensures EFS is automatically mounted when new instances launch in the ASG.",
+      "c": "Incorrect. All instances should share the same EFS file system.",
+      "d": "Incorrect. EBS volumes are not shared; EFS is the correct choice for shared storage with ASG."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does the _netdev mount option do when added to /etc/fstab for EFS?",
+    "opts": {
+      "a": "Enables encryption in transit",
+      "b": "Ensures the file system is only mounted after the network is available",
+      "c": "Limits network bandwidth usage",
+      "d": "Creates a network namespace for the mount"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. TLS option enables encryption, not _netdev.",
+      "b": "Correct. _netdev tells the system to wait for network availability before attempting to mount the file system at boot.",
+      "c": "Incorrect. _netdev doesn't limit bandwidth.",
+      "d": "Incorrect. _netdev doesn't create network namespaces."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is NOT a valid EFS CloudWatch metric?",
+    "opts": {
+      "a": "DataWriteIOBytes",
+      "b": "DataReadIOBytes",
+      "c": "StorageBytes",
+      "d": "DiskQueueDepth"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. DataWriteIOBytes is a valid EFS metric.",
+      "b": "Incorrect. DataReadIOBytes is a valid EFS metric.",
+      "c": "Incorrect. StorageBytes is a valid EFS metric showing total bytes stored.",
+      "d": "Correct. DiskQueueDepth is an EBS metric, not an EFS metric."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has an EFS file system that needs to support both General Purpose workloads now and may need Max I/O in the future. Can they switch performance modes?",
+    "opts": {
+      "a": "Yes, you can switch performance modes at any time without downtime",
+      "b": "No, performance mode cannot be changed after file system creation",
+      "c": "Yes, but it requires a 24-hour maintenance window",
+      "d": "Yes, but only from Max I/O to General Purpose"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Performance mode is set at creation time.",
+      "b": "Correct. EFS performance mode (General Purpose or Max I/O) is set at creation and cannot be changed afterward. You must create a new file system.",
+      "c": "Incorrect. It simply cannot be changed.",
+      "d": "Incorrect. Neither direction of change is possible after creation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Can you change the throughput mode of an EFS file system after creation?",
+    "opts": {
+      "a": "No, throughput mode is fixed at creation",
+      "b": "Yes, you can switch between Bursting, Provisioned, and Elastic modes",
+      "c": "Only from Bursting to Provisioned",
+      "d": "Yes, but only once every 24 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Unlike performance mode, throughput mode CAN be changed.",
+      "b": "Correct. You can change the throughput mode between Bursting, Provisioned, and Elastic after file system creation (with some limits on frequency).",
+      "c": "Incorrect. You can switch in any direction.",
+      "d": "Incorrect. The limit is that you can decrease provisioned throughput once every 24 hours, but mode switching is more flexible."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the effect of enabling EFS Intelligent-Tiering with both transition-to-IA and transition-to-Standard lifecycle policies?",
+    "opts": {
+      "a": "Files only move to IA, never back",
+      "b": "Files move to IA when not accessed for the configured period, and move back to Standard when accessed again",
+      "c": "Files are duplicated in both tiers",
+      "d": "The policies cancel each other out"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. With both policies enabled, files can move in both directions.",
+      "b": "Correct. With both lifecycle policies, files automatically move to IA when not accessed (after configured days) and back to Standard upon next access.",
+      "c": "Incorrect. Files exist in only one storage class at a time.",
+      "d": "Incorrect. The policies complement each other for optimal cost-performance."
+    }
+  }
+]

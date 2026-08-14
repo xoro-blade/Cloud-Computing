@@ -1,0 +1,444 @@
+[
+  {
+    "type": "number-based",
+    "q": "How many IP addresses does AWS reserve in each subnet?",
+    "opts": {
+      "a": "3",
+      "b": "4",
+      "c": "5",
+      "d": "6"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AWS reserves more than 3 IPs per subnet.",
+      "b": "Incorrect. AWS reserves 5, not 4 IPs per subnet.",
+      "c": "Correct! AWS reserves 5 IPs: .0 (Network), .1 (VPC Router), .2 (DNS), .3 (Future use), .255 (Broadcast).",
+      "d": "Incorrect. AWS reserves exactly 5 IPs, not 6."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum CIDR block size (most IPs) you can assign to a VPC?",
+    "opts": {
+      "a": "/8",
+      "b": "/16",
+      "c": "/20",
+      "d": "/24"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. /8 provides 16 million IPs but AWS limits VPC CIDR to /16 maximum.",
+      "b": "Correct! /16 is the largest CIDR block for a VPC, providing 65,536 IP addresses.",
+      "c": "Incorrect. /20 gives only 4,096 IPs. The maximum is /16.",
+      "d": "Incorrect. /24 gives only 256 IPs. The maximum is /16."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum CIDR block size (fewest IPs) you can assign to a VPC?",
+    "opts": {
+      "a": "/28",
+      "b": "/30",
+      "c": "/32",
+      "d": "/24"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! /28 is the smallest CIDR block for a VPC, providing 16 IP addresses (11 usable after 5 reserved).",
+      "b": "Incorrect. /30 gives only 4 IPs which is smaller than the minimum allowed /28.",
+      "c": "Incorrect. /32 is a single IP and is not valid for a VPC CIDR.",
+      "d": "Incorrect. /24 gives 256 IPs which is larger than the minimum /28."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many Internet Gateways can be attached to a single VPC?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "Unlimited"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! Exactly 1 IGW per VPC. This is a strict 1:1 relationship and a hard limit that cannot be increased.",
+      "b": "Incorrect. Only 1 IGW can be attached to a VPC.",
+      "c": "Incorrect. The limit is 1, not 5.",
+      "d": "Incorrect. It's strictly limited to 1 IGW per VPC."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default limit of VPCs per AWS Region?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default limit is 5 VPCs per region.",
+      "b": "Correct! Default limit is 5 VPCs per region. This is a soft limit that can be increased by contacting AWS support.",
+      "c": "Incorrect. Default is 5, not 10.",
+      "d": "Incorrect. Default is 5, not 20."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many Elastic IPs (EIPs) are allowed per AWS Region by default?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default limit is 5 EIPs per region.",
+      "b": "Correct! Default limit is 5 Elastic IPs per region. This can be increased by requesting a limit increase.",
+      "c": "Incorrect. Default is 5, not 10.",
+      "d": "Incorrect. Default is 5, not 20."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "A NAT Gateway starts at what bandwidth and can scale to what maximum?",
+    "opts": {
+      "a": "1 Gbps, scales to 10 Gbps",
+      "b": "5 Gbps, scales to 45 Gbps",
+      "c": "5 Gbps, scales to 100 Gbps",
+      "d": "10 Gbps, scales to 100 Gbps"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. NAT Gateway starts at 5 Gbps, not 1 Gbps.",
+      "b": "Incorrect. Maximum is 100 Gbps, not 45 Gbps.",
+      "c": "Correct! NAT Gateway starts at 5 Gbps and automatically scales up to 100 Gbps.",
+      "d": "Incorrect. NAT Gateway starts at 5 Gbps, not 10 Gbps."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many IPSec tunnels does a single Site-to-Site VPN connection create?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "4",
+      "d": "8"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A VPN connection creates 2 tunnels for redundancy.",
+      "b": "Correct! Each VPN connection creates 2 IPSec tunnels, each terminating in a different AZ for high availability.",
+      "c": "Incorrect. Only 2 tunnels per VPN connection.",
+      "d": "Incorrect. Only 2 tunnels per VPN connection."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum bandwidth per tunnel in a Site-to-Site VPN connection?",
+    "opts": {
+      "a": "500 Mbps",
+      "b": "1 Gbps",
+      "c": "1.25 Gbps",
+      "d": "2.5 Gbps"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is 1.25 Gbps per tunnel.",
+      "b": "Incorrect. The limit is 1.25 Gbps, not 1 Gbps.",
+      "c": "Correct! Each VPN tunnel supports up to 1.25 Gbps. With 2 tunnels and ECMP on TGW, you get 2.5 Gbps per VPN connection.",
+      "d": "Incorrect. 2.5 Gbps is the total for both tunnels combined (with ECMP on TGW), not per tunnel."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default maximum number of VPC Peering connections per VPC?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "100",
+      "d": "125"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Default limit is 50, not 25.",
+      "b": "Correct! Default limit is 50 peering connections per VPC. Can be increased to a maximum of 125 (hard limit).",
+      "c": "Incorrect. Default is 50. Maximum after increase is 125.",
+      "d": "Incorrect. 125 is the hard maximum after requesting increase. Default is 50."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many Security Groups can be associated with a single ENI by default?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "16"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is 5 SGs per ENI.",
+      "b": "Correct! Default is 5 Security Groups per ENI. Can be increased up to 16 (hard limit).",
+      "c": "Incorrect. Default is 5, not 10.",
+      "d": "Incorrect. 16 is the hard maximum after increase. Default is 5."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many inbound rules can a single Security Group have by default?",
+    "opts": {
+      "a": "30",
+      "b": "50",
+      "c": "60",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default is 60 inbound rules per SG.",
+      "b": "Incorrect. Default is 60, not 50.",
+      "c": "Correct! Default is 60 inbound rules + 60 outbound rules per Security Group. This can be increased.",
+      "d": "Incorrect. Default is 60, not 100."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many NAT Gateways are allowed per Availability Zone by default?",
+    "opts": {
+      "a": "1",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default limit is 5 per AZ.",
+      "b": "Incorrect. Default is 5, not 3.",
+      "c": "Correct! Default limit is 5 NAT Gateways per AZ. This can be increased.",
+      "d": "Incorrect. Default is 5, not 10."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of subnets allowed per VPC by default?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default limit is 200 subnets per VPC.",
+      "b": "Incorrect. Default is 200, not 100.",
+      "c": "Correct! Default limit is 200 subnets per VPC. This can be increased.",
+      "d": "Incorrect. Default is 200, not 500."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "A /24 subnet provides how many USABLE IP addresses?",
+    "opts": {
+      "a": "251",
+      "b": "254",
+      "c": "256",
+      "d": "250"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! /24 = 256 total IPs - 5 AWS reserved = 251 usable IP addresses.",
+      "b": "Incorrect. Traditional networking reserves 2 (network + broadcast), but AWS reserves 5.",
+      "c": "Incorrect. 256 is the total, not usable. Subtract 5 reserved = 251.",
+      "d": "Incorrect. The answer is 251, not 250."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many secondary CIDR blocks can you add to a VPC?",
+    "opts": {
+      "a": "2",
+      "b": "4",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can add up to 4 secondary CIDRs.",
+      "b": "Correct! You can add up to 4 secondary CIDR blocks (total of 5 CIDRs including primary). This can be increased.",
+      "c": "Incorrect. 5 is the total (1 primary + 4 secondary).",
+      "d": "Incorrect. Maximum secondary CIDRs is 4."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Transit Gateway attachments?",
+    "opts": {
+      "a": "1,000",
+      "b": "3,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. TGW supports up to 5,000 attachments.",
+      "b": "Incorrect. The limit is 5,000.",
+      "c": "Correct! Transit Gateway supports up to 5,000 attachments (VPCs, VPNs, DX, peered TGWs combined).",
+      "d": "Incorrect. Maximum is 5,000, not 10,000."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum bandwidth per VPC attachment to Transit Gateway?",
+    "opts": {
+      "a": "10 Gbps",
+      "b": "25 Gbps",
+      "c": "50 Gbps",
+      "d": "100 Gbps"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. TGW VPC attachment bandwidth is 50 Gbps per AZ.",
+      "b": "Incorrect. The limit is 50 Gbps.",
+      "c": "Correct! Transit Gateway supports up to 50 Gbps per VPC attachment per AZ (burst).",
+      "d": "Incorrect. 100 Gbps is NAT Gateway maximum, not TGW attachment."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many route tables can a VPC have by default?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default is 200 route tables per VPC.",
+      "b": "Incorrect. Default is 200, not 100.",
+      "c": "Correct! Default limit is 200 route tables per VPC. This can be increased.",
+      "d": "Incorrect. Default is 200, not 500."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many routes per route table are allowed by default?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 20 is the default NACL rules limit, not routes.",
+      "b": "Correct! Default limit is 50 routes per route table. Can be increased up to 1,000.",
+      "c": "Incorrect. Default is 50, not 100.",
+      "d": "Incorrect. Default is 50, not 200."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "With Transit Gateway and ECMP, how much total VPN bandwidth do you get with 3 VPN connections?",
+    "opts": {
+      "a": "3.75 Gbps",
+      "b": "5 Gbps",
+      "c": "7.5 Gbps",
+      "d": "10 Gbps"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3 VPN connections × 2 tunnels × 1.25 Gbps = 7.5 Gbps.",
+      "b": "Incorrect. 5 Gbps would be 2 VPN connections with ECMP.",
+      "c": "Correct! 3 VPN connections = 6 tunnels. With ECMP: 6 × 1.25 Gbps = 7.5 Gbps total aggregate bandwidth.",
+      "d": "Incorrect. 10 Gbps would require 4 VPN connections (8 tunnels × 1.25 = 10)."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default number of NACL rules allowed per direction (inbound or outbound)?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "40",
+      "d": "60"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Default is 20 rules per direction.",
+      "b": "Correct! Default limit is 20 rules per direction (20 inbound + 20 outbound). Can be increased up to 40 per direction.",
+      "c": "Incorrect. 40 is the maximum after increase, not default.",
+      "d": "Incorrect. 60 is the Security Group rules limit, not NACL."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Security Groups allowed per VPC by default?",
+    "opts": {
+      "a": "500",
+      "b": "1,000",
+      "c": "2,500",
+      "d": "5,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default is 2,500 per VPC.",
+      "b": "Incorrect. Default is 2,500.",
+      "c": "Correct! Default limit is 2,500 Security Groups per VPC. Can be increased up to 10,000.",
+      "d": "Incorrect. 5,000 is the ENIs per region limit, not SGs per VPC."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "A company needs at least 500 usable IP addresses in a subnet. What is the minimum CIDR?",
+    "opts": {
+      "a": "/24 (256 total)",
+      "b": "/23 (512 total)",
+      "c": "/22 (1024 total)",
+      "d": "/21 (2048 total)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. /24 = 256 - 5 = 251 usable. Not enough for 500.",
+      "b": "Correct! /23 = 512 - 5 = 507 usable IPs. This is the minimum CIDR that provides 500+ usable addresses.",
+      "c": "Incorrect. /22 works (1019 usable) but is larger than needed. /23 is the minimum.",
+      "d": "Incorrect. /21 is much larger than needed."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "A company has a /24 subnet with 200 running instances. They need to launch 60 more instances in the same subnet. Will this succeed?",
+    "opts": {
+      "a": "Yes, /24 provides 256 IPs which is enough for 260 instances",
+      "b": "No, /24 only provides 251 usable IPs; 200 + 60 = 260 exceeds capacity",
+      "c": "Yes, if you disable the reserved IPs",
+      "d": "No, because the maximum instances per subnet is 200"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 256 total - 5 reserved = 251 usable. Additional IPs may be used by ENIs, ELBs, etc.",
+      "b": "Correct! /24 subnet = 256 - 5 reserved = 251 usable IPs. With 200 instances already running, adding 60 more (260+ total) exceeds the 251 usable. Launch will fail with InsufficientFreeAddressesInSubnet.",
+      "c": "Incorrect. Reserved IPs cannot be disabled. They are always reserved by AWS.",
+      "d": "Incorrect. There's no 200-instance limit per subnet. The limit is IP availability."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "A company uses a NAT Gateway in AZ-a. Instances in AZ-b route through this NAT Gateway. Monthly traffic is 10 TB. How much extra are they paying for cross-AZ data transfer?",
+    "opts": {
+      "a": "$100/month",
+      "b": "$450/month",
+      "c": "$200/month",
+      "d": "$50/month"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Cross-AZ is $0.01/GB each direction = $0.02/GB total.",
+      "b": "Incorrect. $450 would be NAT processing cost, not cross-AZ cost.",
+      "c": "Correct! Cross-AZ: $0.01/GB × 10,000 GB × 2 directions = $200/month. Fix: Deploy NAT GW in each AZ so traffic stays within the same AZ.",
+      "d": "Incorrect. The calculation is $0.01 × 10,000 × 2 = $200."
+    }
+  }
+]

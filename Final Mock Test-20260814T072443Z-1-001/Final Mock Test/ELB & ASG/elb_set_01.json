@@ -1,0 +1,1073 @@
+[
+  {
+    "type": "mcq",
+    "q": "What does ELB stand for in AWS?",
+    "opts": {
+      "a": "Elastic Load Balancer",
+      "b": "Enhanced Load Balancer",
+      "c": "Elastic Load Broadcasting",
+      "d": "External Load Balancer"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ELB stands for Elastic Load Balancer, a managed AWS service that distributes incoming traffic across multiple targets.",
+      "b": "Incorrect. There is no AWS service called Enhanced Load Balancer.",
+      "c": "Incorrect. Broadcasting is not a term used in this context.",
+      "d": "Incorrect. ELB is not called External Load Balancer."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does ASG stand for in AWS?",
+    "opts": {
+      "a": "Auto Security Group",
+      "b": "Auto Scaling Group",
+      "c": "Automated Server Group",
+      "d": "Application Scaling Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security Groups are a separate concept in AWS.",
+      "b": "Correct. ASG stands for Auto Scaling Group, which automatically adjusts the number of EC2 instances based on demand.",
+      "c": "Incorrect. There is no service called Automated Server Group.",
+      "d": "Incorrect. There is no service called Application Scaling Gateway."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many types of Elastic Load Balancers does AWS currently offer?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "4",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AWS offers more than 2 types of load balancers.",
+      "b": "Incorrect. AWS offers 4 types: CLB, ALB, NLB, and GWLB.",
+      "c": "Correct. AWS offers 4 types: Classic Load Balancer (CLB), Application Load Balancer (ALB), Network Load Balancer (NLB), and Gateway Load Balancer (GWLB).",
+      "d": "Incorrect. AWS currently offers 4 types of load balancers."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "At which OSI layer does the Application Load Balancer (ALB) operate?",
+    "opts": {
+      "a": "Layer 3",
+      "b": "Layer 4",
+      "c": "Layer 5",
+      "d": "Layer 7"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Layer 3 is the Network layer, which deals with IP routing.",
+      "b": "Incorrect. Layer 4 is the Transport layer where NLB operates.",
+      "c": "Incorrect. Layer 5 is the Session layer.",
+      "d": "Correct. ALB operates at Layer 7 (Application layer) and can route based on HTTP/HTTPS content like URL paths, headers, and query strings."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "At which OSI layer does the Network Load Balancer (NLB) operate?",
+    "opts": {
+      "a": "Layer 4",
+      "b": "Layer 5",
+      "c": "Layer 6",
+      "d": "Layer 7"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. NLB operates at Layer 4 (Transport layer) and handles TCP, UDP, and TLS traffic.",
+      "b": "Incorrect. Layer 5 is the Session layer.",
+      "c": "Incorrect. Layer 6 is the Presentation layer.",
+      "d": "Incorrect. Layer 7 is where ALB operates."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the primary purpose of an Elastic Load Balancer?",
+    "opts": {
+      "a": "To store data in the cloud",
+      "b": "To distribute incoming traffic across multiple targets",
+      "c": "To encrypt data at rest",
+      "d": "To monitor application logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Data storage is handled by services like S3 and EBS.",
+      "b": "Correct. ELB distributes incoming application traffic across multiple targets such as EC2 instances, containers, and IP addresses.",
+      "c": "Incorrect. Encryption at rest is handled by KMS and other encryption services.",
+      "d": "Incorrect. Monitoring logs is handled by CloudWatch and CloudTrail."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which load balancer type is best suited for handling millions of requests per second with ultra-low latency?",
+    "opts": {
+      "a": "Classic Load Balancer (CLB)",
+      "b": "Application Load Balancer (ALB)",
+      "c": "Network Load Balancer (NLB)",
+      "d": "Gateway Load Balancer (GWLB)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. CLB is a legacy load balancer and not optimized for ultra-low latency at scale.",
+      "b": "Incorrect. ALB operates at Layer 7 and has higher latency compared to NLB.",
+      "c": "Correct. NLB is designed to handle millions of requests per second with ultra-low latency (~100ms vs ~400ms for ALB).",
+      "d": "Incorrect. GWLB is designed for third-party virtual appliances, not for ultra-low latency traffic distribution."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ELB type supports static IP addresses and Elastic IP addresses?",
+    "opts": {
+      "a": "Application Load Balancer (ALB)",
+      "b": "Classic Load Balancer (CLB)",
+      "c": "Network Load Balancer (NLB)",
+      "d": "Gateway Load Balancer (GWLB)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. ALB does not support static or Elastic IP addresses directly.",
+      "b": "Incorrect. CLB does not support Elastic IP addresses.",
+      "c": "Correct. NLB provides a static IP per Availability Zone and supports assigning Elastic IP addresses.",
+      "d": "Incorrect. GWLB does not provide static IP addresses for client-facing use."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum number of Availability Zones recommended for an ELB?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "4"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Using only 1 AZ does not provide high availability.",
+      "b": "Correct. AWS recommends at least 2 Availability Zones for high availability when configuring an ELB.",
+      "c": "Incorrect. While 3 AZs provide even better availability, the minimum recommendation is 2.",
+      "d": "Incorrect. 4 AZs are not the minimum requirement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of health checks in ELB?",
+    "opts": {
+      "a": "To encrypt traffic between targets",
+      "b": "To verify that registered targets are healthy and can receive traffic",
+      "c": "To scale instances up or down",
+      "d": "To log all incoming requests"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption is handled by SSL/TLS certificates, not health checks.",
+      "b": "Correct. Health checks verify the health of registered targets and ELB only sends traffic to healthy targets.",
+      "c": "Incorrect. Scaling is handled by Auto Scaling Groups.",
+      "d": "Incorrect. Logging is handled by access logs, not health checks."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "On which port does a default HTTP health check operate?",
+    "opts": {
+      "a": "Port 22",
+      "b": "Port 443",
+      "c": "Port 80",
+      "d": "Port 3389"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Port 22 is used for SSH.",
+      "b": "Incorrect. Port 443 is used for HTTPS.",
+      "c": "Correct. The default HTTP health check operates on port 80.",
+      "d": "Incorrect. Port 3389 is used for RDP (Windows Remote Desktop)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What HTTP status code indicates a healthy target in an ELB health check?",
+    "opts": {
+      "a": "100",
+      "b": "200",
+      "c": "302",
+      "d": "500"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 100 is a Continue status code.",
+      "b": "Correct. HTTP 200 (OK) indicates the target is healthy.",
+      "c": "Incorrect. 302 is a redirect status code and does not indicate a healthy target by default.",
+      "d": "Incorrect. 500 is an Internal Server Error and indicates an unhealthy target."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature of ALB allows routing based on URL path?",
+    "opts": {
+      "a": "Sticky sessions",
+      "b": "Path-based routing",
+      "c": "Cross-zone load balancing",
+      "d": "Connection draining"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Sticky sessions bind a user's session to a specific target.",
+      "b": "Correct. Path-based routing allows ALB to route requests to different target groups based on the URL path (e.g., /api, /images).",
+      "c": "Incorrect. Cross-zone load balancing distributes traffic evenly across all registered targets in all enabled AZs.",
+      "d": "Incorrect. Connection draining allows in-flight requests to complete before deregistering a target."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default health check interval for ELB?",
+    "opts": {
+      "a": "10 seconds",
+      "b": "30 seconds",
+      "c": "60 seconds",
+      "d": "5 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 10 seconds is not the default interval.",
+      "b": "Correct. The default health check interval is 30 seconds.",
+      "c": "Incorrect. 60 seconds is not the default interval.",
+      "d": "Incorrect. 5 seconds is not the default interval for standard health checks."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service does Auto Scaling Group use to launch new instances?",
+    "opts": {
+      "a": "CloudFormation",
+      "b": "Launch Template / Launch Configuration",
+      "c": "AWS Lambda",
+      "d": "AWS Elastic Beanstalk"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudFormation is an infrastructure-as-code service.",
+      "b": "Correct. ASG uses Launch Templates (or the older Launch Configurations) to define how new EC2 instances should be launched.",
+      "c": "Incorrect. Lambda is a serverless compute service.",
+      "d": "Incorrect. Elastic Beanstalk is a PaaS service that may use ASG internally but is not what ASG directly uses."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What are the three main capacity settings in an Auto Scaling Group?",
+    "opts": {
+      "a": "Minimum, Maximum, Desired",
+      "b": "Start, Stop, Restart",
+      "c": "Small, Medium, Large",
+      "d": "Low, Medium, High"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ASG has three key capacity settings: Minimum (minimum number of instances), Maximum (maximum number of instances), and Desired (target number of instances).",
+      "b": "Incorrect. These are actions, not capacity settings.",
+      "c": "Incorrect. These are not ASG capacity parameters.",
+      "d": "Incorrect. These are not ASG capacity parameters."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "If an ASG has minimum capacity of 2, desired capacity of 4, and maximum capacity of 6, how many instances will be running under normal conditions?",
+    "opts": {
+      "a": "2",
+      "b": "4",
+      "c": "6",
+      "d": "3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 2 is the minimum, but under normal conditions ASG maintains the desired capacity.",
+      "b": "Correct. Under normal conditions, ASG maintains the desired capacity which is 4 instances.",
+      "c": "Incorrect. 6 is the maximum capacity and is only reached during peak demand.",
+      "d": "Incorrect. 3 is not any of the configured capacity values."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which scaling policy adjusts capacity based on a target metric value (e.g., keep average CPU at 50%)?",
+    "opts": {
+      "a": "Simple Scaling",
+      "b": "Step Scaling",
+      "c": "Target Tracking Scaling",
+      "d": "Scheduled Scaling"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Simple scaling adds or removes a fixed number of instances based on a single alarm.",
+      "b": "Incorrect. Step scaling adjusts capacity in steps based on the size of the alarm breach.",
+      "c": "Correct. Target Tracking Scaling automatically adjusts the number of instances to keep a specified metric at a target value (e.g., maintain average CPU utilization at 50%).",
+      "d": "Incorrect. Scheduled scaling adjusts capacity based on a predefined schedule."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which scaling policy allows you to scale based on a known traffic pattern at specific times?",
+    "opts": {
+      "a": "Target Tracking Scaling",
+      "b": "Predictive Scaling",
+      "c": "Scheduled Scaling",
+      "d": "Simple Scaling"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Target tracking adjusts based on real-time metrics, not predefined times.",
+      "b": "Incorrect. Predictive scaling uses machine learning to forecast demand, not fixed schedules.",
+      "c": "Correct. Scheduled scaling allows you to set specific times to scale in or out based on known traffic patterns (e.g., scale up at 9 AM on weekdays).",
+      "d": "Incorrect. Simple scaling reacts to CloudWatch alarms, not schedules."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default cooldown period for an Auto Scaling Group?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "120 seconds",
+      "c": "300 seconds",
+      "d": "600 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 60 seconds is not the default cooldown period.",
+      "b": "Incorrect. 120 seconds is not the default cooldown period.",
+      "c": "Correct. The default cooldown period is 300 seconds (5 minutes), during which ASG will not launch or terminate additional instances.",
+      "d": "Incorrect. 600 seconds is not the default cooldown period."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is Cross-Zone Load Balancing?",
+    "opts": {
+      "a": "Balancing traffic between different AWS regions",
+      "b": "Distributing traffic evenly across all registered targets in all enabled Availability Zones",
+      "c": "Routing traffic to the nearest AWS edge location",
+      "d": "Encrypting traffic between zones"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cross-zone load balancing works within a single region across AZs.",
+      "b": "Correct. Cross-zone load balancing ensures that traffic is distributed evenly across all registered instances in all enabled Availability Zones, regardless of which AZ the traffic enters.",
+      "c": "Incorrect. Edge location routing is done by CloudFront.",
+      "d": "Incorrect. Encryption between zones is not what cross-zone load balancing does."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Is Cross-Zone Load Balancing enabled by default for Application Load Balancer?",
+    "opts": {
+      "a": "Yes, and it cannot be disabled",
+      "b": "Yes, and it can be disabled at the target group level",
+      "c": "No, it must be enabled manually",
+      "d": "No, ALB does not support cross-zone load balancing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It is enabled by default but can be disabled at the target group level.",
+      "b": "Correct. For ALB, cross-zone load balancing is enabled by default and can be disabled at the target group level. There are no charges for inter-AZ data with ALB.",
+      "c": "Incorrect. It is enabled by default for ALB.",
+      "d": "Incorrect. ALB supports cross-zone load balancing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Is Cross-Zone Load Balancing enabled by default for Network Load Balancer?",
+    "opts": {
+      "a": "Yes, always enabled",
+      "b": "Yes, but can be disabled",
+      "c": "No, it is disabled by default",
+      "d": "NLB does not support cross-zone load balancing"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. It is not enabled by default for NLB.",
+      "b": "Incorrect. It is disabled by default for NLB.",
+      "c": "Correct. For NLB, cross-zone load balancing is disabled by default. If enabled, you pay charges for inter-AZ data transfer.",
+      "d": "Incorrect. NLB does support cross-zone load balancing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of sticky sessions (session affinity) in ELB?",
+    "opts": {
+      "a": "To encrypt session data",
+      "b": "To ensure a client is always directed to the same target instance",
+      "c": "To distribute traffic equally across all targets",
+      "d": "To terminate idle connections"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption is handled by SSL/TLS, not sticky sessions.",
+      "b": "Correct. Sticky sessions ensure that requests from the same client are always routed to the same target instance using cookies.",
+      "c": "Incorrect. Equal distribution is the default behavior without sticky sessions.",
+      "d": "Incorrect. Idle connection termination is related to idle timeout settings."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which types of cookies are used for sticky sessions in ALB?",
+    "opts": {
+      "a": "Session cookies and persistent cookies",
+      "b": "Application-based cookies and duration-based cookies",
+      "c": "First-party cookies and third-party cookies",
+      "d": "Secure cookies and non-secure cookies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are general cookie types, not specific to ALB sticky sessions.",
+      "b": "Correct. ALB supports application-based cookies (custom or generated by the load balancer with name AWSALBAPP) and duration-based cookies (generated by the load balancer with name AWSALB).",
+      "c": "Incorrect. These are general web cookie classifications.",
+      "d": "Incorrect. These are not the types used for ALB sticky sessions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is Connection Draining (called Deregistration Delay in ALB/NLB)?",
+    "opts": {
+      "a": "Immediately terminating all connections when an instance is removed",
+      "b": "Allowing in-flight requests to complete while the instance is being deregistered",
+      "c": "Draining the CPU resources of an instance",
+      "d": "Removing all data from an instance before termination"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Connection draining does the opposite — it allows existing connections to finish.",
+      "b": "Correct. Connection Draining / Deregistration Delay gives in-flight requests time to complete on instances that are being deregistered or marked unhealthy.",
+      "c": "Incorrect. CPU draining is not a concept in this context.",
+      "d": "Incorrect. Data removal is not related to connection draining."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default deregistration delay (connection draining) value?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "300 seconds",
+      "c": "600 seconds",
+      "d": "3600 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 60 seconds is not the default value.",
+      "b": "Correct. The default deregistration delay is 300 seconds (5 minutes). It can be set between 0 and 3600 seconds.",
+      "c": "Incorrect. 600 seconds is not the default value.",
+      "d": "Incorrect. 3600 seconds is the maximum value, not the default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is SSL/TLS termination in the context of ELB?",
+    "opts": {
+      "a": "Blocking all encrypted traffic",
+      "b": "Decrypting incoming SSL/TLS traffic at the load balancer before forwarding to targets",
+      "c": "Creating SSL certificates",
+      "d": "Terminating instances that use SSL"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SSL termination does not block encrypted traffic.",
+      "b": "Correct. SSL/TLS termination means the ELB decrypts the incoming encrypted traffic and forwards it to backend targets, reducing the encryption burden on instances.",
+      "c": "Incorrect. Creating certificates is done via AWS Certificate Manager (ACM).",
+      "d": "Incorrect. This has nothing to do with terminating instances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is used to manage SSL/TLS certificates for ELB?",
+    "opts": {
+      "a": "AWS KMS",
+      "b": "AWS Certificate Manager (ACM)",
+      "c": "AWS Secrets Manager",
+      "d": "AWS IAM"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS manages encryption keys, not SSL certificates.",
+      "b": "Correct. AWS Certificate Manager (ACM) is used to provision, manage, and deploy SSL/TLS certificates for use with ELB.",
+      "c": "Incorrect. Secrets Manager stores secrets like database credentials, not SSL certificates for ELB.",
+      "d": "Incorrect. IAM manages user permissions, not SSL certificates (though IAM can store certificates, ACM is the recommended service)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is Server Name Indication (SNI)?",
+    "opts": {
+      "a": "A protocol that assigns static IPs to servers",
+      "b": "A method that allows multiple SSL certificates on one load balancer to serve multiple domains",
+      "c": "A DNS routing policy",
+      "d": "A type of health check"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SNI does not assign static IPs.",
+      "b": "Correct. SNI allows a load balancer to host multiple TLS certificates for different domains. The client indicates the hostname during the TLS handshake, and the server selects the appropriate certificate.",
+      "c": "Incorrect. DNS routing is managed by Route 53.",
+      "d": "Incorrect. SNI is not a health check mechanism."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ELB types support Server Name Indication (SNI)?",
+    "opts": {
+      "a": "CLB only",
+      "b": "ALB and NLB only",
+      "c": "All ELB types",
+      "d": "NLB and GWLB only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CLB does not support SNI — it only supports one SSL certificate.",
+      "b": "Correct. Only ALB and NLB support SNI, allowing multiple SSL certificates for multiple domains.",
+      "c": "Incorrect. CLB does not support SNI.",
+      "d": "Incorrect. GWLB does not handle SSL termination."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What protocol does the Gateway Load Balancer (GWLB) use?",
+    "opts": {
+      "a": "HTTP",
+      "b": "TCP",
+      "c": "GENEVE on port 6081",
+      "d": "UDP on port 443"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. GWLB does not use HTTP.",
+      "b": "Incorrect. While GWLB operates at Layer 3, it uses the GENEVE protocol.",
+      "c": "Correct. GWLB uses the GENEVE protocol on port 6081 to encapsulate and forward traffic to third-party virtual appliances.",
+      "d": "Incorrect. GWLB does not use UDP on port 443."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "At which OSI layer does the Gateway Load Balancer (GWLB) operate?",
+    "opts": {
+      "a": "Layer 3 (Network layer)",
+      "b": "Layer 4 (Transport layer)",
+      "c": "Layer 5 (Session layer)",
+      "d": "Layer 7 (Application layer)"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. GWLB operates at Layer 3 (Network layer) and deals with IP packets.",
+      "b": "Incorrect. Layer 4 is where NLB operates.",
+      "c": "Incorrect. No ELB operates at Layer 5.",
+      "d": "Incorrect. Layer 7 is where ALB operates."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the primary use case for Gateway Load Balancer?",
+    "opts": {
+      "a": "Distributing web traffic to EC2 instances",
+      "b": "Deploying, scaling, and managing third-party virtual appliances (firewalls, IDS/IPS)",
+      "c": "Caching static content",
+      "d": "Managing DNS records"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Web traffic distribution is handled by ALB or NLB.",
+      "b": "Correct. GWLB is used to deploy, scale, and manage third-party network virtual appliances like firewalls, intrusion detection/prevention systems.",
+      "c": "Incorrect. Caching is handled by CloudFront or ElastiCache.",
+      "d": "Incorrect. DNS management is handled by Route 53."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ALB feature allows routing based on the hostname in the request?",
+    "opts": {
+      "a": "Path-based routing",
+      "b": "Host-based routing",
+      "c": "IP-based routing",
+      "d": "Geo-based routing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Path-based routing routes based on URL path, not hostname.",
+      "b": "Correct. Host-based routing allows ALB to route requests to different target groups based on the Host header (e.g., api.example.com vs www.example.com).",
+      "c": "Incorrect. IP-based routing is not a standard ALB routing rule type name.",
+      "d": "Incorrect. Geo-based routing is a Route 53 feature."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a Target Group in the context of ALB/NLB?",
+    "opts": {
+      "a": "A security group for the load balancer",
+      "b": "A logical grouping of targets (EC2 instances, IP addresses, Lambda functions) that receive traffic",
+      "c": "A group of IAM users",
+      "d": "A collection of S3 buckets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security groups and target groups are different concepts.",
+      "b": "Correct. A target group is a logical grouping of targets (such as EC2 instances, IP addresses, or Lambda functions) where the load balancer routes requests.",
+      "c": "Incorrect. IAM user groups are unrelated to ELB.",
+      "d": "Incorrect. S3 buckets are not part of ELB target groups."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following can be a target in an ALB target group?",
+    "opts": {
+      "a": "EC2 instances, IP addresses, Lambda functions, and other ALBs",
+      "b": "Only EC2 instances",
+      "c": "Only IP addresses",
+      "d": "Only Lambda functions"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ALB target groups can contain EC2 instances, IP addresses (including private IPs), Lambda functions, and even other ALBs.",
+      "b": "Incorrect. ALB supports more target types than just EC2 instances.",
+      "c": "Incorrect. IP addresses are one of several supported target types.",
+      "d": "Incorrect. Lambda functions are one of several supported target types."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when all instances in a target group are unhealthy?",
+    "opts": {
+      "a": "ELB stops all traffic completely",
+      "b": "ELB routes traffic to all targets regardless of health status (fail-open)",
+      "c": "ELB automatically creates new instances",
+      "d": "ELB redirects to a different region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ELB does not completely stop traffic in this scenario.",
+      "b": "Correct. When all targets in a target group are unhealthy, ELB will route requests to all targets (fail-open behavior) as a last resort.",
+      "c": "Incorrect. ELB does not create instances; that is the role of ASG.",
+      "d": "Incorrect. ELB does not redirect to other regions automatically."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the X-Forwarded-For header in ELB?",
+    "opts": {
+      "a": "To encrypt the request",
+      "b": "To identify the original client IP address when traffic passes through the load balancer",
+      "c": "To specify the target instance",
+      "d": "To set the cookie expiration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. X-Forwarded-For does not encrypt requests.",
+      "b": "Correct. X-Forwarded-For header contains the original client's IP address since the backend instance sees the ELB's private IP as the source.",
+      "c": "Incorrect. Target selection is done by the load balancer's routing algorithm.",
+      "d": "Incorrect. Cookie expiration is unrelated to X-Forwarded-For."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which header does ALB add to indicate the protocol (HTTP or HTTPS) used by the client?",
+    "opts": {
+      "a": "X-Forwarded-For",
+      "b": "X-Forwarded-Proto",
+      "c": "X-Forwarded-Port",
+      "d": "X-Forwarded-Host"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. X-Forwarded-For contains the client's IP address.",
+      "b": "Correct. X-Forwarded-Proto indicates the protocol (HTTP or HTTPS) that the client used to connect to the load balancer.",
+      "c": "Incorrect. X-Forwarded-Port indicates the port used by the client.",
+      "d": "Incorrect. X-Forwarded-Host is not a standard ALB header."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default idle timeout for an Application Load Balancer?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "60 seconds",
+      "c": "120 seconds",
+      "d": "300 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 30 seconds is not the default idle timeout for ALB.",
+      "b": "Correct. The default idle timeout for ALB is 60 seconds. If no data is sent over a connection for 60 seconds, the load balancer closes the connection.",
+      "c": "Incorrect. 120 seconds is not the default.",
+      "d": "Incorrect. 300 seconds is not the default idle timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which type of Auto Scaling policy uses machine learning to forecast future traffic and pre-scales?",
+    "opts": {
+      "a": "Target Tracking Scaling",
+      "b": "Step Scaling",
+      "c": "Predictive Scaling",
+      "d": "Scheduled Scaling"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Target tracking adjusts based on current metric values.",
+      "b": "Incorrect. Step scaling responds to alarm breaches with predefined steps.",
+      "c": "Correct. Predictive Scaling uses machine learning to analyze historical traffic patterns and forecast future demand, proactively scaling ahead of anticipated load.",
+      "d": "Incorrect. Scheduled scaling uses fixed time-based rules."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What metric is commonly used for Target Tracking Scaling in ASG?",
+    "opts": {
+      "a": "Disk read operations",
+      "b": "Average CPU Utilization",
+      "c": "Number of S3 objects",
+      "d": "Number of IAM users"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Disk read operations are not commonly used for target tracking scaling.",
+      "b": "Correct. Average CPU Utilization (e.g., keep at 40-50%) is one of the most commonly used metrics for target tracking scaling. Other common metrics include Average Network In/Out and ALBRequestCountPerTarget.",
+      "c": "Incorrect. S3 object count is unrelated to ASG scaling.",
+      "d": "Incorrect. IAM user count is unrelated to ASG scaling."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum value you can set for ASG minimum capacity?",
+    "opts": {
+      "a": "0",
+      "b": "1",
+      "c": "2",
+      "d": "3"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The minimum capacity of an ASG can be set to 0, meaning no instances run when there is no demand.",
+      "b": "Incorrect. While 1 is a common setting, the minimum can be 0.",
+      "c": "Incorrect. 2 is not the minimum value you can set.",
+      "d": "Incorrect. 3 is not the minimum value you can set."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which scaling type in ASG adds or removes instances in response to CloudWatch alarms?",
+    "opts": {
+      "a": "Manual Scaling",
+      "b": "Dynamic Scaling",
+      "c": "Scheduled Scaling",
+      "d": "Predictive Scaling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual scaling requires human intervention to change capacity.",
+      "b": "Correct. Dynamic Scaling (which includes Simple, Step, and Target Tracking policies) reacts to CloudWatch alarms to automatically add or remove instances.",
+      "c": "Incorrect. Scheduled scaling acts on predefined schedules, not alarms.",
+      "d": "Incorrect. Predictive scaling uses ML forecasts, not alarms."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default termination policy for Auto Scaling Groups?",
+    "opts": {
+      "a": "Terminate the newest instance",
+      "b": "Terminate the instance with the oldest launch configuration/template, then the one closest to the next billing hour",
+      "c": "Terminate randomly",
+      "d": "Terminate the instance with highest CPU usage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ASG does not terminate the newest instance by default.",
+      "b": "Correct. The default termination policy first selects the AZ with the most instances, then terminates the instance with the oldest launch configuration/template, and among those, the one closest to the next billing hour.",
+      "c": "Incorrect. ASG does not terminate randomly by default.",
+      "d": "Incorrect. CPU usage is not used in the default termination policy."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the warm-up period in the context of ASG scaling?",
+    "opts": {
+      "a": "Time for an instance to boot the operating system",
+      "b": "Time allowed for a newly launched instance to stabilize before it contributes to CloudWatch metrics",
+      "c": "Time before the ASG is deleted",
+      "d": "Time for DNS propagation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. OS boot time is part of it, but warm-up includes application readiness.",
+      "b": "Correct. The warm-up period is the time a newly launched instance needs before its metrics are included in scaling calculations, preventing premature scaling actions.",
+      "c": "Incorrect. ASG deletion is unrelated to warm-up.",
+      "d": "Incorrect. DNS propagation is unrelated to instance warm-up."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ELB type was the first to be offered by AWS and is now considered legacy?",
+    "opts": {
+      "a": "Application Load Balancer",
+      "b": "Network Load Balancer",
+      "c": "Classic Load Balancer",
+      "d": "Gateway Load Balancer"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. ALB was introduced in 2016.",
+      "b": "Incorrect. NLB was introduced in 2017.",
+      "c": "Correct. Classic Load Balancer (CLB) was the first ELB offered by AWS (2009) and is now considered legacy. AWS recommends using ALB or NLB instead.",
+      "d": "Incorrect. GWLB was introduced in 2020."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of listeners you can create per Application Load Balancer?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 10.",
+      "b": "Incorrect. The limit is higher than 25.",
+      "c": "Correct. You can configure up to 50 listeners per Application Load Balancer.",
+      "d": "Incorrect. The default limit is 50 listeners per ALB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many rules can be configured per ALB listener (excluding the default rule)?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10 is too few.",
+      "b": "Incorrect. 50 is not the correct limit.",
+      "c": "Correct. You can configure up to 100 rules per ALB listener (excluding the default rule).",
+      "d": "Incorrect. 200 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of target groups per ALB?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10 is not the correct limit.",
+      "b": "Incorrect. 50 is not the correct limit.",
+      "c": "Correct. By default, you can have up to 100 target groups per Application Load Balancer.",
+      "d": "Incorrect. 200 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature allows ALB to authenticate users before forwarding requests to targets?",
+    "opts": {
+      "a": "WAF integration",
+      "b": "OIDC (OpenID Connect) authentication",
+      "c": "Security Groups",
+      "d": "NACLs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. WAF protects against web exploits but doesn't authenticate users.",
+      "b": "Correct. ALB supports native authentication via OIDC and integration with Amazon Cognito, allowing user authentication before traffic reaches your application.",
+      "c": "Incorrect. Security groups filter traffic but don't authenticate users.",
+      "d": "Incorrect. NACLs are network-level access controls, not authentication mechanisms."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the NLB latency approximately?",
+    "opts": {
+      "a": "~400 milliseconds",
+      "b": "~100 milliseconds",
+      "c": "~1 second",
+      "d": "~10 milliseconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ~400ms is the approximate latency for ALB.",
+      "b": "Correct. NLB provides ultra-low latency of approximately 100 milliseconds (compared to ~400ms for ALB).",
+      "c": "Incorrect. 1 second would be very high latency for a load balancer.",
+      "d": "Incorrect. 10ms is lower than NLB's typical latency."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the ALB latency approximately?",
+    "opts": {
+      "a": "~50 milliseconds",
+      "b": "~100 milliseconds",
+      "c": "~400 milliseconds",
+      "d": "~1000 milliseconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50ms is lower than ALB's typical latency.",
+      "b": "Incorrect. ~100ms is the approximate NLB latency.",
+      "c": "Correct. ALB has approximately 400 milliseconds of latency due to Layer 7 processing.",
+      "d": "Incorrect. 1000ms would be excessively high."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service can be integrated with ALB to protect against common web exploits?",
+    "opts": {
+      "a": "AWS Shield only",
+      "b": "AWS WAF (Web Application Firewall)",
+      "c": "Amazon GuardDuty",
+      "d": "Amazon Inspector"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS Shield protects against DDoS attacks but WAF is specifically for web exploits.",
+      "b": "Correct. AWS WAF can be directly attached to an ALB to protect against common web exploits like SQL injection, XSS, and to create custom rules.",
+      "c": "Incorrect. GuardDuty is a threat detection service, not a web firewall.",
+      "d": "Incorrect. Inspector is a vulnerability assessment service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens during a scale-out event in an Auto Scaling Group?",
+    "opts": {
+      "a": "Instances are terminated",
+      "b": "New instances are launched to increase capacity",
+      "c": "Instance types are upgraded",
+      "d": "EBS volumes are expanded"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Terminating instances is a scale-in event.",
+      "b": "Correct. Scale-out means adding (launching) new instances to handle increased demand.",
+      "c": "Incorrect. Instance type changes are not part of scale-out in ASG.",
+      "d": "Incorrect. EBS volume expansion is unrelated to ASG scaling."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens during a scale-in event in an Auto Scaling Group?",
+    "opts": {
+      "a": "New instances are added",
+      "b": "Instances are terminated to decrease capacity",
+      "c": "Instances are stopped but not terminated",
+      "d": "Instances are moved to another region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Adding instances is a scale-out event.",
+      "b": "Correct. Scale-in means terminating instances to reduce capacity when demand decreases.",
+      "c": "Incorrect. ASG terminates instances during scale-in, not just stops them.",
+      "d": "Incorrect. ASG does not move instances between regions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is NOT a valid target type for an NLB target group?",
+    "opts": {
+      "a": "EC2 instances",
+      "b": "IP addresses",
+      "c": "Lambda functions",
+      "d": "Application Load Balancer (ALB)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. EC2 instances are valid NLB targets.",
+      "b": "Incorrect. IP addresses are valid NLB targets.",
+      "c": "Correct. Lambda functions are NOT supported as targets for NLB. Lambda functions are supported only by ALB.",
+      "d": "Incorrect. ALB can be a target behind NLB (to get static IPs with ALB features)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of Availability Zones an ELB can span within a region?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "All AZs in the region",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. ELB can span more than 2 AZs.",
+      "b": "Incorrect. ELB is not limited to 3 AZs.",
+      "c": "Correct. An ELB can span all Availability Zones within a region (the number varies by region).",
+      "d": "Incorrect. The limit depends on the number of AZs in the region, which can be more or less than 5."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum deregistration delay (connection draining) that can be configured?",
+    "opts": {
+      "a": "300 seconds",
+      "b": "600 seconds",
+      "c": "1800 seconds",
+      "d": "3600 seconds"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 300 seconds is the default, not the maximum.",
+      "b": "Incorrect. 600 seconds is not the maximum.",
+      "c": "Incorrect. 1800 seconds is not the maximum.",
+      "d": "Correct. The maximum deregistration delay can be set up to 3600 seconds (1 hour). The range is 0-3600 seconds."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudWatch metric for ASG tracks the number of instances that the ASG is managing?",
+    "opts": {
+      "a": "GroupDesiredCapacity",
+      "b": "GroupInServiceInstances",
+      "c": "GroupTotalInstances",
+      "d": "GroupPendingInstances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GroupDesiredCapacity shows the desired number of instances, not the actual number in service.",
+      "b": "Correct. GroupInServiceInstances represents the number of instances currently running and in service within the ASG.",
+      "c": "Incorrect. GroupTotalInstances includes all instances in all states.",
+      "d": "Incorrect. GroupPendingInstances shows instances being launched but not yet in service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a Launch Template in AWS?",
+    "opts": {
+      "a": "A template for creating S3 buckets",
+      "b": "A configuration template that specifies instance configuration (AMI, instance type, key pair, security groups, etc.) for ASG",
+      "c": "A template for creating VPCs",
+      "d": "A CloudFormation stack template"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 bucket creation does not use launch templates.",
+      "b": "Correct. A Launch Template defines the configuration for EC2 instances including AMI ID, instance type, key pair, security groups, user data, and more. ASG uses it to launch new instances.",
+      "c": "Incorrect. VPC creation does not use launch templates.",
+      "d": "Incorrect. CloudFormation uses its own template format (JSON/YAML)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between Launch Templates and Launch Configurations?",
+    "opts": {
+      "a": "They are exactly the same thing",
+      "b": "Launch Templates support versioning and are newer; Launch Configurations are legacy and do not support versioning",
+      "c": "Launch Configurations support versioning but Launch Templates do not",
+      "d": "Launch Configurations work with ALB but Launch Templates do not"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They have different capabilities.",
+      "b": "Correct. Launch Templates are newer, support versioning, can use mixed instance types/purchase options, and are recommended by AWS. Launch Configurations are legacy and cannot be modified after creation.",
+      "c": "Incorrect. It is the opposite — Launch Templates support versioning.",
+      "d": "Incorrect. Both can work with any ELB type."
+    }
+  }
+]

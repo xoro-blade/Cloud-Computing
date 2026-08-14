@@ -1,0 +1,1379 @@
+[
+  {
+    "type": "factual",
+    "q": "Which AWS service is used to manage access to AWS resources using users, groups, roles, and policies?",
+    "opts": {
+      "a": "Amazon Cognito",
+      "b": "AWS IAM (Identity and Access Management)",
+      "c": "AWS Organizations",
+      "d": "AWS Directory Service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cognito is for application user authentication, not AWS resource management.",
+      "b": "Correct. AWS IAM enables you to manage access to AWS services and resources using users, groups, roles, and policies.",
+      "c": "Incorrect. Organizations manages multiple AWS accounts.",
+      "d": "Incorrect. Directory Service provides managed Microsoft Active Directory."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of IAM users you can create in a single AWS account?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 1,000.",
+      "b": "Correct. You can create a maximum of 5,000 IAM users per AWS account. For more users, use temporary credentials or IAM Identity Center.",
+      "c": "Incorrect. 10,000 exceeds the limit.",
+      "d": "Incorrect. There is a fixed limit of 5,000."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of IAM groups per AWS account?",
+    "opts": {
+      "a": "100",
+      "b": "300",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Correct. You can create a maximum of 300 IAM groups per AWS account.",
+      "c": "Incorrect. 500 exceeds the limit.",
+      "d": "Incorrect. 1,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of IAM groups a single IAM user can belong to?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "15",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A user can belong to more than 5 groups.",
+      "b": "Correct. A single IAM user can be a member of up to 10 IAM groups.",
+      "c": "Incorrect. 15 exceeds the limit.",
+      "d": "Incorrect. 20 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of managed policies that can be attached to an IAM user, group, or role?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "15",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 5.",
+      "b": "Correct. Up to 10 managed policies can be attached to a single IAM user, group, or role.",
+      "c": "Incorrect. 15 exceeds the limit.",
+      "d": "Incorrect. 20 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of access keys per IAM user?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "5"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 1 access key is allowed.",
+      "b": "Correct. Each IAM user can have a maximum of 2 access keys, which facilitates key rotation.",
+      "c": "Incorrect. 3 exceeds the limit.",
+      "d": "Incorrect. 5 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum size of an IAM managed policy?",
+    "opts": {
+      "a": "2,048 characters",
+      "b": "6,144 characters",
+      "c": "10,240 characters",
+      "d": "16,384 characters"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 2,048 characters is the limit for inline policies on users.",
+      "b": "Correct. The maximum size of a managed policy is 6,144 characters (not including whitespace).",
+      "c": "Incorrect. 10,240 characters is the limit for role trust policies.",
+      "d": "Incorrect. 16,384 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides DDoS protection at no additional cost for all AWS customers?",
+    "opts": {
+      "a": "AWS WAF",
+      "b": "AWS Shield Standard",
+      "c": "AWS Shield Advanced",
+      "d": "AWS Firewall Manager"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. WAF is a web application firewall with separate charges.",
+      "b": "Correct. AWS Shield Standard provides automatic protection against common DDoS attacks at no additional cost for all AWS customers.",
+      "c": "Incorrect. Shield Advanced costs $3,000/month.",
+      "d": "Incorrect. Firewall Manager has separate charges."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the monthly cost of AWS Shield Advanced?",
+    "opts": {
+      "a": "$1,000/month",
+      "b": "$3,000/month",
+      "c": "$5,000/month",
+      "d": "$10,000/month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. $1,000 is below the cost.",
+      "b": "Correct. AWS Shield Advanced costs $3,000 per month per organization (with a 1-year subscription commitment), plus data transfer fees.",
+      "c": "Incorrect. $5,000 exceeds the monthly cost.",
+      "d": "Incorrect. $10,000 exceeds the monthly cost."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What additional benefit does AWS Shield Advanced provide that Shield Standard does not?",
+    "opts": {
+      "a": "Basic DDoS protection",
+      "b": "24/7 access to AWS DDoS Response Team (DRT), cost protection, and advanced monitoring",
+      "c": "Free SSL certificates",
+      "d": "Automatic patching"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Basic DDoS protection is Shield Standard.",
+      "b": "Correct. Shield Advanced provides 24/7 DRT access, cost protection against scaling charges from DDoS attacks, advanced real-time monitoring, and WAF integration at no extra cost.",
+      "c": "Incorrect. SSL certificates are from ACM.",
+      "d": "Incorrect. Patching is not a Shield feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides a web application firewall to protect against common web exploits?",
+    "opts": {
+      "a": "AWS Shield",
+      "b": "AWS WAF",
+      "c": "Amazon GuardDuty",
+      "d": "AWS Network Firewall"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Shield is for DDoS protection.",
+      "b": "Correct. AWS WAF (Web Application Firewall) protects web applications from common exploits like SQL injection, XSS, and other OWASP top 10 vulnerabilities.",
+      "c": "Incorrect. GuardDuty is a threat detection service.",
+      "d": "Incorrect. Network Firewall is for VPC-level network protection."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which services can AWS WAF be deployed on?",
+    "opts": {
+      "a": "EC2 instances only",
+      "b": "CloudFront, ALB, API Gateway, AppSync, Cognito, App Runner, and Verified Access",
+      "c": "S3 buckets only",
+      "d": "Route 53 and VPC"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. WAF cannot be deployed directly on EC2.",
+      "b": "Correct. AWS WAF can be deployed on CloudFront, Application Load Balancer, API Gateway, AppSync, Amazon Cognito, App Runner, and AWS Verified Access.",
+      "c": "Incorrect. WAF is not deployed on S3.",
+      "d": "Incorrect. Route 53 and VPC are not WAF targets."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service manages encryption keys and allows you to create, control, and rotate cryptographic keys?",
+    "opts": {
+      "a": "AWS Secrets Manager",
+      "b": "AWS KMS (Key Management Service)",
+      "c": "AWS Certificate Manager",
+      "d": "AWS CloudHSM"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Secrets Manager stores secrets, not encryption keys.",
+      "b": "Correct. AWS KMS is a managed service for creating, managing, and controlling cryptographic keys used to encrypt data.",
+      "c": "Incorrect. ACM manages SSL/TLS certificates.",
+      "d": "Incorrect. CloudHSM provides dedicated hardware security modules."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the automatic rotation period for AWS KMS customer managed keys (symmetric)?",
+    "opts": {
+      "a": "30 days",
+      "b": "90 days",
+      "c": "365 days (1 year)",
+      "d": "730 days (2 years)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 30 days is not the automatic rotation period.",
+      "b": "Incorrect. 90 days is not the automatic rotation period.",
+      "c": "Correct. When enabled, AWS KMS automatically rotates KMS keys every 365 days (1 year). You can also configure rotation between 90 and 2,560 days.",
+      "d": "Incorrect. 730 days is not the default rotation period."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the configurable range for KMS automatic key rotation?",
+    "opts": {
+      "a": "30 to 365 days",
+      "b": "90 to 2,560 days",
+      "c": "180 to 3,650 days",
+      "d": "365 to 7,300 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 30 days is below the minimum.",
+      "b": "Correct. As of 2024, KMS allows configuring automatic key rotation between 90 and 2,560 days (approximately 7 years).",
+      "c": "Incorrect. This is not the correct range.",
+      "d": "Incorrect. This is not the correct range."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between AWS KMS and AWS CloudHSM?",
+    "opts": {
+      "a": "KMS is more expensive than CloudHSM",
+      "b": "KMS is a shared multi-tenant managed service; CloudHSM provides dedicated single-tenant hardware security modules",
+      "c": "CloudHSM only works with S3",
+      "d": "KMS cannot encrypt data"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudHSM is typically more expensive.",
+      "b": "Correct. KMS is a multi-tenant managed service, while CloudHSM provides dedicated FIPS 140-2 Level 3 validated HSMs in your VPC for exclusive use.",
+      "c": "Incorrect. CloudHSM works with many services.",
+      "d": "Incorrect. KMS encrypts data across many AWS services."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What FIPS validation level does AWS CloudHSM meet?",
+    "opts": {
+      "a": "FIPS 140-2 Level 1",
+      "b": "FIPS 140-2 Level 2",
+      "c": "FIPS 140-2 Level 3",
+      "d": "FIPS 140-2 Level 4"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Level 1 is the lowest validation.",
+      "b": "Incorrect. Level 2 is not the correct level for CloudHSM.",
+      "c": "Correct. AWS CloudHSM uses FIPS 140-2 Level 3 validated hardware security modules.",
+      "d": "Incorrect. Level 4 is the highest and not applicable to CloudHSM."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service continuously monitors AWS accounts for malicious activity and unauthorized behavior using machine learning?",
+    "opts": {
+      "a": "AWS Config",
+      "b": "Amazon GuardDuty",
+      "c": "AWS CloudTrail",
+      "d": "Amazon Inspector"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Config evaluates resource compliance.",
+      "b": "Correct. Amazon GuardDuty is an intelligent threat detection service that continuously monitors for malicious activity and unauthorized behavior using ML, anomaly detection, and integrated threat intelligence.",
+      "c": "Incorrect. CloudTrail logs API calls but doesn't detect threats.",
+      "d": "Incorrect. Inspector scans for software vulnerabilities."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What data sources does Amazon GuardDuty analyze?",
+    "opts": {
+      "a": "Only S3 access logs",
+      "b": "VPC Flow Logs, CloudTrail Management Events, CloudTrail S3 Data Events, DNS Logs, EKS Audit Logs, RDS Login Activity, Lambda Network Activity, and Runtime Monitoring",
+      "c": "Only CloudWatch metrics",
+      "d": "Only IAM access logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GuardDuty analyzes many more data sources.",
+      "b": "Correct. GuardDuty analyzes VPC Flow Logs, CloudTrail events, DNS logs, EKS audit logs, RDS login activity, Lambda network activity, S3 data events, and runtime monitoring.",
+      "c": "Incorrect. CloudWatch metrics are not a GuardDuty source.",
+      "d": "Incorrect. GuardDuty uses multiple data sources."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many days is the Amazon GuardDuty free trial?",
+    "opts": {
+      "a": "7 days",
+      "b": "14 days",
+      "c": "30 days",
+      "d": "90 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The free trial is longer than 7 days.",
+      "b": "Incorrect. The free trial is longer than 14 days.",
+      "c": "Correct. Amazon GuardDuty offers a 30-day free trial for new accounts.",
+      "d": "Incorrect. 90 days exceeds the free trial period."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service scans workloads for software vulnerabilities and unintended network exposure?",
+    "opts": {
+      "a": "Amazon GuardDuty",
+      "b": "Amazon Inspector",
+      "c": "AWS Security Hub",
+      "d": "Amazon Macie"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GuardDuty detects threats, not vulnerabilities.",
+      "b": "Correct. Amazon Inspector automatically scans EC2 instances, container images in ECR, and Lambda functions for software vulnerabilities and unintended network exposure.",
+      "c": "Incorrect. Security Hub aggregates findings.",
+      "d": "Incorrect. Macie discovers sensitive data."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service discovers and protects sensitive data stored in Amazon S3?",
+    "opts": {
+      "a": "Amazon Inspector",
+      "b": "Amazon Macie",
+      "c": "AWS Config",
+      "d": "Amazon GuardDuty"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Inspector scans for vulnerabilities.",
+      "b": "Correct. Amazon Macie uses machine learning and pattern matching to discover, classify, and protect sensitive data (like PII, financial data) in S3.",
+      "c": "Incorrect. Config checks resource compliance.",
+      "d": "Incorrect. GuardDuty detects threats."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides a comprehensive view of security alerts and compliance status across AWS accounts?",
+    "opts": {
+      "a": "Amazon GuardDuty",
+      "b": "AWS Security Hub",
+      "c": "AWS CloudTrail",
+      "d": "Amazon Detective"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GuardDuty is a threat detection service.",
+      "b": "Correct. AWS Security Hub aggregates, organizes, and prioritizes security findings from multiple AWS services (GuardDuty, Inspector, Macie, etc.) and third-party tools into a single dashboard.",
+      "c": "Incorrect. CloudTrail logs API activity.",
+      "d": "Incorrect. Detective investigates security findings."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What finding format does AWS Security Hub use?",
+    "opts": {
+      "a": "JSON Web Token (JWT)",
+      "b": "AWS Security Finding Format (ASFF)",
+      "c": "Common Event Format (CEF)",
+      "d": "STIX/TAXII"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. JWT is for authentication tokens.",
+      "b": "Correct. Security Hub uses the AWS Security Finding Format (ASFF), a standardized format for all security findings.",
+      "c": "Incorrect. CEF is used by SIEM tools.",
+      "d": "Incorrect. STIX/TAXII is for threat intelligence sharing."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service records all API calls made in your AWS account?",
+    "opts": {
+      "a": "AWS Config",
+      "b": "AWS CloudTrail",
+      "c": "Amazon CloudWatch",
+      "d": "AWS Security Hub"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Config tracks resource configuration changes.",
+      "b": "Correct. AWS CloudTrail records API calls and events for your AWS account, providing governance, compliance, and auditing capabilities.",
+      "c": "Incorrect. CloudWatch monitors metrics and logs.",
+      "d": "Incorrect. Security Hub aggregates security findings."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many days of event history does AWS CloudTrail retain by default (without creating a trail)?",
+    "opts": {
+      "a": "30 days",
+      "b": "60 days",
+      "c": "90 days",
+      "d": "365 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default retention is longer than 30 days.",
+      "b": "Incorrect. Default retention is longer than 60 days.",
+      "c": "Correct. CloudTrail retains 90 days of management event history by default in the Event History. For longer retention, create a trail to deliver events to S3.",
+      "d": "Incorrect. 365 days requires a configured trail."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the two types of events that CloudTrail can log?",
+    "opts": {
+      "a": "Read events and Write events",
+      "b": "Management events and Data events",
+      "c": "API events and Console events",
+      "d": "Security events and Compliance events"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Read/Write are subcategories, not the main types.",
+      "b": "Correct. CloudTrail logs Management events (control plane operations like creating/deleting resources) and Data events (data plane operations like S3 object-level operations, Lambda invocations).",
+      "c": "Incorrect. These are not the official CloudTrail event types.",
+      "d": "Incorrect. These are not CloudTrail categories."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service continuously evaluates AWS resource configurations for compliance?",
+    "opts": {
+      "a": "AWS CloudTrail",
+      "b": "AWS Config",
+      "c": "AWS Audit Manager",
+      "d": "AWS Trusted Advisor"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudTrail records API calls.",
+      "b": "Correct. AWS Config continuously monitors and records AWS resource configurations and evaluates them against desired configurations using Config rules.",
+      "c": "Incorrect. Audit Manager automates evidence collection for audits.",
+      "d": "Incorrect. Trusted Advisor provides best practice recommendations."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service stores and automatically rotates database credentials, API keys, and other secrets?",
+    "opts": {
+      "a": "AWS KMS",
+      "b": "AWS Secrets Manager",
+      "c": "AWS Systems Manager Parameter Store",
+      "d": "AWS Certificate Manager"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS manages encryption keys, not secrets.",
+      "b": "Correct. AWS Secrets Manager stores, retrieves, and automatically rotates secrets like database credentials, API keys, and OAuth tokens.",
+      "c": "Incorrect. Parameter Store can store secrets but lacks native automatic rotation.",
+      "d": "Incorrect. ACM manages SSL/TLS certificates."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What minimum rotation period can you configure for AWS Secrets Manager?",
+    "opts": {
+      "a": "1 hour",
+      "b": "1 day",
+      "c": "4 hours",
+      "d": "7 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 hour is below the minimum.",
+      "b": "Incorrect. 1 day is longer than the minimum.",
+      "c": "Correct. AWS Secrets Manager supports automatic rotation with a minimum period of 4 hours and maximum of 365 days.",
+      "d": "Incorrect. 7 days is longer than the minimum."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to detect when secret values are changed in Secrets Manager and automatically refresh application caches. What 2026 feature enables this without complex CloudTrail parsing?",
+    "opts": {
+      "a": "Secrets Manager CloudWatch integration",
+      "b": "Secrets Manager native EventBridge events for secret value changes",
+      "c": "Secrets Manager SNS notifications",
+      "d": "Secrets Manager Lambda triggers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch integration is not the correct mechanism.",
+      "b": "Correct. As of July 2026, Secrets Manager automatically publishes events to EventBridge whenever secret values change, eliminating the need for complex CloudTrail parsing.",
+      "c": "Incorrect. Direct SNS notifications were not the new feature.",
+      "d": "Incorrect. Lambda triggers are not the native mechanism."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides free public SSL/TLS certificates?",
+    "opts": {
+      "a": "AWS KMS",
+      "b": "AWS Certificate Manager (ACM)",
+      "c": "AWS CloudHSM",
+      "d": "AWS Secrets Manager"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS is for encryption keys.",
+      "b": "Correct. AWS Certificate Manager (ACM) provides free public SSL/TLS certificates and handles automatic renewal for certificates used with AWS services like CloudFront and ALB.",
+      "c": "Incorrect. CloudHSM is for hardware security modules.",
+      "d": "Incorrect. Secrets Manager stores secrets."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the validity period of a public certificate issued by AWS Certificate Manager?",
+    "opts": {
+      "a": "90 days",
+      "b": "1 year (395 days maximum)",
+      "c": "13 months",
+      "d": "2 years"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 90 days is too short for ACM public certificates.",
+      "b": "Incorrect. While close, 395 days is not exact.",
+      "c": "Correct. ACM public certificates are valid for 13 months (395 days) and are automatically renewed before expiration.",
+      "d": "Incorrect. 2 years exceeds the validity period."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service helps investigate security findings by analyzing and visualizing data from multiple sources?",
+    "opts": {
+      "a": "Amazon GuardDuty",
+      "b": "Amazon Detective",
+      "c": "AWS Security Hub",
+      "d": "Amazon Macie"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GuardDuty detects threats but doesn't investigate them.",
+      "b": "Correct. Amazon Detective makes it easy to analyze, investigate, and identify the root cause of potential security issues using graph analysis and machine learning.",
+      "c": "Incorrect. Security Hub aggregates findings but doesn't investigate.",
+      "d": "Incorrect. Macie discovers sensitive data."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides access to AWS compliance reports and agreements (like SOC, PCI, ISO)?",
+    "opts": {
+      "a": "AWS Audit Manager",
+      "b": "AWS Artifact",
+      "c": "AWS Config",
+      "d": "AWS Security Hub"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Audit Manager automates evidence collection.",
+      "b": "Correct. AWS Artifact provides on-demand access to AWS security and compliance reports and select online agreements.",
+      "c": "Incorrect. Config evaluates resource configurations.",
+      "d": "Incorrect. Security Hub shows security posture."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides centralized management of firewall rules across accounts and resources?",
+    "opts": {
+      "a": "AWS WAF alone",
+      "b": "AWS Firewall Manager",
+      "c": "AWS Network Firewall",
+      "d": "Security Groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. WAF alone doesn't provide centralized multi-account management.",
+      "b": "Correct. AWS Firewall Manager centrally configures and manages firewall rules across accounts and applications in AWS Organizations (WAF, Shield Advanced, Security Groups, Network Firewall, Route 53 Resolver DNS Firewall).",
+      "c": "Incorrect. Network Firewall protects VPCs but isn't for centralized management.",
+      "d": "Incorrect. Security Groups are per-instance firewalls."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides stateful network-level firewall protection for VPCs?",
+    "opts": {
+      "a": "AWS WAF",
+      "b": "AWS Network Firewall",
+      "c": "Security Groups",
+      "d": "NACLs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. WAF operates at the application layer (Layer 7).",
+      "b": "Correct. AWS Network Firewall is a managed service that provides stateful inspection, intrusion prevention, and web filtering for VPC traffic.",
+      "c": "Incorrect. Security Groups are stateful but limited in inspection capabilities.",
+      "d": "Incorrect. NACLs are stateless and operate at subnet level."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to protect a web application from SQL injection and XSS attacks. Which AWS service should they use?",
+    "opts": {
+      "a": "AWS Shield",
+      "b": "AWS WAF",
+      "c": "AWS Network Firewall",
+      "d": "Amazon GuardDuty"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Shield protects against DDoS, not application-layer attacks.",
+      "b": "Correct. AWS WAF protects against common web exploits including SQL injection and Cross-Site Scripting (XSS) through configurable rules.",
+      "c": "Incorrect. Network Firewall is for network-level protection.",
+      "d": "Incorrect. GuardDuty detects threats but doesn't block them."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to enforce that no S3 bucket can ever be made public across all accounts in their organization. Which feature should they use?",
+    "opts": {
+      "a": "IAM policies on each account",
+      "b": "Service Control Policies (SCPs) in AWS Organizations",
+      "c": "AWS Config rules",
+      "d": "S3 bucket policies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM policies per account don't provide organization-wide enforcement.",
+      "b": "Correct. SCPs in AWS Organizations provide guardrails that restrict what actions are allowed across all accounts, even for root users in member accounts.",
+      "c": "Incorrect. Config rules detect but don't prevent.",
+      "d": "Incorrect. Bucket policies are per-bucket and can be changed."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the successor to AWS Single Sign-On (AWS SSO)?",
+    "opts": {
+      "a": "Amazon Cognito",
+      "b": "AWS IAM Identity Center",
+      "c": "AWS Directory Service",
+      "d": "AWS Federation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cognito is for application user management.",
+      "b": "Correct. AWS IAM Identity Center (formerly AWS SSO) provides centralized access management for multiple AWS accounts and business applications.",
+      "c": "Incorrect. Directory Service provides managed AD.",
+      "d": "Incorrect. AWS Federation is a concept, not a specific service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides fine-grained authorization for custom applications using Cedar policy language?",
+    "opts": {
+      "a": "AWS IAM",
+      "b": "Amazon Verified Permissions",
+      "c": "Amazon Cognito",
+      "d": "AWS IAM Identity Center"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM is for AWS resource access.",
+      "b": "Correct. Amazon Verified Permissions is a fine-grained permissions management service that uses the Cedar policy language for custom application authorization.",
+      "c": "Incorrect. Cognito handles authentication.",
+      "d": "Incorrect. Identity Center is for AWS account access."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which service centralizes security data from AWS and partner sources into a unified data lake?",
+    "opts": {
+      "a": "AWS Security Hub",
+      "b": "Amazon Security Lake",
+      "c": "Amazon S3",
+      "d": "AWS CloudTrail Lake"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security Hub aggregates findings, not raw data.",
+      "b": "Correct. Amazon Security Lake automatically centralizes security data from AWS, partners, and custom sources into a purpose-built data lake using the Open Cybersecurity Schema Framework (OCSF).",
+      "c": "Incorrect. S3 is generic storage, not a security-specific data lake.",
+      "d": "Incorrect. CloudTrail Lake is specifically for CloudTrail data."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What open standard does Amazon Security Lake use for data normalization?",
+    "opts": {
+      "a": "STIX/TAXII",
+      "b": "OCSF (Open Cybersecurity Schema Framework)",
+      "c": "CEF (Common Event Format)",
+      "d": "ASFF (AWS Security Finding Format)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. STIX/TAXII is for threat intelligence sharing.",
+      "b": "Correct. Amazon Security Lake normalizes and combines security data into the OCSF standard, making it easier to analyze across multiple sources.",
+      "c": "Incorrect. CEF is a SIEM format.",
+      "d": "Incorrect. ASFF is Security Hub's format."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which IAM feature analyzes access activity to identify unused permissions and external access?",
+    "opts": {
+      "a": "IAM Policy Simulator",
+      "b": "IAM Access Analyzer",
+      "c": "IAM Credentials Report",
+      "d": "IAM Access Advisor"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Policy Simulator tests policy effects.",
+      "b": "Correct. IAM Access Analyzer identifies resources shared externally, validates policies, and generates least-privilege policies based on access activity.",
+      "c": "Incorrect. Credentials Report lists user credential status.",
+      "d": "Incorrect. Access Advisor shows service last-accessed data."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A security team needs to identify all S3 buckets and IAM roles shared with external accounts. Which service should they use?",
+    "opts": {
+      "a": "Amazon Macie",
+      "b": "IAM Access Analyzer",
+      "c": "AWS Config",
+      "d": "Amazon GuardDuty"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Macie finds sensitive data, not external sharing.",
+      "b": "Correct. IAM Access Analyzer identifies resources (S3 buckets, IAM roles, KMS keys, Lambda functions, SQS queues) that are shared with external entities.",
+      "c": "Incorrect. Config checks compliance, not external sharing specifically.",
+      "d": "Incorrect. GuardDuty detects threats."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What type of MFA device provides the highest level of security for AWS accounts according to AWS?",
+    "opts": {
+      "a": "Virtual MFA (authenticator app)",
+      "b": "FIDO2 security key (hardware)",
+      "c": "SMS-based MFA",
+      "d": "Email-based verification"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Virtual MFA is good but not the highest security.",
+      "b": "Correct. FIDO2 security keys (like YubiKey) provide the strongest phishing-resistant MFA. AWS supports FIDO2/WebAuthn as MFA and passkeys.",
+      "c": "Incorrect. SMS is not supported as MFA for IAM users.",
+      "d": "Incorrect. Email verification is not MFA."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many MFA devices can be assigned to a single IAM user?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "8"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. More than 1 MFA device can be assigned.",
+      "b": "Incorrect. More than 2 can be assigned.",
+      "c": "Incorrect. More than 5 can be assigned.",
+      "d": "Correct. Up to 8 MFA devices can be assigned to a single IAM user, including any combination of virtual MFA and FIDO2 security keys."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the recommended best practice for the AWS root account?",
+    "opts": {
+      "a": "Use it for daily operations",
+      "b": "Enable MFA, do not use for daily tasks, and lock away access keys",
+      "c": "Share it with the team lead",
+      "d": "Delete it after creating IAM users"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Root should not be used for daily operations.",
+      "b": "Correct. AWS recommends enabling MFA on root, not using it for everyday tasks, not creating access keys for root, and using IAM users/roles instead.",
+      "c": "Incorrect. Root credentials should never be shared.",
+      "d": "Incorrect. Root cannot be deleted."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which encryption type in AWS means that AWS manages the encryption/decryption process transparently?",
+    "opts": {
+      "a": "Client-side encryption",
+      "b": "Server-side encryption",
+      "c": "End-to-end encryption",
+      "d": "Application-level encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Client-side means you encrypt before sending to AWS.",
+      "b": "Correct. Server-side encryption means AWS encrypts data after receiving it and decrypts when you access it. Services like S3, EBS, and RDS support this.",
+      "c": "Incorrect. End-to-end is not a specific AWS encryption classification.",
+      "d": "Incorrect. Application-level is not AWS's terminology."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the three types of KMS keys?",
+    "opts": {
+      "a": "Standard, Premium, Enterprise",
+      "b": "AWS owned keys, AWS managed keys, Customer managed keys",
+      "c": "Symmetric, Asymmetric, Custom",
+      "d": "Basic, Advanced, Expert"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not KMS key categories.",
+      "b": "Correct. KMS has three categories: AWS owned keys (free, shared, no visibility), AWS managed keys (free, per-service like aws/s3), and Customer managed keys ($1/month + API charges).",
+      "c": "Incorrect. Symmetric/Asymmetric describes key type, not ownership.",
+      "d": "Incorrect. These are not KMS categories."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the monthly cost of a Customer Managed Key (CMK) in AWS KMS?",
+    "opts": {
+      "a": "Free",
+      "b": "$1 per month",
+      "c": "$5 per month",
+      "d": "$10 per month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Customer managed keys are not free (AWS managed keys are free).",
+      "b": "Correct. Customer managed KMS keys cost $1 per month per key, plus $0.03 per 10,000 API requests.",
+      "c": "Incorrect. $5 exceeds the cost.",
+      "d": "Incorrect. $10 exceeds the cost."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to encrypt data at rest in S3 and wants AWS to manage the encryption keys with no cost. Which option should they choose?",
+    "opts": {
+      "a": "SSE-C (Customer-provided keys)",
+      "b": "SSE-S3 (S3-managed keys)",
+      "c": "SSE-KMS with Customer Managed Key",
+      "d": "Client-side encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SSE-C requires you to provide and manage keys.",
+      "b": "Correct. SSE-S3 uses S3-managed keys at no additional cost. It's the default encryption for S3 as of January 2023.",
+      "c": "Incorrect. CMK costs $1/month per key.",
+      "d": "Incorrect. Client-side encryption requires you to manage everything."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Since January 2023, what is the default encryption for all new S3 objects?",
+    "opts": {
+      "a": "No encryption",
+      "b": "SSE-S3 (AES-256)",
+      "c": "SSE-KMS",
+      "d": "SSE-C"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. All new objects are encrypted by default since January 2023.",
+      "b": "Correct. Since January 5, 2023, Amazon S3 automatically encrypts all new objects with SSE-S3 (AES-256) at no additional cost.",
+      "c": "Incorrect. SSE-KMS is available but not the default.",
+      "d": "Incorrect. SSE-C is not the default."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to ensure all EC2 instances are launched only in specific Regions across their organization. Which service should they use?",
+    "opts": {
+      "a": "IAM policies",
+      "b": "Service Control Policies (SCPs)",
+      "c": "AWS Config",
+      "d": "Security Groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM policies don't provide organization-wide guardrails.",
+      "b": "Correct. SCPs in AWS Organizations can restrict which Regions resources can be created in, applying across all accounts in the organization.",
+      "c": "Incorrect. Config detects but doesn't prevent.",
+      "d": "Incorrect. Security Groups are for network access."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service automates evidence collection for audits?",
+    "opts": {
+      "a": "AWS Artifact",
+      "b": "AWS Audit Manager",
+      "c": "AWS Config",
+      "d": "AWS CloudTrail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Artifact provides compliance reports.",
+      "b": "Correct. AWS Audit Manager continuously audits your AWS usage to simplify risk and compliance assessment, automating evidence collection.",
+      "c": "Incorrect. Config evaluates resource compliance.",
+      "d": "Incorrect. CloudTrail records API calls."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between Security Groups and NACLs?",
+    "opts": {
+      "a": "Security Groups are stateless; NACLs are stateful",
+      "b": "Security Groups are stateful (instance level); NACLs are stateless (subnet level)",
+      "c": "Both are stateful",
+      "d": "Both are stateless"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is reversed.",
+      "b": "Correct. Security Groups are stateful (return traffic automatically allowed) and operate at instance level. NACLs are stateless (must explicitly allow return traffic) and operate at subnet level.",
+      "c": "Incorrect. NACLs are stateless.",
+      "d": "Incorrect. Security Groups are stateful."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default number of rules allowed in a Security Group (inbound + outbound)?",
+    "opts": {
+      "a": "50 inbound, 50 outbound",
+      "b": "60 inbound, 60 outbound",
+      "c": "100 inbound, 100 outbound",
+      "d": "200 inbound, 200 outbound"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 50 is below the default.",
+      "b": "Correct. By default, a security group can have up to 60 inbound rules and 60 outbound rules.",
+      "c": "Incorrect. 100 exceeds the default.",
+      "d": "Incorrect. 200 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default number of security groups that can be associated with a network interface?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 3 can be associated.",
+      "b": "Correct. By default, up to 5 security groups can be associated with a single network interface.",
+      "c": "Incorrect. 10 exceeds the default.",
+      "d": "Incorrect. 15 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default maximum number of NACLs per VPC?",
+    "opts": {
+      "a": "100",
+      "b": "200",
+      "c": "300",
+      "d": "500"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher.",
+      "b": "Correct. The default quota is 200 NACLs per VPC.",
+      "c": "Incorrect. 300 exceeds the default.",
+      "d": "Incorrect. 500 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of rules per NACL?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "40",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 10 is below the limit.",
+      "b": "Correct. Each NACL can have up to 20 inbound rules and 20 outbound rules by default.",
+      "c": "Incorrect. 40 exceeds the default per direction.",
+      "d": "Incorrect. 100 exceeds the limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer accidentally committed AWS access keys to a public GitHub repository. Which AWS service would detect this?",
+    "opts": {
+      "a": "AWS Config",
+      "b": "Amazon GuardDuty",
+      "c": "IAM Access Analyzer",
+      "d": "AWS Health / Compromised Key notification"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Config doesn't scan GitHub.",
+      "b": "Incorrect. GuardDuty might detect unusual API activity from the compromised key.",
+      "c": "Incorrect. Access Analyzer checks resource sharing, not GitHub.",
+      "d": "Correct. AWS actively scans public repositories and sends notifications through AWS Health if exposed keys are found, and may restrict the keys."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does the IAM policy evaluation logic default to when there's no explicit Allow or Deny?",
+    "opts": {
+      "a": "Allow",
+      "b": "Implicit Deny",
+      "c": "Depends on the service",
+      "d": "Prompt the user"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is not Allow.",
+      "b": "Correct. In IAM, everything is implicitly denied by default. You must explicitly Allow access. An explicit Deny always overrides any Allow.",
+      "c": "Incorrect. The logic is consistent across services.",
+      "d": "Incorrect. There are no user prompts."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In IAM policy evaluation, what takes precedence?",
+    "opts": {
+      "a": "Allow always wins",
+      "b": "Explicit Deny always wins over Allow",
+      "c": "The most recent policy wins",
+      "d": "The policy attached to the group wins"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deny overrides Allow.",
+      "b": "Correct. An explicit Deny in any policy always overrides any Allow. The evaluation order is: Explicit Deny > Explicit Allow > Implicit Deny.",
+      "c": "Incorrect. Recency doesn't determine precedence.",
+      "d": "Incorrect. Group policies don't automatically take precedence."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides private certificate authority capabilities?",
+    "opts": {
+      "a": "AWS Certificate Manager (ACM)",
+      "b": "AWS Private CA (formerly ACM Private CA)",
+      "c": "AWS KMS",
+      "d": "AWS CloudHSM"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ACM provides public certificates and integrates with Private CA.",
+      "b": "Correct. AWS Private CA allows you to create private certificate authorities for issuing private certificates for internal resources.",
+      "c": "Incorrect. KMS manages encryption keys.",
+      "d": "Incorrect. CloudHSM is for hardware key storage."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the cost per month for a general-purpose AWS Private CA?",
+    "opts": {
+      "a": "$50/month",
+      "b": "$200/month",
+      "c": "$400/month",
+      "d": "$1,000/month"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. $50 is for short-lived certificate mode.",
+      "b": "Incorrect. $200 is not the correct cost.",
+      "c": "Correct. A general-purpose AWS Private CA costs $400 per month. Short-lived certificate mode costs $50 per month.",
+      "d": "Incorrect. $1,000 exceeds the cost."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to meet PCI-DSS compliance and wants to download AWS's compliance attestation. Which service should they use?",
+    "opts": {
+      "a": "AWS Security Hub",
+      "b": "AWS Artifact",
+      "c": "AWS Audit Manager",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security Hub shows security posture, not compliance reports.",
+      "b": "Correct. AWS Artifact provides on-demand access to AWS compliance reports including PCI-DSS, SOC 1/2/3, ISO 27001, and more.",
+      "c": "Incorrect. Audit Manager helps with your own compliance, not downloading AWS reports.",
+      "d": "Incorrect. Config checks resource compliance."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to block all traffic from specific countries to their web application hosted on CloudFront + ALB. Which service should they use?",
+    "opts": {
+      "a": "Security Groups",
+      "b": "AWS WAF with geo-match conditions",
+      "c": "AWS Shield",
+      "d": "NACLs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security Groups can't filter by country.",
+      "b": "Correct. AWS WAF supports geographic match (geo-match) conditions that allow blocking or allowing traffic based on country of origin.",
+      "c": "Incorrect. Shield is for DDoS protection, not geo-blocking.",
+      "d": "Incorrect. NACLs work with IP addresses, not countries directly."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of Web ACLs you can create per Region per account in AWS WAF?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 50 is below the default.",
+      "b": "Correct. The default quota is 100 Web ACLs per Region per account in AWS WAF.",
+      "c": "Incorrect. 500 exceeds the default.",
+      "d": "Incorrect. 1,000 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of rules per Web ACL in AWS WAF?",
+    "opts": {
+      "a": "100 WCU (Web ACL Capacity Units)",
+      "b": "500 WCU",
+      "c": "1,500 WCU",
+      "d": "5,000 WCU"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 100 WCU is too low.",
+      "b": "Incorrect. 500 WCU is below the limit.",
+      "c": "Incorrect. 1,500 WCU is the default but can be increased.",
+      "d": "Correct. The maximum Web ACL capacity is 5,000 WCU per Web ACL (the default is 1,500 WCU, which can be increased)."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides DNS-level filtering to block domains associated with malware?",
+    "opts": {
+      "a": "AWS WAF",
+      "b": "Route 53 Resolver DNS Firewall",
+      "c": "AWS Network Firewall",
+      "d": "Amazon GuardDuty"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. WAF operates at the HTTP layer.",
+      "b": "Correct. Route 53 Resolver DNS Firewall allows you to filter and regulate outbound DNS traffic from your VPC, blocking queries to known malicious domains.",
+      "c": "Incorrect. Network Firewall operates at the network level.",
+      "d": "Incorrect. GuardDuty detects DNS-based threats but doesn't block them."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS CloudTrail Lake?",
+    "opts": {
+      "a": "A storage service for CloudTrail logs in S3",
+      "b": "A managed data lake for auditing that lets you run SQL-based queries on CloudTrail events",
+      "c": "A real-time monitoring dashboard",
+      "d": "A compliance reporting tool"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 delivery is a separate feature from CloudTrail Lake.",
+      "b": "Correct. CloudTrail Lake is a managed data lake that lets you run SQL-based queries on your CloudTrail events for auditing, security investigation, and troubleshooting.",
+      "c": "Incorrect. It's not a monitoring dashboard.",
+      "d": "Incorrect. It's for querying events, not generating compliance reports."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum retention period for CloudTrail Lake event data stores?",
+    "opts": {
+      "a": "1 year",
+      "b": "3 years",
+      "c": "7 years (2,557 days)",
+      "d": "10 years"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Retention can be longer than 1 year.",
+      "b": "Incorrect. Retention can be longer than 3 years.",
+      "c": "Correct. CloudTrail Lake event data stores can retain data for up to 2,557 days (approximately 7 years).",
+      "d": "Incorrect. 10 years exceeds the maximum."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service should be used to share resources securely across AWS accounts without using resource-based policies?",
+    "opts": {
+      "a": "AWS Organizations",
+      "b": "AWS Resource Access Manager (RAM)",
+      "c": "IAM cross-account roles",
+      "d": "AWS PrivateLink"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Organizations manages accounts but doesn't share resources.",
+      "b": "Correct. AWS RAM allows you to securely share AWS resources (subnets, Transit Gateways, Route 53 zones, etc.) across accounts and within your organization.",
+      "c": "Incorrect. Cross-account roles provide access, not resource sharing.",
+      "d": "Incorrect. PrivateLink provides private connectivity to services."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company discovered unauthorized API calls in their account. They need to investigate who made the calls, from where, and when. Which services should they use?",
+    "opts": {
+      "a": "AWS Config + Amazon Macie",
+      "b": "AWS CloudTrail + Amazon Detective",
+      "c": "AWS WAF + AWS Shield",
+      "d": "Amazon Inspector + Security Hub"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Config and Macie don't help with API call investigation.",
+      "b": "Correct. CloudTrail provides the audit trail of API calls (who, what, when, where), and Detective helps analyze and visualize the investigation.",
+      "c": "Incorrect. WAF and Shield are for web and DDoS protection.",
+      "d": "Incorrect. Inspector is for vulnerability scanning."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A security team needs to ensure all EBS volumes across the organization are encrypted. Which service provides continuous monitoring and alerting for non-compliance?",
+    "opts": {
+      "a": "AWS CloudTrail",
+      "b": "AWS Config with managed rules",
+      "c": "Amazon Inspector",
+      "d": "AWS Artifact"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudTrail logs calls but doesn't evaluate compliance.",
+      "b": "Correct. AWS Config with the 'encrypted-volumes' managed rule continuously checks if EBS volumes are encrypted and alerts on non-compliant resources.",
+      "c": "Incorrect. Inspector scans for vulnerabilities, not encryption compliance.",
+      "d": "Incorrect. Artifact provides compliance reports."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does the principle of least privilege mean in AWS IAM?",
+    "opts": {
+      "a": "Give everyone admin access",
+      "b": "Grant only the permissions required to perform a specific task",
+      "c": "Create one policy for all users",
+      "d": "Allow all actions and deny specific ones"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Admin access violates least privilege.",
+      "b": "Correct. Least privilege means granting only the minimum permissions necessary for a user, role, or service to perform their required task — nothing more.",
+      "c": "Incorrect. One policy for all doesn't provide minimal access.",
+      "d": "Incorrect. The correct approach is to deny all and allow only what's needed."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What IAM feature helps you generate least-privilege policies based on actual access activity?",
+    "opts": {
+      "a": "IAM Policy Simulator",
+      "b": "IAM Access Analyzer policy generation",
+      "c": "IAM Credentials Report",
+      "d": "IAM Access Advisor"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Policy Simulator tests existing policies.",
+      "b": "Correct. IAM Access Analyzer can generate IAM policies based on access activity captured in CloudTrail logs, helping create least-privilege policies.",
+      "c": "Incorrect. Credentials Report shows user status.",
+      "d": "Incorrect. Access Advisor shows which services were used but doesn't generate policies."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does 'encryption in transit' mean in AWS?",
+    "opts": {
+      "a": "Encrypting data stored in databases",
+      "b": "Encrypting data as it moves between endpoints (e.g., using TLS/SSL)",
+      "c": "Encrypting backup data",
+      "d": "Encrypting log files"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. That's encryption at rest.",
+      "b": "Correct. Encryption in transit protects data as it moves between systems, typically using TLS/SSL protocols (HTTPS, TLS connections to databases, etc.).",
+      "c": "Incorrect. Backup encryption is encryption at rest.",
+      "d": "Incorrect. Log encryption is encryption at rest."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides managed threat intelligence feeds integrated with other security services?",
+    "opts": {
+      "a": "Amazon GuardDuty",
+      "b": "AWS Security Hub",
+      "c": "Amazon Detective",
+      "d": "AWS Trusted Advisor"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon GuardDuty uses integrated threat intelligence from AWS, CrowdStrike, and Proofpoint to detect known malicious IPs, domains, and behaviors.",
+      "b": "Incorrect. Security Hub aggregates findings but doesn't provide threat intelligence.",
+      "c": "Incorrect. Detective investigates findings.",
+      "d": "Incorrect. Trusted Advisor provides best practice recommendations."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of IAM roles per AWS account?",
+    "opts": {
+      "a": "500",
+      "b": "1,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 500 is below the limit.",
+      "b": "Correct. The default maximum number of IAM roles per AWS account is 1,000 (this is a soft limit that can be increased).",
+      "c": "Incorrect. 5,000 is the user limit, not roles.",
+      "d": "Incorrect. 10,000 exceeds the default."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum session duration for an IAM role when assumed?",
+    "opts": {
+      "a": "1 hour",
+      "b": "4 hours",
+      "c": "12 hours",
+      "d": "36 hours"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 hour is the default but not the maximum.",
+      "b": "Incorrect. 4 hours is below the maximum.",
+      "c": "Correct. IAM roles can have a maximum session duration of 12 hours (configurable from 1 hour to 12 hours).",
+      "d": "Incorrect. 36 hours exceeds the maximum."
+    }
+  }
+]

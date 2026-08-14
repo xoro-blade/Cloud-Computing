@@ -1,0 +1,1107 @@
+[
+  {
+    "type": "single",
+    "q": "What does EBS stand for in AWS?",
+    "opts": {
+      "a": "Elastic Block Store",
+      "b": "Elastic Byte Storage",
+      "c": "Extended Block Store",
+      "d": "Elastic Backup Service"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EBS stands for Elastic Block Store, a block-level storage service for EC2 instances.",
+      "b": "Incorrect. There is no AWS service called Elastic Byte Storage.",
+      "c": "Incorrect. Extended Block Store is not a valid AWS term.",
+      "d": "Incorrect. Elastic Backup Service is not what EBS stands for; AWS Backup is a separate service."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What type of storage does Amazon EBS provide?",
+    "opts": {
+      "a": "Object storage",
+      "b": "Block storage",
+      "c": "File storage",
+      "d": "Tape storage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Object storage is provided by Amazon S3.",
+      "b": "Correct. EBS provides block-level storage volumes for use with EC2 instances.",
+      "c": "Incorrect. File storage is provided by Amazon EFS and FSx.",
+      "d": "Incorrect. Tape storage is not provided by EBS; AWS Storage Gateway offers virtual tape."
+    }
+  },
+  {
+    "type": "single",
+    "q": "EBS volumes are bound to which scope?",
+    "opts": {
+      "a": "Region",
+      "b": "Availability Zone",
+      "c": "Global",
+      "d": "VPC"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS volumes are not region-scoped; they exist within a specific Availability Zone.",
+      "b": "Correct. An EBS volume is created in a specific Availability Zone and can only be attached to instances in that same AZ.",
+      "c": "Incorrect. EBS volumes are not globally available.",
+      "d": "Incorrect. EBS volumes are not VPC-scoped; they are AZ-scoped."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Can an EBS volume be attached to multiple EC2 instances at the same time by default?",
+    "opts": {
+      "a": "Yes, always",
+      "b": "No, only one instance at a time (unless using Multi-Attach)",
+      "c": "Yes, up to 5 instances",
+      "d": "No, never under any circumstance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. By default, a standard EBS volume can only be attached to one instance.",
+      "b": "Correct. By default, one EBS volume attaches to one EC2 instance, but io1/io2 volumes support Multi-Attach for up to 16 instances.",
+      "c": "Incorrect. There is no default limit of 5 instances for standard attachment.",
+      "d": "Incorrect. With Multi-Attach feature on io1/io2, multiple instances can attach to the same volume."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Which EBS volume types support the Multi-Attach feature?",
+    "opts": {
+      "a": "gp2 and gp3",
+      "b": "io1 and io2",
+      "c": "st1 and sc1",
+      "d": "All EBS volume types"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. General Purpose SSD volumes (gp2/gp3) do not support Multi-Attach.",
+      "b": "Correct. Only Provisioned IOPS SSD volumes (io1 and io2) support the Multi-Attach feature.",
+      "c": "Incorrect. Throughput Optimized HDD (st1) and Cold HDD (sc1) do not support Multi-Attach.",
+      "d": "Incorrect. Multi-Attach is limited to io1/io2 volume types only."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum number of instances that can be attached to a single EBS volume using Multi-Attach?",
+    "opts": {
+      "a": "4",
+      "b": "8",
+      "c": "16",
+      "d": "32"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is not 4 instances.",
+      "b": "Incorrect. The limit is not 8 instances.",
+      "c": "Correct. Multi-Attach allows up to 16 EC2 instances to be attached to a single io1/io2 EBS volume simultaneously.",
+      "d": "Incorrect. The limit is 16, not 32."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the minimum volume size for an EBS gp2/gp3 volume?",
+    "opts": {
+      "a": "1 GiB",
+      "b": "4 GiB",
+      "c": "8 GiB",
+      "d": "10 GiB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The minimum size for gp2 and gp3 volumes is 1 GiB.",
+      "b": "Incorrect. 4 GiB is not the minimum size for gp2/gp3.",
+      "c": "Incorrect. 8 GiB is not the minimum; it is 1 GiB.",
+      "d": "Incorrect. 10 GiB is not the minimum size."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum volume size for an EBS gp2/gp3 volume?",
+    "opts": {
+      "a": "1 TiB",
+      "b": "4 TiB",
+      "c": "16 TiB",
+      "d": "64 TiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 TiB is not the maximum for gp2/gp3.",
+      "b": "Incorrect. 4 TiB is not the maximum for gp2/gp3.",
+      "c": "Correct. The maximum size for gp2 and gp3 volumes is 16 TiB.",
+      "d": "Incorrect. 64 TiB exceeds the maximum EBS volume size."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for a gp2 EBS volume?",
+    "opts": {
+      "a": "3,000 IOPS",
+      "b": "10,000 IOPS",
+      "c": "16,000 IOPS",
+      "d": "64,000 IOPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3,000 IOPS is the baseline/burst for small gp2 volumes, not the maximum.",
+      "b": "Incorrect. 10,000 IOPS is not the maximum for gp2.",
+      "c": "Correct. gp2 volumes can deliver a maximum of 16,000 IOPS.",
+      "d": "Incorrect. 64,000 IOPS is the maximum for io1/io2 volumes, not gp2."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for a gp3 EBS volume?",
+    "opts": {
+      "a": "3,000 IOPS",
+      "b": "16,000 IOPS",
+      "c": "32,000 IOPS",
+      "d": "64,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 3,000 IOPS is the baseline for gp3, not the maximum.",
+      "b": "Correct. gp3 volumes can be provisioned up to a maximum of 16,000 IOPS.",
+      "c": "Incorrect. 32,000 IOPS exceeds the gp3 maximum.",
+      "d": "Incorrect. 64,000 IOPS is the maximum for io1/io2, not gp3."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the baseline IOPS for a gp3 volume?",
+    "opts": {
+      "a": "1,000 IOPS",
+      "b": "3,000 IOPS",
+      "c": "5,000 IOPS",
+      "d": "10,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The baseline is not 1,000 IOPS for gp3.",
+      "b": "Correct. gp3 volumes provide a baseline of 3,000 IOPS regardless of volume size.",
+      "c": "Incorrect. 5,000 IOPS is not the gp3 baseline.",
+      "d": "Incorrect. 10,000 IOPS is not the baseline for gp3."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the baseline throughput for a gp3 volume?",
+    "opts": {
+      "a": "64 MiB/s",
+      "b": "125 MiB/s",
+      "c": "250 MiB/s",
+      "d": "500 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 64 MiB/s is not the baseline throughput for gp3.",
+      "b": "Correct. gp3 volumes provide a baseline throughput of 125 MiB/s.",
+      "c": "Incorrect. 250 MiB/s is not the baseline; gp3 can be provisioned up to 1,000 MiB/s.",
+      "d": "Incorrect. 500 MiB/s is above the baseline for gp3."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum throughput for a gp3 volume?",
+    "opts": {
+      "a": "250 MiB/s",
+      "b": "500 MiB/s",
+      "c": "1,000 MiB/s",
+      "d": "2,000 MiB/s"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 250 MiB/s is the maximum throughput for gp2, not gp3.",
+      "b": "Incorrect. 500 MiB/s is the maximum throughput for st1, not gp3.",
+      "c": "Correct. gp3 volumes can be provisioned up to 1,000 MiB/s throughput.",
+      "d": "Incorrect. 2,000 MiB/s exceeds the gp3 maximum throughput."
+    }
+  },
+  {
+    "type": "single",
+    "q": "How does gp2 calculate its IOPS performance?",
+    "opts": {
+      "a": "Fixed 3,000 IOPS for all sizes",
+      "b": "3 IOPS per GiB with a minimum burst of 3,000 IOPS",
+      "c": "10 IOPS per GiB",
+      "d": "50 IOPS per GiB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IOPS scales with volume size in gp2, it is not always fixed at 3,000.",
+      "b": "Correct. gp2 provides 3 IOPS per GiB of volume size, with a burst capability of up to 3,000 IOPS for volumes under 1,000 GiB.",
+      "c": "Incorrect. 10 IOPS per GiB is not the gp2 formula.",
+      "d": "Incorrect. 50 IOPS per GiB applies to io1/io2 ratio, not gp2."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for an io1 EBS volume?",
+    "opts": {
+      "a": "16,000 IOPS",
+      "b": "32,000 IOPS",
+      "c": "64,000 IOPS",
+      "d": "256,000 IOPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 16,000 IOPS is the max for gp2/gp3.",
+      "b": "Incorrect. 32,000 IOPS is not the max for io1.",
+      "c": "Correct. io1 volumes support a maximum of 64,000 IOPS.",
+      "d": "Incorrect. 256,000 IOPS is the max for io2 Block Express, not standard io1."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for an io2 Block Express EBS volume?",
+    "opts": {
+      "a": "64,000 IOPS",
+      "b": "128,000 IOPS",
+      "c": "256,000 IOPS",
+      "d": "500,000 IOPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 64,000 IOPS is the max for standard io1/io2.",
+      "b": "Incorrect. 128,000 is not the correct maximum for io2 Block Express.",
+      "c": "Correct. io2 Block Express supports up to 256,000 IOPS.",
+      "d": "Incorrect. 500,000 IOPS exceeds the io2 Block Express maximum."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the IOPS-to-GiB ratio for io1 volumes?",
+    "opts": {
+      "a": "3 IOPS per GiB",
+      "b": "10 IOPS per GiB",
+      "c": "50 IOPS per GiB",
+      "d": "100 IOPS per GiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3 IOPS per GiB applies to gp2 volumes.",
+      "b": "Incorrect. 10 IOPS per GiB is not the io1 ratio.",
+      "c": "Correct. io1 volumes support up to 50 IOPS per GiB of provisioned storage.",
+      "d": "Incorrect. 100 IOPS per GiB is not the correct ratio for io1."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the IOPS-to-GiB ratio for io2 Block Express volumes?",
+    "opts": {
+      "a": "50 IOPS per GiB",
+      "b": "100 IOPS per GiB",
+      "c": "500 IOPS per GiB",
+      "d": "1,000 IOPS per GiB"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 50 IOPS per GiB applies to io1.",
+      "b": "Incorrect. 100 IOPS per GiB is not the ratio for io2 Block Express.",
+      "c": "Incorrect. 500 IOPS per GiB is not the correct ratio.",
+      "d": "Correct. io2 Block Express supports up to 1,000 IOPS per GiB."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum volume size for io2 Block Express?",
+    "opts": {
+      "a": "16 TiB",
+      "b": "32 TiB",
+      "c": "64 TiB",
+      "d": "128 TiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 16 TiB is the max for standard EBS volumes like gp2/gp3/io1.",
+      "b": "Incorrect. 32 TiB is not the max for io2 Block Express.",
+      "c": "Correct. io2 Block Express volumes can be up to 64 TiB in size.",
+      "d": "Incorrect. 128 TiB exceeds the maximum for io2 Block Express."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Which EBS volume type is best suited for boot volumes?",
+    "opts": {
+      "a": "st1",
+      "b": "sc1",
+      "c": "gp2 or gp3",
+      "d": "Magnetic (standard)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. st1 cannot be used as a boot volume.",
+      "b": "Incorrect. sc1 cannot be used as a boot volume.",
+      "c": "Correct. gp2 and gp3 (General Purpose SSD) are recommended for boot volumes due to their SSD performance.",
+      "d": "Incorrect. While magnetic can be a boot volume, gp2/gp3 are the recommended choices."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Which EBS volume types CANNOT be used as boot volumes?",
+    "opts": {
+      "a": "gp2 and gp3",
+      "b": "io1 and io2",
+      "c": "st1 and sc1",
+      "d": "gp3 and io2"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. gp2 and gp3 can be used as boot volumes.",
+      "b": "Incorrect. io1 and io2 can be used as boot volumes.",
+      "c": "Correct. HDD-based volumes (st1 and sc1) cannot be used as boot volumes.",
+      "d": "Incorrect. Both gp3 and io2 can be used as boot volumes."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum throughput for an st1 (Throughput Optimized HDD) volume?",
+    "opts": {
+      "a": "250 MiB/s",
+      "b": "500 MiB/s",
+      "c": "1,000 MiB/s",
+      "d": "125 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 250 MiB/s is the max throughput for sc1 and gp2.",
+      "b": "Correct. st1 volumes can achieve a maximum throughput of 500 MiB/s.",
+      "c": "Incorrect. 1,000 MiB/s is the max throughput for gp3.",
+      "d": "Incorrect. 125 MiB/s is the baseline throughput for gp3."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum throughput for an sc1 (Cold HDD) volume?",
+    "opts": {
+      "a": "125 MiB/s",
+      "b": "250 MiB/s",
+      "c": "500 MiB/s",
+      "d": "40 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 125 MiB/s is not the max throughput for sc1.",
+      "b": "Correct. sc1 volumes can achieve a maximum throughput of 250 MiB/s.",
+      "c": "Incorrect. 500 MiB/s is the max throughput for st1.",
+      "d": "Incorrect. 40 MiB/s is too low for sc1 max throughput."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for an st1 volume?",
+    "opts": {
+      "a": "250 IOPS",
+      "b": "500 IOPS",
+      "c": "1,000 IOPS",
+      "d": "16,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 250 IOPS is the max for sc1, not st1.",
+      "b": "Correct. st1 volumes support a maximum of 500 IOPS.",
+      "c": "Incorrect. 1,000 IOPS exceeds st1 capability.",
+      "d": "Incorrect. 16,000 IOPS is the max for gp2/gp3, not st1."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for an sc1 volume?",
+    "opts": {
+      "a": "100 IOPS",
+      "b": "250 IOPS",
+      "c": "500 IOPS",
+      "d": "1,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 100 IOPS is not the max for sc1.",
+      "b": "Correct. sc1 volumes support a maximum of 250 IOPS.",
+      "c": "Incorrect. 500 IOPS is the max for st1, not sc1.",
+      "d": "Incorrect. 1,000 IOPS far exceeds sc1 capability."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the minimum size for st1 and sc1 volumes?",
+    "opts": {
+      "a": "1 GiB",
+      "b": "125 GiB",
+      "c": "500 GiB",
+      "d": "1,000 GiB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 GiB is the minimum for gp2/gp3, not st1/sc1.",
+      "b": "Correct. Both st1 and sc1 volumes have a minimum size of 125 GiB.",
+      "c": "Incorrect. 500 GiB is not the minimum for st1/sc1.",
+      "d": "Incorrect. 1,000 GiB is not the minimum for these volume types."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What happens to an EBS volume when the attached EC2 instance is terminated, if 'Delete on Termination' is enabled?",
+    "opts": {
+      "a": "The volume is detached and remains available",
+      "b": "The volume is deleted",
+      "c": "The volume is converted to a snapshot",
+      "d": "The volume is moved to another AZ"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. With Delete on Termination enabled, the volume does not persist.",
+      "b": "Correct. When Delete on Termination is enabled, the EBS volume is deleted when the instance terminates.",
+      "c": "Incorrect. The volume is not automatically converted to a snapshot.",
+      "d": "Incorrect. The volume is not moved; it is deleted."
+    }
+  },
+  {
+    "type": "single",
+    "q": "By default, is 'Delete on Termination' enabled for the root EBS volume?",
+    "opts": {
+      "a": "Yes",
+      "b": "No",
+      "c": "Only for gp3 volumes",
+      "d": "Only for io1 volumes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. By default, the root EBS volume has Delete on Termination enabled.",
+      "b": "Incorrect. The root volume does have Delete on Termination enabled by default.",
+      "c": "Incorrect. It applies to all root volumes regardless of type.",
+      "d": "Incorrect. It applies to all root volumes regardless of type."
+    }
+  },
+  {
+    "type": "single",
+    "q": "By default, is 'Delete on Termination' enabled for additional (non-root) EBS volumes?",
+    "opts": {
+      "a": "Yes",
+      "b": "No",
+      "c": "Only if the volume is encrypted",
+      "d": "Only for io1/io2 volumes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Additional EBS volumes do NOT have Delete on Termination enabled by default.",
+      "b": "Correct. By default, additional (non-root) EBS volumes are NOT deleted when the instance terminates.",
+      "c": "Incorrect. Encryption status does not affect the default Delete on Termination setting.",
+      "d": "Incorrect. Volume type does not affect the default Delete on Termination setting for non-root volumes."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is an EBS Snapshot?",
+    "opts": {
+      "a": "A real-time copy of the volume in another AZ",
+      "b": "A point-in-time backup of an EBS volume",
+      "c": "A compressed version of the volume",
+      "d": "A live mirror of the volume"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Snapshots are not real-time copies; they are point-in-time backups.",
+      "b": "Correct. An EBS snapshot is a point-in-time backup of an EBS volume stored in Amazon S3.",
+      "c": "Incorrect. While snapshots are incremental and space-efficient, they are backups, not compressed versions.",
+      "d": "Incorrect. Snapshots are not live mirrors."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Are EBS snapshots incremental?",
+    "opts": {
+      "a": "No, each snapshot is a full copy",
+      "b": "Yes, only changed blocks are stored in subsequent snapshots",
+      "c": "Only for io1/io2 volumes",
+      "d": "Only for gp3 volumes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS snapshots are incremental, not full copies each time.",
+      "b": "Correct. EBS snapshots are incremental — only the blocks that have changed since the last snapshot are saved.",
+      "c": "Incorrect. Incremental snapshots apply to all EBS volume types.",
+      "d": "Incorrect. Incremental snapshots apply to all EBS volume types."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Can you create an EBS volume in a different Availability Zone from a snapshot?",
+    "opts": {
+      "a": "No, the volume must be in the same AZ as the snapshot",
+      "b": "Yes, you can restore a snapshot to any AZ within the same region",
+      "c": "Only if you use Cross-Region Replication",
+      "d": "Only for io1/io2 snapshots"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Snapshots can be used to create volumes in any AZ within the region.",
+      "b": "Correct. You can create an EBS volume from a snapshot in any Availability Zone within the same region.",
+      "c": "Incorrect. Cross-Region Replication is for copying snapshots to another region, not for creating volumes in a different AZ.",
+      "d": "Incorrect. This capability applies to snapshots of all volume types."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Where are EBS snapshots stored?",
+    "opts": {
+      "a": "In the same EBS volume",
+      "b": "In Amazon S3 (managed by AWS)",
+      "c": "In Amazon Glacier",
+      "d": "In the local instance store"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Snapshots are not stored in the EBS volume itself.",
+      "b": "Correct. EBS snapshots are stored in Amazon S3, managed by AWS (not visible in your S3 buckets).",
+      "c": "Incorrect. By default, snapshots are stored in S3, not Glacier. However, you can archive them to a snapshot archive tier.",
+      "d": "Incorrect. Instance store is ephemeral and not used for snapshot storage."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the EBS Snapshot Archive tier?",
+    "opts": {
+      "a": "A faster storage tier for frequently accessed snapshots",
+      "b": "A lower-cost storage tier that is 75% cheaper, with 24-72 hours restore time",
+      "c": "A real-time replication feature",
+      "d": "A tier that automatically deletes old snapshots"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The Archive tier is for infrequently accessed snapshots, not faster access.",
+      "b": "Correct. The EBS Snapshot Archive tier is 75% cheaper but takes 24-72 hours to restore.",
+      "c": "Incorrect. It is not a replication feature.",
+      "d": "Incorrect. It does not automatically delete snapshots."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the EBS Recycle Bin?",
+    "opts": {
+      "a": "A feature to compress unused EBS volumes",
+      "b": "A feature to recover accidentally deleted EBS snapshots",
+      "c": "A feature to automatically archive old volumes",
+      "d": "A feature to delete volumes after 30 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Recycle Bin does not compress volumes.",
+      "b": "Correct. The EBS Recycle Bin allows you to recover accidentally deleted EBS snapshots by retaining them for a specified period.",
+      "c": "Incorrect. Recycle Bin is specifically for deleted snapshot recovery.",
+      "d": "Incorrect. Recycle Bin retains deleted snapshots, not deletes volumes."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What retention period can you set for the EBS Recycle Bin?",
+    "opts": {
+      "a": "1 day to 1 year",
+      "b": "7 days only",
+      "c": "30 days only",
+      "d": "Unlimited"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. You can set a retention period from 1 day to 1 year (365 days) for the EBS Recycle Bin.",
+      "b": "Incorrect. 7 days is not the only option.",
+      "c": "Incorrect. 30 days is not the only option.",
+      "d": "Incorrect. There is a maximum retention of 1 year."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Can you copy an EBS snapshot to another AWS region?",
+    "opts": {
+      "a": "No, snapshots are region-locked",
+      "b": "Yes, you can copy snapshots across regions",
+      "c": "Only for encrypted snapshots",
+      "d": "Only for io1/io2 snapshots"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Snapshots can be copied across regions.",
+      "b": "Correct. You can copy EBS snapshots to other AWS regions for disaster recovery or migration.",
+      "c": "Incorrect. Both encrypted and unencrypted snapshots can be copied across regions.",
+      "d": "Incorrect. Snapshots of all volume types can be copied across regions."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What encryption algorithm does EBS use for volume encryption?",
+    "opts": {
+      "a": "AES-128",
+      "b": "AES-256",
+      "c": "RSA-2048",
+      "d": "SHA-256"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS does not use AES-128.",
+      "b": "Correct. EBS encryption uses AES-256 algorithm.",
+      "c": "Incorrect. RSA-2048 is an asymmetric encryption algorithm, not used for EBS volume encryption.",
+      "d": "Incorrect. SHA-256 is a hashing algorithm, not an encryption algorithm."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Which AWS service manages the encryption keys used by EBS encryption by default?",
+    "opts": {
+      "a": "AWS IAM",
+      "b": "AWS KMS",
+      "c": "AWS CloudHSM",
+      "d": "AWS Secrets Manager"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM manages access permissions, not encryption keys for EBS.",
+      "b": "Correct. EBS encryption uses AWS KMS (Key Management Service) to manage encryption keys.",
+      "c": "Incorrect. CloudHSM can be used but is not the default key management service for EBS.",
+      "d": "Incorrect. Secrets Manager is for storing secrets, not for EBS encryption key management."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Does EBS encryption have a significant impact on latency?",
+    "opts": {
+      "a": "Yes, it doubles the latency",
+      "b": "No, encryption and decryption are handled transparently with minimal impact",
+      "c": "Yes, it increases latency by 50%",
+      "d": "Only for HDD volumes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS encryption does not double latency.",
+      "b": "Correct. EBS encryption/decryption is handled transparently by EC2 and EBS infrastructure with minimal latency impact.",
+      "c": "Incorrect. The latency impact is minimal, not 50%.",
+      "d": "Incorrect. Encryption impact is minimal for all volume types."
+    }
+  },
+  {
+    "type": "single",
+    "q": "How can you encrypt an existing unencrypted EBS volume?",
+    "opts": {
+      "a": "Enable encryption directly on the volume",
+      "b": "Create a snapshot, copy the snapshot with encryption enabled, then create a new volume from the encrypted snapshot",
+      "c": "Use AWS CLI to toggle encryption",
+      "d": "Detach and re-attach the volume"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You cannot enable encryption directly on an existing unencrypted volume.",
+      "b": "Correct. To encrypt an unencrypted volume: create a snapshot → copy snapshot with encryption → create new encrypted volume from the encrypted snapshot.",
+      "c": "Incorrect. There is no CLI command to toggle encryption on an existing volume.",
+      "d": "Incorrect. Detaching and re-attaching does not encrypt the volume."
+    }
+  },
+  {
+    "type": "single",
+    "q": "When you create an encrypted EBS volume, what is also encrypted?",
+    "opts": {
+      "a": "Only data at rest",
+      "b": "Data at rest, data in transit between the volume and instance, all snapshots, and volumes created from snapshots",
+      "c": "Only snapshots",
+      "d": "Only data in transit"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption covers more than just data at rest.",
+      "b": "Correct. EBS encryption encrypts data at rest, data in flight between EC2 and EBS, all snapshots created from the volume, and all volumes created from those snapshots.",
+      "c": "Incorrect. Both data and snapshots are encrypted.",
+      "d": "Incorrect. Data at rest is also encrypted."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is an EC2 Instance Store?",
+    "opts": {
+      "a": "A network-attached storage volume",
+      "b": "A physically attached high-performance ephemeral storage",
+      "c": "A managed file system",
+      "d": "An S3-backed storage volume"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Network-attached storage describes EBS, not Instance Store.",
+      "b": "Correct. EC2 Instance Store is physically attached storage on the host providing very high I/O performance but is ephemeral (data is lost on stop/terminate).",
+      "c": "Incorrect. Managed file systems are EFS or FSx.",
+      "d": "Incorrect. Instance Store is not S3-backed."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What happens to data on an EC2 Instance Store when the instance is stopped or terminated?",
+    "opts": {
+      "a": "Data is preserved",
+      "b": "Data is lost (ephemeral storage)",
+      "c": "Data is automatically backed up to S3",
+      "d": "Data is moved to EBS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Instance Store data is NOT preserved on stop or termination.",
+      "b": "Correct. Instance Store is ephemeral — data is lost when the instance is stopped, terminated, or the underlying hardware fails.",
+      "c": "Incorrect. Data is not automatically backed up.",
+      "d": "Incorrect. Data is not automatically moved to EBS."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is Amazon EFS?",
+    "opts": {
+      "a": "Elastic File System — a managed NFS file system",
+      "b": "Elastic Flash Storage — ultra-fast SSD",
+      "c": "Extended File Service — a tape backup system",
+      "d": "Encrypted File Store — an encryption service"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon EFS (Elastic File System) is a managed NFS (Network File System) that can be mounted on multiple EC2 instances.",
+      "b": "Incorrect. EFS does not stand for Elastic Flash Storage.",
+      "c": "Incorrect. EFS is not a tape backup system.",
+      "d": "Incorrect. EFS is not an encryption service."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is a key difference between EBS and EFS?",
+    "opts": {
+      "a": "EBS can be mounted on multiple instances across AZs; EFS cannot",
+      "b": "EFS can be mounted on multiple instances across AZs; EBS is AZ-specific",
+      "c": "EBS is a file system; EFS is block storage",
+      "d": "There is no difference"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS is AZ-specific (unless using Multi-Attach for io1/io2 in the same AZ).",
+      "b": "Correct. EFS is a shared file system that can be mounted across multiple EC2 instances in multiple AZs, while EBS is locked to one AZ.",
+      "c": "Incorrect. EBS is block storage and EFS is a file system.",
+      "d": "Incorrect. There are significant differences between EBS and EFS."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Is EBS a network-attached storage?",
+    "opts": {
+      "a": "No, it is physically attached to the instance",
+      "b": "Yes, it communicates over the network to the EC2 instance",
+      "c": "Only for io1/io2 volumes",
+      "d": "Only in certain regions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Physical attachment describes Instance Store, not EBS.",
+      "b": "Correct. EBS is network-attached storage, meaning there may be slight latency as it communicates over the network.",
+      "c": "Incorrect. All EBS volume types are network-attached.",
+      "d": "Incorrect. EBS is network-attached in all regions."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Can you increase the size of an EBS volume without detaching it?",
+    "opts": {
+      "a": "No, you must detach the volume first",
+      "b": "Yes, you can use Elastic Volumes to modify size, type, and IOPS without detaching",
+      "c": "Only for gp2 volumes",
+      "d": "Only if the instance is stopped"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS Elastic Volumes allows modification without detaching.",
+      "b": "Correct. With Elastic Volumes, you can increase size, change volume type, and adjust IOPS/throughput while the volume is attached and in use.",
+      "c": "Incorrect. Elastic Volumes works with all volume types.",
+      "d": "Incorrect. The instance does not need to be stopped."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Can you decrease the size of an EBS volume?",
+    "opts": {
+      "a": "Yes, you can decrease the size at any time",
+      "b": "No, you can only increase the size of an EBS volume",
+      "c": "Yes, but only for gp3 volumes",
+      "d": "Yes, but only when detached"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You cannot decrease the size of an EBS volume.",
+      "b": "Correct. EBS volumes can only be increased in size, never decreased. To get a smaller volume, you must create a new smaller volume and migrate data.",
+      "c": "Incorrect. No volume type supports size reduction.",
+      "d": "Incorrect. You cannot decrease volume size under any circumstance."
+    }
+  },
+  {
+    "type": "single",
+    "q": "After increasing an EBS volume size, what additional step might be required?",
+    "opts": {
+      "a": "Reboot the instance",
+      "b": "Extend the file system within the OS to use the additional space",
+      "c": "Create a snapshot",
+      "d": "Detach and re-attach the volume"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A reboot is not always required.",
+      "b": "Correct. After resizing an EBS volume, you must extend the file system within the operating system to utilize the new space.",
+      "c": "Incorrect. Creating a snapshot is not required after resizing.",
+      "d": "Incorrect. You do not need to detach and re-attach."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the durability of EBS volumes?",
+    "opts": {
+      "a": "99.9%",
+      "b": "99.8% - 99.9% (gp2/gp3/st1/sc1) and 99.999% (io1/io2)",
+      "c": "99.99% for all types",
+      "d": "100%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is incomplete.",
+      "b": "Correct. Standard EBS volumes (gp2/gp3/st1/sc1) offer 99.8%-99.9% durability, while io1/io2 offer 99.999% durability.",
+      "c": "Incorrect. Durability varies by volume type.",
+      "d": "Incorrect. No storage service guarantees 100% durability."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the SLA availability for EBS volumes?",
+    "opts": {
+      "a": "99.0%",
+      "b": "99.9%",
+      "c": "99.99%",
+      "d": "99.999%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 99.0% is too low for EBS SLA.",
+      "b": "Incorrect. 99.9% is lower than the actual EBS SLA.",
+      "c": "Correct. EBS provides an SLA of 99.99% availability.",
+      "d": "Incorrect. 99.999% is the durability for io1/io2, not the availability SLA."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is an EBS-optimized instance?",
+    "opts": {
+      "a": "An instance that uses only Instance Store",
+      "b": "An instance with dedicated bandwidth for EBS I/O, separate from network traffic",
+      "c": "An instance that can only use gp3 volumes",
+      "d": "An instance with no network connectivity"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS-optimized instances use EBS volumes, not just Instance Store.",
+      "b": "Correct. EBS-optimized instances provide dedicated throughput between EC2 and EBS, minimizing contention with other network traffic.",
+      "c": "Incorrect. EBS-optimized instances can use any EBS volume type.",
+      "d": "Incorrect. EBS-optimized instances still have network connectivity."
+    }
+  },
+  {
+    "type": "single",
+    "q": "How many EBS volumes can you attach to a single EC2 instance (approximate maximum)?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "28",
+      "d": "128"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can attach more than 5 volumes.",
+      "b": "Incorrect. The limit is higher than 10.",
+      "c": "Correct. You can typically attach up to 28 EBS volumes to a single EC2 instance (limit varies by instance type, with some Nitro instances supporting more).",
+      "d": "Incorrect. 128 is too high for standard instances."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is Amazon Data Lifecycle Manager (DLM) used for with EBS?",
+    "opts": {
+      "a": "To automatically resize EBS volumes",
+      "b": "To automate the creation, retention, and deletion of EBS snapshots",
+      "c": "To monitor EBS performance",
+      "d": "To encrypt EBS volumes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DLM does not resize volumes.",
+      "b": "Correct. Amazon Data Lifecycle Manager automates the creation, retention, and deletion of EBS snapshots based on policies.",
+      "c": "Incorrect. Performance monitoring is done by CloudWatch, not DLM.",
+      "d": "Incorrect. DLM does not handle encryption."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Which CloudWatch metric is used to monitor the percentage of I/O operations delivered for an EBS volume?",
+    "opts": {
+      "a": "VolumeReadOps",
+      "b": "VolumeQueueLength",
+      "c": "VolumeThroughputPercentage",
+      "d": "BurstBalance"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. VolumeReadOps counts read operations, not delivery percentage.",
+      "b": "Incorrect. VolumeQueueLength shows the number of pending I/O requests.",
+      "c": "Correct. VolumeThroughputPercentage indicates the percentage of IOPS delivered relative to provisioned IOPS (for io1/io2).",
+      "d": "Incorrect. BurstBalance shows remaining burst credits for gp2/st1/sc1."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What does the BurstBalance CloudWatch metric indicate for EBS volumes?",
+    "opts": {
+      "a": "The current IOPS usage",
+      "b": "The percentage of I/O burst credits remaining",
+      "c": "The volume size in GiB",
+      "d": "The encryption status"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. BurstBalance does not show current IOPS usage directly.",
+      "b": "Correct. BurstBalance shows the percentage of I/O burst credits remaining for gp2, st1, and sc1 volumes.",
+      "c": "Incorrect. Volume size is not represented by BurstBalance.",
+      "d": "Incorrect. Encryption status is not a CloudWatch metric."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Which EBS volume type is most cost-effective for infrequently accessed data that requires low-cost storage?",
+    "opts": {
+      "a": "gp3",
+      "b": "io2",
+      "c": "st1",
+      "d": "sc1"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. gp3 is for general-purpose workloads, not the cheapest for cold data.",
+      "b": "Incorrect. io2 is the most expensive EBS option.",
+      "c": "Incorrect. st1 is for frequently accessed throughput-intensive workloads.",
+      "d": "Correct. sc1 (Cold HDD) is the lowest-cost EBS volume type, designed for infrequently accessed data."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Which EBS volume type would you choose for a Big Data or data warehouse workload requiring high throughput?",
+    "opts": {
+      "a": "gp2",
+      "b": "io1",
+      "c": "st1",
+      "d": "sc1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. gp2 is general purpose, not optimized for sequential throughput.",
+      "b": "Incorrect. io1 is for high IOPS workloads like databases, not throughput-heavy workloads.",
+      "c": "Correct. st1 (Throughput Optimized HDD) is ideal for Big Data, data warehouses, and log processing that require high sequential throughput.",
+      "d": "Incorrect. sc1 is for cold/infrequently accessed data with lower throughput."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Which EBS volume type is best for database workloads requiring sustained high IOPS?",
+    "opts": {
+      "a": "gp2",
+      "b": "io1/io2",
+      "c": "st1",
+      "d": "sc1"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. gp2 is suitable for moderate database workloads but not sustained very high IOPS.",
+      "b": "Correct. io1/io2 (Provisioned IOPS SSD) are designed for critical database workloads requiring sustained high IOPS performance.",
+      "c": "Incorrect. st1 is an HDD type not suited for database IOPS workloads.",
+      "d": "Incorrect. sc1 is for cold storage, not database workloads."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Can an EBS volume be attached to an EC2 instance in a different Availability Zone?",
+    "opts": {
+      "a": "Yes, directly",
+      "b": "No, the volume and instance must be in the same AZ",
+      "c": "Yes, but only for io1/io2",
+      "d": "Yes, if using VPC peering"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You cannot directly attach an EBS volume to an instance in a different AZ.",
+      "b": "Correct. An EBS volume can only be attached to an EC2 instance in the same Availability Zone.",
+      "c": "Incorrect. Even io1/io2 volumes must be in the same AZ as the instance.",
+      "d": "Incorrect. VPC peering does not enable cross-AZ EBS attachment."
+    }
+  },
+  {
+    "type": "single",
+    "q": "How can you move an EBS volume to another Availability Zone?",
+    "opts": {
+      "a": "Detach it and re-attach to the other AZ",
+      "b": "Create a snapshot of the volume and then create a new volume from the snapshot in the target AZ",
+      "c": "Use AWS Direct Connect",
+      "d": "Use VPC endpoint"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You cannot simply detach and attach across AZs.",
+      "b": "Correct. To move an EBS volume to another AZ, create a snapshot and then create a new volume from that snapshot in the desired AZ.",
+      "c": "Incorrect. Direct Connect is for network connectivity to AWS, not for moving EBS volumes.",
+      "d": "Incorrect. VPC endpoints are for accessing AWS services privately, not for moving volumes."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the default EBS volume type when creating an EC2 instance through the AWS Console?",
+    "opts": {
+      "a": "io1",
+      "b": "gp2",
+      "c": "gp3",
+      "d": "st1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. io1 is not the default.",
+      "b": "Incorrect. gp2 was the previous default; AWS has transitioned to gp3 as the default.",
+      "c": "Correct. As of recent updates, gp3 is the default EBS volume type when launching instances through the AWS Console.",
+      "d": "Incorrect. st1 is not a default volume type."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is Fast Snapshot Restore (FSR) in EBS?",
+    "opts": {
+      "a": "A feature that reduces snapshot creation time",
+      "b": "A feature that eliminates the latency of data loading when creating a volume from a snapshot",
+      "c": "A feature that encrypts snapshots faster",
+      "d": "A feature that compresses snapshots"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. FSR does not reduce snapshot creation time.",
+      "b": "Correct. Fast Snapshot Restore eliminates the initial performance penalty when restoring a volume from a snapshot by pre-warming the data.",
+      "c": "Incorrect. FSR is not related to encryption speed.",
+      "d": "Incorrect. FSR does not compress snapshots."
+    }
+  },
+  {
+    "type": "single",
+    "q": "Is there an additional cost for using Fast Snapshot Restore (FSR)?",
+    "opts": {
+      "a": "No, it is free",
+      "b": "Yes, you are charged per AZ per hour for each snapshot with FSR enabled",
+      "c": "Only for io1/io2 volumes",
+      "d": "Only in certain regions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. FSR has additional costs.",
+      "b": "Correct. Fast Snapshot Restore has an additional charge based on the number of AZs and hours it is enabled.",
+      "c": "Incorrect. FSR charges apply regardless of volume type.",
+      "d": "Incorrect. FSR charges apply in all regions where it is available."
+    }
+  }
+]

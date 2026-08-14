@@ -1,0 +1,903 @@
+[
+  {
+    "type": "mcq",
+    "q": "An application requires that all requests from the same user session go to the same EC2 instance behind an ALB. Which feature should be enabled?",
+    "opts": {
+      "a": "Cross-Zone Load Balancing",
+      "b": "Sticky Sessions (Session Affinity)",
+      "c": "Connection Draining",
+      "d": "Health Checks"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cross-zone load balancing distributes traffic evenly across AZs but does not bind a user to a specific instance.",
+      "b": "Correct. Sticky Sessions use cookies to ensure that all requests from a user session are routed to the same target instance.",
+      "c": "Incorrect. Connection draining allows in-flight requests to complete during deregistration.",
+      "d": "Incorrect. Health checks verify target health but do not provide session affinity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to use a single ALB to serve traffic for app1.example.com and app2.example.com with different target groups. Which ALB routing feature should they use?",
+    "opts": {
+      "a": "Path-based routing",
+      "b": "Query string routing",
+      "c": "Host-based routing",
+      "d": "IP-based routing"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Path-based routing routes based on URL path (e.g., /api, /images), not hostname.",
+      "b": "Incorrect. Query string routing routes based on query parameters in the URL.",
+      "c": "Correct. Host-based routing allows ALB to route requests based on the Host header, directing app1.example.com to one target group and app2.example.com to another.",
+      "d": "Incorrect. IP-based routing is not the appropriate feature for domain-based routing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG has min=2, desired=3, max=5. A scaling policy triggers and wants to add 4 instances. How many total instances will be running after the scale-out?",
+    "opts": {
+      "a": "7",
+      "b": "5",
+      "c": "4",
+      "d": "3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The ASG cannot exceed the maximum capacity of 5.",
+      "b": "Correct. Even though the policy wants to add 4 instances (3+4=7), the ASG is capped at the maximum of 5 instances. It will only add 2 instances.",
+      "c": "Incorrect. The ASG will scale to the maximum, not 4.",
+      "d": "Incorrect. The scaling action will increase from the current 3 instances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ELB type should you choose if your application needs to handle TCP traffic with extreme performance and static IP addresses?",
+    "opts": {
+      "a": "Classic Load Balancer",
+      "b": "Application Load Balancer",
+      "c": "Network Load Balancer",
+      "d": "Gateway Load Balancer"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. CLB is legacy and does not provide static IPs or extreme performance.",
+      "b": "Incorrect. ALB operates at Layer 7 (HTTP/HTTPS) and does not provide static IPs.",
+      "c": "Correct. NLB operates at Layer 4, handles TCP/UDP with ultra-low latency (~100ms), supports millions of requests per second, and provides one static IP per AZ.",
+      "d": "Incorrect. GWLB is for third-party virtual appliances, not for direct TCP load balancing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company notices that instances in AZ-A receive 80% of traffic while AZ-B receives 20%, despite having equal instances in both AZs. What feature should they verify is enabled?",
+    "opts": {
+      "a": "Sticky Sessions",
+      "b": "Cross-Zone Load Balancing",
+      "c": "Connection Draining",
+      "d": "SSL Termination"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Sticky sessions bind users to instances but don't explain uneven AZ distribution.",
+      "b": "Correct. Without cross-zone load balancing, traffic is distributed only to instances in the same AZ where the load balancer node received it. Enabling cross-zone load balancing distributes traffic evenly across all instances in all AZs.",
+      "c": "Incorrect. Connection draining is for deregistration scenarios.",
+      "d": "Incorrect. SSL termination handles encryption, not traffic distribution."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is a valid health check protocol for ALB target groups?",
+    "opts": {
+      "a": "ICMP",
+      "b": "HTTP or HTTPS",
+      "c": "SSH",
+      "d": "FTP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ICMP (ping) is not supported as a health check protocol for ALB.",
+      "b": "Correct. ALB target groups support HTTP and HTTPS health check protocols since ALB operates at Layer 7.",
+      "c": "Incorrect. SSH is not a supported health check protocol.",
+      "d": "Incorrect. FTP is not a supported health check protocol."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An NLB health check marks a target as healthy after how many consecutive successful checks by default?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 2 is not the default healthy threshold for NLB.",
+      "b": "Incorrect. 3 is the default for ALB, not NLB.",
+      "c": "Correct. NLB requires 5 consecutive successful health checks (default healthy threshold) to mark a target as healthy.",
+      "d": "Incorrect. 10 is not the default threshold."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "For ALB, how many consecutive failed health checks (default unhealthy threshold) are required before a target is marked unhealthy?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "5"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single failure does not mark a target unhealthy by default.",
+      "b": "Correct. ALB requires 2 consecutive failed health checks (default unhealthy threshold) before marking a target as unhealthy.",
+      "c": "Incorrect. 3 is the default healthy threshold for ALB, not the unhealthy threshold.",
+      "d": "Incorrect. 5 is the default threshold for NLB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ASG lifecycle hook allows you to perform custom actions on an instance BEFORE it is put into service?",
+    "opts": {
+      "a": "autoscaling:EC2_INSTANCE_TERMINATING",
+      "b": "autoscaling:EC2_INSTANCE_LAUNCHING",
+      "c": "autoscaling:EC2_INSTANCE_RUNNING",
+      "d": "autoscaling:EC2_INSTANCE_STOPPED"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This hook is triggered when an instance is about to be terminated.",
+      "b": "Correct. The EC2_INSTANCE_LAUNCHING lifecycle hook pauses the instance in a 'Pending:Wait' state, allowing you to perform custom actions (install software, pull config) before it enters service.",
+      "c": "Incorrect. There is no RUNNING lifecycle hook.",
+      "d": "Incorrect. There is no STOPPED lifecycle hook in ASG."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default lifecycle hook timeout (heartbeat timeout)?",
+    "opts": {
+      "a": "1800 seconds (30 minutes)",
+      "b": "3600 seconds (1 hour)",
+      "c": "7200 seconds (2 hours)",
+      "d": "300 seconds (5 minutes)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1800 seconds is not the default.",
+      "b": "Correct. The default heartbeat timeout for lifecycle hooks is 3600 seconds (1 hour). It can be extended up to 48 hours or 100 times the heartbeat timeout.",
+      "c": "Incorrect. 7200 seconds is not the default.",
+      "d": "Incorrect. 300 seconds is the default cooldown, not the lifecycle hook timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants their ELB to route traffic to instances across multiple AWS accounts. Which target type should they use?",
+    "opts": {
+      "a": "Instance ID",
+      "b": "IP address",
+      "c": "Lambda function",
+      "d": "Auto Scaling Group"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Instance IDs can only reference instances within the same account and VPC.",
+      "b": "Correct. Using IP addresses as targets allows routing to instances in different VPCs, accounts, or even on-premises servers via VPN/Direct Connect.",
+      "c": "Incorrect. Lambda functions cannot span accounts in this manner.",
+      "d": "Incorrect. ASG is not a target type."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when you enable ELB access logs?",
+    "opts": {
+      "a": "Logs are stored in CloudWatch Logs",
+      "b": "Logs are stored in an S3 bucket with detailed information about each request",
+      "c": "Logs are stored in DynamoDB",
+      "d": "Logs are sent to AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ELB access logs are not stored in CloudWatch Logs (though ELB metrics go to CloudWatch).",
+      "b": "Correct. ELB access logs capture detailed information about requests (timestamp, client IP, latencies, request paths, server responses) and store them in an S3 bucket.",
+      "c": "Incorrect. DynamoDB is not used for ELB access logs.",
+      "d": "Incorrect. AWS Config tracks configuration changes, not request-level logs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which scaling policy would you use if you want to add 2 instances when CPU > 70% and add 4 instances when CPU > 90%?",
+    "opts": {
+      "a": "Target Tracking Scaling",
+      "b": "Simple Scaling",
+      "c": "Step Scaling",
+      "d": "Scheduled Scaling"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Target tracking maintains a specific metric value but doesn't define different steps.",
+      "b": "Incorrect. Simple scaling performs a single action per alarm and then waits for the cooldown.",
+      "c": "Correct. Step Scaling allows you to define multiple step adjustments based on the magnitude of the alarm breach (e.g., add 2 when 70-90%, add 4 when >90%).",
+      "d": "Incorrect. Scheduled scaling is time-based, not metric-based."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What advantage does Step Scaling have over Simple Scaling?",
+    "opts": {
+      "a": "Step Scaling is cheaper",
+      "b": "Step Scaling does not require CloudWatch alarms",
+      "c": "Step Scaling can react to additional alarms during the cooldown period",
+      "d": "Step Scaling can only scale out, not scale in"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is no cost difference between scaling policy types.",
+      "b": "Incorrect. Step Scaling does require CloudWatch alarms.",
+      "c": "Correct. Step Scaling continuously evaluates alarms and can trigger additional scaling actions even while a previous action is in progress, unlike Simple Scaling which waits for the cooldown period.",
+      "d": "Incorrect. Step Scaling supports both scale-out and scale-in."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following metrics is a predefined metric for ALB Target Tracking Scaling?",
+    "opts": {
+      "a": "ALBRequestCountPerTarget",
+      "b": "DiskReadOps",
+      "c": "NetworkPacketsIn",
+      "d": "StatusCheckFailed"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ALBRequestCountPerTarget is a predefined metric that counts the number of requests per target in the target group, useful for ensuring each instance handles a consistent load.",
+      "b": "Incorrect. DiskReadOps is an EC2 metric but not a predefined target tracking metric.",
+      "c": "Incorrect. NetworkPacketsIn is not a predefined target tracking metric.",
+      "d": "Incorrect. StatusCheckFailed is a health metric, not a scaling metric."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ELB is configured with instances in 2 AZs. AZ-A has 4 instances, AZ-B has 2 instances. With cross-zone load balancing DISABLED, what percentage of total traffic does each instance in AZ-A receive?",
+    "opts": {
+      "a": "25%",
+      "b": "16.67%",
+      "c": "12.5%",
+      "d": "50%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 25% would be if each instance in AZ-A got equal share of AZ-A's 100% traffic, but AZ-A only gets 50%.",
+      "b": "Incorrect. 16.67% would be if traffic were evenly distributed across all 6 instances (cross-zone enabled).",
+      "c": "Correct. Without cross-zone LB, each AZ gets 50% of traffic. AZ-A has 4 instances, so each gets 50%/4 = 12.5% of total traffic.",
+      "d": "Incorrect. 50% is the traffic each AZ receives, not each instance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Using the same scenario (AZ-A: 4 instances, AZ-B: 2 instances, cross-zone DISABLED), what percentage does each instance in AZ-B receive?",
+    "opts": {
+      "a": "12.5%",
+      "b": "16.67%",
+      "c": "25%",
+      "d": "50%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 12.5% is what each AZ-A instance gets.",
+      "b": "Incorrect. 16.67% would be with cross-zone enabled.",
+      "c": "Correct. AZ-B receives 50% of total traffic. With 2 instances in AZ-B, each gets 50%/2 = 25% of total traffic.",
+      "d": "Incorrect. 50% is the total traffic to AZ-B, not per instance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Using the same scenario with cross-zone load balancing ENABLED, what percentage does each instance receive?",
+    "opts": {
+      "a": "12.5%",
+      "b": "16.67%",
+      "c": "25%",
+      "d": "50%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 12.5% is only for AZ-A instances without cross-zone.",
+      "b": "Correct. With cross-zone load balancing enabled, traffic is distributed evenly across all 6 instances (4+2). Each instance gets 100%/6 = 16.67% of traffic.",
+      "c": "Incorrect. 25% is for AZ-B instances without cross-zone.",
+      "d": "Incorrect. 50% is far too much per instance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which component of ELB decides which target group should receive a request?",
+    "opts": {
+      "a": "Target",
+      "b": "Listener",
+      "c": "Health Check",
+      "d": "Security Group"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A target is an individual endpoint that receives traffic.",
+      "b": "Correct. A Listener checks for connection requests using the protocol and port you configure, and uses rules to determine which target group should receive the traffic.",
+      "c": "Incorrect. Health checks verify target health but don't route traffic.",
+      "d": "Incorrect. Security groups control access but don't make routing decisions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of a 'fixed response' action in ALB listener rules?",
+    "opts": {
+      "a": "To forward requests to a target group",
+      "b": "To return a custom HTTP response directly from the ALB without forwarding to any target",
+      "c": "To redirect HTTP to HTTPS",
+      "d": "To authenticate users"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Forwarding to target groups is the 'forward' action.",
+      "b": "Correct. A fixed response action allows ALB to return a custom HTTP status code and message body directly without sending the request to any target group (e.g., returning 503 with a maintenance message).",
+      "c": "Incorrect. HTTP to HTTPS is the 'redirect' action.",
+      "d": "Incorrect. Authentication is the 'authenticate-oidc' or 'authenticate-cognito' action."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to redirect all HTTP traffic to HTTPS at the load balancer level. Which ALB listener rule action should they use?",
+    "opts": {
+      "a": "Forward",
+      "b": "Fixed-response",
+      "c": "Redirect",
+      "d": "Authenticate-cognito"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Forward sends traffic to a target group.",
+      "b": "Incorrect. Fixed-response returns a static response.",
+      "c": "Correct. The redirect action can redirect HTTP (port 80) requests to HTTPS (port 443) with a 301 or 302 status code directly at the ALB.",
+      "d": "Incorrect. Authenticate-cognito is for user authentication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is true about NLB and Security Groups?",
+    "opts": {
+      "a": "NLB always requires security groups",
+      "b": "NLB passes through client IP to targets, so backend security groups must allow client IPs",
+      "c": "NLB blocks all traffic by default",
+      "d": "NLB uses NACLs instead of security groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NLB security group association is optional (recently added support).",
+      "b": "Correct. NLB preserves the source IP address of the client. Therefore, backend instance security groups must allow traffic from client IP ranges, not just the NLB's IP.",
+      "c": "Incorrect. NLB does not block traffic by default.",
+      "d": "Incorrect. NLB can use security groups (recently supported) and NACLs apply at the subnet level."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does ALB handle the source IP differently from NLB?",
+    "opts": {
+      "a": "ALB preserves the original client IP as the source IP in packets",
+      "b": "ALB replaces the source IP with its own private IP; original client IP is in X-Forwarded-For header",
+      "c": "ALB removes the source IP entirely",
+      "d": "ALB and NLB handle source IP identically"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB does not preserve the original source IP in the packet.",
+      "b": "Correct. ALB performs connection termination and creates a new connection to the target. The source IP seen by the target is the ALB's private IP. The original client IP is available in the X-Forwarded-For header.",
+      "c": "Incorrect. The source IP is replaced, not removed.",
+      "d": "Incorrect. ALB and NLB handle source IP differently."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of targets per target group for ALB and NLB?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1000",
+      "d": "5000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Incorrect. The limit is higher than 500.",
+      "c": "Correct. The default maximum number of targets per target group is 1000 for ALB and NLB.",
+      "d": "Incorrect. 5000 exceeds the default per-target-group limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ELB type supports weighted target groups to distribute traffic by percentage?",
+    "opts": {
+      "a": "Classic Load Balancer",
+      "b": "Application Load Balancer",
+      "c": "Network Load Balancer",
+      "d": "Gateway Load Balancer"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CLB does not support weighted target groups.",
+      "b": "Correct. ALB supports weighted target groups in forward actions, allowing you to route specific percentages of traffic to different target groups (useful for blue/green deployments).",
+      "c": "Incorrect. NLB does not natively support weighted target groups in the same way.",
+      "d": "Incorrect. GWLB does not support weighted target groups for this use case."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG is configured to use ELB health checks. An instance fails the ELB health check but passes the EC2 status check. What will happen?",
+    "opts": {
+      "a": "The instance remains in service because EC2 status check passed",
+      "b": "The instance is marked unhealthy and terminated by ASG",
+      "c": "The instance is stopped but not terminated",
+      "d": "Nothing happens until both checks fail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. When ELB health checks are configured for ASG, failing the ELB check is sufficient.",
+      "b": "Correct. When ASG is configured to use ELB health checks, if either the EC2 status check OR the ELB health check fails, the instance is marked unhealthy and ASG will terminate and replace it.",
+      "c": "Incorrect. ASG terminates unhealthy instances, not stops them.",
+      "d": "Incorrect. Only one check needs to fail when ELB health checks are enabled."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "By default, what type of health check does ASG use?",
+    "opts": {
+      "a": "ELB health check",
+      "b": "EC2 status check",
+      "c": "Custom health check",
+      "d": "HTTP health check"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ELB health checks must be explicitly configured for ASG.",
+      "b": "Correct. By default, ASG uses EC2 status checks (system status and instance status). ELB health checks must be explicitly enabled.",
+      "c": "Incorrect. Custom health checks require manual configuration.",
+      "d": "Incorrect. HTTP health checks are part of ELB, not the default ASG health check."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the 'slow start mode' in ALB target groups?",
+    "opts": {
+      "a": "To delay instance termination",
+      "b": "To gradually increase the share of requests sent to a newly registered target",
+      "c": "To slow down all traffic to the target group",
+      "d": "To reduce the health check frequency"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Slow start mode is about traffic ramp-up, not termination delay.",
+      "b": "Correct. Slow start mode gives newly registered targets time to warm up by linearly increasing the traffic share over a configured duration (30-900 seconds) before receiving a full share.",
+      "c": "Incorrect. It only affects newly registered targets, not all traffic.",
+      "d": "Incorrect. Slow start does not change health check frequency."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the slow start duration range configurable for ALB target groups?",
+    "opts": {
+      "a": "10-300 seconds",
+      "b": "30-900 seconds",
+      "c": "60-3600 seconds",
+      "d": "0-600 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The range starts at 30 seconds.",
+      "b": "Correct. Slow start duration can be configured between 30 and 900 seconds (15 minutes). Setting it to 0 disables slow start.",
+      "c": "Incorrect. The maximum is 900 seconds.",
+      "d": "Incorrect. The minimum is 30 seconds (unless disabled with 0)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ASG feature protects specific instances from being terminated during scale-in events?",
+    "opts": {
+      "a": "Lifecycle Hooks",
+      "b": "Instance Protection",
+      "c": "Cooldown Period",
+      "d": "Termination Policy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lifecycle hooks allow custom actions during launch/termination but don't prevent termination.",
+      "b": "Correct. Instance Protection (scale-in protection) prevents specific instances from being terminated during scale-in events, though they can still be terminated by health check failures.",
+      "c": "Incorrect. Cooldown prevents new scaling actions temporarily but doesn't protect specific instances.",
+      "d": "Incorrect. Termination policy determines which instances are terminated first but doesn't protect specific ones."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of Auto Scaling Groups per AWS account per region (default limit)?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 20.",
+      "b": "Incorrect. The limit is higher than 50.",
+      "c": "Incorrect. The limit is higher than 100.",
+      "d": "Correct. The default limit is 200 Auto Scaling Groups per region per account. This can be increased by requesting a limit increase."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG has a cooldown period of 300 seconds. A scale-out event adds 2 instances at 10:00 AM. At 10:02 AM, CPU spikes again. What happens?",
+    "opts": {
+      "a": "ASG immediately adds more instances",
+      "b": "ASG ignores the alarm until the cooldown expires at 10:05 AM",
+      "c": "ASG terminates the newly added instances",
+      "d": "ASG sends a notification but takes no action"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cooldown period prevents immediate new scaling actions.",
+      "b": "Correct. During the 300-second (5-minute) cooldown period, ASG will not initiate another scaling activity. The alarm at 10:02 will be ignored until 10:05 AM.",
+      "c": "Incorrect. Cooldown does not trigger scale-in.",
+      "d": "Incorrect. ASG ignores scaling activities during cooldown, not just send notifications."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature allows you to temporarily suspend specific ASG processes?",
+    "opts": {
+      "a": "Scaling Policies",
+      "b": "Suspend and Resume Processes",
+      "c": "Instance Protection",
+      "d": "Lifecycle Hooks"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Scaling policies define how to scale but cannot suspend processes.",
+      "b": "Correct. ASG allows you to suspend and resume individual processes like Launch, Terminate, HealthCheck, ReplaceUnhealthy, AZRebalance, AlarmNotification, ScheduledActions, and AddToLoadBalancer.",
+      "c": "Incorrect. Instance protection protects individual instances, not processes.",
+      "d": "Incorrect. Lifecycle hooks add custom actions but don't suspend processes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'AZRebalance' process in ASG?",
+    "opts": {
+      "a": "It moves instances between regions",
+      "b": "It maintains an even distribution of instances across configured Availability Zones",
+      "c": "It balances CPU usage across instances",
+      "d": "It redistributes EBS volumes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ASG does not move instances between regions.",
+      "b": "Correct. AZRebalance ensures that instances are evenly distributed across the Availability Zones configured in the ASG. If one AZ has more instances than others, it will launch in under-represented AZs and terminate in over-represented ones.",
+      "c": "Incorrect. CPU balancing is not what AZRebalance does.",
+      "d": "Incorrect. EBS volume redistribution is not related to AZRebalance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the 'ReplaceUnhealthy' process in ASG?",
+    "opts": {
+      "a": "To replace instances with a newer AMI",
+      "b": "To terminate unhealthy instances and launch new ones to replace them",
+      "c": "To restart unhealthy instances",
+      "d": "To send notifications about unhealthy instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AMI updates require instance refresh, not ReplaceUnhealthy.",
+      "b": "Correct. ReplaceUnhealthy automatically terminates instances marked as unhealthy and launches new replacement instances.",
+      "c": "Incorrect. ASG terminates and replaces, not restarts.",
+      "d": "Incorrect. Notifications are handled by the AlarmNotification process or SNS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is Instance Refresh in ASG?",
+    "opts": {
+      "a": "A way to reboot all instances simultaneously",
+      "b": "A feature that allows updating instances to a new launch template/configuration with rolling updates",
+      "c": "A method to clear instance caches",
+      "d": "A way to refresh IAM roles on instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Instance refresh does not reboot instances simultaneously.",
+      "b": "Correct. Instance Refresh allows you to update all instances in an ASG to use a new launch template version (e.g., new AMI) through rolling updates, replacing instances in batches while maintaining availability.",
+      "c": "Incorrect. Cache clearing is not related to instance refresh.",
+      "d": "Incorrect. IAM role updates don't require instance refresh."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does the 'minimum healthy percentage' parameter control during an Instance Refresh?",
+    "opts": {
+      "a": "The minimum number of AZs that must remain active",
+      "b": "The minimum percentage of instances that must remain in service during the rolling update",
+      "c": "The health check success rate threshold",
+      "d": "The minimum CPU utilization during refresh"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This parameter is about instances, not AZs.",
+      "b": "Correct. The minimum healthy percentage defines the minimum number of instances (as a percentage of desired capacity) that must remain in an InService state during the refresh. For example, 90% means only 10% of instances can be replaced at a time.",
+      "c": "Incorrect. It does not define health check success rates.",
+      "d": "Incorrect. CPU utilization is not controlled by this parameter."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following services can ASG send notifications to when scaling events occur?",
+    "opts": {
+      "a": "Amazon SQS only",
+      "b": "Amazon SNS",
+      "c": "Amazon Kinesis only",
+      "d": "AWS CloudTrail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While SQS can be a subscriber to SNS, ASG directly integrates with SNS.",
+      "b": "Correct. ASG can send notifications to Amazon SNS topics when instances launch, terminate, fail to launch, or fail to terminate.",
+      "c": "Incorrect. Kinesis is not directly integrated with ASG notifications.",
+      "d": "Incorrect. CloudTrail logs API calls but is not a notification target."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when you attach an ELB to an existing ASG with running instances?",
+    "opts": {
+      "a": "All existing instances are terminated and relaunched",
+      "b": "Existing instances are automatically registered with the ELB/target group",
+      "c": "Only new instances are registered with the ELB",
+      "d": "The ASG must be recreated"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Existing instances are not terminated when attaching an ELB.",
+      "b": "Correct. When you attach a load balancer or target group to an ASG, all existing instances are automatically registered with the load balancer.",
+      "c": "Incorrect. Both existing and new instances are registered.",
+      "d": "Incorrect. ASG does not need to be recreated."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ELB type can you use to place third-party security appliances inline with traffic flow?",
+    "opts": {
+      "a": "Application Load Balancer",
+      "b": "Network Load Balancer",
+      "c": "Classic Load Balancer",
+      "d": "Gateway Load Balancer"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. ALB is for HTTP/HTTPS application routing.",
+      "b": "Incorrect. NLB is for high-performance TCP/UDP load balancing.",
+      "c": "Incorrect. CLB is legacy and not designed for inline appliances.",
+      "d": "Correct. GWLB is specifically designed to deploy, scale, and manage third-party virtual network appliances (firewalls, IDS/IPS, deep packet inspection) inline with traffic flow."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the relationship between GWLB and GWLB Endpoints (GWLBe)?",
+    "opts": {
+      "a": "They are the same thing",
+      "b": "GWLBe are VPC endpoints that route traffic to/from the GWLB in a service provider VPC",
+      "c": "GWLBe is the health check endpoint for GWLB",
+      "d": "GWLBe replaces GWLB in newer deployments"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They are different components.",
+      "b": "Correct. GWLB Endpoints (powered by AWS PrivateLink) are VPC endpoints that allow traffic to flow between the consumer VPC and the service provider VPC where the GWLB and security appliances reside.",
+      "c": "Incorrect. GWLBe is not a health check endpoint.",
+      "d": "Incorrect. GWLBe works alongside GWLB, not as a replacement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ALB feature allows you to route requests based on HTTP headers, methods, query strings, and source IP in a single rule?",
+    "opts": {
+      "a": "Basic routing",
+      "b": "Advanced request routing (multiple conditions in rules)",
+      "c": "DNS routing",
+      "d": "Geographic routing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Basic routing typically refers to simple path or host routing.",
+      "b": "Correct. ALB supports advanced request routing with multiple conditions per rule, including HTTP headers, HTTP methods, query strings, source IP CIDR, path patterns, and host headers.",
+      "c": "Incorrect. DNS routing is a Route 53 feature.",
+      "d": "Incorrect. Geographic routing is a Route 53 feature."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of conditions per ALB listener rule?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can have more than 3 conditions per rule.",
+      "b": "Correct. Each ALB listener rule can have up to 5 conditions that must all be met (AND logic) for the rule to apply.",
+      "c": "Incorrect. 10 exceeds the limit.",
+      "d": "Incorrect. 20 exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses ALB with an ASG. During a deployment, they want to send 10% of traffic to the new version and 90% to the old version. Which ALB feature enables this?",
+    "opts": {
+      "a": "Sticky Sessions",
+      "b": "Weighted Target Groups",
+      "c": "Cross-Zone Load Balancing",
+      "d": "Path-based Routing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Sticky sessions bind users to instances but don't split traffic by percentage.",
+      "b": "Correct. ALB weighted target groups allow you to specify a weight for each target group in a forward action, enabling canary deployments (e.g., 10% to new, 90% to old).",
+      "c": "Incorrect. Cross-zone load balancing distributes evenly across AZs.",
+      "d": "Incorrect. Path-based routing routes based on URL paths, not traffic percentages."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of SSL/TLS certificates that can be associated with an ALB using SNI?",
+    "opts": {
+      "a": "1",
+      "b": "10",
+      "c": "25",
+      "d": "25 default (can be increased to more)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Only CLB is limited to 1 certificate.",
+      "b": "Incorrect. The limit is higher than 10.",
+      "c": "Correct. ALB supports up to 25 SSL/TLS certificates per listener using SNI (1 default + 24 additional). This can be increased through a limit increase request.",
+      "d": "Incorrect. The default is 25 total (not 25 as a starting point that increases)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following best describes the ALB 'least outstanding requests' routing algorithm?",
+    "opts": {
+      "a": "Routes to the target with the fewest active connections/requests",
+      "b": "Routes to the target that has been idle the longest",
+      "c": "Routes requests in a round-robin fashion",
+      "d": "Routes to the target with the lowest CPU"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The Least Outstanding Requests (LOR) algorithm routes each new request to the target that currently has the fewest in-progress requests, which is useful when targets have varying processing capabilities.",
+      "b": "Incorrect. Idle time is not the metric used.",
+      "c": "Incorrect. Round robin is a separate routing algorithm.",
+      "d": "Incorrect. CPU utilization is not directly used by ALB's routing algorithm."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What routing algorithms does ALB support?",
+    "opts": {
+      "a": "Round Robin only",
+      "b": "Round Robin and Least Outstanding Requests",
+      "c": "Weighted and Geographic",
+      "d": "Hash-based only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB supports more than just Round Robin.",
+      "b": "Correct. ALB supports Round Robin (default) and Least Outstanding Requests routing algorithms at the target group level.",
+      "c": "Incorrect. Weighted and Geographic are Route 53 routing policies.",
+      "d": "Incorrect. Hash-based routing is used by NLB, not ALB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does NLB distribute traffic by default?",
+    "opts": {
+      "a": "Round Robin",
+      "b": "Least connections",
+      "c": "Flow hash algorithm (based on protocol, source/dest IP, source/dest port, TCP sequence number)",
+      "d": "Random selection"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Round Robin is used by ALB, not NLB by default.",
+      "b": "Incorrect. Least connections is not NLB's default algorithm.",
+      "c": "Correct. NLB uses a flow hash algorithm based on the protocol, source IP/port, destination IP/port, and TCP sequence number to consistently route a connection to the same target.",
+      "d": "Incorrect. NLB does not randomly select targets."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG is set to use mixed instance types with On-Demand and Spot instances. What is this feature called?",
+    "opts": {
+      "a": "Instance Diversity",
+      "b": "Mixed Instances Policy",
+      "c": "Hybrid Scaling",
+      "d": "Multi-Instance Configuration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Instance Diversity is not the official term.",
+      "b": "Correct. Mixed Instances Policy allows an ASG to use multiple instance types and purchase options (On-Demand and Spot) within a single ASG, providing cost optimization and availability.",
+      "c": "Incorrect. Hybrid Scaling is not an official ASG feature name.",
+      "d": "Incorrect. Multi-Instance Configuration is not the official term."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the health check grace period in ASG?",
+    "opts": {
+      "a": "Time before the first scaling action",
+      "b": "Time after an instance launches during which ASG does not check its health status",
+      "c": "Time between consecutive health checks",
+      "d": "Time before the ASG is deleted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The grace period is specific to health checking, not scaling.",
+      "b": "Correct. The health check grace period is the amount of time ASG waits after an instance launches before it begins health checking. This gives the instance time to boot and start the application (default: 300 seconds).",
+      "c": "Incorrect. That is the health check interval.",
+      "d": "Incorrect. Grace period is not about ASG deletion."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default health check grace period for ASG?",
+    "opts": {
+      "a": "0 seconds",
+      "b": "60 seconds",
+      "c": "300 seconds",
+      "d": "600 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 0 seconds would mean health checks start immediately.",
+      "b": "Incorrect. 60 seconds is not the default.",
+      "c": "Correct. The default health check grace period is 300 seconds (5 minutes), giving instances time to fully initialize before being health-checked.",
+      "d": "Incorrect. 600 seconds is not the default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following statements about ELB pricing is correct?",
+    "opts": {
+      "a": "ELB has no charges; it is included with EC2",
+      "b": "You are charged per hour (or partial hour) the ELB runs, plus data processed (LCU for ALB)",
+      "c": "You only pay for data transfer, not running time",
+      "d": "ELB is charged per number of registered targets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ELB has its own charges separate from EC2.",
+      "b": "Correct. ELB pricing includes an hourly charge for running the load balancer plus a charge based on usage (measured in LCUs for ALB, NLCUs for NLB, or data processed for CLB).",
+      "c": "Incorrect. There is both an hourly charge and a usage charge.",
+      "d": "Incorrect. Pricing is not based on the number of targets."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does LCU stand for in ALB pricing?",
+    "opts": {
+      "a": "Load Capacity Unit",
+      "b": "Load Compute Unit",
+      "c": "Load Balancer Capacity Unit",
+      "d": "Logical Compute Unit"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. LCU does not stand for Load Capacity Unit.",
+      "b": "Incorrect. LCU does not stand for Load Compute Unit.",
+      "c": "Correct. LCU stands for Load Balancer Capacity Unit. ALB pricing is based on the highest dimension of: new connections, active connections, processed bytes, and rule evaluations.",
+      "d": "Incorrect. LCU does not stand for Logical Compute Unit."
+    }
+  }
+]

@@ -1,0 +1,1056 @@
+[
+  {
+    "type": "concept",
+    "q": "What is Amazon Route 53 primarily used for?",
+    "opts": {
+      "a": "Load balancing EC2 instances",
+      "b": "Scalable Domain Name System (DNS) web service and domain registration",
+      "c": "Content delivery network",
+      "d": "Managing VPC networking"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - That's ELB's role.",
+      "b": "Correct - Route 53 is AWS's highly available and scalable DNS service that also supports domain registration and health checking.",
+      "c": "Wrong - That's CloudFront.",
+      "d": "Wrong - That's VPC service."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "Why is the AWS DNS service named 'Route 53'?",
+    "opts": {
+      "a": "It was the 53rd AWS service launched",
+      "b": "DNS operates on TCP/UDP port 53",
+      "c": "It supports 53 record types",
+      "d": "It has 53 edge locations"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not related to launch order.",
+      "b": "Correct - The name 'Route 53' references TCP/UDP port 53, which is the standard port used by DNS.",
+      "c": "Wrong - Route 53 supports far fewer record types than 53.",
+      "d": "Wrong - There are far more edge locations."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want to direct users to the AWS region with the LOWEST network latency for them. Which Route 53 routing policy?",
+    "opts": {
+      "a": "Weighted routing",
+      "b": "Geolocation routing",
+      "c": "Latency-based routing",
+      "d": "Simple routing"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Wrong - Weighted splits traffic by percentage.",
+      "b": "Wrong - Geolocation routes based on user's physical location, not measured latency.",
+      "c": "Correct - Latency-based routing directs users to the AWS region with the lowest measured network latency for them.",
+      "d": "Wrong - Simple routing has no intelligent selection."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "What is the default maximum number of hosted zones you can create per AWS account?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Too low.",
+      "b": "Correct - The default limit is 500 hosted zones per AWS account (soft limit; can be increased).",
+      "c": "Wrong - Requires quota increase.",
+      "d": "Wrong - Well above default."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is a Hosted Zone in Route 53?",
+    "opts": {
+      "a": "A physical server location",
+      "b": "A container for DNS records for a specific domain",
+      "c": "An availability zone",
+      "d": "A VPC subnet"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not a physical concept.",
+      "b": "Correct - A Hosted Zone is a container that holds information about how you want to route traffic for a domain (e.g., example.com) and its subdomains.",
+      "c": "Wrong - AZ is unrelated to DNS.",
+      "d": "Wrong - Subnets are VPC constructs."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is the difference between a Public Hosted Zone and a Private Hosted Zone in Route 53?",
+    "opts": {
+      "a": "There is no difference",
+      "b": "Public zones handle internet DNS queries; Private zones resolve DNS only within specified VPCs",
+      "c": "Private zones are cheaper",
+      "d": "Public zones are only for AWS services"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - They serve different purposes.",
+      "b": "Correct - Public Hosted Zones respond to DNS queries from the public internet; Private Hosted Zones only respond to queries from within associated VPCs.",
+      "c": "Wrong - Both have similar pricing.",
+      "d": "Wrong - Public zones handle any internet-facing DNS."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want to route 80% of traffic to a new app version and 20% to the old for canary testing. Which routing policy?",
+    "opts": {
+      "a": "Latency-based",
+      "b": "Weighted routing",
+      "c": "Geolocation",
+      "d": "Multi-value answer"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Latency doesn't split by percentage.",
+      "b": "Correct - Weighted routing lets you assign specific traffic percentages (e.g., 80/20) across multiple endpoints, ideal for canary deployments and A/B testing.",
+      "c": "Wrong - Geolocation splits by user location, not percentage.",
+      "d": "Wrong - Multi-value returns multiple records but doesn't control percentages."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is a Route 53 Alias record?",
+    "opts": {
+      "a": "A shortcut for A records",
+      "b": "AWS-specific record that maps a domain to an AWS resource (like ALB, CloudFront, S3) without an IP",
+      "c": "A synonym for CNAME",
+      "d": "A backup DNS record"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - It's more specific than that.",
+      "b": "Correct - Alias records are AWS-specific, mapping domains to AWS resources (ALB, CloudFront, S3 website, API Gateway, etc.) using the target's DNS name; they're free and support zone apex.",
+      "c": "Wrong - CNAME doesn't work at zone apex; Alias does.",
+      "d": "Wrong - Not a backup mechanism."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "What is the default TTL (Time To Live) for records created in Route 53?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "300 seconds (5 minutes)",
+      "c": "3,600 seconds (1 hour)",
+      "d": "86,400 seconds (24 hours)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Too low for default.",
+      "b": "Correct - The default TTL for Route 53 records is 300 seconds (5 minutes), though it's fully customizable.",
+      "c": "Wrong - That's 1 hour, not the default.",
+      "d": "Wrong - Way too long."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want traffic routed to a primary region normally, and to a secondary region only if the primary fails. Which routing policy?",
+    "opts": {
+      "a": "Weighted routing",
+      "b": "Failover routing with health checks",
+      "c": "Latency-based",
+      "d": "Multi-value answer"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Weighted always splits traffic.",
+      "b": "Correct - Failover routing with health checks routes traffic to primary; if primary health check fails, it automatically fails over to secondary. Ideal for active-passive DR.",
+      "c": "Wrong - Latency doesn't do active-passive.",
+      "d": "Wrong - Multi-value doesn't provide failover behavior."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is the difference between a CNAME record and an Alias record in Route 53?",
+    "opts": {
+      "a": "They are identical",
+      "b": "CNAME cannot be used at the zone apex (e.g., example.com); Alias can and is free for AWS resources",
+      "c": "Alias is only for CloudFront",
+      "d": "CNAME is faster"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Significant differences exist.",
+      "b": "Correct - CNAME cannot exist at zone apex (root domain like example.com) per DNS RFC; Alias records can point apex domains to AWS resources and are free of DNS query charges.",
+      "c": "Wrong - Alias works for many AWS resources (ALB, S3, CloudFront, API Gateway, etc.).",
+      "d": "Wrong - Performance is comparable."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want European users to see content in French from EU servers and US users to see English from US servers. Which routing policy?",
+    "opts": {
+      "a": "Latency-based",
+      "b": "Weighted",
+      "c": "Geolocation routing",
+      "d": "Failover"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Wrong - Latency chooses fastest, not by geographic rules.",
+      "b": "Wrong - Weighted splits by percentage.",
+      "c": "Correct - Geolocation routing directs traffic based on the geographic location of the DNS query (continent, country, or US state), enabling localization.",
+      "d": "Wrong - Failover is for DR, not localization."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "What is the maximum number of records you can have in a single Route 53 hosted zone by default?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Wrong - Too low.",
+      "b": "Wrong - Not the default.",
+      "c": "Correct - The default limit is 10,000 records per hosted zone (soft limit, can be increased).",
+      "d": "Wrong - Way above default."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is a Route 53 Health Check?",
+    "opts": {
+      "a": "A monitoring feature that verifies endpoint availability and can trigger failover routing",
+      "b": "A billing report",
+      "c": "A DNS record type",
+      "d": "A VPC diagnostic tool"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct - Route 53 Health Checks monitor endpoints (via HTTP/HTTPS/TCP), CloudWatch alarms, or calculated health of other checks. Unhealthy targets are excluded from DNS responses.",
+      "b": "Wrong - Not billing-related.",
+      "c": "Wrong - It's a separate feature, not a record type.",
+      "d": "Wrong - Unrelated to VPC diagnostics."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has global users but wants all of them to be routed to the closest healthy endpoint. BEST combination?",
+    "opts": {
+      "a": "Simple routing",
+      "b": "Latency-based routing + Health checks",
+      "c": "Failover only",
+      "d": "Weighted routing only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Simple has no intelligence.",
+      "b": "Correct - Latency-based routing sends users to the lowest-latency region; health checks ensure Route 53 only returns healthy endpoints, skipping unhealthy ones.",
+      "c": "Wrong - Failover is active-passive only.",
+      "d": "Wrong - Weighted doesn't consider latency or health."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "What is the maximum number of health checks you can create per AWS account by default in Route 53?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Wrong - Too low.",
+      "b": "Wrong - Not the default.",
+      "c": "Correct - The default limit is 200 health checks per AWS account (soft limit, can be increased).",
+      "d": "Wrong - Exceeds default."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "Which DNS record type maps a domain name to an IPv4 address?",
+    "opts": {
+      "a": "AAAA",
+      "b": "A",
+      "c": "CNAME",
+      "d": "MX"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - AAAA is for IPv6.",
+      "b": "Correct - A (Address) records map a domain name to an IPv4 address (e.g., 192.0.2.1).",
+      "c": "Wrong - CNAME maps domain to another domain.",
+      "d": "Wrong - MX is for mail exchange."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "Which DNS record type maps a domain to an IPv6 address?",
+    "opts": {
+      "a": "A",
+      "b": "AAAA",
+      "c": "CNAME",
+      "d": "TXT"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - A is for IPv4.",
+      "b": "Correct - AAAA (Quad-A) records map a domain to an IPv6 address (e.g., 2001:db8::1).",
+      "c": "Wrong - CNAME maps domain to domain.",
+      "d": "Wrong - TXT stores text data (e.g., SPF, DKIM)."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want a domain example.com to resolve to another domain, say example.otherdomain.com. Which record type?",
+    "opts": {
+      "a": "A record",
+      "b": "MX record",
+      "c": "CNAME record",
+      "d": "TXT record"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Wrong - A maps to IP, not another domain.",
+      "b": "Wrong - MX is for mail.",
+      "c": "Correct - CNAME (Canonical Name) records map one domain name to another. Note: CNAME cannot be used at the zone apex (root domain).",
+      "d": "Wrong - TXT stores text metadata."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is the purpose of an MX record in DNS?",
+    "opts": {
+      "a": "Maps to an IPv4 address",
+      "b": "Specifies mail servers for a domain",
+      "c": "Provides text metadata",
+      "d": "Enables DNSSEC"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - That's A records.",
+      "b": "Correct - MX (Mail Exchange) records specify the mail servers responsible for receiving email for a domain, along with priority values.",
+      "c": "Wrong - That's TXT.",
+      "d": "Wrong - That's DS/DNSKEY records."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your Route 53 domain is example.com. You want to point it directly to an S3 static website. What record type should you use?",
+    "opts": {
+      "a": "CNAME",
+      "b": "Alias record (A type) pointing to the S3 website endpoint",
+      "c": "TXT",
+      "d": "MX"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - CNAME cannot be used at zone apex (example.com).",
+      "b": "Correct - Use an Alias A record pointing to the S3 static website endpoint. Alias supports zone apex and is free.",
+      "c": "Wrong - TXT doesn't route traffic.",
+      "d": "Wrong - MX is for mail."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "How many DNS query rates does Route 53 support?",
+    "opts": {
+      "a": "100 queries/sec",
+      "b": "10,000 queries/sec",
+      "c": "1 million queries/sec",
+      "d": "Unlimited (scales automatically)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Wrong - Too low.",
+      "b": "Wrong - Not the limit.",
+      "c": "Wrong - Not a hard limit.",
+      "d": "Correct - Route 53 automatically scales to handle any query volume; there's no fixed query rate limit."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is a TXT record commonly used for?",
+    "opts": {
+      "a": "Storing binary files",
+      "b": "SPF, DKIM, domain verification, and other text-based metadata",
+      "c": "Load balancing",
+      "d": "IP address mapping"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - DNS isn't for binary data.",
+      "b": "Correct - TXT records store text metadata used for SPF/DKIM (email authentication), domain ownership verification, and other services (e.g., for ACM certificate validation).",
+      "c": "Wrong - That's routing policies.",
+      "d": "Wrong - That's A/AAAA records."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want to distribute traffic across up to 8 healthy records with basic randomization (no weights or geo logic). Which routing policy?",
+    "opts": {
+      "a": "Simple routing",
+      "b": "Multi-value answer routing",
+      "c": "Weighted routing",
+      "d": "Latency-based"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Simple returns one record without health checks.",
+      "b": "Correct - Multi-value answer routing returns up to 8 healthy records randomly, providing basic health-check-based load balancing at the DNS level.",
+      "c": "Wrong - Weighted requires percentages.",
+      "d": "Wrong - Latency uses network measurements."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is Route 53 Resolver used for?",
+    "opts": {
+      "a": "Encrypting DNS traffic",
+      "b": "Enabling DNS resolution between VPCs and on-premises networks (via inbound/outbound endpoints)",
+      "c": "Registering domains",
+      "d": "Health checking"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - That's DNSSEC.",
+      "b": "Correct - Route 53 Resolver enables hybrid DNS resolution — inbound endpoints let on-prem resolve AWS DNS; outbound endpoints let AWS resolve on-prem DNS.",
+      "c": "Wrong - That's Route 53 Registrar.",
+      "d": "Wrong - That's a separate feature."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's on-premises DNS server needs to resolve names for AWS private hosted zones. BEST solution?",
+    "opts": {
+      "a": "Enable public DNS",
+      "b": "Use Route 53 Resolver Inbound Endpoints",
+      "c": "Use CloudFront",
+      "d": "Enable VPC peering"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Private zones aren't publicly resolvable.",
+      "b": "Correct - Route 53 Resolver Inbound Endpoints provide IPs that on-premises DNS servers can forward queries to, resolving AWS private zone records.",
+      "c": "Wrong - CloudFront is CDN, not DNS.",
+      "d": "Wrong - VPC peering handles network, not DNS resolution."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is DNSSEC in Route 53?",
+    "opts": {
+      "a": "A CDN service",
+      "b": "DNS Security Extensions that add cryptographic signatures to DNS responses to prevent spoofing",
+      "c": "A backup DNS system",
+      "d": "A load balancer"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - That's CloudFront.",
+      "b": "Correct - DNSSEC (DNS Security Extensions) authenticates DNS responses with cryptographic signatures, preventing DNS spoofing and cache poisoning attacks. Route 53 supports DNSSEC signing.",
+      "c": "Wrong - Not a backup mechanism.",
+      "d": "Wrong - Unrelated to load balancing."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want to register a new domain name (e.g., mycompany.com) via AWS. Which service?",
+    "opts": {
+      "a": "AWS Certificate Manager",
+      "b": "Route 53 Domain Registration",
+      "c": "AWS CloudFormation",
+      "d": "Amazon Cognito"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - ACM issues SSL/TLS certificates.",
+      "b": "Correct - Route 53 acts as an ICANN-accredited domain registrar, allowing you to purchase and manage domain registrations directly.",
+      "c": "Wrong - CloudFormation is IaC.",
+      "d": "Wrong - Cognito is for authentication."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "What is the minimum TTL value you can configure for a Route 53 record?",
+    "opts": {
+      "a": "0 seconds",
+      "b": "1 second",
+      "c": "60 seconds",
+      "d": "300 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct - The minimum TTL for Route 53 records is 0 seconds (though 0 is rarely practical; low values increase query load).",
+      "b": "Wrong - Minimum is 0.",
+      "c": "Wrong - Common but not the minimum.",
+      "d": "Wrong - That's the default TTL."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is the purpose of a Route 53 Traffic Policy?",
+    "opts": {
+      "a": "Manages billing",
+      "b": "Visual editor to create complex routing configurations combining multiple policies (geo, weighted, failover)",
+      "c": "Enables DNSSEC",
+      "d": "Handles DDoS protection"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not billing.",
+      "b": "Correct - Traffic Policies provide a visual editor to build complex DNS routing configurations combining multiple routing policies (weighted, latency, geolocation, failover) in a single tree.",
+      "c": "Wrong - DNSSEC is separate.",
+      "d": "Wrong - That's Shield/WAF."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want to fail over to a backup site when your primary is unhealthy, and use latency-based routing among healthy regions. What can you use?",
+    "opts": {
+      "a": "Only failover routing",
+      "b": "Traffic Policy combining Failover + Latency-based routing",
+      "c": "Simple routing",
+      "d": "CNAME chaining"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Failover alone doesn't handle multi-region latency.",
+      "b": "Correct - Route 53 Traffic Policies let you combine multiple routing policies (e.g., Failover on top of Latency-based) into a decision tree for complex scenarios.",
+      "c": "Wrong - Simple doesn't support multi-policy logic.",
+      "d": "Wrong - CNAME chaining is unreliable and not scalable."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is a Route 53 Health Check 'calculated health check'?",
+    "opts": {
+      "a": "A billing calculation",
+      "b": "A health check that combines the status of multiple other health checks using boolean logic (AND/OR/NOT)",
+      "c": "A DNS record",
+      "d": "A CloudWatch metric"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not billing-related.",
+      "b": "Correct - Calculated health checks aggregate the status of multiple child health checks with logical operators, useful for complex health decisions.",
+      "c": "Wrong - Not a DNS record.",
+      "d": "Wrong - It uses CloudWatch integration but isn't itself a metric."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want Route 53 to monitor a metric in CloudWatch (e.g., queue depth) and trigger DNS failover based on it. Which health check type?",
+    "opts": {
+      "a": "HTTP endpoint health check",
+      "b": "TCP endpoint health check",
+      "c": "CloudWatch alarm-based health check",
+      "d": "Calculated health check"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Wrong - HTTP checks only pings a URL.",
+      "b": "Wrong - TCP checks connectivity only.",
+      "c": "Correct - CloudWatch alarm health checks monitor any CloudWatch metric (like SQS queue depth, custom application metrics) and mark health based on the alarm state.",
+      "d": "Wrong - Calculated combines other health checks, not metrics directly."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "How often does Route 53 evaluate a standard health check by default?",
+    "opts": {
+      "a": "Every 10 seconds",
+      "b": "Every 30 seconds",
+      "c": "Every 60 seconds",
+      "d": "Every 5 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - That's the fast interval (extra cost).",
+      "b": "Correct - Standard Route 53 health checks run every 30 seconds by default. Fast checks (every 10 seconds) are available at additional cost.",
+      "c": "Wrong - Not the standard interval.",
+      "d": "Wrong - Far too infrequent."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "In Route 53, what is the SOA record?",
+    "opts": {
+      "a": "Source of Attack record",
+      "b": "Start of Authority record that contains administrative information about a DNS zone",
+      "c": "Service of AWS record",
+      "d": "Secondary Origin Address record"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not a security concept.",
+      "b": "Correct - SOA (Start of Authority) records store administrative info about a DNS zone including the primary name server, admin email, serial number, and refresh timers.",
+      "c": "Wrong - Not an AWS-specific term.",
+      "d": "Wrong - Not a valid DNS record."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is an NS record in Route 53?",
+    "opts": {
+      "a": "Network Security record",
+      "b": "Name Server record that identifies authoritative DNS servers for a domain",
+      "c": "Non-Standard record",
+      "d": "Node Service record"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not a valid term.",
+      "b": "Correct - NS (Name Server) records identify the authoritative name servers for a domain. Route 53 creates these automatically when a hosted zone is created.",
+      "c": "Wrong - Not a real DNS type.",
+      "d": "Wrong - Not a DNS record."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You created a hosted zone for example.com in Route 53 but the domain doesn't resolve. Most likely cause?",
+    "opts": {
+      "a": "You didn't create an A record",
+      "b": "You didn't update the domain registrar's NS records to point to Route 53's name servers",
+      "c": "TTL is too high",
+      "d": "AWS is down"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Missing A records only affects specific subdomains.",
+      "b": "Correct - After creating a hosted zone in Route 53, you must update your domain registrar to use the 4 name servers Route 53 provides, or DNS queries won't reach Route 53.",
+      "c": "Wrong - TTL affects caching, not resolution failure.",
+      "d": "Wrong - AWS outages are rare and this is user misconfiguration."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "How many name servers does Route 53 assign to each hosted zone by default?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "4",
+      "d": "8"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Wrong - Too few for redundancy.",
+      "b": "Wrong - Not the Route 53 count.",
+      "c": "Correct - Route 53 assigns 4 name servers per hosted zone (in different AWS locations) for redundancy and fault tolerance.",
+      "d": "Wrong - Not the standard count."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What does the PTR record do in DNS?",
+    "opts": {
+      "a": "Maps an IP to a domain (reverse DNS lookup)",
+      "b": "Maps a domain to an IP",
+      "c": "Stores mail server info",
+      "d": "Verifies domain ownership"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct - PTR (Pointer) records perform reverse DNS lookups, mapping an IP address back to a domain name — commonly used for email server verification.",
+      "b": "Wrong - That's A/AAAA.",
+      "c": "Wrong - That's MX.",
+      "d": "Wrong - That's TXT."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You need to route traffic based on the source IP address of the DNS resolver (approximate user location). Which routing policy?",
+    "opts": {
+      "a": "IP-based routing",
+      "b": "Geolocation routing",
+      "c": "Geoproximity routing",
+      "d": "Weighted routing"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Wrong - Not a standard Route 53 policy name.",
+      "b": "Wrong - Geolocation uses continent/country mapping, not IP proximity.",
+      "c": "Correct - Geoproximity routing uses the physical distance between user and resource, and you can shift traffic using a 'bias' value. Requires Route 53 Traffic Flow.",
+      "d": "Wrong - Weighted uses percentages, not location."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is the difference between Geolocation and Geoproximity routing policies?",
+    "opts": {
+      "a": "Geolocation uses user's geographic location (country/continent); Geoproximity uses distance from resource with adjustable bias",
+      "b": "They are identical",
+      "c": "Geoproximity is free; Geolocation is paid",
+      "d": "Geolocation is only for AWS regions"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct - Geolocation routes based on user's country/continent/state; Geoproximity routes based on physical distance and allows biasing traffic toward or away from specific resources.",
+      "b": "Wrong - They differ significantly.",
+      "c": "Wrong - Both have similar pricing model.",
+      "d": "Wrong - Geolocation supports many geographies."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your primary us-east-1 endpoint is unhealthy. Route 53 failover is configured. What happens next?",
+    "opts": {
+      "a": "Route 53 returns the primary endpoint anyway",
+      "b": "Route 53 automatically returns the secondary endpoint until primary becomes healthy",
+      "c": "DNS queries fail",
+      "d": "Traffic is split 50/50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Failover excludes unhealthy primary.",
+      "b": "Correct - When primary fails its health check, Route 53 automatically returns the secondary endpoint. Once primary is healthy again, traffic returns to it (based on TTL caching).",
+      "c": "Wrong - Failover prevents that.",
+      "d": "Wrong - That's weighted, not failover."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "What is the maximum number of records that Multi-Value Answer routing can return in a single response?",
+    "opts": {
+      "a": "2",
+      "b": "4",
+      "c": "8",
+      "d": "16"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Wrong - Too few.",
+      "b": "Wrong - Not the max.",
+      "c": "Correct - Multi-Value Answer routing returns up to 8 healthy records randomly in a single DNS response, providing simple DNS-based load balancing.",
+      "d": "Wrong - Exceeds Route 53 limit."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "Which record type is used to prove domain ownership for issuing an ACM SSL certificate?",
+    "opts": {
+      "a": "A record",
+      "b": "CNAME record for DNS validation",
+      "c": "MX record",
+      "d": "SOA record"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - A records don't validate ownership.",
+      "b": "Correct - AWS Certificate Manager (ACM) DNS validation requires you to create a specific CNAME record in Route 53 proving control of the domain. Route 53 can auto-add these for you.",
+      "c": "Wrong - MX is for mail servers.",
+      "d": "Wrong - SOA is zone metadata."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want to control which VPCs can resolve records in your private hosted zone. What must you do?",
+    "opts": {
+      "a": "Make the zone public",
+      "b": "Explicitly associate the specific VPCs with the private hosted zone",
+      "c": "Enable VPC peering only",
+      "d": "Configure NACLs to block DNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - That defeats the purpose of private.",
+      "b": "Correct - A private hosted zone only resolves for VPCs explicitly associated with it. You must associate each VPC (same or cross-account) that needs to resolve records.",
+      "c": "Wrong - VPC peering alone doesn't share private zones.",
+      "d": "Wrong - NACLs don't affect DNS scoping."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is the primary benefit of using Alias records over CNAME for AWS resources?",
+    "opts": {
+      "a": "Alias records support the zone apex and are free (no DNS query charges)",
+      "b": "Alias records are faster than CNAME",
+      "c": "Alias records support wildcards; CNAME doesn't",
+      "d": "There is no benefit"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct - Alias records work at the zone apex (unlike CNAME), don't incur DNS query charges when pointing to AWS resources, and automatically update if the target's IP changes.",
+      "b": "Wrong - Performance is comparable.",
+      "c": "Wrong - Both support wildcards.",
+      "d": "Wrong - There are clear benefits."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants their domain example.com (zone apex) to point to a CloudFront distribution. Which record type must they use?",
+    "opts": {
+      "a": "CNAME record",
+      "b": "Alias record (A type)",
+      "c": "TXT record",
+      "d": "MX record"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - CNAME is not allowed at the zone apex per DNS RFC.",
+      "b": "Correct - Only Alias records (A type) can point the zone apex (example.com) to AWS resources like CloudFront distributions.",
+      "c": "Wrong - TXT doesn't route traffic.",
+      "d": "Wrong - MX is for mail routing."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "What is the additional cost for a Route 53 fast health check (10-second interval) compared to standard (30-second)?",
+    "opts": {
+      "a": "Free",
+      "b": "Slightly higher per-month fee per health check",
+      "c": "10x standard cost",
+      "d": "100x standard cost"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not free.",
+      "b": "Correct - Fast health checks (10-second interval) cost slightly more per month than standard 30-second checks. Also HTTPS and string-matching options incur small extra fees.",
+      "c": "Wrong - Not that expensive.",
+      "d": "Wrong - Wildly overestimated."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is a 'sloppy' vs 'strict' health check pass in Route 53?",
+    "opts": {
+      "a": "Sloppy allows some failures; strict requires all endpoints healthy",
+      "b": "Not real Route 53 terms; health checks use a failure threshold (default 3 consecutive failures) before marking unhealthy",
+      "c": "Sloppy is deprecated",
+      "d": "Both are billing terms"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not accurate terminology.",
+      "b": "Correct - Route 53 uses a failure threshold — by default, 3 consecutive failed checks are required before marking an endpoint unhealthy, avoiding false positives.",
+      "c": "Wrong - Not a real term.",
+      "d": "Wrong - Not billing terms."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want to prevent DNS resolution for certain domains (blocklist) within your VPC. BEST solution?",
+    "opts": {
+      "a": "Use Route 53 Resolver DNS Firewall",
+      "b": "Modify Security Groups",
+      "c": "Delete hosted zones",
+      "d": "Use NACLs"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct - Route 53 Resolver DNS Firewall lets you filter outbound DNS queries from your VPC, blocking or allowing specific domains via managed or custom domain lists.",
+      "b": "Wrong - SGs work on ports/IPs, not domains.",
+      "c": "Wrong - Doesn't block external DNS lookups.",
+      "d": "Wrong - NACLs work on IPs, not domain names."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is the purpose of Route 53 Resolver Query Logging?",
+    "opts": {
+      "a": "Log DNS queries from resources in your VPCs for security auditing and troubleshooting",
+      "b": "Log billing information",
+      "c": "Store certificate data",
+      "d": "Monitor EC2 CPU"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct - Route 53 Resolver Query Logging captures information about DNS queries made from within your VPCs, useful for security analysis, threat detection, and troubleshooting.",
+      "b": "Wrong - Not billing-related.",
+      "c": "Wrong - That's ACM.",
+      "d": "Wrong - That's CloudWatch."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want geolocation routing but need a default answer for users whose location doesn't match any geolocation rule. What should you configure?",
+    "opts": {
+      "a": "It's impossible; queries fail without a match",
+      "b": "Create a Default geolocation record as fallback",
+      "c": "Use failover instead",
+      "d": "Use weighted routing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Default records handle this case.",
+      "b": "Correct - When using Geolocation routing, you should create a 'Default' record that answers queries from locations not covered by specific geolocation rules, preventing NXDOMAIN.",
+      "c": "Wrong - Failover is a different pattern.",
+      "d": "Wrong - Weighted doesn't handle geographic fallback."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "What is the cost of a Route 53 hosted zone per month (base charge)?",
+    "opts": {
+      "a": "$0.10",
+      "b": "$0.50",
+      "c": "$1.00",
+      "d": "$5.00"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not the correct rate.",
+      "b": "Correct - A Route 53 hosted zone costs $0.50 per month for the first 25 zones, then $0.10 per zone thereafter. DNS queries and health checks are charged separately.",
+      "c": "Wrong - Not the base charge.",
+      "d": "Wrong - Way too high."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "Which of these is NOT a valid Route 53 routing policy?",
+    "opts": {
+      "a": "Weighted",
+      "b": "Latency-based",
+      "c": "Bandwidth-based",
+      "d": "Geolocation"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Wrong - Weighted is valid.",
+      "b": "Wrong - Latency-based is valid.",
+      "c": "Correct - 'Bandwidth-based' is NOT a Route 53 routing policy. Valid ones are: Simple, Weighted, Latency, Failover, Geolocation, Geoproximity, Multi-Value Answer, and IP-based.",
+      "d": "Wrong - Geolocation is valid."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You have a private hosted zone in Account A that VPCs in Account B need to resolve. BEST approach?",
+    "opts": {
+      "a": "It's not possible cross-account",
+      "b": "Use cross-account VPC association: Account A authorizes association from Account B",
+      "c": "Copy the zone to Account B",
+      "d": "Make the zone public"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Cross-account is supported.",
+      "b": "Correct - Route 53 supports cross-account private hosted zone associations: Account A creates authorization for Account B's VPC ID, then Account B associates its VPC.",
+      "c": "Wrong - Copying creates duplicate management overhead.",
+      "d": "Wrong - Defeats the purpose of private."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What does Route 53 return for a DNS query when ALL endpoints in a Multi-Value Answer policy are unhealthy?",
+    "opts": {
+      "a": "NXDOMAIN error",
+      "b": "All records anyway (as last resort)",
+      "c": "Empty response",
+      "d": "Random IP address"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not NXDOMAIN.",
+      "b": "Correct - If all records are unhealthy, Route 53 returns all values (treated as healthy) as a last-resort fallback to avoid total service unavailability.",
+      "c": "Wrong - Empty responses aren't returned.",
+      "d": "Wrong - Random doesn't apply."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A domain registered outside AWS needs to use Route 53 for DNS. What must you do?",
+    "opts": {
+      "a": "Transfer the domain to Route 53 registrar",
+      "b": "At the current registrar, update the name servers (NS) to point to the 4 Route 53 name servers listed in your hosted zone",
+      "c": "Nothing - it works automatically",
+      "d": "Delete the current DNS setup"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Transfer isn't required to use Route 53 DNS.",
+      "b": "Correct - You can keep the domain registered elsewhere but delegate DNS to Route 53 by updating the NS records at your current registrar to Route 53's 4 name servers.",
+      "c": "Wrong - Delegation must be explicitly configured.",
+      "d": "Wrong - Not necessary."
+    }
+  },
+  {
+    "type": "numerical",
+    "q": "For how long can a domain registered via Route 53 be renewed at once?",
+    "opts": {
+      "a": "1 year only",
+      "b": "1 to 10 years depending on TLD",
+      "c": "5 years max",
+      "d": "Indefinite (perpetual)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Not fixed to 1 year.",
+      "b": "Correct - Route 53 supports domain registration/renewal from 1 to 10 years at a time, depending on TLD rules (e.g., .com allows up to 10 years).",
+      "c": "Wrong - Depends on TLD, not a fixed 5.",
+      "d": "Wrong - Domains must be renewed periodically."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "Which DNS record helps prevent email spoofing by specifying authorized sender IPs?",
+    "opts": {
+      "a": "MX",
+      "b": "TXT (specifically SPF record content)",
+      "c": "AAAA",
+      "d": "PTR"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - MX defines mail servers but doesn't authenticate senders.",
+      "b": "Correct - SPF (Sender Policy Framework) records are stored in TXT records and specify which IPs are authorized to send email on behalf of the domain, preventing spoofing.",
+      "c": "Wrong - AAAA is for IPv6.",
+      "d": "Wrong - PTR is reverse DNS."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want CloudWatch metrics on the health status of your Route 53 endpoints. What should you enable?",
+    "opts": {
+      "a": "Nothing - it's automatic",
+      "b": "Health checks with CloudWatch metrics enabled",
+      "c": "VPC Flow Logs",
+      "d": "CloudTrail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - Health checks aren't automatically created.",
+      "b": "Correct - Route 53 Health Checks emit CloudWatch metrics (like HealthCheckStatus, HealthCheckPercentHealthy) that you can monitor and alarm on.",
+      "c": "Wrong - Flow Logs are for VPC traffic.",
+      "d": "Wrong - CloudTrail logs API calls."
+    }
+  },
+  {
+    "type": "concept",
+    "q": "What is the maximum number of IP addresses a Route 53 health check can monitor for a single endpoint?",
+    "opts": {
+      "a": "1 endpoint per health check",
+      "b": "5 endpoints per health check",
+      "c": "10 endpoints per health check",
+      "d": "Unlimited"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct - Each Route 53 health check monitors 1 endpoint (IP or domain name). To monitor multiple endpoints, create multiple health checks and optionally combine them using calculated health checks.",
+      "b": "Wrong - Not the design.",
+      "c": "Wrong - One health check = one endpoint.",
+      "d": "Wrong - Not unlimited."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want to send email from your domain via SES. Which Route 53 records must you configure?",
+    "opts": {
+      "a": "Only A record",
+      "b": "MX record (optional, for receiving), TXT records for SPF/DKIM/DMARC verification",
+      "c": "Only NS records",
+      "d": "PTR records only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Wrong - A alone doesn't enable email.",
+      "b": "Correct - For SES: configure MX (if receiving), TXT for SPF, CNAME/TXT for DKIM verification, and TXT for DMARC policy. This authenticates outbound mail and enables deliverability.",
+      "c": "Wrong - NS delegates DNS, doesn't set up email.",
+      "d": "Wrong - PTR is set by IP owner, not domain owner."
+    }
+  }
+]

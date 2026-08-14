@@ -1,0 +1,1073 @@
+[
+  {
+    "type": "mcq",
+    "q": "What does AWS RDS stand for?",
+    "opts": {
+      "a": "Relational Database Service",
+      "b": "Remote Database Storage",
+      "c": "Redundant Data Service",
+      "d": "Relational Data Storage"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. RDS stands for Relational Database Service, a managed service by AWS for relational databases.",
+      "b": "Incorrect. RDS does not stand for Remote Database Storage.",
+      "c": "Incorrect. RDS does not stand for Redundant Data Service.",
+      "d": "Incorrect. RDS does not stand for Relational Data Storage."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following database engines is NOT supported by Amazon RDS?",
+    "opts": {
+      "a": "MySQL",
+      "b": "PostgreSQL",
+      "c": "MongoDB",
+      "d": "Oracle"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. MySQL is a supported RDS engine.",
+      "b": "Incorrect. PostgreSQL is a supported RDS engine.",
+      "c": "Correct. MongoDB is a NoSQL database and is not supported by RDS. AWS offers DocumentDB for MongoDB compatibility.",
+      "d": "Incorrect. Oracle is a supported RDS engine."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum storage capacity supported by Amazon RDS for most database engines?",
+    "opts": {
+      "a": "16 TB",
+      "b": "32 TB",
+      "c": "64 TB",
+      "d": "128 TB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 16 TB is not the maximum for most engines.",
+      "b": "Incorrect. 32 TB is not the maximum for most engines.",
+      "c": "Correct. Amazon RDS supports up to 64 TB of storage for most database engines (MySQL, PostgreSQL, MariaDB, Oracle, SQL Server).",
+      "d": "Incorrect. 128 TB exceeds the RDS storage limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default backup retention period for Amazon RDS?",
+    "opts": {
+      "a": "0 days",
+      "b": "7 days",
+      "c": "14 days",
+      "d": "35 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 0 days means backups are disabled, which is not the default.",
+      "b": "Correct. The default backup retention period for RDS is 7 days.",
+      "c": "Incorrect. 14 days is not the default, though it can be configured.",
+      "d": "Incorrect. 35 days is the maximum retention period, not the default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum backup retention period for Amazon RDS automated backups?",
+    "opts": {
+      "a": "7 days",
+      "b": "14 days",
+      "c": "30 days",
+      "d": "35 days"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 7 days is the default, not the maximum.",
+      "b": "Incorrect. 14 days is not the maximum.",
+      "c": "Incorrect. 30 days is not the maximum.",
+      "d": "Correct. The maximum backup retention period for RDS automated backups is 35 days."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Read Replicas can you create for an Amazon RDS instance?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can create more than 3 read replicas.",
+      "b": "Correct. Amazon RDS supports up to 5 Read Replicas per source DB instance (for MySQL, MariaDB, PostgreSQL, Oracle).",
+      "c": "Incorrect. The limit is 5, not 10.",
+      "d": "Incorrect. The limit is 5, not 15. However, Aurora supports up to 15 read replicas."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is a fully managed, MySQL and PostgreSQL-compatible relational database built for the cloud by AWS?",
+    "opts": {
+      "a": "Amazon RDS",
+      "b": "Amazon Aurora",
+      "c": "Amazon DynamoDB",
+      "d": "Amazon Redshift"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS is a managed service but Aurora is specifically designed as cloud-native and MySQL/PostgreSQL compatible.",
+      "b": "Correct. Amazon Aurora is AWS's cloud-native relational database that is compatible with MySQL and PostgreSQL.",
+      "c": "Incorrect. DynamoDB is a NoSQL database service.",
+      "d": "Incorrect. Redshift is a data warehousing service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Read Replicas does Amazon Aurora support?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "15",
+      "d": "20"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 5 is the limit for standard RDS read replicas.",
+      "b": "Incorrect. Aurora supports more than 10.",
+      "c": "Correct. Amazon Aurora supports up to 15 Read Replicas with very low replication lag.",
+      "d": "Incorrect. The maximum is 15, not 20."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What type of replication does Amazon RDS use for Read Replicas?",
+    "opts": {
+      "a": "Synchronous replication",
+      "b": "Asynchronous replication",
+      "c": "Semi-synchronous replication",
+      "d": "Bi-directional replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Synchronous replication is used for Multi-AZ deployments, not read replicas.",
+      "b": "Correct. RDS Read Replicas use asynchronous replication from the primary instance.",
+      "c": "Incorrect. Semi-synchronous replication is not the method used by RDS read replicas.",
+      "d": "Incorrect. Bi-directional replication is not supported by RDS read replicas."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What type of replication does Amazon RDS use for Multi-AZ deployments?",
+    "opts": {
+      "a": "Asynchronous replication",
+      "b": "Synchronous replication",
+      "c": "Lazy replication",
+      "d": "Manual replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Asynchronous replication is used for Read Replicas.",
+      "b": "Correct. Multi-AZ deployments use synchronous replication to keep the standby instance in sync with the primary.",
+      "c": "Incorrect. Lazy replication is not a valid RDS replication type.",
+      "d": "Incorrect. Replication in Multi-AZ is fully automatic."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the primary purpose of Amazon RDS Multi-AZ deployment?",
+    "opts": {
+      "a": "Improve read performance",
+      "b": "High availability and failover support",
+      "c": "Reduce storage costs",
+      "d": "Enable cross-region replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Read performance improvement is achieved using Read Replicas.",
+      "b": "Correct. Multi-AZ deployment provides high availability and automatic failover to a standby instance in a different Availability Zone.",
+      "c": "Incorrect. Multi-AZ does not reduce storage costs; it actually increases them.",
+      "d": "Incorrect. Cross-region replication is achieved using cross-region Read Replicas."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is used to encrypt data at rest in Amazon RDS?",
+    "opts": {
+      "a": "AWS IAM",
+      "b": "AWS KMS",
+      "c": "AWS Shield",
+      "d": "AWS WAF"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM is for access management, not encryption.",
+      "b": "Correct. AWS Key Management Service (KMS) is used to manage encryption keys for RDS encryption at rest.",
+      "c": "Incorrect. AWS Shield provides DDoS protection.",
+      "d": "Incorrect. AWS WAF is a web application firewall."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Can you encrypt an existing unencrypted RDS database directly?",
+    "opts": {
+      "a": "Yes, by modifying the instance settings",
+      "b": "Yes, by enabling encryption in the console",
+      "c": "No, you must create an encrypted snapshot and restore from it",
+      "d": "No, encryption is not supported after creation"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You cannot modify an existing instance to enable encryption directly.",
+      "b": "Incorrect. There is no direct toggle to encrypt an existing instance.",
+      "c": "Correct. To encrypt an unencrypted RDS instance, you must create a snapshot, copy it with encryption enabled, and restore a new instance from the encrypted snapshot.",
+      "d": "Incorrect. Encryption is supported but requires the snapshot-copy-restore approach."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the port number used by MySQL in Amazon RDS by default?",
+    "opts": {
+      "a": "1433",
+      "b": "3306",
+      "c": "5432",
+      "d": "1521"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Port 1433 is used by Microsoft SQL Server.",
+      "b": "Correct. MySQL uses port 3306 by default.",
+      "c": "Incorrect. Port 5432 is used by PostgreSQL.",
+      "d": "Incorrect. Port 1521 is used by Oracle."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default port number for PostgreSQL in Amazon RDS?",
+    "opts": {
+      "a": "3306",
+      "b": "5432",
+      "c": "1521",
+      "d": "1433"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Port 3306 is for MySQL.",
+      "b": "Correct. PostgreSQL uses port 5432 by default.",
+      "c": "Incorrect. Port 1521 is for Oracle.",
+      "d": "Incorrect. Port 1433 is for SQL Server."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default port number for Oracle database in Amazon RDS?",
+    "opts": {
+      "a": "3306",
+      "b": "5432",
+      "c": "1521",
+      "d": "1433"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Port 3306 is for MySQL.",
+      "b": "Incorrect. Port 5432 is for PostgreSQL.",
+      "c": "Correct. Oracle database uses port 1521 by default.",
+      "d": "Incorrect. Port 1433 is for SQL Server."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default port number for Microsoft SQL Server in Amazon RDS?",
+    "opts": {
+      "a": "3306",
+      "b": "5432",
+      "c": "1521",
+      "d": "1433"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Port 3306 is for MySQL.",
+      "b": "Incorrect. Port 5432 is for PostgreSQL.",
+      "c": "Incorrect. Port 1521 is for Oracle.",
+      "d": "Correct. Microsoft SQL Server uses port 1433 by default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which storage type in Amazon RDS provides consistent, low-latency performance for I/O-intensive workloads?",
+    "opts": {
+      "a": "General Purpose SSD (gp2)",
+      "b": "Provisioned IOPS SSD (io1)",
+      "c": "Magnetic storage",
+      "d": "Cold HDD (sc1)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. General Purpose SSD provides burst performance but not consistent high IOPS.",
+      "b": "Correct. Provisioned IOPS SSD (io1) is designed for I/O-intensive workloads requiring consistent and low-latency performance.",
+      "c": "Incorrect. Magnetic storage is a previous-generation option with lower performance.",
+      "d": "Incorrect. Cold HDD (sc1) is not available for RDS; it's an EBS volume type for infrequent access."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum Provisioned IOPS you can configure for an Amazon RDS instance using io1 storage?",
+    "opts": {
+      "a": "20,000 IOPS",
+      "b": "40,000 IOPS",
+      "c": "64,000 IOPS",
+      "d": "80,000 IOPS"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 20,000 IOPS is below the maximum.",
+      "b": "Incorrect. 40,000 IOPS is below the maximum.",
+      "c": "Incorrect. 64,000 IOPS is below the maximum.",
+      "d": "Correct. Amazon RDS supports up to 80,000 Provisioned IOPS for io1 storage (depending on the engine and instance type)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature of Amazon RDS automatically scales storage capacity when the database runs low on free space?",
+    "opts": {
+      "a": "Auto Scaling",
+      "b": "Storage Auto Scaling",
+      "c": "Elastic Storage",
+      "d": "Dynamic Provisioning"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Auto Scaling generally refers to EC2 Auto Scaling groups.",
+      "b": "Correct. RDS Storage Auto Scaling automatically increases storage capacity when free space is low, up to a specified maximum.",
+      "c": "Incorrect. Elastic Storage is not an official RDS feature name.",
+      "d": "Incorrect. Dynamic Provisioning is not a valid RDS feature."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In Amazon RDS, what happens during a Multi-AZ failover?",
+    "opts": {
+      "a": "A new instance is launched from the latest backup",
+      "b": "The DNS record is flipped to point to the standby instance",
+      "c": "The application must manually reconnect to a new endpoint",
+      "d": "Data is copied from the primary to a new instance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multi-AZ failover uses an existing standby, not a new instance from backup.",
+      "b": "Correct. During failover, RDS automatically updates the DNS CNAME record to point to the standby instance, making it the new primary.",
+      "c": "Incorrect. The endpoint remains the same; the DNS is updated automatically.",
+      "d": "Incorrect. Data is already synchronized via synchronous replication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is NOT a valid use case for Amazon RDS Read Replicas?",
+    "opts": {
+      "a": "Offloading read traffic from the primary database",
+      "b": "Serving as a disaster recovery instance in another region",
+      "c": "Replacing the primary instance during a write-heavy workload",
+      "d": "Business intelligence and analytics reporting"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. This is a valid use case for Read Replicas.",
+      "b": "Incorrect. Cross-region Read Replicas can serve as DR instances.",
+      "c": "Correct. Read Replicas are read-only and cannot handle write operations, so they cannot replace the primary for write-heavy workloads.",
+      "d": "Incorrect. BI and analytics queries can be run on Read Replicas."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Amazon RDS feature allows you to stop and start a database instance to save costs?",
+    "opts": {
+      "a": "RDS Hibernation",
+      "b": "RDS Stop and Start",
+      "c": "RDS Pause",
+      "d": "RDS Suspend"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Hibernation is an EC2 feature.",
+      "b": "Correct. Amazon RDS allows you to stop and start a DB instance temporarily. A stopped instance can remain stopped for up to 7 days before it is automatically restarted.",
+      "c": "Incorrect. RDS Pause is a feature specific to Aurora Serverless.",
+      "d": "Incorrect. RDS Suspend is not a valid feature name."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How long can an Amazon RDS instance remain in a stopped state before it is automatically restarted?",
+    "opts": {
+      "a": "1 day",
+      "b": "3 days",
+      "c": "7 days",
+      "d": "14 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is longer than 1 day.",
+      "b": "Incorrect. The limit is longer than 3 days.",
+      "c": "Correct. An RDS instance can be stopped for a maximum of 7 days, after which AWS automatically restarts it.",
+      "d": "Incorrect. 14 days exceeds the allowed stop duration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is true about Amazon Aurora storage?",
+    "opts": {
+      "a": "Storage is allocated in fixed blocks of 10 GB",
+      "b": "Storage automatically grows in increments of 10 GB up to 128 TB",
+      "c": "Storage must be manually increased",
+      "d": "Storage maximum is 16 TB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora storage grows automatically, not in fixed allocated blocks.",
+      "b": "Correct. Aurora storage automatically scales in 10 GB increments up to a maximum of 128 TB.",
+      "c": "Incorrect. Aurora storage scales automatically without manual intervention.",
+      "d": "Incorrect. Aurora supports up to 128 TB, not 16 TB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many copies of your data does Amazon Aurora maintain across Availability Zones?",
+    "opts": {
+      "a": "2 copies across 2 AZs",
+      "b": "4 copies across 2 AZs",
+      "c": "6 copies across 3 AZs",
+      "d": "9 copies across 3 AZs"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora maintains more than 2 copies.",
+      "b": "Incorrect. Aurora maintains more than 4 copies.",
+      "c": "Correct. Amazon Aurora replicates 6 copies of your data across 3 Availability Zones for high durability.",
+      "d": "Incorrect. Aurora maintains 6 copies, not 9."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Amazon Aurora can tolerate the loss of how many copies of data without affecting write availability?",
+    "opts": {
+      "a": "1 copy",
+      "b": "2 copies",
+      "c": "3 copies",
+      "d": "4 copies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora can tolerate more than 1 copy loss for writes.",
+      "b": "Correct. Aurora can tolerate the loss of up to 2 copies without affecting write availability (needs 4 out of 6 for writes).",
+      "c": "Incorrect. Losing 3 copies would affect write availability.",
+      "d": "Incorrect. Losing 4 copies would certainly affect availability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Amazon Aurora can tolerate the loss of how many copies of data without affecting read availability?",
+    "opts": {
+      "a": "1 copy",
+      "b": "2 copies",
+      "c": "3 copies",
+      "d": "4 copies"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora can tolerate more than 1 copy loss for reads.",
+      "b": "Incorrect. Aurora can tolerate more than 2 copies lost for reads.",
+      "c": "Correct. Aurora can tolerate the loss of up to 3 copies without affecting read availability (needs 3 out of 6 for reads).",
+      "d": "Incorrect. Losing 4 copies would affect read availability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Amazon RDS feature allows automatic failover to a Read Replica in Aurora?",
+    "opts": {
+      "a": "Multi-AZ deployment",
+      "b": "Aurora Auto Scaling",
+      "c": "Aurora Failover Priority",
+      "d": "RDS Proxy"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Multi-AZ in standard RDS uses a standby, not a read replica for failover.",
+      "b": "Incorrect. Aurora Auto Scaling adjusts the number of read replicas based on load.",
+      "c": "Correct. Aurora allows you to set failover priority tiers (0-15) for read replicas, and it automatically promotes the highest priority replica during failover.",
+      "d": "Incorrect. RDS Proxy manages database connections but does not perform failover itself."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is Amazon Aurora Serverless?",
+    "opts": {
+      "a": "An Aurora deployment without any storage",
+      "b": "An on-demand, auto-scaling Aurora configuration that adjusts capacity based on application needs",
+      "c": "A version of Aurora that runs on AWS Lambda",
+      "d": "A free tier Aurora offering"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora Serverless still uses storage.",
+      "b": "Correct. Aurora Serverless automatically starts up, shuts down, and scales capacity up or down based on your application's needs.",
+      "c": "Incorrect. Aurora Serverless does not run on Lambda.",
+      "d": "Incorrect. Aurora Serverless is not a free tier offering."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is Amazon RDS Proxy used for?",
+    "opts": {
+      "a": "Encrypting database connections",
+      "b": "Pooling and sharing database connections to improve scalability",
+      "c": "Backing up RDS instances",
+      "d": "Monitoring database performance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While RDS Proxy supports TLS, its primary purpose is connection pooling.",
+      "b": "Correct. RDS Proxy pools database connections and shares them, reducing the stress on database resources and improving application scalability.",
+      "c": "Incorrect. RDS Proxy does not handle backups.",
+      "d": "Incorrect. Monitoring is handled by CloudWatch and Performance Insights."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides enhanced monitoring metrics like OS-level metrics for Amazon RDS?",
+    "opts": {
+      "a": "AWS CloudTrail",
+      "b": "Amazon CloudWatch Enhanced Monitoring",
+      "c": "AWS X-Ray",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudTrail logs API calls, not performance metrics.",
+      "b": "Correct. Enhanced Monitoring provides real-time OS-level metrics (CPU, memory, file system, disk I/O) for RDS instances via CloudWatch.",
+      "c": "Incorrect. X-Ray is for application tracing.",
+      "d": "Incorrect. AWS Config tracks resource configurations."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum granularity for Enhanced Monitoring in Amazon RDS?",
+    "opts": {
+      "a": "1 second",
+      "b": "5 seconds",
+      "c": "10 seconds",
+      "d": "60 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Enhanced Monitoring can collect metrics at intervals as low as 1 second.",
+      "b": "Incorrect. 5 seconds is not the minimum granularity.",
+      "c": "Incorrect. 10 seconds is not the minimum.",
+      "d": "Incorrect. 60 seconds is the default CloudWatch metric interval, not Enhanced Monitoring minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature helps analyze and troubleshoot database performance issues in Amazon RDS?",
+    "opts": {
+      "a": "AWS Trusted Advisor",
+      "b": "RDS Performance Insights",
+      "c": "AWS Inspector",
+      "d": "Amazon Macie"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Trusted Advisor provides best practice recommendations, not database performance analysis.",
+      "b": "Correct. RDS Performance Insights provides a dashboard to visualize database load and identify performance bottlenecks.",
+      "c": "Incorrect. Inspector is a security vulnerability assessment tool.",
+      "d": "Incorrect. Macie is for data privacy and sensitive data discovery."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is a valid RDS deployment option for high availability?",
+    "opts": {
+      "a": "Single-AZ with Read Replica",
+      "b": "Multi-AZ with synchronous standby",
+      "c": "Cross-region with synchronous replication",
+      "d": "Multi-Region Active-Active"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Single-AZ with Read Replica provides read scaling but not high availability via automatic failover.",
+      "b": "Correct. Multi-AZ deployment maintains a synchronous standby in another AZ for automatic failover.",
+      "c": "Incorrect. Cross-region replication is asynchronous.",
+      "d": "Incorrect. RDS does not natively support multi-region active-active (Aurora Global Database supports read in other regions)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is an RDS DB Subnet Group?",
+    "opts": {
+      "a": "A collection of security groups for RDS",
+      "b": "A collection of subnets designated for RDS instances in a VPC",
+      "c": "A group of DB instances sharing the same subnet",
+      "d": "A backup group for RDS snapshots"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A DB Subnet Group is not related to security groups.",
+      "b": "Correct. A DB Subnet Group is a collection of subnets (typically in different AZs) that you specify for your RDS DB instance in a VPC.",
+      "c": "Incorrect. It's subnets grouped together, not DB instances.",
+      "d": "Incorrect. It has nothing to do with backups."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of an RDS Parameter Group?",
+    "opts": {
+      "a": "To define backup schedules",
+      "b": "To manage database engine configuration settings",
+      "c": "To configure network access rules",
+      "d": "To set up replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Backup schedules are configured separately.",
+      "b": "Correct. An RDS Parameter Group acts as a container for engine configuration values that are applied to one or more DB instances.",
+      "c": "Incorrect. Network access is managed by security groups.",
+      "d": "Incorrect. Replication is configured through Read Replicas and Multi-AZ settings."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is an RDS Option Group?",
+    "opts": {
+      "a": "A group of pricing options for RDS",
+      "b": "A container for optional features and configurations specific to a database engine",
+      "c": "A set of instance types available for RDS",
+      "d": "A group of maintenance windows"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Option Groups are not about pricing.",
+      "b": "Correct. An Option Group allows you to specify engine-specific features (like Oracle TDE, SQL Server native backup/restore) for your RDS instance.",
+      "c": "Incorrect. Instance types are not managed through Option Groups.",
+      "d": "Incorrect. Maintenance windows are separate settings."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following encryption methods does Amazon RDS support for data in transit?",
+    "opts": {
+      "a": "SSL/TLS",
+      "b": "AES-256",
+      "c": "SSH tunneling",
+      "d": "IPSec"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon RDS supports SSL/TLS connections to encrypt data in transit between your application and the DB instance.",
+      "b": "Incorrect. AES-256 is used for encryption at rest, not in transit.",
+      "c": "Incorrect. SSH tunneling is not natively provided by RDS.",
+      "d": "Incorrect. IPSec is used for VPN connections, not RDS connections directly."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the Amazon Aurora Global Database feature used for?",
+    "opts": {
+      "a": "Replicating data within a single region",
+      "b": "Providing cross-region disaster recovery with low replication lag",
+      "c": "Auto-scaling compute capacity globally",
+      "d": "Distributing writes across multiple regions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Single-region replication is handled by Aurora read replicas.",
+      "b": "Correct. Aurora Global Database enables cross-region disaster recovery and low-latency global reads with typical replication lag under 1 second.",
+      "c": "Incorrect. It replicates data, not compute capacity.",
+      "d": "Incorrect. Writes still go to the primary region; secondary regions are read-only."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical replication lag for Amazon Aurora Global Database?",
+    "opts": {
+      "a": "Under 1 second",
+      "b": "Under 5 seconds",
+      "c": "Under 30 seconds",
+      "d": "Under 1 minute"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Global Database typically achieves replication lag of less than 1 second across regions.",
+      "b": "Incorrect. The lag is typically much less than 5 seconds.",
+      "c": "Incorrect. 30 seconds is far too high for Aurora Global Database.",
+      "d": "Incorrect. 1 minute would be unacceptably high."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which pricing model for Amazon RDS allows you to pay for compute capacity by the hour or second with no long-term commitment?",
+    "opts": {
+      "a": "Reserved Instances",
+      "b": "On-Demand Instances",
+      "c": "Spot Instances",
+      "d": "Dedicated Hosts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Reserved Instances require a 1 or 3-year commitment.",
+      "b": "Correct. On-Demand pricing allows you to pay per hour or per second (depending on engine) with no upfront or long-term commitment.",
+      "c": "Incorrect. Spot Instances are not available for RDS.",
+      "d": "Incorrect. Dedicated Hosts are not an RDS pricing model."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What discount can you get with Amazon RDS Reserved Instances compared to On-Demand pricing?",
+    "opts": {
+      "a": "Up to 30%",
+      "b": "Up to 50%",
+      "c": "Up to 72%",
+      "d": "Up to 90%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The discount is higher than 30%.",
+      "b": "Incorrect. The discount can be higher than 50%.",
+      "c": "Correct. RDS Reserved Instances can provide up to approximately 72% discount compared to On-Demand pricing depending on the term and payment option.",
+      "d": "Incorrect. 90% discount is not achievable with RDS Reserved Instances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Availability Zones must a DB Subnet Group span for a Multi-AZ deployment?",
+    "opts": {
+      "a": "At least 1 AZ",
+      "b": "At least 2 AZs",
+      "c": "At least 3 AZs",
+      "d": "All AZs in the region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A Multi-AZ deployment requires subnets in more than 1 AZ.",
+      "b": "Correct. A DB Subnet Group for Multi-AZ must include subnets in at least 2 Availability Zones.",
+      "c": "Incorrect. 2 AZs is sufficient for Multi-AZ.",
+      "d": "Incorrect. You don't need all AZs, just at least 2."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following services can be used to migrate a database to Amazon RDS?",
+    "opts": {
+      "a": "AWS DataSync",
+      "b": "AWS Database Migration Service (DMS)",
+      "c": "AWS Transfer Family",
+      "d": "AWS Snowball"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DataSync is for file/storage data transfer, not database migration.",
+      "b": "Correct. AWS Database Migration Service (DMS) is specifically designed to migrate databases to AWS, including to Amazon RDS.",
+      "c": "Incorrect. Transfer Family is for SFTP/FTPS/FTP file transfers.",
+      "d": "Incorrect. Snowball is for large-scale physical data transfer, not typically for database migration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the RDS maintenance window?",
+    "opts": {
+      "a": "A period during which the database is unavailable for use",
+      "b": "A weekly time period during which system maintenance can occur (patches, updates)",
+      "c": "A daily backup window",
+      "d": "A monthly billing cycle"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The database may experience brief interruptions but is not completely unavailable.",
+      "b": "Correct. The maintenance window is a weekly 30-minute time range during which pending modifications and patches are applied.",
+      "c": "Incorrect. The backup window is separate from the maintenance window.",
+      "d": "Incorrect. It's not related to billing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the duration of the Amazon RDS maintenance window?",
+    "opts": {
+      "a": "15 minutes",
+      "b": "30 minutes",
+      "c": "1 hour",
+      "d": "2 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The minimum maintenance window is 30 minutes.",
+      "b": "Correct. The RDS maintenance window is a minimum of 30 minutes.",
+      "c": "Incorrect. The minimum is 30 minutes, not 1 hour.",
+      "d": "Incorrect. The minimum is 30 minutes, not 2 hours."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is true about RDS automated backups?",
+    "opts": {
+      "a": "They are stored in the same AZ as the DB instance",
+      "b": "They include transaction logs and are stored in Amazon S3",
+      "c": "They require manual triggering",
+      "d": "They are only taken once a week"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Backups are stored in S3, which is regionally redundant.",
+      "b": "Correct. RDS automated backups include daily snapshots and transaction logs, stored in Amazon S3.",
+      "c": "Incorrect. Automated backups are taken automatically during the backup window.",
+      "d": "Incorrect. Automated backups are taken daily, not weekly."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens to automated backups when you delete an Amazon RDS instance?",
+    "opts": {
+      "a": "They are retained indefinitely",
+      "b": "They are deleted along with the instance",
+      "c": "They are moved to Glacier",
+      "d": "They are converted to manual snapshots"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Automated backups are not retained indefinitely after deletion.",
+      "b": "Correct. Automated backups are deleted when the RDS instance is deleted. However, you can choose to create a final snapshot before deletion.",
+      "c": "Incorrect. They are not moved to Glacier.",
+      "d": "Incorrect. They are not automatically converted to manual snapshots."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens to manual snapshots when you delete an Amazon RDS instance?",
+    "opts": {
+      "a": "They are deleted along with the instance",
+      "b": "They are retained until you manually delete them",
+      "c": "They expire after 35 days",
+      "d": "They are moved to another region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual snapshots are not automatically deleted.",
+      "b": "Correct. Manual snapshots persist even after the RDS instance is deleted and remain until you explicitly delete them.",
+      "c": "Incorrect. Manual snapshots do not expire.",
+      "d": "Incorrect. They remain in the same region unless you copy them."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "To what point in time can you restore an Amazon RDS instance using point-in-time recovery?",
+    "opts": {
+      "a": "Any point within the last 24 hours only",
+      "b": "Any point within the backup retention period (up to the last 5 minutes)",
+      "c": "Only to the time of the last automated backup",
+      "d": "Any point within the last 7 days only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can restore to any point within the full retention period.",
+      "b": "Correct. Point-in-time recovery allows you to restore to any second during the backup retention period, typically up to the last 5 minutes.",
+      "c": "Incorrect. You can restore to any point, not just the last backup.",
+      "d": "Incorrect. The recovery window depends on the configured retention period (up to 35 days)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When you restore an RDS instance from a snapshot or point-in-time recovery, what happens?",
+    "opts": {
+      "a": "The existing instance is overwritten",
+      "b": "A new DB instance is created with a new endpoint",
+      "c": "The instance is restored in-place",
+      "d": "The snapshot is deleted after restoration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The existing instance is not overwritten.",
+      "b": "Correct. Restoring from a snapshot or point-in-time recovery always creates a new DB instance with a new DNS endpoint.",
+      "c": "Incorrect. Restoration is not done in-place.",
+      "d": "Incorrect. The snapshot is retained after restoration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which IAM feature can be used for authentication to Amazon RDS MySQL and PostgreSQL databases?",
+    "opts": {
+      "a": "IAM Roles",
+      "b": "IAM Database Authentication",
+      "c": "IAM Access Keys",
+      "d": "IAM Policies only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM Roles alone don't authenticate to the database directly.",
+      "b": "Correct. IAM Database Authentication allows you to use IAM to authenticate to MySQL and PostgreSQL RDS instances using authentication tokens instead of passwords.",
+      "c": "Incorrect. Access keys are for AWS API calls, not database authentication.",
+      "d": "Incorrect. Policies define permissions but don't directly authenticate to databases."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of databases you can create on a single Amazon RDS SQL Server instance?",
+    "opts": {
+      "a": "10",
+      "b": "30",
+      "c": "100",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can create more than 10 databases.",
+      "b": "Incorrect. You can create more than 30 databases.",
+      "c": "Correct. Amazon RDS SQL Server supports up to 100 databases per instance.",
+      "d": "Incorrect. There is a limit of 100 databases."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following database engines supports RDS Multi-AZ with two readable standby instances (Multi-AZ Cluster)?",
+    "opts": {
+      "a": "Oracle",
+      "b": "MySQL and PostgreSQL",
+      "c": "SQL Server",
+      "d": "MariaDB only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Oracle does not support the Multi-AZ DB Cluster deployment.",
+      "b": "Correct. RDS Multi-AZ DB Cluster deployment (with two readable standby instances) is supported for MySQL and PostgreSQL.",
+      "c": "Incorrect. SQL Server does not support Multi-AZ DB Cluster.",
+      "d": "Incorrect. MariaDB alone is not the only supported engine; MySQL and PostgreSQL support it."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical failover time for Amazon RDS Multi-AZ?",
+    "opts": {
+      "a": "Under 10 seconds",
+      "b": "1-2 minutes",
+      "c": "5 minutes",
+      "d": "10 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard RDS Multi-AZ failover typically takes longer than 10 seconds.",
+      "b": "Correct. RDS Multi-AZ failover typically completes within 1-2 minutes (60-120 seconds).",
+      "c": "Incorrect. Failover is typically faster than 5 minutes.",
+      "d": "Incorrect. 10 minutes would be too long for Multi-AZ failover."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical failover time for Amazon Aurora?",
+    "opts": {
+      "a": "Under 30 seconds",
+      "b": "1-2 minutes",
+      "c": "5 minutes",
+      "d": "10 minutes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon Aurora typically completes failover in under 30 seconds when a read replica is available.",
+      "b": "Incorrect. Aurora failover is faster than standard RDS.",
+      "c": "Incorrect. 5 minutes is too long for Aurora failover.",
+      "d": "Incorrect. 10 minutes would be unacceptably long."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Amazon Aurora claims to be how many times faster than standard MySQL?",
+    "opts": {
+      "a": "2x",
+      "b": "3x",
+      "c": "5x",
+      "d": "10x"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora is faster than 2x MySQL performance.",
+      "b": "Incorrect. Aurora is faster than 3x MySQL performance.",
+      "c": "Correct. AWS claims Aurora is up to 5x faster than standard MySQL and 3x faster than standard PostgreSQL.",
+      "d": "Incorrect. The claimed performance improvement is 5x, not 10x."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Amazon Aurora claims to be how many times faster than standard PostgreSQL?",
+    "opts": {
+      "a": "2x",
+      "b": "3x",
+      "c": "5x",
+      "d": "10x"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora is faster than 2x PostgreSQL performance.",
+      "b": "Correct. AWS claims Aurora is up to 3x faster than standard PostgreSQL.",
+      "c": "Incorrect. 5x is the claim for MySQL, not PostgreSQL.",
+      "d": "Incorrect. 10x is not the claimed improvement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is NOT an Amazon RDS supported database engine?",
+    "opts": {
+      "a": "MariaDB",
+      "b": "Amazon Aurora",
+      "c": "IBM Db2",
+      "d": "Cassandra"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. MariaDB is supported by RDS.",
+      "b": "Incorrect. Aurora is supported within the RDS family.",
+      "c": "Incorrect. IBM Db2 was added as a supported RDS engine.",
+      "d": "Correct. Cassandra is a NoSQL database and is not supported by RDS. AWS offers Amazon Keyspaces for Cassandra-compatible workloads."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the Aurora Serverless v2 minimum capacity unit?",
+    "opts": {
+      "a": "0.5 ACU",
+      "b": "1 ACU",
+      "c": "2 ACU",
+      "d": "4 ACU"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Serverless v2 can scale down to a minimum of 0.5 ACU (Aurora Capacity Units).",
+      "b": "Incorrect. The minimum is 0.5 ACU, not 1.",
+      "c": "Incorrect. 2 ACU is not the minimum.",
+      "d": "Incorrect. 4 ACU is not the minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudWatch metric indicates the percentage of CPU utilization for an Amazon RDS instance?",
+    "opts": {
+      "a": "CPUCreditBalance",
+      "b": "CPUUtilization",
+      "c": "DatabaseConnections",
+      "d": "ReadIOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CPUCreditBalance tracks CPU credits for burstable instances.",
+      "b": "Correct. CPUUtilization is the CloudWatch metric showing the percentage of CPU being used by the RDS instance.",
+      "c": "Incorrect. DatabaseConnections shows the number of active connections.",
+      "d": "Incorrect. ReadIOPS shows the number of read I/O operations per second."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudWatch metric should you monitor to check available storage space on an RDS instance?",
+    "opts": {
+      "a": "FreeStorageSpace",
+      "b": "FreeableMemory",
+      "c": "DiskQueueDepth",
+      "d": "BinLogDiskUsage"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. FreeStorageSpace shows the amount of available storage space on the RDS instance.",
+      "b": "Incorrect. FreeableMemory shows available RAM.",
+      "c": "Incorrect. DiskQueueDepth shows the number of I/O requests waiting in the queue.",
+      "d": "Incorrect. BinLogDiskUsage shows the disk space used by binary logs."
+    }
+  }
+]

@@ -1,0 +1,1056 @@
+[
+  {
+    "type": "number-based",
+    "q": "What is the default concurrent executions quota for AWS Lambda per Region?",
+    "opts": {
+      "a": "500",
+      "b": "1,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 500 is not the default concurrent executions quota.",
+      "b": "Correct. Lambda provides a total concurrency limit of 1,000 concurrent executions across all functions in an AWS Region [3].",
+      "c": "Incorrect. 5,000 is not the default.",
+      "d": "Incorrect. 10,000 is API Gateway's default throttle, not Lambda concurrency."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum execution time for a single AWS Lambda invocation?",
+    "opts": {
+      "a": "5 minutes",
+      "b": "10 minutes",
+      "c": "15 minutes",
+      "d": "30 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 5 minutes was the original limit but has been increased.",
+      "b": "Incorrect. 10 minutes is not the maximum timeout.",
+      "c": "Correct. Lambda functions can run for up to 15 minutes (900 seconds) in a single invocation.",
+      "d": "Incorrect. 30 minutes exceeds the maximum Lambda timeout."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum memory that a single AWS Lambda function can use?",
+    "opts": {
+      "a": "3,008 MB",
+      "b": "5,120 MB",
+      "c": "10,240 MB",
+      "d": "16,384 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3,008 MB was a previous limit.",
+      "b": "Incorrect. 5,120 MB is not the current maximum.",
+      "c": "Correct. A single Lambda function can use up to 10,240 MB (10 GB) of memory.",
+      "d": "Incorrect. 16,384 MB exceeds the current Lambda memory limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum memory allocation for an AWS Lambda function?",
+    "opts": {
+      "a": "64 MB",
+      "b": "128 MB",
+      "c": "256 MB",
+      "d": "512 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 64 MB is below the minimum allowed.",
+      "b": "Correct. The minimum memory allocation for a Lambda function is 128 MB.",
+      "c": "Incorrect. 256 MB is above the minimum.",
+      "d": "Incorrect. 512 MB is above the minimum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "In what increments can you allocate memory to an AWS Lambda function?",
+    "opts": {
+      "a": "1 MB",
+      "b": "32 MB",
+      "c": "64 MB",
+      "d": "128 MB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Lambda memory can be configured in 1 MB increments between 128 MB and 10,240 MB.",
+      "b": "Incorrect. 32 MB increments is not correct.",
+      "c": "Incorrect. 64 MB increments was a previous limitation.",
+      "d": "Incorrect. 128 MB increments is not correct."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum deployment package size for AWS Lambda (zipped, direct upload)?",
+    "opts": {
+      "a": "10 MB",
+      "b": "50 MB",
+      "c": "100 MB",
+      "d": "250 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 10 MB is not the limit for direct upload.",
+      "b": "Correct. The maximum deployment package size for direct upload (zipped) is 50 MB.",
+      "c": "Incorrect. 100 MB exceeds the zipped direct upload limit.",
+      "d": "Incorrect. 250 MB is the unzipped limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum unzipped deployment package size for AWS Lambda (including layers)?",
+    "opts": {
+      "a": "50 MB",
+      "b": "100 MB",
+      "c": "250 MB",
+      "d": "500 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50 MB is the zipped direct upload limit.",
+      "b": "Incorrect. 100 MB is not the unzipped limit.",
+      "c": "Correct. The maximum unzipped deployment package size (including layers) is 250 MB.",
+      "d": "Incorrect. 500 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Lambda layers that can be attached to a single function?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can attach more than 3 layers.",
+      "b": "Correct. A Lambda function can use up to 5 layers at a time.",
+      "c": "Incorrect. 10 layers exceeds the limit.",
+      "d": "Incorrect. 15 layers exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the /tmp directory storage available in AWS Lambda by default, and what is the maximum?",
+    "opts": {
+      "a": "256 MB default, 5,120 MB max",
+      "b": "512 MB default, 10,240 MB max",
+      "c": "1,024 MB default, 10,240 MB max",
+      "d": "512 MB default, 5,120 MB max"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 256 MB is not the default.",
+      "b": "Correct. Lambda provides 512 MB of /tmp storage by default, expandable up to 10,240 MB (10 GB).",
+      "c": "Incorrect. 1,024 MB is not the default.",
+      "d": "Incorrect. 5,120 MB is not the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the invocation payload size limit for synchronous Lambda invocations?",
+    "opts": {
+      "a": "1 MB",
+      "b": "6 MB",
+      "c": "10 MB",
+      "d": "50 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 MB is too small.",
+      "b": "Correct. The synchronous invocation payload limit is 6 MB.",
+      "c": "Incorrect. 10 MB exceeds the synchronous payload limit.",
+      "d": "Incorrect. 50 MB is the deployment package size limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the invocation payload size limit for asynchronous Lambda invocations?",
+    "opts": {
+      "a": "128 KB",
+      "b": "256 KB",
+      "c": "512 KB",
+      "d": "1 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 128 KB is below the async limit.",
+      "b": "Correct. The asynchronous invocation payload limit is 256 KB.",
+      "c": "Incorrect. 512 KB exceeds the async payload limit.",
+      "d": "Incorrect. 1 MB exceeds the async payload limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many free requests per month does the AWS Lambda free tier include?",
+    "opts": {
+      "a": "500,000",
+      "b": "1,000,000",
+      "c": "5,000,000",
+      "d": "10,000,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The free tier includes more than 500,000 requests.",
+      "b": "Correct. The Lambda free tier includes 1 million free requests per month.",
+      "c": "Incorrect. 5 million exceeds the free tier.",
+      "d": "Incorrect. 10 million exceeds the free tier."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many free GB-seconds does the AWS Lambda free tier include per month?",
+    "opts": {
+      "a": "100,000 GB-seconds",
+      "b": "200,000 GB-seconds",
+      "c": "400,000 GB-seconds",
+      "d": "1,000,000 GB-seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 100,000 is below the free tier allowance.",
+      "b": "Incorrect. 200,000 is below the free tier allowance.",
+      "c": "Correct. The Lambda free tier includes 400,000 GB-seconds of compute time per month.",
+      "d": "Incorrect. 1,000,000 exceeds the free tier allowance."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the total maximum size for all environment variables in a Lambda function?",
+    "opts": {
+      "a": "2 KB",
+      "b": "4 KB",
+      "c": "8 KB",
+      "d": "16 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 2 KB is below the limit.",
+      "b": "Correct. The total size of all environment variables cannot exceed 4 KB.",
+      "c": "Incorrect. 8 KB exceeds the limit.",
+      "d": "Incorrect. 16 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default throttle limit for AWS API Gateway per Region per account?",
+    "opts": {
+      "a": "1,000 RPS",
+      "b": "5,000 RPS",
+      "c": "10,000 RPS",
+      "d": "50,000 RPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,000 RPS is the Lambda concurrency default.",
+      "b": "Incorrect. 5,000 RPS is the burst limit, not the steady-state throttle.",
+      "c": "Correct. API Gateway has a default throttle limit of 10,000 requests per second per Region per account [1][8].",
+      "d": "Incorrect. 50,000 RPS exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the burst limit for AWS API Gateway?",
+    "opts": {
+      "a": "1,000 RPS",
+      "b": "5,000 RPS",
+      "c": "10,000 RPS",
+      "d": "20,000 RPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1,000 is Lambda's concurrency limit.",
+      "b": "Correct. API Gateway has a burst limit of 5,000 RPS per Region per account [8].",
+      "c": "Incorrect. 10,000 is the steady-state throttle limit.",
+      "d": "Incorrect. 20,000 exceeds the burst limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum execution duration for a Step Functions Standard workflow?",
+    "opts": {
+      "a": "24 hours",
+      "b": "30 days",
+      "c": "1 year",
+      "d": "No limit"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 24 hours is too short for Standard workflows.",
+      "b": "Incorrect. 30 days is not the limit.",
+      "c": "Correct. Standard workflows can run for up to 1 year (365 days).",
+      "d": "Incorrect. There is a limit of 1 year."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum execution duration for a Step Functions Express workflow?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "5 minutes",
+      "c": "15 minutes",
+      "d": "1 hour"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 30 seconds is too short.",
+      "b": "Correct. Express workflows can run for up to 5 minutes.",
+      "c": "Incorrect. 15 minutes is the Lambda timeout.",
+      "d": "Incorrect. 1 hour exceeds Express workflow limits."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default quota for maximum number of registered state machines and activities in Step Functions (as of Feb 2025)?",
+    "opts": {
+      "a": "10,000",
+      "b": "50,000",
+      "c": "100,000",
+      "d": "500,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10,000 was the previous default.",
+      "b": "Incorrect. 50,000 is not the current quota.",
+      "c": "Correct. As of February 5, 2025, Step Functions increased the default quota from 10,000 to 100,000 state machines and activities [5].",
+      "d": "Incorrect. 500,000 exceeds the current quota."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum open executions per account for Step Functions Standard workflows?",
+    "opts": {
+      "a": "100,000",
+      "b": "500,000",
+      "c": "1,000,000",
+      "d": "5,000,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 100,000 is the state machines quota.",
+      "b": "Incorrect. 500,000 is not the correct limit.",
+      "c": "Correct. The maximum open executions is 1,000,000 per AWS account per Region. Exceeding this causes an ExecutionLimitExceeded error [12].",
+      "d": "Incorrect. 5,000,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum size of a Step Functions state machine definition?",
+    "opts": {
+      "a": "256 KB",
+      "b": "512 KB",
+      "c": "1 MB",
+      "d": "5 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 256 KB is below the limit.",
+      "b": "Incorrect. 512 KB is below the limit.",
+      "c": "Correct. The maximum size of a state machine definition is 1 MB. This is a hard quota [12].",
+      "d": "Incorrect. 5 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum request size per Step Functions API request?",
+    "opts": {
+      "a": "256 KB",
+      "b": "512 KB",
+      "c": "1 MB",
+      "d": "5 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 256 KB is below the limit.",
+      "b": "Incorrect. 512 KB is below the limit.",
+      "c": "Correct. Maximum request size is 1 MB per request, including header and all associated request data. This is a hard quota [12].",
+      "d": "Incorrect. 5 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the StartExecution API bucket size for Step Functions Standard workflows in US East (N. Virginia)?",
+    "opts": {
+      "a": "800",
+      "b": "1,300",
+      "c": "3,000",
+      "d": "6,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 800 is the bucket size for all other regions.",
+      "b": "Correct. In US East (N. Virginia), US West (Oregon), and Europe (Ireland), the StartExecution bucket size is 1,300 [12].",
+      "c": "Incorrect. 3,000 is not the correct value.",
+      "d": "Incorrect. 6,000 is for Express workflows."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the StartExecution API refill rate per second for Step Functions Standard workflows in US East (N. Virginia)?",
+    "opts": {
+      "a": "150",
+      "b": "300",
+      "c": "1,000",
+      "d": "6,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 150 is the refill rate for other regions.",
+      "b": "Correct. The refill rate is 300 per second for US East (N. Virginia), US West (Oregon), and Europe (Ireland) [12].",
+      "c": "Incorrect. 1,000 is not the correct value.",
+      "d": "Incorrect. 6,000 is for Express workflows."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the StartExecution bucket size and refill rate for Step Functions Express workflows?",
+    "opts": {
+      "a": "1,300 bucket / 300 refill",
+      "b": "3,000 bucket / 3,000 refill",
+      "c": "6,000 bucket / 6,000 refill",
+      "d": "10,000 bucket / 10,000 refill"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. These are Standard workflow values for select regions.",
+      "b": "Incorrect. 3,000 is not the correct value.",
+      "c": "Correct. Express workflows have a bucket size of 6,000 and refill rate of 6,000 per second [12].",
+      "d": "Incorrect. 10,000 exceeds the Express workflow values."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many AWS services can AWS Step Functions orchestrate as of 2026?",
+    "opts": {
+      "a": "Over 100",
+      "b": "Over 150",
+      "c": "Over 220",
+      "d": "Over 300"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Step Functions orchestrates many more services.",
+      "b": "Incorrect. The number exceeds 150.",
+      "c": "Correct. AWS Step Functions is capable of orchestrating over 220 AWS services [5].",
+      "d": "Incorrect. 300 exceeds the stated number."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many API actions can Step Functions invoke across AWS services?",
+    "opts": {
+      "a": "Over 5,000",
+      "b": "Over 10,000",
+      "c": "Over 14,000",
+      "d": "Over 20,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The number is much higher.",
+      "b": "Incorrect. Still below the actual count.",
+      "c": "Correct. Step Functions is capable of orchestrating over 14,000+ API actions from over 220 AWS services [5].",
+      "d": "Incorrect. 20,000 exceeds the stated number."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many new service integrations did Step Functions add in March 2026?",
+    "opts": {
+      "a": "10",
+      "b": "18",
+      "c": "28",
+      "d": "50"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10 is below the actual number.",
+      "b": "Incorrect. 18 is not the correct number.",
+      "c": "Correct. Step Functions added 28 new service integrations in March 2026.",
+      "d": "Incorrect. 50 exceeds the announced number."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many new SDK API actions were added to Step Functions in the March 2026 expansion?",
+    "opts": {
+      "a": "Over 500",
+      "b": "Over 800",
+      "c": "Over 1,100",
+      "d": "Over 2,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More than 500 API actions were added.",
+      "b": "Incorrect. More than 800 were added.",
+      "c": "Correct. Over 1,100 new API actions were added across 28 additional services.",
+      "d": "Incorrect. 2,000 exceeds the actual number."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many new SDK API actions did Amazon EventBridge Scheduler add in May 2026?",
+    "opts": {
+      "a": "200",
+      "b": "450",
+      "c": "619",
+      "d": "1,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 200 is below the actual number.",
+      "b": "Incorrect. 450 is not the correct number.",
+      "c": "Correct. Amazon EventBridge Scheduler added 619 new SDK API actions as targets, including Lambda Managed Instances operations [4][2].",
+      "d": "Incorrect. 1,000 exceeds the announced number."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many AWS services can EventBridge Scheduler schedule tasks across?",
+    "opts": {
+      "a": "Over 100",
+      "b": "Over 200",
+      "c": "Over 270",
+      "d": "Over 500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Scheduler supports more services.",
+      "b": "Incorrect. Still below the actual count.",
+      "c": "Correct. EventBridge Scheduler allows you to create, run, and manage scheduled events across more than 270 AWS services [4].",
+      "d": "Incorrect. 500 exceeds the stated number."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "As of June 2026, what is the maximum vCPU configuration supported by AWS Fargate?",
+    "opts": {
+      "a": "8 vCPU",
+      "b": "16 vCPU",
+      "c": "32 vCPU",
+      "d": "64 vCPU"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 8 vCPU was a previous maximum.",
+      "b": "Incorrect. 16 vCPU was a previous maximum.",
+      "c": "Correct. Amazon ECS with AWS Fargate now supports 32vCPU compute configurations as of June 5, 2026 [6].",
+      "d": "Incorrect. 64 vCPU is not supported."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "What memory configurations are available with Fargate 32vCPU tasks?",
+    "opts": {
+      "a": "16 GiB, 32 GiB, or 64 GiB",
+      "b": "60 GiB, 120 GiB, or 244 GiB",
+      "c": "64 GiB, 128 GiB, or 256 GiB",
+      "d": "30 GiB, 60 GiB, or 120 GiB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not the available configurations.",
+      "b": "Correct. Fargate 32vCPU tasks are available with 60 GiB, 120 GiB, or 244 GiB of memory [6].",
+      "c": "Incorrect. These are not the correct memory configurations.",
+      "d": "Incorrect. These are not the available configurations."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "What processor architectures do Fargate 32vCPU tasks support?",
+    "opts": {
+      "a": "x86 only",
+      "b": "ARM only",
+      "c": "Both x86-based and ARM-based workloads on Linux",
+      "d": "x86 on both Linux and Windows"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Both architectures are supported.",
+      "b": "Incorrect. Both architectures are supported.",
+      "c": "Correct. Fargate 32vCPU tasks support both x86-based and ARM-based workloads on Linux [6].",
+      "d": "Incorrect. Windows is not mentioned for 32vCPU tasks."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "What is the smallest available Fargate Pod vCPU and memory combination?",
+    "opts": {
+      "a": "0.125 vCPU and 0.25 GB",
+      "b": "0.25 vCPU and 0.5 GB",
+      "c": "0.5 vCPU and 1 GB",
+      "d": "1 vCPU and 2 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 0.125 vCPU is not a valid configuration.",
+      "b": "Correct. The smallest available combination is 0.25 vCPU and 0.5 GB memory [11].",
+      "c": "Incorrect. 0.5 vCPU is not the smallest.",
+      "d": "Incorrect. 1 vCPU is not the smallest."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "For Fargate with 0.25 vCPU, what memory values are available?",
+    "opts": {
+      "a": "0.5 GB, 1 GB, 2 GB",
+      "b": "1 GB, 2 GB, 3 GB",
+      "c": "0.5 GB, 1 GB, 2 GB, 4 GB",
+      "d": "0.25 GB, 0.5 GB, 1 GB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. With 0.25 vCPU, available memory values are 0.5 GB, 1 GB, and 2 GB [11].",
+      "b": "Incorrect. These are values for 0.5 vCPU (partially).",
+      "c": "Incorrect. 4 GB is not available at 0.25 vCPU.",
+      "d": "Incorrect. 0.25 GB is not a valid option."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "For Fargate with 0.5 vCPU, what memory values are available?",
+    "opts": {
+      "a": "0.5 GB, 1 GB, 2 GB",
+      "b": "1 GB, 2 GB, 3 GB, 4 GB",
+      "c": "2 GB, 4 GB, 8 GB",
+      "d": "1 GB, 2 GB, 3 GB, 4 GB, 5 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are values for 0.25 vCPU.",
+      "b": "Correct. With 0.5 vCPU, available memory values are 1 GB, 2 GB, 3 GB, and 4 GB [11].",
+      "c": "Incorrect. These are not the correct values.",
+      "d": "Incorrect. 5 GB is not available at 0.5 vCPU."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "For Fargate with 1 vCPU, what memory values are available?",
+    "opts": {
+      "a": "1 GB to 4 GB in 1 GB increments",
+      "b": "2 GB, 3 GB, 4 GB, 5 GB, 6 GB, 7 GB, 8 GB",
+      "c": "4 GB to 16 GB in 1 GB increments",
+      "d": "2 GB to 16 GB in 2 GB increments"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The minimum is 2 GB for 1 vCPU.",
+      "b": "Correct. With 1 vCPU, memory values range from 2 GB through 8 GB [11].",
+      "c": "Incorrect. This range is for 2 vCPU.",
+      "d": "Incorrect. Increments are 1 GB, not 2 GB."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "For Fargate with 2 vCPU, what is the memory range?",
+    "opts": {
+      "a": "Between 2 GB and 8 GB in 1-GB increments",
+      "b": "Between 4 GB and 16 GB in 1-GB increments",
+      "c": "Between 8 GB and 30 GB in 1-GB increments",
+      "d": "Between 4 GB and 30 GB in 2-GB increments"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This range is for 1 vCPU.",
+      "b": "Correct. With 2 vCPU, memory ranges between 4 GB and 16 GB in 1-GB increments [11].",
+      "c": "Incorrect. This range is for 4 vCPU.",
+      "d": "Incorrect. The increments are 1 GB, not 2 GB."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "For Fargate with 4 vCPU, what is the memory range?",
+    "opts": {
+      "a": "Between 4 GB and 16 GB in 1-GB increments",
+      "b": "Between 8 GB and 30 GB in 1-GB increments",
+      "c": "Between 16 GB and 60 GB in 1-GB increments",
+      "d": "Between 8 GB and 60 GB in 4-GB increments"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This range is for 2 vCPU.",
+      "b": "Correct. With 4 vCPU, memory ranges between 8 GB and 30 GB in 1-GB increments [11].",
+      "c": "Incorrect. This exceeds the correct range.",
+      "d": "Incorrect. The increments are 1 GB."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "How much ephemeral storage is available for all Fargate Tasks and Pods by default?",
+    "opts": {
+      "a": "10 GB",
+      "b": "20 GB",
+      "c": "50 GB",
+      "d": "100 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 10 GB is below the default.",
+      "b": "Correct. 20 GB of ephemeral storage is available for all Fargate Tasks and Pods by default — you only pay for any additional storage you configure [13].",
+      "c": "Incorrect. 50 GB exceeds the default.",
+      "d": "Incorrect. 100 GB exceeds the default."
+    }
+  },
+  {
+    "type": "instance-config",
+    "q": "How much memory does Fargate add to each Pod's reservation for Kubernetes components?",
+    "opts": {
+      "a": "128 MB",
+      "b": "256 MB",
+      "c": "512 MB",
+      "d": "1 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 128 MB is less than what's added.",
+      "b": "Correct. Fargate adds 256 MB to each Pod's memory reservation for required Kubernetes components (kubelet, kube-proxy, and containerd) [11].",
+      "c": "Incorrect. 512 MB is more than what's added.",
+      "d": "Incorrect. 1 GB exceeds what's added."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What are the Fargate 32vCPU tasks available on besides standard Fargate?",
+    "opts": {
+      "a": "Fargate Premium only",
+      "b": "Fargate Spot capacity providers",
+      "c": "Fargate Reserved only",
+      "d": "Fargate Dedicated Hosts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Fargate Premium doesn't exist.",
+      "b": "Correct. The new 32vCPU configurations are available on both Fargate and Fargate Spot capacity providers, and existing Compute Savings Plans apply automatically [6].",
+      "c": "Incorrect. Fargate Reserved doesn't exist.",
+      "d": "Incorrect. Fargate Dedicated Hosts doesn't exist."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of simultaneous readers on a single DynamoDB Streams shard for non-global tables?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 1 reader is allowed for non-global tables.",
+      "b": "Correct. For single-Region tables that are not global tables, you can design for up to two simultaneous processes to read from the same DynamoDB Streams shard [7].",
+      "c": "Incorrect. 5 exceeds the limit.",
+      "d": "Incorrect. 10 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "For DynamoDB Global Tables using Streams, what is the recommended number of simultaneous readers per shard?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "5"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. For global tables, AWS recommends limiting the number of simultaneous readers to one to avoid request throttling [7].",
+      "b": "Incorrect. While 2 is the max for non-global tables, 1 is recommended for global tables.",
+      "c": "Incorrect. 3 exceeds even the non-global table maximum.",
+      "d": "Incorrect. 5 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much faster does the next generation of Amazon OpenSearch Serverless auto-scale compared to its predecessor?",
+    "opts": {
+      "a": "5x faster",
+      "b": "10x faster",
+      "c": "20x faster",
+      "d": "50x faster"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The improvement is greater than 5x.",
+      "b": "Incorrect. The improvement is greater than 10x.",
+      "c": "Correct. The next generation auto-scales 20x faster than its predecessor and provisions resources in seconds [9].",
+      "d": "Incorrect. 50x exceeds the stated improvement."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What cost savings does the next generation of OpenSearch Serverless offer with scale-to-zero?",
+    "opts": {
+      "a": "Up to 30%",
+      "b": "Up to 40%",
+      "c": "Up to 60%",
+      "d": "Up to 80%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Savings are higher than 30%.",
+      "b": "Incorrect. Savings are higher than 40%.",
+      "c": "Correct. Customers can save up to 60% compared to the cost of provisioning with scale-to-zero and pay-per-usage pricing [9].",
+      "d": "Incorrect. 80% exceeds the stated savings."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "By how much did Step Functions increase the state machines quota in February 2025 (multiplier)?",
+    "opts": {
+      "a": "2x (doubled)",
+      "b": "5x",
+      "c": "10x (tenfold)",
+      "d": "20x"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The increase was larger.",
+      "b": "Incorrect. The increase was larger.",
+      "c": "Correct. Step Functions increased the default quota from 10,000 to 100,000 — a tenfold increase [5].",
+      "d": "Incorrect. 20x exceeds the actual multiplier."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What was the previous default quota for Step Functions state machines before the February 2025 increase?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "50,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,000 is too low.",
+      "b": "Incorrect. 5,000 is not the correct previous value.",
+      "c": "Correct. The previous default was 10,000 state machines and activities, which was increased to 100,000 [5].",
+      "d": "Incorrect. 50,000 was never the default."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team deployed an application using API Gateway and Lambda. Under heavy load, Lambda starts throttling while API Gateway continues accepting requests. What causes this mismatch?",
+    "opts": {
+      "a": "Lambda memory too low",
+      "b": "API Gateway default is 10,000 RPS but Lambda default concurrency is only 1,000",
+      "c": "Lambda timeout too short",
+      "d": "API Gateway payload size limit reached"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Memory doesn't cause concurrency throttling.",
+      "b": "Correct. API Gateway has a default throttle limit of 10,000 RPS, whereas Lambda has a default concurrency limit of 1,000. This mismatch can cause throttling [1].",
+      "c": "Incorrect. Timeout doesn't cause throttling.",
+      "d": "Incorrect. Payload size is unrelated."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's Lambda functions in a specific VPC are failing to create new ENIs, but functions in other VPCs work fine. What quota is exhausted?",
+    "opts": {
+      "a": "Lambda concurrent execution quota per Region",
+      "b": "ENI quota for that specific VPC",
+      "c": "Lambda memory quota",
+      "d": "API Gateway throttle limit"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Concurrency quotas apply per Region, not per VPC.",
+      "b": "Correct. ENI quotas apply per VPC, regardless of Region. If exhausted in one VPC, Lambda can't create new network interfaces in that VPC [1].",
+      "c": "Incorrect. Memory is per function, not per VPC.",
+      "d": "Incorrect. API Gateway throttle is unrelated to ENI."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team needs to process 10,000 concurrent Lambda requests. The default quota is 1,000. What should they do?",
+    "opts": {
+      "a": "Deploy functions in 10 Regions",
+      "b": "Request a quota increase through Service Quotas dashboard",
+      "c": "Use provisioned concurrency of 10,000",
+      "d": "Lambda will auto-scale without any action"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multi-region is unnecessarily complex.",
+      "b": "Correct. You can request a quota increase through the Service Quotas dashboard [1].",
+      "c": "Incorrect. Provisioned concurrency cannot exceed account quota.",
+      "d": "Incorrect. Lambda has concurrency limits that need to be increased."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A data processing team needs 32 vCPUs and 244 GiB memory in a serverless container environment. Which service supports this as of June 2026?",
+    "opts": {
+      "a": "AWS Lambda with maximum memory",
+      "b": "Amazon ECS with AWS Fargate 32vCPU configuration",
+      "c": "AWS Batch with EC2 launch type",
+      "d": "Amazon EKS with self-managed nodes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda max memory is only 10 GB.",
+      "b": "Correct. Fargate now supports 32vCPU with up to 244 GiB memory [6].",
+      "c": "Incorrect. Batch with EC2 is not serverless.",
+      "d": "Incorrect. Self-managed nodes are not serverless."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A DynamoDB Global Table with Streams enabled has 3 Lambda functions reading from the same shard and is experiencing throttling. What should they do?",
+    "opts": {
+      "a": "Increase read capacity units",
+      "b": "Reduce to 1 simultaneous reader per shard as recommended for global tables",
+      "c": "Enable DynamoDB Accelerator",
+      "d": "Switch to on-demand mode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Read capacity doesn't affect stream reader limits.",
+      "b": "Correct. The maximum is 2 readers per shard for non-global tables, but for global tables, 1 reader is recommended [7].",
+      "c": "Incorrect. DAX doesn't affect stream reading.",
+      "d": "Incorrect. On-demand mode doesn't change stream reader limits."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default storage quota for uploaded Lambda functions and layers (Lambda-managed, unzipped)?",
+    "opts": {
+      "a": "75 GB",
+      "b": "150 GB",
+      "c": "300 GB",
+      "d": "500 GB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 75 GB was a previous limit.",
+      "b": "Incorrect. 150 GB is not the current default.",
+      "c": "Correct. The default storage quota for Lambda-managed storage is 300 GB (unzipped).",
+      "d": "Incorrect. 500 GB exceeds the default quota."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the Fargate pricing model based on?",
+    "opts": {
+      "a": "Fixed monthly fee per task",
+      "b": "vCPU, memory, OS, CPU Architecture, and storage from container image download to task termination (rounded to nearest second)",
+      "c": "Per-request pricing like Lambda",
+      "d": "Hourly billing rounded to the nearest hour"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There's no fixed monthly fee.",
+      "b": "Correct. Fargate pricing is calculated based on vCPU, memory, Operating Systems, CPU Architecture, and storage from image download start to task termination, rounded up to the nearest second [13].",
+      "c": "Incorrect. Fargate doesn't use per-request pricing.",
+      "d": "Incorrect. Billing is per-second, not per-hour."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the Fargate ARM/Linux vCPU per-second cost in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.0000044972 per vCPU second",
+      "b": "$0.0000089944 per vCPU second",
+      "c": "$0.0000179888 per vCPU second",
+      "d": "$0.0000359776 per vCPU second"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is not the correct rate.",
+      "b": "Correct. The Linux/ARM CPU cost in US East (N. Virginia) is $0.0000089944 per vCPU second [13].",
+      "c": "Incorrect. This exceeds the correct rate.",
+      "d": "Incorrect. This exceeds the correct rate."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the Fargate ARM/Linux memory per-second cost in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.0000004944 per GB per second",
+      "b": "$0.0000009889 per GB per second",
+      "c": "$0.0000019778 per GB per second",
+      "d": "$0.0000039556 per GB per second"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is not the correct rate.",
+      "b": "Correct. The Linux/ARM memory cost in US East (N. Virginia) is $0.0000009889 per GB per second [13].",
+      "c": "Incorrect. This exceeds the correct rate.",
+      "d": "Incorrect. This exceeds the correct rate."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the Fargate ephemeral storage per-second cost?",
+    "opts": {
+      "a": "$0.0000000154 per GB per second",
+      "b": "$0.0000000308 per GB per second",
+      "c": "$0.0000000616 per GB per second",
+      "d": "$0.0000001232 per GB per second"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is not the correct rate.",
+      "b": "Correct. Ephemeral storage cost is $0.0000000308 per GB per second [13].",
+      "c": "Incorrect. This exceeds the correct rate.",
+      "d": "Incorrect. This exceeds the correct rate."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "When was the next generation of Amazon OpenSearch Serverless made generally available?",
+    "opts": {
+      "a": "March 15, 2026",
+      "b": "April 22, 2026",
+      "c": "May 28, 2026",
+      "d": "June 10, 2026"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. This is not the correct date.",
+      "b": "Incorrect. This is not the correct date.",
+      "c": "Correct. The next generation of Amazon OpenSearch Serverless became GA on May 28, 2026 [9].",
+      "d": "Incorrect. This is not the correct date."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "When did Amazon EventBridge Scheduler add 619 new SDK API actions?",
+    "opts": {
+      "a": "March 12, 2026",
+      "b": "April 5, 2026",
+      "c": "May 12, 2026",
+      "d": "June 22, 2026"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. This is not the correct date.",
+      "b": "Incorrect. This is not the correct date.",
+      "c": "Correct. EventBridge Scheduler added 619 new SDK API actions on May 12, 2026 [4].",
+      "d": "Incorrect. This is not the correct date."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "When did AWS Fargate announce 32vCPU support?",
+    "opts": {
+      "a": "May 5, 2026",
+      "b": "June 5, 2026",
+      "c": "July 5, 2026",
+      "d": "August 5, 2026"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is not the correct date.",
+      "b": "Correct. Amazon ECS with AWS Fargate 32vCPU support was announced on June 5, 2026 [6].",
+      "c": "Incorrect. This is not the correct date.",
+      "d": "Incorrect. This is not the correct date."
+    }
+  }
+]

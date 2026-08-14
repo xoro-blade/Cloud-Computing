@@ -1,0 +1,937 @@
+[
+  {
+    "type": "mcq",
+    "q": "How many types of Elastic Load Balancers does AWS currently offer?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "4",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AWS offers more than 2 types of load balancers.",
+      "b": "Incorrect. AWS offers 4 types: CLB, ALB, NLB, and GWLB.",
+      "c": "Correct. AWS offers 4 types: Classic Load Balancer (CLB), Application Load Balancer (ALB), Network Load Balancer (NLB), and Gateway Load Balancer (GWLB).",
+      "d": "Incorrect. AWS currently offers 4 types of load balancers."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "At which OSI layer does the Application Load Balancer (ALB) operate?",
+    "opts": {
+      "a": "Layer 3",
+      "b": "Layer 4",
+      "c": "Layer 5",
+      "d": "Layer 7"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Layer 3 is the Network layer, which deals with IP routing.",
+      "b": "Incorrect. Layer 4 is the Transport layer where NLB operates.",
+      "c": "Incorrect. Layer 5 is the Session layer.",
+      "d": "Correct. ALB operates at Layer 7 (Application layer) and can route based on HTTP/HTTPS content like URL paths, headers, and query strings."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "At which OSI layer does the Network Load Balancer (NLB) operate?",
+    "opts": {
+      "a": "Layer 4",
+      "b": "Layer 5",
+      "c": "Layer 6",
+      "d": "Layer 7"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. NLB operates at Layer 4 (Transport layer) and handles TCP, UDP, and TLS traffic.",
+      "b": "Incorrect. Layer 5 is the Session layer.",
+      "c": "Incorrect. Layer 6 is the Presentation layer.",
+      "d": "Incorrect. Layer 7 is where ALB operates."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum number of Availability Zones recommended for an ELB?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "4"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Using only 1 AZ does not provide high availability.",
+      "b": "Correct. AWS recommends at least 2 Availability Zones for high availability when configuring an ELB.",
+      "c": "Incorrect. While 3 AZs provide even better availability, the minimum recommendation is 2.",
+      "d": "Incorrect. 4 AZs are not the minimum requirement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "On which port does a default HTTP health check operate?",
+    "opts": {
+      "a": "Port 22",
+      "b": "Port 443",
+      "c": "Port 80",
+      "d": "Port 3389"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Port 22 is used for SSH.",
+      "b": "Incorrect. Port 443 is used for HTTPS.",
+      "c": "Correct. The default HTTP health check operates on port 80.",
+      "d": "Incorrect. Port 3389 is used for RDP (Windows Remote Desktop)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What HTTP status code indicates a healthy target in an ELB health check?",
+    "opts": {
+      "a": "100",
+      "b": "200",
+      "c": "302",
+      "d": "500"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 100 is a Continue status code.",
+      "b": "Correct. HTTP 200 (OK) indicates the target is healthy.",
+      "c": "Incorrect. 302 is a redirect status code and does not indicate a healthy target by default.",
+      "d": "Incorrect. 500 is an Internal Server Error and indicates an unhealthy target."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default health check interval for ELB?",
+    "opts": {
+      "a": "10 seconds",
+      "b": "30 seconds",
+      "c": "60 seconds",
+      "d": "5 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 10 seconds is not the default interval.",
+      "b": "Correct. The default health check interval is 30 seconds.",
+      "c": "Incorrect. 60 seconds is not the default interval.",
+      "d": "Incorrect. 5 seconds is not the default interval for standard health checks."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default cooldown period for an Auto Scaling Group?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "120 seconds",
+      "c": "300 seconds",
+      "d": "600 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 60 seconds is not the default cooldown period.",
+      "b": "Incorrect. 120 seconds is not the default cooldown period.",
+      "c": "Correct. The default cooldown period is 300 seconds (5 minutes), during which ASG will not launch or terminate additional instances.",
+      "d": "Incorrect. 600 seconds is not the default cooldown period."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "If an ASG has minimum capacity of 2, desired capacity of 4, and maximum capacity of 6, how many instances will be running under normal conditions?",
+    "opts": {
+      "a": "2",
+      "b": "4",
+      "c": "6",
+      "d": "3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 2 is the minimum, but under normal conditions ASG maintains the desired capacity.",
+      "b": "Correct. Under normal conditions, ASG maintains the desired capacity which is 4 instances.",
+      "c": "Incorrect. 6 is the maximum capacity and is only reached during peak demand.",
+      "d": "Incorrect. 3 is not any of the configured capacity values."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum value you can set for ASG minimum capacity?",
+    "opts": {
+      "a": "0",
+      "b": "1",
+      "c": "2",
+      "d": "3"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The minimum capacity of an ASG can be set to 0, meaning no instances run when there is no demand.",
+      "b": "Incorrect. While 1 is a common setting, the minimum can be 0.",
+      "c": "Incorrect. 2 is not the minimum value you can set.",
+      "d": "Incorrect. 3 is not the minimum value you can set."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default deregistration delay (connection draining) value?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "300 seconds",
+      "c": "600 seconds",
+      "d": "3600 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 60 seconds is not the default value.",
+      "b": "Correct. The default deregistration delay is 300 seconds (5 minutes). It can be set between 0 and 3600 seconds.",
+      "c": "Incorrect. 600 seconds is not the default value.",
+      "d": "Incorrect. 3600 seconds is the maximum value, not the default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum deregistration delay (connection draining) that can be configured?",
+    "opts": {
+      "a": "300 seconds",
+      "b": "600 seconds",
+      "c": "1800 seconds",
+      "d": "3600 seconds"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 300 seconds is the default, not the maximum.",
+      "b": "Incorrect. 600 seconds is not the maximum.",
+      "c": "Incorrect. 1800 seconds is not the maximum.",
+      "d": "Correct. The maximum deregistration delay can be set up to 3600 seconds (1 hour). The range is 0-3600 seconds."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What protocol does the Gateway Load Balancer (GWLB) use?",
+    "opts": {
+      "a": "HTTP",
+      "b": "TCP",
+      "c": "GENEVE on port 6081",
+      "d": "UDP on port 443"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. GWLB does not use HTTP.",
+      "b": "Incorrect. While GWLB operates at Layer 3, it uses the GENEVE protocol.",
+      "c": "Correct. GWLB uses the GENEVE protocol on port 6081 to encapsulate and forward traffic to third-party virtual appliances.",
+      "d": "Incorrect. GWLB does not use UDP on port 443."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "At which OSI layer does the Gateway Load Balancer (GWLB) operate?",
+    "opts": {
+      "a": "Layer 3 (Network layer)",
+      "b": "Layer 4 (Transport layer)",
+      "c": "Layer 5 (Session layer)",
+      "d": "Layer 7 (Application layer)"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. GWLB operates at Layer 3 (Network layer) and deals with IP packets.",
+      "b": "Incorrect. Layer 4 is where NLB operates.",
+      "c": "Incorrect. No ELB operates at Layer 5.",
+      "d": "Incorrect. Layer 7 is where ALB operates."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of listeners you can create per Application Load Balancer?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 10.",
+      "b": "Incorrect. The limit is higher than 25.",
+      "c": "Correct. You can configure up to 50 listeners per Application Load Balancer.",
+      "d": "Incorrect. The default limit is 50 listeners per ALB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many rules can be configured per ALB listener (excluding the default rule)?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10 is too few.",
+      "b": "Incorrect. 50 is not the correct limit.",
+      "c": "Correct. You can configure up to 100 rules per ALB listener (excluding the default rule).",
+      "d": "Incorrect. 200 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of target groups per ALB?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10 is not the correct limit.",
+      "b": "Incorrect. 50 is not the correct limit.",
+      "c": "Correct. By default, you can have up to 100 target groups per Application Load Balancer.",
+      "d": "Incorrect. 200 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the NLB latency approximately?",
+    "opts": {
+      "a": "~400 milliseconds",
+      "b": "~100 milliseconds",
+      "c": "~1 second",
+      "d": "~10 milliseconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ~400ms is the approximate latency for ALB.",
+      "b": "Correct. NLB provides ultra-low latency of approximately 100 milliseconds (compared to ~400ms for ALB).",
+      "c": "Incorrect. 1 second would be very high latency for a load balancer.",
+      "d": "Incorrect. 10ms is lower than NLB's typical latency."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the ALB latency approximately?",
+    "opts": {
+      "a": "~50 milliseconds",
+      "b": "~100 milliseconds",
+      "c": "~400 milliseconds",
+      "d": "~1000 milliseconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50ms is lower than ALB's typical latency.",
+      "b": "Incorrect. ~100ms is the approximate NLB latency.",
+      "c": "Correct. ALB has approximately 400 milliseconds of latency due to Layer 7 processing.",
+      "d": "Incorrect. 1000ms would be excessively high."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default idle timeout for an Application Load Balancer?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "60 seconds",
+      "c": "120 seconds",
+      "d": "300 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 30 seconds is not the default idle timeout for ALB.",
+      "b": "Correct. The default idle timeout for ALB is 60 seconds. If no data is sent over a connection for 60 seconds, the load balancer closes the connection.",
+      "c": "Incorrect. 120 seconds is not the default.",
+      "d": "Incorrect. 300 seconds is not the default idle timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum idle timeout configurable for an ALB?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "300 seconds",
+      "c": "3600 seconds",
+      "d": "4000 seconds"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 60 seconds is the default, not the maximum.",
+      "b": "Incorrect. 300 seconds is not the maximum.",
+      "c": "Incorrect. 3600 seconds is not the maximum.",
+      "d": "Correct. ALB idle timeout can be configured between 1 and 4000 seconds. The default is 60 seconds."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default lifecycle hook timeout (heartbeat timeout)?",
+    "opts": {
+      "a": "1800 seconds (30 minutes)",
+      "b": "3600 seconds (1 hour)",
+      "c": "7200 seconds (2 hours)",
+      "d": "300 seconds (5 minutes)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1800 seconds is not the default.",
+      "b": "Correct. The default heartbeat timeout for lifecycle hooks is 3600 seconds (1 hour). It can be extended up to 48 hours or 100 times the heartbeat timeout.",
+      "c": "Incorrect. 7200 seconds is not the default.",
+      "d": "Incorrect. 300 seconds is the default cooldown, not the lifecycle hook timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of targets per target group for ALB and NLB?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1000",
+      "d": "5000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Incorrect. The limit is higher than 500.",
+      "c": "Correct. The default maximum number of targets per target group is 1000 for ALB and NLB.",
+      "d": "Incorrect. 5000 exceeds the default per-target-group limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of Auto Scaling Groups per AWS account per region (default limit)?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 20.",
+      "b": "Incorrect. The limit is higher than 50.",
+      "c": "Incorrect. The limit is higher than 100.",
+      "d": "Correct. The default limit is 200 Auto Scaling Groups per region per account. This can be increased by requesting a limit increase."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default health check grace period for ASG?",
+    "opts": {
+      "a": "0 seconds",
+      "b": "60 seconds",
+      "c": "300 seconds",
+      "d": "600 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 0 seconds would mean health checks start immediately.",
+      "b": "Incorrect. 60 seconds is not the default.",
+      "c": "Correct. The default health check grace period is 300 seconds (5 minutes), giving instances time to fully initialize before being health-checked.",
+      "d": "Incorrect. 600 seconds is not the default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the slow start duration range configurable for ALB target groups?",
+    "opts": {
+      "a": "10-300 seconds",
+      "b": "30-900 seconds",
+      "c": "60-3600 seconds",
+      "d": "0-600 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The range starts at 30 seconds.",
+      "b": "Correct. Slow start duration can be configured between 30 and 900 seconds (15 minutes). Setting it to 0 disables slow start.",
+      "c": "Incorrect. The maximum is 900 seconds.",
+      "d": "Incorrect. The minimum is 30 seconds (unless disabled with 0)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of SSL/TLS certificates that can be associated with an ALB using SNI?",
+    "opts": {
+      "a": "1",
+      "b": "10",
+      "c": "25",
+      "d": "25 default (can be increased to more)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Only CLB is limited to 1 certificate.",
+      "b": "Incorrect. The limit is higher than 10.",
+      "c": "Correct. ALB supports up to 25 SSL/TLS certificates per listener using SNI (1 default + 24 additional). This can be increased through a limit increase request.",
+      "d": "Incorrect. The default is 25 total (not 25 as a starting point that increases)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum surge queue length for a Classic Load Balancer?",
+    "opts": {
+      "a": "256",
+      "b": "512",
+      "c": "1024",
+      "d": "2048"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 256 is not the maximum queue length.",
+      "b": "Incorrect. 512 is not the maximum queue length.",
+      "c": "Correct. The CLB surge queue can hold a maximum of 1024 requests. Once full, additional requests are rejected (SpilloverCount increases).",
+      "d": "Incorrect. 2048 exceeds the maximum queue length."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An NLB health check marks a target as healthy after how many consecutive successful checks by default?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 2 is not the default healthy threshold for NLB.",
+      "b": "Incorrect. 3 is the default for ALB, not NLB.",
+      "c": "Correct. NLB requires 5 consecutive successful health checks (default healthy threshold) to mark a target as healthy.",
+      "d": "Incorrect. 10 is not the default threshold."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "For ALB, how many consecutive failed health checks (default unhealthy threshold) are required before a target is marked unhealthy?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "5"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single failure does not mark a target unhealthy by default.",
+      "b": "Correct. ALB requires 2 consecutive failed health checks (default unhealthy threshold) before marking a target as unhealthy.",
+      "c": "Incorrect. 3 is the default healthy threshold for ALB, not the unhealthy threshold.",
+      "d": "Incorrect. 5 is the default threshold for NLB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of conditions per ALB listener rule?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can have more than 3 conditions per rule.",
+      "b": "Correct. Each ALB listener rule can have up to 5 conditions that must all be met (AND logic) for the rule to apply.",
+      "c": "Incorrect. 10 exceeds the limit.",
+      "d": "Incorrect. 20 exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default limit of target groups that can be attached to a single ASG?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 5.",
+      "b": "Correct. By default, you can attach up to 10 target groups (from ALB and/or NLB) to a single ASG. This limit can be increased through a service quota request.",
+      "c": "Incorrect. 20 is not the default limit.",
+      "d": "Incorrect. 50 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When using Predictive Scaling in ASG, what is the minimum historical data period needed for accurate predictions?",
+    "opts": {
+      "a": "1 day",
+      "b": "1 week",
+      "c": "14 days (2 weeks)",
+      "d": "30 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 day is insufficient for meaningful predictions.",
+      "b": "Incorrect. 1 week may not capture enough patterns.",
+      "c": "Correct. Predictive Scaling requires at least 14 days (2 weeks) of historical data to generate accurate forecasts. It analyzes up to 14 days of history to predict the next 2 days.",
+      "d": "Incorrect. While more data helps, the minimum requirement is 14 days."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the valid priority range for ALB listener rules?",
+    "opts": {
+      "a": "1 to 100",
+      "b": "1 to 50000",
+      "c": "0 to 99999",
+      "d": "1 to 999"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The range is much larger than 1-100.",
+      "b": "Correct. ALB listener rules can have priorities between 1 and 50000. Lower numbers have higher priority.",
+      "c": "Incorrect. Priority 0 is not valid, and the max is 50000.",
+      "d": "Incorrect. The range extends beyond 999."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of the request body that ALB can use for Lambda target evaluation?",
+    "opts": {
+      "a": "100 KB",
+      "b": "1 MB",
+      "c": "5 MB",
+      "d": "10 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100 KB.",
+      "b": "Correct. ALB supports request bodies up to 1 MB when invoking Lambda functions. Requests larger than 1 MB are rejected.",
+      "c": "Incorrect. 5 MB exceeds the ALB-Lambda limit.",
+      "d": "Incorrect. 10 MB exceeds the ALB-Lambda limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of concurrent streams per HTTP/2 connection that ALB supports?",
+    "opts": {
+      "a": "64",
+      "b": "128",
+      "c": "256",
+      "d": "512"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB supports more than 64 concurrent streams.",
+      "b": "Correct. ALB supports up to 128 concurrent streams (requests) per HTTP/2 connection from the client.",
+      "c": "Incorrect. 256 exceeds the ALB limit.",
+      "d": "Incorrect. 512 exceeds the ALB limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum value for 'max instance lifetime' in ASG?",
+    "opts": {
+      "a": "3600 seconds (1 hour)",
+      "b": "7200 seconds (2 hours)",
+      "c": "86400 seconds (1 day)",
+      "d": "604800 seconds (7 days)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 hour is too short and would cause excessive churn.",
+      "b": "Incorrect. 2 hours is below the minimum.",
+      "c": "Correct. The minimum max instance lifetime is 86400 seconds (24 hours / 1 day). There is no maximum limit. Setting it to 0 disables the feature.",
+      "d": "Incorrect. 7 days is a common setting but not the minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG has min=2, desired=3, max=5. A scaling policy triggers and wants to add 4 instances. How many total instances will be running after the scale-out?",
+    "opts": {
+      "a": "7",
+      "b": "5",
+      "c": "4",
+      "d": "3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The ASG cannot exceed the maximum capacity of 5.",
+      "b": "Correct. Even though the policy wants to add 4 instances (3+4=7), the ASG is capped at the maximum of 5 instances. It will only add 2 instances.",
+      "c": "Incorrect. The ASG will scale to the maximum, not 4.",
+      "d": "Incorrect. The scaling action will increase from the current 3 instances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ELB is configured with instances in 2 AZs. AZ-A has 4 instances, AZ-B has 2 instances. With cross-zone load balancing DISABLED, what percentage of total traffic does each instance in AZ-A receive?",
+    "opts": {
+      "a": "25%",
+      "b": "16.67%",
+      "c": "12.5%",
+      "d": "50%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 25% would be if each instance in AZ-A got equal share of AZ-A's 100% traffic, but AZ-A only gets 50%.",
+      "b": "Incorrect. 16.67% would be if traffic were evenly distributed across all 6 instances (cross-zone enabled).",
+      "c": "Correct. Without cross-zone LB, each AZ gets 50% of traffic. AZ-A has 4 instances, so each gets 50%/4 = 12.5% of total traffic.",
+      "d": "Incorrect. 50% is the traffic each AZ receives, not each instance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Using the same scenario (AZ-A: 4 instances, AZ-B: 2 instances, cross-zone DISABLED), what percentage does each instance in AZ-B receive?",
+    "opts": {
+      "a": "12.5%",
+      "b": "16.67%",
+      "c": "25%",
+      "d": "50%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 12.5% is what each AZ-A instance gets.",
+      "b": "Incorrect. 16.67% would be with cross-zone enabled.",
+      "c": "Correct. AZ-B receives 50% of total traffic. With 2 instances in AZ-B, each gets 50%/2 = 25% of total traffic.",
+      "d": "Incorrect. 50% is the total traffic to AZ-B, not per instance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Using the same scenario with cross-zone load balancing ENABLED, what percentage does each instance receive?",
+    "opts": {
+      "a": "12.5%",
+      "b": "16.67%",
+      "c": "25%",
+      "d": "50%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 12.5% is only for AZ-A instances without cross-zone.",
+      "b": "Correct. With cross-zone load balancing enabled, traffic is distributed evenly across all 6 instances (4+2). Each instance gets 100%/6 = 16.67% of traffic.",
+      "c": "Incorrect. 25% is for AZ-B instances without cross-zone.",
+      "d": "Incorrect. 50% is far too much per instance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG uses Target Tracking with average CPU at 50%. Currently 4 instances are running with average CPU at 80%. Approximately how many instances will the ASG scale to?",
+    "opts": {
+      "a": "5",
+      "b": "6",
+      "c": "7",
+      "d": "8"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 5 instances would still have high average CPU.",
+      "b": "Incorrect. 6 instances: (4×80)/6 = 53.3% — still above target.",
+      "c": "Correct. Target tracking aims for 50% CPU. Current total load = 4 × 80% = 320 CPU units. To achieve 50% average: 320/50 = 6.4, rounded up to 7 instances (320/7 ≈ 45.7% average CPU, just below 50%).",
+      "d": "Incorrect. 8 instances would result in 40% average CPU, which is more than necessary."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG is configured with target tracking policy for ALBRequestCountPerTarget = 1000. There are currently 3 instances handling 4500 requests/minute. What will the ASG do?",
+    "opts": {
+      "a": "Scale to 4 instances",
+      "b": "Scale to 5 instances",
+      "c": "Scale to 6 instances",
+      "d": "Maintain 3 instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 4 instances would handle 4500/4 = 1125 per target, still above 1000.",
+      "b": "Correct. Total requests = 4500. Target per instance = 1000. Required instances = 4500/1000 = 4.5, rounded up to 5. With 5 instances, each handles 900 requests (below the 1000 target).",
+      "c": "Incorrect. 6 instances would be more than necessary (750 per target).",
+      "d": "Incorrect. Current load is 1500 per target, exceeding the 1000 target."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has an ALB with two target groups: TG-A (weight 80) and TG-B (weight 20). If the ALB receives 1000 requests, approximately how many requests will TG-B receive?",
+    "opts": {
+      "a": "100",
+      "b": "200",
+      "c": "500",
+      "d": "800"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 100 would represent 10% of traffic.",
+      "b": "Correct. With weights of 80 and 20, TG-B receives 20/(80+20) = 20% of traffic. 20% of 1000 = 200 requests.",
+      "c": "Incorrect. 500 would be a 50/50 split.",
+      "d": "Incorrect. 800 would be 80%, which is TG-A's share."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A NLB has targets in two AZs. AZ-A has 3 targets, AZ-B has 1 target. Cross-zone load balancing is disabled. What percentage of total traffic does the single target in AZ-B receive?",
+    "opts": {
+      "a": "16.67%",
+      "b": "25%",
+      "c": "33.33%",
+      "d": "50%"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 16.67% would be with cross-zone enabled (1/6 if 6 targets, but here 1/4 = 25% with cross-zone).",
+      "b": "Incorrect. 25% would be the share with cross-zone enabled (1/4 of all targets).",
+      "c": "Incorrect. 33.33% is not correct for any configuration here.",
+      "d": "Correct. Without cross-zone LB, each AZ receives 50% of traffic. Since AZ-B has only 1 target, that single target receives the entire 50% of total traffic."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG has min=1, desired=3, max=6. A scheduled action sets desired capacity to 8 at 9:00 AM. What happens?",
+    "opts": {
+      "a": "ASG scales to 8 instances, overriding the max",
+      "b": "ASG scales to 6 instances (max limit) and the scheduled action updates the max to 8",
+      "c": "The scheduled action fails because desired exceeds max",
+      "d": "ASG scales to 8 and automatically updates the max to 8"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The max is not simply overridden without being updated.",
+      "b": "Incorrect. ASG does not cap at the old max for scheduled actions.",
+      "c": "Incorrect. Scheduled actions can update min, max, and desired simultaneously.",
+      "d": "Correct. When a scheduled action sets a desired capacity that exceeds the current max, ASG automatically updates the max capacity to match the new desired capacity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG has instance refresh running with minimum healthy percentage = 90% and desired capacity = 10. How many instances can be replaced simultaneously?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "9"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. With 90% minimum healthy, at least 9 out of 10 instances must remain in service at all times. This means only 1 instance (10 - 9 = 1) can be replaced at a time.",
+      "b": "Incorrect. 2 simultaneous replacements would leave only 8 healthy (80%), violating the 90% threshold.",
+      "c": "Incorrect. 5 would leave only 50% healthy.",
+      "d": "Incorrect. 9 simultaneous replacements would leave only 1 healthy (10%)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "If the same ASG instance refresh has minimum healthy percentage = 50% and desired capacity = 10, how many instances can be replaced simultaneously?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50% of 10 = 5 must remain healthy, so up to 5 can be replaced.",
+      "b": "Incorrect. More than 3 can be replaced with a 50% threshold.",
+      "c": "Correct. With 50% minimum healthy percentage, at least 5 instances must remain in service. So up to 5 instances (10 - 5 = 5) can be replaced simultaneously.",
+      "d": "Incorrect. Replacing all 10 would leave 0% healthy, violating the 50% threshold."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company configures an ASG with On-Demand base capacity of 2 and On-Demand percentage above base of 25%. If the ASG scales to 10 total instances, how many are On-Demand?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "4",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 2 is only the base; additional On-Demand instances are added above base.",
+      "b": "Incorrect. The calculation requires both base and percentage above base.",
+      "c": "Correct. Base On-Demand = 2. Instances above base = 10 - 2 = 8. On-Demand above base = 8 × 25% = 2. Total On-Demand = 2 + 2 = 4. Total Spot = 8 - 2 = 6.",
+      "d": "Incorrect. 5 would require a higher percentage above base."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In the previous scenario (10 instances, On-Demand base=2, On-Demand % above base=25%), how many Spot instances are running?",
+    "opts": {
+      "a": "4",
+      "b": "6",
+      "c": "8",
+      "d": "7"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 4 is the number of On-Demand instances.",
+      "b": "Correct. Total instances = 10. On-Demand = 4 (as calculated: 2 base + 2 above base). Spot = 10 - 4 = 6 instances.",
+      "c": "Incorrect. 8 would mean only 2 On-Demand (just the base).",
+      "d": "Incorrect. 7 is not the correct calculation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has an ASG with desired=5. They enable a warm pool with max prepared capacity=3 and pool state=Stopped. How many total instances exist (InService + warm pool)?",
+    "opts": {
+      "a": "5",
+      "b": "8",
+      "c": "3",
+      "d": "It depends on the max capacity of the ASG"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The warm pool instances are in addition to the InService instances.",
+      "b": "Correct. 5 instances are InService (handling traffic) + 3 instances are in the warm pool (Stopped state, ready to be activated). Total = 8 instances exist.",
+      "c": "Incorrect. 3 is only the warm pool count.",
+      "d": "Incorrect. With these specific settings, the answer is deterministic: 5 + 3 = 8."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG has a mixed instances policy with 70% On-Demand base capacity and 30% Spot. The desired capacity is 10. How many On-Demand instances will be launched as the base?",
+    "opts": {
+      "a": "3",
+      "b": "7",
+      "c": "10",
+      "d": "0"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 3 would be 30%, which is the Spot portion.",
+      "b": "Correct. With 70% On-Demand base capacity and desired capacity of 10, 7 instances will be On-Demand (10 × 0.70 = 7).",
+      "c": "Incorrect. 10 would be 100% On-Demand.",
+      "d": "Incorrect. The On-Demand base is 70%, not 0%."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "During AZRebalance, ASG may temporarily exceed the maximum capacity. By how much can it exceed?",
+    "opts": {
+      "a": "By 1 instance only",
+      "b": "By 10% of the group's max capacity (minimum 1 instance)",
+      "c": "By 50% of desired capacity",
+      "d": "It never exceeds maximum capacity"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The overshoot can be more than 1 for larger ASGs.",
+      "b": "Correct. During AZRebalance, ASG can temporarily launch instances that cause the group to exceed its maximum capacity by up to 10% (or by 1 instance, whichever is greater).",
+      "c": "Incorrect. 50% would be excessive.",
+      "d": "Incorrect. AZRebalance specifically allows temporary maximum capacity overshoot."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company configures an ALB health check with: interval=10s, timeout=5s, healthy threshold=3, unhealthy threshold=2. What is the minimum time for a healthy target to be marked unhealthy?",
+    "opts": {
+      "a": "10 seconds",
+      "b": "15 seconds",
+      "c": "20 seconds",
+      "d": "25 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. With unhealthy threshold of 2, two checks must fail.",
+      "b": "Incorrect. The calculation needs to account for intervals between checks.",
+      "c": "Correct. Two consecutive failed health checks are needed. First check fails at time 0 (after timeout of 5s within the 10s interval), second check fails after another interval (10s). Total = 10s (first interval) + 10s (second interval) = 20 seconds minimum.",
+      "d": "Incorrect. 25 seconds overestimates the time needed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Using the same health check settings (interval=10s, healthy threshold=3), what is the minimum time for an unhealthy target to be marked healthy again?",
+    "opts": {
+      "a": "10 seconds",
+      "b": "20 seconds",
+      "c": "30 seconds",
+      "d": "40 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3 consecutive successful checks are needed.",
+      "b": "Incorrect. Two intervals are insufficient for 3 healthy checks.",
+      "c": "Correct. Three consecutive successful health checks are needed with 10-second intervals. 10s (first success) + 10s (second success) + 10s (third success) = 30 seconds minimum.",
+      "d": "Incorrect. 40 seconds exceeds the required time."
+    }
+  }
+]

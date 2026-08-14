@@ -1,0 +1,1073 @@
+[
+  {
+    "type": "number-based",
+    "q": "How many IP addresses does AWS reserve in each subnet?",
+    "opts": {
+      "a": "3",
+      "b": "4",
+      "c": "5",
+      "d": "6"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AWS reserves more than 3 IPs per subnet.",
+      "b": "Incorrect. AWS reserves 5, not 4 IPs per subnet.",
+      "c": "Correct! AWS reserves 5 IPs: .0 (Network), .1 (VPC Router), .2 (DNS), .3 (Future use), .255 (Broadcast).",
+      "d": "Incorrect. AWS reserves exactly 5 IPs, not 6."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum CIDR block size (most IPs) you can assign to a VPC?",
+    "opts": {
+      "a": "/8",
+      "b": "/16",
+      "c": "/20",
+      "d": "/24"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. /8 provides 16 million IPs but AWS limits VPC CIDR to /16 maximum.",
+      "b": "Correct! /16 is the largest CIDR block for a VPC, providing 65,536 IP addresses.",
+      "c": "Incorrect. /20 gives only 4,096 IPs. The maximum is /16.",
+      "d": "Incorrect. /24 gives only 256 IPs. The maximum is /16."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum CIDR block size (fewest IPs) you can assign to a VPC?",
+    "opts": {
+      "a": "/28",
+      "b": "/30",
+      "c": "/32",
+      "d": "/24"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! /28 is the smallest CIDR block for a VPC, providing 16 IP addresses (11 usable after 5 reserved).",
+      "b": "Incorrect. /30 gives only 4 IPs which is smaller than the minimum allowed /28.",
+      "c": "Incorrect. /32 is a single IP and is not valid for a VPC CIDR.",
+      "d": "Incorrect. /24 gives 256 IPs which is larger than the minimum /28."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many Internet Gateways can be attached to a single VPC?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "Unlimited"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! Exactly 1 IGW per VPC. This is a strict 1:1 relationship and a hard limit that cannot be increased.",
+      "b": "Incorrect. Only 1 IGW can be attached to a VPC.",
+      "c": "Incorrect. The limit is 1, not 5.",
+      "d": "Incorrect. It's strictly limited to 1 IGW per VPC."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default limit of VPCs per AWS Region?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default limit is 5 VPCs per region.",
+      "b": "Correct! Default limit is 5 VPCs per region. This is a soft limit that can be increased by contacting AWS support.",
+      "c": "Incorrect. Default is 5, not 10.",
+      "d": "Incorrect. Default is 5, not 20."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many Elastic IPs (EIPs) are allowed per AWS Region by default?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default limit is 5 EIPs per region.",
+      "b": "Correct! Default limit is 5 Elastic IPs per region. This can be increased by requesting a limit increase.",
+      "c": "Incorrect. Default is 5, not 10.",
+      "d": "Incorrect. Default is 5, not 20."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "A NAT Gateway starts at what bandwidth and can scale to what maximum?",
+    "opts": {
+      "a": "1 Gbps, scales to 10 Gbps",
+      "b": "5 Gbps, scales to 45 Gbps",
+      "c": "5 Gbps, scales to 100 Gbps",
+      "d": "10 Gbps, scales to 100 Gbps"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. NAT Gateway starts at 5 Gbps, not 1 Gbps.",
+      "b": "Incorrect. Maximum is 100 Gbps, not 45 Gbps.",
+      "c": "Correct! NAT Gateway starts at 5 Gbps and automatically scales up to 100 Gbps.",
+      "d": "Incorrect. NAT Gateway starts at 5 Gbps, not 10 Gbps."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many IPSec tunnels does a single Site-to-Site VPN connection create?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "4",
+      "d": "8"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A VPN connection creates 2 tunnels for redundancy.",
+      "b": "Correct! Each VPN connection creates 2 IPSec tunnels, each terminating in a different AZ for high availability.",
+      "c": "Incorrect. Only 2 tunnels per VPN connection.",
+      "d": "Incorrect. Only 2 tunnels per VPN connection."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum bandwidth per tunnel in a Site-to-Site VPN connection?",
+    "opts": {
+      "a": "500 Mbps",
+      "b": "1 Gbps",
+      "c": "1.25 Gbps",
+      "d": "2.5 Gbps"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is 1.25 Gbps per tunnel.",
+      "b": "Incorrect. The limit is 1.25 Gbps, not 1 Gbps.",
+      "c": "Correct! Each VPN tunnel supports up to 1.25 Gbps. With 2 tunnels and ECMP on TGW, you get 2.5 Gbps per VPN connection.",
+      "d": "Incorrect. 2.5 Gbps is the total for both tunnels combined (with ECMP on TGW), not per tunnel."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default maximum number of VPC Peering connections per VPC?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "100",
+      "d": "125"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Default limit is 50, not 25.",
+      "b": "Correct! Default limit is 50 peering connections per VPC. Can be increased to a maximum of 125 (hard limit).",
+      "c": "Incorrect. Default is 50. Maximum after increase is 125.",
+      "d": "Incorrect. 125 is the hard maximum after requesting increase. Default is 50."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many Security Groups can be associated with a single ENI by default?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "16"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is 5 SGs per ENI.",
+      "b": "Correct! Default is 5 Security Groups per ENI. Can be increased up to 16 (hard limit).",
+      "c": "Incorrect. Default is 5, not 10.",
+      "d": "Incorrect. 16 is the hard maximum after increase. Default is 5."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many inbound rules can a single Security Group have by default?",
+    "opts": {
+      "a": "30",
+      "b": "50",
+      "c": "60",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default is 60 inbound rules per SG.",
+      "b": "Incorrect. Default is 60, not 50.",
+      "c": "Correct! Default is 60 inbound rules + 60 outbound rules per Security Group. This can be increased.",
+      "d": "Incorrect. Default is 60, not 100."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many NAT Gateways are allowed per Availability Zone by default?",
+    "opts": {
+      "a": "1",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default limit is 5 per AZ.",
+      "b": "Incorrect. Default is 5, not 3.",
+      "c": "Correct! Default limit is 5 NAT Gateways per AZ. This can be increased.",
+      "d": "Incorrect. Default is 5, not 10."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of subnets allowed per VPC by default?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default limit is 200 subnets per VPC.",
+      "b": "Incorrect. Default is 200, not 100.",
+      "c": "Correct! Default limit is 200 subnets per VPC. This can be increased.",
+      "d": "Incorrect. Default is 200, not 500."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "A /24 subnet provides how many USABLE IP addresses?",
+    "opts": {
+      "a": "251",
+      "b": "254",
+      "c": "256",
+      "d": "250"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! /24 = 256 total IPs - 5 AWS reserved = 251 usable IP addresses.",
+      "b": "Incorrect. Traditional networking reserves 2 (network + broadcast), but AWS reserves 5.",
+      "c": "Incorrect. 256 is the total, not usable. Subtract 5 reserved = 251.",
+      "d": "Incorrect. The answer is 251, not 250."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which statement about Security Groups is TRUE?",
+    "opts": {
+      "a": "Security Groups are stateless",
+      "b": "Security Groups support both ALLOW and DENY rules",
+      "c": "Security Groups are stateful and support only ALLOW rules",
+      "d": "Security Groups operate at the subnet level"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Security Groups are STATEFUL (return traffic automatically allowed). NACLs are stateless.",
+      "b": "Incorrect. Security Groups support ALLOW rules only. NACLs support both ALLOW and DENY.",
+      "c": "Correct! SGs are stateful (return traffic auto-allowed) and support ALLOW rules only. Implicit deny for unmatched traffic.",
+      "d": "Incorrect. SGs operate at ENI/instance level. NACLs operate at subnet level."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which statement about Network ACLs (NACLs) is TRUE?",
+    "opts": {
+      "a": "NACLs are stateful",
+      "b": "NACLs evaluate all rules before deciding",
+      "c": "NACLs are stateless and evaluate rules in number order",
+      "d": "NACLs operate at the instance level"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. NACLs are STATELESS. Security Groups are stateful.",
+      "b": "Incorrect. NACLs evaluate rules in ascending number order (first match wins). SGs evaluate all rules.",
+      "c": "Correct! NACLs are stateless (must explicitly allow return traffic) and evaluate rules sequentially by rule number.",
+      "d": "Incorrect. NACLs operate at SUBNET level. SGs operate at instance/ENI level."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What does a Default NACL do when first created with a VPC?",
+    "opts": {
+      "a": "Denies all inbound and outbound traffic",
+      "b": "Allows all inbound and denies all outbound",
+      "c": "Allows all inbound and outbound traffic",
+      "d": "Denies all inbound and allows all outbound"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. A CUSTOM NACL denies all. The DEFAULT NACL allows all.",
+      "b": "Incorrect. Default NACL allows both directions.",
+      "c": "Correct! The Default NACL allows ALL inbound and outbound traffic. Custom NACLs deny all by default.",
+      "d": "Incorrect. Default NACL allows both directions."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "VPC Peering supports transitive routing. True or False?",
+    "opts": {
+      "a": "True - traffic can flow through intermediate VPCs",
+      "b": "False - each VPC pair needs its own peering connection",
+      "c": "True - but only within the same region",
+      "d": "True - but only within the same account"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC Peering is NON-TRANSITIVE.",
+      "b": "Correct! VPC Peering is non-transitive. If A peers with B and B peers with C, A cannot reach C through B. Each pair needs its own connection.",
+      "c": "Incorrect. VPC Peering is non-transitive regardless of region.",
+      "d": "Incorrect. VPC Peering is non-transitive regardless of account."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which AWS service provides transitive routing between VPCs?",
+    "opts": {
+      "a": "VPC Peering",
+      "b": "Internet Gateway",
+      "c": "Transit Gateway",
+      "d": "NAT Gateway"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. VPC Peering is non-transitive.",
+      "b": "Incorrect. IGW provides internet access, not inter-VPC routing.",
+      "c": "Correct! Transit Gateway provides transitive routing in a hub-and-spoke model. All attached VPCs can communicate through TGW.",
+      "d": "Incorrect. NAT Gateway provides internet access for private subnets."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "A Gateway Endpoint supports which two AWS services?",
+    "opts": {
+      "a": "S3 and SQS",
+      "b": "S3 and DynamoDB",
+      "c": "DynamoDB and SNS",
+      "d": "S3 and CloudWatch"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS uses Interface Endpoint, not Gateway Endpoint.",
+      "b": "Correct! Gateway Endpoints support ONLY Amazon S3 and Amazon DynamoDB. They are free and use route table entries.",
+      "c": "Incorrect. SNS uses Interface Endpoint.",
+      "d": "Incorrect. CloudWatch uses Interface Endpoint."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the cost of a Gateway Endpoint?",
+    "opts": {
+      "a": "$0.01 per hour per AZ",
+      "b": "$0.045 per GB processed",
+      "c": "Free - no hourly or data charges",
+      "d": "$0.05 per hour"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. That's the pricing for Interface Endpoints.",
+      "b": "Incorrect. That's NAT Gateway data processing cost.",
+      "c": "Correct! Gateway Endpoints are completely FREE. No hourly charges, no data processing charges. This makes them ideal for S3/DynamoDB access.",
+      "d": "Incorrect. Gateway Endpoints have no cost."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Can a Gateway Endpoint be accessed from on-premises via Direct Connect?",
+    "opts": {
+      "a": "Yes, it's accessible from anywhere",
+      "b": "No, it can only be accessed from within the VPC",
+      "c": "Yes, but only via VPN",
+      "d": "Yes, but only via Transit Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Gateway Endpoints are VPC-internal only.",
+      "b": "Correct! Gateway Endpoints CANNOT be accessed from on-premises (DX/VPN), peered VPCs, or Transit Gateway. For on-premises S3 access, use Interface Endpoint.",
+      "c": "Incorrect. Gateway Endpoints are not accessible from outside the VPC.",
+      "d": "Incorrect. Not accessible via TGW either."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Is AWS Direct Connect encrypted by default?",
+    "opts": {
+      "a": "Yes, using AES-256",
+      "b": "Yes, using IPSec",
+      "c": "No, it is not encrypted by default",
+      "d": "Yes, using TLS 1.3"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. DX is NOT encrypted by default.",
+      "b": "Incorrect. IPSec is used by VPN, not DX.",
+      "c": "Correct! Direct Connect is NOT encrypted. For encryption, use VPN over DX (Public VIF + IPSec) or MACsec (10/100 Gbps connections).",
+      "d": "Incorrect. DX is not encrypted by default."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What must be disabled on an EC2 instance for it to function as a NAT Instance?",
+    "opts": {
+      "a": "Termination Protection",
+      "b": "Source/Destination Check",
+      "c": "Enhanced Networking",
+      "d": "Detailed Monitoring"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Termination protection prevents accidental deletion, unrelated to NAT.",
+      "b": "Correct! Source/Destination Check must be disabled because NAT instance forwards traffic where it's neither the source nor destination.",
+      "c": "Incorrect. Enhanced Networking improves performance, unrelated to NAT.",
+      "d": "Incorrect. Monitoring is unrelated to NAT functionality."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which component is required on the provider side for AWS PrivateLink (VPC Endpoint Service)?",
+    "opts": {
+      "a": "Application Load Balancer",
+      "b": "Network Load Balancer",
+      "c": "Classic Load Balancer",
+      "d": "Internet Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB is NOT supported for PrivateLink endpoint services.",
+      "b": "Correct! The provider must use a Network Load Balancer (NLB) or Gateway Load Balancer to expose their service via PrivateLink.",
+      "c": "Incorrect. Classic LB is not supported for PrivateLink.",
+      "d": "Incorrect. IGW is for internet access, not PrivateLink."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Does a NAT Gateway support Security Groups?",
+    "opts": {
+      "a": "Yes, you must assign a Security Group",
+      "b": "No, only NACLs apply to NAT Gateway",
+      "c": "Yes, but only outbound rules",
+      "d": "Yes, the default SG is automatically applied"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NAT Gateway does NOT support Security Groups.",
+      "b": "Correct! NAT Gateway does NOT have Security Groups. Only subnet-level NACLs control traffic. NAT Instances DO support SGs.",
+      "c": "Incorrect. No SGs at all on NAT Gateway.",
+      "d": "Incorrect. No SGs apply to NAT Gateway."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What type of VPC Endpoint should you use for on-premises servers to access S3 privately via Direct Connect?",
+    "opts": {
+      "a": "Gateway Endpoint",
+      "b": "Interface Endpoint",
+      "c": "Gateway Load Balancer Endpoint",
+      "d": "No endpoint needed"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Gateway Endpoints cannot be accessed from on-premises.",
+      "b": "Correct! Interface Endpoint creates an ENI with private IP that IS accessible from on-premises via DX/VPN. Gateway Endpoints are VPC-internal only.",
+      "c": "Incorrect. GWLB Endpoints are for traffic inspection.",
+      "d": "Incorrect. Without an endpoint, traffic would go over the public internet."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which VPC component makes a subnet 'public'?",
+    "opts": {
+      "a": "NAT Gateway in the subnet",
+      "b": "An Elastic IP assigned to instances",
+      "c": "A route to an Internet Gateway in the route table",
+      "d": "A Security Group allowing internet traffic"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. NAT Gateway makes private subnets reach internet outbound, not what makes a subnet public.",
+      "b": "Incorrect. EIP alone without IGW route won't provide internet access.",
+      "c": "Correct! A subnet is 'public' when its route table has 0.0.0.0/0 → IGW. Instances also need public/Elastic IPs.",
+      "d": "Incorrect. SG rules allow traffic but don't define subnet type."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "VPC Flow Logs capture which type of information?",
+    "opts": {
+      "a": "Actual packet content (payload)",
+      "b": "Only denied traffic",
+      "c": "IP traffic metadata (IPs, ports, action)",
+      "d": "Application-layer HTTP requests"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Flow Logs capture metadata only, NOT packet content. Use Traffic Mirroring for packets.",
+      "b": "Incorrect. Flow Logs can capture ACCEPT, REJECT, or ALL traffic (configurable).",
+      "c": "Correct! Flow Logs capture metadata: source/destination IPs, ports, protocol, bytes, packets, action (ACCEPT/REJECT).",
+      "d": "Incorrect. Flow Logs don't inspect application-layer content."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What AWS service captures actual network packets for deep inspection?",
+    "opts": {
+      "a": "VPC Flow Logs",
+      "b": "CloudTrail",
+      "c": "VPC Traffic Mirroring",
+      "d": "AWS Config"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Flow Logs capture metadata only, not actual packets.",
+      "b": "Incorrect. CloudTrail logs API calls, not network packets.",
+      "c": "Correct! VPC Traffic Mirroring copies actual packets from ENIs to inspection targets (ENI or NLB) for deep packet analysis.",
+      "d": "Incorrect. AWS Config tracks resource configurations, not network traffic."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the Egress-Only Internet Gateway used for?",
+    "opts": {
+      "a": "Outbound IPv4 traffic from private subnets",
+      "b": "Outbound IPv6 traffic while blocking inbound IPv6",
+      "c": "Inbound traffic filtering for IPv6",
+      "d": "Replacing NAT Gateway for IPv4"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NAT Gateway handles outbound IPv4 for private subnets.",
+      "b": "Correct! Egress-Only IGW allows IPv6 instances to initiate outbound connections while blocking inbound-initiated IPv6 traffic. It's the IPv6 equivalent of NAT Gateway.",
+      "c": "Incorrect. It's for outbound, not inbound filtering.",
+      "d": "Incorrect. It's for IPv6 only, not IPv4."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Can a subnet span multiple Availability Zones?",
+    "opts": {
+      "a": "Yes, subnets can span up to 3 AZs",
+      "b": "Yes, but only within the same region",
+      "c": "No, a subnet exists in exactly one AZ",
+      "d": "Yes, if you enable Multi-AZ on the subnet"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. A subnet is restricted to a single AZ.",
+      "b": "Incorrect. A subnet is in one AZ only.",
+      "c": "Correct! A subnet resides in exactly ONE Availability Zone. However, one AZ can contain multiple subnets.",
+      "d": "Incorrect. There is no Multi-AZ setting for subnets."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What does the 'local' route in a VPC route table do?",
+    "opts": {
+      "a": "Routes traffic to the internet",
+      "b": "Enables communication between all subnets within the VPC",
+      "c": "Routes traffic to on-premises",
+      "d": "Blocks all external traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Internet routing uses 0.0.0.0/0 → IGW.",
+      "b": "Correct! The 'local' route enables intra-VPC communication between all subnets. It cannot be modified or deleted.",
+      "c": "Incorrect. On-premises routing uses VGW or TGW.",
+      "d": "Incorrect. It doesn't block traffic; it enables internal routing."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which routing principle do VPC route tables use when multiple routes match?",
+    "opts": {
+      "a": "First route added wins",
+      "b": "Last route added wins",
+      "c": "Longest prefix match (most specific route)",
+      "d": "Random selection"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Route order doesn't matter.",
+      "b": "Incorrect. Addition order is irrelevant.",
+      "c": "Correct! AWS uses longest prefix match. A /24 route is more specific than /16, which is more specific than /0. The most specific matching route wins.",
+      "d": "Incorrect. Routing is deterministic, not random."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the CIDR of the default VPC that AWS creates?",
+    "opts": {
+      "a": "10.0.0.0/16",
+      "b": "192.168.0.0/16",
+      "c": "172.31.0.0/16",
+      "d": "172.16.0.0/16"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10.0.0.0/16 is commonly used in custom VPCs, not the default.",
+      "b": "Incorrect. 192.168.0.0/16 is not the default VPC CIDR.",
+      "c": "Correct! AWS always creates the default VPC with CIDR 172.31.0.0/16 in every region.",
+      "d": "Incorrect. 172.16.0.0/16 is not the default."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which of the following is TRUE about VPC Peering?",
+    "opts": {
+      "a": "CIDRs can overlap between peered VPCs",
+      "b": "You can use the peered VPC's Internet Gateway",
+      "c": "Route tables must be updated in BOTH VPCs",
+      "d": "It supports transitive routing"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. CIDRs CANNOT overlap for VPC Peering to work.",
+      "b": "Incorrect. You cannot use the peered VPC's IGW, NAT GW, or VPN (no edge routing).",
+      "c": "Correct! Both VPCs must update their route tables to route traffic to the peering connection (pcx-xxx).",
+      "d": "Incorrect. VPC Peering is NON-transitive."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What does a NAT Gateway require to function?",
+    "opts": {
+      "a": "Placement in a private subnet with Security Group",
+      "b": "Placement in a public subnet with an Elastic IP",
+      "c": "Placement in any subnet with a public IP",
+      "d": "Placement in a private subnet with an Elastic IP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NAT GW must be in a PUBLIC subnet and doesn't use SGs.",
+      "b": "Correct! NAT Gateway must be in a public subnet (with route to IGW) and requires an Elastic IP for internet communication.",
+      "c": "Incorrect. Must be specifically in a public subnet with EIP (not just any public IP).",
+      "d": "Incorrect. NAT GW goes in a PUBLIC subnet, not private."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which AWS service only supports IP Multicast?",
+    "opts": {
+      "a": "VPC Peering",
+      "b": "Internet Gateway",
+      "c": "Transit Gateway",
+      "d": "NAT Gateway"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. VPC Peering doesn't support multicast.",
+      "b": "Incorrect. IGW doesn't support multicast.",
+      "c": "Correct! Transit Gateway is the ONLY AWS service that supports IP Multicast. No other VPC component offers this.",
+      "d": "Incorrect. NAT Gateway doesn't support multicast."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "How can you increase VPN bandwidth beyond 1.25 Gbps per tunnel?",
+    "opts": {
+      "a": "Upgrade to a larger VGW",
+      "b": "Use Transit Gateway with ECMP",
+      "c": "Enable jumbo frames on VPN",
+      "d": "Use multiple Customer Gateways on same VGW"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VGW doesn't have size options and doesn't support ECMP.",
+      "b": "Correct! Transit Gateway with ECMP distributes traffic across multiple VPN tunnels. 2 VPN connections = 4 tunnels = 5 Gbps total.",
+      "c": "Incorrect. Jumbo frames don't increase VPN bandwidth limits.",
+      "d": "Incorrect. This creates CloudHub but doesn't aggregate bandwidth."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What happens when you delete a VPC's default Security Group?",
+    "opts": {
+      "a": "It gets deleted successfully",
+      "b": "All instances lose their Security Groups",
+      "c": "You cannot delete the default Security Group",
+      "d": "A new default SG is automatically created"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The default SG cannot be deleted.",
+      "b": "Incorrect. It cannot be deleted in the first place.",
+      "c": "Correct! You cannot delete the default Security Group. You CAN modify its rules, but you cannot delete it.",
+      "d": "Incorrect. It simply cannot be deleted."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "In the default VPC, instances automatically receive a public IP. In a custom VPC, this is:",
+    "opts": {
+      "a": "Also enabled by default",
+      "b": "Disabled by default",
+      "c": "Only enabled for t2.micro instances",
+      "d": "Depends on the region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Custom VPC subnets do NOT auto-assign public IPs by default.",
+      "b": "Correct! In custom VPCs, auto-assign public IP is disabled by default. You must enable it on the subnet or assign manually at launch.",
+      "c": "Incorrect. Instance type is irrelevant to this setting.",
+      "d": "Incorrect. This behavior is consistent across all regions."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the purpose of a VPN CloudHub?",
+    "opts": {
+      "a": "Connect one VPC to the internet via VPN",
+      "b": "Connect multiple on-premises sites through a single VGW",
+      "c": "Create a mesh of VPN connections between VPCs",
+      "d": "Encrypt Direct Connect traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Internet access is provided by IGW, not VPN CloudHub.",
+      "b": "Correct! VPN CloudHub connects multiple Customer Gateways (on-premises sites) to a single VGW. Sites can communicate with each other through the VGW using BGP.",
+      "c": "Incorrect. CloudHub is for on-premises sites, not VPC-to-VPC.",
+      "d": "Incorrect. VPN over DX encrypts DX, not CloudHub."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the primary difference between Direct Connect and Site-to-Site VPN?",
+    "opts": {
+      "a": "VPN is faster than Direct Connect",
+      "b": "Direct Connect is a dedicated private connection; VPN goes over public internet",
+      "c": "Direct Connect is encrypted; VPN is not",
+      "d": "VPN requires physical hardware installation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DX offers higher and more consistent bandwidth than VPN.",
+      "b": "Correct! DX is a dedicated physical connection through a DX location. VPN is encrypted but travels over the public internet. DX = consistent; VPN = variable.",
+      "c": "Incorrect. It's the opposite: VPN IS encrypted; DX is NOT encrypted by default.",
+      "d": "Incorrect. DX requires physical setup (weeks-months). VPN is quick to provision."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which VIF (Virtual Interface) on Direct Connect is used to access VPC resources using private IPs?",
+    "opts": {
+      "a": "Public VIF",
+      "b": "Private VIF",
+      "c": "Transit VIF",
+      "d": "Management VIF"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Public VIF accesses AWS public services (S3 API, DynamoDB API, etc.).",
+      "b": "Correct! Private VIF connects to VGW or DX Gateway to access VPC resources using private IP addresses.",
+      "c": "Incorrect. Transit VIF connects to Transit Gateway (for multiple VPCs via TGW).",
+      "d": "Incorrect. There is no Management VIF."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which DNS settings must BOTH be enabled for Route 53 Private Hosted Zones to work in a VPC?",
+    "opts": {
+      "a": "enableDnsSupport and enableVpcPeering",
+      "b": "enableDnsHostnames and enableFlowLogs",
+      "c": "enableDnsSupport and enableDnsHostnames",
+      "d": "enablePrivateDns and enableDnsSupport"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. enableVpcPeering is not a real VPC setting.",
+      "b": "Incorrect. enableFlowLogs is not a DNS setting.",
+      "c": "Correct! Both enableDnsSupport (true) AND enableDnsHostnames (true) must be enabled for Private Hosted Zones to resolve within the VPC.",
+      "d": "Incorrect. enablePrivateDns is not a VPC-level setting."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What does VPC Reachability Analyzer do?",
+    "opts": {
+      "a": "Sends test traffic between two endpoints",
+      "b": "Analyzes network configuration to determine if two endpoints can communicate",
+      "c": "Monitors real-time traffic between instances",
+      "d": "Scans for security vulnerabilities in the VPC"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Reachability Analyzer does NOT send actual traffic.",
+      "b": "Correct! It performs static analysis of network configuration (route tables, SGs, NACLs, peering, etc.) to determine if two endpoints can reach each other and identifies blocking components.",
+      "c": "Incorrect. It's not real-time monitoring. Use Flow Logs for that.",
+      "d": "Incorrect. It's for connectivity analysis, not vulnerability scanning."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the purpose of AWS Systems Manager Session Manager in the context of VPC?",
+    "opts": {
+      "a": "To replace NAT Gateway",
+      "b": "To replace Bastion Hosts for SSH access to private instances",
+      "c": "To manage VPC route tables",
+      "d": "To encrypt VPC traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Session Manager is for instance access, not internet routing.",
+      "b": "Correct! Session Manager provides shell access to instances without needing a bastion host, SSH keys, or port 22 open. Works via SSM Agent + IAM + Interface Endpoints.",
+      "c": "Incorrect. Route tables are managed directly in VPC console/API.",
+      "d": "Incorrect. Session Manager is for access management, not encryption."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which Interface Endpoints are required for Systems Manager Session Manager to work WITHOUT internet access?",
+    "opts": {
+      "a": "ssm only",
+      "b": "ssm, ssmmessages, ec2messages",
+      "c": "ssm, s3, cloudwatch",
+      "d": "ssm, kms, logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Session Manager needs 3 endpoints, not just one.",
+      "b": "Correct! Three Interface Endpoints are needed: com.amazonaws.region.ssm, com.amazonaws.region.ssmmessages, and com.amazonaws.region.ec2messages.",
+      "c": "Incorrect. S3 and CloudWatch are not required for basic Session Manager.",
+      "d": "Incorrect. KMS and Logs are optional (for encryption/logging of sessions)."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many secondary CIDR blocks can you add to a VPC?",
+    "opts": {
+      "a": "2",
+      "b": "4",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can add up to 4 secondary CIDRs.",
+      "b": "Correct! You can add up to 4 secondary CIDR blocks (total of 5 CIDRs including primary). This can be increased.",
+      "c": "Incorrect. 5 is the total (1 primary + 4 secondary).",
+      "d": "Incorrect. Maximum secondary CIDRs is 4."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Data transfer between two instances in the same AZ using private IPs costs:",
+    "opts": {
+      "a": "$0.01/GB",
+      "b": "$0.02/GB",
+      "c": "Free ($0.00)",
+      "d": "$0.05/GB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. $0.01/GB is cross-AZ (private IP) cost.",
+      "b": "Incorrect. $0.02/GB is cross-AZ using public IP.",
+      "c": "Correct! Same AZ + Private IP = FREE. This is why co-locating resources in the same AZ saves money (trade-off: less HA).",
+      "d": "Incorrect. No charge for same-AZ private IP traffic."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the data processing charge for NAT Gateway?",
+    "opts": {
+      "a": "$0.01/GB",
+      "b": "$0.045/GB",
+      "c": "$0.09/GB",
+      "d": "Free"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. $0.01/GB is Interface Endpoint processing cost.",
+      "b": "Correct! NAT Gateway charges ~$0.045/GB for data processed, PLUS ~$0.045/hour for the gateway itself.",
+      "c": "Incorrect. $0.09/GB is typical internet data transfer out cost.",
+      "d": "Incorrect. NAT Gateway is not free."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "To block a specific IP address from accessing your resources, which should you use?",
+    "opts": {
+      "a": "Security Group with a deny rule",
+      "b": "Network ACL with a deny rule",
+      "c": "Route table with a blackhole route",
+      "d": "Internet Gateway ACL"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security Groups do NOT support deny rules (allow only).",
+      "b": "Correct! NACLs support DENY rules. Add a deny rule with a low number (high priority) for the specific IP to block it.",
+      "c": "Incorrect. Blackhole routes are for unused CIDRs, not IP blocking.",
+      "d": "Incorrect. There is no IGW ACL."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What ephemeral port range should be allowed in NACLs for return traffic?",
+    "opts": {
+      "a": "0-1023",
+      "b": "80-443",
+      "c": "1024-65535",
+      "d": "49152-65535"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 0-1023 are well-known ports, not ephemeral.",
+      "b": "Incorrect. These are specific service ports.",
+      "c": "Correct! 1024-65535 covers all possible ephemeral ports across all OS (Linux: 32768-65535, Windows: 49152-65535, NAT GW: 1024-65535).",
+      "d": "Incorrect. 49152-65535 covers Windows but not Linux or NAT GW."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "A Lambda function is deployed in a VPC private subnet with no internet access. It needs to access S3. What is the BEST solution?",
+    "opts": {
+      "a": "Add a NAT Gateway",
+      "b": "Move Lambda out of VPC",
+      "c": "Add a Gateway Endpoint for S3",
+      "d": "Add an Internet Gateway"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. NAT GW works but costs money ($0.045/GB + $0.045/hr). Gateway Endpoint is free.",
+      "b": "Incorrect. If Lambda needs VPC resources (like RDS), it must stay in VPC.",
+      "c": "Correct! Gateway Endpoint for S3 is FREE, adds route table entry, and gives Lambda private access to S3 without internet.",
+      "d": "Incorrect. Adding IGW makes it public subnet but Lambda still needs a public IP to use it."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which of the following is NOT captured by VPC Flow Logs?",
+    "opts": {
+      "a": "SSH traffic to EC2 instances",
+      "b": "DNS queries to Amazon Route 53 Resolver (VPC+2)",
+      "c": "HTTPS traffic to S3",
+      "d": "ICMP ping traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SSH traffic IS captured by Flow Logs.",
+      "b": "Correct! DNS queries to Route 53 Resolver (VPC base+2 address) are NOT captured. Other excluded: DHCP, metadata (169.254.169.254), Windows license activation.",
+      "c": "Incorrect. HTTPS to S3 IS captured.",
+      "d": "Incorrect. ICMP traffic IS captured."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Transit Gateway attachments?",
+    "opts": {
+      "a": "1,000",
+      "b": "3,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. TGW supports up to 5,000 attachments.",
+      "b": "Incorrect. The limit is 5,000.",
+      "c": "Correct! Transit Gateway supports up to 5,000 attachments (VPCs, VPNs, DX, peered TGWs combined).",
+      "d": "Incorrect. Maximum is 5,000, not 10,000."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the difference between a Direct Connect Gateway and a Virtual Private Gateway?",
+    "opts": {
+      "a": "They are the same thing",
+      "b": "VGW connects to one VPC; DX Gateway connects one DX to multiple VPCs across regions",
+      "c": "DX Gateway provides encryption; VGW does not",
+      "d": "VGW is for VPN only; DX Gateway is for internet access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They serve different purposes.",
+      "b": "Correct! VGW attaches to a single VPC. DX Gateway is a global resource that connects a single DX connection to multiple VGWs (VPCs) across multiple regions.",
+      "c": "Incorrect. Neither provides encryption by default.",
+      "d": "Incorrect. VGW works with both VPN and DX. DX Gateway is for DX multi-VPC connectivity."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "A company needs at least 500 usable IP addresses in a subnet. What is the minimum CIDR?",
+    "opts": {
+      "a": "/24 (256 total)",
+      "b": "/23 (512 total)",
+      "c": "/22 (1024 total)",
+      "d": "/21 (2048 total)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. /24 = 256 - 5 = 251 usable. Not enough for 500.",
+      "b": "Correct! /23 = 512 - 5 = 507 usable IPs. This is the minimum CIDR that provides 500+ usable addresses.",
+      "c": "Incorrect. /22 works (1019 usable) but is larger than needed. /23 is the minimum.",
+      "d": "Incorrect. /21 is much larger than needed."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which AWS service allows sharing VPC subnets across accounts within an Organization?",
+    "opts": {
+      "a": "AWS Organizations directly",
+      "b": "AWS Resource Access Manager (RAM)",
+      "c": "AWS Control Tower",
+      "d": "VPC Peering"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Organizations manages accounts but doesn't share VPC resources directly.",
+      "b": "Correct! AWS RAM is used to share VPC subnets with other accounts in the same Organization. The owner manages VPC/subnets; participants manage their own resources.",
+      "c": "Incorrect. Control Tower sets up landing zones, doesn't share subnets.",
+      "d": "Incorrect. VPC Peering connects VPCs; it doesn't share subnets."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum bandwidth per VPC attachment to Transit Gateway?",
+    "opts": {
+      "a": "10 Gbps",
+      "b": "25 Gbps",
+      "c": "50 Gbps",
+      "d": "100 Gbps"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. TGW VPC attachment bandwidth is 50 Gbps per AZ.",
+      "b": "Incorrect. The limit is 50 Gbps.",
+      "c": "Correct! Transit Gateway supports up to 50 Gbps per VPC attachment per AZ (burst).",
+      "d": "Incorrect. 100 Gbps is NAT Gateway maximum, not TGW attachment."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many route tables can a VPC have by default?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default is 200 route tables per VPC.",
+      "b": "Incorrect. Default is 200, not 100.",
+      "c": "Correct! Default limit is 200 route tables per VPC. This can be increased.",
+      "d": "Incorrect. Default is 200, not 500."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many routes per route table are allowed by default?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 20 is the default NACL rules limit, not routes.",
+      "b": "Correct! Default limit is 50 routes per route table. Can be increased up to 1,000.",
+      "c": "Incorrect. Default is 50, not 100.",
+      "d": "Incorrect. Default is 50, not 200."
+    }
+  }
+]

@@ -1,0 +1,988 @@
+[
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Guardrails you can create per account per Region in Bedrock?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 50 is below the actual limit.",
+      "c": "Correct. You can create up to 100 Guardrails per account per Region in Amazon Bedrock.",
+      "d": "Incorrect. 500 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of denied topics per Guardrail in Bedrock?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "30",
+      "d": "50"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More topics are allowed.",
+      "b": "Incorrect. 25 is below the limit.",
+      "c": "Correct. Each Bedrock Guardrail can have up to 30 denied topics configured.",
+      "d": "Incorrect. 50 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of words in a Guardrail denied topic definition?",
+    "opts": {
+      "a": "50 words",
+      "b": "100 words",
+      "c": "200 words",
+      "d": "500 words"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More words are allowed.",
+      "b": "Incorrect. 100 is below the limit.",
+      "c": "Correct. Each denied topic definition can contain up to 200 words to describe the topic to block.",
+      "d": "Incorrect. 500 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of custom word filters in a Bedrock Guardrail?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "10,000"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Many more words can be filtered.",
+      "b": "Incorrect. 500 is below the limit.",
+      "c": "Incorrect. 1,000 is below the limit.",
+      "d": "Correct. Bedrock Guardrails supports up to 10,000 custom words in the word filter."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of custom regex patterns for sensitive information detection in Guardrails?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "25",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More patterns are allowed.",
+      "b": "Correct. You can configure up to 10 custom regex patterns for sensitive information detection in Guardrails.",
+      "c": "Incorrect. 25 exceeds the limit.",
+      "d": "Incorrect. 50 is above the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Guardrail versions you can maintain per Guardrail?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "100",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More versions are allowed.",
+      "b": "Incorrect. 10 is below the limit.",
+      "c": "Correct. You can maintain up to 100 versions of a single Guardrail.",
+      "d": "Incorrect. There is a version limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of tokens that can be processed by Bedrock Guardrails in a single request?",
+    "opts": {
+      "a": "1,000 tokens",
+      "b": "10,000 tokens",
+      "c": "25,000 tokens",
+      "d": "100,000 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 10,000 is below the actual limit.",
+      "c": "Correct. Bedrock Guardrails can process up to 25,000 tokens in a single ApplyGuardrail request.",
+      "d": "Incorrect. 100,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Knowledge Bases per account per Region?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More Knowledge Bases are allowed.",
+      "b": "Incorrect. 25 is below the limit.",
+      "c": "Correct. You can create up to 50 Knowledge Bases per account per Region.",
+      "d": "Incorrect. 100 exceeds the default limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of data sources per Knowledge Base?",
+    "opts": {
+      "a": "1",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More data sources can be attached.",
+      "b": "Correct. Each Knowledge Base supports up to 5 data sources.",
+      "c": "Incorrect. 10 exceeds the limit.",
+      "d": "Incorrect. 20 is above the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Bedrock Agents per account per Region?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More agents are allowed.",
+      "b": "Incorrect. 50 is below the limit.",
+      "c": "Correct. You can create up to 100 Bedrock Agents per account per Region.",
+      "d": "Incorrect. 500 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of action groups per Bedrock Agent?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "50"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More action groups are allowed.",
+      "b": "Incorrect. 10 is below the limit.",
+      "c": "Correct. Each Bedrock Agent can have up to 20 action groups.",
+      "d": "Incorrect. 50 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Knowledge Bases that can be associated with a single Bedrock Agent?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More Knowledge Bases can be attached.",
+      "b": "Correct. A single Bedrock Agent can be associated with up to 2 Knowledge Bases.",
+      "c": "Incorrect. 5 exceeds the limit for agent-KB associations.",
+      "d": "Incorrect. 10 is above the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum input token limit for Claude 3.5 Sonnet on Bedrock?",
+    "opts": {
+      "a": "32,000 tokens",
+      "b": "100,000 tokens",
+      "c": "200,000 tokens",
+      "d": "1,000,000 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Claude 3.5 Sonnet has a much larger context window.",
+      "b": "Incorrect. 100K was for earlier Claude models.",
+      "c": "Correct. Claude 3.5 Sonnet supports up to 200,000 input tokens (approximately 150,000 words) on Amazon Bedrock.",
+      "d": "Incorrect. 1 million tokens exceeds the current limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the approximate cost reduction for Bedrock Batch Inference compared to On-Demand?",
+    "opts": {
+      "a": "10%",
+      "b": "25%",
+      "c": "50%",
+      "d": "75%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The savings are larger.",
+      "b": "Incorrect. 25% is below the typical savings.",
+      "c": "Correct. Batch Inference typically provides approximately 50% cost reduction compared to On-Demand pricing.",
+      "d": "Incorrect. 75% exceeds the typical savings."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of concurrent fine-tuning jobs per account in Bedrock?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 1 concurrent job is allowed.",
+      "b": "Correct. You can run up to 2 concurrent fine-tuning (model customization) jobs per account in Amazon Bedrock.",
+      "c": "Incorrect. 5 exceeds the limit.",
+      "d": "Incorrect. 10 is above the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Bedrock Flows per account per Region?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More Flows are allowed.",
+      "b": "Incorrect. 50 is below the limit.",
+      "c": "Correct. You can create up to 100 Bedrock Flows per account per Region.",
+      "d": "Incorrect. 500 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of nodes in a single Bedrock Flow?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "40",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More nodes are allowed.",
+      "b": "Incorrect. 20 is below the limit.",
+      "c": "Correct. A single Bedrock Flow can contain up to 40 nodes.",
+      "d": "Incorrect. 100 exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many content filter categories does Bedrock Guardrails support?",
+    "opts": {
+      "a": "3",
+      "b": "4",
+      "c": "6",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More categories are available.",
+      "b": "Incorrect. 4 is below the actual count.",
+      "c": "Correct. Guardrails supports 6 content filter categories: hate, insults, sexual content, violence, misconduct, and prompt attacks.",
+      "d": "Incorrect. 10 exceeds the number of categories."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many filter strength levels are available for each Guardrails content filter category?",
+    "opts": {
+      "a": "2 (On/Off)",
+      "b": "3 (Low/Medium/High)",
+      "c": "4 (None/Low/Medium/High)",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More granularity is available.",
+      "b": "Incorrect. A 'None' level also exists.",
+      "c": "Correct. Each content filter category can be set to NONE, LOW, MEDIUM, or HIGH strength for both input and output independently.",
+      "d": "Incorrect. There are 4 levels."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many PII types does Bedrock Guardrails natively detect?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "Over 30",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More PII types are detected.",
+      "b": "Incorrect. 20 is below the actual count.",
+      "c": "Correct. Bedrock Guardrails natively detects over 30 PII types including names, emails, phone numbers, SSN, credit card numbers, passport numbers, addresses, and more.",
+      "d": "Incorrect. Far more than 5 types are supported."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default X-Ray sampling rate for Bedrock model invocations?",
+    "opts": {
+      "a": "100% of requests",
+      "b": "5% of requests",
+      "c": "Bedrock integrates with CloudWatch, not X-Ray for invocation metrics",
+      "d": "50% of requests"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Bedrock doesn't use X-Ray for standard monitoring.",
+      "b": "Incorrect. This is X-Ray's general default, not specific to Bedrock.",
+      "c": "Correct. Bedrock publishes metrics to CloudWatch (InvocationCount, Latency, TokenCount) and supports Model Invocation Logging to CloudWatch Logs/S3, rather than X-Ray tracing.",
+      "d": "Incorrect. This is not how Bedrock monitoring works."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many model providers are available on Amazon Bedrock (core providers, not Marketplace)?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "7+",
+      "d": "2"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More providers are available.",
+      "b": "Incorrect. 5 is below the actual count.",
+      "c": "Correct. Bedrock offers 7+ core model providers: Amazon (Titan), Anthropic (Claude), Meta (Llama), Mistral AI, Cohere, AI21 Labs, and Stability AI, with additional providers through Bedrock Marketplace.",
+      "d": "Incorrect. Far more than 2 providers are available."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the context window for Amazon Titan Text Premier?",
+    "opts": {
+      "a": "4,096 tokens",
+      "b": "8,192 tokens",
+      "c": "32,000 tokens",
+      "d": "128,000 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The context window is larger.",
+      "b": "Incorrect. 8,192 is below the actual size.",
+      "c": "Correct. Amazon Titan Text Premier has a 32,000 token context window.",
+      "d": "Incorrect. 128,000 exceeds Titan Text Premier's context window."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the context window for Meta Llama 3.1 405B on Bedrock?",
+    "opts": {
+      "a": "32,000 tokens",
+      "b": "64,000 tokens",
+      "c": "128,000 tokens",
+      "d": "200,000 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The context window is larger.",
+      "b": "Incorrect. 64,000 is below the actual size.",
+      "c": "Correct. Meta Llama 3.1 405B has a 128,000 token context window on Amazon Bedrock.",
+      "d": "Incorrect. 200,000 is Claude's context window, not Llama's."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the context window for Mistral Large on Bedrock?",
+    "opts": {
+      "a": "32,000 tokens",
+      "b": "64,000 tokens",
+      "c": "128,000 tokens",
+      "d": "200,000 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The context window is larger.",
+      "b": "Incorrect. 64,000 is below the actual size.",
+      "c": "Correct. Mistral Large has a 128,000 token context window on Amazon Bedrock.",
+      "d": "Incorrect. 200,000 exceeds Mistral Large's context window."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the embedding dimension for Amazon Titan Text Embeddings V2?",
+    "opts": {
+      "a": "256 dimensions",
+      "b": "512 dimensions",
+      "c": "1,024 dimensions (configurable: 256, 512, or 1,024)",
+      "d": "2,048 dimensions"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. While 256 is an option, 1,024 is the maximum.",
+      "b": "Incorrect. 512 is an option but not the maximum.",
+      "c": "Correct. Titan Text Embeddings V2 supports configurable dimensions: 256, 512, or 1,024. Higher dimensions capture more semantic nuance but require more storage.",
+      "d": "Incorrect. 2,048 exceeds the maximum dimension."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum input token limit for Amazon Titan Text Embeddings V2?",
+    "opts": {
+      "a": "512 tokens",
+      "b": "2,048 tokens",
+      "c": "8,192 tokens",
+      "d": "32,000 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 2,048 is below the actual limit.",
+      "c": "Correct. Amazon Titan Text Embeddings V2 accepts up to 8,192 input tokens per embedding request.",
+      "d": "Incorrect. 32,000 exceeds the embedding input limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum output token limit for Claude 3.5 Sonnet on Bedrock?",
+    "opts": {
+      "a": "2,048 tokens",
+      "b": "4,096 tokens",
+      "c": "8,192 tokens",
+      "d": "16,384 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The output limit is higher.",
+      "b": "Incorrect. 4,096 was for earlier Claude versions.",
+      "c": "Correct. Claude 3.5 Sonnet can generate up to 8,192 output tokens per response on Bedrock.",
+      "d": "Incorrect. 16,384 exceeds the current output limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default Knowledge Base chunking size (default strategy)?",
+    "opts": {
+      "a": "100 tokens",
+      "b": "200 tokens",
+      "c": "300 tokens with 20% overlap",
+      "d": "500 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The default is larger.",
+      "b": "Incorrect. 200 is below the default.",
+      "c": "Correct. The default chunking strategy uses approximately 300 tokens per chunk with 20% overlap between adjacent chunks to preserve context at boundaries.",
+      "d": "Incorrect. 500 exceeds the default size."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum chunk size you can configure for fixed-size chunking in Knowledge Bases?",
+    "opts": {
+      "a": "500 tokens",
+      "b": "1,000 tokens",
+      "c": "Varies by configuration (can be set based on your needs)",
+      "d": "100 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can set larger chunks.",
+      "b": "Incorrect. The maximum is configurable.",
+      "c": "Correct. Fixed-size chunking allows you to configure the chunk size based on your needs, taking into account the embedding model's token limit and the FM's context window capacity.",
+      "d": "Incorrect. 100 is too small for most use cases."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many retrieval results (chunks) does Knowledge Base return by default?",
+    "opts": {
+      "a": "1",
+      "b": "3-5",
+      "c": "5",
+      "d": "20"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More chunks are typically returned.",
+      "b": "Incorrect. While this range exists, the default is specifically 5.",
+      "c": "Correct. By default, Knowledge Base retrieval returns 5 chunks (Top-K=5). This is configurable and can be increased for broader context or decreased for more focused answers.",
+      "d": "Incorrect. 20 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of results (Top-K) you can retrieve from a Knowledge Base in a single query?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "100",
+      "d": "1,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can retrieve more.",
+      "b": "Incorrect. 10 is below the maximum.",
+      "c": "Correct. You can configure Top-K up to 100 results per Knowledge Base retrieval query.",
+      "d": "Incorrect. 1,000 exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Prompt Management prompts per account per Region?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More prompts are allowed.",
+      "b": "Incorrect. 100 is below the limit.",
+      "c": "Correct. You can create up to 500 prompt templates in Prompt Management per account per Region.",
+      "d": "Incorrect. 1,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of variables in a single Bedrock Prompt Management template?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "50"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More variables are allowed.",
+      "b": "Incorrect. 10 is below the limit.",
+      "c": "Correct. A single prompt template can contain up to 20 variable placeholders.",
+      "d": "Incorrect. 50 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the typical latency overhead added by Bedrock Guardrails evaluation?",
+    "opts": {
+      "a": "0ms (no overhead)",
+      "b": "50-200ms depending on complexity",
+      "c": "1-5 seconds",
+      "d": "10+ seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Guardrails processing adds some latency.",
+      "b": "Correct. Guardrails evaluation typically adds 50-200ms of latency depending on the number of policies configured, content length, and filter complexity. This is minimal compared to model inference time.",
+      "c": "Incorrect. Guardrails are much faster than 1-5 seconds.",
+      "d": "Incorrect. 10+ seconds would be unacceptable for most use cases."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the Provisioned Throughput minimum commitment period?",
+    "opts": {
+      "a": "No commitment (hourly)",
+      "b": "1 month or 6 months",
+      "c": "1 year",
+      "d": "3 years"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There is no hourly commitment option for Provisioned Throughput (that's On-Demand).",
+      "b": "Correct. Provisioned Throughput requires either a 1-month or 6-month commitment term. Longer terms typically offer better per-unit pricing.",
+      "c": "Incorrect. 1 year is not required.",
+      "d": "Incorrect. 3 years is not required."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many input/output token meters are charged separately in Bedrock On-Demand pricing?",
+    "opts": {
+      "a": "1 (combined)",
+      "b": "2 (input tokens and output tokens charged separately)",
+      "c": "3 (input, output, and processing)",
+      "d": "4"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Input and output are priced differently.",
+      "b": "Correct. Bedrock On-Demand pricing charges separately for input tokens (your prompt) and output tokens (model's response). Output tokens are typically more expensive than input tokens.",
+      "c": "Incorrect. There's no separate 'processing' charge.",
+      "d": "Incorrect. There are only 2 primary token meters."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the approximate cost of Claude 3.5 Sonnet input tokens on Bedrock (per 1,000 tokens)?",
+    "opts": {
+      "a": "$0.001",
+      "b": "$0.003",
+      "c": "$0.008",
+      "d": "$0.015"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cost is slightly higher.",
+      "b": "Correct. Claude 3.5 Sonnet input tokens cost approximately $0.003 per 1,000 input tokens (or $3.00 per million input tokens) on Bedrock.",
+      "c": "Incorrect. $0.008 is closer to some output token rates.",
+      "d": "Incorrect. $0.015 is the output token rate, not input."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the approximate cost of Claude 3.5 Sonnet output tokens on Bedrock (per 1,000 tokens)?",
+    "opts": {
+      "a": "$0.003",
+      "b": "$0.008",
+      "c": "$0.015",
+      "d": "$0.030"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. $0.003 is the input token rate.",
+      "b": "Incorrect. $0.008 is below the output rate.",
+      "c": "Correct. Claude 3.5 Sonnet output tokens cost approximately $0.015 per 1,000 output tokens (or $15.00 per million output tokens) on Bedrock.",
+      "d": "Incorrect. $0.030 exceeds the rate."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the approximate cost of Claude 3 Haiku input tokens on Bedrock (per 1,000 tokens)?",
+    "opts": {
+      "a": "$0.00025",
+      "b": "$0.001",
+      "c": "$0.003",
+      "d": "$0.008"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Claude 3 Haiku input tokens cost approximately $0.00025 per 1,000 tokens ($0.25 per million), making it significantly cheaper than Sonnet for simple tasks.",
+      "b": "Incorrect. $0.001 is above Haiku's input rate.",
+      "c": "Incorrect. $0.003 is Claude 3.5 Sonnet's input rate.",
+      "d": "Incorrect. $0.008 is far above Haiku's rate."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much cheaper is Claude 3 Haiku compared to Claude 3.5 Sonnet for input tokens?",
+    "opts": {
+      "a": "2x cheaper",
+      "b": "5x cheaper",
+      "c": "~12x cheaper",
+      "d": "50x cheaper"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The savings are much larger.",
+      "b": "Incorrect. 5x understates the savings.",
+      "c": "Correct. Haiku input at ~$0.25/M vs Sonnet input at ~$3.00/M is approximately 12x cheaper, making Haiku ideal for simple routing/classification tasks.",
+      "d": "Incorrect. 50x overstates the difference."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the approximate cost of Amazon Titan Text Lite input tokens (per 1,000 tokens)?",
+    "opts": {
+      "a": "$0.00015",
+      "b": "$0.0003",
+      "c": "$0.001",
+      "d": "$0.003"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cost is slightly higher.",
+      "b": "Correct. Amazon Titan Text Lite input tokens cost approximately $0.0003 per 1,000 tokens ($0.30 per million), making it one of the most affordable options on Bedrock.",
+      "c": "Incorrect. $0.001 exceeds Titan Lite's rate.",
+      "d": "Incorrect. $0.003 is much higher than Titan Lite."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of images that can be included in a single Claude 3.5 Sonnet request on Bedrock?",
+    "opts": {
+      "a": "1",
+      "b": "5",
+      "c": "20",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Multiple images are supported.",
+      "b": "Incorrect. More than 5 images are allowed.",
+      "c": "Correct. Claude 3.5 Sonnet supports up to 20 images in a single request on Bedrock.",
+      "d": "Incorrect. 100 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum image size (per image) for Claude multimodal requests on Bedrock?",
+    "opts": {
+      "a": "1 MB",
+      "b": "5 MB",
+      "c": "20 MB",
+      "d": "100 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is larger.",
+      "b": "Correct. Each image in a Claude multimodal request can be up to 5 MB in size (base64 encoded).",
+      "c": "Incorrect. 20 MB exceeds the per-image limit.",
+      "d": "Incorrect. 100 MB is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many tokens does a typical image consume in Claude's context window?",
+    "opts": {
+      "a": "100-500 tokens",
+      "b": "1,000-2,000 tokens",
+      "c": "Approximately 1,600 tokens for a 1024x1024 image (varies by size)",
+      "d": "10,000 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Images consume more tokens.",
+      "b": "Incorrect. This underestimates for standard images.",
+      "c": "Correct. A typical 1024x1024 image consumes approximately 1,600 tokens in Claude's context. Larger images consume proportionally more. This affects both context window usage and per-token cost.",
+      "d": "Incorrect. 10,000 is too high for a standard image."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum file size for documents that can be ingested into Bedrock Knowledge Bases?",
+    "opts": {
+      "a": "No minimum",
+      "b": "1 byte (non-empty)",
+      "c": "1 KB",
+      "d": "10 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Empty files cannot be processed.",
+      "b": "Correct. Documents must be non-empty (at least 1 byte) to be ingested. Empty files are skipped during the sync process.",
+      "c": "Incorrect. Files smaller than 1 KB can be processed.",
+      "d": "Incorrect. No 10 KB minimum exists."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum file size for documents ingested into Bedrock Knowledge Bases from S3?",
+    "opts": {
+      "a": "10 MB",
+      "b": "50 MB",
+      "c": "500 MB",
+      "d": "Varies by source type"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is larger.",
+      "b": "Correct. The maximum file size for S3 data source documents is approximately 50 MB per file.",
+      "c": "Incorrect. 500 MB exceeds the limit.",
+      "d": "Incorrect. While limits vary by source, S3 has a 50 MB limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of files that can be in a single S3 data source for Knowledge Base?",
+    "opts": {
+      "a": "1,000",
+      "b": "10,000",
+      "c": "100,000",
+      "d": "Governed by S3 limits (virtually unlimited)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Many more files are supported.",
+      "b": "Incorrect. 10,000 is not a hard limit.",
+      "c": "Incorrect. Even more files can be indexed.",
+      "d": "Correct. There is no practical file count limit for S3 data sources — it's governed by S3's virtually unlimited object capacity. However, ingestion time increases proportionally."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long does a typical Knowledge Base sync job take for 1,000 documents?",
+    "opts": {
+      "a": "Under 1 minute",
+      "b": "5-30 minutes depending on document size and complexity",
+      "c": "Several hours",
+      "d": "24 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Processing 1,000 documents takes longer.",
+      "b": "Correct. A typical sync of 1,000 documents takes 5-30 minutes depending on document sizes, complexity, chunking strategy, and embedding model. Larger documents and more complex parsing take longer.",
+      "c": "Incorrect. Hours would be for very large datasets (100K+ documents).",
+      "d": "Incorrect. 24 hours is excessive for 1,000 documents."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of model evaluation jobs that can run concurrently per account?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More concurrent jobs are allowed.",
+      "b": "Incorrect. 2 is for fine-tuning jobs.",
+      "c": "Correct. You can run up to 5 concurrent model evaluation jobs per account.",
+      "d": "Incorrect. 10 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of models you can compare in a single Bedrock Model Evaluation job?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. A single model evaluation job can compare up to 2 models against each other using the same evaluation dataset.",
+      "b": "Incorrect. The maximum is 2 per job.",
+      "c": "Incorrect. 5 exceeds the per-job limit.",
+      "d": "Incorrect. 10 is far above the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the typical time-to-first-token for Claude 3.5 Sonnet streaming responses on Bedrock?",
+    "opts": {
+      "a": "10-50ms",
+      "b": "100-500ms",
+      "c": "500ms-2 seconds",
+      "d": "2-5 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Time-to-first-token is longer than 50ms.",
+      "b": "Incorrect. This is optimistic for most configurations.",
+      "c": "Correct. Time-to-first-token for Claude 3.5 Sonnet typically ranges from 500ms to 2 seconds depending on prompt complexity, queue depth, and whether using On-Demand or Provisioned Throughput.",
+      "d": "Incorrect. 2-5 seconds is slower than typical."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the approximate cost reduction from Prompt Caching on the cached portion of input?",
+    "opts": {
+      "a": "10%",
+      "b": "25%",
+      "c": "50%",
+      "d": "Up to 90%"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Savings are much larger.",
+      "b": "Incorrect. 25% understates the savings.",
+      "c": "Incorrect. 50% understates the savings for cached portions.",
+      "d": "Correct. Prompt Caching can reduce costs by up to 90% for the cached portion of the prompt, as the model doesn't need to reprocess those tokens. The uncached portion is charged at normal rates."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum prompt prefix length required for Prompt Caching to be effective?",
+    "opts": {
+      "a": "100 tokens",
+      "b": "1,024 tokens (model-dependent)",
+      "c": "10,000 tokens",
+      "d": "No minimum"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Very short prompts don't benefit from caching.",
+      "b": "Correct. Prompt Caching typically requires a minimum prefix length (around 1,024-2,048 tokens depending on the model) for the cache to be established. Short prompts below this threshold are processed normally.",
+      "c": "Incorrect. The minimum is lower than 10,000.",
+      "d": "Incorrect. There is a minimum for caching to activate."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long does a Prompt Cache remain valid?",
+    "opts": {
+      "a": "Indefinitely",
+      "b": "5 minutes of inactivity (TTL)",
+      "c": "1 hour",
+      "d": "24 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Caches have a time-to-live.",
+      "b": "Correct. Prompt caches typically remain valid for approximately 5 minutes of inactivity (varies by provider). If no requests use the cached prefix within this window, the cache is evicted and the next request incurs full processing cost.",
+      "c": "Incorrect. The TTL is shorter than 1 hour.",
+      "d": "Incorrect. 24 hours exceeds the cache TTL."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum Agent session idle timeout?",
+    "opts": {
+      "a": "5 minutes",
+      "b": "30 minutes",
+      "c": "1 hour",
+      "d": "24 hours"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Sessions can last longer.",
+      "b": "Incorrect. 30 minutes is below the maximum.",
+      "c": "Correct. Bedrock Agent sessions have a maximum idle timeout of 1 hour. After this period of inactivity, the session context is cleared.",
+      "d": "Incorrect. 24 hours exceeds the maximum session timeout."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of turns (messages) in a single Bedrock Agent session?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "100",
+      "d": "Limited by context window, not a fixed turn count"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. More turns are possible.",
+      "b": "Incorrect. 20 is not a hard limit.",
+      "c": "Incorrect. There's no fixed 100-turn limit.",
+      "d": "Correct. Agent conversations are limited by the model's context window capacity rather than a fixed turn count. As conversation history grows, older context may be truncated to fit within the context window."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of concurrent Agent invocations per account per Region?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "Varies by model quotas (TPM/RPM limits apply)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. More concurrent invocations are possible.",
+      "b": "Incorrect. The limit depends on underlying model quotas.",
+      "c": "Incorrect. 100 is the total agents, not concurrent invocations.",
+      "d": "Correct. Concurrent Agent invocations are governed by the underlying model's Tokens Per Minute and Requests Per Minute quotas, not a separate agent-specific limit."
+    }
+  }
+]

@@ -1,0 +1,1158 @@
+[
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock?",
+    "opts": {
+      "a": "A service for hosting custom ML models on EC2",
+      "b": "A fully managed service that provides access to foundation models (FMs) from leading AI companies through a single API",
+      "c": "A database service for storing AI training data",
+      "d": "A container orchestration service for ML workloads"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Bedrock is not about hosting on EC2; that's SageMaker endpoints.",
+      "b": "Correct. Amazon Bedrock is a fully managed service offering foundation models from Amazon (Titan), Anthropic (Claude), Meta (Llama), Mistral, Cohere, AI21 Labs, and Stability AI through a unified API.",
+      "c": "Incorrect. Bedrock is not a database service.",
+      "d": "Incorrect. Bedrock is not a container orchestration service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which Amazon foundation model family is native to Bedrock?",
+    "opts": {
+      "a": "Claude",
+      "b": "Llama",
+      "c": "Amazon Titan",
+      "d": "Mistral"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Claude is from Anthropic.",
+      "b": "Incorrect. Llama is from Meta.",
+      "c": "Correct. Amazon Titan is Amazon's own family of foundation models available on Bedrock, including Titan Text, Titan Embeddings, Titan Image Generator, and Titan Multimodal Embeddings.",
+      "d": "Incorrect. Mistral is from Mistral AI."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which third-party AI company provides the Claude model family on Amazon Bedrock?",
+    "opts": {
+      "a": "Meta",
+      "b": "Anthropic",
+      "c": "Google",
+      "d": "OpenAI"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Meta provides Llama models.",
+      "b": "Correct. Anthropic provides the Claude model family (Claude 3.5 Sonnet, Claude 3 Opus, Claude 3 Haiku, etc.) on Amazon Bedrock.",
+      "c": "Incorrect. Google's models are not available on Bedrock.",
+      "d": "Incorrect. OpenAI's models are not available on Bedrock."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock Knowledge Bases used for?",
+    "opts": {
+      "a": "Training new foundation models from scratch",
+      "b": "Providing Retrieval Augmented Generation (RAG) by connecting foundation models to your organization's data sources",
+      "c": "Storing model weights",
+      "d": "Managing IAM permissions for AI services"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Knowledge Bases don't train models from scratch.",
+      "b": "Correct. Bedrock Knowledge Bases enable RAG by automatically ingesting, chunking, embedding, and storing your data in a vector database, then retrieving relevant context when users ask questions.",
+      "c": "Incorrect. Model weights are managed by Bedrock internally.",
+      "d": "Incorrect. IAM is separate from Knowledge Bases."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock Guardrails?",
+    "opts": {
+      "a": "A physical security service",
+      "b": "A feature that implements safeguards to control FM inputs and outputs, blocking harmful content, sensitive information, and off-topic responses",
+      "c": "A billing limit feature",
+      "d": "A network firewall for AI traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Guardrails is not physical security.",
+      "b": "Correct. Bedrock Guardrails provides configurable safeguards including content filters, denied topics, word filters, sensitive information filters (PII), and contextual grounding checks to control model behavior.",
+      "c": "Incorrect. Guardrails is about content safety, not billing.",
+      "d": "Incorrect. It's not a network firewall."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are Amazon Bedrock Agents?",
+    "opts": {
+      "a": "Human support staff for AI services",
+      "b": "Autonomous AI assistants that can plan and execute multi-step tasks by orchestrating foundation models, knowledge bases, and external APIs/tools",
+      "c": "Monitoring bots for Bedrock",
+      "d": "Billing agents for cost optimization"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Agents are AI-powered, not human.",
+      "b": "Correct. Bedrock Agents use foundation models to break down user requests into steps, determine which tools/APIs to call, execute actions, and return results — enabling complex multi-step task automation.",
+      "c": "Incorrect. Agents are not monitoring tools.",
+      "d": "Incorrect. Agents are not for billing."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What vector databases does Bedrock Knowledge Bases support?",
+    "opts": {
+      "a": "Only Amazon DynamoDB",
+      "b": "Amazon OpenSearch Serverless, Amazon Aurora PostgreSQL (pgvector), Pinecone, Redis Enterprise, and MongoDB Atlas",
+      "c": "Only Pinecone",
+      "d": "Only Amazon S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DynamoDB is not a vector database for Knowledge Bases.",
+      "b": "Correct. Bedrock Knowledge Bases supports multiple vector store options including Amazon OpenSearch Serverless, Aurora PostgreSQL with pgvector, Pinecone, Redis Enterprise Cloud, and MongoDB Atlas.",
+      "c": "Incorrect. Multiple vector databases are supported.",
+      "d": "Incorrect. S3 is a data source, not a vector database."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What data sources can Bedrock Knowledge Bases ingest from?",
+    "opts": {
+      "a": "Only Amazon S3",
+      "b": "Amazon S3, Confluence, SharePoint, Salesforce, and web crawlers",
+      "c": "Only databases",
+      "d": "Only real-time streaming data"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple data sources are supported.",
+      "b": "Correct. Knowledge Bases can ingest data from S3, Confluence, SharePoint, Salesforce, and web crawlers, enabling organizations to connect their existing content repositories.",
+      "c": "Incorrect. Document stores and web content are primary sources.",
+      "d": "Incorrect. Knowledge Bases work with stored documents, not just streaming data."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What types of content filters does Bedrock Guardrails support?",
+    "opts": {
+      "a": "Only profanity filtering",
+      "b": "Hate, insults, sexual content, violence, misconduct, and prompt attacks — each configurable with LOW, MEDIUM, or HIGH filter strength",
+      "c": "Only spam detection",
+      "d": "Only language translation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Guardrails covers much more than profanity.",
+      "b": "Correct. Guardrails content filters cover hate, insults, sexual content, violence, misconduct, and prompt attack detection, each with configurable strength levels (NONE, LOW, MEDIUM, HIGH) for both input and output.",
+      "c": "Incorrect. It covers harmful content categories, not just spam.",
+      "d": "Incorrect. It's about content safety, not translation."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the purpose of 'denied topics' in Bedrock Guardrails?",
+    "opts": {
+      "a": "Blocking specific AWS services",
+      "b": "Preventing the model from engaging with specific subjects that are off-limits for your application",
+      "c": "Denying API access to certain users",
+      "d": "Blocking certain programming languages"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Denied topics are about conversation subjects, not AWS services.",
+      "b": "Correct. Denied topics allow you to define subjects the model should refuse to engage with. For example, a banking chatbot might deny topics about investment advice or competitor products.",
+      "c": "Incorrect. API access control is IAM's role.",
+      "d": "Incorrect. It's about conversation topics, not code languages."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What sensitive information can Bedrock Guardrails detect and redact?",
+    "opts": {
+      "a": "Only email addresses",
+      "b": "PII types including names, email, phone numbers, SSN, credit card numbers, addresses, plus custom regex patterns",
+      "c": "Only passwords",
+      "d": "Only IP addresses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Many PII types are detected.",
+      "b": "Correct. Guardrails can detect and redact/mask over 30 PII types (names, emails, phone numbers, SSN, credit cards, etc.) and allows custom regex patterns for organization-specific sensitive data.",
+      "c": "Incorrect. Much more than passwords is covered.",
+      "d": "Incorrect. Many data types beyond IP addresses are supported."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is 'contextual grounding check' in Bedrock Guardrails?",
+    "opts": {
+      "a": "Checking if the model is connected to the internet",
+      "b": "Validating that model responses are grounded in (supported by) the provided source material, detecting hallucinations",
+      "c": "Checking the model's physical location",
+      "d": "Verifying the model version"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's not about internet connectivity.",
+      "b": "Correct. Contextual grounding checks verify that the model's response is factually supported by the reference source/context provided (e.g., Knowledge Base results), helping detect and prevent hallucinations.",
+      "c": "Incorrect. It's about factual accuracy, not physical location.",
+      "d": "Incorrect. It's about response accuracy, not model version."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock Model Evaluation used for?",
+    "opts": {
+      "a": "Evaluating the cost of models",
+      "b": "Comparing and evaluating foundation model outputs using automatic metrics, human evaluation, or custom evaluation tasks",
+      "c": "Evaluating employee performance",
+      "d": "Evaluating network latency"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Model evaluation assesses quality, not just cost.",
+      "b": "Correct. Bedrock Model Evaluation allows you to compare models using automatic metrics (accuracy, robustness, toxicity), human evaluation workflows, or custom evaluation tasks to select the best model for your use case.",
+      "c": "Incorrect. It evaluates AI model quality.",
+      "d": "Incorrect. It's about model output quality, not network performance."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What customization methods does Amazon Bedrock support?",
+    "opts": {
+      "a": "Only prompt engineering",
+      "b": "Fine-tuning (continued pre-training and instruction-based fine-tuning) and custom model import",
+      "c": "Only transfer learning",
+      "d": "Only model distillation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Bedrock supports deeper customization beyond prompts.",
+      "b": "Correct. Bedrock supports continued pre-training (adapting to domain-specific unlabeled data), instruction-based fine-tuning (labeled examples), and importing custom models trained elsewhere.",
+      "c": "Incorrect. Multiple methods beyond transfer learning are available.",
+      "d": "Incorrect. Bedrock now supports distillation as well, but fine-tuning is the primary method."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between Bedrock's 'On-Demand' and 'Provisioned Throughput' pricing?",
+    "opts": {
+      "a": "They are the same",
+      "b": "On-Demand charges per input/output token with no commitment; Provisioned Throughput reserves dedicated model capacity for consistent performance at a committed hourly rate",
+      "c": "On-Demand is free; Provisioned costs money",
+      "d": "Provisioned is only for custom models"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They have different pricing models.",
+      "b": "Correct. On-Demand is pay-per-token with no commitment (best for variable workloads). Provisioned Throughput guarantees dedicated capacity with consistent latency for high-volume or latency-sensitive applications (1-month or 6-month commitment).",
+      "c": "Incorrect. On-Demand is not free.",
+      "d": "Incorrect. Provisioned works with both base and custom models."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock Batch Inference?",
+    "opts": {
+      "a": "Processing multiple requests simultaneously in real-time",
+      "b": "Processing large volumes of inference requests asynchronously at a lower cost than real-time inference",
+      "c": "Training models in batches",
+      "d": "Batch uploading data to S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Batch inference is asynchronous, not real-time.",
+      "b": "Correct. Batch Inference allows you to submit large numbers of requests (from S3) for processing asynchronously, typically at a 50% cost reduction compared to on-demand inference, ideal for offline processing.",
+      "c": "Incorrect. Batch inference is for inference, not training.",
+      "d": "Incorrect. It's about model inference, not S3 uploads."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock Flows?",
+    "opts": {
+      "a": "A network traffic routing service",
+      "b": "A visual workflow builder for creating and orchestrating generative AI workflows by connecting prompts, models, knowledge bases, and other components",
+      "c": "A data pipeline service",
+      "d": "A CI/CD pipeline for AI models"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Flows is not about network traffic.",
+      "b": "Correct. Bedrock Flows (formerly Prompt Flows) provides a visual builder to create generative AI workflows by connecting nodes like prompts, models, knowledge bases, Lambda functions, and conditional logic.",
+      "c": "Incorrect. While it processes data, it's specifically for GenAI workflows.",
+      "d": "Incorrect. It orchestrates AI inference workflows, not model deployment."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock Model Distillation?",
+    "opts": {
+      "a": "Converting liquid cooling for GPU servers",
+      "b": "Transferring knowledge from a larger, more capable 'teacher' model to a smaller, faster 'student' model for cost-effective deployment",
+      "c": "Removing data from models",
+      "d": "Compressing model file sizes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Distillation is not about physical cooling.",
+      "b": "Correct. Model Distillation uses a larger model (teacher) to generate high-quality training data that trains a smaller model (student), achieving similar quality at lower latency and cost.",
+      "c": "Incorrect. It's about knowledge transfer, not data removal.",
+      "d": "Incorrect. While the resulting model is smaller, it's about capability transfer, not simple compression."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock Marketplace?",
+    "opts": {
+      "a": "A marketplace for buying AWS accounts",
+      "b": "A curated selection of specialized and fine-tuned foundation models from emerging AI companies, accessible through Bedrock's unified API",
+      "c": "A marketplace for cloud hardware",
+      "d": "The same as AWS Marketplace"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's not for AWS accounts.",
+      "b": "Correct. Bedrock Marketplace provides access to specialized foundation models from emerging AI providers beyond the standard Bedrock model providers, all accessible through the same Bedrock API and features.",
+      "c": "Incorrect. It's for AI models, not hardware.",
+      "d": "Incorrect. It's specifically within Bedrock, separate from the general AWS Marketplace."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What chunking strategies does Bedrock Knowledge Bases support for document processing?",
+    "opts": {
+      "a": "Only fixed-size chunking",
+      "b": "Fixed-size, default, hierarchical, semantic, and no chunking (treat each file as one chunk)",
+      "c": "Only sentence-level chunking",
+      "d": "Only page-level chunking"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple strategies are available.",
+      "b": "Correct. Knowledge Bases supports multiple chunking strategies: fixed-size (specify token count), default (300 tokens with overlap), hierarchical (parent-child chunks), semantic (based on meaning), and no chunking.",
+      "c": "Incorrect. More advanced strategies are available.",
+      "d": "Incorrect. Chunking is more flexible than page-level."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the purpose of Bedrock Agent 'Action Groups'?",
+    "opts": {
+      "a": "Grouping IAM users",
+      "b": "Defining the APIs and functions that an agent can invoke to perform tasks, along with their parameters and descriptions",
+      "c": "Grouping CloudWatch alarms",
+      "d": "Organizing S3 buckets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Action Groups are not about IAM users.",
+      "b": "Correct. Action Groups define the tools/APIs available to a Bedrock Agent. Each action group contains an API schema (OpenAPI specification or function definitions) that the agent can call to perform external actions.",
+      "c": "Incorrect. Action Groups are for agent capabilities.",
+      "d": "Incorrect. They define agent actions, not storage."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does a Bedrock Agent determine which action to take?",
+    "opts": {
+      "a": "Random selection",
+      "b": "Through a reasoning and orchestration process (ReAct framework) where the FM plans steps, determines the right action group/knowledge base to call, and iterates until the task is complete",
+      "c": "Hardcoded decision trees",
+      "d": "User explicitly selects each action"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Agents use intelligent reasoning.",
+      "b": "Correct. Bedrock Agents use the ReAct (Reasoning and Acting) framework where the foundation model reasons about the user's request, plans multi-step actions, invokes appropriate tools, observes results, and iterates until the task is fulfilled.",
+      "c": "Incorrect. Agents use FM-based reasoning, not hardcoded logic.",
+      "d": "Incorrect. Agents autonomously determine actions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Bedrock's 'Converse API'?",
+    "opts": {
+      "a": "A social media integration",
+      "b": "A unified API that provides a consistent interface for multi-turn conversations across all Bedrock models, handling message formatting differences automatically",
+      "c": "A speech-to-text API",
+      "d": "A video calling API"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's not a social media tool.",
+      "b": "Correct. The Converse API provides a model-agnostic way to send messages in a multi-turn conversation. It handles the formatting differences between model providers (Claude, Titan, Llama) so you don't need model-specific code.",
+      "c": "Incorrect. It's for text-based conversations with FMs.",
+      "d": "Incorrect. It's for AI model conversations, not video calls."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock Studio?",
+    "opts": {
+      "a": "A video production tool",
+      "b": "A web-based interface that allows developers and non-technical users to prototype, test, and collaborate on generative AI applications without writing code",
+      "c": "A music studio powered by AI",
+      "d": "A photography editing tool"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Bedrock Studio is not for video production.",
+      "b": "Correct. Bedrock Studio provides a collaborative web environment where teams can experiment with prompts, test models, build AI applications, and share projects without needing to write infrastructure code.",
+      "c": "Incorrect. It's for building AI applications.",
+      "d": "Incorrect. It's not a photo editor."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Guardrails you can create per account per Region in Bedrock?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 50 is below the actual limit.",
+      "c": "Correct. You can create up to 100 Guardrails per account per Region in Amazon Bedrock.",
+      "d": "Incorrect. 500 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of denied topics per Guardrail in Bedrock?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "30",
+      "d": "50"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More topics are allowed.",
+      "b": "Incorrect. 25 is below the limit.",
+      "c": "Correct. Each Bedrock Guardrail can have up to 30 denied topics configured.",
+      "d": "Incorrect. 50 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Knowledge Bases per account per Region?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More Knowledge Bases are allowed.",
+      "b": "Incorrect. 25 is below the limit.",
+      "c": "Correct. You can create up to 50 Knowledge Bases per account per Region.",
+      "d": "Incorrect. 100 exceeds the default limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of data sources per Knowledge Base?",
+    "opts": {
+      "a": "1",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More data sources can be attached.",
+      "b": "Correct. Each Knowledge Base supports up to 5 data sources.",
+      "c": "Incorrect. 10 exceeds the limit.",
+      "d": "Incorrect. 20 is above the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Bedrock Agents per account per Region?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More agents are allowed.",
+      "b": "Incorrect. 50 is below the limit.",
+      "c": "Correct. You can create up to 100 Bedrock Agents per account per Region.",
+      "d": "Incorrect. 500 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of action groups per Bedrock Agent?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "50"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More action groups are allowed.",
+      "b": "Incorrect. 10 is below the limit.",
+      "c": "Correct. Each Bedrock Agent can have up to 20 action groups.",
+      "d": "Incorrect. 50 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Knowledge Bases that can be associated with a single Bedrock Agent?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More Knowledge Bases can be attached.",
+      "b": "Correct. A single Bedrock Agent can be associated with up to 2 Knowledge Bases.",
+      "c": "Incorrect. 5 exceeds the limit for agent-KB associations.",
+      "d": "Incorrect. 10 is above the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum input token limit for Claude 3.5 Sonnet on Bedrock?",
+    "opts": {
+      "a": "32,000 tokens",
+      "b": "100,000 tokens",
+      "c": "200,000 tokens",
+      "d": "1,000,000 tokens"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Claude 3.5 Sonnet has a much larger context window.",
+      "b": "Incorrect. 100K was for earlier Claude models.",
+      "c": "Correct. Claude 3.5 Sonnet supports up to 200,000 input tokens (approximately 150,000 words) on Amazon Bedrock.",
+      "d": "Incorrect. 1 million tokens exceeds the current limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the approximate cost reduction for Bedrock Batch Inference compared to On-Demand?",
+    "opts": {
+      "a": "10%",
+      "b": "25%",
+      "c": "50%",
+      "d": "75%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The savings are larger.",
+      "b": "Incorrect. 25% is below the typical savings.",
+      "c": "Correct. Batch Inference typically provides approximately 50% cost reduction compared to On-Demand pricing.",
+      "d": "Incorrect. 75% exceeds the typical savings."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of words in a Guardrail denied topic definition?",
+    "opts": {
+      "a": "50 words",
+      "b": "100 words",
+      "c": "200 words",
+      "d": "500 words"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More words are allowed.",
+      "b": "Incorrect. 100 is below the limit.",
+      "c": "Correct. Each denied topic definition can contain up to 200 words to describe the topic to block.",
+      "d": "Incorrect. 500 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of custom word filters in a Bedrock Guardrail?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "10,000"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Many more words can be filtered.",
+      "b": "Incorrect. 500 is below the limit.",
+      "c": "Incorrect. 1,000 is below the limit.",
+      "d": "Correct. Bedrock Guardrails supports up to 10,000 custom words in the word filter."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of custom regex patterns for sensitive information detection in Guardrails?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "25",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More patterns are allowed.",
+      "b": "Correct. You can configure up to 10 custom regex patterns for sensitive information detection in Guardrails.",
+      "c": "Incorrect. 25 exceeds the limit.",
+      "d": "Incorrect. 50 is above the maximum."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A healthcare company wants to use Bedrock to answer patient questions based on their medical knowledge base, but must prevent the model from providing diagnoses or prescriptions. What should they configure?",
+    "opts": {
+      "a": "Only use a smaller model",
+      "b": "Configure Guardrails with denied topics for 'medical diagnosis' and 'prescription recommendations', plus PII filters for patient data",
+      "c": "Turn off the model during certain hours",
+      "d": "Only allow text-based responses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Model size doesn't control content appropriateness.",
+      "b": "Correct. Guardrails denied topics prevent the model from providing diagnoses or prescriptions. PII filters protect patient data from appearing in responses. The Knowledge Base still provides factual medical information within safe boundaries.",
+      "c": "Incorrect. Time-based restrictions don't address content safety.",
+      "d": "Incorrect. Text-only doesn't prevent harmful medical advice."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to build a customer support chatbot that can look up order status, process returns, and answer FAQ questions. Which Bedrock components should they use?",
+    "opts": {
+      "a": "Only a foundation model with prompts",
+      "b": "A Bedrock Agent with action groups (for order lookup and return processing APIs) and a Knowledge Base (for FAQ answers)",
+      "c": "Only a Knowledge Base",
+      "d": "Only CloudWatch monitoring"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A model alone can't access order systems or process returns.",
+      "b": "Correct. The Agent orchestrates the conversation, calling action groups (connected to order/return APIs) for transactional tasks and querying the Knowledge Base for FAQ answers. This provides a complete, autonomous support experience.",
+      "c": "Incorrect. Knowledge Base alone can't process returns or look up orders.",
+      "d": "Incorrect. CloudWatch monitors but doesn't build chatbots."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has 10,000 PDF documents they want to make searchable via natural language questions. What is the recommended architecture?",
+    "opts": {
+      "a": "Upload all PDFs to a single prompt",
+      "b": "Create a Bedrock Knowledge Base with S3 as the data source, automatic document chunking, and OpenSearch Serverless as the vector store",
+      "c": "Fine-tune a model on all PDFs",
+      "d": "Use DynamoDB to store the PDFs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 10,000 PDFs won't fit in a single prompt context window.",
+      "b": "Correct. Knowledge Base ingests PDFs from S3, automatically chunks them, creates embeddings, stores them in OpenSearch Serverless, and retrieves relevant chunks when users ask questions (RAG pattern).",
+      "c": "Incorrect. Fine-tuning is expensive and doesn't work well for factual recall of specific documents.",
+      "d": "Incorrect. DynamoDB doesn't provide vector search capabilities."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A financial services company wants to use Bedrock but must ensure no credit card numbers or account numbers appear in model responses. What should they implement?",
+    "opts": {
+      "a": "Train employees to review every response",
+      "b": "Configure Guardrails with sensitive information filters for credit card numbers and custom regex patterns for account number formats, with BLOCK action on outputs",
+      "c": "Only use the model offline",
+      "d": "Disable all model responses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual review doesn't scale.",
+      "b": "Correct. Guardrails sensitive information filters automatically detect credit card patterns. Custom regex patterns match account number formats. Setting the action to BLOCK prevents any response containing these patterns from reaching the user.",
+      "c": "Incorrect. Offline usage doesn't prevent data exposure.",
+      "d": "Incorrect. Disabling responses defeats the purpose."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to evaluate whether Claude 3.5 Sonnet or Llama 3 70B is better for their customer support use case. How should they compare them?",
+    "opts": {
+      "a": "Read the model documentation only",
+      "b": "Use Bedrock Model Evaluation to run both models against the same test dataset and compare metrics like accuracy, relevance, and response quality",
+      "c": "Choose the cheapest model",
+      "d": "Use the model with the most parameters"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Documentation doesn't reflect performance on your specific data.",
+      "b": "Correct. Model Evaluation lets you run both models against your own test cases, comparing metrics like accuracy, relevance, harmlessness, and latency to make a data-driven decision for your specific use case.",
+      "c": "Incorrect. Cheapest isn't always best quality.",
+      "d": "Incorrect. More parameters don't guarantee better performance for all tasks."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs their Bedrock-powered chatbot to respond only in English and refuse requests in other languages. How should they implement this?",
+    "opts": {
+      "a": "Only train on English data",
+      "b": "Configure Guardrails with a denied topic for 'non-English language requests' and include system prompt instructions to respond only in English",
+      "c": "Use a model that only knows English",
+      "d": "Block non-English IP addresses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Foundation models are multilingual regardless of fine-tuning.",
+      "b": "Correct. Combine Guardrails (denied topic for non-English requests) with clear system prompt instructions ('Respond only in English. Politely decline requests in other languages.'). This provides both programmatic enforcement and model guidance.",
+      "c": "Incorrect. Most modern FMs understand multiple languages.",
+      "d": "Incorrect. IP-based blocking doesn't control language."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to reduce the cost of their high-volume Bedrock inference workload that processes 100,000 requests per day for report generation (not time-sensitive). What should they use?",
+    "opts": {
+      "a": "Keep using On-Demand pricing",
+      "b": "Use Batch Inference to process all requests asynchronously at approximately 50% cost reduction",
+      "c": "Use Provisioned Throughput",
+      "d": "Switch to a larger model"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. On-Demand is the most expensive option at this volume.",
+      "b": "Correct. Since report generation is not time-sensitive, Batch Inference processes requests asynchronously from S3 at ~50% cost reduction, ideal for high-volume offline workloads.",
+      "c": "Incorrect. Provisioned Throughput is for latency-sensitive, consistent workloads — not cost optimization for batch processing.",
+      "d": "Incorrect. A larger model would increase costs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's Bedrock Agent needs to call an external REST API to retrieve inventory data. How should they configure this?",
+    "opts": {
+      "a": "Give the agent direct internet access",
+      "b": "Create an Action Group with an OpenAPI schema defining the inventory API's endpoints, parameters, and response format; connect it to a Lambda function that calls the external API",
+      "c": "Store all inventory data in the Knowledge Base",
+      "d": "Hard-code the API response"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Agents don't directly access the internet.",
+      "b": "Correct. Define an Action Group with the API schema (OpenAPI spec). The agent determines when to call it based on user requests. A Lambda function serves as the execution layer, calling the external API and returning results to the agent.",
+      "c": "Incorrect. Real-time inventory requires API calls, not static documents.",
+      "d": "Incorrect. Hard-coding defeats the purpose of dynamic responses."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company notices their Bedrock Knowledge Base sometimes returns irrelevant information, leading to incorrect answers. How should they improve accuracy?",
+    "opts": {
+      "a": "Use a larger model",
+      "b": "Optimize chunking strategy (try semantic or hierarchical chunking), improve metadata filtering, increase the number of retrieved chunks, and enable Guardrails contextual grounding check",
+      "c": "Delete the Knowledge Base",
+      "d": "Increase the temperature parameter"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A larger model doesn't fix retrieval quality.",
+      "b": "Correct. RAG quality depends on retrieval quality. Optimizing chunking ensures relevant context is retrieved. Metadata filtering narrows search scope. More retrieved chunks provide more context. Contextual grounding checks catch hallucinations.",
+      "c": "Incorrect. Deleting removes the capability entirely.",
+      "d": "Incorrect. Higher temperature increases randomness, making answers less accurate."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to use the same Guardrail across multiple Bedrock applications (chatbot, API, and Agent). Is this possible?",
+    "opts": {
+      "a": "No, each application needs its own Guardrail",
+      "b": "Yes, a single Guardrail can be applied to multiple models and applications using the Guardrail ID",
+      "c": "Only for the same model type",
+      "d": "Only within the same Region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Guardrails are reusable.",
+      "b": "Correct. A Guardrail is an independent resource identified by a Guardrail ID. You can apply the same Guardrail across multiple applications, models, and even with Bedrock Agents, providing consistent safety policies organization-wide.",
+      "c": "Incorrect. Guardrails work across different model providers.",
+      "d": "Incorrect. The question is about reusability, which is supported within a Region."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the Bedrock InvokeModel API used for?",
+    "opts": {
+      "a": "Training a model",
+      "b": "Sending a single inference request to a foundation model and receiving a response",
+      "c": "Deleting a model",
+      "d": "Listing available models"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. InvokeModel is for inference, not training.",
+      "b": "Correct. InvokeModel sends a prompt/input to a specified foundation model and returns the model's response. It supports text, image, and embedding models.",
+      "c": "Incorrect. Model deletion uses different APIs.",
+      "d": "Incorrect. ListFoundationModels lists models."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the Bedrock InvokeModelWithResponseStream API?",
+    "opts": {
+      "a": "A batch processing API",
+      "b": "An API that returns model responses as a stream of chunks in real-time, enabling faster time-to-first-token",
+      "c": "A video streaming API",
+      "d": "A data export API"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Streaming is real-time, not batch.",
+      "b": "Correct. InvokeModelWithResponseStream returns the response as it's generated (token by token), reducing perceived latency and enabling real-time display of model output.",
+      "c": "Incorrect. It streams text tokens, not video.",
+      "d": "Incorrect. It's for inference streaming, not data export."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What encryption does Amazon Bedrock use for data at rest?",
+    "opts": {
+      "a": "No encryption",
+      "b": "AWS-owned keys by default, with option to use customer-managed KMS keys",
+      "c": "Only client-side encryption",
+      "d": "Only SSL/TLS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Bedrock encrypts all data at rest.",
+      "b": "Correct. Bedrock encrypts all data at rest using AWS-owned keys by default. Customers can opt to use customer-managed AWS KMS keys for additional control over encryption of fine-tuning data, Knowledge Bases, and other resources.",
+      "c": "Incorrect. Server-side encryption is the default.",
+      "d": "Incorrect. SSL/TLS is for data in transit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Does Amazon Bedrock use customer data to train or improve foundation models?",
+    "opts": {
+      "a": "Yes, all data is used for training",
+      "b": "No, customer inputs and outputs are NOT used to train or improve base models, and data is not shared with model providers",
+      "c": "Only with customer consent",
+      "d": "Only anonymized data is used"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Customer data is not used for training.",
+      "b": "Correct. Amazon Bedrock does NOT use customer inputs or outputs to train or improve foundation models. Data is not shared with third-party model providers. Customer data stays within the customer's AWS account.",
+      "c": "Incorrect. It's not used regardless of consent.",
+      "d": "Incorrect. No customer data (anonymized or otherwise) is used."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock's approach to VPC connectivity?",
+    "opts": {
+      "a": "Bedrock only works over the public internet",
+      "b": "Bedrock supports VPC endpoints (AWS PrivateLink) enabling private connectivity without traversing the internet",
+      "c": "Bedrock requires a VPN connection",
+      "d": "Bedrock uses Direct Connect only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Private connectivity is available.",
+      "b": "Correct. Amazon Bedrock supports VPC interface endpoints (PrivateLink), allowing you to invoke foundation models from within your VPC without traffic traversing the public internet.",
+      "c": "Incorrect. VPN is not required.",
+      "d": "Incorrect. Direct Connect is optional, not required."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What logging capabilities does Amazon Bedrock provide?",
+    "opts": {
+      "a": "No logging available",
+      "b": "Model invocation logging to CloudWatch Logs and/or S3, capturing inputs, outputs, and metadata for all inference requests",
+      "c": "Only error logging",
+      "d": "Only billing logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Comprehensive logging is available.",
+      "b": "Correct. Bedrock supports model invocation logging that captures full request/response data (prompts, completions, token counts, latency) and delivers to CloudWatch Logs or S3 for auditing and debugging.",
+      "c": "Incorrect. Full invocation data is logged, not just errors.",
+      "d": "Incorrect. Operational and content logs are available."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock's 'Model Access' feature?",
+    "opts": {
+      "a": "A feature to download models locally",
+      "b": "A request-based system where you must explicitly request access to specific foundation models before you can use them in your account",
+      "c": "A model marketplace checkout",
+      "d": "An API key management tool"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Models run on AWS, not downloaded.",
+      "b": "Correct. Before using any foundation model on Bedrock, you must request access through the 'Model Access' page in the console. Some models require acceptance of end-user license agreements (EULAs).",
+      "c": "Incorrect. It's an access request, not a purchase.",
+      "d": "Incorrect. Bedrock uses IAM, not API keys."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to migrate from OpenAI's API to Amazon Bedrock using Claude. What is the primary API change they need to make?",
+    "opts": {
+      "a": "No changes needed",
+      "b": "Replace OpenAI API calls with Bedrock's InvokeModel or Converse API, update authentication to use IAM/SigV4 instead of API keys, and adjust the request/response format",
+      "c": "Only change the endpoint URL",
+      "d": "Only change the API key"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API formats differ between OpenAI and Bedrock.",
+      "b": "Correct. Migration requires: (1) Replace API calls with Bedrock InvokeModel/Converse, (2) Use IAM-based authentication (SigV4) instead of API keys, (3) Adjust request format to match Bedrock's schema. The Converse API minimizes model-specific formatting changes.",
+      "c": "Incorrect. More than the endpoint changes.",
+      "d": "Incorrect. Bedrock uses IAM, not API keys."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants their Bedrock application to maintain conversation history across multiple user messages. What approaches are available?",
+    "opts": {
+      "a": "Bedrock automatically remembers all conversations",
+      "b": "Use the Converse API with message history array, or implement session management by storing conversation history in DynamoDB/ElastiCache and including it in each request",
+      "c": "Store conversations in S3 only",
+      "d": "Foundation models remember everything automatically"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Bedrock APIs are stateless; each request is independent.",
+      "b": "Correct. The Converse API accepts a messages array for multi-turn context. For persistent sessions, store conversation history externally (DynamoDB, ElastiCache) and include relevant history in each API call. Agents handle session state internally.",
+      "c": "Incorrect. S3 is too slow for real-time conversation management.",
+      "d": "Incorrect. FMs are stateless — they don't remember previous API calls."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to ensure their Bedrock-powered application works even if a specific model becomes unavailable. What resilience pattern should they implement?",
+    "opts": {
+      "a": "Hope the model never goes down",
+      "b": "Implement model fallback logic: try primary model (e.g., Claude), if unavailable/throttled, automatically fall back to an alternative model (e.g., Llama or Titan) using the Converse API for model-agnostic formatting",
+      "c": "Only use one model",
+      "d": "Cache all possible responses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. No service has 100% availability guarantee.",
+      "b": "Correct. The Converse API's model-agnostic format makes fallback easy — same request format works across models. Implement try/catch logic that routes to alternative models if the primary returns errors or is throttled.",
+      "c": "Incorrect. Single model creates a single point of failure.",
+      "d": "Incorrect. Caching all possible responses is impractical for generative AI."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the purpose of 'Inference Profiles' in Amazon Bedrock?",
+    "opts": {
+      "a": "User profiles for model access",
+      "b": "Predefined configurations that specify model parameters, enabling cross-region inference routing for higher throughput and availability",
+      "c": "Performance benchmarking results",
+      "d": "Cost profile comparisons"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Inference Profiles are about model routing.",
+      "b": "Correct. Inference Profiles enable cross-region inference, allowing Bedrock to automatically route requests to the same model in different regions for higher throughput and better availability.",
+      "c": "Incorrect. They're operational configurations, not benchmarks.",
+      "d": "Incorrect. While they affect costs, their primary purpose is routing."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock Prompt Management?",
+    "opts": {
+      "a": "Managing Linux command prompts",
+      "b": "A feature for creating, versioning, testing, and sharing prompt templates with variable placeholders for consistent model interactions",
+      "c": "A password management tool",
+      "d": "Managing terminal sessions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's about AI prompts, not CLI prompts.",
+      "b": "Correct. Prompt Management allows you to create reusable prompt templates with variables, version them, test with different models, compare outputs, and share across your organization for consistent FM interactions.",
+      "c": "Incorrect. It manages AI prompts, not passwords.",
+      "d": "Incorrect. It's about foundation model prompts."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What document formats does Bedrock Knowledge Bases support for ingestion?",
+    "opts": {
+      "a": "Only plain text files",
+      "b": "PDF, TXT, MD, HTML, DOC/DOCX, CSV, XLS/XLSX, and more",
+      "c": "Only PDF files",
+      "d": "Only JSON files"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Many document formats are supported.",
+      "b": "Correct. Knowledge Bases can ingest a wide variety of formats including PDF, plain text, Markdown, HTML, Word documents (DOC/DOCX), CSV, Excel (XLS/XLSX), and more.",
+      "c": "Incorrect. PDF is one of many supported formats.",
+      "d": "Incorrect. JSON is not the only supported format."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the 'temperature' parameter in Bedrock model inference?",
+    "opts": {
+      "a": "The physical temperature of the GPU",
+      "b": "A parameter (0.0 to 1.0) controlling response randomness — lower values produce more deterministic outputs; higher values produce more creative/diverse outputs",
+      "c": "The time to generate a response",
+      "d": "The cost per token"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Temperature is a model parameter, not hardware.",
+      "b": "Correct. Temperature (typically 0.0 to 1.0) controls randomness in token selection. Temperature=0 gives the most deterministic response (best for factual tasks). Higher values increase creativity and variation.",
+      "c": "Incorrect. Response time is latency, not temperature.",
+      "d": "Incorrect. Token cost is pricing, not temperature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is 'top_p' (nucleus sampling) in Bedrock model inference?",
+    "opts": {
+      "a": "The top percentage of results returned",
+      "b": "A parameter that limits token selection to the smallest set of tokens whose cumulative probability exceeds p, balancing diversity and quality",
+      "c": "The top-performing model",
+      "d": "The maximum number of paragraphs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. top_p is about token probability, not result percentage.",
+      "b": "Correct. top_p (e.g., 0.9) means the model only considers the smallest set of tokens whose cumulative probability >= p. Lower top_p = more focused responses; higher = more diverse. It works alongside temperature.",
+      "c": "Incorrect. It's a generation parameter, not model ranking.",
+      "d": "Incorrect. It's about token selection, not paragraph count."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to build a multi-step workflow: (1) accept user document → (2) summarize with an FM → (3) check summary against Knowledge Base for accuracy → (4) apply Guardrails → (5) return result. What Bedrock feature orchestrates this?",
+    "opts": {
+      "a": "A single InvokeModel call",
+      "b": "Bedrock Flows (Prompt Flows) — a visual workflow builder connecting multiple steps including model inference, Knowledge Base retrieval, Guardrails, and Lambda functions",
+      "c": "Bedrock Batch Inference",
+      "d": "CloudWatch Events"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single API call can't orchestrate multi-step workflows.",
+      "b": "Correct. Bedrock Flows lets you visually create this workflow by connecting nodes: Input → Model (summarize) → Knowledge Base (verify) → Guardrail (filter) → Output. Each node passes results to the next.",
+      "c": "Incorrect. Batch Inference processes requests asynchronously, not as a workflow.",
+      "d": "Incorrect. CloudWatch Events is for infrastructure monitoring."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to fine-tune a model on Bedrock for their specific domain but only has 50 example Q&A pairs. Is this sufficient?",
+    "opts": {
+      "a": "Yes, 50 examples is always enough",
+      "b": "It depends on the task, but AWS recommends at least a few hundred to a few thousand high-quality examples for instruction-based fine-tuning; 50 may be too few for significant improvement",
+      "c": "No, you need millions of examples",
+      "d": "Fine-tuning doesn't use examples"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 50 examples is generally too few for effective fine-tuning.",
+      "b": "Correct. For instruction-based fine-tuning on Bedrock, AWS recommends hundreds to thousands of high-quality labeled examples. With only 50, consider prompt engineering or RAG (Knowledge Bases) first — they often provide better results with limited data.",
+      "c": "Incorrect. You don't need millions; hundreds to thousands are typical.",
+      "d": "Incorrect. Fine-tuning absolutely uses labeled examples."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to monitor the cost of their Bedrock usage broken down by application. How should they implement cost tracking?",
+    "opts": {
+      "a": "Manually track usage",
+      "b": "Use model invocation logging with custom metadata tags, enable Cost Allocation Tags, and use AWS Cost Explorer to filter by tag; also use CloudWatch metrics for token consumption",
+      "c": "Create separate AWS accounts for each application",
+      "d": "Use X-Ray tracing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual tracking doesn't scale.",
+      "b": "Correct. Enable invocation logging to capture per-request details. Use Cost Allocation Tags on Bedrock resources. CloudWatch provides metrics like InputTokenCount and OutputTokenCount per model. Cost Explorer filters spending by tags.",
+      "c": "Incorrect. Separate accounts are overkill for cost tracking.",
+      "d": "Incorrect. X-Ray traces latency, not costs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company deploys a Bedrock Guardrail but notices it's blocking legitimate customer inquiries about 'cancellation policies'. The denied topic was set to block 'account cancellation requests'. How should they fix this?",
+    "opts": {
+      "a": "Remove all Guardrails",
+      "b": "Refine the denied topic definition to be more specific (e.g., 'requests to cancel or terminate the customer's own account') and add example phrases; test with representative queries before deploying",
+      "c": "Increase the model temperature",
+      "d": "Switch to a different model"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Removing Guardrails removes all safety protections.",
+      "b": "Correct. Denied topic definitions should be specific. Distinguishing between 'asking ABOUT cancellation policies' (informational, should be allowed) and 'requesting TO cancel their account' (action, may need blocking) requires precise topic descriptions and testing.",
+      "c": "Incorrect. Temperature doesn't affect Guardrails behavior.",
+      "d": "Incorrect. The issue is Guardrails configuration, not the model."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Bedrock's pricing model for foundation model inference?",
+    "opts": {
+      "a": "Fixed monthly fee",
+      "b": "Pay-per-token: charged based on the number of input tokens processed and output tokens generated",
+      "c": "Per-hour usage",
+      "d": "Per-request flat rate"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Bedrock doesn't have a fixed monthly fee for inference.",
+      "b": "Correct. On-Demand pricing charges per 1,000 input tokens and per 1,000 output tokens. Prices vary by model (Claude is different from Titan, etc.). Input tokens are typically cheaper than output tokens.",
+      "c": "Incorrect. Per-hour is Provisioned Throughput, not the default.",
+      "d": "Incorrect. Pricing is token-based, not flat-rate per request."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What CloudWatch metrics does Amazon Bedrock publish?",
+    "opts": {
+      "a": "No metrics are available",
+      "b": "Invocation count, invocation latency, input/output token count, and invocation errors — per model and per Guardrail",
+      "c": "Only billing metrics",
+      "d": "Only error metrics"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Bedrock publishes several CloudWatch metrics.",
+      "b": "Correct. Bedrock publishes metrics including InvocationCount, InvocationLatency, InputTokenCount, OutputTokenCount, InvocationClientErrors, InvocationServerErrors, and Guardrail-specific metrics.",
+      "c": "Incorrect. Operational metrics are also available.",
+      "d": "Incorrect. Latency and token metrics are also published."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between Bedrock Knowledge Base 'Retrieve' and 'RetrieveAndGenerate' APIs?",
+    "opts": {
+      "a": "They are the same",
+      "b": "Retrieve returns only the relevant document chunks; RetrieveAndGenerate also passes the chunks to an FM to generate a natural language answer",
+      "c": "Retrieve is faster because it skips the knowledge base",
+      "d": "RetrieveAndGenerate only works with Titan models"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They serve different purposes.",
+      "b": "Correct. Retrieve API returns raw document chunks from the vector store. RetrieveAndGenerate combines retrieval with FM generation — it retrieves relevant chunks, constructs a prompt with context, and calls the FM to produce a synthesized answer.",
+      "c": "Incorrect. Retrieve queries the knowledge base; it doesn't skip it.",
+      "d": "Incorrect. RetrieveAndGenerate works with any supported Bedrock model."
+    }
+  }
+]

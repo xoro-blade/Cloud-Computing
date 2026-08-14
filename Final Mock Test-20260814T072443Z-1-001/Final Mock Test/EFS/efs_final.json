@@ -1,0 +1,546 @@
+[
+  {
+    "type": "mcq",
+    "q": "How many Availability Zones can Amazon EFS store data across within a region?",
+    "opts": {
+      "a": "1 Availability Zone",
+      "b": "2 Availability Zones",
+      "c": "Multiple Availability Zones (3+)",
+      "d": "Only in a single subnet"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. EFS stores data across multiple AZs for high availability (EFS One Zone stores in 1 AZ).",
+      "b": "Incorrect. Standard EFS stores data across 3 or more AZs in a region.",
+      "c": "Correct. EFS Standard storage class stores data redundantly across multiple (3+) AZs.",
+      "d": "Incorrect. EFS is a regional service that spans multiple AZs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum storage capacity of Amazon EFS?",
+    "opts": {
+      "a": "16 TB",
+      "b": "64 TB",
+      "c": "No pre-provisioned limit – scales to petabytes automatically",
+      "d": "1 PB fixed"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 16 TB is the max size of a single EBS volume, not EFS.",
+      "b": "Incorrect. EFS has no fixed storage limit of 64 TB.",
+      "c": "Correct. EFS automatically scales up to petabytes without pre-provisioning.",
+      "d": "Incorrect. EFS can scale to petabytes but it grows and shrinks automatically."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many EC2 instances can concurrently connect to a single Amazon EFS file system?",
+    "opts": {
+      "a": "1 instance only",
+      "b": "Up to 10 instances",
+      "c": "Up to 100 instances",
+      "d": "Thousands of instances concurrently"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. EFS is designed for shared access across many instances.",
+      "b": "Incorrect. EFS supports far more than 10 instances.",
+      "c": "Incorrect. EFS can handle more than 100 concurrent connections.",
+      "d": "Correct. EFS supports thousands of concurrent EC2 instance connections."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the cost savings percentage when using EFS Infrequent Access compared to EFS Standard?",
+    "opts": {
+      "a": "Up to 50%",
+      "b": "Up to 72%",
+      "c": "Up to 92%",
+      "d": "Up to 30%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The savings are much higher than 50%.",
+      "b": "Incorrect. The savings can be higher than 72%.",
+      "c": "Correct. EFS IA can provide up to 92% lower cost compared to EFS Standard.",
+      "d": "Incorrect. The savings are significantly more than 30%."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "After how many days of not being accessed can a file be moved to EFS IA using Lifecycle Management?",
+    "opts": {
+      "a": "7, 14, 30, 60, or 90 days",
+      "b": "Only 30 days",
+      "c": "1, 7, 14, 30, 60, or 90 days",
+      "d": "Only 60 or 90 days"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EFS Lifecycle policies can be set to 7, 14, 30, 60, or 90 days.",
+      "b": "Incorrect. Multiple lifecycle policy durations are available.",
+      "c": "Incorrect. 1 day is not a valid lifecycle policy duration for EFS.",
+      "d": "Incorrect. There are more options than just 60 or 90 days."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum throughput per file system in EFS Bursting Throughput mode for Standard storage?",
+    "opts": {
+      "a": "100 MiB/s per TiB of storage",
+      "b": "50 MiB/s per TiB of storage",
+      "c": "250 MiB/s per TiB of storage",
+      "d": "1 GiB/s per TiB of storage"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. In Bursting mode, throughput scales at 50 MiB/s per TiB baseline and bursts to 100 MiB/s per TiB.",
+      "b": "Incorrect. 50 MiB/s per TiB is the baseline, but burst can reach 100 MiB/s per TiB.",
+      "c": "Incorrect. 250 MiB/s is not the burst rate per TiB.",
+      "d": "Incorrect. 1 GiB/s per TiB is not the correct burst throughput."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default baseline throughput in EFS Bursting mode per TiB of Standard storage?",
+    "opts": {
+      "a": "100 MiB/s",
+      "b": "50 MiB/s",
+      "c": "25 MiB/s",
+      "d": "150 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 100 MiB/s is the burst throughput, not the baseline.",
+      "b": "Correct. The baseline throughput in Bursting mode is 50 MiB/s per TiB of storage.",
+      "c": "Incorrect. 25 MiB/s is not the correct baseline.",
+      "d": "Incorrect. 150 MiB/s is not the correct baseline throughput."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which port must be open in the security group for EC2 instances to mount an EFS file system?",
+    "opts": {
+      "a": "Port 80 (HTTP)",
+      "b": "Port 443 (HTTPS)",
+      "c": "Port 2049 (NFS)",
+      "d": "Port 22 (SSH)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Port 80 is for HTTP traffic, not NFS.",
+      "b": "Incorrect. Port 443 is for HTTPS, not NFS.",
+      "c": "Correct. Port 2049 must be open for NFS traffic to mount EFS.",
+      "d": "Incorrect. Port 22 is for SSH access, not for mounting EFS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many mount targets can you create per Availability Zone for an EFS file system?",
+    "opts": {
+      "a": "Unlimited",
+      "b": "1 per Availability Zone",
+      "c": "3 per Availability Zone",
+      "d": "5 per Availability Zone"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There is a limit of one mount target per AZ.",
+      "b": "Correct. You can create one mount target per Availability Zone for a standard EFS file system.",
+      "c": "Incorrect. Only 1 mount target per AZ is allowed.",
+      "d": "Incorrect. Only 1 mount target per AZ is allowed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum file size supported in Amazon EFS?",
+    "opts": {
+      "a": "5 TB",
+      "b": "47.9 TiB",
+      "c": "16 TB",
+      "d": "52.2 TiB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 TB is the max object size in S3.",
+      "b": "Correct. The maximum individual file size in EFS is 47.9 TiB.",
+      "c": "Incorrect. 16 TB is the max EBS volume size.",
+      "d": "Incorrect. 52.2 TiB is not the correct maximum file size."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of file systems you can create per AWS account per region (default)?",
+    "opts": {
+      "a": "10",
+      "b": "100",
+      "c": "1000",
+      "d": "1,000,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The default limit is higher than 10.",
+      "b": "Incorrect. The default limit is higher than 100.",
+      "c": "Correct. The default limit is 1,000 EFS file systems per account per region.",
+      "d": "Incorrect. 1,000,000 is far too high."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How much cost savings does EFS One Zone provide compared to EFS Standard?",
+    "opts": {
+      "a": "Up to 25%",
+      "b": "Up to 47%",
+      "c": "Up to 75%",
+      "d": "Up to 90%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The savings are higher than 25%.",
+      "b": "Correct. EFS One Zone provides up to 47% savings compared to EFS Standard.",
+      "c": "Incorrect. 75% is not the correct savings figure.",
+      "d": "Incorrect. 90% is not the correct savings for One Zone vs Standard."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the availability SLA for EFS Standard storage class?",
+    "opts": {
+      "a": "99.9%",
+      "b": "99.99%",
+      "c": "99.999%",
+      "d": "99.95%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 99.9% is not the SLA for EFS Standard.",
+      "b": "Correct. EFS Standard offers 99.99% availability.",
+      "c": "Incorrect. 99.999% is not the advertised SLA.",
+      "d": "Incorrect. 99.95% is not the EFS Standard SLA."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the availability SLA for EFS One Zone storage class?",
+    "opts": {
+      "a": "99.99%",
+      "b": "99.9%",
+      "c": "99.95%",
+      "d": "99.5%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 99.99% is for EFS Standard.",
+      "b": "Correct. EFS One Zone offers 99.9% availability (lower than Standard due to single AZ).",
+      "c": "Incorrect. 99.95% is not the One Zone SLA.",
+      "d": "Incorrect. 99.5% is not the correct SLA."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the approximate cost of EFS Standard storage per GB per month (US East region)?",
+    "opts": {
+      "a": "$0.30/GB/month",
+      "b": "$0.08/GB/month",
+      "c": "$0.023/GB/month",
+      "d": "$0.50/GB/month"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EFS Standard storage costs approximately $0.30 per GB per month.",
+      "b": "Incorrect. $0.08 is closer to EBS pricing, not EFS Standard.",
+      "c": "Incorrect. $0.023 is the cost of S3 Standard storage, not EFS.",
+      "d": "Incorrect. $0.50 is too high for EFS Standard."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the approximate cost of EFS Infrequent Access storage per GB per month?",
+    "opts": {
+      "a": "$0.30/GB/month",
+      "b": "$0.025/GB/month (with per-access charges)",
+      "c": "$0.10/GB/month",
+      "d": "$0.005/GB/month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. $0.30 is the EFS Standard price.",
+      "b": "Correct. EFS IA costs approximately $0.025/GB/month for storage plus per-access charges.",
+      "c": "Incorrect. $0.10 is not the correct IA pricing.",
+      "d": "Incorrect. $0.005 is too low; that's closer to Glacier pricing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the RPO (Recovery Point Objective) for EFS Replication?",
+    "opts": {
+      "a": "24 hours",
+      "b": "15 minutes (for most file systems)",
+      "c": "1 hour",
+      "d": "5 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 24 hours is too long; EFS Replication has a shorter RPO.",
+      "b": "Correct. EFS Replication is designed to provide an RPO of 15 minutes for most file systems.",
+      "c": "Incorrect. 1 hour is longer than the typical EFS Replication RPO.",
+      "d": "Incorrect. While some replications may be faster, the designed RPO is 15 minutes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the durability of Amazon EFS Standard storage class?",
+    "opts": {
+      "a": "99.9%",
+      "b": "99.99%",
+      "c": "99.999999999% (11 nines)",
+      "d": "99.99999%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 99.9% is far lower than EFS durability.",
+      "b": "Incorrect. 99.99% is the availability SLA, not durability.",
+      "c": "Correct. EFS Standard is designed for 99.999999999% (11 nines) durability.",
+      "d": "Incorrect. EFS provides 11 nines of durability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum throughput achievable with EFS in Elastic Throughput mode for reads?",
+    "opts": {
+      "a": "1 GiB/s",
+      "b": "3 GiB/s",
+      "c": "10 GiB/s",
+      "d": "5 GiB/s"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. EFS Elastic mode can achieve higher read throughput.",
+      "b": "Incorrect. 3 GiB/s is the write throughput limit.",
+      "c": "Correct. EFS Elastic Throughput mode supports up to 10 GiB/s for reads.",
+      "d": "Incorrect. 5 GiB/s is not the maximum read throughput."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum write throughput in EFS Elastic Throughput mode?",
+    "opts": {
+      "a": "1 GiB/s",
+      "b": "3 GiB/s",
+      "c": "10 GiB/s",
+      "d": "5 GiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 GiB/s is lower than the actual maximum.",
+      "b": "Correct. EFS Elastic Throughput supports up to 3 GiB/s for writes.",
+      "c": "Incorrect. 10 GiB/s is the read throughput maximum.",
+      "d": "Incorrect. 5 GiB/s is not the write throughput maximum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A development team has an EFS file system with 500 GiB of data in Bursting Throughput mode. What is the baseline throughput available?",
+    "opts": {
+      "a": "50 MiB/s",
+      "b": "25 MiB/s",
+      "c": "100 MiB/s",
+      "d": "12.5 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 50 MiB/s would be the baseline for 1 TiB of storage.",
+      "b": "Correct. Baseline throughput is 50 MiB/s per TiB. For 500 GiB (0.5 TiB), baseline = 50 × 0.5 = 25 MiB/s.",
+      "c": "Incorrect. 100 MiB/s would be the burst for 1 TiB.",
+      "d": "Incorrect. 12.5 MiB/s would be for 250 GiB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An EFS file system has 2 TiB of data in Bursting Throughput mode. What is the maximum burst throughput?",
+    "opts": {
+      "a": "100 MiB/s",
+      "b": "200 MiB/s",
+      "c": "300 MiB/s",
+      "d": "50 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 100 MiB/s is the burst for 1 TiB.",
+      "b": "Correct. Burst throughput = 100 MiB/s per TiB × 2 TiB = 200 MiB/s.",
+      "c": "Incorrect. 300 MiB/s would require 3 TiB of data.",
+      "d": "Incorrect. 50 MiB/s is the baseline for 1 TiB, not the burst for 2 TiB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of EFS access points you can create per file system?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "120",
+      "d": "1,000"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is much higher than 10.",
+      "b": "Incorrect. The limit is higher than 50.",
+      "c": "Incorrect. 120 was an older limit that has been increased.",
+      "d": "Correct. You can create up to 1,000 access points per EFS file system."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum burst throughput guaranteed for all EFS file systems in Bursting mode, regardless of size?",
+    "opts": {
+      "a": "50 MiB/s",
+      "b": "100 MiB/s",
+      "c": "10 MiB/s",
+      "d": "25 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. All EFS file systems can burst to at least 100 MiB/s.",
+      "b": "Correct. Regardless of file system size, EFS guarantees a minimum burst throughput of 100 MiB/s.",
+      "c": "Incorrect. The minimum burst is higher than 10 MiB/s.",
+      "d": "Incorrect. The guaranteed minimum burst is 100 MiB/s."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the per-access charge for reading data from EFS Infrequent Access storage class?",
+    "opts": {
+      "a": "$0.01 per GB transferred",
+      "b": "$0.03 per GB transferred",
+      "c": "$0.06 per GB transferred",
+      "d": "No per-access charge"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EFS IA charges approximately $0.01 per GB of data read/written when accessing IA files.",
+      "b": "Incorrect. $0.03 per GB is not the correct per-access rate.",
+      "c": "Incorrect. $0.06 per GB is too high.",
+      "d": "Incorrect. There is a per-access charge for IA data."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum transfer speed that AWS DataSync can achieve?",
+    "opts": {
+      "a": "1 Gbps",
+      "b": "Up to 10 Gbps per task",
+      "c": "100 Mbps",
+      "d": "5 Gbps"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DataSync can achieve higher speeds than 1 Gbps.",
+      "b": "Correct. AWS DataSync can transfer data at speeds up to 10 Gbps per task.",
+      "c": "Incorrect. 100 Mbps is far below DataSync capabilities.",
+      "d": "Incorrect. DataSync can exceed 5 Gbps."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is TRUE about EFS General Purpose mode IOPS?",
+    "opts": {
+      "a": "It supports up to 35,000 read IOPS and 7,000 write IOPS per file system",
+      "b": "It has no IOPS limit",
+      "c": "It supports exactly 3,000 IOPS baseline",
+      "d": "IOPS scales with storage size like EBS gp3"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EFS General Purpose mode supports up to 35,000 read IOPS and 7,000 write IOPS.",
+      "b": "Incorrect. There are IOPS limits in General Purpose mode (use Max I/O for higher).",
+      "c": "Incorrect. 3,000 IOPS baseline is for EBS gp3, not EFS.",
+      "d": "Incorrect. EFS IOPS limits are per file system and don't scale with storage size in the same way as EBS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the IOPS capability of EFS Max I/O performance mode?",
+    "opts": {
+      "a": "35,000 IOPS",
+      "b": "500,000+ IOPS",
+      "c": "7,000 IOPS",
+      "d": "100,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 35,000 is the read IOPS limit for General Purpose mode.",
+      "b": "Correct. Max I/O mode can scale to 500,000+ IOPS for highly parallelized applications.",
+      "c": "Incorrect. 7,000 is the write IOPS limit for General Purpose mode.",
+      "d": "Incorrect. Max I/O can exceed 100,000 IOPS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has 50 TiB in EFS Standard with Bursting Throughput. What is their baseline throughput?",
+    "opts": {
+      "a": "2,500 MiB/s",
+      "b": "5,000 MiB/s",
+      "c": "500 MiB/s",
+      "d": "1,000 MiB/s"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Baseline = 50 MiB/s per TiB × 50 TiB = 2,500 MiB/s.",
+      "b": "Incorrect. 5,000 MiB/s would be the burst throughput (100 × 50).",
+      "c": "Incorrect. 500 MiB/s would be baseline for 10 TiB.",
+      "d": "Incorrect. 1,000 MiB/s would be baseline for 20 TiB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company is evaluating costs. They have 10 TiB in EFS Standard ($0.30/GB/month) and 40 TiB in EFS Standard-IA ($0.025/GB/month). What is their approximate monthly storage cost?",
+    "opts": {
+      "a": "$3,072 + $1,024 = $4,096",
+      "b": "$3,072 + $10,240 = $13,312",
+      "c": "$1,024 + $3,072 = $4,096",
+      "d": "$30,720 + $10,240 = $40,960"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Standard: 10 TiB ≈ 10,240 GB × $0.30 = $3,072. IA: 40 TiB ≈ 40,960 GB × $0.025 = $1,024. Total ≈ $4,096.",
+      "b": "Incorrect. IA cost calculation is wrong.",
+      "c": "Incorrect. The Standard and IA cost values are swapped.",
+      "d": "Incorrect. These calculations don't match the given pricing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum Provisioned Throughput value you can configure for a single EFS file system without requesting a limit increase?",
+    "opts": {
+      "a": "256 MiB/s",
+      "b": "512 MiB/s",
+      "c": "1,024 MiB/s (1 GiB/s)",
+      "d": "3,072 MiB/s (3 GiB/s)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can provision higher than 256 MiB/s.",
+      "b": "Incorrect. You can provision higher than 512 MiB/s.",
+      "c": "Correct. The default maximum for Provisioned Throughput is 1 GiB/s (1,024 MiB/s). Higher requires a limit increase request.",
+      "d": "Incorrect. 3 GiB/s is the Elastic mode write throughput maximum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the total number of EFS storage classes available?",
+    "opts": {
+      "a": "2 (Standard and IA)",
+      "b": "4 (Standard, Standard-IA, One Zone, One Zone-IA)",
+      "c": "6",
+      "d": "3 (Standard, IA, Archive)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There are more than 2 storage classes when including One Zone variants.",
+      "b": "Correct. EFS has 4 storage classes: Standard, Standard-IA, One Zone, and One Zone-IA.",
+      "c": "Incorrect. There are 4 storage classes (EFS Archive was added later as a 5th, but traditionally 4).",
+      "d": "Incorrect. There are 4 main storage classes, not 3."
+    }
+  }
+]

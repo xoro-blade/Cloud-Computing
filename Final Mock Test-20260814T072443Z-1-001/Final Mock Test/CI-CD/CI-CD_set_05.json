@@ -1,0 +1,1107 @@
+[
+  {
+    "type": "scenario",
+    "q": "A financial services company requires all source code to remain within their private network and never traverse the public internet. They also need full audit trails of all repository access. Which architecture meets these requirements?",
+    "opts": {
+      "a": "Use GitHub Enterprise with IP whitelisting",
+      "b": "Use CodeCommit with VPC endpoints (AWS PrivateLink), IAM authentication, and CloudTrail enabled",
+      "c": "Use CodeCommit with NAT Gateway and CloudWatch Logs",
+      "d": "Use self-hosted GitLab on EC2 in a private subnet"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GitHub Enterprise still requires internet connectivity and doesn't provide native IAM integration.",
+      "b": "Correct. VPC endpoints ensure traffic stays within the AWS network without traversing the internet. IAM provides fine-grained access control, and CloudTrail logs all API calls for auditing.",
+      "c": "Incorrect. NAT Gateway routes traffic through the internet, violating the requirement.",
+      "d": "Incorrect. Self-hosted GitLab requires managing infrastructure and doesn't provide native CloudTrail integration."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A multinational company has development teams in us-east-1, eu-west-1, and ap-southeast-1. They need a CI/CD pipeline that deploys to all three regions with a single approval gate before production. What is the most efficient architecture?",
+    "opts": {
+      "a": "Create three separate pipelines, one in each region",
+      "b": "Create a single pipeline in us-east-1 with cross-region deploy actions in a single stage after the approval action",
+      "c": "Use AWS CloudFormation StackSets triggered manually",
+      "d": "Create a pipeline in us-east-1 and use Lambda to trigger deployments in other regions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Three pipelines require three approval gates and add management overhead.",
+      "b": "Correct. CodePipeline supports cross-region actions natively. A single pipeline can have one approval stage followed by parallel deploy actions targeting multiple regions, each using a region-specific artifact bucket and KMS key.",
+      "c": "Incorrect. StackSets are for infrastructure provisioning, and manual triggers aren't CI/CD.",
+      "d": "Incorrect. While possible, this adds unnecessary complexity when native cross-region actions exist."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A healthcare company must ensure that application deployments can be instantly rolled back if patient-facing API error rates exceed 1%. They deploy to ECS Fargate. Which architecture provides the safest deployment strategy?",
+    "opts": {
+      "a": "ECS rolling update with CloudWatch alarm",
+      "b": "CodeDeploy Blue/Green deployment to ECS with automatic rollback configured on a CloudWatch alarm monitoring API error rate",
+      "c": "Manual redeployment of the previous task definition",
+      "d": "Lambda@Edge canary deployment"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ECS rolling updates don't support instant rollback—instances are replaced in-place.",
+      "b": "Correct. CodeDeploy Blue/Green for ECS maintains both old and new task sets. If the CloudWatch alarm triggers (error rate > 1%), CodeDeploy automatically shifts all traffic back to the original task set instantly.",
+      "c": "Incorrect. Manual redeployment is slow and requires human intervention.",
+      "d": "Incorrect. Lambda@Edge is for CDN edge functions, not ECS deployments."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has a central DevOps account (Account A) and separate AWS accounts for staging (Account B) and production (Account C). They want a single CodePipeline in Account A to deploy to both accounts. What IAM configuration is required?",
+    "opts": {
+      "a": "Create IAM users in Account B and C, share access keys with Account A",
+      "b": "Create cross-account IAM roles in Account B and C with trust policies allowing Account A's pipeline role to assume them, update the KMS key policy to grant decrypt permissions to Accounts B and C, and add S3 bucket policy for cross-account artifact access",
+      "c": "Use AWS Organizations to automatically grant permissions",
+      "d": "Create identical IAM roles with the same name in all three accounts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Sharing access keys is a security anti-pattern and doesn't work with service roles.",
+      "b": "Correct. Cross-account pipelines require: (1) IAM roles in target accounts with trust policies for the source account, (2) KMS key policies granting encrypt/decrypt to target accounts for artifact access, (3) S3 bucket policies allowing target accounts to read artifacts.",
+      "c": "Incorrect. Organizations provides SCPs for guardrails but doesn't automatically grant cross-account deployment permissions.",
+      "d": "Incorrect. Identical names don't establish trust relationships between accounts."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An e-commerce platform experiences traffic spikes during flash sales. They want zero-downtime deployments to their Auto Scaling group of 20 EC2 instances, but can tolerate deploying to only 25% of instances at a time. Which CodeDeploy configuration should the Solutions Architect recommend?",
+    "opts": {
+      "a": "CodeDeployDefault.AllAtOnce",
+      "b": "CodeDeployDefault.OneAtATime",
+      "c": "Custom deployment configuration with minimumHealthyHosts set to 75% (HOST_COUNT or FLEET_PERCENT)",
+      "d": "CodeDeployDefault.HalfAtATime"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AllAtOnce deploys to all instances simultaneously, causing potential downtime.",
+      "b": "Incorrect. OneAtATime is too slow for 20 instances and doesn't match the 25% requirement.",
+      "c": "Correct. A custom deployment configuration with minimumHealthyHosts set to 75% ensures that at least 15 of 20 instances remain healthy, deploying to up to 5 (25%) at a time.",
+      "d": "Incorrect. HalfAtATime deploys to 50% at once, exceeding the 25% requirement."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company stores large binary assets (500MB+) alongside their source code. They find CodeCommit operations are slow. What architectural change should the Solutions Architect recommend?",
+    "opts": {
+      "a": "Increase the CodeCommit repository quota",
+      "b": "Store large binaries in S3 with versioning and reference them via URLs in the code; keep only source code in CodeCommit",
+      "c": "Split the repository into multiple smaller repositories",
+      "d": "Use Git LFS with CodeCommit"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Repository quotas don't address performance issues with large files.",
+      "b": "Correct. Git repositories aren't designed for large binary assets. Storing them in S3 with versioning provides better performance, lower cost, and keeps the CodeCommit repo lean for fast operations.",
+      "c": "Incorrect. Splitting repos adds complexity without addressing the binary file issue.",
+      "d": "Incorrect. CodeCommit does not support Git LFS (Large File Storage)."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company requires their CodeBuild projects to access both the internet (for pulling npm packages) and private resources in their VPC (for integration testing against an RDS instance in a private subnet). How should this be architected?",
+    "opts": {
+      "a": "Configure CodeBuild in the VPC with a private subnet that has a route to a NAT Gateway",
+      "b": "Use two separate CodeBuild projects—one in VPC and one without",
+      "c": "Configure CodeBuild outside the VPC and use VPC peering",
+      "d": "Place the RDS instance in a public subnet"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Place CodeBuild in a private subnet with a route to a NAT Gateway. This provides internet access (via NAT) for npm packages AND private VPC access for the RDS instance.",
+      "b": "Incorrect. Two projects add complexity and break the single build flow.",
+      "c": "Incorrect. CodeBuild outside VPC cannot access private VPC resources, and VPC peering doesn't apply here.",
+      "d": "Incorrect. Placing RDS in a public subnet is a security vulnerability."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A SaaS company deploys updates to Lambda functions serving 10,000 requests/second. They want to test new versions with 1% of production traffic for 10 minutes before full rollout. Which deployment configuration meets this requirement?",
+    "opts": {
+      "a": "CodeDeployDefault.LambdaAllAtOnce",
+      "b": "CodeDeployDefault.LambdaCanary10Percent5Minutes",
+      "c": "Custom configuration: LambdaCanary1Percent10Minutes (Type: Canary, 1% traffic for 10 minutes)",
+      "d": "CodeDeployDefault.LambdaLinear10PercentEvery1Minute"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AllAtOnce shifts 100% immediately with no testing.",
+      "b": "Incorrect. This shifts 10% for 5 minutes, not 1% for 10 minutes.",
+      "c": "Correct. A custom Canary deployment configuration can be created specifying 1% of traffic for 10 minutes. If no alarms trigger, the remaining 99% shifts to the new version.",
+      "d": "Incorrect. Linear shifts traffic incrementally (10% every minute) reaching 100% in 10 minutes, exposing more traffic earlier than desired."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's CodePipeline must comply with SOC 2 requirements. They need to ensure that every production deployment is approved by at least two different people from the security team. How should this be implemented?",
+    "opts": {
+      "a": "Add two separate manual approval stages, each with a different SNS topic targeting different team members",
+      "b": "Add a single manual approval action with an IAM policy restricting approval to security team members, and configure the pipeline to require a minimum of 2 approvals using a custom Lambda function that validates approver identity",
+      "c": "Use CodeCommit approval rules requiring 2 approvals",
+      "d": "Configure CloudTrail to alert when fewer than 2 approvals occur"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Two separate stages work but are less elegant. Also, CodePipeline manual approval natively supports only 1 approver per action.",
+      "b": "Correct. A custom Lambda invoke action can validate that two distinct security team members have approved (e.g., via DynamoDB tracking), then call PutApprovalResult. IAM policies restrict who can approve.",
+      "c": "Incorrect. CodeCommit approval rules apply to pull requests, not pipeline deployments.",
+      "d": "Incorrect. CloudTrail provides audit trails but doesn't enforce approval requirements."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has a monorepo with 15 microservices. Changes to service A should only trigger service A's pipeline. They use CodeCommit and CodePipeline V2. What is the most operationally efficient solution?",
+    "opts": {
+      "a": "Create 15 branches, one per service",
+      "b": "Create 15 V2 pipelines, each with trigger filters using file path conditions matching the respective service directory",
+      "c": "Use a single pipeline that builds and deploys all 15 services on every change",
+      "d": "Create 15 separate CodeCommit repositories"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple branches per service defeats the purpose of a monorepo.",
+      "b": "Correct. CodePipeline V2 trigger filters support file path conditions. Each pipeline triggers only when files in its service's directory (e.g., services/serviceA/**) change.",
+      "c": "Incorrect. Building all 15 services on every change wastes resources and time.",
+      "d": "Incorrect. Splitting into 15 repos eliminates monorepo benefits and requires managing repository dependencies."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to deploy an application to 500 EC2 instances across 3 Availability Zones. They require deployment to complete within 30 minutes with no more than 10% of instances unavailable at any time. What architecture should the Solutions Architect design?",
+    "opts": {
+      "a": "CodeDeploy with OneAtATime configuration",
+      "b": "CodeDeploy with a custom deployment configuration setting minimumHealthyHosts to 90% (FLEET_PERCENT), targeting instances by Auto Scaling group",
+      "c": "CodeDeploy with AllAtOnce configuration",
+      "d": "Three separate CodeDeploy deployments, one per AZ"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. OneAtATime for 500 instances would take far longer than 30 minutes.",
+      "b": "Correct. Setting minimumHealthyHosts to 90% ensures at most 50 instances (10%) are being deployed to at any time. With 50 instances deploying in parallel, 500 instances can complete in approximately 10 batches within 30 minutes.",
+      "c": "Incorrect. AllAtOnce would make all 500 instances unavailable simultaneously.",
+      "d": "Incorrect. Separate per-AZ deployments add complexity without benefit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's security team requires that all build artifacts are encrypted with a customer-managed KMS key and that the key material can be rotated annually. How should the Solutions Architect configure CodePipeline?",
+    "opts": {
+      "a": "Use the default AWS managed key (aws/s3) for the artifact bucket",
+      "b": "Create a customer-managed CMK with automatic annual rotation enabled, configure the CodePipeline artifact store to use this CMK, and ensure the pipeline service role and all action roles have kms:Decrypt and kms:GenerateDataKey permissions",
+      "c": "Enable S3 bucket default encryption with SSE-S3",
+      "d": "Encrypt artifacts client-side before uploading"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS managed keys don't allow custom rotation schedules or key policies managed by the customer.",
+      "b": "Correct. A customer-managed CMK with automatic rotation satisfies both requirements. The key policy must grant access to all principals that interact with the artifacts (pipeline role, build role, deploy role, cross-account roles if applicable).",
+      "c": "Incorrect. SSE-S3 uses Amazon-managed keys without customer control over rotation.",
+      "d": "Incorrect. Client-side encryption doesn't integrate with CodePipeline's artifact management."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A gaming company needs to perform A/B testing of new features with exactly 5% of their users before full rollout. They use Lambda for their backend APIs. The deployment must automatically roll back if the p99 latency exceeds 500ms. What is the optimal architecture?",
+    "opts": {
+      "a": "Use Lambda aliases with manual traffic weighting",
+      "b": "CodeDeploy with a custom Lambda Canary configuration (5% traffic), a CloudWatch alarm on p99 latency > 500ms configured as the alarm trigger for automatic rollback",
+      "c": "Deploy two Lambda functions and use API Gateway canary release",
+      "d": "Use Step Functions to route 5% of requests to the new function"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual weighting doesn't provide automatic rollback on alarm.",
+      "b": "Correct. CodeDeploy with a custom Canary configuration (5% traffic) combined with a CloudWatch alarm on p99 latency provides automated A/B testing with automatic rollback if the latency threshold is breached.",
+      "c": "Incorrect. Two separate functions with API Gateway canary adds management overhead and doesn't integrate with CodeDeploy rollback.",
+      "d": "Incorrect. Step Functions add unnecessary latency and complexity for traffic routing."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company runs CodePipeline in SUPERSEDED execution mode. During a critical release, they notice that a hotfix commit superseded the main release. They need every commit to deploy in order without being skipped. What should the Solutions Architect change?",
+    "opts": {
+      "a": "Change to PARALLEL execution mode",
+      "b": "Change to QUEUED execution mode",
+      "c": "Add a manual approval before every stage",
+      "d": "Disable the EventBridge trigger temporarily"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. PARALLEL mode runs all executions independently but doesn't guarantee ordering.",
+      "b": "Correct. QUEUED execution mode ensures every pipeline execution completes in FIFO order. No execution is superseded—each waits for the previous one to finish.",
+      "c": "Incorrect. Manual approvals slow down the pipeline and don't prevent superseding.",
+      "d": "Incorrect. Disabling triggers is a temporary workaround, not a solution."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A media company has a pipeline that builds Docker images. The build takes 20 minutes, with 12 minutes spent pulling and building base layers. How can the Solutions Architect reduce build time most effectively?",
+    "opts": {
+      "a": "Use a larger CodeBuild compute type",
+      "b": "Enable Docker layer caching (local caching mode with DOCKER_LAYER_CACHE) in the CodeBuild project",
+      "c": "Use CodeBuild Reserved Capacity",
+      "d": "Split the Dockerfile into smaller files"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Larger compute helps with CPU-bound tasks but Docker layer pulls are I/O and network bound.",
+      "b": "Correct. Docker layer caching stores previously built layers locally. Subsequent builds reuse cached layers, dramatically reducing the 12-minute layer building time.",
+      "c": "Incorrect. Reserved Capacity reduces cold-start time but doesn't cache Docker layers.",
+      "d": "Incorrect. Splitting Dockerfiles doesn't reduce layer build time."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company requires that CodeBuild projects can ONLY pull base images from their private ECR repository and cannot access Docker Hub or any external registry. How should this be enforced?",
+    "opts": {
+      "a": "Use IAM policies on the CodeBuild role to deny external access",
+      "b": "Configure CodeBuild in a VPC with a private subnet, no NAT Gateway, and a VPC endpoint for ECR",
+      "c": "Block Docker Hub in the buildspec.yml",
+      "d": "Use AWS WAF to block Docker Hub traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM policies control AWS API access, not network-level connectivity to external registries.",
+      "b": "Correct. Placing CodeBuild in a private subnet without NAT Gateway or Internet Gateway eliminates internet access. The VPC endpoint for ECR (both ecr.api and ecr.dkr endpoints, plus S3 endpoint for layers) allows private access to ECR only.",
+      "c": "Incorrect. Buildspec.yml can be modified by developers and doesn't enforce network restrictions.",
+      "d": "Incorrect. WAF operates at the ALB/CloudFront level, not at the CodeBuild network level."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A retail company runs CodeDeploy deployments to an Auto Scaling group. During Black Friday, a deployment coincides with a scale-out event. New instances launched by Auto Scaling receive the OLD application version. How can the architect ensure new instances always get the LATEST version being deployed?",
+    "opts": {
+      "a": "Pause Auto Scaling during deployments",
+      "b": "Configure a Launch Template user data script that triggers a CodeDeploy deployment to the individual instance on boot, or use a lifecycle hook to wait for the in-progress deployment to complete",
+      "c": "Use Blue/Green deployment instead of in-place",
+      "d": "Increase the deployment group's minimum healthy hosts"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Pausing Auto Scaling during Black Friday could cause availability issues.",
+      "b": "Incorrect. While lifecycle hooks can help, they add complexity and the instance still initially gets the old revision.",
+      "c": "Correct. Blue/Green deployment with Auto Scaling creates a new Auto Scaling group with the new version. The new instances always have the latest version since they're launched fresh. No conflict with scale-out events on the old group.",
+      "d": "Incorrect. Minimum healthy hosts doesn't affect which version new instances receive."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's compliance team requires that all pipeline executions are traceable to a specific source commit, builder identity, and deployment timestamp. Which combination of AWS services provides this end-to-end traceability?",
+    "opts": {
+      "a": "CloudWatch Logs for all services",
+      "b": "CloudTrail for API calls, CodePipeline execution history linking source commit ID to build and deploy actions, CodeBuild environment variables (CODEBUILD_RESOLVED_SOURCE_VERSION), and CodeDeploy deployment details",
+      "c": "AWS Config rules",
+      "d": "S3 access logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch Logs captures build output but doesn't provide commit-to-deployment traceability.",
+      "b": "Correct. CloudTrail logs all API calls, CodePipeline execution history tracks the source revision through each stage, CODEBUILD_RESOLVED_SOURCE_VERSION captures the exact commit, and CodeDeploy records deployment timestamps and revisions.",
+      "c": "Incorrect. AWS Config tracks resource configuration, not pipeline execution details.",
+      "d": "Incorrect. S3 access logs only track artifact access, not the full deployment chain."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company operates in AWS GovCloud and requires FIPS 140-2 compliant encryption for all CI/CD operations. Which Code* services configuration meets this requirement?",
+    "opts": {
+      "a": "Use standard AWS regions with customer-managed KMS keys",
+      "b": "Use CodeCommit, CodeBuild, CodePipeline, and CodeDeploy in GovCloud with FIPS endpoints, and configure all services to use KMS keys (which use FIPS 140-2 validated HSMs in GovCloud)",
+      "c": "Use third-party CI/CD tools on dedicated EC2 instances",
+      "d": "Enable FIPS mode in the AWS CLI only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard regions may not meet GovCloud-specific FIPS requirements for all endpoints.",
+      "b": "Correct. AWS GovCloud provides FIPS 140-2 endpoints for Code* services. KMS in GovCloud uses FIPS 140-2 Level 3 validated HSMs, ensuring all encryption meets compliance requirements.",
+      "c": "Incorrect. Third-party tools require additional compliance validation.",
+      "d": "Incorrect. FIPS CLI mode only affects the client connection, not server-side encryption compliance."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A Solutions Architect is designing a disaster recovery strategy for their CI/CD pipeline. The primary pipeline is in us-east-1. If us-east-1 becomes unavailable, they need to resume deployments from another region within 1 hour. What architecture supports this?",
+    "opts": {
+      "a": "Use S3 Cross-Region Replication for the artifact bucket and maintain a standby pipeline in us-west-2",
+      "b": "Replicate the CodeCommit repository to us-west-2 using EventBridge and Lambda, maintain a pre-configured but inactive pipeline in us-west-2 with identical stages pointing to the replicated repo, and use Route 53 health checks to trigger activation",
+      "c": "Wait for us-east-1 to recover",
+      "d": "Store pipeline configuration in CloudFormation and deploy to a new region manually"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Artifact replication alone doesn't cover the source repository or pipeline configuration.",
+      "b": "Correct. A comprehensive DR strategy includes: replicated source repos, pre-configured standby pipeline, replicated artifacts, and automated failover detection. This achieves sub-1-hour RTO.",
+      "c": "Incorrect. Waiting doesn't meet the 1-hour RTO requirement.",
+      "d": "Incorrect. Manual CloudFormation deployment would likely exceed 1 hour including testing."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has a complex application with database schema changes that must be applied before the new application code is deployed. The deployment targets ECS Fargate. How should the Solutions Architect design the pipeline?",
+    "opts": {
+      "a": "Include database migration in the ECS task definition entrypoint script",
+      "b": "Add a CodeBuild action before the CodeDeploy action that runs database migration scripts, with the CodeBuild project configured in the VPC to access the RDS instance",
+      "c": "Run database migrations manually before triggering the pipeline",
+      "d": "Use a separate pipeline for database migrations"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Running migrations in the entrypoint causes race conditions with multiple tasks starting simultaneously.",
+      "b": "Correct. A dedicated CodeBuild action in the VPC runs database migrations before the ECS deployment begins. This ensures schema changes are complete before new code runs. The CodeBuild project needs VPC configuration to reach RDS.",
+      "c": "Incorrect. Manual steps break CI/CD automation.",
+      "d": "Incorrect. Separate pipelines require coordination and can lead to ordering issues."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's pipeline deploys to 3 environments: dev (on every commit), staging (on PR merge to main), and production (manual approval after staging). They want the SAME pipeline to handle all three. What pipeline design achieves this?",
+    "opts": {
+      "a": "Three separate pipelines triggered by different branches",
+      "b": "A single V2 pipeline with conditional stages using pipeline variables and branch-based trigger filters is not natively supported this way; the best approach is to have separate pipelines for different trigger conditions",
+      "c": "One pipeline with all stages sequential: Source → Build → Deploy-Dev → Deploy-Staging → Approval → Deploy-Prod",
+      "d": "Use Step Functions to orchestrate different CodePipeline executions"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The most appropriate Solutions Architect design is separate pipelines: one triggered by feature branch pushes (deploy to dev), one triggered by merges to main (deploy to staging), and one manually triggered or continuation pipeline with approval (deploy to production).",
+      "b": "Incorrect. While the explanation is accurate that conditional stages aren't natively supported, this describes the limitation rather than a solution.",
+      "c": "Incorrect. A sequential pipeline would deploy to production on every commit, which violates the requirements.",
+      "d": "Incorrect. Step Functions add unnecessary complexity for standard CI/CD patterns."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to ensure that CodeBuild cannot be used to exfiltrate data from their VPC. Builds must access internal resources but not send data to external endpoints. What network architecture enforces this?",
+    "opts": {
+      "a": "Use Security Groups to block all outbound traffic",
+      "b": "Place CodeBuild in a private subnet with no NAT Gateway or Internet Gateway, use VPC endpoints for required AWS services (S3, ECR, CloudWatch Logs, Secrets Manager), and use NACLs to deny internet-routable IP ranges",
+      "c": "Use AWS WAF on the CodeBuild project",
+      "d": "Monitor outbound traffic with VPC Flow Logs and alert"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Blocking all outbound traffic would prevent access to AWS services needed for the build.",
+      "b": "Correct. No NAT/IGW eliminates internet access. VPC endpoints provide access to required AWS services via private connectivity. NACLs add defense-in-depth. This prevents any data exfiltration to external endpoints.",
+      "c": "Incorrect. WAF doesn't apply to CodeBuild network traffic.",
+      "d": "Incorrect. Monitoring is detective, not preventive."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses CodeDeploy for in-place deployments to 100 EC2 instances. They notice that during deployment, the Application Load Balancer health checks fail for instances being deployed to, causing 5xx errors for clients. How should this be resolved?",
+    "opts": {
+      "a": "Increase the ALB health check timeout",
+      "b": "Configure the deployment group with load balancer settings to deregister instances from the target group before deployment and re-register after ValidateService succeeds",
+      "c": "Use a higher minimum healthy hosts percentage",
+      "d": "Disable ALB health checks during deployment"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Increasing timeout still allows unhealthy instances to receive traffic temporarily.",
+      "b": "Correct. When load balancer integration is configured in the deployment group, CodeDeploy uses BlockTraffic/AllowTraffic lifecycle events to deregister/register instances. This prevents the ALB from sending traffic to instances during deployment.",
+      "c": "Incorrect. Higher minimum healthy hosts deploys fewer instances at a time but doesn't prevent 5xx errors on deploying instances.",
+      "d": "Incorrect. Disabling health checks could route traffic to truly unhealthy instances."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to implement GitOps for their Kubernetes workloads on EKS. Changes pushed to CodeCommit should automatically sync to the EKS cluster. What is the recommended architecture?",
+    "opts": {
+      "a": "Use CodePipeline with a CodeBuild action that runs kubectl apply directly",
+      "b": "Use CodePipeline with CodeBuild for building images, push to ECR, then use a CodeBuild action that updates the Kubernetes manifest and uses Flux or ArgoCD to sync, OR use CodeBuild to run helm upgrade/kubectl apply with EKS cluster authentication",
+      "c": "Use CodeDeploy for EKS deployments",
+      "d": "Manually apply manifests after pipeline completion"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While this works, it's a simplified version. The full GitOps pattern involves manifest management.",
+      "b": "Correct. The GitOps pattern uses CodePipeline/CodeBuild to build and push images, then either updates manifests that a GitOps operator (Flux/ArgoCD) syncs, or directly applies using kubectl/helm with proper EKS authentication via IAM roles.",
+      "c": "Incorrect. CodeDeploy doesn't natively support EKS/Kubernetes deployments.",
+      "d": "Incorrect. Manual application breaks the CI/CD automation."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has strict data residency requirements—all CI/CD data must remain in eu-west-1. They currently have CodePipeline artifacts in S3 with default encryption. During an audit, they discover that S3 replication is enabled on the artifact bucket. What is the risk and remediation?",
+    "opts": {
+      "a": "No risk; replication is within the same region",
+      "b": "Risk: artifacts may be replicated to another region violating data residency. Remediation: disable S3 replication on the artifact bucket, verify no cross-region replication rules exist, and add an SCP preventing s3:PutReplicationConfiguration on the artifact bucket",
+      "c": "Risk: only metadata is replicated",
+      "d": "Risk is mitigated by KMS encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 replication can be cross-region (CRR).",
+      "b": "Correct. Cross-Region Replication would copy artifacts (which may contain source code and build outputs) to another region, violating data residency. Disable replication, add preventive controls via SCP.",
+      "c": "Incorrect. S3 replication copies the full object, not just metadata.",
+      "d": "Incorrect. KMS encryption protects data confidentiality but doesn't prevent physical data residency violations via replication."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company runs 50 microservices, each with its own CodePipeline. They want centralized visibility into all pipeline statuses and the ability to detect and alert on any pipeline failure within 5 minutes. What architecture provides this?",
+    "opts": {
+      "a": "Check the CodePipeline console manually",
+      "b": "Configure CodePipeline notification rules to publish state changes to an SNS topic, use EventBridge rules to capture pipeline execution state changes (FAILED, SUCCEEDED), send to a CloudWatch dashboard for visualization, and trigger SNS/PagerDuty alerts on FAILED events",
+      "c": "Use AWS Config to track pipeline configurations",
+      "d": "Create a Lambda function that polls all pipelines every hour"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual checking doesn't scale for 50 pipelines and doesn't provide 5-minute alerting.",
+      "b": "Correct. EventBridge rules capture real-time pipeline state changes. CloudWatch dashboards provide centralized visibility. SNS/PagerDuty integration enables immediate alerting on failures, meeting the 5-minute requirement.",
+      "c": "Incorrect. AWS Config tracks configuration changes, not pipeline execution status.",
+      "d": "Incorrect. Hourly polling exceeds the 5-minute detection requirement."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's CodeBuild project generates test reports (JUnit format). The Solutions Architect wants to implement a quality gate—the pipeline should fail if code coverage drops below 80%. How should this be implemented?",
+    "opts": {
+      "a": "Manually review reports after each build",
+      "b": "Configure CodeBuild reports section for coverage, and in the post_build phase add a script that parses the coverage report and exits with code 1 if coverage is below 80%, causing the build to fail",
+      "c": "Use CloudWatch alarms on coverage metrics",
+      "d": "Configure CodePipeline to read the report and fail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual review doesn't automate the quality gate.",
+      "b": "Correct. The post_build phase can include a script that checks the coverage report. If coverage < 80%, the script exits with non-zero code, failing the build and blocking the pipeline from proceeding to deployment.",
+      "c": "Incorrect. CodeBuild report metrics aren't directly available as CloudWatch alarm metrics for this purpose.",
+      "d": "Incorrect. CodePipeline doesn't natively read and evaluate CodeBuild reports."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company deploys a serverless application using SAM. They want CodePipeline to deploy the SAM template across dev, staging, and production with different parameter values per environment. What is the most maintainable approach?",
+    "opts": {
+      "a": "Create separate SAM templates for each environment",
+      "b": "Use CloudFormation deploy action in each stage with environment-specific parameter override files (JSON) stored alongside the template, passing different parameter values per stage",
+      "c": "Hard-code environment values in the SAM template",
+      "d": "Use Lambda to modify the template before each deployment"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Separate templates create drift and maintenance burden.",
+      "b": "Correct. CodePipeline's CloudFormation deploy action supports ParameterOverrides and TemplateConfiguration files. Store environment-specific parameter files (dev.json, staging.json, prod.json) and reference them in each stage's configuration.",
+      "c": "Incorrect. Hard-coding values prevents environment-specific configuration.",
+      "d": "Incorrect. Lambda-based template modification is complex and error-prone."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to deploy their application to both AWS (ECS) and on-premises servers simultaneously as part of a hybrid architecture. How should the Solutions Architect design the deployment pipeline?",
+    "opts": {
+      "a": "Use two completely separate CI/CD systems",
+      "b": "Use a single CodePipeline with parallel deploy actions: CodeDeploy ECS (Blue/Green) for ECS and CodeDeploy (in-place or Blue/Green) for on-premises instances with the CodeDeploy agent installed",
+      "c": "Use only ECS and migrate on-premises workloads",
+      "d": "Deploy to AWS first, then manually sync to on-premises"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Two systems add maintenance burden and inconsistency risk.",
+      "b": "Correct. CodePipeline supports parallel actions. CodeDeploy can deploy to ECS (Blue/Green) and on-premises instances (via the CodeDeploy agent) from the same pipeline, using different deployment groups.",
+      "c": "Incorrect. Migration may not be possible or desired for all workloads.",
+      "d": "Incorrect. Manual syncing breaks automation and introduces risk."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses CodePipeline V1 type and is considering migration to V2. They currently have 50 active pipelines costing $50/month. With V2, each pipeline averages 100 action executions/month. The V2 pricing is $0.002 per action execution for paid tiers. Which is more cost-effective?",
+    "opts": {
+      "a": "V1 at $50/month is cheaper",
+      "b": "V2 at $10/month (50 pipelines × 100 executions × $0.002) is cheaper",
+      "c": "They cost the same",
+      "d": "Cannot be determined without more information"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. V1 costs $50/month for 50 pipelines.",
+      "b": "Correct. V2 pricing: 50 pipelines × 100 action executions = 5,000 action executions × $0.002 = $10/month. V2 is significantly cheaper for this usage pattern. (Note: first 100 action executions/month are free in V2.)",
+      "c": "Incorrect. The costs differ significantly.",
+      "d": "Incorrect. The calculation is straightforward with the given information."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to implement infrastructure as code deployment using CodePipeline. They need to preview infrastructure changes before applying them. Which pipeline design supports this?",
+    "opts": {
+      "a": "Direct CloudFormation CREATE_UPDATE action",
+      "b": "A pipeline with: CloudFormation CREATE_CHANGE_SET action → Manual Approval (reviewer examines change set) → CloudFormation EXECUTE_CHANGE_SET action",
+      "c": "Use Terraform plan output in CodeBuild logs",
+      "d": "Deploy to a sandbox account first"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Direct CREATE_UPDATE applies changes without preview.",
+      "b": "Correct. The change set pattern creates a preview of changes without applying them. A human reviewer can examine the change set during the approval stage, then EXECUTE_CHANGE_SET applies the approved changes.",
+      "c": "Incorrect. While Terraform plan provides similar functionality, reviewing logs isn't as integrated as CloudFormation change sets in CodePipeline.",
+      "d": "Incorrect. Sandbox deployment is a valid strategy but adds cost and doesn't provide a direct preview of production changes."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's CodeBuild project runs integration tests that require a PostgreSQL database. Each build needs a clean database. The build takes 8 minutes but provisioning a new RDS instance takes 15 minutes. How should the architect optimize this?",
+    "opts": {
+      "a": "Use a shared RDS instance for all builds",
+      "b": "Use CodeBuild with privileged mode enabled, and start a PostgreSQL Docker container in the install phase of buildspec.yml using Docker Compose; the container is destroyed when the build ends",
+      "c": "Use RDS Serverless with auto-pause",
+      "d": "Pre-provision 10 RDS instances and round-robin"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Shared database causes test interference between concurrent builds.",
+      "b": "Correct. Running PostgreSQL as a Docker container within CodeBuild provides a clean database per build with no provisioning delay. The container starts in seconds, tests run against it, and it's destroyed when the build completes.",
+      "c": "Incorrect. RDS Serverless still takes time to resume from pause and doesn't provide isolation per build.",
+      "d": "Incorrect. Pre-provisioning 10 instances is costly and doesn't scale with concurrent builds."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has a deployment that requires running scripts on instances in a specific order: web servers must be updated before API servers. Both are in the same deployment group. How should this be architected?",
+    "opts": {
+      "a": "Use a single deployment group with OneAtATime and hope the order is correct",
+      "b": "Create two separate deployment groups (one for web servers, one for API servers) and use a CodePipeline with sequential deploy actions: deploy to web servers first, then deploy to API servers",
+      "c": "Use lifecycle hooks to control ordering",
+      "d": "Tag instances with priority numbers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeDeploy doesn't guarantee deployment order within a deployment group.",
+      "b": "Correct. Separate deployment groups in sequential pipeline stages ensure web servers are fully deployed before API servers begin. This gives complete control over deployment ordering.",
+      "c": "Incorrect. Lifecycle hooks run on each instance independently and can't control cross-instance ordering.",
+      "d": "Incorrect. CodeDeploy doesn't use priority tags for deployment ordering."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to implement a canary deployment for their ECS service using CodeDeploy. After shifting 10% of traffic, they want to run automated integration tests before proceeding. How should this be configured?",
+    "opts": {
+      "a": "Use LambdaCanary10Percent5Minutes configuration",
+      "b": "Configure ECS Blue/Green deployment with a test listener, use the AfterAllowTestTraffic lifecycle hook to invoke a Lambda function that runs integration tests against the test listener port, and call PutLifecycleEventHookExecutionStatus with Succeeded or Failed",
+      "c": "Manually run tests after deployment starts",
+      "d": "Use a separate testing pipeline triggered after deployment"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. LambdaCanary is for Lambda deployments, not ECS.",
+      "b": "Correct. ECS Blue/Green supports a test listener for validation traffic. The AfterAllowTestTraffic hook invokes a Lambda that tests the new task set via the test listener. If tests pass, it reports success; if not, the deployment rolls back.",
+      "c": "Incorrect. Manual testing breaks automation.",
+      "d": "Incorrect. A separate pipeline introduces coordination challenges."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has strict separation of duties: developers can create pipelines but cannot approve production deployments, and only senior engineers can approve. How should IAM policies be structured?",
+    "opts": {
+      "a": "Give all developers admin access and trust them",
+      "b": "Create an IAM policy for developers allowing codepipeline:* except codepipeline:PutApprovalResult. Create a separate policy for senior engineers allowing codepipeline:PutApprovalResult with a condition restricting to specific pipeline ARNs and stage names",
+      "c": "Use resource-based policies on the pipeline",
+      "d": "Restrict access using Security Groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Admin access violates separation of duties.",
+      "b": "Correct. IAM policies can deny PutApprovalResult for developers while granting it to senior engineers. Conditions can further restrict which pipelines and stages can be approved.",
+      "c": "Incorrect. CodePipeline doesn't support resource-based policies.",
+      "d": "Incorrect. Security Groups control network access, not API permissions."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to implement feature flags in their deployment strategy. They want to deploy code to production but only enable features for specific user segments. How does this integrate with CodeDeploy?",
+    "opts": {
+      "a": "Use CodeDeploy traffic shifting to route users",
+      "b": "Deploy the code with CodeDeploy as normal (AllAtOnce or any strategy). Feature flags are managed by an application-level service (e.g., AWS AppConfig, LaunchDarkly) independent of the deployment mechanism",
+      "c": "Create separate deployment groups per user segment",
+      "d": "Use Lambda@Edge to filter requests"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeDeploy traffic shifting is for gradual version rollouts, not user-segment targeting.",
+      "b": "Correct. Feature flags decouple deployment from feature activation. Code is deployed with features disabled, then flags are toggled for specific segments via AWS AppConfig or similar services. This separates deployment risk from feature risk.",
+      "c": "Incorrect. Deployment groups target infrastructure, not user segments.",
+      "d": "Incorrect. Lambda@Edge handles CDN-level routing, not feature flag management."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has 200 CodePipeline pipelines that all use the same CodeBuild project for building. They notice builds are queuing frequently. The account's concurrent build limit is 60. What is the recommended solution?",
+    "opts": {
+      "a": "Reduce the number of pipelines",
+      "b": "Request a concurrent build limit increase via Service Quotas, and consider using CodeBuild Reserved Capacity for consistent baseline capacity without cold starts",
+      "c": "Use larger compute instances",
+      "d": "Add wait times between pipeline triggers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Reducing pipelines limits CI/CD capability.",
+      "b": "Correct. Increasing the concurrent build limit addresses queuing. Reserved Capacity provides dedicated build hosts that eliminate queuing for baseline workloads, with on-demand scaling for peaks.",
+      "c": "Incorrect. Larger instances don't increase concurrency.",
+      "d": "Incorrect. Artificial wait times slow down development velocity."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to ensure that their CodeDeploy appspec.yml scripts are immutable once pushed to production—preventing anyone from modifying deployment scripts between approval and execution. What architecture ensures this?",
+    "opts": {
+      "a": "Use S3 versioning for the revision bundle",
+      "b": "Store the revision in S3 with object lock (GOVERNANCE or COMPLIANCE mode) after the build stage. The deploy stage references the locked S3 object ensuring the artifact cannot be modified between approval and deployment",
+      "c": "Use CodeCommit branch protection",
+      "d": "Sign the appspec.yml with GPG"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 versioning tracks changes but doesn't prevent modification.",
+      "b": "Correct. S3 Object Lock in COMPLIANCE mode makes the artifact truly immutable. No one (not even root) can modify or delete it during the retention period. This guarantees the deployed artifact matches what was approved.",
+      "c": "Incorrect. Branch protection prevents source changes but doesn't protect the built artifact.",
+      "d": "Incorrect. GPG signatures verify integrity but don't prevent modification of the stored artifact."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses CodeBuild to produce artifacts for multiple downstream consumers: a Docker image for ECS, a Lambda ZIP package, and static assets for S3. How should the buildspec.yml be structured to output all three?",
+    "opts": {
+      "a": "Run three separate CodeBuild projects",
+      "b": "Use secondary-artifacts in buildspec.yml to define multiple named output artifacts, each with its own files and base-directory. Map these as separate output artifacts in the CodePipeline action configuration",
+      "c": "Combine everything into a single ZIP file",
+      "d": "Use post_build to manually upload each artifact"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Three projects waste resources since they share the same build context.",
+      "b": "Correct. Secondary-artifacts allow a single CodeBuild execution to produce multiple named artifacts. Each can be consumed independently by different downstream pipeline actions (ECS deploy, Lambda deploy, S3 deploy).",
+      "c": "Incorrect. A single ZIP complicates downstream consumption by different services.",
+      "d": "Incorrect. Manual uploads bypass CodePipeline's artifact tracking and management."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company is implementing a blue/green deployment for their ECS service. They want the green environment to warm up (handle test traffic for 15 minutes) before shifting production traffic. What ECS Blue/Green configuration supports this?",
+    "opts": {
+      "a": "Set the deployment timeout to 15 minutes",
+      "b": "Configure a termination wait time of 15 minutes",
+      "c": "Configure a test traffic listener in the deployment group. Use AfterAllowTestTraffic hook with a Lambda that waits 15 minutes while monitoring the test traffic before calling PutLifecycleEventHookExecutionStatus(Succeeded) to proceed with production traffic shifting",
+      "d": "Use Linear10PercentEvery1Minute (which takes ~10 minutes)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Deployment timeout cancels the deployment if it takes too long.",
+      "b": "Incorrect. Termination wait time controls how long the OLD environment persists after traffic shifts.",
+      "c": "Correct. The test listener sends real test traffic to the green environment. The AfterAllowTestTraffic hook Lambda can perform extended validation (15 minutes of warmup/monitoring) before allowing production traffic to shift.",
+      "d": "Incorrect. Linear traffic shifting for Lambda/ECS doesn't support a dedicated warm-up period."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to enforce that all CodeCommit repositories have specific configurations (e.g., branch protection, approval rules, notification rules). They have 200 repositories. What is the most scalable approach?",
+    "opts": {
+      "a": "Manually configure each repository",
+      "b": "Use AWS CloudFormation (or CDK/Terraform) to define repository configurations as IaC, create approval rule templates that automatically apply to associated repositories, and use AWS Config custom rules to detect non-compliant repositories",
+      "c": "Use a single shared repository for all teams",
+      "d": "Write a script that runs weekly to check configurations"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual configuration doesn't scale to 200 repositories.",
+      "b": "Correct. IaC ensures consistent configuration. Approval rule templates automatically apply to all associated repositories. AWS Config custom rules provide continuous compliance monitoring and can trigger auto-remediation.",
+      "c": "Incorrect. A single repository doesn't provide team isolation.",
+      "d": "Incorrect. Weekly scripts have delayed detection and don't prevent non-compliance."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company runs CodeBuild builds that occasionally fail due to transient network errors when downloading dependencies. They don't want to restart the entire pipeline manually. What should the Solutions Architect implement?",
+    "opts": {
+      "a": "Increase the build timeout",
+      "b": "Configure the CodeBuild action in CodePipeline with automatic retry on failure, and implement retry logic in the buildspec.yml install phase for dependency downloads",
+      "c": "Use a dedicated internet connection for CodeBuild",
+      "d": "Cache all dependencies permanently in S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Longer timeout doesn't help if the network issue is persistent during that period.",
+      "b": "Correct. CodePipeline supports automatic retry for actions. Additionally, buildspec.yml commands should include retry logic (e.g., npm install with --retry flag or custom retry scripts) for robustness against transient failures.",
+      "c": "Incorrect. Dedicated internet connections are not available for CodeBuild.",
+      "d": "Incorrect. Permanent caching in S3 may serve stale dependencies and doesn't address all transient errors."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company must ensure complete isolation between development and production CI/CD environments. Even if a developer's IAM credentials are compromised, the attacker should not be able to affect production deployments. What architecture provides this isolation?",
+    "opts": {
+      "a": "Use separate IAM groups for dev and prod",
+      "b": "Use separate AWS accounts: a Dev account with dev pipelines and a Prod account with prod pipelines. Use AWS Organizations SCPs to restrict actions in the Prod account, require MFA for cross-account role assumption, and use separate KMS keys per account",
+      "c": "Use VPC isolation between dev and prod pipelines",
+      "d": "Use resource tags to separate dev and prod"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM groups in the same account share the same blast radius—credential compromise could escalate.",
+      "b": "Correct. Account-level isolation provides the strongest boundary. SCPs prevent unauthorized actions, MFA on cross-account roles prevents stolen credentials from accessing prod, and separate KMS keys ensure prod artifacts can't be decrypted from the dev account.",
+      "c": "Incorrect. VPC isolation controls network traffic but not IAM permissions.",
+      "d": "Incorrect. Tags provide logical grouping but can be modified by compromised credentials."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has a microservices architecture where Service A depends on Service B's API. During deployment, if Service B deploys a breaking change, Service A fails. How should the architect design the pipeline to prevent this?",
+    "opts": {
+      "a": "Always deploy services alphabetically",
+      "b": "Implement contract testing in the build stage: Service B's pipeline runs provider contract tests, Service A's pipeline runs consumer contract tests. Both pipelines include an integration test stage that validates the contract between services before production deployment",
+      "c": "Deploy all services simultaneously",
+      "d": "Never update Service B's API"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Alphabetical order doesn't address API compatibility.",
+      "b": "Correct. Contract testing (e.g., using Pact) ensures that API providers don't break consumers. Integration tests in the pipeline catch incompatibilities before production. This prevents breaking changes from reaching production.",
+      "c": "Incorrect. Simultaneous deployment doesn't prevent incompatible versions from running together during rollout.",
+      "d": "Incorrect. APIs must evolve; versioning and contract testing manage this safely."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company processes sensitive PII data and their compliance team requires that CodeBuild build logs do NOT contain any PII that might be echoed during tests. What controls should the architect implement?",
+    "opts": {
+      "a": "Disable all logging",
+      "b": "Configure sensitive environment variables with type SECRETS_MANAGER (which are masked in logs), add log filtering using CloudWatch Logs subscription filters to detect and redact PII, and train developers to use echo suppression in buildspec commands",
+      "c": "Use encrypted S3 for logs",
+      "d": "Restrict log access to admins only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Disabling logging prevents debugging and violates audit requirements.",
+      "b": "Correct. Secrets Manager variables are automatically masked in logs. CloudWatch subscription filters can detect PII patterns and alert/redact. Buildspec commands should suppress sensitive output (e.g., redirect to /dev/null or use set +x).",
+      "c": "Incorrect. Encryption protects data at rest but PII in logs is still accessible to authorized viewers.",
+      "d": "Incorrect. Access restriction is a control but doesn't prevent PII from being logged."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's production CodeDeploy deployment to 50 instances has been running for 4 days. They realize the new version has a subtle bug affecting 5% of transactions. The deployment hasn't completed because OneAtATime is being used. What should they do?",
+    "opts": {
+      "a": "Wait for the deployment to finish, then deploy a fix",
+      "b": "Stop the current deployment (which stops deploying to remaining instances) and create a new deployment with the fixed revision. For already-deployed instances, the rollback deploys the last known good revision",
+      "c": "Terminate the deployed instances",
+      "d": "Modify the running deployment's revision"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Waiting 4+ more days while the bug affects users is unacceptable.",
+      "b": "Correct. Stopping the deployment prevents further spread. Creating a new deployment with rollback to the previous version (or a fixed version) addresses already-deployed instances. This is the standard remediation pattern.",
+      "c": "Incorrect. Terminating instances causes capacity loss.",
+      "d": "Incorrect. Running deployments cannot have their revision modified."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses CodePipeline PARALLEL execution mode for their feature branch deployments. They notice that two parallel executions are deploying different versions to the same staging environment simultaneously, causing conflicts. What is the solution?",
+    "opts": {
+      "a": "Switch to SUPERSEDED mode",
+      "b": "Switch to QUEUED mode to ensure only one execution deploys to the environment at a time, preventing concurrent deployment conflicts",
+      "c": "Add a manual approval before each deployment",
+      "d": "Use separate pipelines for each feature branch"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SUPERSEDED mode might skip important executions.",
+      "b": "Correct. QUEUED mode ensures executions run sequentially. Only one deployment to the staging environment occurs at a time, preventing conflicts from parallel deployments.",
+      "c": "Incorrect. Manual approvals slow development and don't prevent parallel execution.",
+      "d": "Incorrect. If they deploy to the same environment, separate pipelines still conflict."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to use CodeBuild to scan their container images for vulnerabilities before deployment. If HIGH severity vulnerabilities are found, the pipeline should be blocked. What architecture achieves this?",
+    "opts": {
+      "a": "Use Amazon ECR basic scanning and check results manually",
+      "b": "In CodeBuild post_build phase: push image to ECR, trigger ECR enhanced scanning (Amazon Inspector), use AWS CLI to wait for scan completion, parse results for HIGH severity findings, and exit with code 1 if found (failing the build and blocking the pipeline)",
+      "c": "Deploy first and scan later",
+      "d": "Use AWS WAF to block vulnerable containers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual checking doesn't automate the quality gate.",
+      "b": "Correct. Pushing to ECR triggers scanning. The build script waits for results and fails if HIGH vulnerabilities exist, preventing the pipeline from proceeding to deployment. Amazon Inspector enhanced scanning provides detailed CVE information.",
+      "c": "Incorrect. Deploying before scanning puts vulnerable containers in production.",
+      "d": "Incorrect. WAF operates at the network/application layer, not container image level."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company migrating from Jenkins to AWS CodeBuild has complex builds that require multiple build environments (Java 11 for backend, Node 18 for frontend, Python for scripts) in a single pipeline execution. What is the recommended approach?",
+    "opts": {
+      "a": "Install all runtimes in a single custom Docker image",
+      "b": "Use CodeBuild batch builds with a build-graph defining dependencies: Java build → Node build (depends on Java artifacts) → Python integration tests (depends on both). Each build uses its optimal runtime image",
+      "c": "Run three separate unrelated CodeBuild projects",
+      "d": "Use EC2 build servers with all runtimes installed"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single image with all runtimes is bloated, slow to pull, and hard to maintain.",
+      "b": "Correct. Batch builds with build-graph define dependencies between builds. Each uses the optimal purpose-built image. Dependent builds wait for upstream builds to complete and can access their artifacts.",
+      "c": "Incorrect. Three unrelated projects don't handle dependencies between builds.",
+      "d": "Incorrect. EC2 build servers require management and don't scale automatically."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's auditor asks: 'How do you ensure that the code reviewed in a pull request is the EXACT code that gets deployed to production?' What end-to-end integrity architecture satisfies this?",
+    "opts": {
+      "a": "Trust the developers",
+      "b": "CodeCommit PR with approval rules → merge creates a commit hash → CodePipeline source action captures that exact commit (CODEBUILD_RESOLVED_SOURCE_VERSION) → CodeBuild produces artifacts from that commit → artifacts are encrypted and stored in S3 with the commit hash → CodeDeploy deploys that specific artifact. CloudTrail provides the complete audit trail linking PR approval to deployment",
+      "c": "Use signed commits with GPG",
+      "d": "Lock the repository after PR merge"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Trust is not an auditable control.",
+      "b": "Correct. This chain provides cryptographic integrity: commit hash links reviewed code to built artifact to deployed application. Every step is logged in CloudTrail. The artifact in S3 is encrypted and tied to the specific commit.",
+      "c": "Incorrect. Signed commits verify authorship but don't ensure the deployment chain integrity.",
+      "d": "Incorrect. Locking the repository prevents all future changes and is impractical."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has a serverless application with 50 Lambda functions. Deploying all 50 through CodeDeploy with traffic shifting takes 2 hours. They want faster deployments for non-critical functions while maintaining canary for critical functions. How should this be architected?",
+    "opts": {
+      "a": "Use a single deployment configuration for all functions",
+      "b": "Create separate deployment groups: critical functions use LambdaCanary10Percent10Minutes, non-critical functions use LambdaAllAtOnce. Organize pipeline stages to deploy non-critical in parallel and critical with canary",
+      "c": "Deploy everything with AllAtOnce",
+      "d": "Use separate AWS accounts for critical and non-critical"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single configuration doesn't allow differentiated strategies.",
+      "b": "Correct. Different deployment groups with different configurations allow risk-appropriate strategies. Critical functions get canary protection while non-critical deploy instantly, reducing total deployment time.",
+      "c": "Incorrect. AllAtOnce for critical functions removes the safety net.",
+      "d": "Incorrect. Separate accounts for function criticality is over-engineering."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to implement a 'deployment window' policy where production deployments can only occur Monday-Thursday between 9 AM and 4 PM UTC. How should this be enforced in CodePipeline?",
+    "opts": {
+      "a": "Tell developers not to approve outside these hours",
+      "b": "Use an AWS Lambda invoke action before the production deploy stage that checks the current day/time. If outside the window, the Lambda fails the action (blocking deployment). Combine with an IAM policy using aws:CurrentTime condition to deny PutApprovalResult outside the window",
+      "c": "Disable the pipeline outside business hours",
+      "d": "Use EventBridge scheduler to disable/enable the pipeline"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual compliance isn't enforceable.",
+      "b": "Correct. The Lambda time-check provides a programmatic gate. The IAM condition on PutApprovalResult provides defense-in-depth—even if someone bypasses the Lambda, they can't approve outside the window.",
+      "c": "Incorrect. Disabling the pipeline prevents builds and testing outside hours.",
+      "d": "Incorrect. Scheduler-based enable/disable is coarse and affects all pipeline stages."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to implement progressive delivery for their ECS service: deploy to 1 instance first (canary), then 10%, then 50%, then 100%. Each step requires validation. What CodeDeploy configuration supports this?",
+    "opts": {
+      "a": "Use CodeDeployDefault.AllAtOnce with manual stops",
+      "b": "Use ECS Blue/Green deployment with a custom linear deployment configuration that specifies multiple traffic-shifting steps, combined with CloudWatch alarms at each step for automatic validation",
+      "c": "Run four separate deployments manually",
+      "d": "Use Lambda traffic shifting for ECS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AllAtOnce with manual stops doesn't provide controlled progressive delivery.",
+      "b": "Correct. CodeDeploy ECS supports custom deployment configurations with linear traffic shifting steps. CloudWatch alarms at each step automatically validate health before proceeding. If alarms trigger, deployment rolls back.",
+      "c": "Incorrect. Four manual deployments break automation.",
+      "d": "Incorrect. Lambda traffic shifting is for Lambda functions, not ECS."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has a legacy application that requires a specific deployment sequence: stop the application, backup the database, deploy new files, run database migration, start the application. How should this be mapped to CodeDeploy lifecycle hooks?",
+    "opts": {
+      "a": "Put everything in a single BeforeInstall script",
+      "b": "ApplicationStop: stop the application → BeforeInstall: backup the database → Install: (CodeDeploy copies files) → AfterInstall: run database migration → ApplicationStart: start the application → ValidateService: verify health",
+      "c": "Use Lambda functions for each step",
+      "d": "Create separate deployments for each step"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single script doesn't leverage the lifecycle event ordering and makes debugging harder.",
+      "b": "Correct. This maps each operational requirement to the appropriate lifecycle hook: ApplicationStop handles graceful shutdown, BeforeInstall handles pre-deployment tasks (backup), Install handles file deployment, AfterInstall handles post-file tasks (migration), ApplicationStart restarts, and ValidateService confirms health.",
+      "c": "Incorrect. Lambda lifecycle hooks are for Lambda/ECS deployments, not EC2.",
+      "d": "Incorrect. Separate deployments don't maintain the atomic nature of the release."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to reduce costs by sharing a single CodeBuild project across 30 microservice pipelines. Each pipeline needs different build commands. How should this be architected?",
+    "opts": {
+      "a": "Create 30 separate CodeBuild projects",
+      "b": "Use a single CodeBuild project with buildspec override: each pipeline's CodeBuild action specifies a different buildspec file path (e.g., buildspecs/serviceA.yml) using the BuildspecOverride parameter in the pipeline action configuration",
+      "c": "Use a single buildspec.yml with conditional logic based on branch names",
+      "d": "Use environment variables to switch build logic in one large buildspec"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 30 projects are manageable but don't optimize costs through sharing.",
+      "b": "Correct. BuildspecOverride allows a single project to use different buildspec files per invocation. Each pipeline specifies its service-specific buildspec file. The project's IAM role and VPC configuration are shared, reducing management overhead.",
+      "c": "Incorrect. Branch-based logic is fragile and hard to maintain.",
+      "d": "Incorrect. One large buildspec with many conditionals becomes unmaintainable."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A Solutions Architect needs to design a CI/CD pipeline for a regulated pharmaceutical company. Requirements: all actions must be logged, artifacts must be immutable, deployments must have dual approval, and the pipeline configuration itself must be versioned. What complete architecture meets all requirements?",
+    "opts": {
+      "a": "Standard CodePipeline with CloudTrail enabled",
+      "b": "Pipeline defined in CloudFormation (versioned in CodeCommit) → CloudTrail for API logging → S3 artifact bucket with Object Lock (COMPLIANCE mode) → Two sequential manual approval actions with different IAM approval pools → AWS Config rules monitoring pipeline compliance",
+      "c": "Use Jenkins for better audit capabilities",
+      "d": "Implement custom logging using Lambda"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard pipeline doesn't address immutability, dual approval, or versioned configuration.",
+      "b": "Correct. This architecture addresses: Logging (CloudTrail), Immutability (S3 Object Lock), Dual Approval (two manual approval actions with different approver pools), Versioned Config (CloudFormation in CodeCommit). AWS Config provides continuous compliance monitoring.",
+      "c": "Incorrect. Jenkins requires managing infrastructure and doesn't provide native AWS integration for compliance.",
+      "d": "Incorrect. Custom Lambda logging is unnecessary when CloudTrail provides comprehensive API logging."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's CodeBuild builds are failing intermittently with 'Build timed out' errors. Builds normally take 45 minutes but occasionally spike to 75 minutes due to slow dependency downloads. The current timeout is 60 minutes. What is the BEST solution that addresses both reliability and cost?",
+    "opts": {
+      "a": "Increase timeout to 120 minutes",
+      "b": "Enable S3 caching for dependencies (reducing download time), keep the timeout at 60 minutes, and add retry logic in the buildspec for flaky downloads. This reduces the 75-minute spike scenario by caching dependencies",
+      "c": "Use a larger compute instance",
+      "d": "Remove the timeout entirely"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Increasing timeout to 120 minutes means failed builds waste more time/money before timing out.",
+      "b": "Correct. Caching eliminates the root cause (slow downloads). With dependencies cached, builds consistently complete in ~35 minutes instead of 45-75. The 60-minute timeout remains as a safety net, and retry logic handles transient network issues.",
+      "c": "Incorrect. Larger instances don't speed up network downloads.",
+      "d": "Incorrect. CodeBuild doesn't allow removing the timeout (minimum 5 minutes, maximum 480 minutes)."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company discovers that a malicious insider modified the CodePipeline service role to grant broader permissions, then deployed unauthorized code. How should the architect prevent this in the future?",
+    "opts": {
+      "a": "Monitor CloudTrail for role changes",
+      "b": "Use AWS Organizations SCP to deny iam:UpdateAssumeRolePolicy and iam:PutRolePolicy on the pipeline service role for all principals except the security team's role. Enable AWS Config rule to detect role policy changes and auto-remediate. Require MFA for any IAM policy modifications",
+      "c": "Use a different pipeline service",
+      "d": "Remove all developers' IAM access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Monitoring is detective, not preventive—the damage already occurred.",
+      "b": "Correct. SCPs prevent unauthorized role modifications at the organizational level. AWS Config provides detection and auto-remediation. MFA adds another authentication layer. This implements defense-in-depth against insider threats.",
+      "c": "Incorrect. Changing services doesn't address the underlying IAM security issue.",
+      "d": "Incorrect. Removing developer access prevents all work, not just malicious activity."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs their CodePipeline to dynamically determine which services to deploy based on what changed in the commit. For example, if only the frontend changed, only deploy the frontend. How can this be achieved?",
+    "opts": {
+      "a": "Use CodePipeline V1 with polling",
+      "b": "Use a Lambda invoke action after the source stage that analyzes the commit's changed files (using CodeCommit GetDifferences API), sets pipeline variables indicating which services changed, and subsequent stages use conditions based on these variables to skip or execute deploy actions",
+      "c": "Deploy everything every time to be safe",
+      "d": "Use separate repositories for each service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. V1 polling doesn't analyze changed files.",
+      "b": "Correct. A Lambda action can inspect the commit diff, determine affected services, and set pipeline variables. CodePipeline V2 supports conditions on actions based on variables, allowing dynamic skipping of unaffected deployments.",
+      "c": "Incorrect. Deploying everything wastes time and increases risk.",
+      "d": "Incorrect. Separate repositories eliminate monorepo benefits."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to maintain separate CodePipeline environments (dev, staging, prod) with identical configurations except for account IDs, resource names, and environment-specific parameters. How should the architect manage this efficiently?",
+    "opts": {
+      "a": "Manually create each pipeline via Console",
+      "b": "Define the pipeline using AWS CDK or CloudFormation with parameterized templates. Use different parameter files for each environment. Store the IaC in CodeCommit with a meta-pipeline that deploys/updates the other pipelines when the template changes",
+      "c": "Export/import pipeline JSON between environments",
+      "d": "Use a single pipeline for all environments"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Console-based creation causes configuration drift and isn't reproducible.",
+      "b": "Correct. Parameterized IaC (CDK/CloudFormation) ensures identical structure with environment-specific values. A meta-pipeline (pipeline that deploys pipelines) keeps all environments synchronized when the template changes.",
+      "c": "Incorrect. JSON export/import is manual and error-prone.",
+      "d": "Incorrect. A single pipeline can't deploy to multiple environments with proper isolation."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's CodeDeploy Blue/Green deployment to EC2 Auto Scaling groups creates new instances for the green environment. After successful deployment, the blue instances are terminated. However, they want to keep the blue instances for 2 hours after switching in case rollback is needed. How is this configured?",
+    "opts": {
+      "a": "Set the deployment timeout to 2 hours",
+      "b": "Configure the deployment group's Blue/Green deployment settings with 'Terminate the original instances in the deployment group' and set the wait time to 120 minutes (2 hours)",
+      "c": "Use a CloudWatch Events rule to terminate after 2 hours",
+      "d": "Manually terminate instances after 2 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deployment timeout controls how long the deployment can run, not instance retention.",
+      "b": "Correct. The Blue/Green deployment settings allow configuring a wait time before terminating original instances. Setting this to 120 minutes keeps the blue (original) environment running for 2 hours after traffic shifts, enabling quick rollback if needed.",
+      "c": "Incorrect. Custom CloudWatch rules add unnecessary complexity.",
+      "d": "Incorrect. Manual termination is error-prone and not automated."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses multiple AWS accounts managed by AWS Organizations. They want to prevent ANY account from creating CodePipeline pipelines that deploy directly to production without an approval stage. How can this be enforced organization-wide?",
+    "opts": {
+      "a": "Create IAM policies in each account",
+      "b": "This cannot be directly enforced via SCP since SCPs can't inspect pipeline stage configurations. Instead, use AWS Config organizational rules with a custom rule that evaluates pipeline configurations for approval stages, combined with auto-remediation to disable non-compliant pipelines",
+      "c": "Use a single shared pipeline for all accounts",
+      "d": "Block codepipeline:CreatePipeline in all accounts via SCP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Per-account IAM policies can be modified by account admins.",
+      "b": "Correct. SCPs can't evaluate pipeline content/stages. AWS Config organizational rules with custom Lambda evaluators can inspect pipeline JSON for approval stages. Non-compliant pipelines trigger auto-remediation (disable/alert).",
+      "c": "Incorrect. A single pipeline can't serve all accounts' different needs.",
+      "d": "Incorrect. Blocking pipeline creation entirely prevents all CI/CD."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to implement 'deployment gates' based on external signals: their monitoring tool (Datadog) must show green status, their change management system must have an approved ticket, and their test suite must pass. All must be true before deployment. What architecture achieves this?",
+    "opts": {
+      "a": "Use three separate manual approvals",
+      "b": "Add a Lambda invoke action that makes API calls to Datadog (check service health), the change management system (verify ticket approval), and CodeBuild reports (verify test pass). The Lambda succeeds only if ALL conditions are met; otherwise it fails, blocking the pipeline",
+      "c": "Use CloudWatch alarms for all checks",
+      "d": "Trust that developers have verified all conditions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual approvals require human verification of each signal, which is slow and error-prone.",
+      "b": "Correct. A Lambda gate function programmatically validates all external conditions. It can call Datadog API, query the change management API, and check CodeBuild reports. Only when all conditions pass does it report success to CodePipeline.",
+      "c": "Incorrect. CloudWatch alarms can't natively check external systems like Datadog or change management tools.",
+      "d": "Incorrect. Trust-based controls aren't auditable or reliable."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A large enterprise has 500 developers and 200 microservices. They need to standardize their CodeBuild and CodeDeploy configurations while allowing teams some flexibility. What organizational pattern should the architect recommend?",
+    "opts": {
+      "a": "Let each team manage their own configurations independently",
+      "b": "Create a shared services library: standardized buildspec templates and appspec templates in a central CodeCommit repository, versioned and tagged. Teams reference specific versions in their projects. A governance pipeline validates all custom configurations against organization policies",
+      "c": "Force all teams to use identical configurations",
+      "d": "Use AWS Service Catalog for pipeline provisioning only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. No standardization leads to inconsistency, security gaps, and duplicated effort.",
+      "b": "Correct. A shared library provides standardized templates (security scanning, deployment patterns) that teams version-pin. Teams can extend/customize within guardrails. A governance pipeline validates custom configs against policies.",
+      "c": "Incorrect. Identical configurations ignore different service requirements (Java vs Node, EC2 vs Lambda).",
+      "d": "Incorrect. Service Catalog handles provisioning but doesn't address ongoing configuration management."
+    }
+  }
+]

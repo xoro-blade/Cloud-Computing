@@ -1,0 +1,886 @@
+[
+  {
+    "type": "mcq",
+    "q": "Which of the following scenarios would trigger an automatic failover in an RDS Multi-AZ deployment?",
+    "opts": {
+      "a": "A read replica experiences high latency",
+      "b": "The primary DB instance experiences a hardware failure or AZ outage",
+      "c": "A manual snapshot is taken",
+      "d": "The maintenance window begins"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Read replica issues do not trigger Multi-AZ failover.",
+      "b": "Correct. Automatic failover is triggered by primary instance failure, AZ outage, network failure, or storage failure on the primary.",
+      "c": "Incorrect. Taking a snapshot does not cause failover.",
+      "d": "Incorrect. Maintenance window activities may cause brief downtime but not automatic failover to standby unless patching requires it."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You have an RDS MySQL instance with 5 Read Replicas. Can you create a Read Replica of a Read Replica?",
+    "opts": {
+      "a": "Yes, for all RDS engines",
+      "b": "Yes, but only for MySQL and MariaDB",
+      "c": "No, Read Replicas of Read Replicas are not supported",
+      "d": "Yes, but only for Aurora"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Not all engines support chaining Read Replicas.",
+      "b": "Correct. MySQL and MariaDB support Read Replicas of Read Replicas (replica chaining), but this adds replication lag.",
+      "c": "Incorrect. It is supported for certain engines.",
+      "d": "Incorrect. Aurora uses a shared storage layer and doesn't use traditional chaining."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the effect of promoting an RDS Read Replica to a standalone instance?",
+    "opts": {
+      "a": "The source instance is deleted",
+      "b": "The replica becomes a read-write standalone DB instance and replication stops",
+      "c": "The replica remains read-only but independent",
+      "d": "A new endpoint is created but replication continues"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The source instance remains unaffected.",
+      "b": "Correct. Promoting a Read Replica breaks replication and converts it into an independent read-write DB instance.",
+      "c": "Incorrect. After promotion, the instance supports both reads and writes.",
+      "d": "Incorrect. Replication is permanently stopped upon promotion."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is true about Amazon RDS encryption at rest?",
+    "opts": {
+      "a": "Encryption can be enabled or disabled at any time",
+      "b": "Encryption must be specified at instance creation time and cannot be removed later",
+      "c": "Only manual snapshots are encrypted",
+      "d": "Encryption only applies to the primary instance, not Read Replicas"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption cannot be toggled after instance creation.",
+      "b": "Correct. RDS encryption at rest must be enabled during instance creation and cannot be disabled afterward.",
+      "c": "Incorrect. Both automated backups and snapshots of encrypted instances are encrypted.",
+      "d": "Incorrect. If the primary is encrypted, all Read Replicas are also encrypted."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An encrypted RDS instance uses a KMS key in us-east-1. You want to create a Read Replica in eu-west-1. What must you do?",
+    "opts": {
+      "a": "Use the same KMS key from us-east-1",
+      "b": "Specify a KMS key in eu-west-1 for the replica",
+      "c": "Disable encryption for the replica",
+      "d": "Cross-region Read Replicas don't support encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS keys are region-specific and cannot be used across regions.",
+      "b": "Correct. You must specify a KMS key in the target region (eu-west-1) when creating an encrypted cross-region Read Replica.",
+      "c": "Incorrect. You cannot have an unencrypted replica of an encrypted source.",
+      "d": "Incorrect. Cross-region encrypted replicas are supported."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of Aurora DB clusters that can be part of an Aurora Global Database?",
+    "opts": {
+      "a": "2 (1 primary + 1 secondary)",
+      "b": "3 (1 primary + 2 secondary)",
+      "c": "6 (1 primary + 5 secondary)",
+      "d": "10 (1 primary + 9 secondary)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More than 2 clusters are supported.",
+      "b": "Incorrect. More than 3 clusters are supported.",
+      "c": "Correct. An Aurora Global Database can have 1 primary cluster and up to 5 secondary clusters in different regions.",
+      "d": "Incorrect. The maximum is 6 total clusters."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which RDS event notification service can notify you about database instance events like failover, backup, and configuration changes?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "Amazon SNS via RDS Event Notifications",
+      "c": "Amazon EventBridge only",
+      "d": "AWS CloudTrail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS can receive messages but RDS events are published via SNS.",
+      "b": "Correct. RDS Event Notifications use Amazon SNS to send notifications about events like failover, backup completion, and configuration changes.",
+      "c": "Incorrect. While EventBridge can also capture RDS events, the native RDS Event Notification feature uses SNS.",
+      "d": "Incorrect. CloudTrail logs API calls, not event notifications."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to share an RDS manual snapshot with another AWS account. Which statement is correct?",
+    "opts": {
+      "a": "You can only share unencrypted snapshots",
+      "b": "You can share both encrypted and unencrypted snapshots, but encrypted snapshots require sharing the KMS key",
+      "c": "Snapshot sharing is not supported in RDS",
+      "d": "Snapshots can only be shared within the same region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encrypted snapshots can also be shared.",
+      "b": "Correct. You can share both types, but for encrypted snapshots, you must also share access to the KMS key used for encryption.",
+      "c": "Incorrect. Snapshot sharing is supported.",
+      "d": "Incorrect. Snapshots can be copied cross-region and then shared."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of RDS instances you can have per AWS account per region by default?",
+    "opts": {
+      "a": "20",
+      "b": "40",
+      "c": "80",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default limit is higher than 20.",
+      "b": "Correct. The default limit is 40 RDS DB instances per account per region (with a maximum of 10 for Oracle/SQL Server under License Included).",
+      "c": "Incorrect. 80 is not the default limit.",
+      "d": "Incorrect. 100 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature allows you to run SQL queries directly on your Aurora database without connecting to it from an application?",
+    "opts": {
+      "a": "RDS Data API (Query Editor)",
+      "b": "RDS Proxy",
+      "c": "AWS Glue",
+      "d": "Amazon Athena"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The RDS Data API (accessible via the Query Editor in the console) allows you to run SQL statements via HTTP API calls without a persistent database connection.",
+      "b": "Incorrect. RDS Proxy manages connection pooling, not direct queries.",
+      "c": "Incorrect. AWS Glue is an ETL service.",
+      "d": "Incorrect. Athena queries data in S3, not directly in RDS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Your application uses AWS Lambda functions that open many short-lived database connections to RDS. Which service should you use to optimize this?",
+    "opts": {
+      "a": "Amazon ElastiCache",
+      "b": "RDS Proxy",
+      "c": "Amazon DynamoDB DAX",
+      "d": "AWS Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ElastiCache provides caching but doesn't solve connection management issues.",
+      "b": "Correct. RDS Proxy pools and shares database connections, which is ideal for Lambda functions that create many short-lived connections.",
+      "c": "Incorrect. DAX is an accelerator for DynamoDB, not RDS.",
+      "d": "Incorrect. Direct Connect is for dedicated network connectivity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens to Read Replicas when the source RDS instance is deleted?",
+    "opts": {
+      "a": "All Read Replicas are automatically deleted",
+      "b": "Read Replicas are promoted to standalone instances",
+      "c": "Read Replicas continue to replicate from a backup",
+      "d": "Read Replicas enter an error state and stop functioning"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Read Replicas are not automatically deleted.",
+      "b": "Correct. When the source DB instance is deleted, each Read Replica is automatically promoted to a standalone DB instance.",
+      "c": "Incorrect. Replication stops permanently.",
+      "d": "Incorrect. They are promoted, not left in an error state."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is a benefit of using Amazon Aurora over standard RDS MySQL?",
+    "opts": {
+      "a": "Aurora supports more database engines",
+      "b": "Aurora provides automatic storage scaling, faster replication, and up to 15 read replicas",
+      "c": "Aurora is always cheaper than RDS MySQL",
+      "d": "Aurora supports NoSQL workloads"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora only supports MySQL and PostgreSQL compatibility.",
+      "b": "Correct. Aurora offers automatic storage scaling (up to 128 TB), faster replication with minimal lag, and support for up to 15 read replicas.",
+      "c": "Incorrect. Aurora can be more expensive per instance-hour than standard RDS.",
+      "d": "Incorrect. Aurora is a relational database and does not support NoSQL workloads."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In RDS, what does the 'FreeableMemory' CloudWatch metric indicate?",
+    "opts": {
+      "a": "Free storage space on disk",
+      "b": "Available RAM on the DB instance",
+      "c": "Unused IOPS capacity",
+      "d": "Available network bandwidth"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Free storage is indicated by FreeStorageSpace.",
+      "b": "Correct. FreeableMemory shows the amount of available RAM (memory) on the RDS instance.",
+      "c": "Incorrect. IOPS is tracked separately.",
+      "d": "Incorrect. Network bandwidth is not tracked by this metric."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You want to reduce the load on your RDS primary instance caused by frequent identical read queries. Which AWS service should you introduce?",
+    "opts": {
+      "a": "Amazon Redshift",
+      "b": "Amazon ElastiCache",
+      "c": "AWS Glue",
+      "d": "Amazon Kinesis"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Redshift is for data warehousing, not caching.",
+      "b": "Correct. Amazon ElastiCache (Redis or Memcached) can cache frequent read queries, reducing the load on the primary RDS instance.",
+      "c": "Incorrect. Glue is for ETL operations.",
+      "d": "Incorrect. Kinesis is for streaming data."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the IOPS-to-storage ratio requirement for RDS Provisioned IOPS (io1) storage?",
+    "opts": {
+      "a": "Maximum 10:1 ratio (IOPS to GB)",
+      "b": "Maximum 50:1 ratio (IOPS to GB)",
+      "c": "Maximum 100:1 ratio (IOPS to GB)",
+      "d": "There is no ratio requirement"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The ratio is higher than 10:1.",
+      "b": "Correct. For Provisioned IOPS storage, you can provision up to a 50:1 ratio of IOPS to allocated storage (in GB).",
+      "c": "Incorrect. 100:1 exceeds the allowed ratio.",
+      "d": "Incorrect. There is a specific ratio requirement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the burst performance baseline for RDS General Purpose SSD (gp2) storage?",
+    "opts": {
+      "a": "1 IOPS per GB with burst up to 1,000 IOPS",
+      "b": "3 IOPS per GB with burst up to 3,000 IOPS",
+      "c": "10 IOPS per GB with burst up to 10,000 IOPS",
+      "d": "100 IOPS per GB with no burst"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The baseline is higher than 1 IOPS per GB.",
+      "b": "Correct. gp2 provides a baseline of 3 IOPS per GB with the ability to burst up to 3,000 IOPS for volumes under 1,000 GB.",
+      "c": "Incorrect. 10 IOPS per GB is not the gp2 baseline.",
+      "d": "Incorrect. gp2 does support burst capability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which statement is true about the RDS gp3 storage type?",
+    "opts": {
+      "a": "gp3 provides a baseline of 3,000 IOPS and 125 MiB/s throughput regardless of volume size",
+      "b": "gp3 IOPS scales with volume size like gp2",
+      "c": "gp3 does not support provisioning additional IOPS",
+      "d": "gp3 is only available for Aurora"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. gp3 provides a consistent baseline of 3,000 IOPS and 125 MiB/s throughput regardless of storage size, and you can provision additional IOPS independently.",
+      "b": "Incorrect. gp3 decouples IOPS from storage size, unlike gp2.",
+      "c": "Incorrect. gp3 allows provisioning additional IOPS up to 64,000.",
+      "d": "Incorrect. gp3 is available for standard RDS engines as well."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You are running an RDS PostgreSQL instance and want to invoke an AWS Lambda function from the database. Which feature enables this?",
+    "opts": {
+      "a": "RDS Proxy",
+      "b": "RDS Lambda integration via aws_lambda extension",
+      "c": "Amazon EventBridge",
+      "d": "This is not possible with RDS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS Proxy handles connections, not Lambda invocation.",
+      "b": "Correct. RDS PostgreSQL supports invoking Lambda functions from the database using the aws_lambda extension and the aws_commons extension.",
+      "c": "Incorrect. EventBridge can trigger Lambda but not directly from a database query.",
+      "d": "Incorrect. It is possible using the aws_lambda extension for PostgreSQL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following can trigger an RDS event via Amazon EventBridge?",
+    "opts": {
+      "a": "DB instance state change (e.g., stopped, started)",
+      "b": "A specific SQL query execution",
+      "c": "A table being dropped",
+      "d": "A new row being inserted"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. RDS events such as instance state changes, failover, backup events are sent to EventBridge.",
+      "b": "Incorrect. SQL query execution is not an RDS event published to EventBridge.",
+      "c": "Incorrect. DDL operations inside the database are not published as RDS events.",
+      "d": "Incorrect. Row-level changes are not RDS events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum storage size for Amazon Aurora?",
+    "opts": {
+      "a": "32 TB",
+      "b": "64 TB",
+      "c": "128 TB",
+      "d": "256 TB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 32 TB is below Aurora's maximum.",
+      "b": "Incorrect. 64 TB is the maximum for standard RDS engines, not Aurora.",
+      "c": "Correct. Amazon Aurora supports up to 128 TB of storage, automatically scaling in 10 GB increments.",
+      "d": "Incorrect. 256 TB exceeds Aurora's storage limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is true about Amazon Aurora's storage architecture?",
+    "opts": {
+      "a": "Each Aurora instance has its own dedicated EBS volume",
+      "b": "Aurora uses a shared, distributed cluster storage volume across all instances",
+      "c": "Aurora stores data only in memory for performance",
+      "d": "Aurora uses S3 as its primary storage layer"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora doesn't use individual EBS volumes per instance.",
+      "b": "Correct. Aurora uses a shared cluster storage volume that is distributed across multiple AZs and accessed by all DB instances in the cluster.",
+      "c": "Incorrect. Aurora persists data on disk, not only in memory.",
+      "d": "Incorrect. While Aurora backs up to S3, its primary storage is a custom SSD-based distributed system."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An application requires a relational database that can automatically pause during periods of inactivity and resume when queries arrive. Which service fits best?",
+    "opts": {
+      "a": "Standard RDS MySQL",
+      "b": "Aurora Serverless",
+      "c": "Amazon DynamoDB",
+      "d": "Amazon Redshift Serverless"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard RDS does not auto-pause/resume based on activity.",
+      "b": "Correct. Aurora Serverless can automatically pause after a period of inactivity and resume when new queries arrive, making it ideal for intermittent workloads.",
+      "c": "Incorrect. DynamoDB is a NoSQL database, not relational.",
+      "d": "Incorrect. Redshift Serverless is for data warehousing, not general relational workloads."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum storage allocation for an Amazon RDS MySQL instance?",
+    "opts": {
+      "a": "5 GB",
+      "b": "10 GB",
+      "c": "20 GB",
+      "d": "100 GB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 5 GB is below the minimum for gp2/gp3 storage.",
+      "b": "Incorrect. 10 GB is not the minimum for MySQL on gp2/gp3.",
+      "c": "Correct. For RDS MySQL with gp2/gp3 storage, the minimum allocation is 20 GB.",
+      "d": "Incorrect. 100 GB is not the minimum requirement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Your company requires a database solution with automatic patching, backups, and failover. You don't want to manage the underlying infrastructure. Which approach is correct?",
+    "opts": {
+      "a": "Install MySQL on an EC2 instance with a cron job for backups",
+      "b": "Use Amazon RDS with Multi-AZ enabled",
+      "c": "Use Amazon S3 to store relational data",
+      "d": "Use AWS Lambda to manage database operations"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This requires manual management of patching, backups, and failover.",
+      "b": "Correct. RDS is a fully managed service that handles patching, backups, and provides automatic failover with Multi-AZ.",
+      "c": "Incorrect. S3 is object storage and not suitable for relational data.",
+      "d": "Incorrect. Lambda cannot manage a database in this manner."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following operations causes downtime on an RDS instance?",
+    "opts": {
+      "a": "Creating a Read Replica",
+      "b": "Taking a manual snapshot (if Multi-AZ is enabled)",
+      "c": "Changing the instance class (e.g., db.m5.large to db.m5.xlarge)",
+      "d": "Enabling Enhanced Monitoring"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Creating a Read Replica doesn't cause downtime on the primary (a brief I/O suspension may occur for single-AZ without snapshots).",
+      "b": "Incorrect. With Multi-AZ, snapshots are taken from the standby with no impact on the primary.",
+      "c": "Correct. Changing the instance class requires stopping and restarting the instance, causing downtime (unless applied during the maintenance window).",
+      "d": "Incorrect. Enabling Enhanced Monitoring does not cause downtime."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You want to configure your RDS instance so that changes (like instance class modification) are applied immediately. What should you set?",
+    "opts": {
+      "a": "Set ApplyImmediately to true",
+      "b": "Set MaintenanceWindow to now",
+      "c": "Set DeferModification to false",
+      "d": "Set ScheduledMaintenance to immediate"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Setting ApplyImmediately to true in the ModifyDBInstance API call applies modifications right away instead of waiting for the maintenance window.",
+      "b": "Incorrect. This is not a valid parameter.",
+      "c": "Incorrect. DeferModification is not a valid RDS parameter.",
+      "d": "Incorrect. ScheduledMaintenance is not a parameter for immediate application."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is NOT managed by AWS in Amazon RDS?",
+    "opts": {
+      "a": "OS patching",
+      "b": "Database software patching",
+      "c": "Schema design and query optimization",
+      "d": "Hardware maintenance"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AWS manages OS patching for RDS.",
+      "b": "Incorrect. AWS manages database engine patching.",
+      "c": "Correct. Schema design, indexing, and query optimization are the customer's responsibility.",
+      "d": "Incorrect. AWS manages the underlying hardware."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the RDS 'DiskQueueDepth' CloudWatch metric?",
+    "opts": {
+      "a": "It shows the total disk capacity",
+      "b": "It shows the number of outstanding I/O requests waiting to access the disk",
+      "c": "It shows the read throughput in MB/s",
+      "d": "It shows the percentage of disk used"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DiskQueueDepth does not show total capacity.",
+      "b": "Correct. DiskQueueDepth indicates the number of I/O operations waiting in the queue to be processed, helping identify storage bottlenecks.",
+      "c": "Incorrect. Read throughput is measured by ReadThroughput.",
+      "d": "Incorrect. Disk usage percentage is not what this metric shows."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following allows you to connect to an RDS instance using IAM authentication tokens that are valid for 15 minutes?",
+    "opts": {
+      "a": "AWS Secrets Manager",
+      "b": "IAM Database Authentication",
+      "c": "AWS Certificate Manager",
+      "d": "Amazon Cognito"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Secrets Manager stores and rotates credentials but doesn't generate short-lived tokens.",
+      "b": "Correct. IAM Database Authentication generates authentication tokens valid for 15 minutes, used in place of a password for MySQL and PostgreSQL.",
+      "c": "Incorrect. Certificate Manager handles SSL/TLS certificates.",
+      "d": "Incorrect. Cognito is for application user authentication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service can automatically rotate database credentials stored for Amazon RDS?",
+    "opts": {
+      "a": "AWS KMS",
+      "b": "AWS Secrets Manager",
+      "c": "AWS Systems Manager Parameter Store",
+      "d": "AWS IAM"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS manages encryption keys, not database credentials rotation.",
+      "b": "Correct. AWS Secrets Manager can store RDS credentials and automatically rotate them on a schedule using built-in Lambda rotation functions.",
+      "c": "Incorrect. Parameter Store can store credentials but lacks built-in automatic rotation.",
+      "d": "Incorrect. IAM manages access policies, not direct credential rotation for databases."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the replication method used between Aurora primary and Aurora Read Replicas?",
+    "opts": {
+      "a": "MySQL native binary log replication",
+      "b": "Shared storage with redo log-based replication",
+      "c": "WAL (Write-Ahead Log) shipping",
+      "d": "Synchronous block-level replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora doesn't use traditional binlog replication for its internal replicas.",
+      "b": "Correct. Aurora replicas share the same underlying storage volume and use redo logs for page cache updates, resulting in very low replication lag (typically <10ms).",
+      "c": "Incorrect. WAL shipping is a PostgreSQL concept, not how Aurora internal replicas work.",
+      "d": "Incorrect. While storage is shared, the replication of updates to replica caches uses redo log records."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical replication lag for Aurora Read Replicas within the same region?",
+    "opts": {
+      "a": "Less than 10 milliseconds",
+      "b": "Less than 1 second",
+      "c": "1-5 seconds",
+      "d": "Less than 1 minute"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Read Replicas share the same storage volume, so replication lag is typically less than 10 milliseconds.",
+      "b": "Incorrect. While under 1 second is true, the typical lag is much less (under 10ms).",
+      "c": "Incorrect. 1-5 seconds is too high for Aurora replicas.",
+      "d": "Incorrect. Lag is far less than 1 minute."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which RDS feature creates a clone of your Aurora database for testing without duplicating storage?",
+    "opts": {
+      "a": "Aurora Snapshot Restore",
+      "b": "Aurora Cloning (copy-on-write)",
+      "c": "Aurora Read Replica",
+      "d": "Aurora Backtrack"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Snapshot restore creates a new instance with full storage allocation.",
+      "b": "Correct. Aurora Cloning uses a copy-on-write protocol, creating a clone almost instantly without duplicating the underlying storage until data is modified.",
+      "c": "Incorrect. Read Replicas are for read scaling, not creating independent clones.",
+      "d": "Incorrect. Backtrack rewinds the database in-place to a previous point in time."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is Amazon Aurora Backtrack?",
+    "opts": {
+      "a": "A feature to roll back database changes to a specific point in time without restoring from a backup",
+      "b": "A feature to undo Read Replica promotion",
+      "c": "A cross-region backup mechanism",
+      "d": "A feature to reverse failed schema migrations by reverting DDL"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Backtrack allows you to rewind your Aurora MySQL cluster to a specific point in time without creating a new DB instance (in-place rewind).",
+      "b": "Incorrect. You cannot undo a Read Replica promotion.",
+      "c": "Incorrect. Backtrack is not a cross-region backup feature.",
+      "d": "Incorrect. Backtrack rewinds the entire database state, not just DDL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum backtrack window for Amazon Aurora MySQL?",
+    "opts": {
+      "a": "12 hours",
+      "b": "24 hours",
+      "c": "48 hours",
+      "d": "72 hours"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The maximum window is longer than 12 hours.",
+      "b": "Incorrect. The maximum window is longer than 24 hours.",
+      "c": "Incorrect. The maximum window is longer than 48 hours.",
+      "d": "Correct. Aurora Backtrack supports a maximum backtrack window of 72 hours."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following best describes the RDS Multi-AZ DB Cluster deployment?",
+    "opts": {
+      "a": "One primary instance with one standby in another AZ",
+      "b": "One writer instance with two reader instances in different AZs using semi-synchronous replication",
+      "c": "Three writer instances across three AZs",
+      "d": "A cluster of instances that auto-scale based on demand"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This describes the traditional Multi-AZ single standby deployment.",
+      "b": "Correct. Multi-AZ DB Cluster has one writer and two reader DB instances across three AZs with semi-synchronous replication and transaction log-based replication.",
+      "c": "Incorrect. There is only one writer instance.",
+      "d": "Incorrect. Multi-AZ DB Cluster has a fixed number of instances and doesn't auto-scale."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical failover time for an RDS Multi-AZ DB Cluster deployment?",
+    "opts": {
+      "a": "Under 35 seconds",
+      "b": "1-2 minutes",
+      "c": "3-5 minutes",
+      "d": "Under 10 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The Multi-AZ DB Cluster deployment typically achieves failover in under 35 seconds, faster than the traditional Multi-AZ instance deployment.",
+      "b": "Incorrect. 1-2 minutes is typical for the traditional Multi-AZ single standby.",
+      "c": "Incorrect. 3-5 minutes is too long.",
+      "d": "Incorrect. While fast, under 10 seconds is typically achieved only by Aurora with replicas."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You want to export your RDS snapshot data to Amazon S3 for analytics using Amazon Athena. Which feature should you use?",
+    "opts": {
+      "a": "RDS Data API",
+      "b": "RDS Snapshot Export to S3",
+      "c": "AWS Database Migration Service",
+      "d": "AWS Backup"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Data API is for running queries, not exporting snapshots.",
+      "b": "Correct. RDS Snapshot Export to S3 exports snapshot data in Apache Parquet format to S3, which can then be queried by Athena, Redshift Spectrum, or EMR.",
+      "c": "Incorrect. DMS is for ongoing database migration, not snapshot export.",
+      "d": "Incorrect. AWS Backup manages backup schedules but doesn't export to S3 in Parquet format."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In what format does the RDS Snapshot Export to S3 feature store data?",
+    "opts": {
+      "a": "CSV",
+      "b": "JSON",
+      "c": "Apache Parquet",
+      "d": "Avro"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The export format is not CSV.",
+      "b": "Incorrect. The export format is not JSON.",
+      "c": "Correct. RDS Snapshot Export stores data in Apache Parquet format, which is columnar and efficient for analytics.",
+      "d": "Incorrect. The export format is not Avro."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which RDS engine supports the 'Transparent Data Encryption (TDE)' feature managed within the database engine itself?",
+    "opts": {
+      "a": "MySQL",
+      "b": "PostgreSQL",
+      "c": "Oracle and SQL Server",
+      "d": "MariaDB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. MySQL does not support native TDE in RDS.",
+      "b": "Incorrect. PostgreSQL does not support TDE in RDS.",
+      "c": "Correct. Oracle and SQL Server support Transparent Data Encryption (TDE) as an engine-level encryption option in addition to AWS KMS encryption.",
+      "d": "Incorrect. MariaDB does not support TDE in RDS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which type of RDS instances would you choose for development/testing workloads with burstable performance needs?",
+    "opts": {
+      "a": "db.r5 (Memory Optimized)",
+      "b": "db.m5 (General Purpose)",
+      "c": "db.t3 (Burstable)",
+      "d": "db.x1 (Memory Intensive)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. r5 instances are memory-optimized for production workloads.",
+      "b": "Incorrect. m5 instances are general purpose but not burstable and are more expensive for dev/test.",
+      "c": "Correct. db.t3 instances are burstable performance instances ideal for development, testing, and light production workloads with variable CPU usage.",
+      "d": "Incorrect. x1 instances are extremely memory-intensive and costly."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is true about cross-region Read Replicas in Amazon RDS?",
+    "opts": {
+      "a": "They use synchronous replication",
+      "b": "They can serve as a disaster recovery target and can be promoted to a standalone instance",
+      "c": "They share the same endpoint as the primary",
+      "d": "They are not supported for encrypted instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cross-region replication is asynchronous due to network latency.",
+      "b": "Correct. Cross-region Read Replicas can be promoted to independent instances for disaster recovery, and they have their own endpoint.",
+      "c": "Incorrect. They have separate endpoints.",
+      "d": "Incorrect. Cross-region replicas are supported for encrypted instances (with a KMS key in the target region)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum backup retention period to enable point-in-time recovery for an RDS instance?",
+    "opts": {
+      "a": "0 days",
+      "b": "1 day",
+      "c": "7 days",
+      "d": "14 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 0 days means automated backups are disabled, which also disables point-in-time recovery.",
+      "b": "Correct. You need a minimum backup retention period of 1 day to enable point-in-time recovery.",
+      "c": "Incorrect. 7 days is the default, not the minimum required.",
+      "d": "Incorrect. 14 days is not the minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following services can be used in combination with RDS to provide a centralized backup solution with cross-account and cross-region capabilities?",
+    "opts": {
+      "a": "AWS Backup",
+      "b": "AWS Storage Gateway",
+      "c": "Amazon Glacier directly",
+      "d": "AWS CloudFormation"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Backup provides centralized backup management for RDS and other AWS services, supporting cross-account and cross-region backup copies.",
+      "b": "Incorrect. Storage Gateway is for hybrid cloud storage, not RDS backups.",
+      "c": "Incorrect. Glacier is an archive service; RDS backups are stored in S3, not directly in Glacier.",
+      "d": "Incorrect. CloudFormation is for infrastructure as code."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You are required to audit all API calls made to Amazon RDS (e.g., CreateDBInstance, DeleteDBInstance). Which service should you use?",
+    "opts": {
+      "a": "Amazon CloudWatch Logs",
+      "b": "AWS CloudTrail",
+      "c": "RDS Performance Insights",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch Logs captures database logs, not API calls.",
+      "b": "Correct. AWS CloudTrail records all API calls made to AWS services, including RDS, providing an audit trail.",
+      "c": "Incorrect. Performance Insights is for database performance monitoring.",
+      "d": "Incorrect. AWS Config tracks resource configuration changes but CloudTrail is specifically for API call auditing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens if you set the backup retention period to 0 in Amazon RDS?",
+    "opts": {
+      "a": "Backups are taken daily but deleted immediately",
+      "b": "Automated backups and point-in-time recovery are disabled",
+      "c": "Only manual snapshots are disabled",
+      "d": "The instance becomes read-only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Setting retention to 0 disables automated backups entirely.",
+      "b": "Correct. Setting backup retention to 0 disables automated backups completely, and point-in-time recovery is no longer available.",
+      "c": "Incorrect. Manual snapshots are always allowed regardless of retention setting.",
+      "d": "Incorrect. The instance remains fully functional for reads and writes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is a valid Aurora Serverless v2 use case?",
+    "opts": {
+      "a": "Only for non-production/development databases",
+      "b": "Production workloads with variable and unpredictable traffic patterns",
+      "c": "Only for Aurora MySQL, not PostgreSQL",
+      "d": "Workloads requiring fixed, predictable performance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora Serverless v2 is suitable for production workloads.",
+      "b": "Correct. Aurora Serverless v2 is designed for production workloads with variable, unpredictable, or intermittent traffic, scaling instantly.",
+      "c": "Incorrect. Aurora Serverless v2 supports both MySQL and PostgreSQL.",
+      "d": "Incorrect. Fixed predictable workloads are better served by provisioned instances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following correctly describes how RDS handles SSL/TLS certificates?",
+    "opts": {
+      "a": "AWS provides RDS CA certificates that you download and use in your application to verify the DB connection",
+      "b": "You must upload your own SSL certificate to RDS",
+      "c": "SSL is not supported for RDS connections",
+      "d": "SSL certificates are automatically installed in client applications"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS provides Certificate Authority (CA) certificates for RDS that you download and reference in your application to establish encrypted SSL/TLS connections.",
+      "b": "Incorrect. AWS provides the certificates; you don't need to bring your own.",
+      "c": "Incorrect. SSL/TLS is supported for all RDS engines.",
+      "d": "Incorrect. You must manually configure your application to use the certificate."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the RDS 'ReplicaLag' CloudWatch metric used for?",
+    "opts": {
+      "a": "Measuring network latency between AZs",
+      "b": "Measuring the time delay between the source instance and its Read Replica",
+      "c": "Measuring time to failover",
+      "d": "Measuring query execution time"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ReplicaLag is not about network latency between AZs.",
+      "b": "Correct. ReplicaLag measures the amount of time (in seconds) a Read Replica is behind the source DB instance in applying updates.",
+      "c": "Incorrect. Failover time is not measured by this metric.",
+      "d": "Incorrect. Query execution time is not what ReplicaLag measures."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need your RDS database logs (error logs, slow query logs) to be available for long-term analysis. What should you configure?",
+    "opts": {
+      "a": "Enable Enhanced Monitoring",
+      "b": "Publish RDS logs to Amazon CloudWatch Logs",
+      "c": "Enable Performance Insights",
+      "d": "Enable AWS CloudTrail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Enhanced Monitoring provides OS-level metrics, not database log archival.",
+      "b": "Correct. You can configure RDS to publish database logs (error, slow query, general, audit) to CloudWatch Logs for long-term retention and analysis.",
+      "c": "Incorrect. Performance Insights analyzes performance but doesn't store raw database logs.",
+      "d": "Incorrect. CloudTrail tracks API calls, not database engine logs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following features is unique to Aurora and NOT available in standard RDS?",
+    "opts": {
+      "a": "Multi-AZ deployment",
+      "b": "Automated backups",
+      "c": "Backtrack (in-place rewind to a previous point in time)",
+      "d": "Read Replicas"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Multi-AZ is available for both standard RDS and Aurora.",
+      "b": "Incorrect. Automated backups are available for all RDS engines.",
+      "c": "Correct. Backtrack is unique to Aurora MySQL and allows in-place rewinding of the database without creating a new instance.",
+      "d": "Incorrect. Read Replicas are supported by both standard RDS and Aurora."
+    }
+  }
+]

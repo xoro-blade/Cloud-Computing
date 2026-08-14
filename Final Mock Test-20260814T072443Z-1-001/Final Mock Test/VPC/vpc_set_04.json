@@ -1,0 +1,648 @@
+[
+  {
+    "type": "scenario-based",
+    "q": "A company has a Transit Gateway connecting 50 VPCs across 3 accounts. They notice that VPC-A (10.0.0.0/16) can reach VPC-B (10.1.0.0/16), but VPC-B cannot initiate connections back to VPC-A. Both VPCs have routes pointing to TGW. TGW route table shows both VPC CIDRs. What is the most likely cause?",
+    "opts": {
+      "a": "Transit Gateway doesn't support bidirectional traffic",
+      "b": "VPC-B's route table has a more specific route for 10.0.0.0/16 pointing elsewhere (e.g., local or blackhole)",
+      "c": "Security Groups are stateless and blocking return traffic",
+      "d": "TGW peering needs to be configured between the VPCs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. TGW fully supports bidirectional traffic. If routing is correct, both directions work.",
+      "b": "Correct! Longest prefix match applies. If VPC-B has a more specific route (e.g., 10.0.0.0/16 → local because of secondary CIDR overlap, or a blackhole route), that takes precedence over a less specific route pointing to TGW. Check VPC-B's route table for conflicting entries.",
+      "c": "Incorrect. Security Groups are STATEFUL. If VPC-A initiates and traffic reaches VPC-B, the return traffic is auto-allowed by VPC-B's SG.",
+      "d": "Incorrect. TGW peering is for cross-region TGW-to-TGW. VPCs connect to TGW via attachments, not peering."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a centralized inspection architecture: VPCs → TGW → Inspection VPC (AWS Network Firewall) → TGW → Egress VPC (NAT GW + IGW). Traffic works for some VPCs but fails for others. Failed VPCs were recently added. What should the architect investigate?",
+    "opts": {
+      "a": "Whether the new VPC attachments are associated with the correct TGW route table",
+      "b": "Whether the Network Firewall has enough capacity",
+      "c": "Whether the NAT Gateway bandwidth is exceeded",
+      "d": "Whether VPC Peering is configured between new VPCs and the inspection VPC"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! In TGW with multiple route tables, new VPC attachments must be associated with the correct TGW route table AND propagation/static routes must be configured. If new attachments are associated with the wrong route table (or default table with no routes to inspection VPC), traffic fails.",
+      "b": "Incorrect. Network Firewall auto-scales. Capacity issues would affect all VPCs, not just new ones.",
+      "c": "Incorrect. NAT GW bandwidth issues would affect all VPCs, not just newly added ones.",
+      "d": "Incorrect. The architecture uses TGW, not VPC Peering. No peering needed."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has an Interface Endpoint for S3 with Private DNS enabled in VPC-A. A Lambda function in VPC-A makes S3 API calls. The calls succeed for buckets in the same region but fail for cross-region bucket access. Why?",
+    "opts": {
+      "a": "Interface Endpoints don't support S3",
+      "b": "Private DNS resolves s3.us-east-1.amazonaws.com to the endpoint IP, but cross-region calls go to s3.eu-west-1.amazonaws.com which isn't covered by the endpoint",
+      "c": "Lambda functions cannot make cross-region S3 calls",
+      "d": "The VPC Endpoint Policy blocks cross-region access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Interface Endpoints DO support S3.",
+      "b": "Correct! The Interface Endpoint with Private DNS overrides DNS for the LOCAL region's S3 endpoint (s3.us-east-1.amazonaws.com → private IP). But cross-region calls (s3.eu-west-1.amazonaws.com) still resolve to public IPs — requiring internet access (NAT GW or separate endpoint). The Lambda has no internet path, so cross-region fails.",
+      "c": "Incorrect. Lambda can make cross-region S3 calls if it has network connectivity.",
+      "d": "Incorrect. Endpoint Policy could restrict actions/buckets but wouldn't specifically cause cross-region failures while allowing same-region."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company uses Direct Connect with BGP. They have two DX connections from different locations for redundancy. Both advertise the same on-premises prefix (172.16.0.0/16) to AWS. They want to prefer the primary DX and failover to secondary. How should they configure this?",
+    "opts": {
+      "a": "Use AS_PATH prepending on the secondary DX to make it less preferred",
+      "b": "Set a static route in the VPC route table with higher priority",
+      "c": "Disable route propagation for the secondary connection",
+      "d": "Use different CIDRs on each DX connection"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! AS_PATH prepending adds extra AS hops to the secondary route advertisement, making it longer (less preferred by BGP). AWS will prefer the shorter AS_PATH (primary DX). On failure of primary, traffic automatically shifts to secondary. Standard BGP traffic engineering.",
+      "b": "Incorrect. With route propagation, both routes appear with same prefix. You can't set 'priority' on propagated routes — BGP attributes determine preference.",
+      "c": "Incorrect. Disabling propagation means the secondary route isn't in the table at all — no automatic failover.",
+      "d": "Incorrect. Using different CIDRs means they're different routes entirely, not primary/backup for same destination."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company runs a multi-tenant SaaS platform. Each tenant has a VPC. The platform VPC exposes services via PrivateLink. Tenant-A reports they can access the service but get intermittent timeouts under load. Other tenants are fine. What should the architect investigate?",
+    "opts": {
+      "a": "Whether Tenant-A's Interface Endpoint has enough ENIs across AZs",
+      "b": "Whether the PrivateLink service has per-tenant bandwidth limits",
+      "c": "Whether the provider's NLB targets are healthy and the NLB has cross-zone load balancing enabled",
+      "d": "Whether Tenant-A's VPC CIDR conflicts with the provider VPC"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. While multi-AZ endpoints help, intermittent timeouts under load suggest backend capacity issues, not endpoint ENI limits.",
+      "b": "Incorrect. PrivateLink doesn't have per-tenant bandwidth limits. Limits are at the NLB/target level.",
+      "c": "Correct! If NLB targets are unhealthy or overloaded, AND cross-zone load balancing is disabled, traffic might concentrate on targets in one AZ causing timeouts. Also check if NLB connection idle timeout or target deregistration delay is causing drops under load.",
+      "d": "Incorrect. PrivateLink works regardless of CIDR overlap."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a Transit Gateway with appliance mode DISABLED on the inspection VPC attachment. They route traffic through a firewall appliance in the inspection VPC. Users report that some connections work and others don't — the behavior is inconsistent. What is happening?",
+    "opts": {
+      "a": "The firewall is randomly dropping packets",
+      "b": "Asymmetric routing: request and response traverse different AZ firewall instances, breaking stateful inspection",
+      "c": "The TGW route table has conflicting routes",
+      "d": "Security Groups are blocking random connections"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Random drops would be consistent for all flows, not 'some work, some don't.'",
+      "b": "Correct! Without appliance mode, TGW may route the request through AZ-a firewall and the response through AZ-b firewall. The AZ-b firewall has no state for this connection and drops it. Enabling 'Appliance Mode' ensures both directions use the same AZ, fixing asymmetric routing.",
+      "c": "Incorrect. Conflicting routes would consistently fail, not intermittently.",
+      "d": "Incorrect. SGs are stateful and don't randomly block. The issue is network-level asymmetry."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a VPN connection to TGW with ECMP enabled. They have 2 VPN connections (4 tunnels). Monitoring shows only 2 tunnels are active; the other 2 are UP but carrying no traffic. ECMP should distribute across all 4. What's the issue?",
+    "opts": {
+      "a": "ECMP only works with 2 tunnels maximum",
+      "b": "The Customer Gateway is advertising different BGP attributes on each VPN, causing unequal path selection",
+      "c": "Both VPN connections use the same Customer Gateway IP, and ECMP requires unique next-hops",
+      "d": "ECMP requires at least 4 VPN connections to activate"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ECMP works across all available equal-cost paths (no 2-tunnel limit).",
+      "b": "Correct! ECMP requires EQUAL-cost paths. If BGP attributes differ (AS_PATH length, MED, local preference), paths aren't equal and BGP selects the 'better' paths. Ensure both VPN connections advertise routes with identical BGP attributes (same AS_PATH, same MED) for true ECMP distribution.",
+      "c": "Incorrect. Same CGW IP doesn't prevent ECMP. TGW distinguishes tunnels by their individual endpoints.",
+      "d": "Incorrect. ECMP works with 2+ VPN connections (4+ tunnels)."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company's Lambda function in VPC-A needs to invoke a private API in API Gateway. The API is configured as a Private API with a Resource Policy allowing VPC-A's VPC Endpoint. The Lambda gets 403 Forbidden. The Interface Endpoint for execute-api exists and is healthy. What else could be wrong?",
+    "opts": {
+      "a": "The Lambda function's execution role lacks API Gateway invoke permission",
+      "b": "The API Gateway Resource Policy doesn't match the specific VPC Endpoint ID (using wrong vpce-id or condition)",
+      "c": "Lambda cannot call Private APIs",
+      "d": "The API needs to be redeployed after Resource Policy changes"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. For Private APIs, IAM auth is optional (depends on configuration). 403 from Resource Policy evaluation happens before IAM auth.",
+      "b": "Possible but the question states the policy 'allows VPC-A's VPC Endpoint.'",
+      "c": "Incorrect. Lambda in VPC with endpoint CAN call Private APIs.",
+      "d": "Correct! API Gateway Resource Policy changes require a REDEPLOYMENT of the API to take effect. If the policy was updated but the API wasn't redeployed, the old policy (which may not include the VPC Endpoint) is still active. This is a common gotcha."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company uses Gateway Load Balancer (GWLB) for traffic inspection. The GWLB is in a Security VPC and the GWLBe (endpoint) is in the Application VPC. After setup, HTTP traffic works but HTTPS traffic fails. The firewall appliance is configured to pass all traffic. What's the issue?",
+    "opts": {
+      "a": "GWLB doesn't support HTTPS traffic",
+      "b": "The firewall appliance's GENEVE tunnel MTU is causing fragmentation of larger HTTPS packets",
+      "c": "The GWLBe Security Group blocks port 443",
+      "d": "HTTPS requires a separate GWLB endpoint"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GWLB is protocol-agnostic. It encapsulates any IP traffic.",
+      "b": "Correct! GWLB uses GENEVE encapsulation which adds ~50 bytes overhead. HTTPS packets are typically larger than HTTP (TLS overhead). If the appliance interface MTU isn't adjusted (should be 8500+ to accommodate encapsulation), larger packets get fragmented or dropped. Set appliance ENI MTU to accommodate GENEVE overhead.",
+      "c": "Incorrect. GWLBe doesn't have Security Groups.",
+      "d": "Incorrect. One GWLBe handles all traffic types (HTTP, HTTPS, any protocol)."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has 3 VPCs peered in a full mesh (A↔B, B↔C, A↔C). VPC-A has a VPN connection to on-premises. On-premises needs to reach resources in VPC-B and VPC-C. Currently, on-premises can only reach VPC-A. What should they do?",
+    "opts": {
+      "a": "Enable route propagation in VPC-B and VPC-C route tables",
+      "b": "This is impossible with VPC Peering — migrate to Transit Gateway",
+      "c": "Create additional VPN connections from on-premises to VPC-B and VPC-C",
+      "d": "Add routes in VPC-B and VPC-C pointing to VPC-A's VGW via peering"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Route propagation adds VGW routes to VPC-A's tables. VPC-B and VPC-C don't have VGWs.",
+      "b": "Correct! VPC Peering doesn't support edge routing — you CANNOT route through VPC-A's VPN/VGW to reach VPC-B or VPC-C. The solution is Transit Gateway: attach all VPCs + VPN to TGW for transitive routing.",
+      "c": "Incorrect. This works but is complex and expensive. TGW is the proper architectural solution.",
+      "d": "Incorrect. You cannot route through a peered VPC's VGW. VPC Peering explicitly blocks edge routing (no IGW, NAT, VPN gateway access through peering)."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has an S3 bucket policy with condition: {\"StringEquals\": {\"aws:sourceVpc\": \"vpc-abc123\"}}. They created a Gateway Endpoint in vpc-abc123. Instances in the VPC get Access Denied when accessing the bucket. What's wrong with the condition?",
+    "opts": {
+      "a": "The condition key should be aws:sourceVpce (endpoint ID), not aws:sourceVpc",
+      "b": "Gateway Endpoints don't support VPC-based conditions",
+      "c": "The bucket policy syntax is incorrect",
+      "d": "aws:sourceVpc only works with Interface Endpoints"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Partially correct approach, but the real issue is about which condition works with which endpoint type.",
+      "b": "Incorrect. Gateway Endpoints do support conditions, but the correct key differs.",
+      "c": "Incorrect. The JSON syntax is valid.",
+      "d": "Correct! aws:sourceVpc condition only works with traffic from VPC through Interface Endpoints (PrivateLink). For Gateway Endpoints, use aws:sourceVpce with the specific endpoint ID. Gateway Endpoint traffic doesn't carry VPC ID in the request context the same way."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company runs an NLB with cross-zone load balancing DISABLED. They have targets in 3 AZs (AZ-a: 4 targets, AZ-b: 2 targets, AZ-c: 2 targets). They notice AZ-a targets receive 33% of traffic (same as other AZs) but are less loaded per-target. What is happening and how to fix it?",
+    "opts": {
+      "a": "NLB distributes traffic equally across AZs regardless of target count; enable cross-zone LB to distribute by target count",
+      "b": "The health checks are incorrect",
+      "c": "The targets in AZ-a are larger instance types",
+      "d": "This is expected behavior and cannot be changed"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! With cross-zone LB disabled, NLB distributes traffic equally across REGISTERED AZs (33% each). AZ-a gets 33% split among 4 targets (8.25% each). AZ-b/c get 33% split among 2 targets (16.5% each). Enabling cross-zone LB distributes across ALL 8 targets equally (12.5% each).",
+      "b": "Incorrect. Health checks don't affect traffic distribution logic.",
+      "c": "Incorrect. Instance type doesn't change NLB distribution when cross-zone is disabled.",
+      "d": "Incorrect. Enabling cross-zone load balancing fixes the imbalance."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a Direct Connect with Private VIF to a VGW. They added a Transit VIF to the same DX connection to connect via Transit Gateway. Now they have both VGW (for VPC-A) and TGW (for VPC-B through VPC-Z). On-premises routes for VPC-A appear on both the Private VIF (via VGW) and Transit VIF (via TGW, since VPC-A is also attached to TGW). How does AWS determine which path to use?",
+    "opts": {
+      "a": "Private VIF always takes precedence over Transit VIF",
+      "b": "Transit VIF always takes precedence over Private VIF",
+      "c": "Longest prefix match determines the path; if equal, Private VIF is preferred over Transit VIF",
+      "d": "The path is randomly selected"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incomplete. It's not always — longest prefix match comes first.",
+      "b": "Incorrect. Private VIF is preferred when prefix lengths are equal.",
+      "c": "Correct! AWS routing priority: 1) Longest prefix match (most specific route wins regardless of VIF type). 2) If prefix length is EQUAL: Private VIF > Transit VIF > VPN. This is documented DX routing precedence for overlapping routes.",
+      "d": "Incorrect. AWS routing is deterministic, not random."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has enabled VPC Flow Logs at the VPC level with custom fields including pkt-srcaddr and pkt-dstaddr. They notice that for traffic through their NAT Gateway, srcaddr shows the NAT GW's private IP but pkt-srcaddr shows the original instance IP. Why are these different?",
+    "opts": {
+      "a": "Flow Logs are reporting incorrectly",
+      "b": "srcaddr/dstaddr show the IP at the observed ENI; pkt-srcaddr/pkt-dstaddr show the original packet IPs before NAT translation",
+      "c": "pkt-srcaddr is always the public IP",
+      "d": "This only happens with IPv6 traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Flow Logs are reporting correctly with these distinct fields.",
+      "b": "Correct! srcaddr/dstaddr reflect IPs as seen at the SPECIFIC ENI where the log is captured. pkt-srcaddr/pkt-dstaddr show the ORIGINAL packet header IPs. After NAT, the observed ENI sees NAT'd IPs (srcaddr), but pkt-srcaddr preserves the pre-NAT original source. Essential for tracing through NAT.",
+      "c": "Incorrect. pkt-srcaddr shows the original packet source, which could be private.",
+      "d": "Incorrect. This applies to IPv4 traffic through NAT."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company uses Route 53 Resolver with Outbound Endpoints to forward DNS queries for corp.internal to their on-premises DNS (10.100.1.53). After a network change, resolution fails. They verify the Outbound Endpoint ENIs exist and the Resolver Rule is correct. On-premises DNS is healthy. What should they check?",
+    "opts": {
+      "a": "Whether the Outbound Endpoint's Security Group allows outbound DNS (UDP/TCP port 53) to 10.100.1.53",
+      "b": "Whether Route 53 needs to be restarted",
+      "c": "Whether the VPC needs a new DHCP Options Set",
+      "d": "Whether CloudWatch alarms are configured"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! Outbound Endpoint ENIs have Security Groups. The SG must allow OUTBOUND traffic on port 53 (UDP and TCP) to the on-premises DNS server IP. Also check: NACL on the endpoint's subnet allowing port 53 outbound and return traffic (ephemeral ports inbound), and that routing to 10.100.1.53 is intact (via VPN/DX).",
+      "b": "Incorrect. Route 53 Resolver is managed and doesn't need manual restarts.",
+      "c": "Incorrect. DHCP Options Set doesn't affect Resolver endpoint operation.",
+      "d": "Incorrect. CloudWatch alarms are for monitoring, not fixing resolution issues."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company enables Transit Gateway inter-region peering between TGW-US (us-east-1) and TGW-EU (eu-west-1). They add static routes on both sides. VPCs in us-east-1 can reach VPCs in eu-west-1. However, they cannot get ECMP to work across the TGW peering. Why?",
+    "opts": {
+      "a": "ECMP is not supported across TGW peering connections",
+      "b": "ECMP requires BGP which isn't supported cross-region",
+      "c": "They need to enable ECMP manually on the peering attachment",
+      "d": "ECMP only works with VPN attachments, and TGW peering isn't a VPN"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! ECMP is NOT supported across inter-region TGW peering connections. ECMP only works with VPN attachments on a SINGLE Transit Gateway. Cross-region TGW peering supports only static routes and single-path forwarding.",
+      "b": "Partially correct reasoning (BGP isn't supported across TGW peering), but the core issue is ECMP itself isn't supported on peering.",
+      "c": "Incorrect. There's no ECMP toggle for peering attachments because it's not supported.",
+      "d": "Incorrect in reasoning. ECMP works with VPN attachments, but the limitation isn't about VPN specifically — it's that peering attachments don't support ECMP."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a VPC with both IPv4 (10.0.0.0/16) and IPv6 (2600:1f18::/56). An instance has both addresses. The instance can reach IPv4 internet via NAT Gateway but IPv6 internet access times out. Route table has ::/0 → IGW. What's the issue?",
+    "opts": {
+      "a": "IPv6 requires a separate Internet Gateway",
+      "b": "The Security Group or NACL doesn't have IPv6 rules allowing the traffic",
+      "c": "IPv6 doesn't work with NAT Gateway",
+      "d": "The VPC doesn't support dual-stack"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The same IGW supports both IPv4 and IPv6.",
+      "b": "Correct! Security Groups and NACLs have SEPARATE rules for IPv4 and IPv6. Even if 0.0.0.0/0 is allowed (IPv4), you must ALSO add ::/0 rules for IPv6. Check both SG (outbound ::/0) and NACL (both directions for ::/0 and ephemeral ports for IPv6).",
+      "c": "Incorrect. True that NAT GW doesn't handle IPv6, but the question says IPv6 routes to IGW (correct setup). The route isn't the issue.",
+      "d": "Incorrect. The VPC has both IPv4 and IPv6 CIDRs, confirming dual-stack support."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has VPC-A with an Interface Endpoint for KMS. They share this VPC's subnets with Account-B via RAM (VPC Sharing). Account-B launches instances in the shared subnet. Can Account-B's instances use VPC-A's KMS Interface Endpoint?",
+    "opts": {
+      "a": "No, VPC Endpoints are account-specific and cannot be used by other accounts",
+      "b": "Yes, instances in shared subnets can use VPC Endpoints owned by the VPC owner",
+      "c": "Only if Account-B creates their own endpoint in the shared subnet",
+      "d": "Only if the endpoint policy explicitly allows Account-B"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC Endpoints in shared VPCs ARE accessible by participant accounts.",
+      "b": "Correct! When subnets are shared via RAM, participant account resources in those subnets can use VPC Endpoints owned by the VPC owner. The endpoint is a VPC-level resource, and shared subnet resources are part of that VPC's network. They benefit from the endpoint's DNS resolution and routing.",
+      "c": "Incorrect. Participants don't need their own endpoints — they use the owner's.",
+      "d": "Incorrect. Endpoint policy restricts actions/resources, not account access within the shared VPC."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company runs a hybrid DNS setup with Route 53 Resolver. They have Inbound Endpoints in 2 AZs. On-premises DNS forwards *.aws.internal to these endpoints. Resolution works, but they notice if one AZ goes down, 50% of DNS queries fail instead of automatically failing over. Why?",
+    "opts": {
+      "a": "Inbound Endpoints don't support failover",
+      "b": "On-premises DNS is configured with both endpoint IPs but doesn't perform health checks — it sends queries round-robin including to the failed endpoint",
+      "c": "Route 53 Resolver has a bug with multi-AZ endpoints",
+      "d": "The NACL on the failed AZ's subnet is blocking DNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Inbound Endpoints across 2 AZs provide HA, but the CLIENT (on-premises DNS) must handle failover.",
+      "b": "Correct! The on-premises DNS forwarder has 2 endpoint IPs and sends queries round-robin. When one endpoint's AZ fails, queries to that IP time out (50% failure). Fix: Configure on-premises DNS with health-checking/failover between the two endpoint IPs, or use a DNS load balancer on-premises.",
+      "c": "Incorrect. Route 53 Resolver works correctly — the issue is on-premises DNS behavior.",
+      "d": "Incorrect. If the AZ is down, NACL isn't the blocking factor — the endpoint ENI is unavailable."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company's Network Firewall is deployed in a centralized inspection VPC. They create a stateful rule to block traffic to known malicious domains. The rule works for HTTP but NOT for HTTPS traffic to the same domains. What is the architectural issue?",
+    "opts": {
+      "a": "Network Firewall cannot inspect HTTPS",
+      "b": "HTTPS uses TLS encryption; the firewall can only see the SNI (Server Name Indication) field — the domain list rule must use SNI-based inspection, not HTTP host header",
+      "c": "HTTPS traffic bypasses the Network Firewall",
+      "d": "The stateful rule needs port 443 added explicitly"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Network Firewall CAN inspect HTTPS using SNI (TLS handshake is visible).",
+      "b": "Correct! For HTTPS, the payload is encrypted but the TLS ClientHello contains the SNI (domain name) in plaintext. The domain list rule must be configured for HTTPS/TLS inspection using SNI, which is different from HTTP host header inspection. Ensure the rule group targets TLS protocol and checks SNI field.",
+      "c": "Incorrect. HTTPS traffic follows the same network path through the firewall.",
+      "d": "Incorrect. Port isn't the issue — it's the inspection method (SNI vs HTTP header)."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company configures a VPC with a /16 CIDR and creates subnets. They later need to peer with another VPC but discover the CIDRs overlap. They can't change either VPC's primary CIDR. However, only specific applications need cross-VPC access. What solutions exist?",
+    "opts": {
+      "a": "Use a secondary non-overlapping CIDR on both VPCs and peer the secondary CIDRs",
+      "b": "Use AWS PrivateLink for the specific applications that need cross-VPC access",
+      "c": "Both A and B are valid solutions",
+      "d": "This is impossible to solve without re-creating one VPC"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Valid! You can add non-overlapping secondary CIDRs and configure peering to route only the secondary CIDRs. However, instances need IPs from the secondary range to communicate cross-VPC.",
+      "b": "Valid! PrivateLink works regardless of CIDR overlap. For specific applications, provider exposes via NLB + Endpoint Service; consumer creates Interface Endpoint.",
+      "c": "Correct! Both approaches work: Secondary CIDRs enable peering at network level. PrivateLink enables service-level connectivity. PrivateLink is simpler if only specific services need access. Secondary CIDRs work for broader network access.",
+      "d": "Incorrect. Multiple solutions exist without recreating VPCs."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company uses EKS with the VPC CNI plugin. Pods are getting IPs from VPC subnets. They have a /24 subnet with 251 usable IPs. With nodes consuming IPs and each node pre-warming secondary IPs for pods, they run out of IPs with only 20 nodes (each hosting 10 pods). Why are IPs exhausted so quickly?",
+    "opts": {
+      "a": "EKS doesn't use VPC IPs for pods",
+      "b": "VPC CNI allocates IPs to ENIs ahead of time (warm pool). Each node consumes multiple IPs: 1 primary + multiple secondary IPs per ENI × multiple ENIs per node",
+      "c": "The subnet has fewer than 251 usable IPs",
+      "d": "IPv6 is consuming the extra IPs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC CNI specifically assigns VPC subnet IPs to pods.",
+      "b": "Correct! VPC CNI pre-allocates IPs in a warm pool. For example, an m5.large has 3 ENIs × 10 IPs each = 30 IPs per node. 20 nodes × 30 IPs = 600 IPs needed, but /24 only has 251. Solutions: Use larger subnets (/20+), enable prefix delegation (assigns /28 prefixes instead of individual IPs), or use secondary CIDRs.",
+      "c": "Incorrect. /24 does have 251 usable IPs (256 - 5 reserved).",
+      "d": "Incorrect. IPv6 and IPv4 use separate address spaces."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a Gateway Load Balancer (GWLB) in a security VPC with firewall appliances. The application VPC has a GWLBe. They configure ingress routing: IGW edge association route table sends all traffic to GWLBe. External clients can reach the application. But the application's RESPONSE traffic bypasses the firewall. Why?",
+    "opts": {
+      "a": "GWLB only inspects inbound traffic",
+      "b": "The application subnet's route table doesn't route response traffic (0.0.0.0/0) back through the GWLBe",
+      "c": "The firewall is not configured for bidirectional inspection",
+      "d": "NAT Gateway is intercepting response traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GWLB can inspect traffic in both directions if properly routed.",
+      "b": "Correct! Ingress routing (IGW edge association) handles INBOUND traffic → GWLBe → GWLB → appliance → back. But OUTBOUND response traffic from the application subnet follows its OWN route table. If that table has 0.0.0.0/0 → IGW directly (bypassing GWLBe), responses skip the firewall. Fix: Application subnet route table must have 0.0.0.0/0 → GWLBe.",
+      "c": "Incorrect. The firewall handles any traffic sent to it. The issue is traffic not being sent to it.",
+      "d": "Incorrect. NAT GW isn't mentioned and wouldn't intercept if not in the route path."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has VPC Flow Logs enabled with 1-minute aggregation interval. During a security investigation, they need to determine the EXACT sequence of packets in a suspicious connection. Flow Logs show the connection but not enough detail. What should they have in place?",
+    "opts": {
+      "a": "Change Flow Log aggregation to 10 seconds",
+      "b": "Enable VPC Traffic Mirroring for deep packet capture",
+      "c": "Enable CloudTrail for network events",
+      "d": "Use VPC Reachability Analyzer"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Minimum aggregation is 1 minute. Even with 1-minute, Flow Logs show metadata (IPs, ports, bytes) not packet sequences.",
+      "b": "Correct! Traffic Mirroring captures ACTUAL PACKETS including content, sequence, timing, and payload. For forensics requiring packet-level detail (TCP sequence numbers, payload content, exact packet ordering), Traffic Mirroring is required. Flow Logs only provide aggregate metadata.",
+      "c": "Incorrect. CloudTrail logs API calls, not network packet sequences.",
+      "d": "Incorrect. Reachability Analyzer checks configuration, not historical traffic."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a private API Gateway accessed via Interface Endpoint. They want to restrict access so only specific IAM roles from specific VPCs can invoke the API. The API uses IAM authorization. How should the Resource Policy be structured?",
+    "opts": {
+      "a": "Use aws:sourceVpc condition only",
+      "b": "Use aws:sourceVpce condition only",
+      "c": "Combine Principal (IAM roles) with Condition (aws:sourceVpce) in the Resource Policy for defense-in-depth",
+      "d": "IAM authorization alone is sufficient; no Resource Policy needed"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. aws:sourceVpc alone allows any principal from that VPC. Doesn't restrict to specific roles.",
+      "b": "Incorrect. aws:sourceVpce alone allows any principal through that endpoint. Doesn't restrict to specific roles.",
+      "c": "Correct! Combine both: Resource Policy allows specific IAM principals (aws:PrincipalArn) AND requires traffic from specific VPC Endpoint (aws:sourceVpce). This ensures: correct identity AND correct network path. Defense-in-depth approach.",
+      "d": "Incorrect. For Private APIs, Resource Policy is evaluated FIRST. If it denies, IAM auth is never reached. Both should be configured."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a multi-region active-active architecture. Each region has a TGW. TGWs are peered cross-region. On-premises connects via DX to Region-A's TGW. They want on-premises to reach workloads in Region-B through the TGW peering. What routing configuration is needed?",
+    "opts": {
+      "a": "BGP will automatically propagate Region-B routes to on-premises via the peered TGWs",
+      "b": "Static routes must be added on TGW-A pointing Region-B VPC CIDRs to the peering attachment, AND on TGW-B pointing on-premises CIDRs to the peering attachment",
+      "c": "A second DX connection is required in Region-B",
+      "d": "VPN connections between TGWs replace the need for TGW peering"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. TGW peering does NOT support dynamic route propagation. Only static routes work across peered TGWs.",
+      "b": "Correct! Cross-region TGW peering requires MANUAL STATIC ROUTES on both sides: TGW-A needs static route (Region-B CIDRs → peering attachment). TGW-B needs static route (on-premises CIDRs → peering attachment back to TGW-A). BGP won't propagate across the peering.",
+      "c": "Incorrect. DX Gateway with Transit VIF can reach TGWs in multiple regions, but TGW peering also works without a second DX.",
+      "d": "Incorrect. VPN between TGWs isn't a standard architecture. TGW peering is the correct approach."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has an Auto Scaling Group that scales EC2 instances across 3 AZs in private subnets. Each AZ has its own NAT Gateway. During scale-out, new instances in AZ-c cannot reach the internet. Instances in AZ-a and AZ-b work fine. What should they check?",
+    "opts": {
+      "a": "Whether the NAT Gateway in AZ-c has reached its 5 Gbps limit",
+      "b": "Whether the NAT Gateway in AZ-c exists, is in an Active state, and the private subnet in AZ-c has the correct route (0.0.0.0/0 → nat-gw-c)",
+      "c": "Whether the ASG is configured to use AZ-c",
+      "d": "Whether the instances have public IPs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 Gbps limit causes throttling, not complete failure. Also NAT GW auto-scales to 100 Gbps.",
+      "b": "Correct! Check: 1) NAT GW in AZ-c exists and is 'Available' (not 'Failed' or deleted). 2) AZ-c's private subnet route table has 0.0.0.0/0 → nat-gw-c (not pointing to NAT GW in another AZ or missing the route). 3) The public subnet in AZ-c has route to IGW. Common issue: NAT GW or route was accidentally deleted/misconfigured for one AZ.",
+      "c": "Incorrect. If instances are launching in AZ-c, the ASG is clearly configured for it.",
+      "d": "Incorrect. Private instances with NAT GW don't need public IPs — that's the point of NAT."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company deploys an Amazon MQ broker in a VPC with private subnets. On-premises applications connect via Direct Connect. Connections work initially but after 350 seconds of idle time, connections drop. The broker and on-premises firewalls have longer idle timeouts. What's causing this?",
+    "opts": {
+      "a": "The Security Group has a connection tracking timeout",
+      "b": "The NAT Gateway has a 350-second idle timeout for TCP connections",
+      "c": "The VPC has a connection timeout setting",
+      "d": "Direct Connect has a session timeout"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security Groups track connections but don't have a 350-second specific timeout for this scenario. SG tracking timeout is much longer.",
+      "b": "Correct! NAT Gateway has a 350-second idle timeout for TCP connections. If no data passes for 350 seconds, NAT GW drops the connection. Fix: Enable TCP keepalive on the client (interval < 350s), or if traffic doesn't go through NAT GW (direct DX connection), check if there's an intermediate stateful device with this timeout.",
+      "c": "Incorrect. VPC doesn't have a connection timeout setting.",
+      "d": "Incorrect. DX doesn't have session timeouts at the connection level."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company wants to migrate from VPC Peering (full mesh of 15 VPCs) to Transit Gateway. During migration, they need both peering and TGW to coexist temporarily. Some VPCs will use peering, others will use TGW. A VPC connected to both might have routes to the same destination via both paths. How does AWS resolve this?",
+    "opts": {
+      "a": "Peering always wins over TGW",
+      "b": "TGW always wins over Peering",
+      "c": "Most specific route (longest prefix) wins; if equal, static > propagated, then: local > VGW/DX > Peering > TGW",
+      "d": "AWS randomly load balances between the two paths"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. It depends on route specificity and priority rules.",
+      "b": "Incorrect. Peering is actually preferred over TGW when route specificity is equal.",
+      "c": "Correct! AWS route priority: 1) Longest prefix match. 2) If same prefix length: Static routes > Propagated routes. 3) If both static with same prefix: local > VGW/Direct Connect Gateway > VPC Peering > Transit Gateway > VPN (least preferred). So peering routes ARE preferred over TGW routes at equal specificity.",
+      "d": "Incorrect. AWS routing is deterministic."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company's Lambda function in a VPC needs to access a third-party API on the internet AND an RDS database in the same VPC. The function has internet access via NAT Gateway. After enabling VPC configuration, cold starts increased from 200ms to 10+ seconds. What is the likely cause and solution?",
+    "opts": {
+      "a": "The NAT Gateway is throttling Lambda connections",
+      "b": "Lambda ENI creation causes cold start latency; this was significantly improved with Hyperplane ENIs but ensure sufficient IP addresses in the subnets",
+      "c": "RDS is causing the delay during connection establishment",
+      "d": "The Security Group evaluation is adding 10 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NAT GW doesn't cause cold start delays. It handles established connections.",
+      "b": "Correct! VPC-enabled Lambda creates Hyperplane ENIs (shared ENIs). Old behavior was very slow ENI creation (10+ seconds). With current implementation, cold starts should be faster (~1-2s VPC overhead). If seeing 10+ seconds: ensure subnets have sufficient IP addresses (ENI creation fails/retries if IPs are low), Lambda is configured with multiple subnets/AZs, and no ENI limits are hit.",
+      "c": "Incorrect. RDS connection time is typically milliseconds, not 10 seconds.",
+      "d": "Incorrect. SG evaluation is instant (nanoseconds)."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company operates a shared services VPC with a centralized Interface Endpoint for AWS Systems Manager (SSM). 50 spoke VPCs connect via Transit Gateway. They want instances in ALL spoke VPCs to use the centralized SSM endpoint in the shared services VPC instead of creating endpoints in each VPC. How can they achieve this?",
+    "opts": {
+      "a": "Enable Private DNS on the centralized endpoint — it will work across all VPCs via TGW",
+      "b": "Create Route 53 Private Hosted Zone with alias to the endpoint, associate with all VPCs, and ensure TGW routes traffic to shared services VPC",
+      "c": "This is impossible — each VPC needs its own Interface Endpoint",
+      "d": "Use VPC Peering instead of TGW for endpoint sharing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Private DNS on Interface Endpoints only works within the VPC where the endpoint is created. Other VPCs won't resolve the service name to the private IP.",
+      "b": "Correct! Create a Route 53 Private Hosted Zone (e.g., ssm.us-east-1.amazonaws.com) with records pointing to the centralized endpoint ENI IPs. Associate this PHZ with all 50 spoke VPCs. Spoke instances resolve SSM to the shared endpoint IP, and traffic routes via TGW to the shared services VPC. Centralized and cost-effective.",
+      "c": "Incorrect. While each VPC having its own endpoint is simplest, centralized endpoints ARE possible with proper DNS and routing.",
+      "d": "Incorrect. TGW works fine for this. VPC Peering would require 50 connections and doesn't solve the DNS issue."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a Network Firewall with a strict rule evaluation order. Rules are: 1) Allow internal VPC traffic, 2) Block known malicious domains, 3) Allow all other outbound HTTPS. A developer reports that internal traffic between subnets is being inspected and slightly delayed by the firewall. How should the architect optimize this?",
+    "opts": {
+      "a": "Disable the Network Firewall for internal traffic",
+      "b": "Use route table design to only send internet-bound traffic through the firewall; keep intra-VPC traffic on the local route",
+      "c": "Add a higher-priority passthrough rule for internal CIDRs",
+      "d": "Move all instances to the same subnet"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can't selectively disable the firewall for certain traffic at the firewall level. It inspects whatever is routed to it.",
+      "b": "Correct! The architect should ensure that intra-VPC traffic uses the 'local' route (which is always present and most specific for VPC CIDR). Only EXTERNAL traffic (0.0.0.0/0) should route through the firewall endpoint. If the route table sends internal traffic to the firewall, fix the routing — not the firewall rules.",
+      "c": "Incorrect. While this reduces processing time at the firewall, traffic still traverses the firewall path (network latency). Better to not route internal traffic there at all.",
+      "d": "Incorrect. Same subnet doesn't solve the fundamental routing issue and eliminates network segmentation."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company runs a critical application behind an NLB. They use AWS PrivateLink to expose it to partner VPCs. A partner reports TLS certificate validation failures when connecting to the endpoint. The service uses a custom domain (api.company.com) with ACM certificate. What's the issue?",
+    "opts": {
+      "a": "PrivateLink doesn't support TLS",
+      "b": "The partner's Interface Endpoint DNS name doesn't match the certificate's CN/SAN (api.company.com). Private DNS name must be configured on the Endpoint Service and verified.",
+      "c": "ACM certificates don't work with NLB",
+      "d": "The certificate has expired"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. PrivateLink supports TLS (NLB can terminate TLS with ACM certificates).",
+      "b": "Correct! By default, the consumer connects to vpce-xxx.vpce-svc-xxx.region.vpce.amazonaws.com — this doesn't match the certificate for api.company.com. Solution: Configure Private DNS name on the VPC Endpoint Service (api.company.com), verify domain ownership via TXT record, and enable Private DNS on consumer's endpoint. Then api.company.com resolves to the endpoint IP.",
+      "c": "Incorrect. ACM certificates work perfectly with NLB TLS listeners.",
+      "d": "Incorrect. If expired, it would fail for everyone, not just partners via PrivateLink."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company uses AWS Config rule 'vpc-flow-logs-enabled' to ensure all VPCs have Flow Logs. A new VPC is created by an automated pipeline and Config flags it as non-compliant. They want automatic remediation. What should they implement?",
+    "opts": {
+      "a": "A Lambda function triggered by CloudWatch Events when a VPC is created",
+      "b": "AWS Config auto-remediation using SSM Automation document to enable Flow Logs",
+      "c": "An SCP preventing VPC creation without Flow Logs",
+      "d": "Both A and B are valid approaches"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Valid! EventBridge (CloudWatch Events) can trigger a Lambda function on 'CreateVpc' API call to automatically enable Flow Logs. Proactive approach.",
+      "b": "Valid! AWS Config auto-remediation can trigger an SSM Automation document when non-compliance is detected. Reactive but integrated approach.",
+      "c": "Incorrect. SCPs can prevent API calls but there's no SCP condition for 'VPC must have Flow Logs at creation.' SCPs work on the CreateVpc action itself, not its configuration.",
+      "d": "Correct! Both approaches work: Option A is proactive (enables at creation time via EventBridge). Option B is reactive (detects non-compliance and remediates via Config). Many companies implement both for defense-in-depth."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has implemented a dual-stack VPC (IPv4 + IPv6). They notice that IPv6 traffic between VPCs via Transit Gateway works, but IPv6 traffic to the internet via Egress-Only IGW from spoke VPCs (routed through TGW to a shared egress VPC) doesn't work. IPv4 internet via NAT GW works fine through the same TGW path. What's likely wrong?",
+    "opts": {
+      "a": "Transit Gateway doesn't support IPv6",
+      "b": "The TGW route table is missing an IPv6 default route (::/0) pointing to the egress VPC attachment, AND/OR the egress VPC's route table doesn't have ::/0 → Egress-Only IGW",
+      "c": "Egress-Only IGW doesn't work with Transit Gateway",
+      "d": "IPv6 requires a separate Transit Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. TGW fully supports IPv6 routing.",
+      "b": "Correct! IPv4 and IPv6 routes are configured separately. If IPv4 works (0.0.0.0/0 → egress attachment → NAT GW), the equivalent IPv6 path must also be configured: TGW route table needs ::/0 → egress VPC attachment, AND the egress VPC subnet route table needs ::/0 → Egress-Only IGW. Missing either link breaks IPv6 internet.",
+      "c": "Incorrect. Egress-Only IGW works fine with traffic coming through TGW.",
+      "d": "Incorrect. Same TGW handles both IPv4 and IPv6."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company uses IPAM (IP Address Manager) to manage IP allocations across their organization. A team tries to create a VPC with CIDR 10.2.0.0/16 but gets an error. IPAM shows this range is already allocated to another VPC. The team insists they need this specific range. What are the architect's options?",
+    "opts": {
+      "a": "Delete the other VPC to free the CIDR",
+      "b": "Override IPAM allocation (IPAM is advisory only)",
+      "c": "Work with the IPAM administrator to either: reallocate from a different pool, free up the range if unused, or use a different non-overlapping CIDR",
+      "d": "IPAM errors are informational and can be ignored"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Deleting another team's VPC is disruptive and likely not acceptable.",
+      "b": "Incorrect. IPAM enforces allocation rules when VPCs are created from IPAM pools. It's not just advisory — it prevents overlapping allocations.",
+      "c": "Correct! Work with IPAM admin to: 1) Allocate from a different pool with available space, 2) Return/reallocate the existing allocation if the other VPC doesn't need it, 3) Choose an alternative CIDR. IPAM exists precisely to prevent overlapping CIDRs that would break peering/connectivity.",
+      "d": "Incorrect. IPAM allocation failures are enforced, not informational."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a production VPC with strict compliance requirements. They use AWS Network Access Analyzer to verify that no database subnet should be reachable from the internet. The analyzer reports a finding showing a path: Internet → IGW → ALB (public subnet) → App Server (private subnet) → Database (DB subnet). Is this a valid compliance concern?",
+    "opts": {
+      "a": "Yes — the database is indirectly reachable from the internet",
+      "b": "No — the database is protected by private subnets and Security Groups; indirect access through application layers is expected",
+      "c": "Yes — but only if the ALB is misconfigured",
+      "d": "No — Network Access Analyzer is showing false positives"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Indirect access through properly secured application layers is standard architecture (this is how web applications work).",
+      "b": "Correct! This is normal 3-tier architecture: Internet → LB → App → DB. The database is NOT directly reachable from the internet. The app layer mediates access with authentication, authorization, and input validation. Network Access Analyzer shows all possible NETWORK paths — you must evaluate whether the path represents actual risk given application-layer controls.",
+      "c": "Incorrect. The ALB configuration doesn't make this inherently non-compliant — it's expected architecture.",
+      "d": "Incorrect. The analyzer correctly shows the network path. It's up to human judgment whether this is a compliance issue."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company runs a service mesh with 200 microservices across 10 VPCs connected via Transit Gateway. Inter-service latency has increased. TGW CloudWatch metrics show data processing is normal but 'PacketDropCountNoRoute' is elevated for specific VPC attachments. What does this indicate?",
+    "opts": {
+      "a": "The TGW is overloaded",
+      "b": "Some TGW route table entries are missing or have blackhole routes for specific VPC CIDRs",
+      "c": "The microservices have bugs causing packet corruption",
+      "d": "Security Groups are dropping packets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. TGW auto-scales. If overloaded, you'd see 'BytesDropCountBlackhole' or throttling metrics, not route-specific drops.",
+      "b": "Correct! 'PacketDropCountNoRoute' specifically means packets arrived at TGW but no matching route existed in the TGW route table for their destination. This happens when: routes were deleted, VPC attachments were removed without updating routes, or new VPC CIDRs were added without corresponding TGW routes. Check TGW route tables for missing or blackhole entries.",
+      "c": "Incorrect. Packet corruption would cause application errors, not TGW no-route drops.",
+      "d": "Incorrect. SG drops happen at the instance ENI level, not at TGW. TGW metrics are network-layer."
+    }
+  }
+]

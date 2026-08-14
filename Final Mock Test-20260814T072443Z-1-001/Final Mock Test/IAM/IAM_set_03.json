@@ -1,0 +1,903 @@
+[
+  {
+    "type": "MCQ",
+    "q": "A company wants to allow an EC2 instance to access an S3 bucket without storing credentials on the instance. What is the BEST approach?",
+    "opts": {
+      "a": "Store access keys in environment variables on the EC2 instance",
+      "b": "Attach an IAM role to the EC2 instance with appropriate S3 permissions",
+      "c": "Create an IAM user and hardcode credentials in the application",
+      "d": "Use the root account credentials on the instance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Storing access keys on the instance is a security risk and not a best practice.",
+      "b": "Correct. Attaching an IAM role to an EC2 instance via an instance profile provides temporary credentials that are automatically rotated, eliminating the need to store static credentials.",
+      "c": "Incorrect. Hardcoding credentials is a serious security anti-pattern.",
+      "d": "Incorrect. Using root credentials is never recommended."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM user has an Allow policy for s3:* and is also subject to a permissions boundary that only allows s3:GetObject and s3:ListBucket. What actions can the user perform?",
+    "opts": {
+      "a": "All S3 actions because the identity policy allows s3:*",
+      "b": "Only s3:GetObject and s3:ListBucket",
+      "c": "No S3 actions because boundaries override everything",
+      "d": "Only s3:PutObject"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The permissions boundary limits the effective permissions regardless of the identity policy.",
+      "b": "Correct. The effective permissions are the intersection of the identity-based policy and the permissions boundary. Only actions allowed in BOTH are permitted.",
+      "c": "Incorrect. The boundary allows specific actions, and the identity policy also allows them, so the intersection is not empty.",
+      "d": "Incorrect. s3:PutObject is not in the permissions boundary."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A developer needs to allow a Lambda function in Account A to access a DynamoDB table in Account B. What is the correct approach?",
+    "opts": {
+      "a": "Create an IAM user in Account B and store credentials in Lambda",
+      "b": "Create a role in Account B with DynamoDB permissions and a trust policy allowing Account A's Lambda role to assume it",
+      "c": "Use the root credentials of Account B in the Lambda function",
+      "d": "Create an IAM group in Account B and add the Lambda function to it"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Storing cross-account credentials in Lambda is not a best practice.",
+      "b": "Correct. Cross-account access is achieved by creating a role in the target account (B) with appropriate permissions and a trust policy that allows the source account (A) to assume it.",
+      "c": "Incorrect. Root credentials should never be used in applications.",
+      "d": "Incorrect. Lambda functions cannot be added to IAM groups; only users can be group members."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An organization requires that all IAM users must use MFA when calling AWS APIs. Which policy condition should be used?",
+    "opts": {
+      "a": "aws:SecureTransport",
+      "b": "aws:MultiFactorAuthPresent",
+      "c": "aws:PrincipalTag",
+      "d": "aws:SourceVpc"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. aws:SecureTransport checks for HTTPS, not MFA.",
+      "b": "Correct. The condition key aws:MultiFactorAuthPresent checks whether the request was authenticated with MFA. You can deny actions when this is false.",
+      "c": "Incorrect. aws:PrincipalTag is used for ABAC, not MFA enforcement.",
+      "d": "Incorrect. aws:SourceVpc restricts by VPC, not MFA."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A policy has the following statement: {\"Effect\": \"Allow\", \"Action\": \"s3:*\", \"Resource\": \"arn:aws:s3:::mybucket/*\"}. What does this allow?",
+    "opts": {
+      "a": "All S3 actions on the mybucket bucket itself and all objects inside it",
+      "b": "All S3 actions only on objects inside mybucket, not on the bucket itself",
+      "c": "Only read actions on mybucket objects",
+      "d": "All S3 actions on all buckets in the account"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The resource ARN 'arn:aws:s3:::mybucket/*' only covers objects inside the bucket, not the bucket itself.",
+      "b": "Correct. The /* at the end means only objects within the bucket. To include bucket-level actions (like ListBucket), you would also need 'arn:aws:s3:::mybucket' as a separate resource.",
+      "c": "Incorrect. s3:* includes all actions, not just read.",
+      "d": "Incorrect. The resource is scoped specifically to mybucket objects."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the effective permission when an IAM user has no explicit Allow and no explicit Deny for an action?",
+    "opts": {
+      "a": "The action is allowed by default",
+      "b": "The action is implicitly denied",
+      "c": "The action triggers an MFA prompt",
+      "d": "The action is allowed for read operations only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS defaults to deny, not allow.",
+      "b": "Correct. In the absence of an explicit Allow, all actions are implicitly denied. This is the default deny principle in AWS IAM.",
+      "c": "Incorrect. No MFA prompt is triggered; the action is simply denied.",
+      "d": "Incorrect. There is no special treatment for read operations."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company uses AWS Organizations with SCPs. An SCP denies ec2:TerminateInstances, but an IAM policy in a member account explicitly allows it. What happens when a user tries to terminate an instance?",
+    "opts": {
+      "a": "The action is allowed because IAM policy overrides SCP",
+      "b": "The action is denied because SCP restricts the maximum available permissions",
+      "c": "The action is allowed only if MFA is used",
+      "d": "The action depends on which policy was created first"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM policies cannot override SCPs.",
+      "b": "Correct. SCPs set the maximum permissions for member accounts. Even if an IAM policy allows an action, if the SCP denies it, the action is denied. SCPs act as guardrails.",
+      "c": "Incorrect. MFA does not override SCP restrictions.",
+      "d": "Incorrect. Policy creation order has no impact on evaluation."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following is the correct order of IAM policy evaluation?",
+    "opts": {
+      "a": "Explicit Deny → Organizations SCPs → Resource-based policies → Identity-based policies → Permissions boundaries → Session policies",
+      "b": "Identity-based policies → SCPs → Resource-based policies → Explicit Deny",
+      "c": "SCPs → Identity-based policies → Explicit Deny → Permissions boundaries",
+      "d": "Resource-based policies → Identity-based policies → SCPs → Explicit Deny"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS evaluates policies in this order: first checking for explicit Deny across all policies, then evaluating SCPs, resource-based policies, identity-based policies, permissions boundaries, and session policies.",
+      "b": "Incorrect. Explicit Deny is checked first, not last.",
+      "c": "Incorrect. This order is not accurate.",
+      "d": "Incorrect. SCPs are evaluated before identity-based policies, not after."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A user is part of two IAM groups. Group A allows s3:GetObject. Group B denies s3:GetObject. What is the effective permission?",
+    "opts": {
+      "a": "Allowed because Group A allows it",
+      "b": "Denied because explicit Deny overrides Allow",
+      "c": "Depends on which group was created first",
+      "d": "The user gets prompted to choose which group policy applies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. An Allow cannot override an explicit Deny.",
+      "b": "Correct. When there is a conflict between an explicit Deny and an explicit Allow, the Deny always wins. This is fundamental to IAM policy evaluation.",
+      "c": "Incorrect. Creation order does not affect policy evaluation.",
+      "d": "Incorrect. IAM does not prompt users to choose policies."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which condition key would you use to restrict IAM actions to only allow requests made through a specific VPC endpoint?",
+    "opts": {
+      "a": "aws:SourceIp",
+      "b": "aws:SourceVpce",
+      "c": "aws:RequestedRegion",
+      "d": "aws:PrincipalOrgID"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. aws:SourceIp restricts by IP address, not VPC endpoint.",
+      "b": "Correct. aws:SourceVpce restricts access to requests made through a specific VPC endpoint, useful for ensuring private network access only.",
+      "c": "Incorrect. aws:RequestedRegion restricts by AWS region.",
+      "d": "Incorrect. aws:PrincipalOrgID restricts by organization ID."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A security team wants to ensure that no IAM user in any member account can create IAM access keys for the root user. Which service should they use?",
+    "opts": {
+      "a": "IAM Permissions Boundary",
+      "b": "AWS Config",
+      "c": "AWS Organizations Service Control Policy (SCP)",
+      "d": "AWS CloudTrail"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Permissions boundaries apply to individual IAM entities, not org-wide root restrictions.",
+      "b": "Incorrect. AWS Config monitors compliance but doesn't prevent actions.",
+      "c": "Correct. SCPs can be used to restrict actions across all member accounts in an organization, including preventing access key creation for root users.",
+      "d": "Incorrect. CloudTrail logs events but doesn't prevent them."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What happens when you attach a new permissions boundary to an IAM user who already has identity-based policies?",
+    "opts": {
+      "a": "The identity-based policies are automatically deleted",
+      "b": "The effective permissions become the intersection of the identity policy and the permissions boundary",
+      "c": "The permissions boundary replaces the identity-based policies",
+      "d": "The identity-based policies override the permissions boundary"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Identity-based policies remain intact.",
+      "b": "Correct. The effective permissions are the intersection (overlap) of the identity-based policy AND the permissions boundary. An action must be allowed in BOTH to be effective.",
+      "c": "Incorrect. Boundaries do not replace identity policies; they limit them.",
+      "d": "Incorrect. Identity policies cannot override permissions boundaries."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company needs to grant temporary access to a third-party auditor without creating an IAM user. What is the best approach?",
+    "opts": {
+      "a": "Share the root account credentials temporarily",
+      "b": "Create a cross-account IAM role that the auditor's AWS account can assume",
+      "c": "Create an IAM user and delete it after the audit",
+      "d": "Provide VPN access to the company's internal network"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Never share root credentials.",
+      "b": "Correct. Creating a cross-account role with appropriate read-only permissions and a trust policy that allows the auditor's account to assume it is the most secure and manageable approach.",
+      "c": "Incorrect. While possible, managing temporary IAM users is less secure and harder to manage than roles.",
+      "d": "Incorrect. VPN access doesn't solve the AWS permissions problem."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which API action should be restricted to prevent IAM privilege escalation where a user could attach the AdministratorAccess policy to themselves?",
+    "opts": {
+      "a": "iam:CreateUser",
+      "b": "iam:AttachUserPolicy",
+      "c": "iam:GetUser",
+      "d": "iam:ListPolicies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Creating a user doesn't directly cause privilege escalation.",
+      "b": "Correct. iam:AttachUserPolicy allows attaching managed policies. If a user has this permission without resource restrictions, they could attach AdministratorAccess to themselves, causing privilege escalation.",
+      "c": "Incorrect. GetUser is a read-only action.",
+      "d": "Incorrect. ListPolicies is read-only and doesn't allow modification."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between sts:AssumeRole and sts:GetFederationToken?",
+    "opts": {
+      "a": "AssumeRole is for roles; GetFederationToken creates temporary credentials scoped down from the caller's permissions",
+      "b": "They are identical in functionality",
+      "c": "GetFederationToken is for assuming roles; AssumeRole is for federation",
+      "d": "AssumeRole works only within the same account; GetFederationToken works cross-account"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AssumeRole assumes an existing IAM role. GetFederationToken creates temporary credentials based on the calling IAM user's permissions, optionally scoped down by an inline policy.",
+      "b": "Incorrect. They serve different purposes.",
+      "c": "Incorrect. This is reversed.",
+      "d": "Incorrect. AssumeRole works cross-account as well."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM policy uses the condition 'StringEquals': {'s3:prefix': ['home/${aws:username}/*']}. What does the ${aws:username} variable resolve to?",
+    "opts": {
+      "a": "The AWS account ID",
+      "b": "The friendly name of the IAM user making the request",
+      "c": "The ARN of the IAM role",
+      "d": "The IP address of the requester"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ${aws:username} does not resolve to the account ID.",
+      "b": "Correct. The policy variable ${aws:username} resolves to the friendly name of the IAM user making the request, enabling dynamic per-user policies.",
+      "c": "Incorrect. The role ARN would use a different variable.",
+      "d": "Incorrect. IP is referenced through aws:SourceIp."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following is a valid IAM policy variable that can be used in the Resource element?",
+    "opts": {
+      "a": "${aws:CurrentTime}",
+      "b": "${aws:username}",
+      "c": "${aws:SecureTransport}",
+      "d": "${aws:MultiFactorAuthPresent}"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. aws:CurrentTime is used in Condition elements, not as a policy variable in Resource.",
+      "b": "Correct. ${aws:username} is a valid policy variable that can be used in the Resource element to create dynamic, user-specific resource paths.",
+      "c": "Incorrect. aws:SecureTransport is a condition key, not usable as a Resource variable.",
+      "d": "Incorrect. aws:MultiFactorAuthPresent is a condition key only."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company wants to allow IAM users to manage their own MFA devices but nothing else. Which actions should be allowed?",
+    "opts": {
+      "a": "iam:* on all resources",
+      "b": "iam:CreateVirtualMFADevice, iam:EnableMFADevice, iam:DeactivateMFADevice, iam:DeleteVirtualMFADevice, iam:ListMFADevices on their own user resource",
+      "c": "sts:AssumeRole",
+      "d": "ec2:* on all resources"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. iam:* grants full IAM access, which is far too broad.",
+      "b": "Correct. These specific actions allow users to create, enable, deactivate, delete, and list their own MFA devices when scoped to their own user ARN.",
+      "c": "Incorrect. AssumeRole is for assuming roles, not managing MFA.",
+      "d": "Incorrect. EC2 permissions are unrelated to MFA management."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of the 'aws:PrincipalOrgID' condition key?",
+    "opts": {
+      "a": "To restrict access to requests from principals within a specific AWS Organization",
+      "b": "To check the user's email address",
+      "c": "To verify the instance type",
+      "d": "To check the region of the request"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. aws:PrincipalOrgID restricts access to only principals belonging to a specific AWS Organization, useful in resource-based policies to limit cross-account access.",
+      "b": "Incorrect. Email addresses are not checked with this key.",
+      "c": "Incorrect. Instance type is not related to this condition key.",
+      "d": "Incorrect. Region is checked with aws:RequestedRegion."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A developer accidentally deleted an IAM customer managed policy. Can it be recovered?",
+    "opts": {
+      "a": "Yes, from the IAM recycle bin within 30 days",
+      "b": "Yes, if versioning was enabled on the policy",
+      "c": "No, deleted policies cannot be recovered and must be recreated",
+      "d": "Yes, by contacting AWS Support within 24 hours"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. IAM does not have a recycle bin.",
+      "b": "Incorrect. Policy versioning allows rollback between versions but does not protect against policy deletion.",
+      "c": "Correct. Once an IAM managed policy is deleted, it cannot be recovered. It must be recreated manually.",
+      "d": "Incorrect. AWS Support cannot recover deleted IAM policies."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following scenarios would require a resource-based policy instead of an identity-based policy?",
+    "opts": {
+      "a": "Granting an IAM user access to EC2 in the same account",
+      "b": "Allowing a principal from another AWS account to access your S3 bucket without assuming a role",
+      "c": "Restricting IAM users to a specific region",
+      "d": "Enabling MFA for an IAM user"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Same-account access can be done with identity-based policies.",
+      "b": "Correct. Resource-based policies (like S3 bucket policies) can grant cross-account access directly without requiring the external principal to assume a role.",
+      "c": "Incorrect. Region restrictions use identity-based policies with conditions.",
+      "d": "Incorrect. MFA is configured through IAM settings, not resource-based policies."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the 'external ID' used for when configuring cross-account role access?",
+    "opts": {
+      "a": "To encrypt the session",
+      "b": "To prevent the confused deputy problem by verifying the identity of the third party",
+      "c": "To specify the AWS region",
+      "d": "To set the session duration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. External ID does not encrypt sessions.",
+      "b": "Correct. The external ID is a shared secret between you and the third party. It prevents the 'confused deputy' problem where an attacker could trick a service into accessing your resources.",
+      "c": "Incorrect. External ID has nothing to do with regions.",
+      "d": "Incorrect. Session duration is set separately."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company policy requires that all S3 operations must be performed over HTTPS. Which IAM policy condition achieves this?",
+    "opts": {
+      "a": "\"Condition\": {\"Bool\": {\"aws:SecureTransport\": \"true\"}}",
+      "b": "\"Condition\": {\"Bool\": {\"aws:MultiFactorAuthPresent\": \"true\"}}",
+      "c": "\"Condition\": {\"StringEquals\": {\"aws:RequestedRegion\": \"us-east-1\"}}",
+      "d": "\"Condition\": {\"IpAddress\": {\"aws:SourceIp\": \"0.0.0.0/0\"}}"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Using aws:SecureTransport set to true in a Deny statement (with effect Deny when false) ensures that all requests must use HTTPS/SSL.",
+      "b": "Incorrect. This checks for MFA, not HTTPS.",
+      "c": "Incorrect. This restricts by region, not transport protocol.",
+      "d": "Incorrect. This allows all IP addresses, unrelated to HTTPS."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM user has an identity-based policy that allows s3:PutObject. A resource-based policy on the S3 bucket also allows s3:PutObject for the same user. Is there any benefit to having both?",
+    "opts": {
+      "a": "No, one of them is redundant",
+      "b": "Yes, within the same account, either one granting access is sufficient, providing defense in depth",
+      "c": "The resource-based policy always overrides the identity policy",
+      "d": "Having both causes a conflict and denies the action"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Both policies are evaluated, and within the same account, either one providing Allow is sufficient.",
+      "b": "Correct. Within the same AWS account, if either the identity-based policy OR the resource-based policy allows the action, the action is permitted (union of permissions). This provides defense in depth.",
+      "c": "Incorrect. Neither overrides the other in same-account scenarios; they are additive.",
+      "d": "Incorrect. Two Allows do not conflict; they are additive."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the 'confused deputy' problem in IAM?",
+    "opts": {
+      "a": "When a user forgets their password",
+      "b": "When a less-privileged entity tricks a more-privileged entity into performing actions on its behalf",
+      "c": "When two IAM policies conflict",
+      "d": "When MFA tokens expire"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Password issues are not the confused deputy problem.",
+      "b": "Correct. The confused deputy problem occurs when a less-privileged entity (attacker) tricks a more-privileged entity (trusted service) into performing unauthorized actions. External IDs and aws:SourceArn conditions mitigate this.",
+      "c": "Incorrect. Policy conflicts are handled by the Deny-overrides-Allow rule.",
+      "d": "Incorrect. MFA token expiry is unrelated."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A session policy is passed when assuming a role using the --policy parameter in sts:AssumeRole. What effect does it have?",
+    "opts": {
+      "a": "It expands the permissions beyond what the role allows",
+      "b": "It further restricts the permissions to the intersection of the role's policies and the session policy",
+      "c": "It replaces the role's permissions entirely",
+      "d": "It has no effect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Session policies cannot expand permissions beyond the role's policies.",
+      "b": "Correct. Session policies act as a filter. The effective permissions are the intersection of the role's identity-based policies and the session policy. It can only further restrict, never expand.",
+      "c": "Incorrect. Session policies do not replace the role's policies.",
+      "d": "Incorrect. Session policies do have an effect."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of IAM policies (managed + inline combined) that effectively apply to a single IAM user through direct attachment and group membership?",
+    "opts": {
+      "a": "10 managed policies only",
+      "b": "10 direct managed + (10 managed × 10 groups) + inline policies on user and groups",
+      "c": "20 policies total",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This only accounts for directly attached managed policies.",
+      "b": "Correct. A user can have 10 directly attached managed policies + up to 10 managed policies from each of 10 groups (100) + inline policies on the user and groups. The total effective policies are cumulative.",
+      "c": "Incorrect. 20 is not the total limit.",
+      "d": "Incorrect. There are specific limits on each component."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company wants to implement a policy that denies all actions EXCEPT those in the IAM and S3 services. Which policy element combination should they use?",
+    "opts": {
+      "a": "Effect: Allow, Action: [\"iam:*\", \"s3:*\"]",
+      "b": "Effect: Deny, NotAction: [\"iam:*\", \"s3:*\"], Resource: \"*\"",
+      "c": "Effect: Deny, Action: \"*\", Resource: \"*\"",
+      "d": "Effect: Allow, NotAction: [\"iam:*\", \"s3:*\"]"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This only allows IAM and S3 but doesn't deny everything else explicitly.",
+      "b": "Correct. Using Effect: Deny with NotAction denies everything EXCEPT the listed actions (IAM and S3). This explicitly blocks all other services.",
+      "c": "Incorrect. This denies all actions including IAM and S3.",
+      "d": "Incorrect. This would allow everything EXCEPT IAM and S3, which is the opposite of what's needed."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which IAM feature should you use to delegate permission management to developers while preventing them from escalating their own privileges?",
+    "opts": {
+      "a": "IAM Groups",
+      "b": "Permissions Boundaries",
+      "c": "Resource-based policies",
+      "d": "AWS Config Rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Groups organize users but don't prevent privilege escalation.",
+      "b": "Correct. Permissions boundaries allow administrators to define the maximum permissions that developers can grant when creating roles or users, preventing privilege escalation.",
+      "c": "Incorrect. Resource-based policies don't address privilege escalation prevention.",
+      "d": "Incorrect. AWS Config detects compliance issues but doesn't prevent them in real-time."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An application uses sts:AssumeRoleWithWebIdentity to authenticate users from Google. What must the IAM role's trust policy include?",
+    "opts": {
+      "a": "A Principal specifying the AWS account number",
+      "b": "A Principal specifying the Google OIDC provider ARN and a Condition checking the token's audience",
+      "c": "A Principal specifying the root user",
+      "d": "No trust policy is needed"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The principal should be the OIDC provider, not an AWS account.",
+      "b": "Correct. The trust policy must specify the OIDC identity provider ARN as the Principal and typically includes a Condition to verify the aud (audience) or sub (subject) claim in the token.",
+      "c": "Incorrect. The root user is not the principal for web identity federation.",
+      "d": "Incorrect. A trust policy is always required for role assumption."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of the 'aws:TagKeys' condition key?",
+    "opts": {
+      "a": "To check the value of a specific tag",
+      "b": "To control which tag keys can be used in a request (e.g., when creating resources)",
+      "c": "To list all tags in the account",
+      "d": "To delete specific tags"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Tag values are checked with aws:RequestTag or resource tag conditions.",
+      "b": "Correct. aws:TagKeys controls which tag keys are allowed or required in a request. This is useful for enforcing tagging standards.",
+      "c": "Incorrect. aws:TagKeys doesn't list tags.",
+      "d": "Incorrect. aws:TagKeys doesn't delete tags."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How does AWS evaluate policies when a resource-based policy grants access to a principal in a DIFFERENT account?",
+    "opts": {
+      "a": "Only the resource-based policy is evaluated",
+      "b": "Both the resource-based policy in the resource account AND the identity-based policy in the principal's account must allow the action",
+      "c": "Only the identity-based policy is evaluated",
+      "d": "Neither is evaluated; cross-account access is always denied"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cross-account access requires both sides to grant permission.",
+      "b": "Correct. For cross-account access (without role assumption), BOTH the resource-based policy in the resource's account AND the identity-based policy in the principal's account must allow the action.",
+      "c": "Incorrect. The resource-based policy is also evaluated.",
+      "d": "Incorrect. Cross-account access is possible with proper policies."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company wants to enforce that all newly created IAM users must have a specific tag 'Department'. Which approach should they use?",
+    "opts": {
+      "a": "Use AWS Config to detect and report non-compliant users",
+      "b": "Use an SCP or IAM policy with Condition 'aws:RequestTag/Department' and 'aws:TagKeys' to require the tag during user creation",
+      "c": "Manually check each user after creation",
+      "d": "Use CloudWatch alarms"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS Config detects issues after the fact but doesn't prevent creation without tags.",
+      "b": "Correct. Using a policy condition with aws:RequestTag/Department and ForAllValues:StringEquals on aws:TagKeys ensures that the Department tag must be provided during user creation.",
+      "c": "Incorrect. Manual checks are not scalable or reliable.",
+      "d": "Incorrect. CloudWatch alarms don't enforce IAM tagging."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the significance of the IAM policy version '2012-10-17'?",
+    "opts": {
+      "a": "It is an outdated version that should not be used",
+      "b": "It is the current and recommended version that supports all policy features including policy variables",
+      "c": "It only supports Allow statements",
+      "d": "It is only valid for S3 policies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 2012-10-17 is the current version.",
+      "b": "Correct. Version 2012-10-17 is the current IAM policy language version. It supports all features including policy variables (like ${aws:username}). The older version 2008-10-17 does not support variables.",
+      "c": "Incorrect. It supports both Allow and Deny.",
+      "d": "Incorrect. It applies to all IAM policies."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An administrator wants to allow an IAM user to pass a specific role to an EC2 instance. Which action must be allowed?",
+    "opts": {
+      "a": "iam:CreateRole",
+      "b": "iam:PassRole",
+      "c": "sts:AssumeRole",
+      "d": "ec2:RunInstances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CreateRole creates a role but doesn't allow passing it to a service.",
+      "b": "Correct. The iam:PassRole permission is required to pass a role to an AWS service (like EC2). This prevents users from passing roles with more permissions than they should have.",
+      "c": "Incorrect. AssumeRole is for assuming a role yourself, not passing it to a service.",
+      "d": "Incorrect. ec2:RunInstances launches instances but doesn't grant permission to pass a role."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the relationship between iam:PassRole and iam:CreateRole in terms of security?",
+    "opts": {
+      "a": "They are identical permissions",
+      "b": "PassRole controls who can assign a role to a resource, while CreateRole controls who can create roles — both are privilege escalation vectors if not restricted",
+      "c": "PassRole is more dangerous than CreateRole",
+      "d": "CreateRole automatically includes PassRole permissions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They are different permissions.",
+      "b": "Correct. Both are privilege escalation vectors. CreateRole allows creating roles with any permissions, and PassRole allows assigning those roles to services. Both should be carefully restricted.",
+      "c": "Incorrect. Both are equally important to restrict.",
+      "d": "Incorrect. CreateRole does not automatically grant PassRole."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A policy uses 'ForAllValues:StringEquals' in the Condition. What does the 'ForAllValues' set operator do?",
+    "opts": {
+      "a": "It checks if all values in the request match at least one value in the policy condition",
+      "b": "It checks if any single value matches",
+      "c": "It checks if no values match",
+      "d": "It ignores the condition"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ForAllValues:StringEquals checks that every value in the request's set of values is a member of the condition's set. If the request key is missing or empty, it evaluates to true (use with caution).",
+      "b": "Incorrect. That describes ForAnyValue.",
+      "c": "Incorrect. That is not what ForAllValues does.",
+      "d": "Incorrect. The condition is evaluated."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What does the condition operator 'ArnLike' do compared to 'StringLike'?",
+    "opts": {
+      "a": "They are identical",
+      "b": "ArnLike performs case-insensitive matching on ARN fields and supports wildcards in specific ARN segments",
+      "c": "ArnLike only works with S3 ARNs",
+      "d": "StringLike supports ARN matching better than ArnLike"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They are different operators designed for different use cases.",
+      "b": "Correct. ArnLike is specifically designed for ARN comparison, supporting wildcards (* and ?) in individual ARN fields (account, region, resource). It treats each ARN component separately.",
+      "c": "Incorrect. ArnLike works with any ARN.",
+      "d": "Incorrect. ArnLike is the correct operator for ARN pattern matching."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What happens to active sessions when an IAM role's permissions policy is updated?",
+    "opts": {
+      "a": "Active sessions immediately get the new permissions",
+      "b": "Active sessions retain the old permissions until they expire; new sessions get updated permissions",
+      "c": "Active sessions are immediately terminated",
+      "d": "Nothing happens; roles cannot be updated while sessions are active"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. IAM policy changes take effect immediately. Active sessions will have their next API call evaluated against the updated policy, as IAM policies are evaluated at request time.",
+      "b": "Incorrect. Sessions don't cache permissions; policies are evaluated on each request.",
+      "c": "Incorrect. Sessions are not terminated when policies change.",
+      "d": "Incorrect. Roles can be updated at any time."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM user needs to switch roles in the AWS Console. What is required?",
+    "opts": {
+      "a": "The user must have a new set of access keys",
+      "b": "The user must have permission to call sts:AssumeRole, and the target role must trust the user's account",
+      "c": "The user must be in the Administrators group",
+      "d": "The user must have MFA configured"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Switch Role in the console doesn't require access keys.",
+      "b": "Correct. To switch roles, the user needs permission to call sts:AssumeRole, and the target role's trust policy must allow the user (or their account) to assume it.",
+      "c": "Incorrect. Any user with appropriate permissions can switch roles.",
+      "d": "Incorrect. MFA may be required by the trust policy but is not universally required."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS CLI command is used to get the identity of the current IAM caller?",
+    "opts": {
+      "a": "aws iam get-user",
+      "b": "aws sts get-caller-identity",
+      "c": "aws iam list-users",
+      "d": "aws sts decode-authorization-message"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. get-user shows user details but requires specific permissions and doesn't work for roles.",
+      "b": "Correct. aws sts get-caller-identity returns the account, ARN, and user ID of the IAM identity making the call. It works for users, roles, and federated identities.",
+      "c": "Incorrect. list-users lists all users in the account.",
+      "d": "Incorrect. decode-authorization-message decodes error messages."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of the 'aws:SourceAccount' condition key?",
+    "opts": {
+      "a": "To check the region of the source",
+      "b": "To verify that the source account making the request matches a specific account ID, preventing confused deputy attacks",
+      "c": "To check the user's email",
+      "d": "To set billing preferences"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. aws:SourceAccount doesn't check regions.",
+      "b": "Correct. aws:SourceAccount verifies the account ID of the entity calling the service. It's commonly used in resource-based policies (like S3) to prevent confused deputy attacks from AWS services.",
+      "c": "Incorrect. Email is not checked with this condition.",
+      "d": "Incorrect. This has nothing to do with billing."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A Lambda function needs to be invoked by S3 event notifications. Where should the permission be configured?",
+    "opts": {
+      "a": "In the Lambda function's IAM execution role",
+      "b": "In the Lambda function's resource-based policy (allowing s3.amazonaws.com to invoke it)",
+      "c": "In the S3 bucket's IAM role",
+      "d": "In the root account's policy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The execution role defines what Lambda can do, not who can invoke it.",
+      "b": "Correct. Lambda uses resource-based policies to control which services/accounts can invoke it. The policy must allow the S3 service principal (s3.amazonaws.com) to invoke the function.",
+      "c": "Incorrect. S3 buckets don't have IAM roles.",
+      "d": "Incorrect. Root account policies are not the right approach."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum size of the trust policy document for an IAM role?",
+    "opts": {
+      "a": "2,048 characters",
+      "b": "4,096 characters",
+      "c": "6,144 characters",
+      "d": "10,240 characters"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The trust policy (assume role policy) for an IAM role has a maximum size of 2,048 characters.",
+      "b": "Incorrect. The limit is not 4,096 characters.",
+      "c": "Incorrect. 6,144 is the limit for managed policies.",
+      "d": "Incorrect. 10,240 is the limit for inline policies on roles."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM policy allows ec2:StartInstances but only for instances tagged with 'Environment=Development'. Which condition should be used?",
+    "opts": {
+      "a": "\"Condition\": {\"StringEquals\": {\"aws:RequestTag/Environment\": \"Development\"}}",
+      "b": "\"Condition\": {\"StringEquals\": {\"ec2:ResourceTag/Environment\": \"Development\"}}",
+      "c": "\"Condition\": {\"StringEquals\": {\"aws:PrincipalTag/Environment\": \"Development\"}}",
+      "d": "\"Condition\": {\"StringEquals\": {\"aws:TagKeys\": \"Environment\"}}"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. aws:RequestTag is used when creating/tagging resources (the tag being applied in the request), not for checking existing resource tags.",
+      "b": "Correct. ec2:ResourceTag/Environment checks the existing tag on the EC2 resource. This restricts StartInstances to only instances already tagged with Environment=Development.",
+      "c": "Incorrect. aws:PrincipalTag checks the tag on the IAM principal making the request, not the resource.",
+      "d": "Incorrect. aws:TagKeys controls which tag keys are in a request, not resource tags."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between 'aws:RequestTag' and 'ec2:ResourceTag' condition keys?",
+    "opts": {
+      "a": "They are identical",
+      "b": "aws:RequestTag checks tags being applied in the current request; ec2:ResourceTag checks tags already existing on the resource",
+      "c": "ec2:ResourceTag checks request tags; aws:RequestTag checks existing tags",
+      "d": "Both only work with S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They serve different purposes.",
+      "b": "Correct. aws:RequestTag checks the tags being sent in the API request (e.g., during resource creation). ec2:ResourceTag checks the tags already present on existing resources.",
+      "c": "Incorrect. This is reversed.",
+      "d": "Incorrect. They work with EC2 and other services respectively."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company uses AWS Organizations with all features enabled. They want to prevent any account from leaving the organization. Which approach should they use?",
+    "opts": {
+      "a": "Create an IAM policy denying organizations:LeaveOrganization",
+      "b": "Create an SCP denying organizations:LeaveOrganization and attach it to all OUs",
+      "c": "Disable the root user in all member accounts",
+      "d": "Use AWS Config to prevent it"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. An IAM policy only affects specific users, not all principals including root.",
+      "b": "Correct. An SCP denying organizations:LeaveOrganization applies to all principals in the member accounts (including root in member accounts), preventing any account from leaving.",
+      "c": "Incorrect. Root users cannot be disabled.",
+      "d": "Incorrect. AWS Config cannot prevent actions in real-time."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is role chaining in IAM?",
+    "opts": {
+      "a": "Creating multiple roles at once",
+      "b": "When a role assumes another role, creating a chain of role assumptions",
+      "c": "Attaching multiple policies to a role",
+      "d": "Adding a role to multiple groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Role chaining is not about creating multiple roles.",
+      "b": "Correct. Role chaining occurs when a role assumes another role. The session duration is limited to a maximum of 1 hour when role chaining, regardless of the role's maximum session duration setting.",
+      "c": "Incorrect. Attaching policies is not role chaining.",
+      "d": "Incorrect. Roles cannot be added to groups."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum session duration when using role chaining?",
+    "opts": {
+      "a": "15 minutes",
+      "b": "1 hour",
+      "c": "12 hours",
+      "d": "36 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 15 minutes is the minimum for AssumeRole, not the limit for chaining.",
+      "b": "Correct. When role chaining (a role assumes another role), the maximum session duration is limited to 1 hour, regardless of the role's configured maximum session duration.",
+      "c": "Incorrect. 12 hours is the max for direct role assumption, not role chaining.",
+      "d": "Incorrect. 36 hours is the max for GetFederationToken."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which service generates temporary credentials that include an Access Key ID starting with 'ASIA'?",
+    "opts": {
+      "a": "IAM (long-term credentials)",
+      "b": "AWS STS (temporary credentials)",
+      "c": "AWS KMS",
+      "d": "Amazon Cognito Identity Pools"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Long-term IAM credentials start with 'AKIA'.",
+      "b": "Correct. AWS STS temporary credentials have Access Key IDs starting with 'ASIA', which distinguishes them from permanent credentials that start with 'AKIA'.",
+      "c": "Incorrect. KMS handles encryption keys, not access credentials.",
+      "d": "Incorrect. While Cognito uses STS behind the scenes, the service that generates 'ASIA' prefixed keys is STS."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A developer wants to restrict access so that IAM users can only launch EC2 instances in the us-east-1 region. Which condition key and policy approach should be used?",
+    "opts": {
+      "a": "Use aws:RequestedRegion with StringEquals 'us-east-1' in an Allow policy",
+      "b": "Use aws:SourceIp to restrict by region",
+      "c": "Use aws:CurrentTime to restrict by region",
+      "d": "Create the IAM user only in us-east-1"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Using the condition key aws:RequestedRegion with StringEquals 'us-east-1' in a policy restricts the user to making requests only in the us-east-1 region.",
+      "b": "Incorrect. aws:SourceIp restricts by IP address, not region.",
+      "c": "Incorrect. aws:CurrentTime restricts by time, not region.",
+      "d": "Incorrect. IAM is global; users are not created in specific regions."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the recommended way to provide AWS credentials to an application running on an EC2 instance?",
+    "opts": {
+      "a": "Store credentials in the application's configuration file",
+      "b": "Use environment variables with hardcoded access keys",
+      "c": "Attach an IAM role to the EC2 instance using an instance profile",
+      "d": "Store credentials in an S3 bucket and download them at startup"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Configuration files with credentials are a security risk.",
+      "b": "Incorrect. Hardcoded environment variables are not best practice.",
+      "c": "Correct. Using an instance profile with an IAM role provides temporary, automatically rotated credentials to the EC2 instance. The credentials are accessed via the instance metadata service.",
+      "d": "Incorrect. Storing credentials in S3 adds unnecessary complexity and risk."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the EC2 instance metadata endpoint URL where IAM role credentials are retrieved?",
+    "opts": {
+      "a": "http://169.254.169.254/latest/meta-data/iam/security-credentials/<role-name>",
+      "b": "http://192.168.1.1/credentials",
+      "c": "https://iam.amazonaws.com/credentials",
+      "d": "http://10.0.0.1/latest/iam/credentials"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EC2 instances retrieve IAM role credentials from the instance metadata service at http://169.254.169.254/latest/meta-data/iam/security-credentials/<role-name>.",
+      "b": "Incorrect. This is not the metadata endpoint.",
+      "c": "Incorrect. IAM credentials are not retrieved from the IAM API endpoint.",
+      "d": "Incorrect. This is not a valid metadata endpoint."
+    }
+  }
+]

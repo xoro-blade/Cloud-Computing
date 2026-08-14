@@ -1,0 +1,563 @@
+[
+  {
+    "type": "MCQ",
+    "q": "How much faster is Amazon Aurora claimed to be compared to standard MySQL on RDS?",
+    "opts": {
+      "a": "Up to 2 times faster",
+      "b": "Up to 5 times faster",
+      "c": "Up to 3 times faster",
+      "d": "Up to 10 times faster"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS claims Aurora is up to 5 times faster than standard MySQL, not 2 times.",
+      "b": "Correct. AWS states that Aurora delivers up to 5 times the throughput of standard MySQL running on RDS.",
+      "c": "Incorrect. The claimed performance improvement over MySQL is 5 times, not 3 times.",
+      "d": "Incorrect. 10 times is not the stated improvement over MySQL; it is up to 5 times."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How much faster is Amazon Aurora claimed to be compared to standard PostgreSQL on RDS?",
+    "opts": {
+      "a": "Up to 2 times faster",
+      "b": "Up to 5 times faster",
+      "c": "Up to 3 times faster",
+      "d": "Up to 10 times faster"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora PostgreSQL is claimed to be up to 3 times faster, not 2 times.",
+      "b": "Incorrect. 5 times faster applies to Aurora MySQL, not Aurora PostgreSQL.",
+      "c": "Correct. AWS states Aurora delivers up to 3 times the throughput of standard PostgreSQL on RDS.",
+      "d": "Incorrect. 10 times is not the claimed improvement for Aurora PostgreSQL."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How many copies of your data does Aurora automatically replicate across Availability Zones?",
+    "opts": {
+      "a": "2 copies across 2 AZs",
+      "b": "4 copies across 2 AZs",
+      "c": "6 copies across 3 AZs",
+      "d": "9 copies across 3 AZs"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora replicates 6 copies across 3 AZs, not 2 copies across 2 AZs.",
+      "b": "Incorrect. Aurora maintains 6 copies, not 4 copies.",
+      "c": "Correct. Aurora automatically replicates 6 copies of your data across 3 Availability Zones.",
+      "d": "Incorrect. Aurora maintains 6 copies, not 9 copies."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum storage capacity that Amazon Aurora can automatically scale up to?",
+    "opts": {
+      "a": "16 TB",
+      "b": "32 TB",
+      "c": "64 TB",
+      "d": "128 TB"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 16 TB was the earlier limit; Aurora now supports up to 128 TB.",
+      "b": "Incorrect. Aurora storage can grow up to 128 TB, not 32 TB.",
+      "c": "Incorrect. 64 TB was a previous limit; the current maximum is 128 TB.",
+      "d": "Correct. Aurora storage automatically scales in increments of 10 GB up to a maximum of 128 TB."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "In what increments does Aurora storage automatically grow?",
+    "opts": {
+      "a": "1 GB increments",
+      "b": "5 GB increments",
+      "c": "10 GB increments",
+      "d": "20 GB increments"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora storage grows in 10 GB increments, not 1 GB.",
+      "b": "Incorrect. The increment size is 10 GB, not 5 GB.",
+      "c": "Correct. Aurora storage automatically scales in 10 GB increments up to 128 TB.",
+      "d": "Incorrect. The storage grows in 10 GB increments, not 20 GB."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How many Aurora Replicas can you have in an Aurora cluster?",
+    "opts": {
+      "a": "Up to 5",
+      "b": "Up to 10",
+      "c": "Up to 15",
+      "d": "Up to 20"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. RDS MySQL Read Replicas are limited to 5; Aurora supports up to 15.",
+      "b": "Incorrect. Aurora supports up to 15 replicas, not 10.",
+      "c": "Correct. An Aurora DB cluster can have up to 15 Aurora Replicas for read scaling.",
+      "d": "Incorrect. The maximum number of Aurora Replicas is 15, not 20."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the typical replication lag for Aurora Replicas?",
+    "opts": {
+      "a": "Less than 1 second (usually around 10-20 milliseconds)",
+      "b": "Less than 5 seconds",
+      "c": "Less than 30 seconds",
+      "d": "Less than 1 minute"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Replicas typically have replication lag of around 10-20 milliseconds, well under 1 second.",
+      "b": "Incorrect. Aurora Replicas have much lower lag, usually in the milliseconds range.",
+      "c": "Incorrect. 30 seconds of lag is too high; Aurora Replicas operate in single-digit to low double-digit milliseconds.",
+      "d": "Incorrect. Aurora Replicas have near real-time replication, far less than 1 minute."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the failover time for Amazon Aurora when a replica is available?",
+    "opts": {
+      "a": "Less than 10 seconds",
+      "b": "Less than 30 seconds",
+      "c": "Less than 1 minute",
+      "d": "Less than 5 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While Aurora failover is fast, the typical stated time is less than 30 seconds.",
+      "b": "Correct. Aurora failover typically completes in less than 30 seconds when a replica is available.",
+      "c": "Incorrect. Aurora failover is faster than 1 minute when a replica exists.",
+      "d": "Incorrect. 5 minutes is far too long; Aurora failover happens in under 30 seconds."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How much combined memory and CPU does one Aurora Capacity Unit (ACU) represent approximately?",
+    "opts": {
+      "a": "1 GB of memory",
+      "b": "2 GB of memory",
+      "c": "4 GB of memory",
+      "d": "8 GB of memory"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. One ACU is approximately 2 GB of memory with corresponding CPU and networking.",
+      "b": "Correct. Each ACU is approximately 2 GB of memory with corresponding CPU and networking capacity.",
+      "c": "Incorrect. 4 GB would be 2 ACUs; one ACU is approximately 2 GB.",
+      "d": "Incorrect. 8 GB would be 4 ACUs; one ACU is approximately 2 GB."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Aurora requires a write quorum of how many copies out of 6?",
+    "opts": {
+      "a": "3 out of 6",
+      "b": "4 out of 6",
+      "c": "5 out of 6",
+      "d": "6 out of 6"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A quorum of 3/6 is the read quorum, not the write quorum.",
+      "b": "Correct. Aurora requires a write quorum of 4 out of 6 copies, meaning it can tolerate the loss of 2 copies for writes.",
+      "c": "Incorrect. Aurora does not require 5 out of 6 for writes; the quorum is 4 out of 6.",
+      "d": "Incorrect. Aurora does not require all 6 copies to acknowledge a write."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Aurora requires a read quorum of how many copies out of 6?",
+    "opts": {
+      "a": "2 out of 6",
+      "b": "3 out of 6",
+      "c": "4 out of 6",
+      "d": "5 out of 6"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora needs 3 out of 6 for reads, not 2.",
+      "b": "Correct. Aurora requires a read quorum of 3 out of 6 copies, meaning it can tolerate the loss of 3 copies for reads.",
+      "c": "Incorrect. 4 out of 6 is the write quorum, not the read quorum.",
+      "d": "Incorrect. Aurora only needs 3 out of 6 for read availability."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the typical replication lag for Aurora Global Database across regions?",
+    "opts": {
+      "a": "Less than 100 milliseconds",
+      "b": "Less than 1 second",
+      "c": "Less than 5 seconds",
+      "d": "Less than 30 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While sometimes achieved, the typical stated SLA is less than 1 second.",
+      "b": "Correct. Aurora Global Database typically has cross-region replication lag of less than 1 second.",
+      "c": "Incorrect. Aurora Global Database is faster than 5 seconds; typical lag is under 1 second.",
+      "d": "Incorrect. 30 seconds is far too high; Aurora Global Database achieves sub-second replication."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How many secondary regions can an Aurora Global Database span (maximum)?",
+    "opts": {
+      "a": "1 secondary region",
+      "b": "3 secondary regions",
+      "c": "5 secondary regions",
+      "d": "10 secondary regions"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora Global Database can span more than 1 secondary region.",
+      "b": "Incorrect. Aurora Global Database supports up to 5 secondary regions, not 3.",
+      "c": "Correct. Aurora Global Database supports 1 primary region and up to 5 secondary regions.",
+      "d": "Incorrect. The maximum is 5 secondary regions, not 10."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Recovery Point Objective (RPO) for Aurora Global Database during a regional failover?",
+    "opts": {
+      "a": "0 seconds (zero data loss)",
+      "b": "1 second",
+      "c": "5 seconds",
+      "d": "1 minute"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora Global Database has an RPO of typically 1 second, not zero.",
+      "b": "Correct. Aurora Global Database provides an RPO of typically 1 second for cross-region disaster recovery.",
+      "c": "Incorrect. The RPO is typically 1 second, not 5 seconds.",
+      "d": "Incorrect. 1 minute is too long; the RPO is typically 1 second."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Recovery Time Objective (RTO) for Aurora Global Database during a regional failover?",
+    "opts": {
+      "a": "Less than 30 seconds",
+      "b": "Less than 1 minute",
+      "c": "Less than 5 minutes",
+      "d": "Less than 15 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The typical RTO for Aurora Global Database is less than 1 minute.",
+      "b": "Correct. Aurora Global Database provides an RTO of typically less than 1 minute for cross-region failover.",
+      "c": "Incorrect. The RTO is less than 1 minute, faster than 5 minutes.",
+      "d": "Incorrect. 15 minutes is too long; Aurora Global Database can failover in less than 1 minute."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default backup retention period for Amazon Aurora?",
+    "opts": {
+      "a": "1 day",
+      "b": "7 days",
+      "c": "14 days",
+      "d": "35 days"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default backup retention period for Aurora is 1 day, but it can be configured up to 35 days.",
+      "b": "Incorrect. 7 days is not the default; the default is 1 day.",
+      "c": "Incorrect. 14 days is not the default retention period.",
+      "d": "Incorrect. 35 days is the maximum, not the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum backup retention period for Amazon Aurora?",
+    "opts": {
+      "a": "7 days",
+      "b": "14 days",
+      "c": "30 days",
+      "d": "35 days"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The maximum backup retention is 35 days, not 7 days.",
+      "b": "Incorrect. 14 days is not the maximum; Aurora supports up to 35 days.",
+      "c": "Incorrect. 30 days is not the maximum retention period.",
+      "d": "Correct. Aurora backup retention can be configured from 1 to 35 days."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum backtrack window for Aurora Backtrack?",
+    "opts": {
+      "a": "24 hours",
+      "b": "48 hours",
+      "c": "72 hours",
+      "d": "7 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The maximum backtrack window is 72 hours, not 24 hours.",
+      "b": "Incorrect. The maximum is 72 hours, not 48 hours.",
+      "c": "Correct. Aurora Backtrack supports a maximum backtrack window of 72 hours (3 days).",
+      "d": "Incorrect. 7 days exceeds the maximum backtrack window of 72 hours."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the minimum storage that Aurora allocates when you create a new cluster?",
+    "opts": {
+      "a": "1 GB",
+      "b": "10 GB",
+      "c": "20 GB",
+      "d": "No minimum; it starts at actual data size"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora starts with a minimum of 10 GB.",
+      "b": "Correct. Aurora storage starts at 10 GB and automatically grows in 10 GB increments up to 128 TB.",
+      "c": "Incorrect. The minimum is 10 GB, not 20 GB.",
+      "d": "Incorrect. Aurora allocates a minimum of 10 GB regardless of actual data size."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of instances in an Aurora Multi-Master cluster?",
+    "opts": {
+      "a": "2 instances",
+      "b": "4 instances",
+      "c": "8 instances",
+      "d": "15 instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora Multi-Master initially supported 2, but can support up to 4 writer instances.",
+      "b": "Correct. Aurora Multi-Master supports up to 4 DB instances that can all process write operations.",
+      "c": "Incorrect. The maximum for Multi-Master is 4 instances.",
+      "d": "Incorrect. 15 is the maximum for read replicas in a standard Aurora cluster, not Multi-Master."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the SLA (Service Level Agreement) uptime commitment for Amazon Aurora?",
+    "opts": {
+      "a": "99.9%",
+      "b": "99.95%",
+      "c": "99.99%",
+      "d": "99.999%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora's SLA is higher than 99.9%.",
+      "b": "Incorrect. Aurora offers a higher SLA than 99.95%.",
+      "c": "Correct. Amazon Aurora offers an SLA of 99.99% availability.",
+      "d": "Incorrect. While Aurora is designed for high availability, the SLA commitment is 99.99%, not 99.999%."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Aurora Serverless v2 minimum capacity?",
+    "opts": {
+      "a": "0 ACUs",
+      "b": "0.5 ACUs",
+      "c": "1 ACU",
+      "d": "2 ACUs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora Serverless v2 has a minimum of 0.5 ACUs (v1 can scale to 0).",
+      "b": "Correct. Aurora Serverless v2 can scale down to a minimum of 0.5 ACUs.",
+      "c": "Incorrect. The minimum is 0.5 ACUs, not 1 ACU.",
+      "d": "Incorrect. The minimum is 0.5 ACUs, not 2 ACUs."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum capacity for Aurora Serverless v2?",
+    "opts": {
+      "a": "64 ACUs",
+      "b": "128 ACUs",
+      "c": "256 ACUs",
+      "d": "512 ACUs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora Serverless v2 can scale up to 128 ACUs, not 64.",
+      "b": "Correct. Aurora Serverless v2 can scale up to a maximum of 128 ACUs.",
+      "c": "Incorrect. The maximum is 128 ACUs, not 256.",
+      "d": "Incorrect. The maximum is 128 ACUs, not 512."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What priority tier values can you assign to Aurora Replicas for failover preference?",
+    "opts": {
+      "a": "1 to 5",
+      "b": "0 to 15",
+      "c": "1 to 10",
+      "d": "0 to 100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The failover priority range is 0 to 15.",
+      "b": "Correct. You can assign priority tiers from 0 (highest priority) to 15 (lowest priority) to Aurora Replicas.",
+      "c": "Incorrect. The range is 0 to 15, not 1 to 10.",
+      "d": "Incorrect. The range is 0 to 15, not 0 to 100."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of secondary regions that can have up to 16 read replicas each in Aurora Global Database?",
+    "opts": {
+      "a": "5 secondary regions, each with up to 16 replicas",
+      "b": "3 secondary regions, each with up to 15 replicas",
+      "c": "5 secondary regions, each with up to 15 replicas",
+      "d": "3 secondary regions, each with up to 16 replicas"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Global Database supports up to 5 secondary regions, and each secondary region can have up to 16 read replicas.",
+      "b": "Incorrect. The maximum is 5 secondary regions, not 3, and each can have up to 16 replicas.",
+      "c": "Incorrect. Each secondary region supports up to 16 replicas, not 15.",
+      "d": "Incorrect. The maximum is 5 secondary regions, not 3."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the cold start time when Aurora Serverless v1 resumes from a paused state?",
+    "opts": {
+      "a": "Instant (less than 1 second)",
+      "b": "Approximately 5-10 seconds",
+      "c": "Approximately 25-30 seconds or more",
+      "d": "Approximately 5 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is a noticeable delay when resuming from a paused state.",
+      "b": "Incorrect. The cold start typically takes longer than 5-10 seconds.",
+      "c": "Correct. When Aurora Serverless v1 resumes from a paused state, it can take approximately 25-30 seconds or more, which is the cold start penalty.",
+      "d": "Incorrect. While it varies, 5 minutes is too long for the typical cold start."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What port does Aurora MySQL use by default?",
+    "opts": {
+      "a": "5432",
+      "b": "3306",
+      "c": "1433",
+      "d": "1521"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Port 5432 is the default for PostgreSQL, not MySQL.",
+      "b": "Correct. Aurora MySQL uses port 3306 by default, the same as standard MySQL.",
+      "c": "Incorrect. Port 1433 is the default for SQL Server.",
+      "d": "Incorrect. Port 1521 is the default for Oracle."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What port does Aurora PostgreSQL use by default?",
+    "opts": {
+      "a": "5432",
+      "b": "3306",
+      "c": "5439",
+      "d": "27017"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora PostgreSQL uses port 5432 by default, the same as standard PostgreSQL.",
+      "b": "Incorrect. Port 3306 is the default for MySQL.",
+      "c": "Incorrect. Port 5439 is the default for Amazon Redshift.",
+      "d": "Incorrect. Port 27017 is the default for MongoDB."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of connections supported by IAM Database Authentication for Aurora?",
+    "opts": {
+      "a": "100 connections per second per instance",
+      "b": "200 connections per second per instance",
+      "c": "256 connections per second per instance",
+      "d": "Unlimited connections"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is 200 new connections per second, not 100.",
+      "b": "Correct. IAM Database Authentication supports a maximum of 200 new connections per second per DB instance.",
+      "c": "Incorrect. The limit is 200, not 256.",
+      "d": "Incorrect. There is a defined limit of 200 connections per second for IAM DB Auth."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of custom endpoints you can create per Aurora cluster?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "There is no hard limit (within service quotas)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can create up to 5 custom endpoints per cluster.",
+      "b": "Correct. Each Aurora cluster supports up to 5 custom endpoints.",
+      "c": "Incorrect. The limit is 5 custom endpoints, not 10.",
+      "d": "Incorrect. There is a defined limit of 5 custom endpoints per cluster."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum duration for which Aurora Performance Insights retains performance data for free?",
+    "opts": {
+      "a": "24 hours",
+      "b": "7 days",
+      "c": "14 days",
+      "d": "30 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The free tier retains 7 days of performance data.",
+      "b": "Correct. Performance Insights provides 7 days of performance data retention at no additional cost. Longer retention (up to 2 years) is available for an additional fee.",
+      "c": "Incorrect. 14 days requires the paid tier.",
+      "d": "Incorrect. 30 days requires the paid tier."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of Aurora DB clusters you can create in a single AWS Region by default?",
+    "opts": {
+      "a": "10",
+      "b": "40",
+      "c": "100",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default limit is 40 DB clusters per region.",
+      "b": "Correct. The default service quota for Aurora/RDS DB clusters is 40 per region. This can be increased by requesting a quota increase.",
+      "c": "Incorrect. The default is 40, not 100.",
+      "d": "Incorrect. There is a default limit of 40, though it can be increased."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum execution time for a single Aurora Data API call?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "1 minute",
+      "c": "3 minutes",
+      "d": "5 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The Data API timeout is longer than 30 seconds.",
+      "b": "Correct. The Aurora Data API has a maximum statement execution timeout of 1 minute (60 seconds). Queries exceeding this are terminated.",
+      "c": "Incorrect. The timeout is 1 minute, not 3 minutes.",
+      "d": "Incorrect. The timeout is 1 minute, not 5 minutes."
+    }
+  }
+]

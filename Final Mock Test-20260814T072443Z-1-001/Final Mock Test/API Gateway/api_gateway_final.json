@@ -1,0 +1,342 @@
+[
+  {
+    "type": "mcq",
+    "q": "What is the maximum timeout for API Gateway integration?",
+    "opts": {
+      "a": "15 seconds",
+      "b": "29 seconds",
+      "c": "60 seconds",
+      "d": "300 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 15 seconds is not the maximum timeout.",
+      "b": "Correct. The maximum integration timeout for API Gateway is 29 seconds.",
+      "c": "Incorrect. 60 seconds exceeds the maximum allowed timeout.",
+      "d": "Incorrect. 300 seconds is the Lambda maximum timeout, not API Gateway."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum payload size for API Gateway?",
+    "opts": {
+      "a": "5 MB",
+      "b": "10 MB",
+      "c": "25 MB",
+      "d": "50 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 MB is not the maximum payload size.",
+      "b": "Correct. The maximum payload size for API Gateway is 10 MB.",
+      "c": "Incorrect. 25 MB exceeds the maximum payload size.",
+      "d": "Incorrect. 50 MB exceeds the maximum payload size."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default throttling limit for API Gateway per account per region?",
+    "opts": {
+      "a": "1,000 requests per second",
+      "b": "5,000 requests per second",
+      "c": "10,000 requests per second",
+      "d": "50,000 requests per second"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,000 RPS is below the default limit.",
+      "b": "Incorrect. 5,000 RPS is below the default limit.",
+      "c": "Correct. The default throttling limit is 10,000 requests per second per account per region.",
+      "d": "Incorrect. 50,000 RPS exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default burst limit for API Gateway?",
+    "opts": {
+      "a": "1,000 requests",
+      "b": "2,500 requests",
+      "c": "5,000 requests",
+      "d": "10,000 requests"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,000 is not the default burst limit.",
+      "b": "Incorrect. 2,500 is not the default burst limit.",
+      "c": "Correct. The default burst limit for API Gateway is 5,000 requests.",
+      "d": "Incorrect. 10,000 is the steady-state rate limit, not the burst limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default TTL for API Gateway cache?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "300 seconds (5 minutes)",
+      "c": "600 seconds (10 minutes)",
+      "d": "3600 seconds (1 hour)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 60 seconds is not the default TTL.",
+      "b": "Correct. The default TTL for API Gateway cache is 300 seconds (5 minutes).",
+      "c": "Incorrect. 600 seconds is not the default TTL.",
+      "d": "Incorrect. 3600 seconds is the maximum TTL, not the default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum TTL for API Gateway cache?",
+    "opts": {
+      "a": "300 seconds",
+      "b": "600 seconds",
+      "c": "1800 seconds",
+      "d": "3600 seconds"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 300 seconds is the default TTL.",
+      "b": "Incorrect. 600 seconds is not the maximum.",
+      "c": "Incorrect. 1800 seconds is not the maximum.",
+      "d": "Correct. The maximum TTL for API Gateway cache is 3600 seconds (1 hour)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What cache capacity sizes are available in API Gateway?",
+    "opts": {
+      "a": "0.5 GB to 237 GB",
+      "b": "0.5 GB to 64 GB",
+      "c": "1 GB to 128 GB",
+      "d": "0.5 GB to 10 GB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. API Gateway cache sizes range from 0.5 GB to 237 GB.",
+      "b": "Incorrect. The maximum is 237 GB, not 64 GB.",
+      "c": "Incorrect. The minimum is 0.5 GB and maximum is 237 GB.",
+      "d": "Incorrect. The maximum is 237 GB, not 10 GB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many API calls per month are included in the API Gateway free tier (first 12 months)?",
+    "opts": {
+      "a": "500,000 REST API calls",
+      "b": "1 million REST API calls",
+      "c": "5 million REST API calls",
+      "d": "10 million REST API calls"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 500,000 is less than the free tier amount.",
+      "b": "Correct. The free tier includes 1 million REST API calls per month for the first 12 months.",
+      "c": "Incorrect. 5 million exceeds the free tier.",
+      "d": "Incorrect. 10 million exceeds the free tier."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum WebSocket connection duration in API Gateway?",
+    "opts": {
+      "a": "1 hour",
+      "b": "2 hours",
+      "c": "12 hours",
+      "d": "24 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 hour is below the maximum.",
+      "b": "Correct. The maximum WebSocket connection duration is 2 hours.",
+      "c": "Incorrect. 12 hours exceeds the maximum.",
+      "d": "Incorrect. 24 hours exceeds the maximum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the idle timeout for WebSocket connections in API Gateway?",
+    "opts": {
+      "a": "5 minutes",
+      "b": "10 minutes",
+      "c": "30 minutes",
+      "d": "60 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 minutes is not the idle timeout.",
+      "b": "Correct. WebSocket connections have a 10-minute idle timeout.",
+      "c": "Incorrect. 30 minutes exceeds the idle timeout.",
+      "d": "Incorrect. 60 minutes exceeds the idle timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of APIs per account per region in API Gateway (REST APIs)?",
+    "opts": {
+      "a": "100",
+      "b": "300",
+      "c": "600",
+      "d": "1000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 100 is below the limit.",
+      "b": "Incorrect. 300 is below the limit.",
+      "c": "Correct. The default limit is 600 REST APIs per account per region.",
+      "d": "Incorrect. 1000 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum WebSocket message payload size in API Gateway?",
+    "opts": {
+      "a": "32 KB",
+      "b": "64 KB",
+      "c": "128 KB",
+      "d": "256 KB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 32 KB is the frame size, not the maximum message size.",
+      "b": "Incorrect. 64 KB is not the maximum message size.",
+      "c": "Correct. The maximum WebSocket message payload size is 128 KB.",
+      "d": "Incorrect. 256 KB exceeds the maximum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of resources per REST API in API Gateway?",
+    "opts": {
+      "a": "100",
+      "b": "300",
+      "c": "500",
+      "d": "1000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 100 is below the limit.",
+      "b": "Incorrect. 300 is below the limit.",
+      "c": "Correct. The default limit is 500 resources per REST API.",
+      "d": "Incorrect. 1000 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What percentage cheaper are HTTP APIs compared to REST APIs?",
+    "opts": {
+      "a": "Up to 30% cheaper",
+      "b": "Up to 50% cheaper",
+      "c": "Up to 71% cheaper",
+      "d": "Up to 90% cheaper"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The savings are greater than 30%.",
+      "b": "Incorrect. The savings are greater than 50%.",
+      "c": "Correct. HTTP APIs are up to 71% cheaper than REST APIs.",
+      "d": "Incorrect. 90% overstates the savings."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of API keys per account in API Gateway?",
+    "opts": {
+      "a": "500",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 500 is below the limit.",
+      "b": "Incorrect. 5,000 is below the limit.",
+      "c": "Correct. The default limit is 10,000 API keys per account.",
+      "d": "Incorrect. There is a default limit of 10,000."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A Lambda Authorizer result can be cached. What is the maximum TTL for caching the authorizer result?",
+    "opts": {
+      "a": "300 seconds",
+      "b": "600 seconds",
+      "c": "1800 seconds",
+      "d": "3600 seconds"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 300 seconds is the default, not the maximum.",
+      "b": "Incorrect. 600 seconds is not the maximum.",
+      "c": "Incorrect. 1800 seconds is not the maximum.",
+      "d": "Correct. The maximum TTL for Lambda Authorizer caching is 3600 seconds (1 hour)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of custom domain names per account in API Gateway?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "120",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50 is below the limit.",
+      "b": "Incorrect. 100 is below the limit.",
+      "c": "Correct. The default limit is 120 custom domain names per account.",
+      "d": "Incorrect. 500 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of a mapping template in API Gateway?",
+    "opts": {
+      "a": "50 KB",
+      "b": "100 KB",
+      "c": "300 KB",
+      "d": "1 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50 KB is below the limit.",
+      "b": "Incorrect. 100 KB is below the limit.",
+      "c": "Correct. The maximum size of a mapping template is 300 KB.",
+      "d": "Incorrect. 1 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum TLS version supported by API Gateway?",
+    "opts": {
+      "a": "TLS 1.0",
+      "b": "TLS 1.1",
+      "c": "TLS 1.2",
+      "d": "TLS 1.3"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. TLS 1.0 is deprecated.",
+      "b": "Incorrect. TLS 1.1 is deprecated.",
+      "c": "Correct. API Gateway requires a minimum of TLS 1.2 for all connections.",
+      "d": "Incorrect. TLS 1.2 is the minimum; 1.3 is also supported but not the minimum requirement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum time a Lambda Authorizer function can execute before API Gateway considers it timed out?",
+    "opts": {
+      "a": "5 seconds",
+      "b": "10 seconds",
+      "c": "29 seconds",
+      "d": "60 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 seconds is not the limit.",
+      "b": "Correct. Lambda Authorizers have a maximum execution time of 10 seconds (separate from the 29-second integration timeout).",
+      "c": "Incorrect. 29 seconds is the integration timeout for backend calls, not authorizer timeout.",
+      "d": "Incorrect. 60 seconds exceeds the authorizer timeout."
+    }
+  }
+]

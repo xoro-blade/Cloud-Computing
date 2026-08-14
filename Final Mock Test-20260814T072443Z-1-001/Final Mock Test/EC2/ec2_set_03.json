@@ -1,0 +1,920 @@
+[
+  {
+    "type": "MCQ",
+    "q": "An application running on EC2 needs to access S3 buckets securely without storing credentials on the instance. What is the best approach?",
+    "opts": {
+      "a": "Store AWS access keys in environment variables",
+      "b": "Attach an IAM role to the EC2 instance via an Instance Profile",
+      "c": "Embed credentials in the application code",
+      "d": "Use a root account access key"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Storing access keys on the instance is a security risk and not a best practice.",
+      "b": "Correct – IAM Roles attached via Instance Profiles provide temporary credentials that are auto-rotated, eliminating the need to store credentials.",
+      "c": "Incorrect – Hardcoding credentials is a severe security anti-pattern.",
+      "d": "Incorrect – Using root account keys is never recommended."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have a fleet of EC2 instances behind an ALB. During deployment, you want to route 10% of traffic to the new version. Which ALB feature supports this?",
+    "opts": {
+      "a": "Path-based routing",
+      "b": "Host-based routing",
+      "c": "Weighted Target Groups",
+      "d": "Sticky Sessions"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Path-based routing directs traffic based on URL path, not traffic percentage.",
+      "b": "Incorrect – Host-based routing directs based on the hostname header.",
+      "c": "Correct – Weighted Target Groups allow you to distribute traffic by percentage across multiple target groups, enabling canary or blue/green deployments.",
+      "d": "Incorrect – Sticky Sessions pin users to a target, not distribute by percentage."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An EC2 instance in a private subnet needs to download patches from the internet. Which service should you use?",
+    "opts": {
+      "a": "Internet Gateway",
+      "b": "NAT Gateway",
+      "c": "VPC Peering",
+      "d": "VPN Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Internet Gateway provides internet access for public subnets; private subnets need NAT.",
+      "b": "Correct – NAT Gateway allows instances in private subnets to initiate outbound connections to the internet while preventing inbound connections.",
+      "c": "Incorrect – VPC Peering connects two VPCs, not to the internet.",
+      "d": "Incorrect – VPN Gateway is for connecting to on-premises networks."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You notice that your gp2 EBS volume performance is limited. The volume is 100 GiB. What is the baseline IOPS for this volume?",
+    "opts": {
+      "a": "100 IOPS",
+      "b": "300 IOPS",
+      "c": "1,000 IOPS",
+      "d": "3,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – gp2 provides 3 IOPS per GiB with a minimum of 100, so 100 GiB = 300 IOPS.",
+      "b": "Correct – gp2 baseline is 3 IOPS per GiB. For a 100 GiB volume: 100 × 3 = 300 IOPS.",
+      "c": "Incorrect – 1,000 IOPS would require a ~333 GiB volume.",
+      "d": "Incorrect – 3,000 IOPS is the burst level for small gp2 volumes or the baseline for gp3."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the minimum volume size needed for a gp2 EBS volume to achieve the maximum baseline of 16,000 IOPS?",
+    "opts": {
+      "a": "1,000 GiB",
+      "b": "3,334 GiB",
+      "c": "5,334 GiB",
+      "d": "16,000 GiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 1,000 GiB × 3 = 3,000 IOPS only.",
+      "b": "Incorrect – 3,334 GiB × 3 = 10,002 IOPS, not 16,000.",
+      "c": "Correct – gp2 provides 3 IOPS per GiB. To get 16,000 IOPS: 16,000 ÷ 3 ≈ 5,334 GiB.",
+      "d": "Incorrect – 16,000 GiB would far exceed what's needed."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your EC2 instances are experiencing network performance issues. You discover cross-zone load balancing is disabled on your NLB. What is the impact?",
+    "opts": {
+      "a": "Traffic is evenly distributed across all targets in all AZs",
+      "b": "Each AZ's load balancer node distributes traffic only to targets within its own AZ",
+      "c": "The NLB stops functioning entirely",
+      "d": "Sticky sessions are disabled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – This describes behavior when cross-zone IS enabled.",
+      "b": "Correct – Without cross-zone load balancing, each AZ's node routes only to targets registered in that AZ, potentially causing uneven distribution.",
+      "c": "Incorrect – NLB continues to function.",
+      "d": "Incorrect – Sticky sessions are independent of cross-zone settings."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to ensure your EC2 instances in an Auto Scaling Group are evenly distributed across 3 AZs. What does ASG do by default?",
+    "opts": {
+      "a": "Launches all instances in a single AZ",
+      "b": "Rebalances instances across AZs automatically",
+      "c": "Requires manual configuration for multi-AZ",
+      "d": "Only uses 2 AZs maximum"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – ASG distributes across configured AZs.",
+      "b": "Correct – ASG automatically tries to balance instances evenly across all specified AZs. If an imbalance occurs, it rebalances.",
+      "c": "Incorrect – Multi-AZ is automatic once you specify multiple AZs in the ASG configuration.",
+      "d": "Incorrect – ASG supports multiple AZs as configured."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an io1 EBS volume with 10,000 provisioned IOPS. What is the minimum volume size required?",
+    "opts": {
+      "a": "4 GiB",
+      "b": "100 GiB",
+      "c": "200 GiB",
+      "d": "500 GiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 4 GiB is the minimum EBS size but cannot support 10,000 IOPS.",
+      "b": "Incorrect – io1 ratio is 50:1, so 100 GiB supports max 5,000 IOPS.",
+      "c": "Correct – io1 supports 50 IOPS per GiB. For 10,000 IOPS: 10,000 ÷ 50 = 200 GiB minimum.",
+      "d": "Incorrect – 500 GiB would support up to 25,000 IOPS, more than needed."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company runs a batch processing job that takes 6 hours. The job can be restarted if interrupted. Which is the most cost-effective EC2 option?",
+    "opts": {
+      "a": "On-Demand Instances",
+      "b": "Reserved Instances",
+      "c": "Spot Instances with checkpointing",
+      "d": "Dedicated Hosts"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – On-Demand is more expensive than Spot for fault-tolerant workloads.",
+      "b": "Incorrect – Reserved Instances require commitment and are for steady-state workloads.",
+      "c": "Correct – Spot Instances with checkpointing allow the job to resume after interruption, providing up to 90% savings.",
+      "d": "Incorrect – Dedicated Hosts are the most expensive option."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What happens to a Spot Instance when the Spot price exceeds your maximum price and the instance is set to 'terminate' on interruption?",
+    "opts": {
+      "a": "The instance is stopped and can be resumed",
+      "b": "The instance is terminated with a 2-minute warning",
+      "c": "The instance continues running at the higher price",
+      "d": "The instance is hibernated"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – With 'terminate' behavior, the instance is terminated, not stopped.",
+      "b": "Correct – AWS sends a 2-minute interruption notice via instance metadata, then terminates the instance.",
+      "c": "Incorrect – The instance does not continue; it is interrupted.",
+      "d": "Incorrect – Hibernate is a separate interruption behavior option."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which interruption behaviors can you configure for Spot Instances?",
+    "opts": {
+      "a": "Terminate only",
+      "b": "Terminate and Stop only",
+      "c": "Terminate, Stop, and Hibernate",
+      "d": "Terminate, Pause, and Restart"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – There are more options available.",
+      "b": "Incorrect – Hibernate is also a valid option.",
+      "c": "Correct – Spot Instance interruption behaviors include Terminate, Stop, and Hibernate.",
+      "d": "Incorrect – 'Pause' and 'Restart' are not valid Spot interruption behaviors."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to run a mixed fleet of On-Demand and Spot instances in your ASG. Which feature enables this?",
+    "opts": {
+      "a": "Launch Configuration",
+      "b": "Mixed Instances Policy in Launch Template",
+      "c": "EC2 Fleet only (not ASG)",
+      "d": "Spot Fleet only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Launch Configurations don't support mixed instances; they are legacy.",
+      "b": "Correct – Auto Scaling Groups with Launch Templates support Mixed Instances Policy, allowing a combination of On-Demand and Spot with multiple instance types.",
+      "c": "Incorrect – ASG supports mixed instances natively via Mixed Instances Policy.",
+      "d": "Incorrect – Spot Fleet is separate; ASG has its own mixed instances support."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of instances that an Auto Scaling Group can manage?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "Determined by the 'maximum capacity' setting (no hard AWS limit beyond service quotas)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – ASG can manage more than 100 instances.",
+      "b": "Incorrect – 500 is not a hard limit.",
+      "c": "Incorrect – 1,000 is not a hard limit.",
+      "d": "Correct – The ASG manages up to whatever you set as max capacity. AWS service quotas (default On-Demand limits) apply, but these can be increased."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An ALB health check is failing for an instance in a target group. What does the ALB do?",
+    "opts": {
+      "a": "Terminates the instance",
+      "b": "Stops sending traffic to the unhealthy instance",
+      "c": "Reboots the instance",
+      "d": "Sends an SNS notification automatically"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – ALB does not terminate instances; ASG does based on health checks.",
+      "b": "Correct – ALB stops routing new requests to the unhealthy instance but doesn't terminate it. If ASG uses ELB health checks, ASG will eventually terminate it.",
+      "c": "Incorrect – ALB does not reboot instances.",
+      "d": "Incorrect – SNS notifications are not automatic from ALB health checks."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the ALB idle timeout default value, and what happens when it is exceeded?",
+    "opts": {
+      "a": "30 seconds; connection is closed",
+      "b": "60 seconds; connection is closed",
+      "c": "120 seconds; connection is reset",
+      "d": "300 seconds; connection is terminated"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The default is 60 seconds.",
+      "b": "Correct – ALB default idle timeout is 60 seconds. If no data is sent over the connection for 60 seconds, ALB closes it.",
+      "c": "Incorrect – 120 seconds is not the default.",
+      "d": "Incorrect – 300 seconds is not the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You need to pass the client's real IP address to backend EC2 instances behind an ALB. Which HTTP header contains this information?",
+    "opts": {
+      "a": "X-Real-IP",
+      "b": "X-Forwarded-For",
+      "c": "X-Client-IP",
+      "d": "X-Origin-IP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – X-Real-IP is used by some web servers but not the standard ALB header.",
+      "b": "Correct – ALB adds the X-Forwarded-For header containing the client's original IP address.",
+      "c": "Incorrect – X-Client-IP is not the standard header used by ALB.",
+      "d": "Incorrect – X-Origin-IP is not a standard header."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which headers does an ALB add to requests forwarded to targets?",
+    "opts": {
+      "a": "X-Forwarded-For, X-Forwarded-Proto, X-Forwarded-Port",
+      "b": "X-Real-IP, X-Real-Proto, X-Real-Port",
+      "c": "X-Client-IP only",
+      "d": "No headers are added"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – ALB adds X-Forwarded-For (client IP), X-Forwarded-Proto (protocol), and X-Forwarded-Port (port) headers.",
+      "b": "Incorrect – These are not the standard ALB headers.",
+      "c": "Incorrect – Multiple headers are added.",
+      "d": "Incorrect – ALB does add forwarding headers."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want an NLB to preserve the client's source IP address. Is this possible?",
+    "opts": {
+      "a": "No, NLB always replaces the source IP",
+      "b": "Yes, NLB preserves the client source IP by default",
+      "c": "Only when using TCP protocol",
+      "d": "Only with proxy protocol v2 enabled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – NLB preserves the source IP.",
+      "b": "Correct – NLB operates at Layer 4 and preserves the client's source IP address by default (for instance targets).",
+      "c": "Incorrect – It works for both TCP and UDP.",
+      "d": "Incorrect – Proxy Protocol v2 is optional for additional metadata; source IP is preserved by default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your application requires SSL/TLS termination at the load balancer. Which load balancer types support this?",
+    "opts": {
+      "a": "ALB only",
+      "b": "NLB only",
+      "c": "Both ALB and NLB",
+      "d": "Neither; SSL must terminate at the instance"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – NLB also supports TLS termination.",
+      "b": "Incorrect – ALB also supports SSL/TLS termination.",
+      "c": "Correct – Both ALB (HTTPS listener) and NLB (TLS listener) support SSL/TLS termination using ACM certificates.",
+      "d": "Incorrect – Both support SSL termination."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is Server Name Indication (SNI) and which load balancers support it?",
+    "opts": {
+      "a": "A feature to host multiple SSL certificates on one listener; supported by ALB and NLB",
+      "b": "A feature for IP-based routing; supported by CLB only",
+      "c": "A DNS feature; supported by Route 53",
+      "d": "A certificate rotation feature; supported by ACM"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – SNI allows a single load balancer listener to serve multiple domains with different SSL certificates. Supported by ALB and NLB (not CLB).",
+      "b": "Incorrect – SNI is about SSL certificates, not IP routing.",
+      "c": "Incorrect – SNI is a TLS extension, used at the load balancer.",
+      "d": "Incorrect – SNI is not about certificate rotation."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You need to configure an Auto Scaling Group to replace instances that fail ELB health checks. What must you configure?",
+    "opts": {
+      "a": "Enable EC2 health checks (default)",
+      "b": "Set health check type to ELB in the ASG",
+      "c": "Create a CloudWatch alarm",
+      "d": "Enable termination protection"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – EC2 health checks are the default but don't account for application-level health.",
+      "b": "Correct – You must explicitly set the health check type to 'ELB' in the ASG configuration so it uses the load balancer's health check results.",
+      "c": "Incorrect – CloudWatch alarms trigger scaling, not health-based replacement.",
+      "d": "Incorrect – Termination protection would prevent replacement."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the warm pool feature in Auto Scaling?",
+    "opts": {
+      "a": "A pool of running instances reserved for peak hours",
+      "b": "A pool of pre-initialized instances in stopped or running state that can be quickly launched to handle traffic",
+      "c": "A pool of Spot Instances waiting for capacity",
+      "d": "A pool of AMIs for quick deployment"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Warm pool instances are pre-initialized but not necessarily running.",
+      "b": "Correct – Warm pools maintain pre-initialized EC2 instances (stopped, running, or hibernated) that can be placed into service faster than cold-starting.",
+      "c": "Incorrect – Warm pools are not specific to Spot Instances.",
+      "d": "Incorrect – Warm pools contain instances, not AMIs."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is Predictive Scaling in Auto Scaling?",
+    "opts": {
+      "a": "Scaling based on current CPU utilization",
+      "b": "Scaling based on machine learning forecasts of future traffic patterns",
+      "c": "Scaling on a fixed schedule",
+      "d": "Scaling based on SQS queue depth"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – That describes Target Tracking or Simple/Step Scaling.",
+      "b": "Correct – Predictive Scaling uses ML algorithms to analyze historical traffic patterns and proactively scales capacity before demand increases.",
+      "c": "Incorrect – That describes Scheduled Scaling.",
+      "d": "Incorrect – SQS-based scaling uses custom CloudWatch metrics with Target Tracking."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an EC2 instance that needs to send emails. Which port must you request AWS to unblock?",
+    "opts": {
+      "a": "Port 22",
+      "b": "Port 25",
+      "c": "Port 80",
+      "d": "Port 443"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Port 22 is for SSH and is not blocked.",
+      "b": "Correct – Port 25 (SMTP) is restricted by default on EC2 to prevent spam. You must request removal of the restriction.",
+      "c": "Incorrect – Port 80 is not restricted.",
+      "d": "Incorrect – Port 443 is not restricted."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of VPCs you can have per region by default?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The default is 5.",
+      "b": "Correct – By default, you can have 5 VPCs per region (can be increased via service quotas).",
+      "c": "Incorrect – 10 is not the default.",
+      "d": "Incorrect – 20 is not the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of subnets per VPC by default?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The default is 200.",
+      "b": "Incorrect – The default is 200.",
+      "c": "Correct – By default, you can have up to 200 subnets per VPC.",
+      "d": "Incorrect – 500 exceeds the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An EBS-optimized instance provides dedicated bandwidth for EBS I/O. Is EBS optimization enabled by default on newer instances?",
+    "opts": {
+      "a": "No, you must always enable it manually",
+      "b": "Yes, most current-generation instances are EBS-optimized by default at no extra cost",
+      "c": "Only for io2 volumes",
+      "d": "Only on Dedicated Hosts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Current-generation instances have it enabled by default.",
+      "b": "Correct – Most current-generation EC2 instances (e.g., M5, C5, R5) are EBS-optimized by default at no additional charge.",
+      "c": "Incorrect – It applies to all EBS volumes, not just io2.",
+      "d": "Incorrect – It's available on all instance types, not just Dedicated Hosts."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You need to move an EC2 instance from one AWS account to another. What is the correct approach?",
+    "opts": {
+      "a": "Directly transfer the instance using AWS CLI",
+      "b": "Create an AMI, share it with the target account, and launch a new instance",
+      "c": "Use VPC Peering to move the instance",
+      "d": "Contact AWS Support to migrate"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – EC2 instances cannot be directly transferred between accounts.",
+      "b": "Correct – Create an AMI from the instance, share the AMI with the destination account, then launch a new instance from the shared AMI.",
+      "c": "Incorrect – VPC Peering is for networking, not instance migration.",
+      "d": "Incorrect – This is a self-service operation."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to take a consistent snapshot of an EBS volume attached to a running database instance. What is the best practice?",
+    "opts": {
+      "a": "Take a snapshot directly without any preparation",
+      "b": "Freeze I/O or stop the instance, then take the snapshot",
+      "c": "Detach the volume first",
+      "d": "Use instance store instead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Taking a snapshot of a busy volume may result in inconsistent data.",
+      "b": "Correct – For consistency, freeze I/O (or flush buffers) before snapshotting, or stop the instance. This ensures all data is written to disk.",
+      "c": "Incorrect – Detaching the volume disrupts the application unnecessarily.",
+      "d": "Incorrect – Instance store is ephemeral and doesn't support snapshots."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Fast Snapshot Restore (FSR) feature in EBS?",
+    "opts": {
+      "a": "A feature that speeds up snapshot creation",
+      "b": "A feature that eliminates the latency of initializing volumes from snapshots",
+      "c": "A feature that compresses snapshots",
+      "d": "A feature that replicates snapshots across regions faster"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – FSR does not speed up creation; it speeds up restoration.",
+      "b": "Correct – Fast Snapshot Restore pre-initializes volumes created from snapshots, eliminating the first-access latency penalty (additional charges apply).",
+      "c": "Incorrect – FSR does not compress snapshots.",
+      "d": "Incorrect – Cross-region copy is separate from FSR."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of EBS volumes you can attach to a single EC2 instance?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "28 (for Nitro instances)",
+      "d": "40"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is higher.",
+      "b": "Incorrect – 20 is not the correct limit for Nitro instances.",
+      "c": "Correct – Nitro-based instances support up to 28 EBS volume attachments (some device slots are reserved for root volume and ENIs).",
+      "d": "Incorrect – 40 exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the EBS-optimized throughput for an m5.xlarge instance?",
+    "opts": {
+      "a": "Up to 593.75 MiB/s",
+      "b": "Up to 1,187.5 MiB/s",
+      "c": "Up to 2,375 MiB/s",
+      "d": "Up to 4,750 MiB/s"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – m5.xlarge provides up to 593.75 MiB/s (4,750 Mbps) of EBS-optimized bandwidth.",
+      "b": "Incorrect – This is for m5.2xlarge.",
+      "c": "Incorrect – This is for larger instance sizes.",
+      "d": "Incorrect – This is for m5.8xlarge or larger."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are using a Cluster Placement Group and one of the instances fails. What is the risk?",
+    "opts": {
+      "a": "All instances in the cluster are terminated",
+      "b": "Hardware failure may affect multiple instances since they share underlying hardware",
+      "c": "The placement group is automatically converted to Spread",
+      "d": "No risk; AWS guarantees fault tolerance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Only the affected instance fails, not all.",
+      "b": "Correct – Since Cluster Placement Groups place instances on the same or nearby hardware, a rack-level failure could impact multiple instances.",
+      "c": "Incorrect – Placement groups don't auto-convert.",
+      "d": "Incorrect – Cluster placement groups trade fault tolerance for performance."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between a Launch Configuration and a Launch Template?",
+    "opts": {
+      "a": "No difference; they are interchangeable",
+      "b": "Launch Templates support versioning, multiple instance types, Spot/On-Demand mix; Launch Configurations do not",
+      "c": "Launch Configurations are newer and more feature-rich",
+      "d": "Launch Templates cannot be used with Auto Scaling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Launch Templates are more feature-rich.",
+      "b": "Correct – Launch Templates support versioning, inheritance, mixed instance types, Spot and On-Demand mix, and are the recommended approach. Launch Configurations are legacy.",
+      "c": "Incorrect – Launch Configurations are older and limited.",
+      "d": "Incorrect – Launch Templates are fully supported by Auto Scaling."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to run a stateful application on Spot Instances. Which Spot feature helps preserve data between interruptions?",
+    "opts": {
+      "a": "Spot Fleet",
+      "b": "Spot Instance with 'stop' interruption behavior and EBS persistence",
+      "c": "Spot Block",
+      "d": "Spot Instance with 'terminate' behavior"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Spot Fleet manages multiple instances but doesn't inherently preserve state.",
+      "b": "Correct – Setting interruption behavior to 'stop' preserves the EBS volumes and instance state, allowing the instance to resume when capacity returns.",
+      "c": "Incorrect – Spot Blocks are deprecated.",
+      "d": "Incorrect – 'Terminate' behavior deletes the instance and potentially the root volume."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Spot Instance Rebalance Recommendation signal?",
+    "opts": {
+      "a": "A notification sent 2 minutes before termination",
+      "b": "An early warning signal that a Spot Instance is at elevated risk of interruption",
+      "c": "A recommendation to switch to On-Demand",
+      "d": "An alert when Spot price drops"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The 2-minute notice is the interruption notice, not the rebalance recommendation.",
+      "b": "Correct – The Rebalance Recommendation is an earlier signal (before the 2-minute notice) indicating elevated interruption risk, allowing proactive migration.",
+      "c": "Incorrect – It doesn't recommend switching to On-Demand.",
+      "d": "Incorrect – It signals risk of interruption, not price drops."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum duration for a Spot Block (defined duration Spot Instance)?",
+    "opts": {
+      "a": "1 hour",
+      "b": "6 hours",
+      "c": "12 hours",
+      "d": "24 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Spot Blocks can last up to 6 hours.",
+      "b": "Correct – Spot Blocks allow you to request Spot Instances for a defined duration of 1 to 6 hours (note: this feature is being deprecated).",
+      "c": "Incorrect – Maximum is 6 hours.",
+      "d": "Incorrect – Maximum is 6 hours."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of EC2 instance recovery with CloudWatch alarms?",
+    "opts": {
+      "a": "To automatically reboot an instance when CPU exceeds 80%",
+      "b": "To automatically recover an instance to a new host if system status check fails",
+      "c": "To scale out additional instances",
+      "d": "To create AMI backups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Instance recovery is for failed status checks, not CPU thresholds.",
+      "b": "Correct – You can create a CloudWatch alarm with the 'recover' action that moves the instance to new hardware if a system status check fails, preserving the instance ID, IPs, and EBS attachments.",
+      "c": "Incorrect – Scaling out is handled by Auto Scaling.",
+      "d": "Incorrect – AMI backups are separate from instance recovery."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which attributes are preserved during an EC2 instance recovery action?",
+    "opts": {
+      "a": "Instance ID, private IP, Elastic IP, EBS attachments, and metadata",
+      "b": "Only the instance ID",
+      "c": "Nothing; it's a new instance",
+      "d": "Only EBS volumes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Instance recovery preserves instance ID, private/public IPv4, Elastic IP, all EBS attachments, and instance metadata.",
+      "b": "Incorrect – Multiple attributes are preserved.",
+      "c": "Incorrect – It's the same instance recovered on new hardware.",
+      "d": "Incorrect – More than just EBS volumes are preserved."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum EBS throughput for a gp3 volume?",
+    "opts": {
+      "a": "125 MiB/s",
+      "b": "250 MiB/s",
+      "c": "500 MiB/s",
+      "d": "1,000 MiB/s"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – 125 MiB/s is the baseline throughput for gp3.",
+      "b": "Incorrect – 250 MiB/s is less than the maximum.",
+      "c": "Incorrect – 500 MiB/s is less than the maximum.",
+      "d": "Correct – gp3 volumes support up to 1,000 MiB/s of throughput (provisionable independently of IOPS)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the baseline throughput for a gp3 EBS volume?",
+    "opts": {
+      "a": "50 MiB/s",
+      "b": "125 MiB/s",
+      "c": "250 MiB/s",
+      "d": "500 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The baseline is 125 MiB/s.",
+      "b": "Correct – gp3 provides a baseline throughput of 125 MiB/s regardless of volume size.",
+      "c": "Incorrect – 250 MiB/s requires provisioning additional throughput.",
+      "d": "Incorrect – 500 MiB/s requires provisioning additional throughput."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to encrypt data in transit between EC2 instances within the same VPC. What should you use?",
+    "opts": {
+      "a": "EBS encryption",
+      "b": "TLS/SSL at the application level or Nitro-based instance encryption in transit",
+      "c": "S3 server-side encryption",
+      "d": "VPC Flow Logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – EBS encryption is for data at rest.",
+      "b": "Correct – Use TLS/SSL at the application level or leverage Nitro-based instances that support automatic encryption of traffic between instances in the same VPC.",
+      "c": "Incorrect – S3 encryption is for S3 objects.",
+      "d": "Incorrect – VPC Flow Logs capture traffic metadata, not encrypt traffic."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS service allows you to patch EC2 instances automatically at scale?",
+    "opts": {
+      "a": "AWS Systems Manager Patch Manager",
+      "b": "AWS CodeDeploy",
+      "c": "AWS CloudFormation",
+      "d": "Amazon Inspector"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – AWS Systems Manager Patch Manager automates the process of patching managed instances with security-related and other updates.",
+      "b": "Incorrect – CodeDeploy is for application deployment, not OS patching.",
+      "c": "Incorrect – CloudFormation provisions infrastructure but doesn't patch running instances.",
+      "d": "Incorrect – Amazon Inspector scans for vulnerabilities but doesn't apply patches."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of AWS Systems Manager Session Manager for EC2?",
+    "opts": {
+      "a": "To create AMIs",
+      "b": "To provide secure shell access to instances without opening SSH port or managing key pairs",
+      "c": "To monitor CPU utilization",
+      "d": "To deploy applications"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – AMIs are created through EC2.",
+      "b": "Correct – Session Manager provides browser-based or CLI-based shell access to EC2 instances without needing port 22, bastion hosts, or SSH keys.",
+      "c": "Incorrect – CloudWatch monitors CPU.",
+      "d": "Incorrect – CodeDeploy deploys applications."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of Elastic Load Balancers (ALB/NLB) per region by default?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The default is 50 per region.",
+      "b": "Correct – By default, you can have up to 50 load balancers per region (can be increased via service quotas).",
+      "c": "Incorrect – 100 is not the default.",
+      "d": "Incorrect – 200 exceeds the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of targets per target group for an ALB?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "5,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is higher.",
+      "b": "Incorrect – The limit is 1,000.",
+      "c": "Correct – Each target group can have up to 1,000 targets (instances, IPs, or Lambda functions).",
+      "d": "Incorrect – 5,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an ASG with instances in 3 AZs (AZ-A: 4, AZ-B: 3, AZ-C: 3). When scaling in by 1, which AZ will ASG terminate from?",
+    "opts": {
+      "a": "AZ-B because it was created first",
+      "b": "AZ-A because it has the most instances (to maintain balance)",
+      "c": "AZ-C because it has the fewest instances",
+      "d": "Random selection"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – ASG prioritizes AZ balance, not creation order.",
+      "b": "Correct – ASG first identifies the AZ with the most instances (AZ-A with 4) to maintain balance, then applies the termination policy within that AZ.",
+      "c": "Incorrect – ASG would not terminate from the AZ with the fewest instances.",
+      "d": "Incorrect – The selection is deterministic based on AZ balance."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is Instance Tenancy in EC2?",
+    "opts": {
+      "a": "The duration for which an instance runs",
+      "b": "Whether an instance runs on shared, dedicated, or host-level hardware",
+      "c": "The number of vCPUs allocated",
+      "d": "The network bandwidth tier"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Tenancy refers to hardware isolation, not duration.",
+      "b": "Correct – Instance Tenancy determines if an instance runs on shared hardware (default), dedicated hardware (dedicated instance), or a specific physical server (dedicated host).",
+      "c": "Incorrect – vCPUs are determined by instance type.",
+      "d": "Incorrect – Network bandwidth is determined by instance type."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between a public subnet and a private subnet in a VPC?",
+    "opts": {
+      "a": "Public subnets have a route to an Internet Gateway; private subnets do not",
+      "b": "Private subnets are larger in CIDR size",
+      "c": "Public subnets cannot have Security Groups",
+      "d": "Private subnets cannot communicate with other subnets"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – A public subnet has a route table entry pointing to an Internet Gateway (0.0.0.0/0 → IGW). Private subnets lack this route.",
+      "b": "Incorrect – Subnet size is independent of being public or private.",
+      "c": "Incorrect – All subnets can use Security Groups.",
+      "d": "Incorrect – Private subnets can communicate with other subnets within the VPC."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company needs to ensure that EC2 instances are always launched with specific tags and in approved subnets. Which AWS service helps enforce this?",
+    "opts": {
+      "a": "AWS Config Rules",
+      "b": "IAM Policies with condition keys",
+      "c": "AWS Service Control Policies (SCPs)",
+      "d": "All of the above"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – AWS Config can detect non-compliance but IAM/SCPs can also enforce.",
+      "b": "Incorrect – IAM policies can restrict but other tools also help.",
+      "c": "Incorrect – SCPs control at the organization level but other tools also apply.",
+      "d": "Correct – All three can be used: IAM policies with conditions enforce at request time, SCPs enforce at the organization level, and AWS Config Rules detect and remediate non-compliance."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of private IPv4 addresses per ENI on an m5.large instance?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "15",
+      "d": "30"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – m5.large supports more than 5.",
+      "b": "Correct – An m5.large supports up to 10 IPv4 addresses per network interface.",
+      "c": "Incorrect – 15 is for larger instance types.",
+      "d": "Incorrect – 30 is for much larger instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to capture all traffic flowing through your VPC for security analysis. Which feature should you enable?",
+    "opts": {
+      "a": "VPC Flow Logs",
+      "b": "CloudTrail",
+      "c": "Security Groups",
+      "d": "GuardDuty"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – VPC Flow Logs capture information about IP traffic going to/from network interfaces in your VPC (metadata like source, destination, port, action).",
+      "b": "Incorrect – CloudTrail captures API calls, not network traffic.",
+      "c": "Incorrect – Security Groups filter traffic but don't capture/log it.",
+      "d": "Incorrect – GuardDuty analyzes logs for threats but VPC Flow Logs is the data capture mechanism."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between instance store-backed and EBS-backed EC2 instances for creating AMIs?",
+    "opts": {
+      "a": "No difference in AMI creation process",
+      "b": "EBS-backed uses snapshots; instance store-backed requires bundling to S3",
+      "c": "Instance store-backed is faster",
+      "d": "EBS-backed cannot create AMIs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The processes are different.",
+      "b": "Correct – EBS-backed AMIs use EBS snapshots. Instance store-backed AMIs require bundling the root volume image and uploading to S3.",
+      "c": "Incorrect – Instance store-backed AMI creation is actually more complex.",
+      "d": "Incorrect – EBS-backed instances can create AMIs using snapshots."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the EC2 Capacity Rebalancing feature in Auto Scaling?",
+    "opts": {
+      "a": "Rebalances instances across AZs when there's an imbalance",
+      "b": "Proactively launches replacement Spot Instances when existing ones receive rebalance recommendations",
+      "c": "Moves instances from On-Demand to Spot for cost savings",
+      "d": "Redistributes traffic across target groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – AZ rebalancing is a different ASG behavior.",
+      "b": "Correct – Capacity Rebalancing proactively launches new Spot Instances before existing ones are interrupted, based on rebalance recommendation signals.",
+      "c": "Incorrect – It doesn't convert On-Demand to Spot.",
+      "d": "Incorrect – Traffic redistribution is handled by load balancers."
+    }
+  }
+]

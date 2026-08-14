@@ -1,0 +1,1090 @@
+[
+  {
+    "type": "MCQ",
+    "q": "What does Amazon EC2 stand for?",
+    "opts": {
+      "a": "Elastic Cloud Computing",
+      "b": "Elastic Compute Cloud",
+      "c": "Electronic Compute Cloud",
+      "d": "Elastic Computer Cluster"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The correct term uses 'Compute Cloud', not 'Cloud Computing'.",
+      "b": "Correct – EC2 stands for Elastic Compute Cloud, a web service that provides resizable compute capacity in the cloud.",
+      "c": "Incorrect – 'Electronic' is not part of the EC2 full form.",
+      "d": "Incorrect – EC2 is not a cluster; it stands for Elastic Compute Cloud."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following is the default maximum number of EC2 instances you can launch per region in a new AWS account (On-Demand)?",
+    "opts": {
+      "a": "5",
+      "b": "20",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – 5 is the default limit for Elastic IPs, not EC2 instances.",
+      "b": "Correct – The default On-Demand instance limit per region is 20 (for most instance families). You can request an increase.",
+      "c": "Incorrect – 50 is not the default limit for On-Demand EC2 instances.",
+      "d": "Incorrect – 100 exceeds the default limit for new accounts."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default number of Elastic IP addresses allowed per AWS account per region?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The default is 5, not 3.",
+      "b": "Correct – AWS allows 5 Elastic IP addresses per region per account by default.",
+      "c": "Incorrect – 10 exceeds the default limit.",
+      "d": "Incorrect – 15 exceeds the default limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 pricing model offers the highest discount (up to 90%) compared to On-Demand pricing?",
+    "opts": {
+      "a": "Reserved Instances",
+      "b": "Spot Instances",
+      "c": "Dedicated Hosts",
+      "d": "Savings Plans"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Reserved Instances offer up to 72% discount, not 90%.",
+      "b": "Correct – Spot Instances can offer up to 90% discount compared to On-Demand pricing, but can be interrupted.",
+      "c": "Incorrect – Dedicated Hosts do not offer the highest discount.",
+      "d": "Incorrect – Savings Plans offer up to 72% discount, not 90%."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum discount offered by Reserved Instances compared to On-Demand pricing?",
+    "opts": {
+      "a": "50%",
+      "b": "60%",
+      "c": "72%",
+      "d": "90%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Reserved Instances can offer more than 50% discount.",
+      "b": "Incorrect – The maximum is higher than 60%.",
+      "c": "Correct – Reserved Instances offer up to 72% discount compared to On-Demand pricing.",
+      "d": "Incorrect – 90% discount is associated with Spot Instances, not Reserved Instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 instance type is best suited for memory-intensive applications like in-memory databases?",
+    "opts": {
+      "a": "C-series (Compute Optimized)",
+      "b": "R-series (Memory Optimized)",
+      "c": "T-series (General Purpose)",
+      "d": "I-series (Storage Optimized)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – C-series is optimized for compute-intensive tasks, not memory.",
+      "b": "Correct – R-series instances are memory optimized and ideal for in-memory databases like Redis, SAP HANA.",
+      "c": "Incorrect – T-series is general purpose with burstable performance.",
+      "d": "Incorrect – I-series is storage optimized for high sequential read/write access."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum duration for a Spot Instance interruption notice before AWS reclaims the instance?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "1 minute",
+      "c": "2 minutes",
+      "d": "5 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – AWS provides more than 30 seconds notice.",
+      "b": "Incorrect – The notice period is 2 minutes, not 1 minute.",
+      "c": "Correct – AWS provides a 2-minute interruption notice before terminating a Spot Instance.",
+      "d": "Incorrect – The notice is 2 minutes, not 5 minutes."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following is NOT a valid EC2 instance state?",
+    "opts": {
+      "a": "Running",
+      "b": "Stopped",
+      "c": "Paused",
+      "d": "Terminated"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Running is a valid EC2 instance state.",
+      "b": "Incorrect – Stopped is a valid EC2 instance state.",
+      "c": "Correct – 'Paused' is not a valid EC2 instance state. Valid states are: pending, running, stopping, stopped, shutting-down, terminated.",
+      "d": "Incorrect – Terminated is a valid EC2 instance state."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default termination protection setting for a new EC2 instance?",
+    "opts": {
+      "a": "Enabled",
+      "b": "Disabled",
+      "c": "Depends on instance type",
+      "d": "Depends on region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Termination protection is disabled by default.",
+      "b": "Correct – By default, termination protection is disabled. You must manually enable it.",
+      "c": "Incorrect – It does not depend on instance type; it is always disabled by default.",
+      "d": "Incorrect – It does not vary by region."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which storage option is ephemeral and loses data when the EC2 instance is stopped or terminated?",
+    "opts": {
+      "a": "EBS (Elastic Block Store)",
+      "b": "Instance Store",
+      "c": "EFS (Elastic File System)",
+      "d": "S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – EBS is persistent storage that retains data even after the instance is stopped.",
+      "b": "Correct – Instance Store (ephemeral storage) is physically attached to the host and data is lost when the instance stops or terminates.",
+      "c": "Incorrect – EFS is a managed file system that persists independently.",
+      "d": "Incorrect – S3 is an object storage service and is persistent."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum size of a single EBS volume?",
+    "opts": {
+      "a": "1 TiB",
+      "b": "8 TiB",
+      "c": "16 TiB",
+      "d": "64 TiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – EBS volumes can be much larger than 1 TiB.",
+      "b": "Incorrect – 8 TiB is not the maximum.",
+      "c": "Correct – The maximum size of a single EBS volume is 16 TiB.",
+      "d": "Incorrect – 64 TiB exceeds the maximum EBS volume size."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EBS volume type provides the highest IOPS performance (up to 256,000 IOPS)?",
+    "opts": {
+      "a": "gp3 (General Purpose SSD)",
+      "b": "io2 Block Express",
+      "c": "st1 (Throughput Optimized HDD)",
+      "d": "sc1 (Cold HDD)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – gp3 supports up to 16,000 IOPS.",
+      "b": "Correct – io2 Block Express supports up to 256,000 IOPS, designed for the most demanding workloads.",
+      "c": "Incorrect – st1 is HDD-based and optimized for throughput, not IOPS.",
+      "d": "Incorrect – sc1 is designed for infrequent access and has the lowest performance."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum IOPS supported by a gp3 EBS volume?",
+    "opts": {
+      "a": "3,000",
+      "b": "10,000",
+      "c": "16,000",
+      "d": "64,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 3,000 is the baseline IOPS for gp3, not the maximum.",
+      "b": "Incorrect – 10,000 is not the max for gp3.",
+      "c": "Correct – gp3 volumes support up to 16,000 IOPS.",
+      "d": "Incorrect – 64,000 IOPS is the maximum for io2 (non-Block Express)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the baseline IOPS provided by a gp3 EBS volume?",
+    "opts": {
+      "a": "1,000",
+      "b": "3,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The baseline is 3,000 IOPS.",
+      "b": "Correct – gp3 provides a baseline of 3,000 IOPS regardless of volume size.",
+      "c": "Incorrect – 5,000 is not the baseline.",
+      "d": "Incorrect – 10,000 exceeds the baseline."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following is used to securely connect to an EC2 instance via SSH?",
+    "opts": {
+      "a": "Security Group",
+      "b": "Key Pair",
+      "c": "IAM Role",
+      "d": "NACL"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Security Groups control inbound/outbound traffic rules, not authentication.",
+      "b": "Correct – Key Pairs (public/private keys) are used for SSH authentication to EC2 instances.",
+      "c": "Incorrect – IAM Roles grant permissions to AWS services, not SSH access.",
+      "d": "Incorrect – NACLs control traffic at subnet level, not authentication."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What port number is used for SSH access to a Linux EC2 instance?",
+    "opts": {
+      "a": "22",
+      "b": "80",
+      "c": "443",
+      "d": "3389"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Port 22 is the default port for SSH (Secure Shell) connections.",
+      "b": "Incorrect – Port 80 is for HTTP traffic.",
+      "c": "Incorrect – Port 443 is for HTTPS traffic.",
+      "d": "Incorrect – Port 3389 is for RDP (Remote Desktop Protocol) used with Windows instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What port number is used for RDP access to a Windows EC2 instance?",
+    "opts": {
+      "a": "22",
+      "b": "80",
+      "c": "443",
+      "d": "3389"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – Port 22 is for SSH (Linux).",
+      "b": "Incorrect – Port 80 is for HTTP.",
+      "c": "Incorrect – Port 443 is for HTTPS.",
+      "d": "Correct – Port 3389 is used for Remote Desktop Protocol (RDP) to connect to Windows EC2 instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Security Groups in AWS are:",
+    "opts": {
+      "a": "Stateless",
+      "b": "Stateful",
+      "c": "Both stateful and stateless",
+      "d": "Neither stateful nor stateless"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – NACLs are stateless, not Security Groups.",
+      "b": "Correct – Security Groups are stateful, meaning if you allow inbound traffic, the response is automatically allowed outbound.",
+      "c": "Incorrect – Security Groups are only stateful.",
+      "d": "Incorrect – Security Groups are stateful."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Network ACLs (NACLs) in AWS are:",
+    "opts": {
+      "a": "Stateful",
+      "b": "Stateless",
+      "c": "Applied at instance level",
+      "d": "Cannot have deny rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – NACLs are stateless; Security Groups are stateful.",
+      "b": "Correct – NACLs are stateless, meaning both inbound and outbound rules are evaluated independently.",
+      "c": "Incorrect – NACLs are applied at the subnet level, not instance level.",
+      "d": "Incorrect – NACLs support both allow and deny rules."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default behavior of a Security Group for inbound traffic?",
+    "opts": {
+      "a": "All traffic is allowed",
+      "b": "All traffic is denied",
+      "c": "Only SSH is allowed",
+      "d": "Only HTTP is allowed"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – By default, all inbound traffic is denied.",
+      "b": "Correct – By default, a Security Group denies all inbound traffic. You must explicitly add rules to allow traffic.",
+      "c": "Incorrect – SSH is not allowed by default.",
+      "d": "Incorrect – HTTP is not allowed by default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default behavior of a Security Group for outbound traffic?",
+    "opts": {
+      "a": "All traffic is denied",
+      "b": "All traffic is allowed",
+      "c": "Only port 80 is allowed",
+      "d": "Only port 443 is allowed"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – By default, all outbound traffic is allowed.",
+      "b": "Correct – By default, a Security Group allows all outbound traffic.",
+      "c": "Incorrect – All outbound traffic is allowed, not just port 80.",
+      "d": "Incorrect – All outbound traffic is allowed, not just port 443."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 purchasing option requires a commitment of 1 or 3 years?",
+    "opts": {
+      "a": "On-Demand",
+      "b": "Spot Instances",
+      "c": "Reserved Instances",
+      "d": "Dedicated Instances"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – On-Demand has no long-term commitment.",
+      "b": "Incorrect – Spot Instances have no commitment; they can be interrupted anytime.",
+      "c": "Correct – Reserved Instances require a 1-year or 3-year term commitment for significant discounts.",
+      "d": "Incorrect – Dedicated Instances can be On-Demand without a term commitment."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is an AMI in AWS?",
+    "opts": {
+      "a": "Amazon Machine Image",
+      "b": "Amazon Managed Instance",
+      "c": "AWS Machine Interface",
+      "d": "Amazon Monitoring Image"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – AMI stands for Amazon Machine Image, a template used to launch EC2 instances.",
+      "b": "Incorrect – AMI stands for Amazon Machine Image.",
+      "c": "Incorrect – AMI is not related to interfaces.",
+      "d": "Incorrect – AMI is not related to monitoring."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Can an AMI be shared across AWS regions?",
+    "opts": {
+      "a": "Yes, AMIs are global by default",
+      "b": "No, AMIs are region-specific but can be copied to other regions",
+      "c": "No, AMIs cannot be used in other regions at all",
+      "d": "Yes, but only for public AMIs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – AMIs are region-specific, not global.",
+      "b": "Correct – AMIs are region-specific but you can copy them to other regions.",
+      "c": "Incorrect – You can copy AMIs to other regions.",
+      "d": "Incorrect – Both public and private AMIs can be copied across regions."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of an EC2 Placement Group?",
+    "opts": {
+      "a": "To place instances in different AWS accounts",
+      "b": "To control the placement of instances on underlying hardware",
+      "c": "To assign Elastic IPs to instances",
+      "d": "To create backup copies of instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Placement Groups are not for cross-account placement.",
+      "b": "Correct – Placement Groups control how instances are placed on the underlying hardware for performance or fault tolerance.",
+      "c": "Incorrect – Elastic IPs are unrelated to Placement Groups.",
+      "d": "Incorrect – Backups are done using AMIs or snapshots, not Placement Groups."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 Placement Group strategy places instances across different hardware racks?",
+    "opts": {
+      "a": "Cluster",
+      "b": "Spread",
+      "c": "Partition",
+      "d": "Default"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Cluster places instances close together in a single AZ for low latency.",
+      "b": "Correct – Spread placement group places each instance on distinct hardware racks to reduce correlated failures.",
+      "c": "Incorrect – Partition divides instances into logical partitions across racks.",
+      "d": "Incorrect – 'Default' is not a named placement group strategy."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of instances per Availability Zone in a Spread Placement Group?",
+    "opts": {
+      "a": "5",
+      "b": "7",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The limit is 7, not 5.",
+      "b": "Correct – A Spread Placement Group supports a maximum of 7 running instances per AZ.",
+      "c": "Incorrect – 10 exceeds the limit.",
+      "d": "Incorrect – 15 exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which service is used to automatically scale EC2 instances based on demand?",
+    "opts": {
+      "a": "AWS Lambda",
+      "b": "EC2 Auto Scaling",
+      "c": "AWS Elastic Beanstalk",
+      "d": "Amazon CloudFront"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Lambda is serverless and does not manage EC2 scaling.",
+      "b": "Correct – EC2 Auto Scaling automatically adjusts the number of EC2 instances based on demand.",
+      "c": "Incorrect – Elastic Beanstalk is a deployment service that may use Auto Scaling internally.",
+      "d": "Incorrect – CloudFront is a CDN, not a scaling service."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "In an Auto Scaling Group, what defines the minimum number of instances that must always be running?",
+    "opts": {
+      "a": "Desired Capacity",
+      "b": "Maximum Capacity",
+      "c": "Minimum Capacity",
+      "d": "Scaling Policy"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Desired Capacity is the number of instances ASG tries to maintain at any time.",
+      "b": "Incorrect – Maximum Capacity is the upper limit.",
+      "c": "Correct – Minimum Capacity sets the floor; Auto Scaling will never scale below this number.",
+      "d": "Incorrect – Scaling Policy defines when to scale, not the minimum."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default cooldown period for an Auto Scaling Group?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "120 seconds",
+      "c": "300 seconds",
+      "d": "600 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 60 seconds is not the default cooldown.",
+      "b": "Incorrect – 120 seconds is not the default.",
+      "c": "Correct – The default cooldown period is 300 seconds (5 minutes).",
+      "d": "Incorrect – 600 seconds exceeds the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS service distributes incoming traffic across multiple EC2 instances?",
+    "opts": {
+      "a": "Amazon Route 53",
+      "b": "Elastic Load Balancer (ELB)",
+      "c": "AWS CloudTrail",
+      "d": "Amazon VPC"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Route 53 is a DNS service, though it can do routing, it's not a load balancer.",
+      "b": "Correct – ELB distributes incoming application traffic across multiple EC2 instances.",
+      "c": "Incorrect – CloudTrail is for auditing API calls.",
+      "d": "Incorrect – VPC is a virtual network, not a load balancer."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which type of Elastic Load Balancer operates at Layer 7 (HTTP/HTTPS)?",
+    "opts": {
+      "a": "Network Load Balancer",
+      "b": "Application Load Balancer",
+      "c": "Classic Load Balancer",
+      "d": "Gateway Load Balancer"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – NLB operates at Layer 4 (TCP/UDP).",
+      "b": "Correct – Application Load Balancer (ALB) operates at Layer 7 and supports HTTP/HTTPS routing.",
+      "c": "Incorrect – Classic Load Balancer supports both Layer 4 and Layer 7 but is legacy.",
+      "d": "Incorrect – Gateway Load Balancer operates at Layer 3 for third-party appliances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which type of Elastic Load Balancer operates at Layer 4 (TCP/UDP) and can handle millions of requests per second?",
+    "opts": {
+      "a": "Application Load Balancer",
+      "b": "Network Load Balancer",
+      "c": "Classic Load Balancer",
+      "d": "Gateway Load Balancer"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – ALB operates at Layer 7.",
+      "b": "Correct – Network Load Balancer operates at Layer 4 and is designed for ultra-high performance and low latency.",
+      "c": "Incorrect – Classic Load Balancer is legacy and not optimized for extreme throughput.",
+      "d": "Incorrect – Gateway Load Balancer is for deploying third-party virtual appliances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of an EC2 User Data script?",
+    "opts": {
+      "a": "To encrypt the instance storage",
+      "b": "To run commands at instance launch (bootstrapping)",
+      "c": "To create IAM users",
+      "d": "To configure billing alerts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – User Data is not for encryption.",
+      "b": "Correct – User Data allows you to run scripts (bash/PowerShell) at instance launch for bootstrapping (installing software, updates, etc.).",
+      "c": "Incorrect – IAM users are created through IAM, not User Data.",
+      "d": "Incorrect – Billing alerts are configured in CloudWatch/Budgets."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "EC2 User Data scripts run with which user privilege by default on Linux?",
+    "opts": {
+      "a": "ec2-user",
+      "b": "ubuntu",
+      "c": "root",
+      "d": "admin"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – User Data runs as root, not ec2-user.",
+      "b": "Incorrect – User Data runs as root, not ubuntu.",
+      "c": "Correct – EC2 User Data scripts execute with root privileges by default.",
+      "d": "Incorrect – User Data runs as root."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum size of EC2 User Data?",
+    "opts": {
+      "a": "4 KB",
+      "b": "16 KB",
+      "c": "64 KB",
+      "d": "128 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The maximum is 16 KB.",
+      "b": "Correct – EC2 User Data is limited to 16 KB in size.",
+      "c": "Incorrect – 64 KB exceeds the limit.",
+      "d": "Incorrect – 128 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following instance families is optimized for compute-intensive tasks?",
+    "opts": {
+      "a": "T-series",
+      "b": "M-series",
+      "c": "C-series",
+      "d": "R-series"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – T-series is general purpose with burstable performance.",
+      "b": "Incorrect – M-series is general purpose.",
+      "c": "Correct – C-series (Compute Optimized) is designed for compute-intensive workloads like batch processing, gaming servers.",
+      "d": "Incorrect – R-series is memory optimized."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 instance family is best for high-performance databases requiring fast storage?",
+    "opts": {
+      "a": "T-series",
+      "b": "I-series",
+      "c": "C-series",
+      "d": "A-series"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – T-series is general purpose.",
+      "b": "Correct – I-series (Storage Optimized) instances provide high sequential read/write access and NVMe storage for databases.",
+      "c": "Incorrect – C-series is compute optimized.",
+      "d": "Incorrect – A-series is ARM-based general purpose."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What does the 'T' in T3 instance type represent?",
+    "opts": {
+      "a": "Throughput",
+      "b": "Turbo",
+      "c": "Burstable (General Purpose)",
+      "d": "Temporal"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – T stands for burstable general purpose.",
+      "b": "Incorrect – T does not stand for Turbo.",
+      "c": "Correct – T-series instances are burstable general purpose instances that earn CPU credits when idle.",
+      "d": "Incorrect – T does not stand for Temporal."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What happens when a T-series instance exhausts its CPU credits?",
+    "opts": {
+      "a": "The instance is terminated",
+      "b": "The instance performance is throttled to baseline",
+      "c": "The instance is stopped",
+      "d": "Additional charges are applied automatically"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The instance is not terminated.",
+      "b": "Correct – When CPU credits are exhausted, the instance performance is capped at the baseline level (unless unlimited mode is enabled).",
+      "c": "Incorrect – The instance continues running but at reduced performance.",
+      "d": "Incorrect – Additional charges only apply if 'unlimited' mode is enabled."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which feature allows you to hibernate an EC2 instance?",
+    "opts": {
+      "a": "EC2 Stop",
+      "b": "EC2 Hibernate",
+      "c": "EC2 Suspend",
+      "d": "EC2 Freeze"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Stopping an instance does not preserve RAM contents.",
+      "b": "Correct – EC2 Hibernate saves the contents of RAM to the EBS root volume and resumes the instance to its previous state.",
+      "c": "Incorrect – 'Suspend' is not an official EC2 feature name.",
+      "d": "Incorrect – 'Freeze' is not an EC2 feature."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum RAM size supported for EC2 Hibernate?",
+    "opts": {
+      "a": "16 GB",
+      "b": "64 GB",
+      "c": "150 GB",
+      "d": "256 GB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is higher than 16 GB.",
+      "b": "Incorrect – The limit is higher than 64 GB.",
+      "c": "Correct – EC2 Hibernate supports instances with up to 150 GB of RAM.",
+      "d": "Incorrect – 256 GB exceeds the hibernate limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum duration an EC2 instance can be in hibernation?",
+    "opts": {
+      "a": "24 hours",
+      "b": "48 hours",
+      "c": "60 days",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is much longer than 24 hours.",
+      "b": "Incorrect – The limit is more than 48 hours.",
+      "c": "Correct – An EC2 instance can remain in hibernation for up to 60 days.",
+      "d": "Incorrect – There is a 60-day limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which service provides metadata information about a running EC2 instance?",
+    "opts": {
+      "a": "AWS CloudTrail",
+      "b": "Instance Metadata Service (IMDS)",
+      "c": "AWS Config",
+      "d": "Amazon Inspector"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – CloudTrail logs API calls, not instance metadata.",
+      "b": "Correct – IMDS provides metadata about the instance (instance ID, IP, IAM role, etc.) accessible at http://169.254.169.254/latest/meta-data/.",
+      "c": "Incorrect – AWS Config tracks resource configurations.",
+      "d": "Incorrect – Inspector is for security assessments."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the IP address used to access EC2 instance metadata?",
+    "opts": {
+      "a": "192.168.1.1",
+      "b": "10.0.0.1",
+      "c": "169.254.169.254",
+      "d": "172.16.0.1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – This is a private IP range, not for metadata.",
+      "b": "Incorrect – This is a VPC default IP, not for metadata.",
+      "c": "Correct – EC2 instance metadata is accessed at http://169.254.169.254/latest/meta-data/.",
+      "d": "Incorrect – This is a private IP range."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is an Elastic Network Interface (ENI)?",
+    "opts": {
+      "a": "A physical network card",
+      "b": "A virtual network interface that can be attached to EC2 instances",
+      "c": "A DNS resolver",
+      "d": "A VPN endpoint"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – ENI is virtual, not physical.",
+      "b": "Correct – An ENI is a virtual network interface that you can attach/detach from EC2 instances within a VPC.",
+      "c": "Incorrect – ENI is not a DNS resolver.",
+      "d": "Incorrect – ENI is not a VPN endpoint."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which feature allows you to use your own IP address range in AWS?",
+    "opts": {
+      "a": "Elastic IP",
+      "b": "BYOIP (Bring Your Own IP)",
+      "c": "NAT Gateway",
+      "d": "Internet Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Elastic IP is an AWS-provided static IP.",
+      "b": "Correct – BYOIP allows you to bring your own public IPv4 or IPv6 address range into AWS.",
+      "c": "Incorrect – NAT Gateway enables outbound internet for private subnets.",
+      "d": "Incorrect – Internet Gateway connects VPC to the internet."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What happens to the public IP of an EC2 instance when it is stopped and started?",
+    "opts": {
+      "a": "It remains the same",
+      "b": "It changes",
+      "c": "The instance loses internet access permanently",
+      "d": "It becomes an Elastic IP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The auto-assigned public IP changes on stop/start.",
+      "b": "Correct – When you stop and start an EC2 instance, the public IPv4 address changes. Use Elastic IP for a static address.",
+      "c": "Incorrect – It gets a new public IP when restarted.",
+      "d": "Incorrect – It does not automatically become an Elastic IP."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the charge for an Elastic IP address that is associated with a running EC2 instance?",
+    "opts": {
+      "a": "$0.005 per hour",
+      "b": "Free",
+      "c": "$0.01 per hour",
+      "d": "$0.05 per hour"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – You are charged when the EIP is NOT associated with a running instance.",
+      "b": "Correct – An Elastic IP associated with a running instance is free. You are charged when it is not associated or when you have more than one EIP per instance.",
+      "c": "Incorrect – No charge when associated with a running instance.",
+      "d": "Incorrect – No charge when in use."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS service provides a managed NFS file system that can be mounted on multiple EC2 instances?",
+    "opts": {
+      "a": "EBS",
+      "b": "S3",
+      "c": "EFS",
+      "d": "FSx"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – EBS can only be attached to one instance at a time (except Multi-Attach io1/io2).",
+      "b": "Incorrect – S3 is object storage, not a mountable file system.",
+      "c": "Correct – Amazon EFS (Elastic File System) is a managed NFS that can be mounted on multiple EC2 instances simultaneously.",
+      "d": "Incorrect – FSx is for Windows File Server or Lustre, not NFS by default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Can an EBS volume be attached to multiple EC2 instances simultaneously?",
+    "opts": {
+      "a": "Yes, all EBS types support this",
+      "b": "No, never",
+      "c": "Yes, but only io1/io2 with Multi-Attach in the same AZ",
+      "d": "Yes, across multiple AZs"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Only io1/io2 volumes support Multi-Attach.",
+      "b": "Incorrect – io1/io2 volumes support Multi-Attach.",
+      "c": "Correct – EBS Multi-Attach allows io1/io2 volumes to be attached to up to 16 instances in the same AZ.",
+      "d": "Incorrect – Multi-Attach works only within the same AZ."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of instances you can attach to an EBS io1/io2 volume using Multi-Attach?",
+    "opts": {
+      "a": "4",
+      "b": "8",
+      "c": "16",
+      "d": "32"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is 16.",
+      "b": "Incorrect – The limit is 16.",
+      "c": "Correct – EBS Multi-Attach supports up to 16 Nitro-based instances in the same AZ.",
+      "d": "Incorrect – 32 exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following is true about EBS Snapshots?",
+    "opts": {
+      "a": "They are stored in EBS",
+      "b": "They are stored in S3",
+      "c": "They are stored in EFS",
+      "d": "They are stored in Glacier only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Snapshots are not stored in EBS.",
+      "b": "Correct – EBS Snapshots are stored in Amazon S3 (managed by AWS, not in your S3 bucket).",
+      "c": "Incorrect – Snapshots are not stored in EFS.",
+      "d": "Incorrect – By default they are stored in S3, though you can archive them to a cheaper tier."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Can you create an AMI from a running EC2 instance?",
+    "opts": {
+      "a": "No, the instance must be stopped first",
+      "b": "Yes, you can create an AMI from a running instance",
+      "c": "Only for Windows instances",
+      "d": "Only for instances with instance store"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – You can create an AMI while the instance is running, though stopping is recommended for data consistency.",
+      "b": "Correct – You can create an AMI from a running instance. AWS will create snapshots of the attached EBS volumes.",
+      "c": "Incorrect – It works for both Linux and Windows.",
+      "d": "Incorrect – It works for both EBS-backed and instance store instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of an EC2 Launch Template?",
+    "opts": {
+      "a": "To create IAM policies",
+      "b": "To define instance configuration parameters for launching EC2 instances",
+      "c": "To configure VPC settings",
+      "d": "To set up billing alarms"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – IAM policies are created in IAM.",
+      "b": "Correct – Launch Templates define instance configuration (AMI, instance type, key pair, security groups, etc.) and can be used with Auto Scaling.",
+      "c": "Incorrect – VPC settings are configured separately.",
+      "d": "Incorrect – Billing alarms are set up in CloudWatch."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS service monitors EC2 instance metrics like CPU utilization by default?",
+    "opts": {
+      "a": "AWS CloudTrail",
+      "b": "Amazon CloudWatch",
+      "c": "AWS Config",
+      "d": "AWS X-Ray"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – CloudTrail monitors API activity.",
+      "b": "Correct – Amazon CloudWatch monitors EC2 metrics like CPU utilization, network I/O, disk I/O by default.",
+      "c": "Incorrect – AWS Config tracks resource configuration changes.",
+      "d": "Incorrect – X-Ray is for distributed tracing."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default monitoring interval for EC2 instances in CloudWatch?",
+    "opts": {
+      "a": "1 minute",
+      "b": "5 minutes",
+      "c": "10 minutes",
+      "d": "15 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – 1-minute interval requires detailed monitoring (additional cost).",
+      "b": "Correct – Basic monitoring provides metrics at 5-minute intervals by default.",
+      "c": "Incorrect – 10 minutes is not a standard interval.",
+      "d": "Incorrect – 15 minutes is not a standard interval."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 metric is NOT available in CloudWatch by default and requires a CloudWatch Agent?",
+    "opts": {
+      "a": "CPU Utilization",
+      "b": "Memory Utilization",
+      "c": "Network In/Out",
+      "d": "Disk Read/Write"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – CPU Utilization is available by default.",
+      "b": "Correct – Memory utilization is NOT available by default. You need to install the CloudWatch Agent to collect memory and disk-level metrics.",
+      "c": "Incorrect – Network In/Out is available by default.",
+      "d": "Incorrect – Disk Read/Write operations are available by default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is a Dedicated Host in AWS EC2?",
+    "opts": {
+      "a": "A shared physical server",
+      "b": "A physical server fully dedicated to your use",
+      "c": "A virtual machine with higher CPU",
+      "d": "A reserved spot instance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – A Dedicated Host is not shared.",
+      "b": "Correct – A Dedicated Host is a physical server with EC2 capacity fully dedicated to your use, useful for compliance and licensing.",
+      "c": "Incorrect – It is a physical server, not just a VM.",
+      "d": "Incorrect – It has nothing to do with Spot Instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between a Dedicated Host and a Dedicated Instance?",
+    "opts": {
+      "a": "No difference; they are the same",
+      "b": "Dedicated Host gives visibility into sockets/cores; Dedicated Instance does not",
+      "c": "Dedicated Instance is more expensive",
+      "d": "Dedicated Host does not support Windows"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – They are different.",
+      "b": "Correct – Dedicated Host provides visibility into physical server (sockets, cores, host ID) for license compliance. Dedicated Instance just ensures hardware isolation.",
+      "c": "Incorrect – Dedicated Host is typically more expensive.",
+      "d": "Incorrect – Dedicated Host supports Windows."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 feature allows you to assign an IAM role to an instance for accessing other AWS services?",
+    "opts": {
+      "a": "Security Group",
+      "b": "Instance Profile",
+      "c": "Key Pair",
+      "d": "User Data"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Security Groups control network traffic.",
+      "b": "Correct – An Instance Profile is a container for an IAM role that you attach to an EC2 instance to grant it permissions.",
+      "c": "Incorrect – Key Pairs are for SSH authentication.",
+      "d": "Incorrect – User Data is for bootstrapping scripts."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the SLA uptime commitment for Amazon EC2?",
+    "opts": {
+      "a": "99%",
+      "b": "99.9%",
+      "c": "99.95%",
+      "d": "99.99%"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – EC2 SLA is higher than 99%.",
+      "b": "Incorrect – EC2 SLA is higher than 99.9%.",
+      "c": "Incorrect – EC2 SLA is 99.99%.",
+      "d": "Correct – Amazon EC2 has a 99.99% SLA for each region."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following is a valid Reserved Instance payment option?",
+    "opts": {
+      "a": "All Upfront, Partial Upfront, No Upfront",
+      "b": "Monthly, Quarterly, Annual",
+      "c": "Pay-as-you-go only",
+      "d": "Credit-based payment"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Reserved Instances offer three payment options: All Upfront (highest discount), Partial Upfront, and No Upfront (lowest discount).",
+      "b": "Incorrect – These are not valid RI payment options.",
+      "c": "Incorrect – Pay-as-you-go is On-Demand pricing.",
+      "d": "Incorrect – Credit-based payment is not a valid option."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is EC2 Fleet?",
+    "opts": {
+      "a": "A group of reserved instances",
+      "b": "A feature that lets you launch a mix of On-Demand, Reserved, and Spot instances in a single request",
+      "c": "A load balancer type",
+      "d": "A type of placement group"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – EC2 Fleet is not limited to reserved instances.",
+      "b": "Correct – EC2 Fleet allows you to launch a combination of On-Demand and Spot instances across multiple instance types in a single API call.",
+      "c": "Incorrect – EC2 Fleet is not a load balancer.",
+      "d": "Incorrect – EC2 Fleet is not a placement group."
+    }
+  }
+]

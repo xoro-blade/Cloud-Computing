@@ -1,0 +1,1090 @@
+[
+  {
+    "type": "mcq",
+    "q": "What is AWS API Gateway?",
+    "opts": {
+      "a": "A fully managed service to create, publish, maintain, monitor, and secure APIs at any scale",
+      "b": "A database management service",
+      "c": "A compute service for running containers",
+      "d": "A DNS routing service"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale.",
+      "b": "Incorrect. Database management is handled by services like RDS or DynamoDB.",
+      "c": "Incorrect. Container services include ECS and EKS.",
+      "d": "Incorrect. DNS routing is handled by Route 53."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which types of APIs does API Gateway support?",
+    "opts": {
+      "a": "REST APIs only",
+      "b": "REST APIs, HTTP APIs, and WebSocket APIs",
+      "c": "GraphQL APIs only",
+      "d": "SOAP APIs only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway supports more than just REST APIs.",
+      "b": "Correct. API Gateway supports REST APIs, HTTP APIs, and WebSocket APIs.",
+      "c": "Incorrect. GraphQL APIs are managed by AWS AppSync.",
+      "d": "Incorrect. SOAP APIs are not natively supported by API Gateway."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum timeout for API Gateway integration?",
+    "opts": {
+      "a": "15 seconds",
+      "b": "29 seconds",
+      "c": "60 seconds",
+      "d": "300 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 15 seconds is not the maximum timeout.",
+      "b": "Correct. The maximum integration timeout for API Gateway is 29 seconds.",
+      "c": "Incorrect. 60 seconds exceeds the maximum allowed timeout.",
+      "d": "Incorrect. 300 seconds is the Lambda maximum timeout, not API Gateway."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum payload size for API Gateway?",
+    "opts": {
+      "a": "5 MB",
+      "b": "10 MB",
+      "c": "25 MB",
+      "d": "50 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 MB is not the maximum payload size.",
+      "b": "Correct. The maximum payload size for API Gateway is 10 MB.",
+      "c": "Incorrect. 25 MB exceeds the maximum payload size.",
+      "d": "Incorrect. 50 MB exceeds the maximum payload size."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is NOT a valid API Gateway endpoint type?",
+    "opts": {
+      "a": "Edge-optimized",
+      "b": "Regional",
+      "c": "Private",
+      "d": "Global"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Edge-optimized is a valid endpoint type that routes through CloudFront.",
+      "b": "Incorrect. Regional is a valid endpoint type for clients in the same region.",
+      "c": "Incorrect. Private is a valid endpoint type accessible only from within a VPC.",
+      "d": "Correct. Global is not a valid API Gateway endpoint type. The valid types are Edge-optimized, Regional, and Private."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is commonly used as a backend integration with API Gateway for serverless applications?",
+    "opts": {
+      "a": "Amazon EC2",
+      "b": "AWS Lambda",
+      "c": "Amazon RDS",
+      "d": "Amazon S3 Glacier"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 can be used but is not the primary serverless integration.",
+      "b": "Correct. AWS Lambda is the most common serverless backend integration with API Gateway.",
+      "c": "Incorrect. RDS is a database service, not typically a direct backend for API Gateway.",
+      "d": "Incorrect. S3 Glacier is for archival storage."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a 'stage' in API Gateway?",
+    "opts": {
+      "a": "A version of a Lambda function",
+      "b": "A logical reference to a lifecycle state of the API (e.g., dev, prod, staging)",
+      "c": "A type of authentication method",
+      "d": "A billing category"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda function versions are separate from API Gateway stages.",
+      "b": "Correct. A stage is a named reference to a deployment, representing a lifecycle state like dev, test, or prod.",
+      "c": "Incorrect. Stages are not authentication methods.",
+      "d": "Incorrect. Stages are not billing categories."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which authentication method is NOT supported by API Gateway?",
+    "opts": {
+      "a": "IAM authorization",
+      "b": "Amazon Cognito User Pools",
+      "c": "Lambda Authorizer",
+      "d": "SSH key authentication"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. IAM authorization is a valid method supported by API Gateway.",
+      "b": "Incorrect. Cognito User Pools are supported for authentication.",
+      "c": "Incorrect. Lambda Authorizers (custom authorizers) are supported.",
+      "d": "Correct. SSH key authentication is not supported by API Gateway."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default throttling limit for API Gateway per account per region?",
+    "opts": {
+      "a": "1,000 requests per second",
+      "b": "5,000 requests per second",
+      "c": "10,000 requests per second",
+      "d": "50,000 requests per second"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,000 RPS is below the default limit.",
+      "b": "Incorrect. 5,000 RPS is below the default limit.",
+      "c": "Correct. The default throttling limit is 10,000 requests per second per account per region.",
+      "d": "Incorrect. 50,000 RPS exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default burst limit for API Gateway?",
+    "opts": {
+      "a": "1,000 requests",
+      "b": "2,500 requests",
+      "c": "5,000 requests",
+      "d": "10,000 requests"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,000 is not the default burst limit.",
+      "b": "Incorrect. 2,500 is not the default burst limit.",
+      "c": "Correct. The default burst limit for API Gateway is 5,000 requests.",
+      "d": "Incorrect. 10,000 is the steady-state rate limit, not the burst limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which HTTP status code does API Gateway return when throttling occurs?",
+    "opts": {
+      "a": "403 Forbidden",
+      "b": "429 Too Many Requests",
+      "c": "500 Internal Server Error",
+      "d": "503 Service Unavailable"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 403 is for authorization failures.",
+      "b": "Correct. API Gateway returns 429 Too Many Requests when throttling occurs.",
+      "c": "Incorrect. 500 is for internal server errors.",
+      "d": "Incorrect. 503 is for service unavailability, not throttling."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What feature of API Gateway allows you to reduce the number of calls to your backend?",
+    "opts": {
+      "a": "Throttling",
+      "b": "Caching",
+      "c": "Staging",
+      "d": "Mapping templates"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Throttling limits the rate but doesn't cache responses.",
+      "b": "Correct. API Gateway caching stores responses to reduce calls to the backend.",
+      "c": "Incorrect. Staging is for lifecycle management.",
+      "d": "Incorrect. Mapping templates transform requests/responses but don't reduce backend calls."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default TTL for API Gateway cache?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "300 seconds (5 minutes)",
+      "c": "600 seconds (10 minutes)",
+      "d": "3600 seconds (1 hour)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 60 seconds is not the default TTL.",
+      "b": "Correct. The default TTL for API Gateway cache is 300 seconds (5 minutes).",
+      "c": "Incorrect. 600 seconds is not the default TTL.",
+      "d": "Incorrect. 3600 seconds is the maximum TTL, not the default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum TTL for API Gateway cache?",
+    "opts": {
+      "a": "300 seconds",
+      "b": "600 seconds",
+      "c": "1800 seconds",
+      "d": "3600 seconds"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 300 seconds is the default TTL.",
+      "b": "Incorrect. 600 seconds is not the maximum.",
+      "c": "Incorrect. 1800 seconds is not the maximum.",
+      "d": "Correct. The maximum TTL for API Gateway cache is 3600 seconds (1 hour)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What cache capacity sizes are available in API Gateway?",
+    "opts": {
+      "a": "0.5 GB to 237 GB",
+      "b": "0.5 GB to 64 GB",
+      "c": "1 GB to 128 GB",
+      "d": "0.5 GB to 10 GB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. API Gateway cache sizes range from 0.5 GB to 237 GB.",
+      "b": "Incorrect. The maximum is 237 GB, not 64 GB.",
+      "c": "Incorrect. The minimum is 0.5 GB and maximum is 237 GB.",
+      "d": "Incorrect. The maximum is 237 GB, not 10 GB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a Lambda Authorizer in API Gateway?",
+    "opts": {
+      "a": "A Lambda function that validates tokens and returns an IAM policy",
+      "b": "A Lambda function that processes the API request",
+      "c": "A Lambda function that logs API calls",
+      "d": "A Lambda function that transforms responses"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. A Lambda Authorizer is a Lambda function that validates bearer tokens or request parameters and returns an IAM policy.",
+      "b": "Incorrect. That describes a backend Lambda integration.",
+      "c": "Incorrect. Logging is handled by CloudWatch.",
+      "d": "Incorrect. Response transformation is handled by mapping templates."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is an edge-optimized API endpoint?",
+    "opts": {
+      "a": "API requests are routed through CloudFront edge locations",
+      "b": "API is deployed in a single region only",
+      "c": "API is accessible only within a VPC",
+      "d": "API is deployed across all regions simultaneously"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Edge-optimized endpoints route requests through CloudFront edge locations for improved latency.",
+      "b": "Incorrect. That describes a Regional endpoint.",
+      "c": "Incorrect. That describes a Private endpoint.",
+      "d": "Incorrect. API Gateway does not deploy across all regions simultaneously."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a usage plan in API Gateway?",
+    "opts": {
+      "a": "A billing plan for AWS account",
+      "b": "A plan that specifies who can access deployed API stages and methods, and how much and how fast they can access them",
+      "c": "A deployment strategy",
+      "d": "A monitoring plan"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Usage plans are not AWS billing plans.",
+      "b": "Correct. Usage plans define who can access APIs, and set throttling and quota limits.",
+      "c": "Incorrect. Deployment strategies are separate from usage plans.",
+      "d": "Incorrect. Monitoring is handled by CloudWatch."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What are API keys used for in API Gateway?",
+    "opts": {
+      "a": "Authentication of users",
+      "b": "Identifying API callers and metering access through usage plans",
+      "c": "Encrypting API traffic",
+      "d": "Signing API requests"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API keys should not be used as the primary authentication mechanism.",
+      "b": "Correct. API keys are used to identify callers and meter their access via usage plans.",
+      "c": "Incorrect. Encryption is handled by TLS/SSL.",
+      "d": "Incorrect. Request signing is done via IAM/SigV4."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which integration type passes the request directly to the backend without any modification?",
+    "opts": {
+      "a": "AWS integration",
+      "b": "AWS_PROXY (Lambda Proxy) integration",
+      "c": "HTTP integration",
+      "d": "MOCK integration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS integration requires mapping templates for request/response transformation.",
+      "b": "Correct. Lambda Proxy integration passes the entire request to Lambda without modification.",
+      "c": "Incorrect. HTTP integration may require mapping templates.",
+      "d": "Incorrect. MOCK integration returns a response without sending the request to a backend."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does a MOCK integration type do in API Gateway?",
+    "opts": {
+      "a": "Sends requests to a mock Lambda function",
+      "b": "Returns a response directly from API Gateway without sending the request to any backend",
+      "c": "Simulates a DDoS attack",
+      "d": "Creates test Lambda functions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. MOCK does not involve any Lambda function.",
+      "b": "Correct. MOCK integration returns a response directly without any backend integration.",
+      "c": "Incorrect. MOCK has nothing to do with DDoS simulation.",
+      "d": "Incorrect. MOCK does not create Lambda functions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service can API Gateway directly integrate with to put items into a queue?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "Amazon ElastiCache",
+      "c": "Amazon Redshift",
+      "d": "AWS Glue"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. API Gateway can directly integrate with SQS using AWS service integration.",
+      "b": "Incorrect. ElastiCache is not a direct integration target.",
+      "c": "Incorrect. Redshift is not a typical direct integration.",
+      "d": "Incorrect. Glue is not a direct integration target for API Gateway."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CORS in the context of API Gateway?",
+    "opts": {
+      "a": "Cross-Origin Resource Sharing - allows restricted resources to be requested from another domain",
+      "b": "Central Operations Resource Service",
+      "c": "Cloud Optimized Request System",
+      "d": "Controlled Origin Routing Service"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CORS (Cross-Origin Resource Sharing) is a mechanism that allows web pages to make requests to a different domain than the one that served the page.",
+      "b": "Incorrect. This is not a real AWS term.",
+      "c": "Incorrect. This is not a real AWS term.",
+      "d": "Incorrect. This is not a real AWS term."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Where must CORS be enabled in API Gateway when using Lambda Proxy integration?",
+    "opts": {
+      "a": "Only in the API Gateway console",
+      "b": "In the Lambda function response headers",
+      "c": "In the IAM policy",
+      "d": "In the CloudFront distribution"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. With Lambda Proxy integration, CORS headers must come from the Lambda function.",
+      "b": "Correct. With Lambda Proxy integration, the Lambda function must return the CORS headers in its response.",
+      "c": "Incorrect. IAM policies don't handle CORS.",
+      "d": "Incorrect. CloudFront doesn't manage CORS for API Gateway directly."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a resource in API Gateway?",
+    "opts": {
+      "a": "An EC2 instance",
+      "b": "A URL path component that represents an API entity (e.g., /users, /orders)",
+      "c": "An IAM role",
+      "d": "A Lambda function"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 instances are compute resources, not API Gateway resources.",
+      "b": "Correct. A resource is a logical entity in the API URL path structure like /users or /orders/{id}.",
+      "c": "Incorrect. IAM roles are separate from API Gateway resources.",
+      "d": "Incorrect. Lambda functions are backend integrations, not API Gateway resources."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of mapping templates in API Gateway?",
+    "opts": {
+      "a": "To map DNS names",
+      "b": "To transform incoming request or outgoing response payloads using VTL (Velocity Template Language)",
+      "c": "To map IAM users to API keys",
+      "d": "To map VPC subnets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DNS mapping is handled by Route 53.",
+      "b": "Correct. Mapping templates use VTL to transform request/response payloads between the client and backend.",
+      "c": "Incorrect. IAM users are not mapped to API keys via mapping templates.",
+      "d": "Incorrect. VPC subnet mapping is unrelated to API Gateway mapping templates."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which service does API Gateway use for logging and monitoring?",
+    "opts": {
+      "a": "AWS CloudTrail only",
+      "b": "Amazon CloudWatch",
+      "c": "AWS Config",
+      "d": "Amazon Inspector"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudTrail logs API calls to AWS services, but CloudWatch handles API Gateway logging/monitoring.",
+      "b": "Correct. API Gateway integrates with CloudWatch for logging, metrics, and monitoring.",
+      "c": "Incorrect. AWS Config tracks resource configuration changes.",
+      "d": "Incorrect. Inspector is for security vulnerability assessments."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a deployment in API Gateway?",
+    "opts": {
+      "a": "Launching EC2 instances",
+      "b": "A snapshot of the API that is associated with a stage to make it callable by users",
+      "c": "Installing Lambda functions",
+      "d": "Creating a new AWS account"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 launches are unrelated to API Gateway deployments.",
+      "b": "Correct. A deployment is a snapshot of the API's resources and methods, associated with a stage for invocation.",
+      "c": "Incorrect. Lambda function creation is separate from API Gateway deployment.",
+      "d": "Incorrect. Account creation is unrelated."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What protocol does API Gateway WebSocket API use?",
+    "opts": {
+      "a": "HTTP/2",
+      "b": "WebSocket (wss://)",
+      "c": "FTP",
+      "d": "SMTP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. HTTP/2 is used for REST/HTTP APIs.",
+      "b": "Correct. WebSocket APIs use the WebSocket protocol (wss:// for secure connections).",
+      "c": "Incorrect. FTP is a file transfer protocol.",
+      "d": "Incorrect. SMTP is an email protocol."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In WebSocket APIs, what are the three route types?",
+    "opts": {
+      "a": "$connect, $disconnect, $default",
+      "b": "$open, $close, $message",
+      "c": "$start, $stop, $error",
+      "d": "$begin, $end, $data"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The three predefined routes are $connect, $disconnect, and $default.",
+      "b": "Incorrect. These are not valid WebSocket API route names.",
+      "c": "Incorrect. These are not valid WebSocket API route names.",
+      "d": "Incorrect. These are not valid WebSocket API route names."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum WebSocket connection duration in API Gateway?",
+    "opts": {
+      "a": "1 hour",
+      "b": "2 hours",
+      "c": "12 hours",
+      "d": "24 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 hour is below the maximum.",
+      "b": "Correct. The maximum WebSocket connection duration is 2 hours.",
+      "c": "Incorrect. 12 hours exceeds the maximum.",
+      "d": "Incorrect. 24 hours exceeds the maximum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the idle timeout for WebSocket connections in API Gateway?",
+    "opts": {
+      "a": "5 minutes",
+      "b": "10 minutes",
+      "c": "30 minutes",
+      "d": "60 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 minutes is not the idle timeout.",
+      "b": "Correct. WebSocket connections have a 10-minute idle timeout.",
+      "c": "Incorrect. 30 minutes exceeds the idle timeout.",
+      "d": "Incorrect. 60 minutes exceeds the idle timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does API Gateway pricing work for REST APIs?",
+    "opts": {
+      "a": "Fixed monthly fee",
+      "b": "Per API call received plus data transfer out",
+      "c": "Per Lambda invocation only",
+      "d": "Free tier only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway uses pay-per-use pricing.",
+      "b": "Correct. REST API pricing is based on the number of API calls received and data transfer out.",
+      "c": "Incorrect. Lambda invocations are billed separately.",
+      "d": "Incorrect. There is a free tier but it's not the only pricing model."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many API calls per month are included in the API Gateway free tier (first 12 months)?",
+    "opts": {
+      "a": "500,000 REST API calls",
+      "b": "1 million REST API calls",
+      "c": "5 million REST API calls",
+      "d": "10 million REST API calls"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 500,000 is less than the free tier amount.",
+      "b": "Correct. The free tier includes 1 million REST API calls per month for the first 12 months.",
+      "c": "Incorrect. 5 million exceeds the free tier.",
+      "d": "Incorrect. 10 million exceeds the free tier."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature allows API Gateway to validate requests before they reach the backend?",
+    "opts": {
+      "a": "Request validation (request validators)",
+      "b": "Response caching",
+      "c": "API keys",
+      "d": "Stage variables"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Request validators can validate the request body, query string parameters, and headers before forwarding to backend.",
+      "b": "Incorrect. Caching stores responses but doesn't validate requests.",
+      "c": "Incorrect. API keys identify callers but don't validate request content.",
+      "d": "Incorrect. Stage variables are configuration values, not validators."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What are stage variables in API Gateway?",
+    "opts": {
+      "a": "Environment variables for Lambda functions",
+      "b": "Name-value pairs that act as configuration attributes associated with a deployment stage",
+      "c": "Variables stored in DynamoDB",
+      "d": "Secrets stored in Secrets Manager"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda environment variables are different from stage variables.",
+      "b": "Correct. Stage variables are name-value pairs used as configuration for each deployment stage.",
+      "c": "Incorrect. Stage variables are not stored in DynamoDB.",
+      "d": "Incorrect. Stage variables are not secrets in Secrets Manager."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is canary deployment in API Gateway?",
+    "opts": {
+      "a": "Deploying APIs to a canary region",
+      "b": "A deployment strategy that routes a percentage of traffic to a new version while keeping the rest on the existing version",
+      "c": "A type of DNS routing",
+      "d": "Deploying APIs to edge locations"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Canary deployment is not region-specific.",
+      "b": "Correct. Canary deployment allows routing a configurable percentage of traffic to a new deployment for testing.",
+      "c": "Incorrect. It's not a DNS routing strategy.",
+      "d": "Incorrect. Edge deployment is separate from canary deployment."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which integration type should you use to connect API Gateway to a public HTTP endpoint?",
+    "opts": {
+      "a": "AWS integration",
+      "b": "HTTP integration",
+      "c": "MOCK integration",
+      "d": "VPC_LINK integration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS integration is for AWS services.",
+      "b": "Correct. HTTP integration is used to connect to public HTTP endpoints.",
+      "c": "Incorrect. MOCK integration doesn't connect to any backend.",
+      "d": "Incorrect. VPC_LINK is for private resources inside a VPC."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a VPC Link used for in API Gateway?",
+    "opts": {
+      "a": "Connecting to public endpoints",
+      "b": "Connecting API Gateway to private resources inside a VPC (like ALB or NLB)",
+      "c": "Connecting two VPCs together",
+      "d": "Creating VPN connections"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Public endpoints don't need VPC Links.",
+      "b": "Correct. VPC Links allow API Gateway to access private resources inside a VPC via Network Load Balancer or ALB.",
+      "c": "Incorrect. VPC peering connects VPCs, not VPC Links.",
+      "d": "Incorrect. VPN connections are separate from VPC Links."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which type of load balancer is required for VPC Link with REST APIs?",
+    "opts": {
+      "a": "Application Load Balancer (ALB)",
+      "b": "Network Load Balancer (NLB)",
+      "c": "Classic Load Balancer (CLB)",
+      "d": "Gateway Load Balancer (GWLB)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB is used for HTTP API VPC Links, not REST API VPC Links.",
+      "b": "Correct. REST API VPC Links require a Network Load Balancer.",
+      "c": "Incorrect. Classic Load Balancer is not supported for VPC Links.",
+      "d": "Incorrect. Gateway Load Balancer is for third-party appliances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between HTTP APIs and REST APIs in API Gateway?",
+    "opts": {
+      "a": "HTTP APIs are more expensive but more feature-rich",
+      "b": "HTTP APIs are cheaper, lower latency, but have fewer features compared to REST APIs",
+      "c": "There is no difference",
+      "d": "REST APIs only support GET requests"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. HTTP APIs are actually cheaper.",
+      "b": "Correct. HTTP APIs are up to 71% cheaper and have lower latency but fewer features (no caching, usage plans, or API keys by default).",
+      "c": "Incorrect. There are significant differences.",
+      "d": "Incorrect. REST APIs support all HTTP methods."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature is available in REST APIs but NOT in HTTP APIs?",
+    "opts": {
+      "a": "Lambda integration",
+      "b": "API caching",
+      "c": "IAM authorization",
+      "d": "JWT authorization"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Both REST and HTTP APIs support Lambda integration.",
+      "b": "Correct. API caching is only available in REST APIs, not HTTP APIs.",
+      "c": "Incorrect. Both support IAM authorization.",
+      "d": "Incorrect. JWT authorization is natively supported in HTTP APIs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can you import an API into API Gateway?",
+    "opts": {
+      "a": "Using OpenAPI (Swagger) specification",
+      "b": "Using CSV files",
+      "c": "Using XML schemas only",
+      "d": "Using YAML only"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. API Gateway supports importing APIs using OpenAPI (formerly Swagger) specification in JSON or YAML format.",
+      "b": "Incorrect. CSV files are not supported for API import.",
+      "c": "Incorrect. While XML can be part of API definitions, the import format is OpenAPI.",
+      "d": "Incorrect. Both JSON and YAML formats are supported."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does API Gateway return when the backend service is unavailable?",
+    "opts": {
+      "a": "200 OK",
+      "b": "404 Not Found",
+      "c": "502 Bad Gateway or 503 Service Unavailable",
+      "d": "301 Redirect"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 200 indicates success.",
+      "b": "Incorrect. 404 means the resource was not found.",
+      "c": "Correct. API Gateway returns 502 (bad gateway) or 503 (service unavailable) when the backend is down.",
+      "d": "Incorrect. 301 is a redirect response."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of APIs per account per region in API Gateway (REST APIs)?",
+    "opts": {
+      "a": "100",
+      "b": "300",
+      "c": "600",
+      "d": "1000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 100 is below the limit.",
+      "b": "Incorrect. 300 is below the limit.",
+      "c": "Correct. The default limit is 600 REST APIs per account per region.",
+      "d": "Incorrect. 1000 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is Amazon Cognito's role when used with API Gateway?",
+    "opts": {
+      "a": "It serves as a database for API responses",
+      "b": "It provides user authentication and issues tokens that API Gateway validates",
+      "c": "It handles API caching",
+      "d": "It provides DNS resolution"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cognito is not a database.",
+      "b": "Correct. Cognito authenticates users and provides JWT tokens that API Gateway can validate.",
+      "c": "Incorrect. Caching is a native API Gateway feature.",
+      "d": "Incorrect. DNS is handled by Route 53."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What type of Lambda Authorizer validates bearer tokens (like JWT)?",
+    "opts": {
+      "a": "REQUEST type authorizer",
+      "b": "TOKEN type authorizer",
+      "c": "COGNITO type authorizer",
+      "d": "IAM type authorizer"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. REQUEST type validates request parameters like headers, query strings.",
+      "b": "Correct. TOKEN type Lambda Authorizer validates bearer tokens such as JWT or OAuth tokens.",
+      "c": "Incorrect. COGNITO is not a Lambda Authorizer type.",
+      "d": "Incorrect. IAM authorization is separate from Lambda Authorizers."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What AWS service can be used to create a custom domain name for API Gateway?",
+    "opts": {
+      "a": "Amazon S3",
+      "b": "Amazon Route 53 with ACM (AWS Certificate Manager)",
+      "c": "Amazon EC2",
+      "d": "AWS CloudFormation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 is for storage.",
+      "b": "Correct. Route 53 handles DNS routing and ACM provides the SSL/TLS certificate for custom domain names.",
+      "c": "Incorrect. EC2 is a compute service.",
+      "d": "Incorrect. CloudFormation is for infrastructure as code."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides SSL/TLS certificates for API Gateway custom domains?",
+    "opts": {
+      "a": "AWS KMS",
+      "b": "AWS Certificate Manager (ACM)",
+      "c": "AWS Secrets Manager",
+      "d": "AWS IAM"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS is for key management, not SSL certificates.",
+      "b": "Correct. ACM provides free SSL/TLS certificates for API Gateway custom domains.",
+      "c": "Incorrect. Secrets Manager stores secrets, not SSL certificates.",
+      "d": "Incorrect. IAM manages users and permissions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of resource policies in API Gateway?",
+    "opts": {
+      "a": "To define IAM user permissions",
+      "b": "To control which AWS accounts, IP ranges, or VPC endpoints can invoke the API",
+      "c": "To set up caching",
+      "d": "To configure CORS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM user permissions are managed through IAM policies.",
+      "b": "Correct. Resource policies are JSON policy documents that control who can invoke the API based on accounts, IPs, or VPC endpoints.",
+      "c": "Incorrect. Caching is configured separately.",
+      "d": "Incorrect. CORS is configured separately from resource policies."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the Mutual TLS (mTLS) feature in API Gateway?",
+    "opts": {
+      "a": "One-way SSL authentication",
+      "b": "Two-way certificate-based authentication where both client and server authenticate each other",
+      "c": "A firewall feature",
+      "d": "A caching mechanism"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard TLS is one-way; mTLS is two-way.",
+      "b": "Correct. Mutual TLS requires both the client and server to present certificates for authentication.",
+      "c": "Incorrect. mTLS is not a firewall feature.",
+      "d": "Incorrect. mTLS is not related to caching."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which service can be used with API Gateway to protect against DDoS attacks?",
+    "opts": {
+      "a": "Amazon RDS",
+      "b": "AWS Shield and AWS WAF",
+      "c": "Amazon S3",
+      "d": "Amazon SNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS is a database service.",
+      "b": "Correct. AWS Shield provides DDoS protection and AWS WAF provides web application firewall capabilities for API Gateway.",
+      "c": "Incorrect. S3 is a storage service.",
+      "d": "Incorrect. SNS is a notification service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does AWS WAF do when associated with API Gateway?",
+    "opts": {
+      "a": "Encrypts all API traffic",
+      "b": "Filters and blocks malicious web traffic based on defined rules (IP blocking, SQL injection prevention, etc.)",
+      "c": "Increases API throughput",
+      "d": "Provides API caching"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption is handled by TLS.",
+      "b": "Correct. WAF filters web traffic based on rules like IP blocking, rate limiting, and SQL injection prevention.",
+      "c": "Incorrect. WAF doesn't increase throughput.",
+      "d": "Incorrect. Caching is a native API Gateway feature."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of Gateway Responses in API Gateway?",
+    "opts": {
+      "a": "To define custom responses for gateway-generated error messages (4xx and 5xx)",
+      "b": "To route traffic to different backends",
+      "c": "To create new API endpoints",
+      "d": "To manage API keys"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Gateway Responses allow customization of error responses generated by API Gateway itself.",
+      "b": "Incorrect. Routing is handled by resource paths and methods.",
+      "c": "Incorrect. Endpoint creation is separate.",
+      "d": "Incorrect. API key management is separate."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can you export an API from API Gateway?",
+    "opts": {
+      "a": "As a CSV file",
+      "b": "As an OpenAPI/Swagger definition in JSON or YAML",
+      "c": "As a PDF document",
+      "d": "As a Word document"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CSV export is not supported.",
+      "b": "Correct. APIs can be exported as OpenAPI (Swagger) specifications in JSON or YAML format.",
+      "c": "Incorrect. PDF export is not supported.",
+      "d": "Incorrect. Word export is not supported."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of X-Ray tracing in API Gateway?",
+    "opts": {
+      "a": "To encrypt API traffic",
+      "b": "To trace and debug requests flowing through API Gateway and downstream services",
+      "c": "To block malicious requests",
+      "d": "To cache API responses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption is handled by TLS.",
+      "b": "Correct. AWS X-Ray provides distributed tracing to debug and analyze request flows through API Gateway and backend services.",
+      "c": "Incorrect. Blocking is handled by WAF.",
+      "d": "Incorrect. Caching is a separate feature."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when you enable CloudWatch Logs for API Gateway?",
+    "opts": {
+      "a": "All API responses are stored in S3",
+      "b": "API Gateway sends execution logs and access logs to CloudWatch Logs",
+      "c": "API Gateway automatically scales",
+      "d": "API caching is enabled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Logs go to CloudWatch, not S3 directly.",
+      "b": "Correct. Enabling CloudWatch Logs sends detailed execution logs and access logs to CloudWatch.",
+      "c": "Incorrect. Scaling is automatic regardless of logging.",
+      "d": "Incorrect. Caching must be enabled separately."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudWatch metrics are available for API Gateway?",
+    "opts": {
+      "a": "Count, Latency, IntegrationLatency, 4XXError, 5XXError",
+      "b": "CPUUtilization, MemoryUsage",
+      "c": "DiskReadOps, NetworkIn",
+      "d": "BucketSizeBytes, NumberOfObjects"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. API Gateway provides metrics like Count, Latency, IntegrationLatency, 4XXError, and 5XXError.",
+      "b": "Incorrect. These are EC2 metrics.",
+      "c": "Incorrect. These are EC2/EBS metrics.",
+      "d": "Incorrect. These are S3 metrics."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'IntegrationLatency' metric in API Gateway?",
+    "opts": {
+      "a": "Time taken by API Gateway to process the request",
+      "b": "Time taken by the backend service to respond to API Gateway",
+      "c": "Total time from client request to response",
+      "d": "Time taken for DNS resolution"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway processing time is part of overall Latency minus IntegrationLatency.",
+      "b": "Correct. IntegrationLatency measures the time between when API Gateway relays a request to the backend and when it receives a response.",
+      "c": "Incorrect. Total time is measured by the Latency metric.",
+      "d": "Incorrect. DNS resolution is not measured by this metric."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between 'Latency' and 'IntegrationLatency' in API Gateway?",
+    "opts": {
+      "a": "They are the same metric",
+      "b": "Latency includes API Gateway overhead plus IntegrationLatency; IntegrationLatency is just the backend time",
+      "c": "IntegrationLatency is always higher than Latency",
+      "d": "Latency only measures network time"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They measure different things.",
+      "b": "Correct. Latency = API Gateway overhead + IntegrationLatency. The difference tells you the API Gateway processing overhead.",
+      "c": "Incorrect. Latency is always >= IntegrationLatency.",
+      "d": "Incorrect. Latency includes full request processing time."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service can API Gateway directly integrate with to write data to a DynamoDB table?",
+    "opts": {
+      "a": "Only through Lambda",
+      "b": "Directly using AWS service integration (without Lambda)",
+      "c": "Only through EC2",
+      "d": "It cannot integrate with DynamoDB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While Lambda is common, direct integration is also possible.",
+      "b": "Correct. API Gateway can directly integrate with DynamoDB using AWS service integration type with mapping templates.",
+      "c": "Incorrect. EC2 is not required.",
+      "d": "Incorrect. API Gateway can integrate with DynamoDB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of a Model in API Gateway?",
+    "opts": {
+      "a": "To define the data structure (schema) of the request or response payload",
+      "b": "To create machine learning models",
+      "c": "To model network traffic",
+      "d": "To define IAM policies"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Models define the data structure using JSON Schema, used for validation and SDK generation.",
+      "b": "Incorrect. ML models are handled by SageMaker.",
+      "c": "Incorrect. Network traffic modeling is unrelated.",
+      "d": "Incorrect. IAM policies are separate."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What SDK types can API Gateway generate for client applications?",
+    "opts": {
+      "a": "Java, JavaScript, iOS (Swift/Objective-C), Android, and Ruby",
+      "b": "Only Python",
+      "c": "Only JavaScript",
+      "d": "No SDK generation is available"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. API Gateway can generate client SDKs for Java, JavaScript, iOS, Android, and Ruby.",
+      "b": "Incorrect. Multiple languages are supported.",
+      "c": "Incorrect. Multiple languages are supported.",
+      "d": "Incorrect. SDK generation is a feature of API Gateway."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of stages per API in API Gateway?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "No hard limit (soft limit applies)",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is no fixed limit of 5.",
+      "b": "Incorrect. The default soft limit is more than 10.",
+      "c": "Correct. There is no hard limit, but there is a soft limit that can be increased by contacting AWS support.",
+      "d": "Incorrect. While there may be soft limits, it's not a fixed hard limit."
+    }
+  }
+]

@@ -1,0 +1,852 @@
+[
+  {
+    "type": "mcq",
+    "q": "A company has an ALB with two target groups: TG-A (weight 80) and TG-B (weight 20). If the ALB receives 1000 requests, approximately how many requests will TG-B receive?",
+    "opts": {
+      "a": "100",
+      "b": "200",
+      "c": "500",
+      "d": "800"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 100 would represent 10% of traffic.",
+      "b": "Correct. With weights of 80 and 20, TG-B receives 20/(80+20) = 20% of traffic. 20% of 1000 = 200 requests.",
+      "c": "Incorrect. 500 would be a 50/50 split.",
+      "d": "Incorrect. 800 would be 80%, which is TG-A's share."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG is configured with min=1, desired=3, max=6. A scheduled action sets desired capacity to 8 at 9:00 AM. What happens?",
+    "opts": {
+      "a": "ASG scales to 8 instances, overriding the max",
+      "b": "ASG scales to 6 instances (max limit) and the scheduled action updates the max to 8",
+      "c": "The scheduled action fails because desired exceeds max",
+      "d": "ASG scales to 8 and automatically updates the max to 8"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The max is not simply overridden without being updated.",
+      "b": "Incorrect. ASG does not cap at the old max for scheduled actions.",
+      "c": "Incorrect. Scheduled actions can update min, max, and desired simultaneously.",
+      "d": "Correct. When a scheduled action sets a desired capacity that exceeds the current max, ASG automatically updates the max capacity to match the new desired capacity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A NLB has targets in two AZs. AZ-A has 3 targets, AZ-B has 1 target. Cross-zone load balancing is disabled. What percentage of total traffic does the single target in AZ-B receive?",
+    "opts": {
+      "a": "16.67%",
+      "b": "25%",
+      "c": "33.33%",
+      "d": "50%"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 16.67% would be with cross-zone enabled (1/6 if 6 targets, but here 1/4 = 25% with cross-zone).",
+      "b": "Incorrect. 25% would be the share with cross-zone enabled (1/4 of all targets).",
+      "c": "Incorrect. 33.33% is not correct for any configuration here.",
+      "d": "Correct. Without cross-zone LB, each AZ receives 50% of traffic. Since AZ-B has only 1 target, that single target receives the entire 50% of total traffic."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following scenarios would cause an ALB to return HTTP 503 (Service Unavailable)?",
+    "opts": {
+      "a": "Client sends a malformed request",
+      "b": "No registered targets in the target group or all targets are unhealthy and fail-open is not triggered",
+      "c": "SSL certificate has expired",
+      "d": "The request exceeds the maximum URL length"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Malformed requests typically return 400 Bad Request.",
+      "b": "Correct. ALB returns 503 when there are no targets registered, no healthy targets available, or the ALB itself lacks capacity to handle the request.",
+      "c": "Incorrect. SSL certificate issues typically cause connection errors, not 503.",
+      "d": "Incorrect. URL length issues would return 414 URI Too Long."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB returns HTTP 502 Bad Gateway. What is the most likely cause?",
+    "opts": {
+      "a": "The target group has no registered targets",
+      "b": "The target instance closed the connection before sending a response, or the response was malformed",
+      "c": "The client's request was too large",
+      "d": "The ALB security group is blocking traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. No registered targets causes 503, not 502.",
+      "b": "Correct. HTTP 502 from ALB typically means the target closed the connection, sent a malformed response, or the target's response timed out. It indicates a problem between ALB and the target.",
+      "c": "Incorrect. Request too large would return 413 Payload Too Large.",
+      "d": "Incorrect. Security group issues would prevent connection entirely, not return 502."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does the ALB metric 'TargetResponseTime' measure?",
+    "opts": {
+      "a": "Time for DNS resolution",
+      "b": "Time elapsed from when the ALB sends a request to the target until the target starts sending the response headers",
+      "c": "Time for the client to receive the full response",
+      "d": "Time for the health check to complete"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DNS resolution is not measured by TargetResponseTime.",
+      "b": "Correct. TargetResponseTime measures the time (in seconds) from when the load balancer sends a request to a target until the target starts sending response headers back to the load balancer.",
+      "c": "Incorrect. Client-side response time is not measured by this metric.",
+      "d": "Incorrect. Health check time is measured separately."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudWatch metric should you monitor to detect if targets behind an ALB are failing?",
+    "opts": {
+      "a": "RequestCount",
+      "b": "HTTPCode_Target_5XX_Count",
+      "c": "ActiveConnectionCount",
+      "d": "ProcessedBytes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RequestCount shows total requests but doesn't indicate failures.",
+      "b": "Correct. HTTPCode_Target_5XX_Count tracks the number of 5xx (server error) responses from targets, indicating target-side failures.",
+      "c": "Incorrect. ActiveConnectionCount shows current connections but not failures.",
+      "d": "Incorrect. ProcessedBytes shows data volume, not errors."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between HTTPCode_ELB_5XX_Count and HTTPCode_Target_5XX_Count?",
+    "opts": {
+      "a": "They are the same metric with different names",
+      "b": "ELB_5XX is generated by the load balancer itself; Target_5XX is generated by the backend targets",
+      "c": "ELB_5XX counts client errors; Target_5XX counts server errors",
+      "d": "ELB_5XX is for NLB; Target_5XX is for ALB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They measure errors from different sources.",
+      "b": "Correct. HTTPCode_ELB_5XX_Count represents errors generated by the load balancer itself (e.g., no healthy targets, capacity issues). HTTPCode_Target_5XX_Count represents errors returned by the backend targets (e.g., application crashes).",
+      "c": "Incorrect. Both are server-side errors, just from different sources.",
+      "d": "Incorrect. Both metrics are available for ALB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has an NLB with TLS listener on port 443. They want end-to-end encryption. What should the NLB target group protocol be?",
+    "opts": {
+      "a": "HTTP",
+      "b": "TCP",
+      "c": "TLS",
+      "d": "UDP"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. HTTP is unencrypted and would break end-to-end encryption.",
+      "b": "Incorrect. TCP would pass encrypted bytes but NLB wouldn't re-encrypt; for true end-to-end encryption with NLB terminating and re-encrypting, TLS target group is needed.",
+      "c": "Correct. For end-to-end encryption with NLB, use TLS on the listener and TLS on the target group. NLB will decrypt, then re-encrypt traffic to targets.",
+      "d": "Incorrect. UDP is not related to TLS encryption."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "If you want NLB to pass through encrypted TLS traffic without decrypting (TCP passthrough), what should the listener protocol be?",
+    "opts": {
+      "a": "TLS",
+      "b": "TCP",
+      "c": "HTTPS",
+      "d": "SSL"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. TLS listener means NLB will terminate TLS and decrypt the traffic.",
+      "b": "Correct. Using TCP as the listener protocol means NLB treats TLS traffic as raw TCP bytes and passes it through to the target without decryption. The target handles TLS termination.",
+      "c": "Incorrect. HTTPS is not a valid NLB listener protocol.",
+      "d": "Incorrect. SSL is not a valid NLB listener protocol (it's used in CLB)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG uses Target Tracking with average CPU at 50%. Currently 4 instances are running with average CPU at 80%. Approximately how many instances will the ASG scale to?",
+    "opts": {
+      "a": "5",
+      "b": "6",
+      "c": "7",
+      "d": "8"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 5 instances would still have high average CPU.",
+      "b": "Incorrect. 6 instances: (4×80)/6 = 53.3% — still above target.",
+      "c": "Correct. Target tracking aims for 50% CPU. Current total load = 4 × 80% = 320 CPU units. To achieve 50% average: 320/50 = 6.4, rounded up to 7 instances (320/7 ≈ 45.7% average CPU, just below 50%).",
+      "d": "Incorrect. 8 instances would result in 40% average CPU, which is more than necessary."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is NOT a valid condition type for ALB listener rules?",
+    "opts": {
+      "a": "source-ip",
+      "b": "http-header",
+      "c": "target-instance-id",
+      "d": "query-string"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. source-ip is a valid condition type for ALB rules.",
+      "b": "Incorrect. http-header is a valid condition type.",
+      "c": "Correct. target-instance-id is NOT a valid condition type. Valid types are: host-header, path-pattern, http-header, http-request-method, query-string, and source-ip.",
+      "d": "Incorrect. query-string is a valid condition type."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to use ALB to invoke different Lambda functions based on URL path. How many Lambda functions can be associated per target group?",
+    "opts": {
+      "a": "1",
+      "b": "5",
+      "c": "10",
+      "d": "Unlimited"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Each target group can have only one Lambda function registered. To invoke different Lambda functions, you need multiple target groups with different path-based routing rules.",
+      "b": "Incorrect. Only 1 Lambda function per target group is allowed.",
+      "c": "Incorrect. The limit is 1 per target group.",
+      "d": "Incorrect. The limit is strictly 1 per target group."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of the request body that ALB can use for Lambda target evaluation?",
+    "opts": {
+      "a": "100 KB",
+      "b": "1 MB",
+      "c": "5 MB",
+      "d": "10 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100 KB.",
+      "b": "Correct. ALB supports request bodies up to 1 MB when invoking Lambda functions. Requests larger than 1 MB are rejected.",
+      "c": "Incorrect. 5 MB exceeds the ALB-Lambda limit.",
+      "d": "Incorrect. 10 MB exceeds the ALB-Lambda limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In a multi-AZ ASG deployment, an AZ experiences a complete outage. What does the ASG do?",
+    "opts": {
+      "a": "Nothing; instances in the failed AZ remain unchanged",
+      "b": "Launches replacement instances in the remaining healthy AZs to maintain desired capacity",
+      "c": "Reduces the desired capacity to match available instances",
+      "d": "Stops all instances across all AZs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ASG detects the failed instances and takes action.",
+      "b": "Correct. When instances in a failed AZ become unhealthy or are terminated, ASG launches new instances in the remaining healthy AZs to maintain the desired capacity.",
+      "c": "Incorrect. ASG tries to maintain the desired capacity, not reduce it.",
+      "d": "Incorrect. ASG does not stop instances in healthy AZs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'HealthyHostCount' metric in CloudWatch for ELB?",
+    "opts": {
+      "a": "Number of healthy DNS hosts",
+      "b": "Number of targets in the target group that are in a healthy state",
+      "c": "Number of AZs with healthy instances",
+      "d": "Number of successful health checks per minute"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It is not about DNS hosts.",
+      "b": "Correct. HealthyHostCount represents the number of targets that are considered healthy within a target group. It's useful for monitoring and triggering alarms when healthy targets drop below a threshold.",
+      "c": "Incorrect. It counts targets, not AZs.",
+      "d": "Incorrect. It counts healthy targets, not health check attempts."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB is configured with a listener on port 443. The security group for the ALB allows inbound on port 443 from 0.0.0.0/0. The backend EC2 instances' security group allows inbound on port 80 from ____. What should fill the blank for proper communication?",
+    "opts": {
+      "a": "0.0.0.0/0",
+      "b": "The ALB's security group",
+      "c": "The VPC CIDR range",
+      "d": "The client's IP range"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Allowing 0.0.0.0/0 would be overly permissive and a security risk.",
+      "b": "Correct. The backend EC2 security group should allow inbound traffic from the ALB's security group. This is a best practice — reference the ALB's security group as the source for the instance's inbound rule.",
+      "c": "Incorrect. While this works, it's less secure than referencing the ALB's security group directly.",
+      "d": "Incorrect. With ALB, the source IP seen by instances is the ALB's private IP, not the client's IP."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'SurgeQueueLength' metric relevant to?",
+    "opts": {
+      "a": "ALB",
+      "b": "NLB",
+      "c": "Classic Load Balancer",
+      "d": "Gateway Load Balancer"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. ALB uses SpilloverCount but not SurgeQueueLength.",
+      "b": "Incorrect. NLB does not have this metric.",
+      "c": "Correct. SurgeQueueLength is a Classic Load Balancer metric that measures the number of requests queued because all backend instances are at capacity. Max queue length is 1024.",
+      "d": "Incorrect. GWLB does not have this metric."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum surge queue length for a Classic Load Balancer?",
+    "opts": {
+      "a": "256",
+      "b": "512",
+      "c": "1024",
+      "d": "2048"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 256 is not the maximum queue length.",
+      "b": "Incorrect. 512 is not the maximum queue length.",
+      "c": "Correct. The CLB surge queue can hold a maximum of 1024 requests. Once full, additional requests are rejected (SpilloverCount increases).",
+      "d": "Incorrect. 2048 exceeds the maximum queue length."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following correctly describes ALB's behavior with WebSocket connections?",
+    "opts": {
+      "a": "ALB does not support WebSocket",
+      "b": "ALB natively supports WebSocket via the ws:// and wss:// protocols",
+      "c": "WebSocket requires NLB",
+      "d": "WebSocket requires CLB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB does support WebSocket.",
+      "b": "Correct. ALB natively supports WebSocket connections (ws:// and wss://). The connection is upgraded from HTTP to WebSocket, and ALB maintains the persistent connection to the target.",
+      "c": "Incorrect. While NLB also supports WebSocket (at TCP level), ALB natively supports it at Layer 7.",
+      "d": "Incorrect. CLB has limited WebSocket support compared to ALB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum idle timeout configurable for an ALB?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "300 seconds",
+      "c": "3600 seconds",
+      "d": "4000 seconds"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 60 seconds is the default, not the maximum.",
+      "b": "Incorrect. 300 seconds is not the maximum.",
+      "c": "Incorrect. 3600 seconds is not the maximum.",
+      "d": "Correct. ALB idle timeout can be configured between 1 and 4000 seconds. The default is 60 seconds."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has 3 microservices: /users, /orders, /products. They want to route each to a different ECS service. Which ELB type and feature should they use?",
+    "opts": {
+      "a": "NLB with TCP routing",
+      "b": "ALB with path-based routing to different target groups",
+      "c": "CLB with multiple listeners",
+      "d": "GWLB with GENEVE encapsulation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NLB operates at Layer 4 and cannot route based on URL paths.",
+      "b": "Correct. ALB with path-based routing can route /users to TG-1 (users service), /orders to TG-2 (orders service), and /products to TG-3 (products service). Each target group points to a different ECS service.",
+      "c": "Incorrect. CLB does not support path-based routing to different target groups.",
+      "d": "Incorrect. GWLB is for network appliances, not application routing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of instances an Auto Scaling Group can manage (default limit)?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1000",
+      "d": "Depends on the region's EC2 service quota"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. While there's a default max capacity limit, the actual limit depends on EC2 quotas.",
+      "b": "Incorrect. The ASG max capacity setting limit is technically very high.",
+      "c": "Incorrect. The practical limit is based on your EC2 service quota.",
+      "d": "Correct. The maximum instances an ASG can manage is limited by your EC2 On-Demand/Spot instance service quotas for the region. The ASG's max capacity setting itself can go very high but is constrained by your account's EC2 limits."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When using Predictive Scaling in ASG, what is the minimum historical data period needed for accurate predictions?",
+    "opts": {
+      "a": "1 day",
+      "b": "1 week",
+      "c": "14 days (2 weeks)",
+      "d": "30 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 day is insufficient for meaningful predictions.",
+      "b": "Incorrect. 1 week may not capture enough patterns.",
+      "c": "Correct. Predictive Scaling requires at least 14 days (2 weeks) of historical data to generate accurate forecasts. It analyzes up to 14 days of history to predict the next 2 days.",
+      "d": "Incorrect. While more data helps, the minimum requirement is 14 days."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In ALB, what is the evaluation order of listener rules?",
+    "opts": {
+      "a": "Random order",
+      "b": "Alphabetical order by rule name",
+      "c": "Evaluated in priority order (lowest number first); default rule is evaluated last",
+      "d": "Most recently created rule first"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Rules are not evaluated randomly.",
+      "b": "Incorrect. Rules are not evaluated alphabetically.",
+      "c": "Correct. ALB listener rules are evaluated in priority order from lowest number (highest priority) to highest number. The default rule is always evaluated last as a catch-all.",
+      "d": "Incorrect. Creation time does not determine evaluation order."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the valid priority range for ALB listener rules?",
+    "opts": {
+      "a": "1 to 100",
+      "b": "1 to 50000",
+      "c": "0 to 99999",
+      "d": "1 to 999"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The range is much larger than 1-100.",
+      "b": "Correct. ALB listener rules can have priorities between 1 and 50000. Lower numbers have higher priority.",
+      "c": "Incorrect. Priority 0 is not valid, and the max is 50000.",
+      "d": "Incorrect. The range extends beyond 999."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses ASG with ELB health checks. An instance's application crashes but the OS remains running. Which health check type will detect this?",
+    "opts": {
+      "a": "EC2 status check only",
+      "b": "ELB health check only",
+      "c": "Both EC2 and ELB health checks",
+      "d": "Neither — a custom health check is required"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 status checks only verify the VM/hypervisor layer, not application health.",
+      "b": "Correct. ELB health checks verify that the application is responding on the configured port/path. If the application crashes but the OS is running, EC2 status checks will pass but ELB health checks will fail (no HTTP 200 response).",
+      "c": "Incorrect. EC2 status checks won't detect application-level failures.",
+      "d": "Incorrect. ELB health checks are sufficient for this scenario."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'warm pool' feature in ASG?",
+    "opts": {
+      "a": "A pool of IP addresses reserved for new instances",
+      "b": "Pre-initialized instances kept in a stopped or running state for faster scale-out",
+      "c": "A pool of AMIs ready for launching",
+      "d": "Reserved capacity in specific AZs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Warm pool is about instances, not IP addresses.",
+      "b": "Correct. A warm pool contains pre-initialized EC2 instances (in Stopped, Running, or Hibernated state) that can be quickly put into service during scale-out events, reducing launch time significantly.",
+      "c": "Incorrect. AMIs are stored separately, not in a warm pool.",
+      "d": "Incorrect. Reserved capacity is a different EC2 feature."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What are the valid states for instances in an ASG warm pool?",
+    "opts": {
+      "a": "Running only",
+      "b": "Stopped only",
+      "c": "Stopped, Running, or Hibernated",
+      "d": "Terminated and Pending"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Warm pool instances can be in multiple states.",
+      "b": "Incorrect. Stopped is one option, but not the only one.",
+      "c": "Correct. Warm pool instances can be kept in Stopped (no compute charges, just EBS), Running (ready immediately), or Hibernated (preserves memory state) states.",
+      "d": "Incorrect. Terminated instances cannot be in a warm pool."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB has desync mitigation mode. What are the three modes available?",
+    "opts": {
+      "a": "Strict, Balanced, Relaxed",
+      "b": "Monitor, Defensive, Strictest",
+      "c": "Low, Medium, High",
+      "d": "Defensive, Strictest, Monitor"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. These are not the correct mode names.",
+      "b": "Incorrect. The order and names are slightly off.",
+      "c": "Incorrect. These are not the correct mode names.",
+      "d": "Correct. ALB desync mitigation mode has three settings: Monitor (allows all traffic, logs violations), Defensive (default — blocks known threats), and Strictest (blocks any request that doesn't comply with RFC 7230)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default desync mitigation mode for ALB?",
+    "opts": {
+      "a": "Monitor",
+      "b": "Defensive",
+      "c": "Strictest",
+      "d": "Disabled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Monitor mode allows all traffic through, which is less secure.",
+      "b": "Correct. Defensive is the default mode. It provides protection against HTTP desync attacks while maintaining compatibility with most applications.",
+      "c": "Incorrect. Strictest mode may break some applications and is not the default.",
+      "d": "Incorrect. Desync mitigation cannot be fully disabled."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG has a mixed instances policy with 70% On-Demand base capacity and 30% Spot. The desired capacity is 10. How many On-Demand instances will be launched as the base?",
+    "opts": {
+      "a": "3",
+      "b": "7",
+      "c": "10",
+      "d": "0"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 3 would be 30%, which is the Spot portion.",
+      "b": "Correct. With 70% On-Demand base capacity and desired capacity of 10, 7 instances will be On-Demand (10 × 0.70 = 7).",
+      "c": "Incorrect. 10 would be 100% On-Demand.",
+      "d": "Incorrect. The On-Demand base is 70%, not 0%."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which capacity rebalancing feature helps ASG proactively replace Spot Instances that are at risk of interruption?",
+    "opts": {
+      "a": "AZRebalance",
+      "b": "Capacity Rebalancing",
+      "c": "Instance Refresh",
+      "d": "Predictive Scaling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AZRebalance balances instances across AZs, not Spot replacement.",
+      "b": "Correct. Capacity Rebalancing proactively launches new Spot Instances when Amazon EC2 sends a rebalance recommendation signal, before the existing Spot Instance is interrupted.",
+      "c": "Incorrect. Instance Refresh is for rolling updates to new configurations.",
+      "d": "Incorrect. Predictive Scaling forecasts demand, not Spot interruptions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of 'target group stickiness' vs 'target-level stickiness' in ALB?",
+    "opts": {
+      "a": "They are the same thing",
+      "b": "Target group stickiness routes to the same target group in multi-group forwarding; target-level routes to the same instance within a group",
+      "c": "Target group stickiness is for NLB; target-level is for ALB",
+      "d": "Target group stickiness uses IP hash; target-level uses cookies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They operate at different levels.",
+      "b": "Correct. Target group stickiness ensures requests go to the same target group when using weighted target groups (multi-group forwarding). Target-level stickiness ensures requests go to the same specific target (instance) within a target group.",
+      "c": "Incorrect. Both are ALB features.",
+      "d": "Incorrect. Both use cookies, just at different levels."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'preserve client IP' attribute in NLB target groups?",
+    "opts": {
+      "a": "It encrypts the client IP",
+      "b": "It controls whether the target sees the client's original IP or the NLB's private IP as the source",
+      "c": "It stores client IPs in a log",
+      "d": "It blocks certain client IPs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Client IP preservation is about source address, not encryption.",
+      "b": "Correct. When 'preserve client IP' is enabled (default for instance targets), targets see the original client IP. When disabled (default for IP targets with certain configurations), targets see the NLB's private IP.",
+      "c": "Incorrect. Logging is handled by access logs, not this attribute.",
+      "d": "Incorrect. IP blocking is done through security groups or NACLs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company configures an ALB health check with: interval=10s, timeout=5s, healthy threshold=3, unhealthy threshold=2. What is the minimum time for a healthy target to be marked unhealthy?",
+    "opts": {
+      "a": "10 seconds",
+      "b": "15 seconds",
+      "c": "20 seconds",
+      "d": "25 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. With unhealthy threshold of 2, two checks must fail.",
+      "b": "Incorrect. The calculation needs to account for intervals between checks.",
+      "c": "Correct. Two consecutive failed health checks are needed. First check fails at time 0 (after timeout of 5s within the 10s interval), second check fails after another interval (10s). Total = 10s (first interval) + 10s (second interval) = 20 seconds minimum.",
+      "d": "Incorrect. 25 seconds overestimates the time needed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Using the same health check settings (interval=10s, healthy threshold=3), what is the minimum time for an unhealthy target to be marked healthy again?",
+    "opts": {
+      "a": "10 seconds",
+      "b": "20 seconds",
+      "c": "30 seconds",
+      "d": "40 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3 consecutive successful checks are needed.",
+      "b": "Incorrect. Two intervals are insufficient for 3 healthy checks.",
+      "c": "Correct. Three consecutive successful health checks are needed with 10-second intervals. 10s (first success) + 10s (second success) + 10s (third success) = 30 seconds minimum.",
+      "d": "Incorrect. 40 seconds exceeds the required time."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is true about NLB and AWS PrivateLink?",
+    "opts": {
+      "a": "NLB cannot be used with PrivateLink",
+      "b": "NLB is required as the frontend when exposing a service via AWS PrivateLink (VPC Endpoint Service)",
+      "c": "ALB is required for PrivateLink",
+      "d": "GWLB is required for PrivateLink"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NLB is the primary ELB type used with PrivateLink.",
+      "b": "Correct. To expose a service via AWS PrivateLink (VPC Endpoint Service), you must place an NLB (or GWLB for network appliances) in front of your service. Consumers create interface VPC endpoints to access the service privately.",
+      "c": "Incorrect. ALB alone cannot be used directly with PrivateLink as the service endpoint (though ALB can sit behind NLB).",
+      "d": "Incorrect. GWLB is used for GWLBe endpoints, but NLB is the standard for PrivateLink services."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'SpilloverCount' metric for Classic Load Balancer?",
+    "opts": {
+      "a": "Number of requests that exceeded the maximum request size",
+      "b": "Number of requests rejected because the surge queue is full",
+      "c": "Number of requests redirected to another AZ",
+      "d": "Number of instances that overflowed their memory"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Request size violations are different from spillover.",
+      "b": "Correct. SpilloverCount measures the number of requests that were rejected because the CLB's surge queue (max 1024) was full. This indicates the backend cannot keep up with incoming traffic.",
+      "c": "Incorrect. Cross-AZ routing is not related to spillover.",
+      "d": "Incorrect. Memory overflow is an instance-level issue, not a CLB metric."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG is configured with a target tracking policy for ALBRequestCountPerTarget = 1000. There are currently 3 instances handling 4500 requests/minute. What will the ASG do?",
+    "opts": {
+      "a": "Scale to 4 instances",
+      "b": "Scale to 5 instances",
+      "c": "Scale to 6 instances",
+      "d": "Maintain 3 instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 4 instances would handle 4500/4 = 1125 per target, still above 1000.",
+      "b": "Correct. Total requests = 4500. Target per instance = 1000. Required instances = 4500/1000 = 4.5, rounded up to 5. With 5 instances, each handles 900 requests (below the 1000 target).",
+      "c": "Incorrect. 6 instances would be more than necessary (750 per target).",
+      "d": "Incorrect. Current load is 1500 per target, exceeding the 1000 target."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature allows ALB to return a custom error page when a target group has no healthy targets?",
+    "opts": {
+      "a": "Custom error pages in target group settings",
+      "b": "Fixed response action in a listener rule with a condition checking for 503",
+      "c": "CloudFront custom error pages integrated with ALB",
+      "d": "ALB does not support custom error pages natively"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Target group settings don't have custom error page configuration.",
+      "b": "Incorrect. You cannot create a rule condition that checks for target group health status directly.",
+      "c": "Incorrect. CloudFront custom error pages work for CloudFront-generated errors, not directly for ALB 503s without additional configuration.",
+      "d": "Correct. ALB does not natively support custom error pages for backend failures. You would need to use CloudFront in front of ALB with custom error pages, or implement error handling in your application."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of ALBs that can be attached to a single Auto Scaling Group?",
+    "opts": {
+      "a": "1",
+      "b": "5",
+      "c": "10",
+      "d": "There is no hard limit; you attach target groups, and multiple TGs from different ALBs can be attached"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. ASG can be associated with multiple load balancers.",
+      "b": "Incorrect. The limit is on target groups, not ALBs directly.",
+      "c": "Incorrect. The concept is target group based.",
+      "d": "Correct. ASG attaches to target groups, not directly to ALBs. You can attach multiple target groups (from different ALBs/NLBs) to a single ASG. The default limit is 10 target groups per ASG (can be increased)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default limit of target groups that can be attached to a single ASG?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 5.",
+      "b": "Correct. By default, you can attach up to 10 target groups (from ALB and/or NLB) to a single ASG. This limit can be increased through a service quota request.",
+      "c": "Incorrect. 20 is not the default limit.",
+      "d": "Incorrect. 50 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does the 'HTTPCode_ELB_4XX_Count' metric indicate for ALB?",
+    "opts": {
+      "a": "Backend application errors",
+      "b": "Client-side errors generated by the ALB (e.g., malformed requests that ALB rejects before reaching targets)",
+      "c": "Network connectivity errors",
+      "d": "SSL certificate errors"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Backend errors produce 5XX codes.",
+      "b": "Correct. HTTPCode_ELB_4XX_Count represents 4XX errors generated by the ALB itself (not the targets). Common causes include malformed requests, requests with no matching rules (if no default action), or authentication failures.",
+      "c": "Incorrect. Network errors don't typically produce HTTP 4XX codes.",
+      "d": "Incorrect. SSL errors cause connection failures, not HTTP 4XX from the ELB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to ensure their NLB handles sudden traffic spikes of 10 million requests per second. Do they need to pre-warm the NLB?",
+    "opts": {
+      "a": "Yes, NLB requires pre-warming like ALB",
+      "b": "No, NLB is designed to handle millions of requests per second and scales instantly without pre-warming",
+      "c": "Yes, but only for TCP traffic",
+      "d": "No, but only if cross-zone load balancing is enabled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NLB does not require pre-warming.",
+      "b": "Correct. NLB is designed to handle sudden and volatile traffic patterns and can scale to millions of requests per second without pre-warming. ALB may need pre-warming (contact AWS) for sudden large spikes.",
+      "c": "Incorrect. NLB handles all supported protocols without pre-warming.",
+      "d": "Incorrect. Cross-zone load balancing is unrelated to pre-warming requirements."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When should you contact AWS to 'pre-warm' an ALB?",
+    "opts": {
+      "a": "Never; ALB always scales automatically",
+      "b": "When you expect a sudden traffic increase that will more than double existing traffic in less than 5 minutes",
+      "c": "Every time you deploy a new application",
+      "d": "Only when using HTTPS listeners"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While ALB auto-scales, sudden massive spikes can overwhelm it temporarily.",
+      "b": "Correct. If you anticipate a sudden, massive traffic spike (e.g., a flash sale or marketing event), you should contact AWS support to pre-warm the ALB so it has enough capacity pre-provisioned.",
+      "c": "Incorrect. New deployments don't always require pre-warming.",
+      "d": "Incorrect. HTTPS vs HTTP doesn't determine the need for pre-warming."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the behavior of ASG if you manually terminate an instance that is part of the group?",
+    "opts": {
+      "a": "ASG does nothing",
+      "b": "ASG launches a new instance to maintain the desired capacity",
+      "c": "ASG reduces the desired capacity by 1",
+      "d": "ASG terminates all other instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ASG actively maintains the desired capacity.",
+      "b": "Correct. If you manually terminate an instance in an ASG, the group detects the reduction and launches a new instance to maintain the desired capacity (unless the ReplaceUnhealthy or Launch processes are suspended).",
+      "c": "Incorrect. ASG does not automatically reduce desired capacity when an instance is manually terminated.",
+      "d": "Incorrect. ASG does not terminate other instances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can you prevent ASG from replacing a manually terminated instance?",
+    "opts": {
+      "a": "Use instance protection",
+      "b": "Detach the instance from the ASG first, then terminate it",
+      "c": "Suspend the Launch process",
+      "d": "Both B and C are valid approaches"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Instance protection prevents scale-in termination, not replacement after manual termination.",
+      "b": "Partially correct. Detaching reduces desired capacity and removes the instance from ASG before termination.",
+      "c": "Partially correct. Suspending Launch prevents new instances from being launched.",
+      "d": "Correct. Either detach the instance first (which decreases desired capacity) or suspend the Launch process to prevent replacement. You can also manually decrease the desired capacity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'connection idle timeout' behavior difference between ALB and NLB?",
+    "opts": {
+      "a": "ALB has 60s default (configurable); NLB has 350s for TCP and is not configurable",
+      "b": "Both have 60s default and are configurable",
+      "c": "ALB has no idle timeout; NLB has 350s",
+      "d": "ALB has 60s default (configurable up to 4000s); NLB has 350s for TCP (not configurable)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. This is partially correct but missing the ALB configurable range.",
+      "b": "Incorrect. NLB's idle timeout is fixed.",
+      "c": "Incorrect. ALB does have a configurable idle timeout.",
+      "d": "Correct. ALB's idle timeout defaults to 60s and can be configured from 1 to 4000 seconds. NLB's TCP idle timeout is fixed at 350 seconds and cannot be changed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of 'Proxy Protocol v2' in NLB?",
+    "opts": {
+      "a": "To add encryption to traffic",
+      "b": "To pass the client's source IP and port information to the target when client IP preservation is not possible",
+      "c": "To route traffic through a proxy server",
+      "d": "To enable cross-zone load balancing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Proxy Protocol does not add encryption.",
+      "b": "Correct. Proxy Protocol v2 appends a binary header with the client's source IP/port information to the TCP data. This is needed when targets cannot see the original client IP (e.g., IP target type or TLS termination at NLB).",
+      "c": "Incorrect. Proxy Protocol is not about proxy servers; it's a protocol for passing connection information.",
+      "d": "Incorrect. Proxy Protocol is unrelated to cross-zone load balancing."
+    }
+  }
+]

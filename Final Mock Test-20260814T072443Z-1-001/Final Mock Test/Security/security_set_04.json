@@ -1,0 +1,1073 @@
+[
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of IAM users you can create in a single AWS account?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 1,000.",
+      "b": "Correct. You can create a maximum of 5,000 IAM users per AWS account. For more users, use temporary credentials or IAM Identity Center.",
+      "c": "Incorrect. 10,000 exceeds the limit.",
+      "d": "Incorrect. There is a fixed limit of 5,000."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of IAM groups per AWS account?",
+    "opts": {
+      "a": "100",
+      "b": "300",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Correct. You can create a maximum of 300 IAM groups per AWS account.",
+      "c": "Incorrect. 500 exceeds the limit.",
+      "d": "Incorrect. 1,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of IAM groups a single IAM user can belong to?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "15",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A user can belong to more than 5 groups.",
+      "b": "Correct. A single IAM user can be a member of up to 10 IAM groups.",
+      "c": "Incorrect. 15 exceeds the limit.",
+      "d": "Incorrect. 20 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of managed policies that can be attached to an IAM user, group, or role?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "15",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 5.",
+      "b": "Correct. Up to 10 managed policies can be attached to a single IAM user, group, or role.",
+      "c": "Incorrect. 15 exceeds the limit.",
+      "d": "Incorrect. 20 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of access keys per IAM user?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "5"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 1 access key is allowed.",
+      "b": "Correct. Each IAM user can have a maximum of 2 access keys, which facilitates key rotation without downtime.",
+      "c": "Incorrect. 3 exceeds the limit.",
+      "d": "Incorrect. 5 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of IAM roles per AWS account?",
+    "opts": {
+      "a": "500",
+      "b": "1,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 500 is below the default limit.",
+      "b": "Correct. The default maximum number of IAM roles per AWS account is 1,000 (this is a soft limit that can be increased).",
+      "c": "Incorrect. 5,000 is the user limit, not roles.",
+      "d": "Incorrect. 10,000 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many MFA devices can be assigned to a single IAM user?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "8"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. More than 1 MFA device can be assigned.",
+      "b": "Incorrect. More than 2 can be assigned.",
+      "c": "Incorrect. More than 5 can be assigned.",
+      "d": "Correct. Up to 8 MFA devices can be assigned to a single IAM user, including any combination of virtual MFA and FIDO2 security keys."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum size of an IAM managed policy?",
+    "opts": {
+      "a": "2,048 characters",
+      "b": "6,144 characters",
+      "c": "10,240 characters",
+      "d": "16,384 characters"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 2,048 characters is the limit for inline policies on users and role trust policies.",
+      "b": "Correct. The maximum size of a managed policy is 6,144 characters (not including whitespace).",
+      "c": "Incorrect. 10,240 characters exceeds the limit.",
+      "d": "Incorrect. 16,384 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum size of an IAM role trust policy?",
+    "opts": {
+      "a": "2,048 characters",
+      "b": "4,096 characters",
+      "c": "6,144 characters",
+      "d": "10,240 characters"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The maximum size of a role trust policy is 2,048 characters.",
+      "b": "Incorrect. 4,096 characters exceeds the trust policy limit.",
+      "c": "Incorrect. 6,144 characters is the managed policy limit.",
+      "d": "Incorrect. 10,240 characters exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum session duration for an IAM role when assumed?",
+    "opts": {
+      "a": "1 hour",
+      "b": "4 hours",
+      "c": "12 hours",
+      "d": "36 hours"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 hour is the default but not the maximum.",
+      "b": "Incorrect. 4 hours is below the maximum.",
+      "c": "Correct. IAM roles can have a maximum session duration of 12 hours (configurable from 1 hour to 12 hours).",
+      "d": "Incorrect. 36 hours exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default duration of temporary credentials issued by AWS STS (AssumeRole)?",
+    "opts": {
+      "a": "15 minutes",
+      "b": "1 hour",
+      "c": "4 hours",
+      "d": "12 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 15 minutes is the minimum, not the default.",
+      "b": "Correct. The default duration for STS temporary credentials via AssumeRole is 1 hour (3,600 seconds).",
+      "c": "Incorrect. 4 hours exceeds the default.",
+      "d": "Incorrect. 12 hours is the maximum, not the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum and maximum duration range for STS temporary credentials (AssumeRole)?",
+    "opts": {
+      "a": "5 minutes to 6 hours",
+      "b": "15 minutes to 12 hours",
+      "c": "30 minutes to 24 hours",
+      "d": "1 hour to 36 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 minutes is below the minimum.",
+      "b": "Correct. STS credentials can be configured from 15 minutes (900 seconds) minimum to 12 hours (43,200 seconds) maximum.",
+      "c": "Incorrect. The minimum is 15 minutes, not 30.",
+      "d": "Incorrect. 36 hours exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum session duration for IAM Identity Center (AWS SSO)?",
+    "opts": {
+      "a": "1 hour",
+      "b": "4 hours",
+      "c": "12 hours",
+      "d": "7 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Sessions can last longer.",
+      "b": "Incorrect. 4 hours is not the maximum.",
+      "c": "Correct. IAM Identity Center supports session durations up to 12 hours (configurable per permission set).",
+      "d": "Incorrect. 7 days exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the monthly cost of AWS Shield Advanced?",
+    "opts": {
+      "a": "$1,000/month",
+      "b": "$3,000/month",
+      "c": "$5,000/month",
+      "d": "$10,000/month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. $1,000 is below the cost.",
+      "b": "Correct. AWS Shield Advanced costs $3,000 per month per organization (with a 1-year subscription commitment), plus data transfer fees.",
+      "c": "Incorrect. $5,000 exceeds the monthly cost.",
+      "d": "Incorrect. $10,000 exceeds the monthly cost."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many days is the Amazon GuardDuty free trial?",
+    "opts": {
+      "a": "7 days",
+      "b": "14 days",
+      "c": "30 days",
+      "d": "90 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The free trial is longer than 7 days.",
+      "b": "Incorrect. The free trial is longer than 14 days.",
+      "c": "Correct. Amazon GuardDuty offers a 30-day free trial for new accounts.",
+      "d": "Incorrect. 90 days exceeds the free trial period."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many days of event history does AWS CloudTrail retain by default (without creating a trail)?",
+    "opts": {
+      "a": "30 days",
+      "b": "60 days",
+      "c": "90 days",
+      "d": "365 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default retention is longer than 30 days.",
+      "b": "Incorrect. Default retention is longer than 60 days.",
+      "c": "Correct. CloudTrail retains 90 days of management event history by default in Event History.",
+      "d": "Incorrect. 365 days requires a configured trail."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum retention period for CloudTrail Lake event data stores?",
+    "opts": {
+      "a": "1 year",
+      "b": "3 years",
+      "c": "7 years (2,557 days)",
+      "d": "10 years"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Retention can be longer than 1 year.",
+      "b": "Incorrect. Retention can be longer than 3 years.",
+      "c": "Correct. CloudTrail Lake event data stores can retain data for up to 2,557 days (approximately 7 years).",
+      "d": "Incorrect. 10 years exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What are the two pricing tiers for CloudTrail Lake?",
+    "opts": {
+      "a": "$0.50/GB and $5.00/GB",
+      "b": "$0.25/GB ingested (7-year retention) and $2.50/GB ingested (1-year extendable)",
+      "c": "$1.00/GB and $10.00/GB",
+      "d": "Free tier and $5.00/GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not the correct pricing tiers.",
+      "b": "Correct. Seven-year retention costs $0.25/GB ingested (pay-per-scan queries). One-year extendable retention costs $2.50/GB ingested (with included query access).",
+      "c": "Incorrect. These are not the correct prices.",
+      "d": "Incorrect. There is no free tier for CloudTrail Lake."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the automatic rotation period for AWS KMS customer managed keys (default when enabled)?",
+    "opts": {
+      "a": "30 days",
+      "b": "90 days",
+      "c": "365 days (1 year)",
+      "d": "730 days (2 years)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 30 days is not the default rotation period.",
+      "b": "Incorrect. 90 days is the minimum configurable, not the default.",
+      "c": "Correct. When enabled, AWS KMS automatically rotates KMS keys every 365 days (1 year) by default.",
+      "d": "Incorrect. 730 days is not the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the configurable range for KMS automatic key rotation?",
+    "opts": {
+      "a": "30 to 365 days",
+      "b": "90 to 2,560 days",
+      "c": "180 to 3,650 days",
+      "d": "365 to 7,300 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 30 days is below the minimum.",
+      "b": "Correct. KMS allows configuring automatic key rotation between 90 and 2,560 days (approximately 7 years).",
+      "c": "Incorrect. This is not the correct range.",
+      "d": "Incorrect. This is not the correct range."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the waiting period for KMS key deletion?",
+    "opts": {
+      "a": "Immediate deletion",
+      "b": "7 to 30 days (configurable)",
+      "c": "30 to 90 days",
+      "d": "90 to 365 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS keys cannot be immediately deleted.",
+      "b": "Correct. When you schedule a KMS key for deletion, there is a mandatory waiting period of 7 to 30 days (default 30 days) during which the key can be recovered.",
+      "c": "Incorrect. The maximum waiting period is 30 days.",
+      "d": "Incorrect. 90 days exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the monthly cost of a Customer Managed Key (CMK) in AWS KMS?",
+    "opts": {
+      "a": "Free",
+      "b": "$1 per month",
+      "c": "$5 per month",
+      "d": "$10 per month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Customer managed keys are not free (AWS managed keys are free).",
+      "b": "Correct. Customer managed KMS keys cost $1 per month per key, plus $0.03 per 10,000 API requests.",
+      "c": "Incorrect. $5 exceeds the cost.",
+      "d": "Incorrect. $10 exceeds the cost."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the KMS API request cost?",
+    "opts": {
+      "a": "$0.01 per 10,000 requests",
+      "b": "$0.03 per 10,000 requests",
+      "c": "$0.10 per 10,000 requests",
+      "d": "$1.00 per 10,000 requests"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. $0.01 is below the cost.",
+      "b": "Correct. KMS charges $0.03 per 10,000 API requests for cryptographic operations.",
+      "c": "Incorrect. $0.10 exceeds the cost.",
+      "d": "Incorrect. $1.00 exceeds the cost."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the KMS API request limit (symmetric encrypt/decrypt) per second per Region?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,500 (shared quota)",
+      "c": "10,000",
+      "d": "50,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher.",
+      "b": "Correct. The shared KMS request quota for cryptographic operations is approximately 5,500 requests per second per Region (varies by Region, can be increased).",
+      "c": "Incorrect. 10,000 exceeds the default shared quota.",
+      "d": "Incorrect. 50,000 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum data size that can be directly encrypted by a single KMS API call?",
+    "opts": {
+      "a": "1 KB",
+      "b": "4 KB",
+      "c": "16 KB",
+      "d": "64 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 KB is below the limit.",
+      "b": "Correct. KMS can directly encrypt up to 4 KB (4,096 bytes) of data per API call. For larger data, use envelope encryption.",
+      "c": "Incorrect. 16 KB exceeds the limit.",
+      "d": "Incorrect. 64 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What FIPS validation level does AWS CloudHSM meet?",
+    "opts": {
+      "a": "FIPS 140-2 Level 1",
+      "b": "FIPS 140-2 Level 2",
+      "c": "FIPS 140-2 Level 3",
+      "d": "FIPS 140-2 Level 4"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Level 1 is the lowest validation.",
+      "b": "Incorrect. Level 2 is not the CloudHSM level.",
+      "c": "Correct. AWS CloudHSM uses FIPS 140-2 Level 3 validated hardware security modules.",
+      "d": "Incorrect. Level 4 is the highest and not applicable to CloudHSM."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the cost per month for a general-purpose AWS Private CA?",
+    "opts": {
+      "a": "$50/month",
+      "b": "$200/month",
+      "c": "$400/month",
+      "d": "$1,000/month"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. $50 is for short-lived certificate mode.",
+      "b": "Incorrect. $200 is not the correct cost.",
+      "c": "Correct. A general-purpose AWS Private CA costs $400 per month. Short-lived certificate mode costs $50 per month.",
+      "d": "Incorrect. $1,000 exceeds the cost."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the validity period of a public certificate issued by AWS Certificate Manager?",
+    "opts": {
+      "a": "90 days",
+      "b": "6 months",
+      "c": "13 months (395 days)",
+      "d": "2 years"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 90 days is too short for ACM public certificates.",
+      "b": "Incorrect. 6 months is not the validity period.",
+      "c": "Correct. ACM public certificates are valid for 13 months (395 days) and are automatically renewed before expiration.",
+      "d": "Incorrect. 2 years exceeds the validity period."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What minimum rotation period can you configure for AWS Secrets Manager?",
+    "opts": {
+      "a": "1 hour",
+      "b": "4 hours",
+      "c": "1 day",
+      "d": "7 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 hour is below the minimum.",
+      "b": "Correct. AWS Secrets Manager supports automatic rotation with a minimum period of 4 hours.",
+      "c": "Incorrect. 1 day is longer than the minimum.",
+      "d": "Incorrect. 7 days is longer than the minimum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum rotation period for AWS Secrets Manager?",
+    "opts": {
+      "a": "90 days",
+      "b": "180 days",
+      "c": "365 days",
+      "d": "730 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 90 days is below the maximum.",
+      "b": "Incorrect. 180 days is below the maximum.",
+      "c": "Correct. The maximum rotation period for Secrets Manager is 365 days.",
+      "d": "Incorrect. 730 days exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the cost per secret per month in AWS Secrets Manager?",
+    "opts": {
+      "a": "$0.05",
+      "b": "$0.40",
+      "c": "$1.00",
+      "d": "$5.00"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. $0.05 is the API call cost per 10,000 calls.",
+      "b": "Correct. AWS Secrets Manager charges $0.40 per secret per month, plus $0.05 per 10,000 API calls.",
+      "c": "Incorrect. $1.00 exceeds the cost.",
+      "d": "Incorrect. $5.00 exceeds the cost."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of parameters in AWS Systems Manager Parameter Store (standard tier)?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Standard tier supports more.",
+      "b": "Incorrect. 5,000 is below the limit.",
+      "c": "Correct. Standard tier allows up to 10,000 parameters per Region per account at no cost.",
+      "d": "Incorrect. 100,000 is the advanced tier limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of parameters in Parameter Store advanced tier?",
+    "opts": {
+      "a": "10,000",
+      "b": "50,000",
+      "c": "100,000",
+      "d": "500,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10,000 is the standard tier limit.",
+      "b": "Incorrect. 50,000 is below the advanced tier limit.",
+      "c": "Correct. The advanced tier supports up to 100,000 parameters per Region per account ($0.05 per advanced parameter per month).",
+      "d": "Incorrect. 500,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default number of inbound rules allowed in a Security Group?",
+    "opts": {
+      "a": "20",
+      "b": "40",
+      "c": "60",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 20 is the NACL rules per direction limit.",
+      "b": "Incorrect. 40 is not the correct limit.",
+      "c": "Correct. By default, a security group can have up to 60 inbound rules and 60 outbound rules.",
+      "d": "Incorrect. 100 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default number of security groups that can be associated with a network interface?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 3 can be associated.",
+      "b": "Correct. By default, up to 5 security groups can be associated with a single network interface.",
+      "c": "Incorrect. 10 exceeds the default.",
+      "d": "Incorrect. 15 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default maximum number of NACLs per VPC?",
+    "opts": {
+      "a": "100",
+      "b": "200",
+      "c": "300",
+      "d": "500"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher.",
+      "b": "Correct. The default quota is 200 NACLs per VPC.",
+      "c": "Incorrect. 300 exceeds the default.",
+      "d": "Incorrect. 500 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of rules per NACL (per direction)?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "40",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 10 is below the limit.",
+      "b": "Correct. Each NACL can have up to 20 inbound rules and 20 outbound rules by default.",
+      "c": "Incorrect. 40 exceeds the default per direction.",
+      "d": "Incorrect. 100 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default hop limit for IMDSv2 tokens?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default hop limit for IMDSv2 tokens is 1, meaning requests cannot be forwarded through intermediate hosts (preventing SSRF).",
+      "b": "Incorrect. 2 is the recommended setting for container environments.",
+      "c": "Incorrect. 5 exceeds the default.",
+      "d": "Incorrect. 10 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Web ACLs you can create per Region per account in AWS WAF?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 50 is below the default.",
+      "b": "Correct. The default quota is 100 Web ACLs per Region per account.",
+      "c": "Incorrect. 500 exceeds the default.",
+      "d": "Incorrect. 1,000 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default Web ACL Capacity Units (WCU) limit per Web ACL in AWS WAF?",
+    "opts": {
+      "a": "500 WCU",
+      "b": "1,500 WCU",
+      "c": "3,000 WCU",
+      "d": "5,000 WCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 500 is below the default.",
+      "b": "Correct. The default WCU limit is 1,500 per Web ACL, which can be increased to 5,000 maximum.",
+      "c": "Incorrect. 3,000 is between default and maximum.",
+      "d": "Incorrect. 5,000 is the maximum, not the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum Web ACL Capacity Units (WCU) per Web ACL?",
+    "opts": {
+      "a": "1,500 WCU",
+      "b": "3,000 WCU",
+      "c": "5,000 WCU",
+      "d": "10,000 WCU"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,500 is the default, not the maximum.",
+      "b": "Incorrect. 3,000 is not the maximum.",
+      "c": "Correct. The maximum Web ACL capacity is 5,000 WCU per Web ACL.",
+      "d": "Incorrect. 10,000 exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum rate limit you can set for an AWS WAF rate-based rule?",
+    "opts": {
+      "a": "10 requests per 5 minutes",
+      "b": "100 requests per 5 minutes",
+      "c": "500 requests per 5 minutes",
+      "d": "1,000 requests per 5 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 10 is below the minimum.",
+      "b": "Correct. The minimum rate limit for a WAF rate-based rule is 100 requests per 5-minute period per IP address.",
+      "c": "Incorrect. 500 exceeds the minimum.",
+      "d": "Incorrect. 1,000 exceeds the minimum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the additional cost for AWS WAF Bot Control (common level)?",
+    "opts": {
+      "a": "$1.00 per million requests",
+      "b": "$5.00 per million requests",
+      "c": "$10.00 per million requests",
+      "d": "$50.00 per million requests"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. $1.00 is the cost for standard WAF rules inspection.",
+      "b": "Incorrect. $5.00 is below the Bot Control cost.",
+      "c": "Correct. WAF Bot Control (common level) costs $10.00 per million requests inspected.",
+      "d": "Incorrect. $50.00 exceeds the common level cost."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default throttle limit for AWS API Gateway per Region per account?",
+    "opts": {
+      "a": "1,000 RPS",
+      "b": "5,000 RPS",
+      "c": "10,000 RPS",
+      "d": "50,000 RPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,000 is the Lambda concurrency default.",
+      "b": "Incorrect. 5,000 is the burst limit.",
+      "c": "Correct. API Gateway has a default throttle limit of 10,000 requests per second per Region per account.",
+      "d": "Incorrect. 50,000 exceeds the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What are the GuardDuty finding severity ranges?",
+    "opts": {
+      "a": "Low: 0-3, Medium: 4-6, High: 7-10",
+      "b": "Low: 1.0-3.9, Medium: 4.0-6.9, High: 7.0-8.9",
+      "c": "Low: 1-5, Medium: 6-8, High: 9-10",
+      "d": "Low: 0.1-2.0, Medium: 2.1-5.0, High: 5.1-10.0"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The ranges are more specific.",
+      "b": "Correct. GuardDuty severity: Low (1.0-3.9), Medium (4.0-6.9), High (7.0-8.9). High indicates actively exploited/compromised resources.",
+      "c": "Incorrect. These are not the correct ranges.",
+      "d": "Incorrect. These are not the correct ranges."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many days does IAM Access Analyzer analyze CloudTrail activity to generate least-privilege policies?",
+    "opts": {
+      "a": "Up to 30 days",
+      "b": "Up to 90 days",
+      "c": "Up to 180 days",
+      "d": "Up to 365 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It can analyze more than 30 days.",
+      "b": "Correct. IAM Access Analyzer uses up to 90 days of CloudTrail activity to generate least-privilege policy recommendations.",
+      "c": "Incorrect. 180 days exceeds the analysis period.",
+      "d": "Incorrect. 365 days exceeds the analysis period."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of custom data identifiers you can create in Amazon Macie?",
+    "opts": {
+      "a": "25",
+      "b": "100",
+      "c": "250",
+      "d": "500"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. You can create more than 25.",
+      "b": "Incorrect. You can create more than 100.",
+      "c": "Incorrect. You can create more than 250.",
+      "d": "Correct. You can create up to 500 custom data identifiers per account."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of custom attributes per Cognito User Pool?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "75",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 25 custom attributes are allowed.",
+      "b": "Correct. You can add up to 50 custom attributes to a Cognito User Pool (prefixed with 'custom:').",
+      "c": "Incorrect. 75 exceeds the limit.",
+      "d": "Incorrect. 100 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum number of accounts AWS Control Tower creates in a landing zone?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More accounts are created.",
+      "b": "Incorrect. The log archive account is also created.",
+      "c": "Correct. Control Tower creates 3 accounts minimum: Management, Log Archive, and Audit.",
+      "d": "Incorrect. Only 3 are the minimum."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A high-traffic application using S3 with SSE-KMS is getting ThrottlingException errors at 6,000 requests/second. What is the cause and solution?",
+    "opts": {
+      "a": "S3 rate limits; use multipart upload",
+      "b": "KMS API rate limit (~5,500/sec) exceeded; use S3 Bucket Keys to reduce KMS calls by 99%",
+      "c": "IAM policy too restrictive",
+      "d": "Lambda concurrency limits exceeded"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 doesn't typically cause ThrottlingException for KMS.",
+      "b": "Correct. Each S3 GET/PUT with SSE-KMS calls KMS, hitting the ~5,500 req/sec quota. S3 Bucket Keys generate a bucket-level key that creates data keys within S3, reducing KMS calls by up to 99%.",
+      "c": "Incorrect. IAM restrictions cause AccessDenied, not Throttling.",
+      "d": "Incorrect. Lambda is not involved in S3 encryption."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to encrypt 10 GB of data using KMS. The KMS Encrypt API only handles 4 KB. What approach should they use?",
+    "opts": {
+      "a": "Split data into 4 KB chunks and call KMS for each",
+      "b": "Use envelope encryption: generate a data key from KMS, encrypt data locally with the data key, store encrypted data key alongside ciphertext",
+      "c": "Use SSE-S3 instead",
+      "d": "Upload to S3 and let KMS handle it"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This would generate millions of KMS API calls and be extremely slow.",
+      "b": "Correct. Envelope encryption uses KMS to generate/encrypt a data key, then uses that data key locally to encrypt the large data. Only the 4 KB data key goes through KMS.",
+      "c": "Incorrect. SSE-S3 is only for S3 storage.",
+      "d": "Incorrect. This only works for S3 and doesn't address the 4 KB limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer configures a Lambda function with an IAM role that has 12 managed policies attached. What happens?",
+    "opts": {
+      "a": "It works fine; there's no limit",
+      "b": "The attachment fails because the maximum is 10 managed policies per role",
+      "c": "Only the first 10 policies are applied",
+      "d": "The role is automatically converted to an admin role"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There is a limit.",
+      "b": "Correct. The maximum is 10 managed policies per IAM entity (user, group, or role). Attaching the 11th policy will fail. Use inline policies or consolidate policies to stay within limits.",
+      "c": "Incorrect. AWS doesn't partially apply policies.",
+      "d": "Incorrect. No automatic conversion occurs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An organization has 5,000 IAM users and needs to onboard 1,000 more employees. What should they do?",
+    "opts": {
+      "a": "Create 1,000 more IAM users",
+      "b": "Use IAM Identity Center or federation with an external IdP since the 5,000 IAM user limit has been reached",
+      "c": "Create a second AWS account",
+      "d": "Request a quota increase for IAM users"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The 5,000 user limit has been reached.",
+      "b": "Correct. The 5,000 IAM user limit is a hard limit. For additional users, use IAM Identity Center (SSO) or federate with an external identity provider (SAML/OIDC) which provides temporary credentials without creating IAM users.",
+      "c": "Incorrect. While possible, federation is the proper solution.",
+      "d": "Incorrect. The 5,000 IAM user limit cannot be increased."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A security team needs to ensure KMS key deletion doesn't cause data loss. They want the maximum time to recover a key before permanent deletion. What should they set?",
+    "opts": {
+      "a": "7-day waiting period",
+      "b": "30-day waiting period (maximum)",
+      "c": "90-day waiting period",
+      "d": "Cancel the deletion entirely"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 7 days is the minimum and provides the least recovery time.",
+      "b": "Correct. Setting the maximum 30-day waiting period provides the most time to discover and cancel the deletion if needed. During this period, the key can be recovered.",
+      "c": "Incorrect. 90 days exceeds the maximum configurable period.",
+      "d": "Incorrect. While valid, the question asks about the waiting period."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An application processes 2 million KMS encryption requests per second during peak hours. The Region's KMS quota is 5,500 requests/sec. What solutions reduce KMS API calls?",
+    "opts": {
+      "a": "Only request a quota increase",
+      "b": "Implement data key caching (AWS Encryption SDK), use S3 Bucket Keys, and request quota increase",
+      "c": "Switch to client-side encryption without KMS",
+      "d": "Use multiple AWS accounts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Quota increases alone may not be sufficient for 2M req/sec.",
+      "b": "Correct. Combining data key caching (reuses keys for multiple operations), S3 Bucket Keys (for S3 workloads), and quota increases provides a comprehensive solution to handle 2M req/sec.",
+      "c": "Incorrect. Losing KMS management is a security tradeoff.",
+      "d": "Incorrect. Multiple accounts add complexity without solving the core issue."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has Security Group rules allowing SSH (port 22) from 0.0.0.0/0. They have 60 inbound rules already. They want to add more specific IP ranges but can't. What's the issue?",
+    "opts": {
+      "a": "SSH is blocked by NACLs",
+      "b": "The Security Group has reached its default maximum of 60 inbound rules",
+      "c": "The VPC doesn't support more rules",
+      "d": "AWS blocks SSH globally"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NACLs are separate from SG rules limits.",
+      "b": "Correct. The default limit is 60 inbound rules per Security Group. To add more, either request a quota increase, consolidate rules using CIDR ranges, or use prefix lists.",
+      "c": "Incorrect. VPCs don't limit SG rules.",
+      "d": "Incorrect. AWS doesn't globally block SSH."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A network admin is troubleshooting connectivity. Traffic is allowed by the Security Group (stateful) but blocked. They check NACLs and find the outbound rule allows traffic but there's no matching inbound return rule. What's the problem?",
+    "opts": {
+      "a": "Security Groups are misconfigured",
+      "b": "NACLs are stateless — return traffic must be explicitly allowed in both directions",
+      "c": "VPC peering issue",
+      "d": "Route table misconfiguration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security Groups are stateful (return traffic is automatic).",
+      "b": "Correct. Unlike Security Groups, NACLs are stateless. Both inbound AND outbound rules must explicitly allow traffic (including ephemeral port ranges for return traffic).",
+      "c": "Incorrect. VPC peering is not indicated.",
+      "d": "Incorrect. Route tables are separate from NACLs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A WAF Web ACL has reached 1,500 WCU and the team needs to add more rules. What should they do?",
+    "opts": {
+      "a": "Create a new Web ACL",
+      "b": "Request a WCU quota increase (up to 5,000 maximum) through AWS Support",
+      "c": "Remove all existing rules",
+      "d": "Switch to Network Firewall"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A new Web ACL would have the same default limit.",
+      "b": "Correct. The default 1,500 WCU can be increased up to 5,000 WCU maximum by requesting a quota increase through AWS Support.",
+      "c": "Incorrect. Removing rules reduces protection.",
+      "d": "Incorrect. Network Firewall serves a different purpose."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to block login attempts exceeding 100 per 5 minutes from a single IP. Which WAF feature and configuration do they need?",
+    "opts": {
+      "a": "Geo-match rule",
+      "b": "Rate-based rule with threshold of 100 requests per 5-minute window scoped to the login URI",
+      "c": "Bot Control managed rule",
+      "d": "Regular string-match rule"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Geo-match blocks by country, not request rate.",
+      "b": "Correct. A rate-based rule with 100 as the rate limit (minimum allowed), scoped to the login URI path, will automatically block IPs exceeding 100 requests per 5 minutes.",
+      "c": "Incorrect. Bot Control categorizes bots but doesn't set custom rate limits.",
+      "d": "Incorrect. String-match rules don't track request rates."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company using Shield Advanced experiences a DDoS attack causing $50,000 in CloudFront data transfer costs. How can they recover?",
+    "opts": {
+      "a": "No recovery is possible",
+      "b": "Request DDoS cost protection credits from Shield Advanced for the verified attack",
+      "c": "File an insurance claim",
+      "d": "Get a free month of Shield Advanced"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Shield Advanced includes cost protection.",
+      "b": "Correct. Shield Advanced provides cost protection credits for scaling charges (CloudFront, ALB, Route 53, etc.) incurred during verified DDoS attacks. Contact the DDoS Response Team (DRT) to initiate.",
+      "c": "Incorrect. AWS provides credits directly.",
+      "d": "Incorrect. A free month is not the mechanism."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An organization needs their CloudTrail data retained for 7 years for compliance. They want SQL-query capability. Which option is most cost-effective?",
+    "opts": {
+      "a": "CloudTrail Lake one-year extendable retention ($2.50/GB)",
+      "b": "CloudTrail Lake seven-year retention ($0.25/GB ingested)",
+      "c": "S3 with Athena",
+      "d": "CloudWatch Logs with 7-year retention"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. At $2.50/GB this is 10x more expensive than 7-year retention.",
+      "b": "Correct. The 7-year retention tier at $0.25/GB ingested is specifically designed for long-term compliance storage with pay-per-scan query pricing.",
+      "c": "Incorrect. While viable, it requires managing partitioning and storage; Lake is simpler.",
+      "d": "Incorrect. CloudWatch Logs for 7 years would be very expensive."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A Cognito User Pool has 50 custom attributes already configured. The team needs to add one more. What happens?",
+    "opts": {
+      "a": "The 51st attribute is added successfully",
+      "b": "The addition fails because the maximum of 50 custom attributes has been reached",
+      "c": "An older attribute is automatically deleted",
+      "d": "AWS Support must be contacted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The 50-attribute limit has been reached.",
+      "b": "Correct. Cognito User Pools have a hard limit of 50 custom attributes. The team would need to consolidate existing attributes or store additional data elsewhere.",
+      "c": "Incorrect. Attributes are not automatically deleted.",
+      "d": "Incorrect. This is a hard limit that cannot be increased."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A user has 2 active access keys and needs a new one for a new application. What must they do first?",
+    "opts": {
+      "a": "Create a third access key",
+      "b": "Delete or deactivate one of the existing 2 access keys before creating a new one",
+      "c": "Contact AWS Support to increase the limit",
+      "d": "Use the root account key instead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The maximum is 2 access keys per user.",
+      "b": "Correct. Since the hard limit is 2 access keys per IAM user, one must be deleted or deactivated before creating a new one. This limit facilitates key rotation (old key + new key during transition).",
+      "c": "Incorrect. This is a hard limit that cannot be increased.",
+      "d": "Incorrect. Root account keys should never be used."
+    }
+  }
+]

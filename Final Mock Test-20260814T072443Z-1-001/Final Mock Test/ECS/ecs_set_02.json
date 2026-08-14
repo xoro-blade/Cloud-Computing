@@ -1,0 +1,1056 @@
+[
+  {
+    "type": "factual",
+    "q": "What is the EKS Pod Identity Agent's IPv4 loopback address that pods use to request credentials?",
+    "opts": {
+      "a": "127.0.0.1",
+      "b": "169.254.169.254",
+      "c": "169.254.170.23",
+      "d": "10.0.0.1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 127.0.0.1 is the standard localhost, not the EKS Pod Identity Agent address.",
+      "b": "Incorrect. 169.254.169.254 is the EC2 instance metadata service address.",
+      "c": "Correct. The EKS Pod Identity Agent uses the loopback (localhost) IP address 169.254.170.23 for IPv4 to serve credentials to pods. [3]",
+      "d": "Incorrect. 10.0.0.1 is a typical VPC address, not used by the Pod Identity Agent."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the IPv6 localhost address used by the EKS Pod Identity Agent?",
+    "opts": {
+      "a": "::1",
+      "b": "[fd00:ec2::23]",
+      "c": "[fe80::1]",
+      "d": "[fd00:eks::1]"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ::1 is the standard IPv6 loopback, not the Pod Identity Agent address.",
+      "b": "Correct. The EKS Pod Identity Agent uses [fd00:ec2::23] for IPv6 to serve credentials to pods. [3]",
+      "c": "Incorrect. fe80::1 is a link-local address.",
+      "d": "Incorrect. This is not the correct address used by the agent."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was Amazon EKS Pod Identity first introduced?",
+    "opts": {
+      "a": "re:Invent 2022",
+      "b": "re:Invent 2023",
+      "c": "re:Invent 2024",
+      "d": "re:Invent 2021"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EKS Pod Identity was not introduced at re:Invent 2022.",
+      "b": "Correct. Amazon EKS introduced the EKS Pod Identity feature at re:Invent 2023. [1]",
+      "c": "Incorrect. The feature was available before re:Invent 2024.",
+      "d": "Incorrect. EKS Pod Identity did not exist in 2021."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new capability was added to EKS Pod Identity in March 2026?",
+    "opts": {
+      "a": "Multi-cluster support",
+      "b": "Session policies for dynamically scoping down IAM permissions",
+      "c": "Automatic role creation",
+      "d": "Cross-account access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multi-cluster support was not the March 2026 announcement.",
+      "b": "Correct. In March 2026, AWS announced session policies for EKS Pod Identity, enabling dynamic scoping down of IAM permissions without creating additional IAM roles. [1]",
+      "c": "Incorrect. Automatic role creation was not the announced feature.",
+      "d": "Incorrect. Cross-account access was not the new capability."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the primary benefit of EKS Pod Identity session policies?",
+    "opts": {
+      "a": "They increase pod startup speed",
+      "b": "They allow dynamically scoping down IAM permissions without creating additional IAM roles",
+      "c": "They enable cross-region pod communication",
+      "d": "They reduce EKS cluster costs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Session policies don't affect startup speed.",
+      "b": "Correct. Session policies provide a flexible alternative to creating separate IAM roles for each permission variation by specifying an inline IAM policy during Pod Identity association creation. [1]",
+      "c": "Incorrect. Session policies are about IAM permissions, not networking.",
+      "d": "Incorrect. Session policies are about security, not cost."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does EKS Pod Identity reduce load on AWS STS compared to IRSA?",
+    "opts": {
+      "a": "It caches credentials in S3",
+      "b": "Each set of temporary credentials is assumed by the EKS Auth service, and the Pod Identity Agent on each node issues credentials to pods",
+      "c": "It doesn't use temporary credentials",
+      "d": "It uses long-lived access keys instead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Credentials are not cached in S3.",
+      "b": "Correct. The EKS Auth service assumes credentials, and the Pod Identity Agent on each node issues them to pods. The load is reduced to once per node instead of being duplicated in each pod. [4]",
+      "c": "Incorrect. EKS Pod Identity does use temporary credentials.",
+      "d": "Incorrect. Long-lived access keys are not used; temporary credentials are the standard."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the IAM service principal used by EKS Pod Identity?",
+    "opts": {
+      "a": "eks.amazonaws.com",
+      "b": "pods.eks.amazonaws.com",
+      "c": "sts.amazonaws.com",
+      "d": "containers.eks.amazonaws.com"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. eks.amazonaws.com is the general EKS service principal.",
+      "b": "Correct. The service principal used by EKS Pod Identity is pods.eks.amazonaws.com. [4]",
+      "c": "Incorrect. sts.amazonaws.com is the STS service principal.",
+      "d": "Incorrect. This is not a valid AWS service principal."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Is the EKS Pod Identity Agent pre-installed on EKS Auto Mode clusters?",
+    "opts": {
+      "a": "No, it must always be manually installed",
+      "b": "Yes, it is pre-installed by default on EKS Auto Mode clusters",
+      "c": "Only on clusters with Fargate profiles",
+      "d": "Only on clusters with managed node groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. On EKS Auto Mode clusters, manual installation is not needed.",
+      "b": "Correct. By default, the EKS Pod Identity Agent is pre-installed on EKS Auto Mode clusters. [3]",
+      "c": "Incorrect. This is specific to EKS Auto Mode, not Fargate profiles.",
+      "d": "Incorrect. It's specific to EKS Auto Mode, not just managed node groups."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What happens if IPv6 is disabled on a node running the EKS Pod Identity Agent?",
+    "opts": {
+      "a": "The agent falls back to IPv4 only",
+      "b": "The agent can't start",
+      "c": "The agent works normally",
+      "d": "Only IPv4 pods can get credentials"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The agent doesn't automatically fall back.",
+      "b": "Correct. If you disable IPv6 addresses or prevent localhost IPv6 IP addresses, the agent can't start. You must follow steps to disable IPv6 in the EKS Pod Identity Agent configuration. [3]",
+      "c": "Incorrect. The agent requires IPv6 by default.",
+      "d": "Incorrect. The agent fails to start entirely."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "By what percentage were EKS Auto Mode G-series GPU management fees reduced starting July 1, 2026?",
+    "opts": {
+      "a": "20%",
+      "b": "35%",
+      "c": "50%",
+      "d": "60%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The reduction was larger than 20%.",
+      "b": "Correct. Beginning July 1, 2026, G-series Auto Mode management fees were reduced by 35%. [2]",
+      "c": "Incorrect. 50% is not the correct reduction for G-series.",
+      "d": "Incorrect. 60% is the reduction for P-series and Trainium, not G-series."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "By what percentage were EKS Auto Mode P-series and AWS Trainium management fees reduced starting July 1, 2026?",
+    "opts": {
+      "a": "35%",
+      "b": "40%",
+      "c": "50%",
+      "d": "60%"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 35% is the reduction for G-series, not P-series/Trainium.",
+      "b": "Incorrect. The reduction is larger than 40%.",
+      "c": "Incorrect. The reduction exceeds 50%.",
+      "d": "Correct. P-series and AWS Trainium fees were reduced by 60% beginning July 1, 2026. [2]"
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Do EKS Auto Mode customers need to take any action to receive the GPU management fee reductions?",
+    "opts": {
+      "a": "Yes, they must update their cluster configuration",
+      "b": "Yes, they must opt-in through the console",
+      "c": "No, the reductions apply automatically to all EKS Auto Mode clusters",
+      "d": "Yes, they must contact AWS support"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. No configuration changes are needed.",
+      "b": "Incorrect. No opt-in is required.",
+      "c": "Correct. These reductions apply automatically to all EKS Auto Mode clusters and no action is required from customers. [2]",
+      "d": "Incorrect. No support ticket is needed."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What feature does EKS Auto Mode include for handling GPU hardware failures?",
+    "opts": {
+      "a": "Manual node replacement notification",
+      "b": "Accelerator-aware node repair that detects GPU failures and automatically replaces unhealthy nodes",
+      "c": "Automatic GPU driver updates only",
+      "d": "GPU workload migration to CPU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EKS Auto Mode provides automatic, not just notification-based repair.",
+      "b": "Correct. EKS Auto Mode includes accelerator-aware node repair that detects GPU hardware failures and automatically replaces unhealthy nodes. [2]",
+      "c": "Incorrect. It goes beyond driver updates to full node replacement.",
+      "d": "Incorrect. Workloads are not migrated to CPU; unhealthy GPU nodes are replaced."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What feature does EKS Auto Mode provide for large container images on GPU instances?",
+    "opts": {
+      "a": "Image compression",
+      "b": "Automatic parallel image pulling and unpacking on GPU instances with local NVMe storage",
+      "c": "Pre-cached images on all nodes",
+      "d": "Image streaming from S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Image compression is not the specific feature.",
+      "b": "Correct. EKS Auto Mode includes automatic parallel image pulling and unpacking on GPU instances with local NVMe storage, so large container and model images start faster. [2]",
+      "c": "Incorrect. Pre-caching on all nodes is not the mechanism.",
+      "d": "Incorrect. Image streaming from S3 is not the described feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default nofile soft limit for Amazon ECS tasks on Fargate?",
+    "opts": {
+      "a": "1,024",
+      "b": "4,096",
+      "c": "65,535",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,024 is below the Fargate default.",
+      "b": "Incorrect. 4,096 is not the Fargate nofile limit.",
+      "c": "Correct. On Fargate, the default nofile soft limit is 65,535. [10]",
+      "d": "Incorrect. 100,000 exceeds the actual nofile soft limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What operating system families are valid for ECS Fargate task definitions?",
+    "opts": {
+      "a": "LINUX only",
+      "b": "LINUX, WINDOWS_SERVER_2019, WINDOWS_SERVER_2022, and WINDOWS_SERVER_2025 (FULL and CORE variants)",
+      "c": "LINUX and MACOS",
+      "d": "Any Linux distribution"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Windows Server is also supported.",
+      "b": "Correct. Valid values include LINUX, WINDOWS_SERVER_2025_FULL, WINDOWS_SERVER_2025_CORE, WINDOWS_SERVER_2022_FULL, WINDOWS_SERVER_2022_CORE, WINDOWS_SERVER_2019_FULL, and WINDOWS_SERVER_2019_CORE. [10]",
+      "c": "Incorrect. MACOS is not a valid Fargate operating system.",
+      "d": "Incorrect. You must specify the exact operating system family, not just any distribution."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Is Windows Server 2025 supported on Amazon ECS Fargate?",
+    "opts": {
+      "a": "No, only Windows Server 2019 is supported",
+      "b": "No, Windows is not supported on Fargate",
+      "c": "Yes, both FULL and CORE variants",
+      "d": "Only in preview"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Newer versions are also supported.",
+      "b": "Incorrect. Windows is supported on ECS Fargate.",
+      "c": "Correct. WINDOWS_SERVER_2025_FULL and WINDOWS_SERVER_2025_CORE are valid operating system family values for ECS Fargate. [10]",
+      "d": "Incorrect. It's generally available, not just preview."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of characters allowed in an ECR lifecycle policy?",
+    "opts": {
+      "a": "10,240",
+      "b": "20,480",
+      "c": "30,720",
+      "d": "51,200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 10,240.",
+      "b": "Incorrect. 20,480 is below the actual limit.",
+      "c": "Correct. The maximum number of characters in an ECR lifecycle policy is 30,720. [12]",
+      "d": "Incorrect. 51,200 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of layer parts for multipart uploads in Amazon ECR?",
+    "opts": {
+      "a": "1,000",
+      "b": "2,100",
+      "c": "4,200",
+      "d": "10,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 1,000.",
+      "b": "Incorrect. 2,100 is below the actual limit.",
+      "c": "Correct. The maximum number of layer parts in each supported region is 4,200. This is applicable when using ECR API actions directly to initiate multipart uploads. [12]",
+      "d": "Incorrect. 10,000 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum layer part size in Amazon ECR?",
+    "opts": {
+      "a": "5 MB",
+      "b": "10 MB",
+      "c": "50 MB",
+      "d": "100 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The maximum is larger than 5 MB.",
+      "b": "Correct. The maximum layer part size in each supported region is 10 MB. [12]",
+      "c": "Incorrect. 50 MB exceeds the actual limit.",
+      "d": "Incorrect. 100 MB is far above the actual limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How quickly does Amazon ECR lifecycle policy act on images that meet expiration criteria?",
+    "opts": {
+      "a": "Immediately",
+      "b": "Within 1 hour",
+      "c": "Within 24 hours",
+      "d": "Within 7 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Actions are not immediate.",
+      "b": "Incorrect. The timeframe is longer than 1 hour.",
+      "c": "Correct. Based on the expiration criteria in the lifecycle policy, images can be archived or expired within 24 hours. [7]",
+      "d": "Incorrect. 7 days is longer than the actual timeframe."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Where are ECR lifecycle policy actions captured for auditing?",
+    "opts": {
+      "a": "Amazon CloudWatch Logs",
+      "b": "AWS CloudTrail",
+      "c": "Amazon S3 access logs",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch Logs doesn't capture lifecycle policy events.",
+      "b": "Correct. When Amazon ECR performs an action based on a lifecycle policy, this is captured as an event in AWS CloudTrail. [7]",
+      "c": "Incorrect. S3 access logs don't track ECR events.",
+      "d": "Incorrect. AWS Config tracks resource configuration, not lifecycle policy actions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How are ECR lifecycle policy rules evaluated?",
+    "opts": {
+      "a": "Sequentially from highest to lowest priority",
+      "b": "All rules are evaluated at the same time, regardless of rule priority",
+      "c": "Only the first matching rule is applied",
+      "d": "Rules are evaluated in alphabetical order"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Rules are not evaluated sequentially.",
+      "b": "Correct. All rules are evaluated at the same time, regardless of rule priority. Priority is used to determine which rule applies when multiple rules match the same image. [7]",
+      "c": "Incorrect. All rules are evaluated simultaneously.",
+      "d": "Incorrect. Alphabetical order is not used for rule evaluation."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What happens to reference artifacts (like image indexes) when the subject image is deleted by a lifecycle policy in ECR?",
+    "opts": {
+      "a": "They remain permanently",
+      "b": "They are automatically expired or archived within 24 hours of the subject image's deletion",
+      "c": "They must be manually deleted",
+      "d": "They are immediately deleted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Reference artifacts are automatically handled.",
+      "b": "Correct. When reference artifacts are present in a repository, Amazon ECR lifecycle policies automatically expire or archive those artifacts within 24 hours of the deletion or archival of the subject image. [7]",
+      "c": "Incorrect. Manual deletion is not required.",
+      "d": "Incorrect. The process takes up to 24 hours, not immediate."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the limitation of ECR lifecycle policies regarding the 'any' tag filter?",
+    "opts": {
+      "a": "It can't be used at all",
+      "b": "Only 1 rule with 'any' tag filter is allowed per lifecycle policy",
+      "c": "It applies to all repositories automatically",
+      "d": "It only works with tagged images"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The 'any' tag filter can be used but with limitations.",
+      "b": "Correct. There is a limitation of only 1 rule with 'any' tag per lifecycle policy, which some users find restrictive for complex cleanup scenarios. [5]",
+      "c": "Incorrect. It applies to the specific repository's lifecycle policy.",
+      "d": "Incorrect. 'any' tag means it can match both tagged and untagged images."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What AMI type does EKS Auto Mode use for its managed instances?",
+    "opts": {
+      "a": "Amazon Linux 2",
+      "b": "Ubuntu",
+      "c": "Bottlerocket",
+      "d": "Red Hat Enterprise Linux"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Amazon Linux 2 is not the default for EKS Auto Mode.",
+      "b": "Incorrect. Ubuntu is not used by EKS Auto Mode.",
+      "c": "Correct. EKS Auto Mode uses Bottlerocket AMIs which have locked-down software, immutable root file systems, and secure network access. [6]",
+      "d": "Incorrect. RHEL is not used by EKS Auto Mode."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What security characteristics do Bottlerocket AMIs used by EKS Auto Mode have?",
+    "opts": {
+      "a": "Full SSH access and mutable file systems",
+      "b": "Locked-down software, immutable root file systems, and secure network access preventing SSH/SSM",
+      "c": "Standard Amazon Linux with SELinux enabled",
+      "d": "Open network access with encrypted storage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Bottlerocket restricts SSH access.",
+      "b": "Correct. Bottlerocket AMIs have locked-down software, immutable root file systems, and secure network access that prevents direct communications through SSH or SSM. [6]",
+      "c": "Incorrect. Bottlerocket is not Amazon Linux with SELinux.",
+      "d": "Incorrect. Network access is restricted, not open."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Starting April 22, 2026, what changed for EKS Auto Mode managed instances in the EC2 console?",
+    "opts": {
+      "a": "They display a new tag",
+      "b": "They are hidden by default from EC2 console views and API list operations",
+      "c": "They appear with a warning banner",
+      "d": "They are moved to a separate console"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A new tag is not the change.",
+      "b": "Correct. Beginning April 22, 2026, new managed instances and associated resources are hidden by default from EC2 console views and API list operations. You can adjust this with managed resource visibility settings. [6]",
+      "c": "Incorrect. No warning banner is added.",
+      "d": "Incorrect. They remain in the EC2 console but are hidden by default."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum node lifetime in EKS Auto Mode before intervention might be required?",
+    "opts": {
+      "a": "7 days",
+      "b": "14 days",
+      "c": "21 days",
+      "d": "30 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The maximum is longer than 7 days.",
+      "b": "Incorrect. 14 days is below the maximum.",
+      "c": "Correct. EKS Auto Mode respects PDBs and NDBs, but up to the 21-day maximum lifetime, intervention might be required if blocking PDBs or other configurations prevent updates. [6]",
+      "d": "Incorrect. 30 days exceeds the maximum lifetime."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What managed components are included in EKS Auto Mode that would otherwise be add-ons?",
+    "opts": {
+      "a": "Only networking and storage",
+      "b": "Pod IP assignments, Pod network policies, local DNS, GPU plug-ins, health checkers, and EBS CSI storage",
+      "c": "Only the Kubernetes dashboard",
+      "d": "Only the metrics server"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EKS Auto Mode includes many more components.",
+      "b": "Correct. EKS Auto Mode includes built-in support for Pod IP address assignments, Pod network policies, local DNS services, GPU plug-ins, health checkers, and EBS CSI storage. [6]",
+      "c": "Incorrect. The dashboard is not a core managed component.",
+      "d": "Incorrect. Many more components are included."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What disaster recovery integration does EKS Auto Mode provide for Availability Zone failures?",
+    "opts": {
+      "a": "Automatic multi-region failover",
+      "b": "Integration with Amazon Application Recovery Controller (ARC) zonal shift",
+      "c": "Automatic cluster replication",
+      "d": "Cross-region node migration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multi-region failover is not built into EKS Auto Mode.",
+      "b": "Correct. EKS Auto Mode integrates with Amazon Application Recovery Controller (ARC) zonal shift to automatically stop provisioning nodes in an impaired Availability Zone and suspend voluntary disruption during a zonal shift event. [6]",
+      "c": "Incorrect. Cluster replication is not a feature of EKS Auto Mode.",
+      "d": "Incorrect. Cross-region node migration is not available."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Under the EKS Auto Mode shared responsibility model, what does the customer remain responsible for?",
+    "opts": {
+      "a": "Node provisioning and OS patching",
+      "b": "Application containers (availability, security, monitoring), VPC infrastructure, and EKS cluster configuration",
+      "c": "Everything including infrastructure",
+      "d": "Only application code deployment"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Node provisioning and OS patching are AWS's responsibility in Auto Mode.",
+      "b": "Correct. Under EKS Auto Mode, customers maintain responsibility for application containers (availability, security, monitoring), VPC infrastructure, and EKS cluster configuration. [6]",
+      "c": "Incorrect. AWS handles cluster infrastructure management.",
+      "d": "Incorrect. Customers have broader responsibilities than just deployment."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What networking capabilities does EKS Auto Mode automate?",
+    "opts": {
+      "a": "Only IPv4 support",
+      "b": "IPv4/IPv6 support and secondary CIDR blocks for extending IP address spaces",
+      "c": "Only VPC peering",
+      "d": "Only security group management"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Both IPv4 and IPv6 are supported.",
+      "b": "Correct. EKS Auto Mode automates critical networking tasks including IPv4/IPv6 support and the use of secondary CIDR blocks for extending IP address spaces. [6]",
+      "c": "Incorrect. VPC peering is not the primary networking automation.",
+      "d": "Incorrect. Security groups are one part but not the only networking feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does AWS Fargate pricing work?",
+    "opts": {
+      "a": "Fixed monthly fee per cluster",
+      "b": "Based on vCPU, memory, OS, CPU architecture, and storage consumed from image download until task/pod terminates, rounded to nearest second",
+      "c": "Per container per hour",
+      "d": "Based on number of tasks only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Fargate doesn't have a fixed monthly fee.",
+      "b": "Correct. Fargate pricing is calculated based on vCPU, memory, Operating Systems, CPU Architecture, and storage resources used from the time you start to download your container image until the ECS Task or EKS Pod terminates, rounded up to the nearest second. [14]",
+      "c": "Incorrect. Pricing is more granular than per container per hour.",
+      "d": "Incorrect. Pricing considers resource consumption, not just task count."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the CPU cost per vCPU second for Fargate with Linux/ARM in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.0000089944",
+      "b": "$0.0000125000",
+      "c": "$0.0000045000",
+      "d": "$0.0000200000"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The CPU cost for Linux/ARM (Graviton2) in US East (N. Virginia) is $0.0000089944 per vCPU second. [14]",
+      "b": "Incorrect. This is not the correct rate.",
+      "c": "Incorrect. This is below the actual rate.",
+      "d": "Incorrect. This exceeds the actual rate."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the memory cost per GB per second for Fargate with Linux/ARM in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.0000020000",
+      "b": "$0.0000009889",
+      "c": "$0.0000005000",
+      "d": "$0.0000015000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This exceeds the actual rate.",
+      "b": "Correct. The memory cost for Linux/ARM (Graviton2) in US East (N. Virginia) is $0.0000009889 per GB per second. [14]",
+      "c": "Incorrect. This is below the actual rate.",
+      "d": "Incorrect. This is not the correct rate."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the ephemeral storage cost per GB per second for Fargate in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.0000000308",
+      "b": "$0.0000001000",
+      "c": "$0.0000000100",
+      "d": "$0.0000000500"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The ephemeral storage cost is $0.0000000308 per GB per second. [14]",
+      "b": "Incorrect. This exceeds the actual rate.",
+      "c": "Incorrect. This is below the actual rate.",
+      "d": "Incorrect. This is not the correct rate."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which CPU architectures does AWS Fargate support for ECS?",
+    "opts": {
+      "a": "x86 only",
+      "b": "ARM only",
+      "c": "Both x86 and ARM",
+      "d": "x86, ARM, and RISC-V"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Fargate supports ARM as well.",
+      "b": "Incorrect. x86 is also supported.",
+      "c": "Correct. AWS Fargate supports both x86 and ARM CPU Architecture for Amazon ECS. [14]",
+      "d": "Incorrect. RISC-V is not supported on Fargate."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Is Windows OS with ARM architecture currently supported on AWS Fargate?",
+    "opts": {
+      "a": "Yes, for both ECS and EKS",
+      "b": "No, Windows OS and ARM Architecture are currently only available for Amazon ECS (not combined - Windows is x86 only, ARM is Linux only on EKS)",
+      "c": "Yes, but only in us-east-1",
+      "d": "Yes, for EKS only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There are limitations on the combination.",
+      "b": "Correct. Windows Operating System and ARM CPU Architecture are currently only available for Amazon ECS. This means Windows on Fargate is x86 only, and ARM on EKS Fargate is Linux only. [14]",
+      "c": "Incorrect. The limitation is not region-specific.",
+      "d": "Incorrect. EKS doesn't support Windows on Fargate."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Are there upfront costs with AWS Fargate?",
+    "opts": {
+      "a": "Yes, a minimum monthly commitment",
+      "b": "Yes, for reserved capacity",
+      "c": "No, you pay only for the resources you use",
+      "d": "Only for the first cluster"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is no minimum monthly commitment.",
+      "b": "Incorrect. Fargate doesn't require reserved capacity purchases.",
+      "c": "Correct. With AWS Fargate, there are no upfront costs and you pay only for the resources you use. [14]",
+      "d": "Incorrect. No cluster-based upfront costs exist."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Can Pod Identity association quotas be adjusted through AWS Service Quotas?",
+    "opts": {
+      "a": "Yes, through the Service Quotas console",
+      "b": "No, adjustments to Pod Identity associations per cluster are not supported in Service Quotas",
+      "c": "Yes, but only with Enterprise Support",
+      "d": "Yes, via the AWS CLI only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Pod Identity quotas cannot be adjusted via Service Quotas.",
+      "b": "Correct. Adjustments to Pod Identity associations per cluster are not supported in Service Quotas. [13]",
+      "c": "Incorrect. Enterprise Support doesn't enable this adjustment.",
+      "d": "Incorrect. The CLI cannot be used for this either."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Can EKS Hybrid Nodes CIDRs for Remote Node Networks or Remote Pod Networks be adjusted through Service Quotas?",
+    "opts": {
+      "a": "Yes, easily through the console",
+      "b": "No, these are managed separately with their own limits",
+      "c": "Yes, but only via CLI",
+      "d": "These don't have limits"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These cannot be adjusted through Service Quotas.",
+      "b": "Correct. CIDRs for Remote Node Networks or Remote Pod Networks for hybrid nodes have their own limits and are not adjustable via Service Quotas. [13]",
+      "c": "Incorrect. CLI doesn't enable this adjustment either.",
+      "d": "Incorrect. There are limits for these configurations."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What service can be used to create CloudWatch alarms that alert when Fargate resource usage approaches service quotas?",
+    "opts": {
+      "a": "AWS Config",
+      "b": "AWS Service Quotas with Fargate resource usage metrics",
+      "c": "Amazon Inspector",
+      "d": "AWS Trusted Advisor"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS Config tracks configuration, not service quota usage.",
+      "b": "Correct. You can configure alarms that alert you when your usage approaches a service quota by creating a CloudWatch alarm to monitor Fargate resource usage metrics. [13]",
+      "c": "Incorrect. Inspector is for vulnerability scanning.",
+      "d": "Incorrect. Trusted Advisor has limit checks but CloudWatch alarms provide real-time monitoring."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to give different pods in the same Kubernetes namespace access to different S3 buckets without creating separate IAM roles for each pod. What feature should they use?",
+    "opts": {
+      "a": "IRSA (IAM Roles for Service Accounts)",
+      "b": "EKS Pod Identity with session policies",
+      "c": "EC2 instance profiles",
+      "d": "Kubernetes RBAC"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IRSA requires separate IAM roles for different permission sets.",
+      "b": "Correct. EKS Pod Identity session policies allow dynamically scoping down IAM permissions for pods without creating additional IAM roles, using inline policies during Pod Identity association. [1]",
+      "c": "Incorrect. Instance profiles apply to all pods on a node, not individual pods.",
+      "d": "Incorrect. Kubernetes RBAC controls K8s API access, not AWS resource access."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company is running ML training workloads on EKS using P5 instances. They want to reduce costs for GPU management. What recent pricing change benefits them?",
+    "opts": {
+      "a": "Spot instance support for P5",
+      "b": "EKS Auto Mode P-series management fees reduced by 60% starting July 1, 2026",
+      "c": "Free GPU management for the first year",
+      "d": "Reserved capacity pricing for EKS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While Spot is available, the question asks about recent pricing changes.",
+      "b": "Correct. Starting July 1, 2026, P-series and AWS Trainium EKS Auto Mode management fees were reduced by 60%, applied automatically. [2]",
+      "c": "Incorrect. There is no free GPU management tier.",
+      "d": "Incorrect. Reserved capacity pricing for EKS was not the announcement."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A DevOps engineer disabled IPv6 on their EKS worker nodes for compliance reasons. Now the EKS Pod Identity Agent won't start. What should they do?",
+    "opts": {
+      "a": "Re-enable IPv6 on all nodes",
+      "b": "Follow the steps to disable IPv6 in the EKS Pod Identity Agent configuration",
+      "c": "Use IRSA instead",
+      "d": "Restart the kubelet"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Re-enabling IPv6 may violate the compliance requirement.",
+      "b": "Correct. To start the agent on nodes that can't use IPv6, follow the steps in 'Disable IPv6 in the EKS Pod Identity Agent' to disable the IPv6 configuration. [3]",
+      "c": "Incorrect. While IRSA is an alternative, the agent can be configured to work without IPv6.",
+      "d": "Incorrect. Restarting kubelet won't fix the Pod Identity Agent IPv6 requirement."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An architect is designing an ECS Fargate task that requires opening many concurrent network connections. What ulimit should they consider, and what is the default soft limit?",
+    "opts": {
+      "a": "nproc limit, default 1,024",
+      "b": "nofile limit, default 65,535",
+      "c": "memlock limit, default unlimited",
+      "d": "stack limit, default 8,192"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. nproc controls processes, not file descriptors/connections.",
+      "b": "Correct. The nofile resource limit sets a restriction on the number of open files (including network sockets) a container can use. On Fargate, the default nofile soft limit is 65,535. [10]",
+      "c": "Incorrect. memlock is not the relevant limit for connections.",
+      "d": "Incorrect. stack limit is about thread stack size."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to use EKS Auto Mode but is concerned about losing visibility into their EC2 instances. What should they know about managed instances after April 2026?",
+    "opts": {
+      "a": "Instances are completely invisible and cannot be accessed",
+      "b": "Instances are hidden by default from EC2 console and API but visibility can be adjusted using managed resource visibility settings",
+      "c": "Instances appear normally in the console",
+      "d": "Instances are terminated after 24 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Instances aren't completely invisible; visibility can be adjusted.",
+      "b": "Correct. Beginning April 22, 2026, new managed instances are hidden by default from EC2 console views and API list operations, but you can adjust this behavior with managed resource visibility settings. [6]",
+      "c": "Incorrect. They are hidden by default after April 2026.",
+      "d": "Incorrect. Instances are not terminated after 24 hours."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An organization has 100 different application teams that each need slightly different AWS permissions from their EKS pods. Without session policies, how many IAM roles would they need?",
+    "opts": {
+      "a": "1 role for all teams",
+      "b": "100 separate IAM roles",
+      "c": "10 roles with condition keys",
+      "d": "50 roles with half the teams sharing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. One role wouldn't provide fine-grained access.",
+      "b": "Correct. Without session policies, you would need to create a separate IAM role for each permission variation. Session policies solve this by dynamically scoping down permissions from a shared role. [1]",
+      "c": "Incorrect. Condition keys alone can't provide pod-level scoping.",
+      "d": "Incorrect. Sharing roles wouldn't provide fine-grained access."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company is using ECR lifecycle policies but needs a rule that expires images older than 6 months AND keeps at least 30 images with the 'any' tag filter. They're hitting a limitation. What is the issue?",
+    "opts": {
+      "a": "Lifecycle policies don't support time-based rules",
+      "b": "There is a limitation of only 1 rule with 'any' tag filter per lifecycle policy, making complex combined conditions difficult",
+      "c": "The policy character limit is too low",
+      "d": "ECR doesn't support image count rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Time-based rules are supported.",
+      "b": "Correct. The limitation of only 1 rule with 'any' tag is quite restrictive for complex scenarios like combining age-based and count-based rules. [5]",
+      "c": "Incorrect. The 30,720 character limit is usually sufficient.",
+      "d": "Incorrect. Image count rules are supported."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to confirm that their ECR lifecycle policy will work correctly before applying it. What process should they follow?",
+    "opts": {
+      "a": "Apply the policy directly and monitor",
+      "b": "Create test rules, save them, and run the preview to see which images would be affected before applying",
+      "c": "Test in a different region first",
+      "d": "Contact AWS support to validate"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Direct application without testing is risky.",
+      "b": "Correct. The lifecycle policy workflow involves: creating test rules, saving and running the preview, and the evaluator marks images that each rule affects before you commit. [7]",
+      "c": "Incorrect. Region-specific testing is unnecessary with the preview feature.",
+      "d": "Incorrect. The built-in preview feature makes support contact unnecessary."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company runs EKS Auto Mode with Pod Disruption Budgets (PDBs) configured. A node has been running for 20 days and hasn't been updated. Should they be concerned?",
+    "opts": {
+      "a": "No, nodes can run indefinitely",
+      "b": "Yes, at the 21-day maximum lifetime, intervention might be required if PDBs prevent updates",
+      "c": "No, EKS Auto Mode ignores PDBs",
+      "d": "Yes, nodes are terminated at 14 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Nodes have a 21-day maximum lifetime.",
+      "b": "Correct. EKS Auto Mode respects PDBs and NDBs, but up to the 21-day maximum lifetime, intervention might be required if blocking PDBs or other configurations prevent updates. [6]",
+      "c": "Incorrect. EKS Auto Mode respects PDBs.",
+      "d": "Incorrect. The maximum is 21 days, not 14."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to calculate their Fargate costs for running 5 ECS Tasks for 10 minutes daily on ARM/Graviton2 with 1 vCPU, 2GB memory, and 30GB storage. What is the monthly CPU cost?",
+    "opts": {
+      "a": "$0.81",
+      "b": "$2.70",
+      "c": "$5.40",
+      "d": "$8.10"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Monthly CPU charges = 5 tasks × 600 seconds × 30 days × 1 vCPU × $0.0000089944 = $0.81 (approximately). [14]",
+      "b": "Incorrect. This calculation is too high.",
+      "c": "Incorrect. This overestimates the cost.",
+      "d": "Incorrect. This significantly overestimates the cost."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What load balancer types does EKS Auto Mode integrate with?",
+    "opts": {
+      "a": "Classic Load Balancer only",
+      "b": "Application and Network Load Balancers",
+      "c": "Gateway Load Balancer only",
+      "d": "Only internal load balancers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Classic Load Balancer is legacy.",
+      "b": "Correct. EKS Auto Mode supports advanced features for both Application and Network Load Balancers, manages their lifecycle, and scales them to match cluster demands. [6]",
+      "c": "Incorrect. Gateway Load Balancer is not the primary integration.",
+      "d": "Incorrect. Both internal and external load balancers are supported."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What storage configuration does EKS Auto Mode handle automatically?",
+    "opts": {
+      "a": "Only volume sizes",
+      "b": "Volume types, volume sizes, encryption policies, and deletion policies upon node termination",
+      "c": "Only encryption",
+      "d": "Only EBS provisioning"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EKS Auto Mode configures more than just volume sizes.",
+      "b": "Correct. EKS Auto Mode configures ephemeral storage by setting up volume types, volume sizes, encryption policies, and deletion policies upon node termination. [6]",
+      "c": "Incorrect. More than just encryption is managed.",
+      "d": "Incorrect. The configuration is more comprehensive than just provisioning."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Do you need to install the EKS Pod Identity Agent on EKS Auto Mode clusters?",
+    "opts": {
+      "a": "Yes, it must be installed as a DaemonSet",
+      "b": "Yes, it must be installed as an add-on",
+      "c": "No, you do not have to install it on EKS Auto Mode clusters",
+      "d": "Only if using session policies"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Manual DaemonSet installation is not required.",
+      "b": "Incorrect. Add-on installation is not required.",
+      "c": "Correct. You do not have to install the EKS Pod Identity Agent on EKS Auto Mode clusters—it is pre-installed by default. [6]",
+      "d": "Incorrect. It's pre-installed regardless of whether session policies are used."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to run EKS workloads and wants AWS to handle node provisioning, OS patching, and component updates. They want to focus only on their application containers. Which EKS feature should they use?",
+    "opts": {
+      "a": "EKS Managed Node Groups",
+      "b": "EKS Auto Mode",
+      "c": "EKS on Fargate",
+      "d": "Self-managed nodes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Managed Node Groups still require some node management.",
+      "b": "Correct. EKS Auto Mode streamlines EKS management by providing production-ready clusters with minimal operational overhead, letting customers concentrate on application-specific concerns while delegating cluster infrastructure management to AWS. [6]",
+      "c": "Incorrect. Fargate is serverless but doesn't cover all workload types.",
+      "d": "Incorrect. Self-managed nodes require the most operational effort."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An EKS Auto Mode cluster detects that an Availability Zone is impaired. What happens automatically?",
+    "opts": {
+      "a": "The cluster shuts down",
+      "b": "All pods are terminated",
+      "c": "Auto Mode stops provisioning nodes in the impaired AZ and suspends voluntary disruption via ARC zonal shift integration",
+      "d": "Nothing; the user must manually intervene"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The cluster doesn't shut down.",
+      "b": "Incorrect. Pods on healthy AZs continue running.",
+      "c": "Correct. EKS Auto Mode integrates with Amazon Application Recovery Controller (ARC) zonal shift to automatically stop provisioning nodes in an impaired AZ and suspend voluntary disruption during a zonal shift event. [6]",
+      "d": "Incorrect. The response is automatic via ARC integration."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Where does Amazon EKS recommend you view your current service quotas?",
+    "opts": {
+      "a": "AWS CLI only",
+      "b": "The AWS Management Console (Service Quotas)",
+      "c": "The EKS API",
+      "d": "CloudFormation outputs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While CLI works, AWS recommends the console.",
+      "b": "Correct. AWS recommends using the AWS Management Console to view your current quotas through the Service Quotas console. [13]",
+      "c": "Incorrect. The EKS API doesn't directly display service quotas.",
+      "d": "Incorrect. CloudFormation doesn't display service quotas."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has many EKS workloads interacting with various AWS services and is encountering throttling issues. What is the root cause according to AWS best practices?",
+    "opts": {
+      "a": "Too many pods running",
+      "b": "AWS service quotas and request throttling limits being reached",
+      "c": "Insufficient node capacity",
+      "d": "Network bandwidth limits"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Pod count alone doesn't cause throttling.",
+      "b": "Correct. Customer workloads can encounter AWS service quotas and request throttling issues that hamper scalability. Your AWS account has default quotas that are generally region-specific. [11]",
+      "c": "Incorrect. Node capacity is a separate issue from API throttling.",
+      "d": "Incorrect. Network bandwidth is different from API request throttling."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which services can AWS Fargate run containers for?",
+    "opts": {
+      "a": "Amazon ECS only",
+      "b": "Amazon EKS only",
+      "c": "Both Amazon ECS and Amazon EKS",
+      "d": "Amazon ECS, EKS, and Lambda"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Fargate also supports EKS.",
+      "b": "Incorrect. Fargate also supports ECS.",
+      "c": "Correct. You pay for resources consumed by your containerized applications running on Amazon Elastic Container Service (ECS) or Amazon Elastic Kubernetes Service (EKS). [14]",
+      "d": "Incorrect. Lambda is a separate serverless compute service."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company using EKS Auto Mode wants to add a custom per-node feature that isn't included in Auto Mode's managed components. How can they do this?",
+    "opts": {
+      "a": "It's not possible with Auto Mode",
+      "b": "Through AWS add-ons that provide optional per-node features",
+      "c": "By SSH-ing into nodes",
+      "d": "By modifying the Bottlerocket configuration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Additional features can be added.",
+      "b": "Correct. Optional per-node features can be included in clusters through AWS add-ons. [6]",
+      "c": "Incorrect. SSH access is blocked on Bottlerocket AMIs used by Auto Mode.",
+      "d": "Incorrect. Bottlerocket has immutable root file systems."
+    }
+  }
+]

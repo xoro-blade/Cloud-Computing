@@ -1,0 +1,1090 @@
+[
+  {
+    "type": "scenario",
+    "q": "A CodePipeline V2 type pipeline has a source stage with CodeCommit, a build stage with CodeBuild, and a deploy stage with CodeDeploy. The pipeline fails at the build stage. What happens to the deploy stage?",
+    "opts": {
+      "a": "The deploy stage runs with the last successful build artifact",
+      "b": "The deploy stage is skipped and the pipeline execution fails",
+      "c": "The deploy stage runs with an empty artifact",
+      "d": "The pipeline retries the build stage automatically 3 times before failing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodePipeline does not use previous artifacts for the current execution.",
+      "b": "Correct. If any stage fails, subsequent stages are not executed and the entire pipeline execution is marked as failed.",
+      "c": "Incorrect. The deploy stage will not execute at all.",
+      "d": "Incorrect. CodePipeline does not automatically retry failed stages."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeBuild project uses a buildspec.yml that references AWS Secrets Manager for database credentials. The build fails with an access denied error. What is the most likely cause?",
+    "opts": {
+      "a": "Secrets Manager is not available in the build region",
+      "b": "The CodeBuild service role lacks permission to access the secret",
+      "c": "buildspec.yml does not support Secrets Manager references",
+      "d": "The secret must be stored in Parameter Store instead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Secrets Manager is available in all regions where CodeBuild operates.",
+      "b": "Correct. The CodeBuild service role must have secretsmanager:GetSecretValue permission for the specific secret ARN.",
+      "c": "Incorrect. buildspec.yml supports Secrets Manager references in the env/secrets-manager section.",
+      "d": "Incorrect. CodeBuild supports both Secrets Manager and Parameter Store."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team has configured a CodeDeploy Blue/Green deployment for EC2 instances. After the new environment is validated, how long does CodeDeploy wait by default before terminating the original instances?",
+    "opts": {
+      "a": "Immediately after traffic rerouting",
+      "b": "1 hour",
+      "c": "The wait time is configurable in the deployment group (default is 0 minutes if set to terminate immediately, or up to specified wait time)",
+      "d": "24 hours"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The behavior depends on the deployment group configuration.",
+      "b": "Incorrect. 1 hour is not a fixed default.",
+      "c": "Correct. The termination wait time is configurable in the deployment group. You can set it to terminate immediately, keep original instances, or wait a specified duration (up to 2880 minutes/48 hours).",
+      "d": "Incorrect. 24 hours is not the default."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodePipeline uses a cross-account deployment. The pipeline in Account A needs to deploy using CodeDeploy in Account B. What must be configured?",
+    "opts": {
+      "a": "Only a VPC peering connection between the accounts",
+      "b": "A cross-account IAM role in Account B that the pipeline role in Account A can assume, plus a KMS key policy for artifact encryption",
+      "c": "AWS Organizations SCP allowing deployment",
+      "d": "A shared S3 bucket in a third account"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC peering is for network connectivity, not IAM permissions.",
+      "b": "Correct. Cross-account CodePipeline requires a cross-account role in the target account with trust policy for the source account, and the KMS key used for artifact encryption must grant access to the target account.",
+      "c": "Incorrect. SCPs restrict permissions but don't enable cross-account deployment alone.",
+      "d": "Incorrect. While artifact stores matter, a third account bucket is not the requirement."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeBuild project builds successfully but the output artifacts are not appearing in the expected S3 location. Which section of buildspec.yml should you check?",
+    "opts": {
+      "a": "phases/post_build",
+      "b": "artifacts",
+      "c": "env",
+      "d": "phases/install"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. post_build runs commands but doesn't define artifact locations.",
+      "b": "Correct. The artifacts section in buildspec.yml defines the files to include, the base directory, and the discard-paths setting for output artifacts.",
+      "c": "Incorrect. The env section defines environment variables, not artifact configuration.",
+      "d": "Incorrect. The install phase installs dependencies, not artifact configuration."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum build timeout that can be configured for a CodeBuild project?",
+    "opts": {
+      "a": "1 hour",
+      "b": "8 hours (480 minutes)",
+      "c": "24 hours",
+      "d": "12 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 hour is below the maximum.",
+      "b": "Correct. The maximum build timeout for a CodeBuild project is 8 hours (480 minutes). The minimum is 5 minutes and the default is 60 minutes.",
+      "c": "Incorrect. 24 hours exceeds the maximum allowed.",
+      "d": "Incorrect. 12 hours exceeds the 8-hour maximum."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the minimum build timeout that can be configured for a CodeBuild project?",
+    "opts": {
+      "a": "1 minute",
+      "b": "5 minutes",
+      "c": "10 minutes",
+      "d": "15 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 minute is below the minimum allowed.",
+      "b": "Correct. The minimum build timeout for CodeBuild is 5 minutes.",
+      "c": "Incorrect. The minimum is lower than 10 minutes.",
+      "d": "Incorrect. 15 minutes is above the minimum allowed."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to run CodeBuild builds concurrently but is hitting throttling. What is the default concurrent build limit per account?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "60",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The default is higher than 10.",
+      "b": "Incorrect. 20 is below the default limit.",
+      "c": "Correct. The default concurrent build limit is 60 per account. This can be increased via Service Quotas.",
+      "d": "Incorrect. 100 exceeds the default (though it can be increased)."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has a CodeDeploy deployment that uses the AllAtOnce deployment configuration for a fleet of 10 EC2 instances. The deployment fails on 3 instances. What is the deployment result?",
+    "opts": {
+      "a": "Deployment succeeds because majority (7/10) succeeded",
+      "b": "Deployment fails because AllAtOnce requires all instances to succeed",
+      "c": "Deployment succeeds because AllAtOnce only requires one instance to succeed for the overall deployment to succeed",
+      "d": "Deployment is rolled back automatically to all instances"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AllAtOnce doesn't use majority logic.",
+      "b": "Incorrect. AllAtOnce does not require all instances to succeed.",
+      "c": "Correct. With CodeDeployDefault.AllAtOnce, the overall deployment succeeds if the application revision is deployed to at least one instance. The deployment fails only if it fails on all instances.",
+      "d": "Incorrect. Automatic rollback depends on deployment group configuration, not the deployment configuration alone."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "In a CodeDeploy HalfAtATime deployment with 10 instances, how many instances must successfully deploy for the overall deployment to be considered successful?",
+    "opts": {
+      "a": "All 10 instances",
+      "b": "At least 5 instances",
+      "c": "At least 6 instances",
+      "d": "At least 8 instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. HalfAtATime doesn't require all instances.",
+      "b": "Correct. With HalfAtATime, CodeDeploy deploys to up to half the instances at a time (rounded down). The overall deployment succeeds if at least half succeed.",
+      "c": "Incorrect. The minimum success threshold is half (5 out of 10).",
+      "d": "Incorrect. 8 is above the minimum requirement."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In CodeBuild, what is the purpose of the 'reports' section in buildspec.yml?",
+    "opts": {
+      "a": "To generate billing reports",
+      "b": "To publish test results and code coverage reports to CodeBuild report groups",
+      "c": "To send email notifications about build status",
+      "d": "To export CloudWatch metrics"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The reports section is not for billing.",
+      "b": "Correct. The reports section allows you to specify test result files (JUnit, NUnit, Cucumber, etc.) and code coverage files that CodeBuild publishes to report groups for visualization.",
+      "c": "Incorrect. Notifications are configured separately, not in the reports section.",
+      "d": "Incorrect. CloudWatch metrics are published automatically, not through the reports section."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team has a monorepo in CodeCommit with multiple microservices. They want different pipelines triggered by changes in specific directories. How should they configure this?",
+    "opts": {
+      "a": "Create separate branches for each microservice",
+      "b": "Use CodePipeline trigger filters with file path conditions in the EventBridge rule",
+      "c": "Create one pipeline that deploys all services every time",
+      "d": "Use CodeBuild batch builds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Separate branches add complexity and don't solve the trigger problem.",
+      "b": "Correct. CodePipeline V2 type supports trigger filters that can include/exclude file paths, allowing specific pipelines to trigger only when files in designated directories change.",
+      "c": "Incorrect. Deploying all services on every change is wasteful.",
+      "d": "Incorrect. Batch builds run multiple builds but don't solve pipeline triggering."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between CodePipeline V1 and V2 pipeline types?",
+    "opts": {
+      "a": "V2 only supports CodeCommit as a source",
+      "b": "V2 supports triggers with filtering, pipeline-level variables, and Git tags; V1 charges per pipeline per month while V2 charges per action execution",
+      "c": "V1 is deprecated and no longer available",
+      "d": "V2 does not support manual approvals"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. V2 supports all source providers.",
+      "b": "Correct. V2 introduces triggers with filtering (branch, file path, tags), pipeline-level variables, Git tags as triggers, and uses action-execution-based pricing rather than per-pipeline-per-month.",
+      "c": "Incorrect. V1 pipelines still exist and can be created.",
+      "d": "Incorrect. V2 supports all action types including manual approvals."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeBuild project needs to access a private Maven repository hosted on an EC2 instance in a private subnet. The build fails with a connection timeout. What should you configure?",
+    "opts": {
+      "a": "Enable privileged mode in CodeBuild",
+      "b": "Configure the CodeBuild project with VPC settings (VPC ID, private subnet, and security group) that allow access to the Maven repository",
+      "c": "Add the Maven repository URL to the buildspec.yml env section",
+      "d": "Create a NAT Gateway in the public subnet"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Privileged mode is for Docker builds, not VPC access.",
+      "b": "Correct. CodeBuild must be configured with VPC settings to access resources in private subnets. The security group must allow outbound traffic to the Maven repository.",
+      "c": "Incorrect. Adding the URL doesn't solve network connectivity issues.",
+      "d": "Incorrect. A NAT Gateway alone won't help unless CodeBuild is configured to run in the VPC."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodeBuild project configured with VPC access cannot pull dependencies from the internet. What is the likely issue?",
+    "opts": {
+      "a": "The buildspec.yml is missing the install phase",
+      "b": "The VPC subnet has no route to a NAT Gateway or VPC endpoints for internet access",
+      "c": "CodeBuild doesn't support internet access when in a VPC",
+      "d": "The IAM role is missing S3 permissions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The install phase doesn't affect network connectivity.",
+      "b": "Correct. When CodeBuild runs in a VPC, it uses the VPC's networking. The subnet must have a route to a NAT Gateway (for internet) or appropriate VPC endpoints for AWS services.",
+      "c": "Incorrect. Internet access is possible via NAT Gateway when CodeBuild is in a VPC.",
+      "d": "Incorrect. While IAM permissions matter, network connectivity is the primary issue here."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of CodeDeploy deployment groups per application?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "100",
+      "d": "1,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 10.",
+      "b": "Correct. CodeDeploy allows a maximum of 25 deployment groups per application by default.",
+      "c": "Incorrect. 100 exceeds the default limit.",
+      "d": "Incorrect. 1,000 is the limit for applications per account, not deployment groups per application."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of CodeDeploy applications per account per region?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "5,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Incorrect. 500 is below the actual limit.",
+      "c": "Correct. CodeDeploy allows a maximum of 1,000 applications per account per region.",
+      "d": "Incorrect. 5,000 exceeds the default limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses CodeDeploy with EC2 instances behind an Elastic Load Balancer. During deployment, they want instances to be deregistered from the load balancer before deployment and re-registered after. Which lifecycle hooks handle this?",
+    "opts": {
+      "a": "BeforeInstall and AfterInstall",
+      "b": "BeforeBlockTraffic and AfterAllowTraffic",
+      "c": "ApplicationStop and ApplicationStart",
+      "d": "DownloadBundle and Install"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These hooks don't manage load balancer traffic.",
+      "b": "Correct. BeforeBlockTraffic runs before instances are deregistered from the load balancer, and AfterAllowTraffic runs after instances are re-registered. BlockTraffic and AllowTraffic are the actual deregistration/registration events.",
+      "c": "Incorrect. These manage application lifecycle, not load balancer traffic.",
+      "d": "Incorrect. These are internal CodeDeploy events, not configurable hooks."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the correct order of CodeDeploy lifecycle hooks for an in-place deployment?",
+    "opts": {
+      "a": "Install → BeforeInstall → AfterInstall → ApplicationStart",
+      "b": "ApplicationStop → DownloadBundle → BeforeInstall → Install → AfterInstall → ApplicationStart → ValidateService",
+      "c": "BeforeInstall → Install → ApplicationStart → ValidateService",
+      "d": "DownloadBundle → Install → ApplicationStart → AfterInstall"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This order is wrong; BeforeInstall must come before Install.",
+      "b": "Correct. The complete lifecycle order is: ApplicationStop → DownloadBundle → BeforeInstall → Install → AfterInstall → ApplicationStart → ValidateService.",
+      "c": "Incorrect. This is incomplete; it's missing ApplicationStop and DownloadBundle.",
+      "d": "Incorrect. AfterInstall must come before ApplicationStart."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer pushes code to CodeCommit which triggers CodePipeline. The pipeline source action detects the change but shows the wrong commit. What is the likely cause?",
+    "opts": {
+      "a": "The pipeline was triggered by a different branch than expected",
+      "b": "CodeCommit has a caching issue",
+      "c": "The EventBridge rule has a delay",
+      "d": "CodePipeline only checks for changes every 5 minutes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. If the pipeline is configured to monitor a specific branch but the EventBridge rule triggers on any branch change, it may pick up changes from an unexpected branch. Verify the branch configuration in the source action.",
+      "b": "Incorrect. CodeCommit doesn't have caching issues that cause wrong commits.",
+      "c": "Incorrect. EventBridge delivers events in near real-time.",
+      "d": "Incorrect. V2 pipelines with EventBridge triggers don't use polling."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeBuild project needs to publish a Docker image to ECR but fails with 'no basic auth credentials'. What is missing?",
+    "opts": {
+      "a": "The buildspec.yml is missing the artifacts section",
+      "b": "The pre_build phase should include an ECR login command (aws ecr get-login-password) and the service role needs ecr:GetAuthorizationToken permission",
+      "c": "Docker Hub credentials need to be configured",
+      "d": "The ECR repository doesn't exist"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The artifacts section is unrelated to ECR authentication.",
+      "b": "Correct. You must authenticate to ECR before pushing images. The pre_build phase should run 'aws ecr get-login-password | docker login' and the IAM role needs ecr:GetAuthorizationToken, ecr:BatchCheckLayerAvailability, ecr:PutImage, etc.",
+      "c": "Incorrect. Docker Hub credentials are not needed for ECR.",
+      "d": "Incorrect. A non-existent repository would give a different error."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is CodeBuild's 'batch build' feature used for?",
+    "opts": {
+      "a": "Running a single build faster using multiple CPUs",
+      "b": "Running multiple builds in a single build project with defined dependencies, fan-out, or build matrix configurations",
+      "c": "Queuing builds for overnight processing",
+      "d": "Automatically retrying failed builds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Batch builds use multiple build environments, not multiple CPUs in one.",
+      "b": "Correct. Batch builds allow you to define multiple builds in a single project using build-list (parallel), build-graph (dependencies), or build-matrix (combinations) configurations.",
+      "c": "Incorrect. Batch builds run immediately, not queued for later.",
+      "d": "Incorrect. Automatic retry is a separate feature from batch builds."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team uses CodePipeline with a manual approval stage before production deployment. The approver is on vacation and the approval times out. What is the default timeout for a manual approval action?",
+    "opts": {
+      "a": "24 hours",
+      "b": "7 days",
+      "c": "30 days",
+      "d": "No timeout"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual approval actions have a longer timeout.",
+      "b": "Correct. Manual approval actions in CodePipeline have a default timeout of 7 days. If not approved or rejected within 7 days, the action times out and the pipeline execution fails.",
+      "c": "Incorrect. 30 days exceeds the actual timeout.",
+      "d": "Incorrect. Manual approval actions do have a timeout."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your team uses CodeBuild with S3 caching to speed up builds. After changing the build environment image, the cache is not being used. Why?",
+    "opts": {
+      "a": "S3 caching doesn't work with different build images",
+      "b": "The cache key is derived from the buildspec and environment; changing the image may invalidate the cache path or the cached dependencies are incompatible",
+      "c": "S3 caching only works with the first build image configured",
+      "d": "You must manually clear and rebuild the cache"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 caching works with different images, but the cache content may be incompatible.",
+      "b": "Correct. When you change the build environment image, the cached dependencies (e.g., different OS package versions) may be incompatible, effectively making the cache unusable for the new environment.",
+      "c": "Incorrect. S3 caching works with any build image.",
+      "d": "Incorrect. While clearing the cache is an option, the root cause is cache incompatibility."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of webhooks per CodePipeline per region?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "150",
+      "d": "300"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is much higher than 10.",
+      "b": "Incorrect. 50 is below the actual limit.",
+      "c": "Incorrect. 150 is below the limit.",
+      "d": "Correct. CodePipeline allows up to 300 webhooks per region per account."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodeDeploy deployment to Lambda uses CodeDeployDefault.LambdaLinear10PercentEvery1Minute. If the Lambda function handles 1000 requests/minute, approximately how many requests hit the new version after 3 minutes?",
+    "opts": {
+      "a": "100 requests",
+      "b": "300 requests",
+      "c": "500 requests",
+      "d": "1000 requests"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. After 3 minutes, 30% of traffic goes to the new version.",
+      "b": "Correct. Linear10PercentEvery1Minute shifts 10% per minute. After 3 minutes, 30% of traffic (300 out of 1000 requests) goes to the new version.",
+      "c": "Incorrect. 50% would be after 5 minutes.",
+      "d": "Incorrect. All traffic shifts only after 10 minutes."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodeDeploy deployment uses LambdaCanary10Percent5Minutes. What happens if an error is detected during the initial 5-minute monitoring period?",
+    "opts": {
+      "a": "Deployment continues regardless",
+      "b": "All traffic is immediately shifted to the new version",
+      "c": "The deployment is rolled back and 100% of traffic returns to the original version",
+      "d": "Traffic is split 50/50 for additional testing"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Errors trigger rollback if alarms are configured.",
+      "b": "Incorrect. Errors don't accelerate deployment.",
+      "c": "Correct. If CloudWatch alarms trigger during the canary period, CodeDeploy automatically rolls back, returning all traffic to the original Lambda version.",
+      "d": "Incorrect. There is no intermediate 50/50 state in canary deployments."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which CodeBuild feature allows you to run multiple build commands on different compute types simultaneously?",
+    "opts": {
+      "a": "Parallel phases",
+      "b": "Batch builds with build-matrix",
+      "c": "Multi-stage builds",
+      "d": "Concurrent projects"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Phases run sequentially within a single build.",
+      "b": "Correct. Batch builds with build-matrix allow you to define combinations of environment variables, images, and compute types that run as separate builds simultaneously.",
+      "c": "Incorrect. Multi-stage builds are a Docker concept, not CodeBuild.",
+      "d": "Incorrect. Concurrent projects are separate projects, not coordinated matrix builds."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team configures CodePipeline with two source actions: CodeCommit and S3. Under what condition does the pipeline execute?",
+    "opts": {
+      "a": "Only when both sources change simultaneously",
+      "b": "When either source detects a change",
+      "c": "Only when CodeCommit changes (primary source)",
+      "d": "On a scheduled basis regardless of changes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Both sources don't need to change simultaneously.",
+      "b": "Correct. When a pipeline has multiple source actions, a change detected in any source action triggers the pipeline execution.",
+      "c": "Incorrect. Both sources can independently trigger the pipeline.",
+      "d": "Incorrect. CodePipeline triggers on source changes, not schedules (unless specifically configured)."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum size of the CodePipeline artifact stored in S3?",
+    "opts": {
+      "a": "256 MB",
+      "b": "512 MB",
+      "c": "1 GB",
+      "d": "5 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is larger than 256 MB.",
+      "b": "Correct. The maximum size of artifacts in a source or build action in CodePipeline is 512 MB.",
+      "c": "Incorrect. 1 GB exceeds the limit.",
+      "d": "Incorrect. 5 GB is far above the limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodeDeploy in-place deployment is configured with automatic rollback on deployment failure. During rollback, what actually happens?",
+    "opts": {
+      "a": "CodeDeploy undoes the changes made by the failed deployment",
+      "b": "CodeDeploy creates a new deployment that deploys the last known good revision",
+      "c": "The EC2 instances are terminated and replaced",
+      "d": "CodeDeploy restores from an EBS snapshot"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeDeploy doesn't reverse individual changes.",
+      "b": "Correct. During a rollback, CodeDeploy creates a new deployment that deploys the last known good application revision to the deployment group. It's a forward deployment of the previous version.",
+      "c": "Incorrect. In-place deployments don't terminate instances.",
+      "d": "Incorrect. EBS snapshots are not used in CodeDeploy rollbacks."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeBuild project produces build artifacts that need to be used by multiple subsequent CodePipeline stages. How should the artifacts be configured?",
+    "opts": {
+      "a": "Upload to S3 manually in post_build",
+      "b": "Define multiple output artifacts in the CodeBuild action configuration using secondary-artifacts in buildspec.yml",
+      "c": "Use a single artifact and duplicate it in each stage",
+      "d": "Store artifacts in DynamoDB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual S3 upload bypasses CodePipeline's artifact management.",
+      "b": "Correct. CodeBuild supports secondary-artifacts in buildspec.yml, and CodePipeline can map these as output artifacts for consumption by multiple downstream stages.",
+      "c": "Incorrect. Duplicating artifacts is unnecessary with proper configuration.",
+      "d": "Incorrect. DynamoDB is not used for build artifact storage."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of concurrent deployments per deployment group in CodeDeploy?",
+    "opts": {
+      "a": "1",
+      "b": "5",
+      "c": "10",
+      "d": "Unlimited"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodeDeploy allows only 1 active deployment per deployment group at a time. If a new deployment is triggered while one is in progress, the new deployment may either queue or replace the current one depending on configuration.",
+      "b": "Incorrect. Only 1 deployment can be active per group.",
+      "c": "Incorrect. The limit is 1.",
+      "d": "Incorrect. There is a limit of 1 active deployment per group."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to use CodeBuild to run integration tests against a database. They need the database to be available only during the build. What approach should they use?",
+    "opts": {
+      "a": "Launch an RDS instance before each build",
+      "b": "Use CodeBuild's support for Docker Compose or sidecar containers to spin up a test database during the build",
+      "c": "Use a shared production database",
+      "d": "Store database data in the build cache"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Launching RDS for each build is slow and expensive.",
+      "b": "Correct. CodeBuild with privileged mode can run Docker Compose to start sidecar containers (like a test database) during the build, which are destroyed after the build completes.",
+      "c": "Incorrect. Using production databases for testing is risky.",
+      "d": "Incorrect. Database data cannot be meaningfully stored in build cache."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the purpose of the 'fileExistsBehavior' setting in CodeDeploy?",
+    "opts": {
+      "a": "It determines how to handle files that already exist on the target instance during deployment",
+      "b": "It specifies whether to compress files during transfer",
+      "c": "It controls file permissions after deployment",
+      "d": "It determines the file encoding format"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. fileExistsBehavior can be set to DISALLOW (fail if file exists), OVERWRITE (replace existing files), or RETAIN (keep existing files). This applies during in-place deployments.",
+      "b": "Incorrect. File compression is not controlled by this setting.",
+      "c": "Incorrect. File permissions are handled in lifecycle hook scripts.",
+      "d": "Incorrect. File encoding is not related to this setting."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team uses CodePipeline V2 and wants to trigger the pipeline only when changes are pushed to the 'main' branch and only when files in the 'src/' directory are modified. How is this configured?",
+    "opts": {
+      "a": "Using Lambda trigger function to filter changes",
+      "b": "Using pipeline trigger filters with branch include pattern 'main' and file path include pattern 'src/**'",
+      "c": "Creating a separate repository for src/ files",
+      "d": "Using EventBridge rules with custom pattern matching"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda functions are not needed for this built-in feature.",
+      "b": "Correct. CodePipeline V2 supports trigger filters that allow branch filtering and file path filtering directly in the pipeline configuration.",
+      "c": "Incorrect. Separating repositories adds unnecessary complexity.",
+      "d": "Incorrect. While EventBridge triggers pipelines, V2 pipeline trigger filters provide native file path filtering."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeDeploy deployment to ECS using Blue/Green fails during the AfterAllowTestTraffic hook. What happens?",
+    "opts": {
+      "a": "Production traffic is shifted to the new task set",
+      "b": "The deployment rolls back: the original task set continues serving production traffic and the replacement task set is terminated",
+      "c": "Both task sets continue running indefinitely",
+      "d": "The ECS service is stopped completely"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A hook failure prevents traffic shifting.",
+      "b": "Correct. If any lifecycle hook fails during an ECS Blue/Green deployment, the deployment fails and rolls back. The original task set retains production traffic and the replacement is terminated.",
+      "c": "Incorrect. Failed deployments don't leave both running permanently.",
+      "d": "Incorrect. The ECS service continues with the original task set."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What authentication methods does CodeCommit support for Git operations?",
+    "opts": {
+      "a": "Only HTTPS with username and password",
+      "b": "SSH keys, HTTPS Git credentials, and HTTPS via AWS CLI credential helper",
+      "c": "Only SSH keys",
+      "d": "OAuth tokens only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeCommit supports multiple authentication methods.",
+      "b": "Correct. CodeCommit supports SSH keys (uploaded to IAM), HTTPS Git credentials (generated in IAM), and the AWS CLI credential helper (uses IAM credentials/temporary credentials).",
+      "c": "Incorrect. Multiple methods are supported beyond SSH.",
+      "d": "Incorrect. OAuth tokens are not the authentication mechanism for CodeCommit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to enforce that all CodeCommit pull requests pass CodeBuild tests before merging. How should they configure this?",
+    "opts": {
+      "a": "Use a Lambda function to block merges",
+      "b": "Configure an approval rule template requiring a successful CodeBuild approval",
+      "c": "Use CodePipeline to run tests on every pull request",
+      "d": "Configure branch permissions and add a CodeBuild trigger on pull request events with approval rules"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. While possible, this is not the native approach.",
+      "b": "Incorrect. Approval rule templates require human approvals, not automated build approvals.",
+      "c": "Incorrect. CodePipeline doesn't natively run on pull request events.",
+      "d": "Correct. You configure CodeCommit notification rules or EventBridge to trigger CodeBuild on pull request events, and use approval rules that prevent merging until conditions are met."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of approval rules per pull request in CodeCommit?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "25",
+      "d": "30"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 10 is below the actual limit.",
+      "c": "Incorrect. The limit is slightly higher.",
+      "d": "Correct. CodeCommit allows a maximum of 30 approval rules per pull request (combined from approval rule templates and individual rules)."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to deploy the same application to both staging and production accounts using CodePipeline. The pipeline exists in a central DevOps account. What architecture pattern should they use?",
+    "opts": {
+      "a": "Create separate pipelines in each account",
+      "b": "Use a single pipeline with cross-account roles, CMK key policies granting access to target accounts, and cross-account S3 bucket policies",
+      "c": "Copy artifacts manually between accounts",
+      "d": "Use AWS RAM to share the pipeline"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Separate pipelines don't provide centralized control.",
+      "b": "Correct. Cross-account CodePipeline uses IAM roles in target accounts, KMS key policies allowing target accounts to decrypt artifacts, and S3 bucket policies allowing target accounts access.",
+      "c": "Incorrect. Manual artifact copying defeats the purpose of CI/CD automation.",
+      "d": "Incorrect. CodePipeline cannot be shared via AWS RAM."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In CodeBuild, what does the 'queued timeout' setting control?",
+    "opts": {
+      "a": "How long a build can run before being terminated",
+      "b": "How long a build can wait in the queue before the build project is removed",
+      "c": "How long before artifacts expire",
+      "d": "How long to wait for source code download"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. That's the build timeout, not queued timeout.",
+      "b": "Correct. The queued timeout specifies how long a build can remain in the queue waiting for available compute resources. Default is 8 hours, maximum is 8 hours.",
+      "c": "Incorrect. Artifact expiration is not controlled by queued timeout.",
+      "d": "Incorrect. Source code download time is part of the build execution."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodePipeline execution starts but a new commit is pushed before the current execution completes. What happens with the V2 pipeline type?",
+    "opts": {
+      "a": "The new commit is ignored until the current execution completes",
+      "b": "The current execution is superseded by the newer execution",
+      "c": "Both executions run simultaneously through all stages",
+      "d": "The pipeline fails with a conflict error"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. V2 pipelines don't ignore new changes.",
+      "b": "Correct. In V2 pipelines with SUPERSEDED execution mode, a newer execution supersedes the older one. The older execution is stopped and replaced by the newer one when it reaches the same stage.",
+      "c": "Incorrect. Pipelines don't run multiple executions through the same stage simultaneously by default.",
+      "d": "Incorrect. There's no conflict error; superseding is expected behavior."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What execution modes are available for CodePipeline V2 type?",
+    "opts": {
+      "a": "Sequential only",
+      "b": "SUPERSEDED, QUEUED, and PARALLEL",
+      "c": "FIFO and LIFO",
+      "d": "Synchronous and Asynchronous"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple execution modes are available.",
+      "b": "Correct. V2 pipelines support SUPERSEDED (newer replaces older), QUEUED (executions run one at a time in order), and PARALLEL (all executions run independently).",
+      "c": "Incorrect. FIFO/LIFO are not CodePipeline execution mode names.",
+      "d": "Incorrect. These are not valid execution mode names."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your team needs every pipeline execution to complete without being superseded. Which execution mode should you configure?",
+    "opts": {
+      "a": "SUPERSEDED",
+      "b": "PARALLEL",
+      "c": "QUEUED",
+      "d": "SEQUENTIAL"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. SUPERSEDED allows newer executions to replace older ones.",
+      "b": "Incorrect. PARALLEL runs all executions simultaneously but doesn't guarantee each one completes the full pipeline independently.",
+      "c": "Correct. QUEUED mode ensures each execution runs to completion one at a time in order, so no execution is superseded.",
+      "d": "Incorrect. SEQUENTIAL is not a valid execution mode name."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to use CodeBuild to run tests for pull requests in GitHub without triggering the full CodePipeline. What should they use?",
+    "opts": {
+      "a": "CodePipeline source action with GitHub webhook",
+      "b": "CodeBuild project with GitHub webhook trigger configured for PULL_REQUEST_CREATED and PULL_REQUEST_UPDATED events",
+      "c": "Lambda function polling GitHub API",
+      "d": "CodeCommit mirroring from GitHub"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This triggers the full pipeline, not just tests.",
+      "b": "Correct. CodeBuild can be directly triggered by GitHub webhooks for specific events (PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED, PULL_REQUEST_REOPENED) without needing CodePipeline.",
+      "c": "Incorrect. Polling is inefficient and not the recommended approach.",
+      "d": "Incorrect. Mirroring doesn't help with PR-specific testing."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of tags per CodeDeploy resource?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 25 is below the actual limit.",
+      "c": "Correct. CodeDeploy resources support a maximum of 50 tags per resource.",
+      "d": "Incorrect. 200 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeDeploy deployment to EC2 uses an Auto Scaling group. A scale-out event occurs during deployment. What happens to the new instances?",
+    "opts": {
+      "a": "New instances don't receive the deployment",
+      "b": "New instances receive the last successfully deployed revision, not the in-progress deployment",
+      "c": "New instances receive the in-progress deployment",
+      "d": "The deployment fails"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeDeploy does deploy to new instances.",
+      "b": "Correct. When an Auto Scaling scale-out event occurs during a deployment, CodeDeploy deploys the last successfully deployed revision to the new instances, not the revision currently being deployed.",
+      "c": "Incorrect. The in-progress revision is not deployed to new instances.",
+      "d": "Incorrect. The deployment continues; new instances get the last successful revision."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of instances per deployment in CodeDeploy?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "No fixed limit, but limited by deployment group instance count"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. There isn't a fixed 100 instance limit.",
+      "b": "Incorrect. The limit is not fixed at 500.",
+      "c": "Incorrect. There's no specific 1,000 limit.",
+      "d": "Correct. CodeDeploy doesn't have a specific hard limit on instances per deployment; it deploys to all instances in the deployment group based on tags or Auto Scaling group membership."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company stores sensitive environment variables for CodeBuild in AWS Systems Manager Parameter Store as SecureString parameters. What must be true for CodeBuild to retrieve them?",
+    "opts": {
+      "a": "Parameters must be in the same region, and the CodeBuild service role needs ssm:GetParameters permission and kms:Decrypt on the CMK used to encrypt the parameter",
+      "b": "Only plain text parameters work with CodeBuild",
+      "c": "Parameters must be stored in Secrets Manager instead",
+      "d": "CodeBuild automatically has access to all Parameter Store values"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The CodeBuild service role needs ssm:GetParameters permission and kms:Decrypt on the KMS key used for SecureString encryption. Parameters must be in the same region as the build project.",
+      "b": "Incorrect. CodeBuild supports SecureString parameters.",
+      "c": "Incorrect. Both Parameter Store and Secrets Manager work with CodeBuild.",
+      "d": "Incorrect. Explicit IAM permissions are required."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of custom action types per account per region in CodePipeline?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 25 is below the limit.",
+      "c": "Correct. CodePipeline allows a maximum of 50 custom action types per account per region.",
+      "d": "Incorrect. 100 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants CodeBuild to report test results back to CodePipeline for visualization. What should they configure in buildspec.yml?",
+    "opts": {
+      "a": "artifacts section with test output files",
+      "b": "reports section pointing to test result files (e.g., JUnit XML format)",
+      "c": "post_build commands to upload to S3",
+      "d": "env section with test configuration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Artifacts section is for build output, not test reporting.",
+      "b": "Correct. The reports section in buildspec.yml specifies test result files in supported formats (JUnit, NUnit, Cucumber, TestNG, Visual Studio TRX) that are published to CodeBuild report groups.",
+      "c": "Incorrect. Manual S3 upload doesn't integrate with CodeBuild's reporting.",
+      "d": "Incorrect. The env section doesn't configure test reporting."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodeDeploy deployment to EC2 instances fails because the appspec.yml has a BeforeInstall hook that times out. What is the default timeout for a lifecycle hook script?",
+    "opts": {
+      "a": "5 minutes",
+      "b": "1 hour (3600 seconds)",
+      "c": "30 minutes",
+      "d": "10 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 minutes is below the default timeout.",
+      "b": "Correct. The default timeout for each lifecycle hook script in CodeDeploy is 3600 seconds (1 hour). This can be customized in the appspec.yml file.",
+      "c": "Incorrect. 30 minutes is not the default.",
+      "d": "Incorrect. 10 minutes is below the default."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum timeout you can set for a single lifecycle hook script in CodeDeploy appspec.yml?",
+    "opts": {
+      "a": "1 hour",
+      "b": "2 hours",
+      "c": "3600 seconds (1 hour, same as default)",
+      "d": "3600 seconds (default) but can be set up to 7200 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Correct format; 3600 seconds is the maximum per hook.",
+      "b": "Incorrect. 2 hours exceeds the maximum.",
+      "c": "Correct. The maximum timeout for a lifecycle event hook is 3600 seconds (1 hour). If you need more time, you should restructure the script.",
+      "d": "Incorrect. The maximum cannot exceed 3600 seconds per hook."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team uses CodePipeline and wants to deploy to multiple regions simultaneously. How should they configure this?",
+    "opts": {
+      "a": "Create a single deploy stage with a cross-region action for each target region",
+      "b": "Create separate pipelines in each region",
+      "c": "Use CodeDeploy with multi-region deployment groups",
+      "d": "Use CloudFormation StackSets instead of CodePipeline"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodePipeline supports cross-region actions. You can add deploy actions in a single stage that target different regions. Each cross-region action uses an artifact bucket in the target region.",
+      "b": "Incorrect. Separate pipelines add complexity and lack centralized orchestration.",
+      "c": "Incorrect. CodeDeploy deployment groups don't span multiple regions.",
+      "d": "Incorrect. While StackSets can deploy cross-region, CodePipeline natively supports cross-region actions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When using CodePipeline cross-region actions, what additional infrastructure is required in the target region?",
+    "opts": {
+      "a": "A separate pipeline in the target region",
+      "b": "An S3 artifact bucket in the target region and a CMK for encryption",
+      "c": "A VPC in the target region",
+      "d": "An EC2 instance in the target region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A separate pipeline is not needed.",
+      "b": "Correct. Cross-region actions require an S3 artifact bucket in the target region (created automatically or manually) and an AWS KMS key for artifact encryption in that region.",
+      "c": "Incorrect. A VPC is not specifically required for cross-region actions.",
+      "d": "Incorrect. EC2 instances are not required for cross-region pipeline infrastructure."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your organization enforces that all code changes must be reviewed by at least 2 people before merging in CodeCommit. How should you configure this?",
+    "opts": {
+      "a": "Create a branch policy blocking direct pushes",
+      "b": "Create an approval rule template with numberOfApprovalsNeeded set to 2 and associate it with the repository",
+      "c": "Use IAM policies to deny merge actions",
+      "d": "Configure a CodeBuild project to check approvals"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Branch policies alone don't enforce approval counts.",
+      "b": "Correct. Approval rule templates allow you to set the minimum number of approvals required for pull requests and can be associated with one or more repositories.",
+      "c": "Incorrect. IAM policies can't easily enforce approval counts.",
+      "d": "Incorrect. CodeBuild is for building/testing, not enforcing approval workflows."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What CodePipeline action category does CodeBuild belong to?",
+    "opts": {
+      "a": "Source",
+      "b": "Build",
+      "c": "Deploy",
+      "d": "Test"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Source is for code repositories.",
+      "b": "Correct. CodeBuild is categorized as a Build action provider in CodePipeline. However, it can also be used as a Test action provider.",
+      "c": "Incorrect. Deploy is for deployment services like CodeDeploy.",
+      "d": "Incorrect. While CodeBuild can be used for testing, its primary category is Build."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodeBuild project builds a Node.js application. The build takes 15 minutes, with 10 minutes spent on 'npm install'. How can you reduce build time?",
+    "opts": {
+      "a": "Use a larger compute type",
+      "b": "Enable S3 or local caching for the node_modules directory",
+      "c": "Remove the install phase",
+      "d": "Use a custom AMI"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Larger compute helps with compilation but npm install is network/IO bound.",
+      "b": "Correct. Caching the node_modules directory (using S3 or local cache) avoids downloading dependencies on every build, significantly reducing build time.",
+      "c": "Incorrect. Removing install phase would break the build.",
+      "d": "Incorrect. CodeBuild uses Docker images, not AMIs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team accidentally pushed sensitive credentials to a CodeCommit repository. After removing the credentials in a new commit, are the credentials still accessible?",
+    "opts": {
+      "a": "No, the new commit permanently removes them",
+      "b": "Yes, the credentials exist in the Git history and can be accessed by viewing previous commits",
+      "c": "No, CodeCommit automatically scrubs sensitive data",
+      "d": "Only administrators can see previous commits"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Git retains history including previous commit contents.",
+      "b": "Correct. Even after a new commit removes the credentials, they remain in the Git history. The team should rotate the credentials immediately and consider using git filter-branch or BFG Repo-Cleaner to rewrite history.",
+      "c": "Incorrect. CodeCommit does not automatically detect or scrub sensitive data.",
+      "d": "Incorrect. Anyone with read access can view the Git history."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What happens when a CodePipeline execution is in QUEUED mode and multiple commits arrive rapidly?",
+    "opts": {
+      "a": "Only the latest commit triggers an execution",
+      "b": "Each commit triggers a separate execution that waits in queue and runs in order",
+      "c": "All commits are batched into a single execution",
+      "d": "The pipeline becomes disabled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. In QUEUED mode, each trigger creates a separate queued execution.",
+      "b": "Correct. In QUEUED mode, each source change creates a new execution that waits in queue and executes in FIFO order after the current execution completes.",
+      "c": "Incorrect. Commits are not batched in QUEUED mode.",
+      "d": "Incorrect. The pipeline continues to accept triggers."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team is using CodeBuild with a Windows Server build environment. They notice that builds are significantly more expensive than Linux builds. Why?",
+    "opts": {
+      "a": "Windows builds have additional licensing fees",
+      "b": "Windows Server build environments cost more per minute than Linux environments due to licensing costs included in the pricing",
+      "c": "Windows builds require larger compute types",
+      "d": "Windows builds take longer due to slower startup"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There are no separate licensing fees; the cost is included in the per-minute pricing.",
+      "b": "Correct. Windows Server CodeBuild environments have a higher per-minute cost compared to Linux environments because the Windows licensing cost is included in the build pricing.",
+      "c": "Incorrect. Windows doesn't require larger compute types.",
+      "d": "Incorrect. While startup may differ, the cost difference is in per-minute pricing."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeDeploy appspec.yml for a Lambda deployment specifies an AfterAllowTraffic hook pointing to a validation Lambda function. The validation function needs to call CodeDeploy to report success or failure. What API call must the validation function make?",
+    "opts": {
+      "a": "codedeploy:UpdateDeploymentGroup",
+      "b": "codedeploy:PutLifecycleEventHookExecutionStatus",
+      "c": "codedeploy:StopDeployment",
+      "d": "codedeploy:ContinueDeployment"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This updates deployment group settings, not hook status.",
+      "b": "Correct. The validation Lambda function must call PutLifecycleEventHookExecutionStatus to report Succeeded or Failed back to CodeDeploy for the lifecycle hook to complete.",
+      "c": "Incorrect. StopDeployment stops the entire deployment but isn't the hook response mechanism.",
+      "d": "Incorrect. ContinueDeployment is used for Blue/Green deployments with manual traffic shifting."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What CodeBuild feature allows you to store frequently used build environments for faster startup?",
+    "opts": {
+      "a": "Warm pools",
+      "b": "Reserved capacity",
+      "c": "Build environment cache (Docker layer caching)",
+      "d": "Pre-provisioned environments"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Warm pools are an Auto Scaling feature, not CodeBuild.",
+      "b": "Correct. CodeBuild Reserved Capacity (formerly called Fleet) allows you to maintain a set of pre-provisioned build hosts that eliminate cold-start delays and provide faster build startup.",
+      "c": "Incorrect. Docker layer caching speeds up image builds but doesn't pre-provision environments.",
+      "d": "Incorrect. The official feature name is Reserved Capacity."
+    }
+  }
+]

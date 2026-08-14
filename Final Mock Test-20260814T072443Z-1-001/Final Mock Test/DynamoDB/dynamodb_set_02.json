@@ -1,0 +1,1158 @@
+[
+  {
+    "type": "mcq",
+    "q": "You have a DynamoDB table with provisioned capacity. During peak hours, you experience throttling. Which approach will NOT help resolve this?",
+    "opts": {
+      "a": "Enable DynamoDB Auto Scaling",
+      "b": "Switch to On-Demand capacity mode",
+      "c": "Add more Local Secondary Indexes",
+      "d": "Use exponential backoff in your application"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Auto Scaling can dynamically adjust capacity to handle peak loads.",
+      "b": "On-Demand mode automatically handles any traffic level without throttling.",
+      "c": "Adding LSIs does not resolve throttling; in fact, LSIs share capacity with the base table and can worsen the issue.",
+      "d": "Exponential backoff is a recommended retry strategy to handle throttled requests gracefully."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A DynamoDB table uses a composite primary key. Which statement is TRUE?",
+    "opts": {
+      "a": "The partition key must be unique across all items",
+      "b": "The combination of partition key and sort key must be unique",
+      "c": "The sort key must be unique across all items",
+      "d": "Neither key needs to be unique"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "With a composite key, multiple items can share the same partition key as long as sort keys differ.",
+      "b": "In a composite primary key, the combination of partition key and sort key must be unique for each item.",
+      "c": "Sort keys do not need to be globally unique; they must be unique within a partition key.",
+      "d": "The combination of both keys must be unique to identify each item."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB feature should you use if you need to replicate data across 3 AWS regions for a globally distributed application?",
+    "opts": {
+      "a": "DynamoDB Streams",
+      "b": "DynamoDB Global Tables",
+      "c": "DynamoDB DAX",
+      "d": "DynamoDB Point-in-Time Recovery"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB Streams captures changes but doesn't automatically replicate across regions.",
+      "b": "DynamoDB Global Tables provides fully managed multi-region, multi-active replication across multiple AWS regions.",
+      "c": "DAX is an in-memory cache within a single region, not for cross-region replication.",
+      "d": "PITR is for backup and recovery, not cross-region replication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is required to enable DynamoDB Global Tables?",
+    "opts": {
+      "a": "DynamoDB Streams must be enabled",
+      "b": "The table must use provisioned capacity",
+      "c": "DAX must be configured",
+      "d": "The table must have at least one GSI"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "DynamoDB Streams must be enabled with the 'New and old images' stream view type for Global Tables to function.",
+      "b": "Global Tables work with both provisioned and on-demand capacity modes.",
+      "c": "DAX is not required for Global Tables.",
+      "d": "GSIs are not required for Global Tables."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to calculate the RCUs required for 50 strongly consistent reads per second, with each item being 6 KB. How many RCUs do you need?",
+    "opts": {
+      "a": "50 RCU",
+      "b": "75 RCU",
+      "c": "100 RCU",
+      "d": "150 RCU"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "50 RCU would only cover items up to 4 KB each.",
+      "b": "75 RCU is incorrect; the calculation yields a different result.",
+      "c": "6 KB / 4 KB = 1.5, rounded up to 2 RCUs per read. 50 reads × 2 RCU = 100 RCUs.",
+      "d": "150 RCU is more than needed for this scenario."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need 80 eventually consistent reads per second for items of 12 KB each. How many RCUs are required?",
+    "opts": {
+      "a": "80 RCU",
+      "b": "120 RCU",
+      "c": "160 RCU",
+      "d": "240 RCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "80 RCU does not account for the item size exceeding 4 KB.",
+      "b": "12 KB / 4 KB = 3 RCUs for strongly consistent. For eventually consistent: 3 / 2 = 1.5 RCU per read. 80 × 1.5 = 120 RCUs.",
+      "c": "160 RCU would be for strongly consistent reads, not eventually consistent.",
+      "d": "240 RCU is double what is needed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need 100 writes per second for items of 2.5 KB each. How many WCUs are required?",
+    "opts": {
+      "a": "100 WCU",
+      "b": "200 WCU",
+      "c": "250 WCU",
+      "d": "300 WCU"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "100 WCU only covers 1 KB items.",
+      "b": "200 WCU is insufficient for 2.5 KB items.",
+      "c": "250 WCU is incorrect; 2.5 KB rounds up to 3 KB.",
+      "d": "2.5 KB rounds up to 3 KB. 3 KB / 1 KB = 3 WCUs per write. 100 × 3 = 300 WCUs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need 200 transactional writes per second for items of 2 KB each. How many WCUs are required?",
+    "opts": {
+      "a": "200 WCU",
+      "b": "400 WCU",
+      "c": "600 WCU",
+      "d": "800 WCU"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "200 WCU does not account for item size or transactional overhead.",
+      "b": "400 WCU only accounts for item size (2 WCU per item) but not transactional overhead.",
+      "c": "600 WCU is incorrect.",
+      "d": "2 KB / 1 KB = 2 WCUs per write. Transactional writes cost 2x, so 2 × 2 = 4 WCUs per transactional write. 200 × 4 = 800 WCUs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB Streams view type captures both the old and new images of the item?",
+    "opts": {
+      "a": "KEYS_ONLY",
+      "b": "NEW_IMAGE",
+      "c": "OLD_IMAGE",
+      "d": "NEW_AND_OLD_IMAGES"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "KEYS_ONLY captures only the key attributes of the modified item.",
+      "b": "NEW_IMAGE captures only the new version of the item after modification.",
+      "c": "OLD_IMAGE captures only the old version of the item before modification.",
+      "d": "NEW_AND_OLD_IMAGES captures both the old and new versions of the item, useful for comparing changes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many DynamoDB Streams view types are available?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "4",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "2 is incorrect; there are more view types available.",
+      "b": "3 is incorrect; there are 4 stream view types.",
+      "c": "There are 4 stream view types: KEYS_ONLY, NEW_IMAGE, OLD_IMAGE, and NEW_AND_OLD_IMAGES.",
+      "d": "5 is incorrect; DynamoDB Streams has exactly 4 view types."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is NOT a valid DynamoDB data type?",
+    "opts": {
+      "a": "String",
+      "b": "Number",
+      "c": "Float",
+      "d": "Binary"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "String (S) is a valid scalar data type in DynamoDB.",
+      "b": "Number (N) is a valid scalar data type in DynamoDB that covers integers and floats.",
+      "c": "Float is not a separate DynamoDB data type; floating-point values are stored as Number (N) type.",
+      "d": "Binary (B) is a valid scalar data type in DynamoDB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of DynamoDB Contributor Insights?",
+    "opts": {
+      "a": "To encrypt data at rest",
+      "b": "To identify the most frequently accessed and throttled items in a table",
+      "c": "To create backups",
+      "d": "To replicate data globally"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Encryption at rest is a separate feature, not Contributor Insights.",
+      "b": "DynamoDB Contributor Insights identifies the most accessed and throttled keys, helping diagnose hot key issues.",
+      "c": "Backups are handled by on-demand backup and PITR features.",
+      "d": "Global replication is handled by Global Tables."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which API operation is used to create a DynamoDB table?",
+    "opts": {
+      "a": "PutTable",
+      "b": "CreateTable",
+      "c": "NewTable",
+      "d": "InsertTable"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "PutTable is not a valid DynamoDB API operation.",
+      "b": "CreateTable is the correct DynamoDB API operation to create a new table.",
+      "c": "NewTable is not a valid DynamoDB API operation.",
+      "d": "InsertTable is not a valid DynamoDB API operation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when a DynamoDB item's TTL timestamp expires?",
+    "opts": {
+      "a": "The item is immediately deleted",
+      "b": "The item is typically deleted within 48 hours of expiration",
+      "c": "The item is moved to cold storage",
+      "d": "The item becomes read-only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "TTL deletion is not immediate; it's a background process.",
+      "b": "DynamoDB TTL typically deletes expired items within 48 hours of the expiration time. Items may still appear in reads until actually deleted.",
+      "c": "DynamoDB does not move items to cold storage via TTL.",
+      "d": "Items do not become read-only; they are eventually deleted."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Does DynamoDB TTL consume write capacity when deleting expired items?",
+    "opts": {
+      "a": "Yes, it consumes WCUs from provisioned capacity",
+      "b": "No, TTL deletions do not consume any provisioned throughput",
+      "c": "Yes, but at a reduced rate",
+      "d": "Only in on-demand mode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "TTL deletions are free and do not consume provisioned WCUs.",
+      "b": "DynamoDB TTL deletes expired items in a background process at no cost and without consuming provisioned throughput.",
+      "c": "TTL deletions are completely free regardless of capacity mode.",
+      "d": "TTL deletions are free in both provisioned and on-demand modes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which index type shares throughput capacity with the base table in DynamoDB?",
+    "opts": {
+      "a": "Global Secondary Index (GSI)",
+      "b": "Local Secondary Index (LSI)",
+      "c": "Both GSI and LSI",
+      "d": "Neither GSI nor LSI"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "GSIs have their own independent provisioned throughput separate from the base table.",
+      "b": "LSIs share the provisioned throughput (RCUs and WCUs) with the base table.",
+      "c": "Only LSIs share throughput with the base table; GSIs have separate capacity.",
+      "d": "LSIs do share throughput with the base table."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which statement about GSIs is TRUE?",
+    "opts": {
+      "a": "GSIs must have the same partition key as the base table",
+      "b": "GSIs can have a different partition key and sort key from the base table",
+      "c": "GSIs only support strongly consistent reads",
+      "d": "GSIs share WCUs with the base table"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "GSIs can have a completely different partition key from the base table.",
+      "b": "GSIs can have any attribute as the partition key and sort key, different from the base table's primary key.",
+      "c": "GSIs only support eventually consistent reads, not strongly consistent.",
+      "d": "GSIs have their own provisioned throughput, independent of the base table."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which type of read consistency is supported by Global Secondary Indexes?",
+    "opts": {
+      "a": "Strongly consistent reads only",
+      "b": "Eventually consistent reads only",
+      "c": "Both strongly and eventually consistent reads",
+      "d": "Transactional reads only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "GSIs do not support strongly consistent reads.",
+      "b": "Global Secondary Indexes only support eventually consistent reads.",
+      "c": "Only eventually consistent reads are supported on GSIs; strongly consistent reads are not available.",
+      "d": "Transactional reads are not specific to GSIs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which type of read consistency is supported by Local Secondary Indexes?",
+    "opts": {
+      "a": "Eventually consistent reads only",
+      "b": "Strongly consistent reads only",
+      "c": "Both strongly and eventually consistent reads",
+      "d": "Neither"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "LSIs support more than just eventually consistent reads.",
+      "b": "LSIs support more than just strongly consistent reads.",
+      "c": "Local Secondary Indexes support both strongly consistent and eventually consistent reads.",
+      "d": "LSIs do support read operations with both consistency options."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the storage limit for a partition key value (including all its items) in a table with Local Secondary Indexes?",
+    "opts": {
+      "a": "5 GB",
+      "b": "10 GB",
+      "c": "20 GB",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "5 GB is incorrect; the limit is 10 GB per partition key value when LSIs are present.",
+      "b": "When LSIs are defined, all items with the same partition key (across the table and its LSIs) are limited to 10 GB total.",
+      "c": "20 GB exceeds the partition key value collection size limit.",
+      "d": "There is a 10 GB limit per partition key value collection when LSIs are used."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of data returned by a single BatchGetItem call?",
+    "opts": {
+      "a": "1 MB",
+      "b": "4 MB",
+      "c": "16 MB",
+      "d": "64 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1 MB is the limit for a single Query or Scan call, not BatchGetItem.",
+      "b": "4 MB is the size limit for transactions, not BatchGetItem.",
+      "c": "A single BatchGetItem call can return up to 16 MB of data.",
+      "d": "64 MB exceeds the BatchGetItem data limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum total data size for a DynamoDB transaction (TransactWriteItems or TransactGetItems)?",
+    "opts": {
+      "a": "1 MB",
+      "b": "4 MB",
+      "c": "16 MB",
+      "d": "25 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1 MB is the limit for Query/Scan results, not transactions.",
+      "b": "DynamoDB transactions are limited to 4 MB of data in total across all items in the transaction.",
+      "c": "16 MB is the limit for BatchGetItem, not transactions.",
+      "d": "25 MB is not a DynamoDB limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature allows you to import data from Amazon S3 into a new DynamoDB table?",
+    "opts": {
+      "a": "DynamoDB Streams",
+      "b": "DynamoDB Import from S3",
+      "c": "AWS Data Pipeline",
+      "d": "DynamoDB DAX"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB Streams is for capturing changes, not importing data.",
+      "b": "DynamoDB Import from S3 allows you to import data from S3 into a new DynamoDB table without writing code or managing infrastructure.",
+      "c": "AWS Data Pipeline can be used but is not the native DynamoDB import feature.",
+      "d": "DAX is a caching layer, not an import feature."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which formats are supported for DynamoDB Import from S3?",
+    "opts": {
+      "a": "CSV, DynamoDB JSON, and Amazon Ion",
+      "b": "Only CSV",
+      "c": "Only JSON",
+      "d": "Parquet and Avro"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "DynamoDB Import from S3 supports CSV, DynamoDB JSON, and Amazon Ion formats.",
+      "b": "CSV is one of the supported formats, but not the only one.",
+      "c": "JSON is one of the supported formats, but not the only one.",
+      "d": "Parquet and Avro are not supported formats for DynamoDB Import."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when a GSI's provisioned write capacity is exceeded?",
+    "opts": {
+      "a": "Only GSI queries are throttled",
+      "b": "Writes to the base table are throttled",
+      "c": "The GSI is automatically deleted",
+      "d": "The base table switches to on-demand mode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "The effect is not limited to GSI queries only.",
+      "b": "When a GSI's write capacity is throttled, the base table writes are also throttled because DynamoDB must keep the GSI in sync with the table.",
+      "c": "GSIs are never automatically deleted due to throttling.",
+      "d": "The table does not automatically switch capacity modes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB operation allows you to delete multiple items in a single API call?",
+    "opts": {
+      "a": "DeleteItems",
+      "b": "BatchWriteItem (with DeleteRequest)",
+      "c": "BulkDelete",
+      "d": "RemoveItems"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DeleteItems is not a valid DynamoDB API operation.",
+      "b": "BatchWriteItem supports both PutRequest and DeleteRequest, allowing you to delete up to 25 items in a single call.",
+      "c": "BulkDelete is not a valid DynamoDB API operation.",
+      "d": "RemoveItems is not a valid DynamoDB API operation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the FilterExpression in a DynamoDB Query?",
+    "opts": {
+      "a": "It determines which partition to read from",
+      "b": "It filters results AFTER the query has consumed read capacity",
+      "c": "It reduces the read capacity consumed",
+      "d": "It specifies the sort key condition"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "The partition to read from is determined by KeyConditionExpression, not FilterExpression.",
+      "b": "FilterExpression is applied AFTER items are read from the table. It does not reduce RCU consumption; it only filters the returned results.",
+      "c": "FilterExpression does NOT reduce read capacity; items are still read and capacity is consumed before filtering.",
+      "d": "Sort key conditions are specified in KeyConditionExpression, not FilterExpression."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service can be used to migrate data from a relational database to DynamoDB?",
+    "opts": {
+      "a": "AWS Database Migration Service (DMS)",
+      "b": "AWS CloudFormation",
+      "c": "AWS Config",
+      "d": "Amazon Inspector"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "AWS DMS supports migration from relational databases (MySQL, PostgreSQL, Oracle, etc.) to DynamoDB.",
+      "b": "CloudFormation is for infrastructure provisioning, not data migration.",
+      "c": "AWS Config is for compliance monitoring, not data migration.",
+      "d": "Amazon Inspector is a security assessment service, not a migration tool."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB capacity mode is more cost-effective for predictable, steady workloads?",
+    "opts": {
+      "a": "On-Demand capacity mode",
+      "b": "Provisioned capacity mode with reserved capacity",
+      "c": "Both cost the same",
+      "d": "On-Demand with DAX"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "On-Demand mode is more expensive per request for steady, predictable workloads.",
+      "b": "Provisioned capacity with reserved capacity offers significant cost savings (up to 77%) for predictable workloads.",
+      "c": "They do not cost the same; provisioned is cheaper for steady workloads.",
+      "d": "DAX is a separate caching feature; On-Demand with DAX would still be more expensive for steady workloads."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How often can you switch between DynamoDB provisioned and on-demand capacity modes?",
+    "opts": {
+      "a": "Once per day",
+      "b": "Once per 24 hours",
+      "c": "Unlimited times",
+      "d": "Once per week"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Once per day is close but not the precise AWS term.",
+      "b": "You can switch between provisioned and on-demand capacity modes once every 24 hours.",
+      "c": "Switching is not unlimited; there is a 24-hour cooldown.",
+      "d": "Once per week is incorrect; you can switch every 24 hours."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does DynamoDB use to distribute data across partitions?",
+    "opts": {
+      "a": "Sort key hashing",
+      "b": "Internal hash function applied to the partition key",
+      "c": "Round-robin distribution",
+      "d": "Random allocation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "The sort key is not hashed for partition distribution.",
+      "b": "DynamoDB uses an internal hash function on the partition key value to determine which physical partition stores the data.",
+      "c": "DynamoDB does not use round-robin; it uses deterministic hash-based distribution.",
+      "d": "Distribution is deterministic based on the partition key hash, not random."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the Optimistic Locking strategy in DynamoDB?",
+    "opts": {
+      "a": "Locking the entire table during writes",
+      "b": "Using a version number attribute with conditional writes",
+      "c": "Using DynamoDB Streams to prevent conflicts",
+      "d": "Encrypting items before writing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB does not support table-level locking.",
+      "b": "Optimistic locking uses a version number attribute and ConditionExpression to ensure items haven't changed between read and write operations.",
+      "c": "DynamoDB Streams captures changes but doesn't directly prevent conflicts.",
+      "d": "Encryption is unrelated to concurrency control."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB write operation creates an item if it doesn't exist or completely replaces it if it does?",
+    "opts": {
+      "a": "UpdateItem",
+      "b": "PutItem",
+      "c": "BatchWriteItem",
+      "d": "CreateItem"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "UpdateItem modifies existing attributes or adds new attributes without replacing the entire item.",
+      "b": "PutItem creates a new item or completely replaces an existing item with the same primary key.",
+      "c": "BatchWriteItem uses PutItem internally but is for batch operations.",
+      "d": "CreateItem is not a valid DynamoDB API operation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of nodes in a DynamoDB DAX cluster?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "11",
+      "d": "15"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "5 nodes is below the maximum DAX cluster size.",
+      "b": "10 nodes is below the maximum DAX cluster size.",
+      "c": "A DynamoDB DAX cluster can have a maximum of 11 nodes (1 primary + 10 read replicas).",
+      "d": "15 exceeds the maximum DAX cluster node count."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "DAX is compatible with which DynamoDB API calls?",
+    "opts": {
+      "a": "Only GetItem and Query",
+      "b": "GetItem, BatchGetItem, Query, and Scan",
+      "c": "Only read operations with no write-through",
+      "d": "All DynamoDB operations including CreateTable"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DAX supports more read operations than just GetItem and Query.",
+      "b": "DAX supports GetItem, BatchGetItem, Query, and Scan for reads, and also supports write-through for PutItem, UpdateItem, DeleteItem, and BatchWriteItem.",
+      "c": "DAX supports both read caching and write-through operations.",
+      "d": "DAX does not handle management operations like CreateTable."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default TTL for items in the DAX item cache?",
+    "opts": {
+      "a": "1 minute",
+      "b": "5 minutes",
+      "c": "10 minutes",
+      "d": "30 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1 minute is not the default DAX item cache TTL.",
+      "b": "The default TTL for the DAX item cache is 5 minutes.",
+      "c": "10 minutes is not the default DAX item cache TTL.",
+      "d": "30 minutes is not the default DAX item cache TTL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which caches does DAX maintain?",
+    "opts": {
+      "a": "Item cache only",
+      "b": "Query cache only",
+      "c": "Item cache and query cache",
+      "d": "Item cache, query cache, and write cache"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "DAX maintains more than just the item cache.",
+      "b": "DAX maintains more than just the query cache.",
+      "c": "DAX maintains two caches: an item cache (for GetItem/BatchGetItem) and a query cache (for Query/Scan results).",
+      "d": "DAX does write-through but does not maintain a separate write cache."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You have a table with 20 GB of data and experience uneven access patterns. Which strategy helps distribute load?",
+    "opts": {
+      "a": "Add a random suffix to the partition key (write sharding)",
+      "b": "Increase the item size",
+      "c": "Add more LSIs",
+      "d": "Reduce the number of attributes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Write sharding by adding a random suffix to partition keys distributes data and traffic across more partitions.",
+      "b": "Increasing item size does not help distribute load across partitions.",
+      "c": "Adding LSIs does not solve uneven data distribution.",
+      "d": "Reducing attributes doesn't address partition-level access distribution."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of projected attributes in a DynamoDB secondary index?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "100",
+      "d": "No limit"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "10 is incorrect; more attributes can be projected.",
+      "b": "20 is the number of GSIs allowed, not projected attributes.",
+      "c": "You can project up to 100 non-key attributes into a secondary index when using INCLUDE projection type.",
+      "d": "There is a limit of 100 non-key projected attributes (when using INCLUDE)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What are the three projection types available for DynamoDB secondary indexes?",
+    "opts": {
+      "a": "ALL, KEYS_ONLY, INCLUDE",
+      "b": "FULL, PARTIAL, NONE",
+      "c": "ALL, SOME, NONE",
+      "d": "COMPLETE, KEYS, SELECTED"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "The three projection types are ALL (all attributes), KEYS_ONLY (only key attributes), and INCLUDE (specific non-key attributes).",
+      "b": "FULL, PARTIAL, NONE are not valid DynamoDB projection type names.",
+      "c": "ALL, SOME, NONE are not the correct DynamoDB projection type names.",
+      "d": "COMPLETE, KEYS, SELECTED are not valid projection type names."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a DynamoDB partition key also commonly called?",
+    "opts": {
+      "a": "Primary key",
+      "b": "Hash key",
+      "c": "Range key",
+      "d": "Foreign key"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Primary key can refer to either partition key alone or partition key + sort key combination.",
+      "b": "The partition key is also known as the hash key because DynamoDB uses a hash function on it for data distribution.",
+      "c": "Range key is another name for the sort key, not the partition key.",
+      "d": "Foreign keys are a relational database concept not used in DynamoDB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a DynamoDB sort key also commonly called?",
+    "opts": {
+      "a": "Hash key",
+      "b": "Partition key",
+      "c": "Range key",
+      "d": "Index key"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Hash key is another name for the partition key, not the sort key.",
+      "b": "Partition key is the first component of the primary key, not the sort key.",
+      "c": "The sort key is also known as the range key because it allows range queries on items with the same partition key.",
+      "d": "Index key is not a specific DynamoDB term for the sort key."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which service can you use with DynamoDB Streams to build a search index in Amazon OpenSearch?",
+    "opts": {
+      "a": "Amazon S3",
+      "b": "AWS Lambda",
+      "c": "Amazon RDS",
+      "d": "AWS CloudFormation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "S3 is a storage service and cannot process DynamoDB Streams directly.",
+      "b": "AWS Lambda can process DynamoDB Streams events and push data to Amazon OpenSearch to build a search index.",
+      "c": "RDS is a relational database and not used for processing streams.",
+      "d": "CloudFormation is for infrastructure provisioning, not stream processing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB operation supports optimistic concurrency control?",
+    "opts": {
+      "a": "Scan with FilterExpression",
+      "b": "UpdateItem with ConditionExpression",
+      "c": "Query with ProjectionExpression",
+      "d": "BatchGetItem"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Scan with FilterExpression is for reading and filtering data, not concurrency control.",
+      "b": "UpdateItem with ConditionExpression enables optimistic concurrency by checking conditions (like version number) before writing.",
+      "c": "Query with ProjectionExpression is for read operations, not concurrency control.",
+      "d": "BatchGetItem is a read operation and doesn't support conditional logic."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of a DynamoDB reserved capacity purchase term?",
+    "opts": {
+      "a": "6 months",
+      "b": "1 year or 3 years",
+      "c": "5 years",
+      "d": "Monthly only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "6 months is not a valid DynamoDB reserved capacity term.",
+      "b": "DynamoDB reserved capacity can be purchased for 1-year or 3-year terms with significant cost savings.",
+      "c": "5 years is not a valid DynamoDB reserved capacity term.",
+      "d": "Monthly is not a valid reserved capacity term."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum discount available with DynamoDB reserved capacity (3-year term)?",
+    "opts": {
+      "a": "50%",
+      "b": "60%",
+      "c": "77%",
+      "d": "90%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "50% is less than the maximum available discount.",
+      "b": "60% is less than the maximum available discount.",
+      "c": "DynamoDB reserved capacity offers up to 77% savings with a 3-year term compared to on-demand pricing.",
+      "d": "90% exceeds the maximum discount available for DynamoDB reserved capacity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a serverless SQL query capability to analyze DynamoDB exported data in S3?",
+    "opts": {
+      "a": "Amazon Athena",
+      "b": "Amazon RDS",
+      "c": "Amazon DynamoDB directly",
+      "d": "Amazon ElastiCache"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Amazon Athena can query DynamoDB data exported to S3 using standard SQL without managing any infrastructure.",
+      "b": "RDS is a managed relational database, not for analyzing S3 data.",
+      "c": "DynamoDB itself doesn't provide SQL analytics on exported data.",
+      "d": "ElastiCache is an in-memory caching service, not for SQL analytics."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the WCU cost of a transactional write for a 1.5 KB item?",
+    "opts": {
+      "a": "1 WCU",
+      "b": "2 WCU",
+      "c": "3 WCU",
+      "d": "4 WCU"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "1 WCU doesn't account for rounding up or transactional overhead.",
+      "b": "2 WCU accounts for item size (1.5 rounds to 2) but not transactional overhead.",
+      "c": "3 WCU is incorrect.",
+      "d": "1.5 KB rounds up to 2 KB = 2 WCUs. Transactional writes cost 2x, so 2 × 2 = 4 WCUs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the RCU cost of a transactional read for a 6 KB item?",
+    "opts": {
+      "a": "2 RCU",
+      "b": "3 RCU",
+      "c": "4 RCU",
+      "d": "6 RCU"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "2 RCU is the cost for a strongly consistent read of 6 KB, not transactional.",
+      "b": "3 RCU is incorrect.",
+      "c": "6 KB / 4 KB = 1.5, rounded up to 2 RCUs for strongly consistent. Transactional reads cost 2x, so 2 × 2 = 4 RCUs.",
+      "d": "6 RCU is more than needed for a transactional read of 6 KB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB table class is designed for infrequently accessed data?",
+    "opts": {
+      "a": "DynamoDB Standard",
+      "b": "DynamoDB Standard-Infrequent Access (Standard-IA)",
+      "c": "DynamoDB Glacier",
+      "d": "DynamoDB Archive"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB Standard is the default class for frequently accessed data.",
+      "b": "DynamoDB Standard-IA offers lower storage costs (up to 60% less) for tables with infrequent access patterns.",
+      "c": "There is no DynamoDB Glacier class; Glacier is an S3 storage class.",
+      "d": "There is no DynamoDB Archive class."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How much storage cost savings does DynamoDB Standard-IA provide compared to Standard?",
+    "opts": {
+      "a": "Up to 30%",
+      "b": "Up to 60%",
+      "c": "Up to 80%",
+      "d": "Up to 90%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "30% is less than the actual savings offered by Standard-IA.",
+      "b": "DynamoDB Standard-IA offers up to 60% lower storage costs compared to the Standard table class.",
+      "c": "80% exceeds the actual savings offered by Standard-IA.",
+      "d": "90% exceeds the actual savings offered by Standard-IA."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum capacity for DynamoDB Auto Scaling target?",
+    "opts": {
+      "a": "0 RCU/WCU",
+      "b": "1 RCU/WCU",
+      "c": "5 RCU/WCU",
+      "d": "10 RCU/WCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "0 is not valid; you must have at least 1 unit of capacity.",
+      "b": "The minimum provisioned capacity you can set is 1 RCU and 1 WCU.",
+      "c": "5 is not the minimum; it can be set lower.",
+      "d": "10 is not the minimum; capacity can go as low as 1."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which service provides change data capture (CDC) functionality for DynamoDB?",
+    "opts": {
+      "a": "Amazon Kinesis Data Firehose",
+      "b": "DynamoDB Streams",
+      "c": "Amazon SQS",
+      "d": "Amazon SNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Kinesis Data Firehose is for data delivery, not change data capture from DynamoDB.",
+      "b": "DynamoDB Streams provides change data capture (CDC) by recording item-level changes in near real-time.",
+      "c": "SQS is a message queue service, not specifically for DynamoDB CDC.",
+      "d": "SNS is a notification service, not for change data capture."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Can DynamoDB Streams data be sent to Amazon Kinesis Data Streams?",
+    "opts": {
+      "a": "No, they are completely separate services",
+      "b": "Yes, through Kinesis Data Streams for DynamoDB feature",
+      "c": "Only through AWS Lambda",
+      "d": "Only using AWS Glue"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB does support sending change data to Kinesis Data Streams.",
+      "b": "Amazon Kinesis Data Streams for DynamoDB allows you to capture item-level changes and send them to a Kinesis data stream with longer retention (up to 365 days).",
+      "c": "While Lambda can bridge the two, there is a native feature for this.",
+      "d": "Glue is not required; there is a native integration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum retention period when using Kinesis Data Streams for DynamoDB?",
+    "opts": {
+      "a": "24 hours",
+      "b": "7 days",
+      "c": "30 days",
+      "d": "365 days"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "24 hours is the DynamoDB Streams retention, not Kinesis Data Streams.",
+      "b": "7 days is the default Kinesis retention, but extended retention is available.",
+      "c": "30 days is less than the maximum available retention.",
+      "d": "Kinesis Data Streams supports up to 365 days of data retention."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB feature allows conditional deletes?",
+    "opts": {
+      "a": "TTL",
+      "b": "DeleteItem with ConditionExpression",
+      "c": "BatchWriteItem",
+      "d": "Scan with FilterExpression"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "TTL automatically deletes expired items based on timestamp, not conditions on attributes.",
+      "b": "DeleteItem with ConditionExpression allows you to delete an item only if specified conditions are met.",
+      "c": "BatchWriteItem supports delete operations but does NOT support ConditionExpressions.",
+      "d": "Scan reads data; it does not delete items."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of attributes that can be defined as key schema elements (partition key + sort key) for a DynamoDB table?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "5"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1 attribute is for a simple primary key (partition key only), but composite keys use 2.",
+      "b": "A DynamoDB table key schema can have at most 2 attributes: one partition key and one optional sort key.",
+      "c": "DynamoDB does not support 3 key attributes in the table schema.",
+      "d": "5 attributes cannot be part of the table's key schema."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when you perform a Scan operation with a Limit parameter set to 10?",
+    "opts": {
+      "a": "It returns exactly 10 items matching filter criteria",
+      "b": "It evaluates 10 items and returns those that match any filter",
+      "c": "It scans the entire table and returns the first 10 results",
+      "d": "It throws an error"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Limit doesn't guarantee 10 matching items; it limits how many items are evaluated.",
+      "b": "The Limit parameter controls how many items DynamoDB evaluates (not returns). If a FilterExpression is applied, fewer items may be returned.",
+      "c": "With Limit set to 10, DynamoDB evaluates only 10 items, not the entire table.",
+      "d": "Using Limit is a valid operation and does not throw an error."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB feature enables you to perform read and write operations on encrypted data without decrypting it first?",
+    "opts": {
+      "a": "Client-side encryption with DynamoDB Encryption Client",
+      "b": "Server-side encryption",
+      "c": "VPC Endpoints",
+      "d": "IAM policies"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "The DynamoDB Encryption Client provides client-side encryption, allowing you to encrypt specific attributes before storing them.",
+      "b": "Server-side encryption is transparent and handled by AWS; you don't interact with encrypted data directly.",
+      "c": "VPC Endpoints control network routing, not encryption.",
+      "d": "IAM policies control access permissions, not encryption of data."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to store session data that expires after 24 hours. Which DynamoDB feature is most appropriate?",
+    "opts": {
+      "a": "DynamoDB Streams",
+      "b": "DynamoDB TTL",
+      "c": "DynamoDB DAX",
+      "d": "DynamoDB Global Tables"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB Streams is for capturing changes, not expiring data.",
+      "b": "DynamoDB TTL is ideal for session management; set the expiration timestamp 24 hours from creation and items are automatically deleted.",
+      "c": "DAX is a caching layer and doesn't handle data expiration.",
+      "d": "Global Tables is for multi-region replication, not data expiration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB limit applies to the number of attributes in a key schema across all LSIs and the base table?",
+    "opts": {
+      "a": "Maximum 5 key attributes total",
+      "b": "Maximum 10 key attributes total",
+      "c": "No limit on key attributes",
+      "d": "Maximum 25 key attributes total"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Across the table and all its LSIs, you can have a maximum of 5 different attributes defined as keys (since LSIs share the partition key and each has its own sort key).",
+      "b": "10 is incorrect; the limit is 5.",
+      "c": "There is a limit on key attributes.",
+      "d": "25 is the BatchWriteItem limit, not related to key attributes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is Parallel Scan in DynamoDB?",
+    "opts": {
+      "a": "Running multiple queries simultaneously",
+      "b": "Dividing a table into segments and scanning them concurrently",
+      "c": "Using multiple DAX nodes for reads",
+      "d": "Scanning multiple tables at once"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Parallel Scan is specific to Scan operations, not queries.",
+      "b": "Parallel Scan divides the table into segments and allows multiple workers to scan different segments simultaneously, improving throughput.",
+      "c": "DAX nodes are for caching, not parallel scanning.",
+      "d": "Parallel Scan works on a single table divided into segments, not multiple tables."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service can be used to visualize DynamoDB metrics and set alarms?",
+    "opts": {
+      "a": "AWS CloudWatch",
+      "b": "AWS X-Ray",
+      "c": "AWS CloudTrail",
+      "d": "AWS Config"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Amazon CloudWatch provides metrics, dashboards, and alarms for DynamoDB including consumed capacity, throttled requests, and latency.",
+      "b": "X-Ray is for distributed tracing of application requests, not specifically for DynamoDB metrics.",
+      "c": "CloudTrail logs API calls for auditing, not for visualizing operational metrics.",
+      "d": "AWS Config tracks configuration changes, not operational metrics."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudWatch metric indicates that DynamoDB requests are being throttled?",
+    "opts": {
+      "a": "ConsumedReadCapacityUnits",
+      "b": "ThrottledRequests",
+      "c": "SuccessfulRequestLatency",
+      "d": "SystemErrors"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "ConsumedReadCapacityUnits shows capacity used but not throttling.",
+      "b": "ThrottledRequests metric shows the number of requests that exceeded the provisioned throughput limits.",
+      "c": "SuccessfulRequestLatency measures response time, not throttling.",
+      "d": "SystemErrors indicates internal DynamoDB errors, not throttling."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when you delete a DynamoDB table?",
+    "opts": {
+      "a": "Only the data is deleted; the table structure remains",
+      "b": "The table, all items, all LSIs, and all GSIs are permanently deleted",
+      "c": "The table is moved to a recycle bin for 30 days",
+      "d": "Only GSIs are deleted; the base table remains"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Deleting a table removes everything, not just data.",
+      "b": "When you delete a DynamoDB table, the table, all items, all local and global secondary indexes are permanently and irreversibly deleted.",
+      "c": "DynamoDB does not have a recycle bin; deletion is permanent.",
+      "d": "The entire table and all associated indexes are deleted."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB operation can modify multiple attributes of an existing item without replacing the entire item?",
+    "opts": {
+      "a": "PutItem",
+      "b": "UpdateItem",
+      "c": "BatchWriteItem",
+      "d": "ReplaceItem"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "PutItem replaces the entire item; it does not selectively modify attributes.",
+      "b": "UpdateItem allows you to add, modify, or remove individual attributes of an existing item without affecting other attributes.",
+      "c": "BatchWriteItem only supports PutItem and DeleteItem, not partial updates.",
+      "d": "ReplaceItem is not a valid DynamoDB API operation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to store items larger than 400 KB in DynamoDB. What is the recommended approach?",
+    "opts": {
+      "a": "Compress the item to fit within 400 KB",
+      "b": "Store the large data in S3 and save the S3 object URL in DynamoDB",
+      "c": "Split the item into multiple DynamoDB items",
+      "d": "All of the above are valid approaches"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Compression is one valid approach if it brings the size under 400 KB.",
+      "b": "Storing large objects in S3 with a reference in DynamoDB is the most common pattern for large data.",
+      "c": "Splitting items across multiple DynamoDB items with the same partition key is also a valid approach.",
+      "d": "All three approaches are valid strategies for handling data larger than 400 KB in DynamoDB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of DynamoDB tables that can participate in a single Global Table?",
+    "opts": {
+      "a": "2 regions",
+      "b": "5 regions",
+      "c": "All available AWS regions",
+      "d": "10 regions"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Global Tables are not limited to just 2 regions.",
+      "b": "5 regions is not the limit for Global Tables.",
+      "c": "DynamoDB Global Tables can replicate across all available AWS regions where DynamoDB is available.",
+      "d": "10 regions is not a hard limit; Global Tables support all DynamoDB regions."
+    }
+  }
+]

@@ -1,0 +1,835 @@
+[
+  {
+    "type": "MCQ",
+    "q": "You have an Auto Scaling Group with a Target Tracking policy set to maintain CPU at 50%. The group currently has 4 instances with average CPU at 80%. How many instances will ASG approximately scale to?",
+    "opts": {
+      "a": "5 instances",
+      "b": "6 instances",
+      "c": "7 instances",
+      "d": "8 instances"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The formula is: current capacity × (current metric / target metric) = 4 × (80/50) = 6.4, rounded up to 7.",
+      "b": "Incorrect – 6 would not bring CPU down to 50%.",
+      "c": "Correct – ASG calculates: 4 × (80/50) = 6.4, rounds up to 7 instances to bring average CPU close to 50%.",
+      "d": "Incorrect – 8 would over-provision."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An EC2 instance has an IAM role with S3 read-only access. You attach a second IAM policy granting S3 full access to the role. What is the effective permission?",
+    "opts": {
+      "a": "S3 read-only (most restrictive wins)",
+      "b": "S3 full access (union of all policies)",
+      "c": "No access (policies conflict)",
+      "d": "Depends on the order policies were attached"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – IAM uses union of permissions; allow + allow = allow.",
+      "b": "Correct – IAM evaluates all policies attached to a role. The effective permission is the union of all Allow statements. Full access includes read-only, so the result is S3 full access.",
+      "c": "Incorrect – Policies don't conflict; allows are additive.",
+      "d": "Incorrect – Order of attachment doesn't matter in IAM evaluation."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an io2 EBS volume of 100 GiB. What is the maximum IOPS you can provision for this volume?",
+    "opts": {
+      "a": "5,000 IOPS",
+      "b": "16,000 IOPS",
+      "c": "50,000 IOPS",
+      "d": "64,000 IOPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – io2 supports 500:1 ratio. 100 × 500 = 50,000.",
+      "b": "Incorrect – 16,000 is the max for gp3.",
+      "c": "Correct – io2 supports 500 IOPS per GiB. For 100 GiB: 100 × 500 = 50,000 IOPS.",
+      "d": "Incorrect – 64,000 is the overall io2 max, but the per-GiB ratio limits this volume to 50,000."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company runs a multi-tier application with web servers in public subnets and database servers in private subnets. The database instances need to download patches. Which architecture is correct?",
+    "opts": {
+      "a": "Attach an Internet Gateway directly to the private subnet",
+      "b": "Place a NAT Gateway in the public subnet and add a route from the private subnet to the NAT Gateway",
+      "c": "Move the database instances to the public subnet temporarily",
+      "d": "Use VPC Peering to connect to the internet"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – You cannot attach an IGW directly to a subnet; it attaches to the VPC. Private subnets should not route to IGW directly.",
+      "b": "Correct – NAT Gateway in the public subnet allows outbound internet access for private subnet instances while keeping them inaccessible from the internet.",
+      "c": "Incorrect – Moving databases to public subnets is a security risk.",
+      "d": "Incorrect – VPC Peering connects VPCs, not to the internet."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You configure an NLB with cross-zone load balancing disabled. AZ-A has 2 targets and AZ-B has 8 targets. What percentage of traffic does each target in AZ-A receive?",
+    "opts": {
+      "a": "5%",
+      "b": "10%",
+      "c": "25%",
+      "d": "50%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Without cross-zone, each AZ gets 50% of traffic. AZ-A's 2 targets split 50%, so each gets 25%.",
+      "b": "Incorrect – 10% would be the case if traffic was evenly split across all 10 targets (cross-zone enabled).",
+      "c": "Correct – Without cross-zone LB, each AZ gets 50% of traffic. AZ-A has 2 targets: 50% ÷ 2 = 25% per target.",
+      "d": "Incorrect – 50% is the total for AZ-A, not per target."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "With the same NLB configuration (cross-zone disabled, AZ-A: 2 targets, AZ-B: 8 targets), what percentage does each target in AZ-B receive?",
+    "opts": {
+      "a": "5%",
+      "b": "6.25%",
+      "c": "10%",
+      "d": "12.5%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – 50% ÷ 8 = 6.25%, not 5%.",
+      "b": "Correct – AZ-B gets 50% of traffic. With 8 targets: 50% ÷ 8 = 6.25% per target.",
+      "c": "Incorrect – 10% would require cross-zone enabled (100% ÷ 10 targets).",
+      "d": "Incorrect – 12.5% is incorrect arithmetic."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to ensure that an EBS volume's data is encrypted with a customer-managed key and the key is rotated annually. Which service combination should you use?",
+    "opts": {
+      "a": "EBS encryption with AWS managed key (aws/ebs)",
+      "b": "EBS encryption with a customer-managed CMK in KMS with automatic rotation enabled",
+      "c": "Client-side encryption before writing to EBS",
+      "d": "S3 server-side encryption with KMS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – AWS managed keys don't allow you to control rotation schedule or key policies.",
+      "b": "Correct – Use a customer-managed CMK in AWS KMS with automatic key rotation enabled (rotates annually). Assign this key when creating/encrypting the EBS volume.",
+      "c": "Incorrect – Client-side encryption adds complexity and doesn't leverage EBS native encryption.",
+      "d": "Incorrect – S3 encryption is irrelevant to EBS volumes."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An application on EC2 processes messages from an SQS queue. During peak hours, messages take too long to process. You want ASG to scale based on queue depth. Which metric and scaling approach is best?",
+    "opts": {
+      "a": "Use ApproximateNumberOfMessagesVisible directly as the metric in Target Tracking",
+      "b": "Create a custom metric: ApproximateNumberOfMessagesVisible / Number of instances, and use Target Tracking",
+      "c": "Use CPU utilization as the scaling metric",
+      "d": "Use Scheduled Scaling based on peak hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Using raw queue depth doesn't account for current fleet size and leads to over/under-scaling.",
+      "b": "Correct – The recommended approach is backlog-per-instance metric (messages ÷ fleet size) with Target Tracking, ensuring proportional scaling.",
+      "c": "Incorrect – CPU may not correlate with queue depth; processing might be I/O bound.",
+      "d": "Incorrect – Scheduled Scaling doesn't react to actual demand variations."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have a Spread Placement Group across 3 AZs. What is the maximum number of instances you can run in this placement group?",
+    "opts": {
+      "a": "7",
+      "b": "14",
+      "c": "21",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 7 is the limit per AZ, not total.",
+      "b": "Incorrect – 14 would be for 2 AZs.",
+      "c": "Correct – Spread Placement Group allows 7 instances per AZ. Across 3 AZs: 7 × 3 = 21 instances maximum.",
+      "d": "Incorrect – There is a hard limit of 7 per AZ."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are designing a solution that requires exactly-once processing and need EC2 instances behind an NLB. The client sends a request and expects the response from the same instance. Which NLB feature ensures this?",
+    "opts": {
+      "a": "Cross-zone load balancing",
+      "b": "Client IP preservation",
+      "c": "Sticky Sessions (source IP affinity)",
+      "d": "TLS termination"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Cross-zone distributes traffic but doesn't pin clients to targets.",
+      "b": "Incorrect – IP preservation passes the client IP but doesn't ensure stickiness.",
+      "c": "Correct – NLB supports sticky sessions based on source IP, ensuring requests from the same client IP are routed to the same target.",
+      "d": "Incorrect – TLS termination handles encryption, not session affinity."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An EC2 instance has a public IP and is in a subnet with a route to an Internet Gateway, but cannot reach the internet. Security Group allows all outbound. What could be the issue?",
+    "opts": {
+      "a": "The NACL is denying outbound traffic",
+      "b": "The instance doesn't have an Elastic IP",
+      "c": "The IGW is not attached to the VPC",
+      "d": "Both A and C are possible causes"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – This is one possible cause but not the only one.",
+      "b": "Incorrect – A public IP (auto-assigned) is sufficient; EIP is not required.",
+      "c": "Incorrect – This is one possible cause but not the only one.",
+      "d": "Correct – Both NACL deny rules (stateless, must allow return traffic) and an unattached IGW would prevent internet connectivity."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are using an ALB with two target groups: TG-A (weight 80) and TG-B (weight 20). If TG-B becomes unhealthy, what happens to traffic?",
+    "opts": {
+      "a": "All traffic is routed to TG-A",
+      "b": "Traffic continues to be sent to TG-B (unhealthy targets)",
+      "c": "The ALB returns 503 for 20% of requests",
+      "d": "The ALB automatically adjusts weights"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – ALB does not automatically redirect weighted traffic to healthy target groups.",
+      "b": "Incorrect – ALB won't send traffic to unhealthy targets within TG-B.",
+      "c": "Correct – If all targets in TG-B are unhealthy, the ALB returns HTTP 503 for the portion of traffic (20%) that would have gone to TG-B.",
+      "d": "Incorrect – ALB does not auto-adjust weights between target groups."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You need to implement end-to-end encryption for an application behind an ALB. Which approach achieves this?",
+    "opts": {
+      "a": "Terminate SSL at ALB only",
+      "b": "Use HTTPS listener on ALB and re-encrypt to targets using HTTPS target group (SSL re-encryption)",
+      "c": "Use TCP passthrough on ALB",
+      "d": "Use NLB with TCP listener for SSL passthrough"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Terminating at ALB means traffic to targets is unencrypted.",
+      "b": "Correct – Configure ALB HTTPS listener, then set the target group protocol to HTTPS. ALB re-encrypts traffic to backends, achieving end-to-end encryption.",
+      "c": "Incorrect – ALB doesn't support TCP passthrough; it operates at Layer 7.",
+      "d": "Incorrect – NLB TCP passthrough works but the question asks about ALB specifically."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are running an HPC workload and need instances to communicate with extremely low latency. Which combination provides the best performance?",
+    "opts": {
+      "a": "Spread Placement Group + Enhanced Networking",
+      "b": "Cluster Placement Group + Elastic Fabric Adapter (EFA)",
+      "c": "Partition Placement Group + ENA",
+      "d": "No Placement Group + EFA"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Spread distributes instances across hardware, increasing latency.",
+      "b": "Correct – Cluster Placement Group provides lowest latency between instances, and EFA provides OS-bypass for HPC/MPI workloads with maximum throughput.",
+      "c": "Incorrect – Partition separates instances across racks, not optimal for lowest latency.",
+      "d": "Incorrect – Without Cluster Placement Group, instances may not be on the same rack."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An EC2 instance is reporting high steal time in its CPU metrics. What does this indicate?",
+    "opts": {
+      "a": "The instance is being throttled due to CPU credit exhaustion (T-series)",
+      "b": "The physical host's CPU is oversubscribed and the hypervisor is allocating CPU time to other instances",
+      "c": "The instance has a malware infection",
+      "d": "The EBS volume is causing CPU wait"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – CPU credit exhaustion shows as reduced performance, but steal time specifically indicates hypervisor contention.",
+      "b": "Correct – High steal time means the hypervisor is taking CPU cycles for other VMs on the same host. Consider upgrading to a larger instance or dedicated tenancy.",
+      "c": "Incorrect – Steal time is a virtualization metric, not a security indicator.",
+      "d": "Incorrect – EBS issues show as I/O wait, not steal time."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have a Reserved Instance for m5.xlarge in us-east-1. Can the RI discount apply to two m5.large instances in the same region?",
+    "opts": {
+      "a": "No, RI discounts are fixed to the exact instance type purchased",
+      "b": "Yes, if the RI has regional scope (instance size flexibility applies within the same family)",
+      "c": "Only if the RI is Convertible",
+      "d": "Only if both instances are in the same AZ"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Regional scope RIs support instance size flexibility.",
+      "b": "Correct – Regional scope Standard/Convertible RIs for Linux/Unix with default tenancy support instance size flexibility. m5.xlarge (4 normalization units) can cover two m5.large (2 units each).",
+      "c": "Incorrect – Both Standard and Convertible Regional RIs support size flexibility.",
+      "d": "Incorrect – Regional scope applies across all AZs in the region."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What are the normalization factors for EC2 instance sizes? (nano=1, micro=?, small=?, medium=?, large=?, xlarge=?)",
+    "opts": {
+      "a": "nano=1, micro=2, small=4, medium=8, large=16, xlarge=32",
+      "b": "nano=1, micro=2, small=2, medium=4, large=8, xlarge=16",
+      "c": "nano=0.25, micro=0.5, small=1, medium=2, large=4, xlarge=8",
+      "d": "nano=1, micro=1, small=2, medium=4, large=8, xlarge=16"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – These factors are too large.",
+      "b": "Incorrect – The starting point for nano is 0.25, not 1.",
+      "c": "Correct – AWS normalization factors: nano=0.25, micro=0.5, small=1, medium=2, large=4, xlarge=8, 2xlarge=16, etc.",
+      "d": "Incorrect – Nano starts at 0.25, not 1."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to create an encrypted AMI from an unencrypted snapshot shared from another account. What is the correct process?",
+    "opts": {
+      "a": "Directly register the unencrypted snapshot as an encrypted AMI",
+      "b": "Copy the shared snapshot to your account with encryption enabled, then create the AMI from the encrypted copy",
+      "c": "Ask the source account to encrypt the snapshot first",
+      "d": "Launch an instance from the snapshot, then create an encrypted AMI"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – You cannot directly register a snapshot as an encrypted AMI without copying.",
+      "b": "Correct – Copy the shared snapshot to your account with encryption, then register/create the AMI from the encrypted copy.",
+      "c": "Incorrect – While possible, you can encrypt during the copy in your own account.",
+      "d": "Incorrect – This is more complex than necessary."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An organization uses AWS Organizations with an SCP that denies ec2:RunInstances for instance types larger than m5.xlarge. A user in a member account has AdministratorAccess. Can they launch an m5.4xlarge?",
+    "opts": {
+      "a": "Yes, AdministratorAccess overrides SCPs",
+      "b": "No, SCPs are the maximum permissions boundary and cannot be overridden by IAM policies",
+      "c": "Yes, but only in the management account",
+      "d": "Depends on whether the user has MFA enabled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – SCPs cannot be overridden by any IAM policy in member accounts.",
+      "b": "Correct – SCPs define the maximum permissions boundary. Even with AdministratorAccess, if the SCP denies m5.4xlarge, the user cannot launch it.",
+      "c": "Incorrect – SCPs don't apply to the management account, but the question asks about a member account.",
+      "d": "Incorrect – MFA is irrelevant to SCP enforcement."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are designing a disaster recovery solution with RPO < 1 hour and RTO < 15 minutes for EC2-based workloads. Which strategy is most appropriate?",
+    "opts": {
+      "a": "Backup & Restore",
+      "b": "Pilot Light",
+      "c": "Warm Standby",
+      "d": "Multi-site Active/Active"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Backup & Restore has RTO of hours, not minutes.",
+      "b": "Incorrect – Pilot Light typically has RTO of 10-30 minutes but may not guarantee < 15 minutes for complex workloads.",
+      "c": "Correct – Warm Standby keeps a scaled-down version running that can be quickly scaled up, meeting RPO < 1 hour and RTO < 15 minutes.",
+      "d": "Incorrect – Multi-site is more expensive than needed for these requirements."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have a gp3 volume with 3,000 IOPS baseline and need 10,000 IOPS. The volume is 200 GiB. What is the additional monthly cost for provisioned IOPS? (Rate: $0.005/provisioned IOPS-month above baseline)",
+    "opts": {
+      "a": "$15/month",
+      "b": "$35/month",
+      "c": "$50/month",
+      "d": "$65/month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Additional IOPS = 10,000 - 3,000 = 7,000. Cost = 7,000 × $0.005 = $35.",
+      "b": "Correct – gp3 baseline is 3,000 IOPS. Additional IOPS needed: 10,000 - 3,000 = 7,000. Cost: 7,000 × $0.005 = $35/month.",
+      "c": "Incorrect – $50 would be for 10,000 additional IOPS.",
+      "d": "Incorrect – Calculation doesn't match."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An EC2 instance with an attached IAM role tries to access a DynamoDB table but receives AccessDeniedException. The IAM role policy allows dynamodb:*. What could cause this?",
+    "opts": {
+      "a": "The instance's Security Group is blocking DynamoDB access",
+      "b": "A resource-based policy on DynamoDB is denying access",
+      "c": "An IAM permissions boundary on the role is restricting DynamoDB access",
+      "d": "Both B and C are possible"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Security Groups control network traffic; DynamoDB access via IAM is API-based and not affected by SGs.",
+      "b": "Incorrect – DynamoDB does not support resource-based policies.",
+      "c": "Correct – A permissions boundary attached to the IAM role limits the maximum permissions. Even if the role policy allows dynamodb:*, the boundary can restrict it.",
+      "d": "Incorrect – DynamoDB doesn't have resource-based policies, so only C is valid."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You need to migrate a large EC2 instance (r5.metal with 768 GiB RAM) to another AZ with minimal downtime. The instance uses instance store volumes for temporary data and EBS for persistent data. What is the best approach?",
+    "opts": {
+      "a": "Stop and start the instance (it will move to the new AZ)",
+      "b": "Create an AMI, launch in the new AZ, update DNS/ELB, and terminate the original",
+      "c": "Use EC2 instance migration API",
+      "d": "Hibernate the instance and resume in the new AZ"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Stop/start does not move instances between AZs.",
+      "b": "Correct – Create AMI (EBS snapshots), launch new instance in target AZ, update routing (DNS/ALB), then terminate the original. Instance store data must be handled separately.",
+      "c": "Incorrect – There is no EC2 instance migration API for cross-AZ moves.",
+      "d": "Incorrect – Hibernate doesn't move instances between AZs, and 768 GiB RAM exceeds hibernate limits."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your ALB is configured with a listener rule that forwards /api/* to Target Group A and /* to Target Group B. A request comes for /api/v1/users. Where is it routed?",
+    "opts": {
+      "a": "Target Group B (default rule)",
+      "b": "Target Group A (path pattern match)",
+      "c": "Both Target Groups",
+      "d": "Request is rejected with 404"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The specific path rule /api/* matches before the default /* rule.",
+      "b": "Correct – ALB evaluates rules in priority order. /api/v1/users matches /api/*, so traffic is routed to Target Group A.",
+      "c": "Incorrect – Only one target group is selected per request (unless using weighted forwarding).",
+      "d": "Incorrect – The request matches a rule and is forwarded."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are using an ASG with a step scaling policy. The policy has: +1 instance when CPU 60-70%, +2 instances when CPU 70-80%, +3 instances when CPU > 80%. Current CPU jumps from 55% to 85%. How many instances are added?",
+    "opts": {
+      "a": "1 instance",
+      "b": "2 instances",
+      "c": "3 instances",
+      "d": "6 instances (sum of all steps)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Step scaling uses the current metric value, not incremental steps.",
+      "b": "Incorrect – At 85%, the >80% step applies.",
+      "c": "Correct – Step Scaling evaluates the current metric value against the step thresholds. At 85% CPU, it falls in the >80% step, adding 3 instances.",
+      "d": "Incorrect – Steps are not cumulative; only the matching step is applied."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An EC2 instance in a private subnet needs to access an S3 bucket without traversing the internet. What is the most efficient solution?",
+    "opts": {
+      "a": "NAT Gateway",
+      "b": "VPC Gateway Endpoint for S3",
+      "c": "VPC Interface Endpoint for S3",
+      "d": "AWS Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – NAT Gateway routes through the internet, which the question explicitly wants to avoid.",
+      "b": "Correct – A VPC Gateway Endpoint for S3 provides private access to S3 without traversing the internet, at no additional charge. It's a route table entry.",
+      "c": "Incorrect – Interface Endpoints (PrivateLink) also work but incur hourly and data charges; Gateway Endpoints are free for S3.",
+      "d": "Incorrect – Direct Connect is for on-premises connectivity, not VPC-to-S3."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between a VPC Gateway Endpoint and a VPC Interface Endpoint?",
+    "opts": {
+      "a": "Gateway Endpoints use route tables and are free (S3/DynamoDB); Interface Endpoints use ENIs and have hourly charges",
+      "b": "They are the same thing with different names",
+      "c": "Gateway Endpoints work for all AWS services; Interface Endpoints only for S3",
+      "d": "Interface Endpoints are faster than Gateway Endpoints"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Gateway Endpoints are free, route-table based, and support only S3 and DynamoDB. Interface Endpoints use ENIs (PrivateLink), support many services, but have hourly and data processing charges.",
+      "b": "Incorrect – They are architecturally different.",
+      "c": "Incorrect – Gateway Endpoints only support S3 and DynamoDB.",
+      "d": "Incorrect – Performance depends on the service, not the endpoint type."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to restrict an EC2 instance's IAM role so it can only access a specific S3 bucket when the request originates from a specific VPC endpoint. How do you achieve this?",
+    "opts": {
+      "a": "Use Security Groups on the S3 bucket",
+      "b": "Use a bucket policy with aws:sourceVpce condition key",
+      "c": "Use a NACL to block non-VPC traffic to S3",
+      "d": "Use IAM policy with aws:sourceIp condition"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – S3 buckets don't have Security Groups.",
+      "b": "Correct – S3 bucket policies support the aws:sourceVpce condition key to restrict access to only traffic coming through a specific VPC endpoint.",
+      "c": "Incorrect – NACLs work at the subnet level and can't filter S3 API traffic by VPC endpoint.",
+      "d": "Incorrect – aws:sourceIp doesn't apply when traffic goes through a VPC endpoint (private IPs are used)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your application uses EBS Multi-Attach io2 volume shared between 4 instances. Which file system should you use to prevent data corruption?",
+    "opts": {
+      "a": "ext4",
+      "b": "NTFS",
+      "c": "A cluster-aware file system (e.g., GFS2, OCFS2)",
+      "d": "XFS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – ext4 is not cluster-aware and would cause data corruption with concurrent writes from multiple instances.",
+      "b": "Incorrect – NTFS is not cluster-aware in this context.",
+      "c": "Correct – Multi-Attach requires a cluster-aware file system (GFS2, OCFS2) or application-level coordination to prevent concurrent write corruption.",
+      "d": "Incorrect – XFS is not cluster-aware."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You run a critical production workload. You want to be notified if an EC2 instance's system status check fails and have it automatically recovered. What CloudWatch alarm configuration is needed?",
+    "opts": {
+      "a": "Metric: StatusCheckFailed_System, Action: Recover + SNS notification",
+      "b": "Metric: CPUUtilization, Action: Terminate",
+      "c": "Metric: StatusCheckFailed_Instance, Action: Reboot",
+      "d": "Metric: NetworkIn, Action: Stop"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Create a CloudWatch alarm on StatusCheckFailed_System metric with Recover action (moves instance to healthy hardware) and SNS action for notification.",
+      "b": "Incorrect – CPU utilization is not related to system health checks.",
+      "c": "Incorrect – Instance status check failure is typically resolved by reboot, but the question asks about system status check.",
+      "d": "Incorrect – NetworkIn is a performance metric, not a health indicator."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an ASG that uses a Launch Template with a mixed instances policy. The On-Demand base capacity is 2, and the On-Demand percentage above base is 25%. If the desired capacity is 10, how many On-Demand and Spot instances will there be?",
+    "opts": {
+      "a": "4 On-Demand, 6 Spot",
+      "b": "3 On-Demand, 7 Spot",
+      "c": "4 On-Demand (2 base + 2 from 25%), 6 Spot",
+      "d": "5 On-Demand, 5 Spot"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Let's calculate: Base = 2 On-Demand. Remaining = 10 - 2 = 8. 25% of 8 = 2 On-Demand. Total On-Demand = 4, Spot = 6.",
+      "b": "Incorrect – Calculation shows 4 On-Demand.",
+      "c": "Correct – On-Demand base = 2. Above base: 8 remaining × 25% = 2 On-Demand. Total: 4 On-Demand + 6 Spot = 10.",
+      "d": "Incorrect – 5 On-Demand doesn't match the formula."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your EC2 instance has an encrypted EBS volume using CMK-A. You want to change the encryption key to CMK-B. How do you accomplish this?",
+    "opts": {
+      "a": "Modify the volume's KMS key directly",
+      "b": "Create a snapshot, copy the snapshot re-encrypting with CMK-B, create a new volume from the re-encrypted snapshot",
+      "c": "Detach the volume and re-attach with a different key",
+      "d": "Use AWS KMS ReEncrypt API on the volume"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – You cannot change the KMS key on an existing encrypted volume.",
+      "b": "Correct – Create a snapshot of the volume, copy the snapshot with the new CMK-B, then create a new volume from the re-encrypted snapshot and attach it.",
+      "c": "Incorrect – Detaching/reattaching doesn't change the encryption key.",
+      "d": "Incorrect – KMS ReEncrypt works on data keys/ciphertext, not directly on EBS volumes."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An application team reports that their EC2 instances behind an ALB are receiving uneven traffic. Some instances handle 3x more requests. What is the most likely cause?",
+    "opts": {
+      "a": "Security Groups are misconfigured",
+      "b": "Sticky Sessions are enabled, causing session affinity to overloaded instances",
+      "c": "The instances are in different VPCs",
+      "d": "EBS volumes are different sizes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Security Groups would either allow or deny traffic, not distribute unevenly.",
+      "b": "Correct – Sticky Sessions pin users to specific instances. If some users have long sessions or more activity, those instances receive disproportionate traffic.",
+      "c": "Incorrect – Instances behind an ALB must be in the same VPC.",
+      "d": "Incorrect – EBS volume size doesn't affect traffic distribution."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to implement blue/green deployment using EC2 and an ALB. Which approach provides instant traffic switching?",
+    "opts": {
+      "a": "Change the ALB listener rule to point to the green target group",
+      "b": "Modify DNS records in Route 53",
+      "c": "Use Auto Scaling to replace instances one by one",
+      "d": "Detach the blue instances from the ALB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Modifying the ALB listener rule's forward action to the green target group provides instant traffic switching without DNS propagation delay.",
+      "b": "Incorrect – DNS changes have TTL delays and are not instant.",
+      "c": "Incorrect – Rolling replacement is not blue/green; it's a rolling deployment.",
+      "d": "Incorrect – Detaching instances is disruptive and not a clean switch mechanism."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an EBS volume with 10,000 baseline IOPS (gp2, ~3.3 TiB) experiencing I/O latency spikes. CloudWatch shows the volume hitting its IOPS limit. What is the most cost-effective solution?",
+    "opts": {
+      "a": "Increase volume size to get more baseline IOPS",
+      "b": "Convert to gp3 and provision 16,000 IOPS independently of size",
+      "c": "Convert to io2 for 64,000 IOPS",
+      "d": "Add instance store for overflow"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Increasing gp2 size is expensive for just more IOPS.",
+      "b": "Correct – Converting to gp3 lets you independently provision IOPS up to 16,000 without increasing volume size, often at lower cost than an equivalent gp2.",
+      "c": "Incorrect – io2 is expensive; if 16,000 IOPS suffices, gp3 is more cost-effective.",
+      "d": "Incorrect – Instance store adds complexity and is ephemeral."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to restrict EC2 instances to only be launched in specific subnets. Which IAM condition key would you use in the policy?",
+    "opts": {
+      "a": "ec2:VpcId",
+      "b": "ec2:Subnet",
+      "c": "ec2:SubnetID (not a valid key)",
+      "d": "ec2:Vpc"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – You can use the ec2:Vpc condition key (or ec2:Subnet for some actions) to restrict launches to specific VPCs/subnets. The condition key ec2:Vpc or resource ARN conditions on subnet are the approach.",
+      "b": "Incorrect – ec2:Subnet is sometimes valid but ec2:Vpc is more commonly used with resource-level ARN restrictions.",
+      "c": "Incorrect – ec2:SubnetID is not an official condition key name.",
+      "d": "Incorrect – ec2:Vpc is the correct form."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A compliance requirement states that EC2 instances must not have public IP addresses. How can you enforce this across an organization?",
+    "opts": {
+      "a": "Disable auto-assign public IP at the subnet level and use SCP to deny ec2:RunInstances with a public IP",
+      "b": "Only use Security Groups to block inbound traffic",
+      "c": "Use VPC Flow Logs to detect public IPs",
+      "d": "Set up CloudWatch alarms for public IP assignment"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Disable auto-assign public IP on subnets and use an SCP/IAM policy with condition key ec2:AssociatePublicIpAddress = false to prevent public IP assignment.",
+      "b": "Incorrect – Security Groups don't prevent public IP assignment.",
+      "c": "Incorrect – Flow Logs detect traffic, not prevent public IP assignment (detective, not preventive).",
+      "d": "Incorrect – CloudWatch alarms are reactive, not preventive."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your t3.medium instance is consistently using 40% CPU for 24 hours. The baseline for t3.medium is 20%. What happens to CPU credits?",
+    "opts": {
+      "a": "Credits accumulate because usage is below burst threshold",
+      "b": "Credits are depleted because sustained usage (40%) exceeds the baseline (20%)",
+      "c": "Credits remain unchanged",
+      "d": "The instance is throttled immediately"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Credits accumulate only when usage is BELOW the baseline.",
+      "b": "Correct – Since 40% exceeds the 20% baseline, the instance is consuming credits continuously. If credits reach zero and unlimited mode is off, it's throttled to 20%.",
+      "c": "Incorrect – Credits change based on usage vs. baseline.",
+      "d": "Incorrect – Throttling occurs only when credits are fully exhausted."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A t3.large instance earns 36 CPU credits per hour. Each credit provides 1 minute of 100% CPU on one vCPU. The instance has 2 vCPUs. What is the maximum burst duration at 100% CPU on both vCPUs if the credit balance is 864?",
+    "opts": {
+      "a": "432 minutes",
+      "b": "864 minutes",
+      "c": "216 minutes",
+      "d": "7.2 hours"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – 100% on both vCPUs consumes 2 credits per minute. 864 credits ÷ 2 = 432 minutes of burst at full utilization.",
+      "b": "Incorrect – 864 minutes would be at 100% on only 1 vCPU.",
+      "c": "Incorrect – 216 would be at 100% on 4 vCPUs.",
+      "d": "Incorrect – 7.2 hours = 432 minutes, which is correct. Both A and D are equivalent. A is the most precise answer."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are using EBS Fast Snapshot Restore in 3 AZs. The charge is $0.75 per DSU (Data Set Unit) per hour. If FSR is enabled on a 500 GiB snapshot for 24 hours across 3 AZs, what is the cost?",
+    "opts": {
+      "a": "$18",
+      "b": "$36",
+      "c": "$54",
+      "d": "$72"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Must account for 3 AZs.",
+      "b": "Incorrect – 1 AZ × 24 hours × $0.75 = $18. For 3 AZs: $18 × 3 = $54.",
+      "c": "Correct – FSR charges per AZ per hour: $0.75 × 24 hours × 3 AZs = $54. (Each snapshot-AZ combination is 1 DSU.)",
+      "d": "Incorrect – $72 assumes 4 AZs."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An EC2 instance can't communicate with another instance in the same subnet. Both instances have correct Security Group rules. What should you check next?",
+    "opts": {
+      "a": "Internet Gateway configuration",
+      "b": "NACL rules for the subnet (both inbound and outbound, as NACLs are stateless)",
+      "c": "Route 53 DNS records",
+      "d": "EBS volume encryption settings"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – IGW is for internet access; instances in the same subnet communicate directly.",
+      "b": "Correct – NACLs are stateless and evaluated for both directions. If NACL denies the traffic or return traffic, communication fails even within the same subnet.",
+      "c": "Incorrect – DNS is not relevant for direct IP communication within a subnet.",
+      "d": "Incorrect – EBS encryption doesn't affect network communication."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have a Spot Fleet with the 'lowestPrice' allocation strategy across 4 instance pools. What happens if the lowest-price pool runs out of capacity?",
+    "opts": {
+      "a": "The fleet fails entirely",
+      "b": "The fleet launches instances from the next lowest-price pool that has available capacity",
+      "c": "The fleet waits until capacity is available in the lowest-price pool",
+      "d": "The fleet converts to On-Demand"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The fleet continues to fulfill capacity from other pools.",
+      "b": "Correct – With the lowestPrice strategy, if one pool lacks capacity, Spot Fleet moves to the next cheapest pool to fulfill the target capacity.",
+      "c": "Incorrect – Spot Fleet actively seeks capacity across all specified pools.",
+      "d": "Incorrect – Spot Fleet doesn't automatically convert to On-Demand (unless configured with On-Demand fallback)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which Spot Fleet allocation strategy is recommended for workloads that need the highest availability by diversifying across instance pools?",
+    "opts": {
+      "a": "lowestPrice",
+      "b": "diversified",
+      "c": "capacityOptimized",
+      "d": "capacityOptimizedPrioritized"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – lowestPrice concentrates in cheapest pools, increasing interruption risk.",
+      "b": "Incorrect – diversified spreads evenly but doesn't optimize for available capacity.",
+      "c": "Correct – capacityOptimized launches instances from pools with the most available capacity, reducing the likelihood of interruption.",
+      "d": "Incorrect – capacityOptimizedPrioritized adds priority ordering but capacityOptimized is the standard recommendation."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You need to share an encrypted AMI with another AWS account. The AMI uses a customer-managed CMK. What additional step is required?",
+    "opts": {
+      "a": "No additional steps; sharing the AMI automatically shares the key",
+      "b": "Grant the target account permission to use the CMK via KMS key policy",
+      "c": "Re-encrypt the AMI with the AWS managed key first",
+      "d": "The target account must create their own copy of the CMK"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Sharing the AMI does not automatically share KMS key access.",
+      "b": "Correct – You must modify the KMS key policy (or add a grant) to allow the target account to use the CMK for decrypting the AMI's underlying snapshots.",
+      "c": "Incorrect – You don't need to change the key; just share access.",
+      "d": "Incorrect – CMKs cannot be copied between accounts; you share access."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An application uses an NLB with a TCP listener on port 443 for SSL passthrough. The backend instances handle TLS termination. How does the NLB health check verify instance health?",
+    "opts": {
+      "a": "HTTP health check on port 443",
+      "b": "TCP connection check on port 443 (3-way handshake)",
+      "c": "HTTPS health check with certificate validation",
+      "d": "NLB cannot perform health checks for TCP listeners"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – For TCP listeners with SSL passthrough, NLB default uses TCP health checks, not HTTP.",
+      "b": "Correct – For TCP listeners, NLB performs a TCP connection check (SYN, SYN-ACK, ACK) to verify the target is accepting connections on the configured port.",
+      "c": "Incorrect – NLB TCP health checks don't validate certificates.",
+      "d": "Incorrect – NLB does perform health checks for TCP listeners."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You observe that EBS volume metrics show high queue length (> 1 per IOPS). What does this indicate, and what is the solution?",
+    "opts": {
+      "a": "The volume is over-provisioned; reduce IOPS",
+      "b": "The volume is under-provisioned for the workload; increase IOPS or switch to a higher-performance volume type",
+      "c": "The instance network is saturated",
+      "d": "The snapshot is in progress, causing temporary delays"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – High queue length means requests are waiting, indicating under-provisioning.",
+      "b": "Correct – A high I/O queue depth relative to provisioned IOPS indicates the volume cannot keep up. Solution: provision more IOPS (gp3/io2) or use a larger/faster volume.",
+      "c": "Incorrect – EBS uses dedicated network bandwidth on EBS-optimized instances; queue length is an I/O metric.",
+      "d": "Incorrect – While snapshots can impact performance, persistent high queue length suggests provisioning issues."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have 3 Reserved Instances (m5.large, Regional scope) and run 5 m5.large instances. 2 of the instances are in AZ-A and 3 are in AZ-B. How is the RI discount applied?",
+    "opts": {
+      "a": "Only to instances in the AZ where RIs were purchased",
+      "b": "To any 3 of the 5 instances across both AZs (Regional RI flexibility)",
+      "c": "Only to the 2 instances in AZ-A",
+      "d": "Equally split across all 5 instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Regional scope RIs are not locked to a specific AZ.",
+      "b": "Correct – Regional scope RIs apply their discount to any matching instances across all AZs in the region. 3 RIs cover any 3 of the 5 instances.",
+      "c": "Incorrect – Regional RIs float across all AZs.",
+      "d": "Incorrect – RI discount is applied to specific instances (3 out of 5), not split."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A developer creates an EBS snapshot and tags it for backup retention. The snapshot is 500 GiB but only 100 GiB of data has changed since the last snapshot. What is the storage cost based on?",
+    "opts": {
+      "a": "Full 500 GiB",
+      "b": "Only the 100 GiB of incremental/changed data",
+      "c": "Average of 500 GiB and 100 GiB (300 GiB)",
+      "d": "Nothing; first snapshot is free"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – EBS snapshots are incremental after the first snapshot.",
+      "b": "Correct – EBS snapshots are incremental. Only changed blocks since the last snapshot are stored, so you pay for ~100 GiB of new/modified data.",
+      "c": "Incorrect – Billing is based on actual incremental data.",
+      "d": "Incorrect – Even the first snapshot costs based on data stored."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to use EC2 Hibernate for a production instance. Which of the following is NOT a requirement for hibernation?",
+    "opts": {
+      "a": "Root volume must be EBS (encrypted)",
+      "b": "Instance RAM must be less than 150 GiB",
+      "c": "Instance must use an instance store root volume",
+      "d": "The instance must be launched with hibernation enabled"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – This IS a requirement (root must be encrypted EBS).",
+      "b": "Incorrect – This IS a requirement (RAM ≤ 150 GiB).",
+      "c": "Correct – Instance store root volume CANNOT support hibernation. Root volume MUST be an encrypted EBS volume large enough to hold the RAM contents.",
+      "d": "Incorrect – This IS a requirement; hibernation must be enabled at launch time."
+    }
+  }
+]

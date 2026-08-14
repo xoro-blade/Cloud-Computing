@@ -1,0 +1,546 @@
+[
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of repositories allowed per AWS account in CodeCommit by default?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "500"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1,000 is not the default limit for CodeCommit repositories.",
+      "b": "Correct. The default maximum is 5,000 repositories per AWS account, and this limit can be increased via Service Quotas.",
+      "c": "Incorrect. 10,000 exceeds the default limit.",
+      "d": "Incorrect. 500 is too low; the actual default is 5,000."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of files allowed in a single commit in AWS CodeCommit?",
+    "opts": {
+      "a": "50",
+      "b": "200",
+      "c": "100",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 50.",
+      "b": "Incorrect. 200 exceeds the actual limit.",
+      "c": "Correct. AWS CodeCommit allows a maximum of 100 files in a single commit.",
+      "d": "Incorrect. 500 is far above the actual limit of 100."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of open pull requests allowed in a CodeCommit repository?",
+    "opts": {
+      "a": "500",
+      "b": "2,000",
+      "c": "1,000",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 500.",
+      "b": "Incorrect. 2,000 exceeds the actual maximum.",
+      "c": "Correct. CodeCommit allows a maximum of 1,000 open pull requests per repository.",
+      "d": "Incorrect. 100 is too low; the actual limit is 1,000."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of references allowed in a single push to CodeCommit?",
+    "opts": {
+      "a": "2,000",
+      "b": "4,000",
+      "c": "1,000",
+      "d": "10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The actual limit is 4,000.",
+      "b": "Correct. A maximum of 4,000 references (create, delete, and update) are allowed in a single push, with no limit on the overall number of references in the repository.",
+      "c": "Incorrect. 1,000 is below the actual limit.",
+      "d": "Incorrect. 10,000 exceeds the actual limit of 4,000."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What availability SLA do AWS CodeCommit, CodeBuild, CodePipeline, and CodeDeploy maintain?",
+    "opts": {
+      "a": "99.0%",
+      "b": "99.99%",
+      "c": "99.9%",
+      "d": "99.95%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The SLA is higher than 99.0%.",
+      "b": "Incorrect. While they exceed 99.9%, the stated SLA commitment is 99.9%.",
+      "c": "Correct. All four Code* services maintain a 99.9% uptime SLA.",
+      "d": "Incorrect. The stated SLA is 99.9%, not 99.95%."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "In how many AWS regions is CodeCommit currently available?",
+    "opts": {
+      "a": "15",
+      "b": "25",
+      "c": "29",
+      "d": "32"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. CodeCommit is available in more regions.",
+      "b": "Incorrect. The number is higher than 25.",
+      "c": "Correct. AWS CodeCommit is currently available in 29 regions.",
+      "d": "Incorrect. 32 exceeds the current availability."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default timeout for a CodeDeploy deployment action in CodePipeline?",
+    "opts": {
+      "a": "1 day",
+      "b": "3 days",
+      "c": "5 days",
+      "d": "7 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 day is not the timeout for CodeDeploy actions.",
+      "b": "Incorrect. 3 days is the timeout for CloudFormation deployment actions, not CodeDeploy.",
+      "c": "Correct. CodeDeploy and CodeDeploy ECS (blue/green) deployment actions have a 5-day timeout.",
+      "d": "Incorrect. 7 days exceeds the actual timeout."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default timeout for a CloudFormation deployment action in CodePipeline?",
+    "opts": {
+      "a": "1 day",
+      "b": "3 days",
+      "c": "5 days",
+      "d": "7 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudFormation deployment actions have a longer timeout.",
+      "b": "Correct. CloudFormation deployment actions have a default timeout of 3 days.",
+      "c": "Incorrect. 5 days is the timeout for CodeDeploy actions.",
+      "d": "Incorrect. 7 days is not a valid timeout for any standard CodePipeline action."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default timeout for an AWS Lambda invoke action in CodePipeline?",
+    "opts": {
+      "a": "1 hour",
+      "b": "12 hours",
+      "c": "24 hours",
+      "d": "48 hours"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The Lambda invoke action timeout is longer than 1 hour.",
+      "b": "Incorrect. 12 hours is not the correct timeout.",
+      "c": "Correct. AWS Lambda invoke actions in CodePipeline have a 24-hour timeout.",
+      "d": "Incorrect. 48 hours exceeds the actual Lambda invoke action timeout."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of stages allowed in a single CodePipeline?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "50",
+      "d": "No limit"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can have more than 10 stages.",
+      "b": "Incorrect. The limit is higher than 20.",
+      "c": "Correct. CodePipeline allows a maximum of 50 stages per pipeline.",
+      "d": "Incorrect. There is a fixed limit of 50 stages."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of actions per stage in CodePipeline?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "10",
+      "d": "30"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 20.",
+      "b": "Correct. CodePipeline allows up to 50 actions per stage.",
+      "c": "Incorrect. 10 is too low.",
+      "d": "Incorrect. The limit is 50, not 30."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum individual file size that can be stored in a CodeCommit repository (via API)?",
+    "opts": {
+      "a": "2 GB",
+      "b": "6 MB",
+      "c": "No specific limit beyond Git's inherent limits",
+      "d": "100 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 2 GB is the total repository size recommendation, not individual file size.",
+      "b": "Correct. The maximum size of a single file in a CodeCommit API operation (such as PutFile) is 6 MB.",
+      "c": "Incorrect. There is a specific limit on file size for API operations.",
+      "d": "Incorrect. 100 MB is not the correct file size limit for CodeCommit API operations."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of pipelines per region per account in CodePipeline by default?",
+    "opts": {
+      "a": "100",
+      "b": "300",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The default limit is higher than 100.",
+      "b": "Incorrect. 300 is not the default limit.",
+      "c": "Incorrect. The limit is higher than 500.",
+      "d": "Correct. The default maximum number of pipelines per region per account in CodePipeline is 1,000."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum build timeout that can be configured for a CodeBuild project?",
+    "opts": {
+      "a": "1 hour",
+      "b": "8 hours (480 minutes)",
+      "c": "24 hours",
+      "d": "12 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 hour is below the maximum.",
+      "b": "Correct. The maximum build timeout for a CodeBuild project is 8 hours (480 minutes). The minimum is 5 minutes and the default is 60 minutes.",
+      "c": "Incorrect. 24 hours exceeds the maximum allowed.",
+      "d": "Incorrect. 12 hours exceeds the 8-hour maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum build timeout that can be configured for a CodeBuild project?",
+    "opts": {
+      "a": "1 minute",
+      "b": "5 minutes",
+      "c": "10 minutes",
+      "d": "15 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 minute is below the minimum allowed.",
+      "b": "Correct. The minimum build timeout for CodeBuild is 5 minutes.",
+      "c": "Incorrect. The minimum is lower than 10 minutes.",
+      "d": "Incorrect. 15 minutes is above the minimum allowed."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default concurrent build limit per account in CodeBuild?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "60",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The default is higher than 10.",
+      "b": "Incorrect. 20 is below the default limit.",
+      "c": "Correct. The default concurrent build limit is 60 per account. This can be increased via Service Quotas.",
+      "d": "Incorrect. 100 exceeds the default (though it can be increased)."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of CodeDeploy deployment groups per application?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "100",
+      "d": "1,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 10.",
+      "b": "Correct. CodeDeploy allows a maximum of 25 deployment groups per application by default.",
+      "c": "Incorrect. 100 exceeds the default limit.",
+      "d": "Incorrect. 1,000 is the limit for applications per account, not deployment groups per application."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of CodeDeploy applications per account per region?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "5,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Incorrect. 500 is below the actual limit.",
+      "c": "Correct. CodeDeploy allows a maximum of 1,000 applications per account per region.",
+      "d": "Incorrect. 5,000 exceeds the default limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of webhooks per CodePipeline per region?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "150",
+      "d": "300"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is much higher than 10.",
+      "b": "Incorrect. 50 is below the actual limit.",
+      "c": "Incorrect. 150 is below the limit.",
+      "d": "Correct. CodePipeline allows up to 300 webhooks per region per account."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default timeout for a manual approval action in CodePipeline?",
+    "opts": {
+      "a": "24 hours",
+      "b": "7 days",
+      "c": "30 days",
+      "d": "No timeout"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual approval actions have a longer timeout.",
+      "b": "Correct. Manual approval actions in CodePipeline have a default timeout of 7 days. If not approved or rejected within 7 days, the action times out and the pipeline execution fails.",
+      "c": "Incorrect. 30 days exceeds the actual timeout.",
+      "d": "Incorrect. Manual approval actions do have a timeout."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of tags per CodeDeploy resource?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 25 is below the actual limit.",
+      "c": "Correct. CodeDeploy resources support a maximum of 50 tags per resource.",
+      "d": "Incorrect. 200 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of custom action types per account per region in CodePipeline?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 25 is below the limit.",
+      "c": "Correct. CodePipeline allows a maximum of 50 custom action types per account per region.",
+      "d": "Incorrect. 100 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default timeout for each lifecycle hook script in CodeDeploy?",
+    "opts": {
+      "a": "5 minutes",
+      "b": "1 hour (3600 seconds)",
+      "c": "30 minutes",
+      "d": "10 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 minutes is below the default timeout.",
+      "b": "Correct. The default timeout for each lifecycle hook script in CodeDeploy is 3600 seconds (1 hour). This can be customized in the appspec.yml file.",
+      "c": "Incorrect. 30 minutes is not the default.",
+      "d": "Incorrect. 10 minutes is below the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of approval rules per pull request in CodeCommit?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "25",
+      "d": "30"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 10 is below the actual limit.",
+      "c": "Incorrect. The limit is slightly higher.",
+      "d": "Correct. CodeCommit allows a maximum of 30 approval rules per pull request (combined from approval rule templates and individual rules)."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum size of CodePipeline artifacts stored in S3?",
+    "opts": {
+      "a": "256 MB",
+      "b": "512 MB",
+      "c": "1 GB",
+      "d": "5 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is larger than 256 MB.",
+      "b": "Correct. The maximum size of artifacts in a source or build action in CodePipeline is 512 MB.",
+      "c": "Incorrect. 1 GB exceeds the limit.",
+      "d": "Incorrect. 5 GB is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many active users are included in the CodeCommit free tier?",
+    "opts": {
+      "a": "1",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The free tier includes more than 1 user.",
+      "b": "Incorrect. 3 is below the actual free tier allowance.",
+      "c": "Correct. The CodeCommit free tier includes 5 active users per month with 50 GB storage and 10,000 Git requests.",
+      "d": "Incorrect. 10 exceeds the free tier allowance."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the free tier for CodeBuild?",
+    "opts": {
+      "a": "No free tier",
+      "b": "100 build minutes per month for general1.small instance",
+      "c": "1,000 build minutes per month",
+      "d": "50 builds per month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeBuild does have a free tier.",
+      "b": "Correct. The CodeBuild free tier includes 100 build minutes per month for the general1.small compute type.",
+      "c": "Incorrect. 1,000 minutes exceeds the free tier.",
+      "d": "Incorrect. The free tier is time-based, not build-count-based."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the free tier for CodePipeline V1 type?",
+    "opts": {
+      "a": "No free tier",
+      "b": "1 free active pipeline per month forever",
+      "c": "5 free pipelines per month",
+      "d": "Free for 12 months only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodePipeline V1 does have a free tier.",
+      "b": "Correct. AWS offers 1 free active V1 type pipeline per month. Additional pipelines are charged at $1 per active pipeline per month.",
+      "c": "Incorrect. Only 1 pipeline is free.",
+      "d": "Incorrect. The free tier for CodePipeline is perpetual, not limited to 12 months."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default build timeout for a CodeBuild project?",
+    "opts": {
+      "a": "30 minutes",
+      "b": "60 minutes",
+      "c": "120 minutes",
+      "d": "480 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 30 minutes is below the default.",
+      "b": "Correct. The default build timeout for CodeBuild is 60 minutes (1 hour).",
+      "c": "Incorrect. 120 minutes exceeds the default.",
+      "d": "Incorrect. 480 minutes is the maximum, not the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum number of stages required in a CodePipeline?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "4"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single stage is not enough for a valid pipeline.",
+      "b": "Correct. A CodePipeline requires a minimum of 2 stages (e.g., Source and Build, or Source and Deploy).",
+      "c": "Incorrect. While common, 3 stages is not the minimum requirement.",
+      "d": "Incorrect. 4 stages exceed the minimum requirement."
+    }
+  },
+  {
+    "type": "instance-based",
+    "q": "What compute types are available in AWS CodeBuild?",
+    "opts": {
+      "a": "Small, Medium, Large only",
+      "b": "build.general1.small, build.general1.medium, build.general1.large, build.general1.2xlarge",
+      "c": "t2.micro, t2.small, t2.medium",
+      "d": "On-demand and Spot only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not the official naming conventions.",
+      "b": "Correct. CodeBuild offers build.general1.small, build.general1.medium, build.general1.large, and build.general1.2xlarge compute types.",
+      "c": "Incorrect. These are EC2 instance types, not CodeBuild compute types.",
+      "d": "Incorrect. These are pricing models, not compute types."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of concurrent deployments per deployment group in CodeDeploy?",
+    "opts": {
+      "a": "1",
+      "b": "5",
+      "c": "10",
+      "d": "Unlimited"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodeDeploy allows only 1 active deployment per deployment group at a time.",
+      "b": "Incorrect. Only 1 deployment can be active per group.",
+      "c": "Incorrect. The limit is 1.",
+      "d": "Incorrect. There is a limit of 1 active deployment per group."
+    }
+  }
+]

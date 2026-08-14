@@ -1,0 +1,1124 @@
+[
+  {
+    "type": "number-based",
+    "q": "What is the maximum item size in Amazon DynamoDB?",
+    "opts": {
+      "a": "64 KB",
+      "b": "256 KB",
+      "c": "400 KB",
+      "d": "1 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 64 KB is below the actual item size limit.",
+      "b": "Incorrect. 256 KB is below the actual limit.",
+      "c": "Correct. DynamoDB has a 400 KB item size limit. [5]",
+      "d": "Incorrect. 1 MB exceeds the DynamoDB item size limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much data can one Read Capacity Unit (RCU) handle per second for strongly consistent reads?",
+    "opts": {
+      "a": "1 KB",
+      "b": "4 KB",
+      "c": "8 KB",
+      "d": "16 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 KB is the WCU size, not RCU.",
+      "b": "Correct. 1 RCU represents one strongly consistent read per second for items up to 4 KB. [1][9]",
+      "c": "Incorrect. 8 KB would represent 2 eventually consistent reads.",
+      "d": "Incorrect. 16 KB exceeds the single RCU capacity."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much data can one Write Capacity Unit (WCU) handle per second?",
+    "opts": {
+      "a": "1 KB",
+      "b": "4 KB",
+      "c": "8 KB",
+      "d": "16 KB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 1 WCU represents one write per second for items up to 1 KB. [1][9]",
+      "b": "Incorrect. 4 KB is the RCU size for reads.",
+      "c": "Incorrect. 8 KB exceeds the WCU capacity.",
+      "d": "Incorrect. 16 KB is far above the WCU capacity."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many eventually consistent reads can one RCU handle per second for items up to 4 KB?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "4",
+      "d": "8"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 is for strongly consistent reads.",
+      "b": "Correct. One RCU provides two eventually consistent reads per second for items up to 4 KB. [9]",
+      "c": "Incorrect. 4 exceeds the actual capacity.",
+      "d": "Incorrect. 8 is far above the actual capacity."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "By what percentage did AWS reduce DynamoDB on-demand pricing in November 2024?",
+    "opts": {
+      "a": "25%",
+      "b": "35%",
+      "c": "50%",
+      "d": "60%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The reduction was larger than 25%.",
+      "b": "Incorrect. 35% is below the actual reduction.",
+      "c": "Correct. After the November 2024 price reduction, on-demand costs dropped by 50%. [9]",
+      "d": "Incorrect. 60% exceeds the actual reduction."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the current on-demand Write Request Unit (WRU) price for Standard Table Class in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.625 per million",
+      "b": "$1.25 per million",
+      "c": "$2.50 per million",
+      "d": "$5.00 per million"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. $0.625 is below the actual price.",
+      "b": "Correct. Write Request Units cost $1.25 per million for the Standard Table Class after the November 2024 price reduction. [9]",
+      "c": "Incorrect. $2.50 was the pre-reduction price.",
+      "d": "Incorrect. $5.00 is far above the actual price."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the current on-demand Read Request Unit (RRU) price for Standard Table Class in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.125 per million",
+      "b": "$0.25 per million",
+      "c": "$0.50 per million",
+      "d": "$1.00 per million"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. $0.125 is below the actual price.",
+      "b": "Correct. Read Request Units cost $0.25 per million for the Standard Table Class. [9]",
+      "c": "Incorrect. $0.50 was the pre-reduction price.",
+      "d": "Incorrect. $1.00 is far above the actual price."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the on-demand WRU price for Standard-Infrequent Access (Standard-IA) Table Class?",
+    "opts": {
+      "a": "$1.25 per million",
+      "b": "$1.56 per million",
+      "c": "$2.00 per million",
+      "d": "$2.50 per million"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. $1.25 is the Standard class price.",
+      "b": "Correct. Standard-IA Table Class charges $1.56 per million WRUs. [9]",
+      "c": "Incorrect. $2.00 is not the correct price.",
+      "d": "Incorrect. $2.50 exceeds the actual price."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the configurable PITR recovery period range in DynamoDB?",
+    "opts": {
+      "a": "1 to 7 days",
+      "b": "1 to 14 days",
+      "c": "1 to 35 days",
+      "d": "7 to 90 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The maximum is longer than 7 days.",
+      "b": "Incorrect. 14 days is below the maximum.",
+      "c": "Correct. DynamoDB now supports configurable PITR recovery periods between 1 and 35 days. [2][3]",
+      "d": "Incorrect. The minimum is 1 day, not 7."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long does DynamoDB retain system backup after a PITR-enabled table is deleted?",
+    "opts": {
+      "a": "7 days",
+      "b": "14 days",
+      "c": "30 days",
+      "d": "35 days"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The retention is longer than 7 days.",
+      "b": "Incorrect. 14 days is below the actual retention.",
+      "c": "Incorrect. 30 days is below the actual retention.",
+      "d": "Correct. When you delete a PITR-enabled table, DynamoDB automatically creates a system backup and retains it for 35 days at no additional cost. [7]"
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default quota for number of tables per account and Region in DynamoDB?",
+    "opts": {
+      "a": "256",
+      "b": "500",
+      "c": "1,000",
+      "d": "2,500"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 256 was the old default before March 2022.",
+      "b": "Incorrect. 500 is below the current default.",
+      "c": "Incorrect. 1,000 is below the current default.",
+      "d": "Correct. DynamoDB increased the default table quota from 256 to 2,500 tables per account per Region in March 2022. [2]"
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of concurrent table management operations in DynamoDB?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "250",
+      "d": "500"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 50 was the old limit before March 2022.",
+      "b": "Incorrect. 100 is below the current limit.",
+      "c": "Incorrect. 250 is below the current limit.",
+      "d": "Correct. DynamoDB increased concurrent table management operations from 50 to 500. [2]"
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What cost savings can the Standard-IA table class provide compared to Standard?",
+    "opts": {
+      "a": "Up to 30%",
+      "b": "Up to 40%",
+      "c": "Up to 50%",
+      "d": "Up to 60%"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The savings are higher than 30%.",
+      "b": "Incorrect. 40% is below the actual savings.",
+      "c": "Incorrect. 50% is below the actual savings.",
+      "d": "Correct. You can reduce DynamoDB costs by up to 60% by using the Standard-IA table class for infrequently accessed data. [2]"
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much discount does Database Savings Plans provide for DynamoDB on-demand throughput?",
+    "opts": {
+      "a": "Up to 10%",
+      "b": "Up to 12%",
+      "c": "Up to 18%",
+      "d": "Up to 25%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The discount is higher than 10%.",
+      "b": "Incorrect. 12% is the discount for provisioned capacity.",
+      "c": "Correct. Database Savings Plans provide up to 18% discount on DynamoDB on-demand throughput. [9]",
+      "d": "Incorrect. 25% exceeds the actual discount."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much discount does Database Savings Plans provide for DynamoDB provisioned capacity?",
+    "opts": {
+      "a": "Up to 8%",
+      "b": "Up to 12%",
+      "c": "Up to 18%",
+      "d": "Up to 25%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The discount is higher than 8%.",
+      "b": "Correct. Database Savings Plans provide up to 12% discount on DynamoDB provisioned capacity. [9]",
+      "c": "Incorrect. 18% is the discount for on-demand mode.",
+      "d": "Incorrect. 25% exceeds the actual discount."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the commitment term for Database Savings Plans for DynamoDB?",
+    "opts": {
+      "a": "6 months",
+      "b": "1 year",
+      "c": "2 years",
+      "d": "3 years"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The term is longer than 6 months.",
+      "b": "Correct. Database Savings Plans require a 1-year term commitment with no upfront payment. [9]",
+      "c": "Incorrect. 2 years exceeds the actual term.",
+      "d": "Incorrect. 3 years is not the required term."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What P99 latency did DynamoDB demonstrate for single-item GetItem operations at re:Invent 2025?",
+    "opts": {
+      "a": "Sub-1ms",
+      "b": "Sub-5ms",
+      "c": "Sub-10ms",
+      "d": "Sub-50ms"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Sub-1ms is for DAX cached reads.",
+      "b": "Correct. AWS benchmarks showed sub-5ms P99 latency for single-item GetItem operations across tables with 100 billion items. [5]",
+      "c": "Incorrect. Sub-10ms is for write operations.",
+      "d": "Incorrect. Sub-50ms is far above the demonstrated latency."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What throughput rate did DynamoDB demonstrate for write operations across global tables at re:Invent 2025?",
+    "opts": {
+      "a": "100,000 writes per second",
+      "b": "250,000 writes per second",
+      "c": "500,000 writes per second",
+      "d": "1,000,000 writes per second"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The demonstrated rate was much higher.",
+      "b": "Incorrect. 250,000 is below the demonstrated rate.",
+      "c": "Correct. Write operations maintained P99 latency below 10 ms at sustained throughput of 500,000 writes per second across global tables. [5]",
+      "d": "Incorrect. 1 million was for DAX read requests, not writes."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "At what rate did DAX deliver sub-millisecond cached reads in AWS benchmarks?",
+    "opts": {
+      "a": "100,000 requests per second",
+      "b": "500,000 requests per second",
+      "c": "1 million requests per second",
+      "d": "5 million requests per second"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. DAX performed at a higher rate.",
+      "b": "Incorrect. 500,000 is below the demonstrated rate.",
+      "c": "Correct. DAX consistently delivered sub-millisecond responses at 1 million requests per second. [5]",
+      "d": "Incorrect. 5 million exceeds the demonstrated rate."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many items were in the DynamoDB table used for P99 latency benchmarks at re:Invent 2025?",
+    "opts": {
+      "a": "1 billion",
+      "b": "10 billion",
+      "c": "100 billion",
+      "d": "1 trillion"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The table was much larger.",
+      "b": "Incorrect. 10 billion is below the actual size.",
+      "c": "Correct. The benchmarks demonstrated sub-5ms P99 latency across tables with 100 billion items. [5]",
+      "d": "Incorrect. 1 trillion exceeds the demonstrated size."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many cost multiplier does a transactional operation consume compared to a standard operation in DynamoDB?",
+    "opts": {
+      "a": "1.5x",
+      "b": "2x",
+      "c": "3x",
+      "d": "4x"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The multiplier is higher than 1.5x.",
+      "b": "Correct. Transactional operations cost double (2x) compared to standard operations. [9]",
+      "c": "Incorrect. 3x exceeds the actual multiplier.",
+      "d": "Incorrect. 4x is far above the actual multiplier."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What PITR backup granularity does DynamoDB provide?",
+    "opts": {
+      "a": "Per-minute",
+      "b": "Per-second",
+      "c": "Per-hour",
+      "d": "Per-day"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The granularity is finer than per-minute.",
+      "b": "Correct. DynamoDB backs up table data automatically with per-second granularity when PITR is enabled. [3]",
+      "c": "Incorrect. Per-hour is too coarse.",
+      "d": "Incorrect. Per-day is far too coarse."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was DynamoDB Point-in-Time Recovery (PITR) first launched?",
+    "opts": {
+      "a": "November 2017",
+      "b": "April 2018",
+      "c": "November 2018",
+      "d": "February 2019"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. November 2017 introduced global tables and backup/restore.",
+      "b": "Correct. Continuous backups and Point-in-Time Recovery (PITR) was launched in April 2018. [4]",
+      "c": "Incorrect. November 2018 introduced transactions and on-demand billing.",
+      "d": "Incorrect. February 2019 was for DynamoDB Local."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did DynamoDB introduce on-demand billing?",
+    "opts": {
+      "a": "April 2018",
+      "b": "November 2018",
+      "c": "November 2019",
+      "d": "June 2020"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. April 2018 introduced PITR.",
+      "b": "Correct. On-demand billing was introduced in November 2018 alongside encryption at rest and transactions. [4]",
+      "c": "Incorrect. November 2019 introduced PartiQL support.",
+      "d": "Incorrect. This is not the correct date."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did DynamoDB introduce PartiQL support?",
+    "opts": {
+      "a": "November 2018",
+      "b": "February 2019",
+      "c": "November 2019",
+      "d": "June 2020"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. November 2018 introduced on-demand billing.",
+      "b": "Incorrect. February 2019 introduced DynamoDB Local.",
+      "c": "Correct. PartiQL support (SQL-compatible query language for DynamoDB) was introduced in November 2019. [4]",
+      "d": "Incorrect. This is not the correct date."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did DynamoDB introduce global tables with multi-Region strong consistency?",
+    "opts": {
+      "a": "November 2023",
+      "b": "June 2024",
+      "c": "December 2024",
+      "d": "July 2025"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Multi-Region strong consistency came later.",
+      "b": "Incorrect. This is not the correct date.",
+      "c": "Correct. DynamoDB global tables with multi-Region strong consistency was launched in December 2024. [2][6]",
+      "d": "Incorrect. July 2025 added MRSC support with optional witness Region."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was the configurable PITR recovery period feature released?",
+    "opts": {
+      "a": "September 2024",
+      "b": "November 2024",
+      "c": "January 2025",
+      "d": "March 2025"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The feature was released later.",
+      "b": "Incorrect. November 2024 saw the pricing reduction.",
+      "c": "Correct. DynamoDB added support for configurable PITR recovery periods (1 to 35 days) on January 9, 2025. [2]",
+      "d": "Incorrect. March 2025 is not the correct date."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When were Database Savings Plans launched for DynamoDB?",
+    "opts": {
+      "a": "November 2024",
+      "b": "December 2025",
+      "c": "January 2026",
+      "d": "March 2026"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. November 2024 was the on-demand price reduction.",
+      "b": "Correct. Database Savings Plans launched at re:Invent 2025 (December 2025). [9]",
+      "c": "Incorrect. January 2026 is not the launch date.",
+      "d": "Incorrect. March 2026 is not the launch date."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was cross-account replication for DynamoDB global tables added?",
+    "opts": {
+      "a": "December 2024",
+      "b": "January 2025",
+      "c": "February 2026",
+      "d": "May 2026"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. December 2024 introduced multi-Region strong consistency.",
+      "b": "Incorrect. January 2025 introduced configurable PITR.",
+      "c": "Correct. Cross-account replication for global tables was added in February 2026. [4]",
+      "d": "Incorrect. May 2026 was the ExtendDB announcement."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does PITR always restore data to?",
+    "opts": {
+      "a": "The same table",
+      "b": "A new table",
+      "c": "An S3 bucket",
+      "d": "A DynamoDB backup file"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. PITR does not restore to the same table.",
+      "b": "Correct. The point-in-time recovery process always restores to a new table. [7]",
+      "c": "Incorrect. PITR restores to a DynamoDB table, not S3.",
+      "d": "Incorrect. PITR creates a new table, not a backup file."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What settings are NOT automatically applied when restoring a table with PITR?",
+    "opts": {
+      "a": "Primary key and indexes",
+      "b": "Auto scaling, streams, TTL, and other table-level settings",
+      "c": "Table data and items",
+      "d": "Partition key schema"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Key schema is preserved.",
+      "b": "Correct. Auto scaling, streams, Time to Live (TTL), and more are NOT automatically applied to the restored table. You need event-driven solutions to reapply them. [3]",
+      "c": "Incorrect. Table data is the purpose of the restore.",
+      "d": "Incorrect. Partition key schema is preserved."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the naming convention for system backups created when a PITR-enabled table is deleted?",
+    "opts": {
+      "a": "table-name-backup-timestamp",
+      "b": "table-name$DeletedTableBackup",
+      "c": "PITR-table-name-deleted",
+      "d": "system-backup-table-name"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is not the correct naming convention.",
+      "b": "Correct. All system backups follow the naming convention table-name$DeletedTableBackup. [7]",
+      "c": "Incorrect. This is not the standard naming format.",
+      "d": "Incorrect. This is not the correct format."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How many dimensions does DynamoDB pricing primarily depend on?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "4",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There are more than 2 dimensions.",
+      "b": "Incorrect. There are more than 3 dimensions.",
+      "c": "Correct. DynamoDB pricing depends on four dimensions: throughput (biggest driver), storage, backups, and add-on features. [9]",
+      "d": "Incorrect. The primary dimensions are 4."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the recommended starting capacity mode for most DynamoDB workloads after November 2024?",
+    "opts": {
+      "a": "Provisioned mode with auto scaling",
+      "b": "On-demand mode",
+      "c": "Reserved capacity",
+      "d": "Provisioned mode without auto scaling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Provisioned is recommended only after confirming predictable traffic.",
+      "b": "Correct. After the November 2024 price cut, on-demand is the right starting point for most workloads. Switch to provisioned only after confirming predictable traffic patterns. [9]",
+      "c": "Incorrect. Reserved capacity is a commitment option, not a capacity mode.",
+      "d": "Incorrect. Provisioned without auto scaling requires manual management."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What zero-ETL integration did DynamoDB launch in December 2023?",
+    "opts": {
+      "a": "Amazon Redshift",
+      "b": "Amazon OpenSearch Service",
+      "c": "SageMaker Lakehouse",
+      "d": "Amazon Athena"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Redshift zero-ETL was October 2024.",
+      "b": "Correct. DynamoDB zero-ETL integration with Amazon OpenSearch Service was launched in December 2023. [2]",
+      "c": "Incorrect. SageMaker Lakehouse zero-ETL was December 2024.",
+      "d": "Incorrect. Athena doesn't have a zero-ETL integration with DynamoDB."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What zero-ETL integration did DynamoDB launch in October 2024?",
+    "opts": {
+      "a": "Amazon OpenSearch Service",
+      "b": "Amazon Redshift",
+      "c": "SageMaker Lakehouse",
+      "d": "Amazon MSK"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. OpenSearch was December 2023.",
+      "b": "Correct. DynamoDB zero-ETL integration with Amazon Redshift was launched on October 16, 2024. [2]",
+      "c": "Incorrect. SageMaker Lakehouse was December 2024.",
+      "d": "Incorrect. MSK integration uses DynamoDB Streams."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What zero-ETL integration did DynamoDB launch in December 2024?",
+    "opts": {
+      "a": "Amazon Redshift",
+      "b": "Amazon OpenSearch Service",
+      "c": "SageMaker AI Lakehouse",
+      "d": "Amazon EMR"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Redshift zero-ETL was October 2024.",
+      "b": "Incorrect. OpenSearch was December 2023.",
+      "c": "Correct. DynamoDB zero-ETL integration with SageMaker AI Lakehouse was introduced in December 2024. [2]",
+      "d": "Incorrect. EMR doesn't have a zero-ETL integration."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was DynamoDB global tables first introduced?",
+    "opts": {
+      "a": "June 2017",
+      "b": "November 2017",
+      "c": "April 2018",
+      "d": "November 2018"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. June 2017 introduced automatic scaling.",
+      "b": "Correct. Global tables, along with backup and restore, were introduced in November 2017. [4]",
+      "c": "Incorrect. April 2018 introduced PITR.",
+      "d": "Incorrect. November 2018 introduced on-demand billing."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was DynamoDB encryption at rest first introduced?",
+    "opts": {
+      "a": "November 2017",
+      "b": "February 2018",
+      "c": "November 2018",
+      "d": "February 2019"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. November 2017 introduced global tables.",
+      "b": "Correct. Encryption at rest was introduced in February 2018. [4]",
+      "c": "Incorrect. November 2018 added more encryption options alongside transactions.",
+      "d": "Incorrect. February 2019 introduced DynamoDB Local."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does DynamoDB use to provide sub-millisecond read latency?",
+    "opts": {
+      "a": "ElastiCache",
+      "b": "DynamoDB Accelerator (DAX)",
+      "c": "CloudFront",
+      "d": "Global Accelerator"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ElastiCache is a separate caching service.",
+      "b": "Correct. DynamoDB Accelerator (DAX) provides sub-millisecond reads for cached data. [5]",
+      "c": "Incorrect. CloudFront is a CDN, not a database cache.",
+      "d": "Incorrect. Global Accelerator is for network routing."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What feature did DynamoDB add in July 2025 regarding Streams?",
+    "opts": {
+      "a": "Cross-region streaming",
+      "b": "Optimized shard discovery",
+      "c": "Real-time analytics",
+      "d": "Stream encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cross-region is handled by global tables.",
+      "b": "Correct. In July 2025, DynamoDB added support for optimized shard discovery, reducing initial discovery time and improving steady-state processing performance with consistent p100 latency. [2]",
+      "c": "Incorrect. Real-time analytics isn't the specific feature.",
+      "d": "Incorrect. Stream encryption was not the July 2025 announcement."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new capability did DynamoDB add for multi-Region strong consistency in July 2025?",
+    "opts": {
+      "a": "Cross-account replication",
+      "b": "Optional witness Region",
+      "c": "Automatic failover",
+      "d": "Read replicas"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cross-account replication was February 2026.",
+      "b": "Correct. In July 2025, DynamoDB added Multi-Region Strong Consistency (MRSC) support for global tables with optional witness Region. [2]",
+      "c": "Incorrect. Automatic failover was already available.",
+      "d": "Incorrect. Read replicas are not a DynamoDB concept."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What RPO does multi-Region strong consistency provide for DynamoDB global tables?",
+    "opts": {
+      "a": "RPO of 1 minute",
+      "b": "RPO of 5 seconds",
+      "c": "RPO of zero",
+      "d": "RPO of 15 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. MRSC provides better than 1 minute.",
+      "b": "Incorrect. The RPO is better than 5 seconds.",
+      "c": "Correct. Multi-Region strong consistency enables applications with a recovery point objective (RPO) of zero. [2]",
+      "d": "Incorrect. 15 minutes would be unacceptable for MRSC."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has an item that is 6 KB in size. How many RCUs does it need for one strongly consistent read per second?",
+    "opts": {
+      "a": "1 RCU",
+      "b": "2 RCUs",
+      "c": "3 RCUs",
+      "d": "6 RCUs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 RCU handles up to 4 KB only.",
+      "b": "Correct. 6 KB rounds up to the next 4 KB boundary (8 KB), requiring 2 RCUs (8 KB / 4 KB = 2). [1][9]",
+      "c": "Incorrect. 3 RCUs would handle up to 12 KB.",
+      "d": "Incorrect. 6 RCUs vastly overestimates the requirement."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to write 3 KB items at a rate of 10 items per second. How many WCUs are needed?",
+    "opts": {
+      "a": "10 WCUs",
+      "b": "20 WCUs",
+      "c": "30 WCUs",
+      "d": "40 WCUs"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Each 3 KB item requires 3 WCUs (rounded up to nearest 1 KB).",
+      "b": "Incorrect. 20 WCUs would handle 3 KB items at ~6.7 items/second.",
+      "c": "Correct. Each 3 KB write requires 3 WCUs (3 KB / 1 KB = 3). For 10 writes/second: 3 × 10 = 30 WCUs. [1][9]",
+      "d": "Incorrect. 40 WCUs overestimates the requirement."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team needs 100 eventually consistent reads per second for 2 KB items. How many RCUs are required?",
+    "opts": {
+      "a": "25 RCUs",
+      "b": "50 RCUs",
+      "c": "100 RCUs",
+      "d": "200 RCUs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 25 RCUs would only handle 50 eventually consistent reads.",
+      "b": "Correct. 2 KB items fit within 4 KB (1 RCU). Eventually consistent reads = 2 reads per RCU. So 100 reads / 2 = 50 RCUs. [9]",
+      "c": "Incorrect. 100 RCUs would be for strongly consistent reads.",
+      "d": "Incorrect. 200 RCUs vastly overestimates."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company accidentally deleted a DynamoDB table that had PITR enabled. Can they restore it?",
+    "opts": {
+      "a": "No, deleted tables cannot be restored",
+      "b": "Yes, from the system backup retained for 35 days at no additional cost",
+      "c": "Yes, but only within 7 days",
+      "d": "Yes, but requires an AWS support ticket"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. PITR-enabled tables can be restored after deletion.",
+      "b": "Correct. When a PITR-enabled table is deleted, DynamoDB creates a system backup named table-name$DeletedTableBackup, retained for 35 days at no cost. [7]",
+      "c": "Incorrect. The retention period is 35 days, not 7.",
+      "d": "Incorrect. No support ticket is needed—it's self-service."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A startup wants the simplest DynamoDB pricing with no capacity planning and has unpredictable traffic. Which mode should they choose?",
+    "opts": {
+      "a": "Provisioned mode with auto scaling",
+      "b": "On-demand mode",
+      "c": "Reserved capacity",
+      "d": "Provisioned mode with fixed capacity"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Provisioned with auto scaling still requires initial capacity planning.",
+      "b": "Correct. On-demand mode is the simplest pricing model with no capacity planning. After the 50% price reduction in November 2024, it's the default recommendation for most workloads with unpredictable traffic. [9]",
+      "c": "Incorrect. Reserved capacity requires upfront commitment.",
+      "d": "Incorrect. Fixed provisioned capacity is the most complex to manage."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to reduce their DynamoDB PITR costs. Their compliance requires only 7 days of recovery. What should they do?",
+    "opts": {
+      "a": "Disable PITR entirely",
+      "b": "Set the PITR recovery period to 7 days instead of the default 35 days",
+      "c": "Use on-demand backups instead",
+      "d": "Move to Standard-IA table class"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Disabling PITR removes continuous backup protection entirely.",
+      "b": "Correct. Since January 2025, you can configure the PITR period between 1 and 35 days. Setting it to 7 days reduces backup storage costs while meeting compliance requirements. [2][3]",
+      "c": "Incorrect. On-demand backups don't provide continuous point-in-time recovery.",
+      "d": "Incorrect. Table class affects storage costs, not backup costs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's DynamoDB bill is 3x what they expected. They have GSIs, backups, and a Global Table. What is the most likely explanation?",
+    "opts": {
+      "a": "DynamoDB has a bug in billing",
+      "b": "GSIs, backups, and Global Tables add significant costs beyond base read/write pricing that are often overlooked",
+      "c": "The table class is wrong",
+      "d": "The region pricing is higher"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DynamoDB billing is accurate.",
+      "b": "Correct. Adding GSIs, enabling backups, and setting up Global Tables can make bills 3x expected. The pricing page lists rates but doesn't help visualize the combined cost impact. [9]",
+      "c": "Incorrect. Table class alone wouldn't cause a 3x increase.",
+      "d": "Incorrect. Regional pricing differences are modest."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company performs a transactional write of a 2 KB item. How many WCUs does this consume?",
+    "opts": {
+      "a": "2 WCUs",
+      "b": "4 WCUs",
+      "c": "6 WCUs",
+      "d": "8 WCUs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard write would be 2 WCUs, but transactions cost double.",
+      "b": "Correct. A 2 KB write needs 2 WCUs normally. Transactional operations cost double, so 2 × 2 = 4 WCUs. [9]",
+      "c": "Incorrect. 6 WCUs overestimates.",
+      "d": "Incorrect. 8 WCUs significantly overestimates."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team needs to serve ML feature vectors with sub-millisecond latency from DynamoDB. What should they use?",
+    "opts": {
+      "a": "Global tables",
+      "b": "DynamoDB Accelerator (DAX)",
+      "c": "ElastiCache Redis",
+      "d": "Standard DynamoDB reads"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Global tables provide multi-region access but not sub-millisecond.",
+      "b": "Correct. DAX delivers sub-millisecond reads, making it ideal for serving precomputed feature vectors to ML models. Amazon SageMaker Feature Store integrates natively with DynamoDB for online feature serving. [5]",
+      "c": "Incorrect. ElastiCache is separate from DynamoDB.",
+      "d": "Incorrect. Standard reads provide sub-5ms, not sub-millisecond."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to save costs on a DynamoDB table with stable, predictable traffic. They use on-demand mode with Database Savings Plans. What is the maximum combined discount they can achieve?",
+    "opts": {
+      "a": "50% only (from the 2024 price cut)",
+      "b": "18% on top of the already-reduced on-demand prices",
+      "c": "60% total",
+      "d": "No additional discount is possible"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The 50% reduction already applies; additional savings are possible.",
+      "b": "Correct. Database Savings Plans provide up to 18% additional discount on DynamoDB on-demand throughput beyond the already-reduced prices. [9]",
+      "c": "Incorrect. 60% total is not achievable through this method.",
+      "d": "Incorrect. Database Savings Plans do provide additional discounts."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company restored a DynamoDB table using PITR and noticed that auto scaling is not working on the restored table. What happened?",
+    "opts": {
+      "a": "PITR corrupted the table configuration",
+      "b": "Auto scaling, streams, and TTL are NOT automatically applied to restored tables and must be reconfigured",
+      "c": "The table is in read-only mode",
+      "d": "AWS needs to manually enable auto scaling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. PITR doesn't corrupt configurations.",
+      "b": "Correct. PITR restores data to a new table, but auto scaling, streams, TTL, and other table-level settings aren't automatically applied and must be reconfigured. [3]",
+      "c": "Incorrect. Restored tables are fully functional.",
+      "d": "Incorrect. Users can configure this themselves."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses DynamoDB globally and needs zero RPO for disaster recovery. Which feature provides this?",
+    "opts": {
+      "a": "Standard global tables with eventual consistency",
+      "b": "Global tables with multi-Region strong consistency (MRSC)",
+      "c": "Cross-region PITR backups",
+      "d": "DynamoDB Streams with Lambda replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Eventual consistency doesn't guarantee zero RPO.",
+      "b": "Correct. Multi-Region strong consistency provides RPO of zero, enabling the highest level of resilience for multi-Region applications. [2]",
+      "c": "Incorrect. PITR backups have some lag.",
+      "d": "Incorrect. Stream-based replication has inherent replication delay."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was the DynamoDB zero-ETL integration with Amazon Redshift launched?",
+    "opts": {
+      "a": "December 2023",
+      "b": "June 2024",
+      "c": "October 2024",
+      "d": "December 2024"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. December 2023 was OpenSearch integration.",
+      "b": "Incorrect. June 2024 is not the correct date.",
+      "c": "Correct. Amazon DynamoDB zero-ETL integration with Amazon Redshift was launched on October 16, 2024. [2]",
+      "d": "Incorrect. December 2024 was SageMaker Lakehouse integration."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new throttling diagnostics feature did DynamoDB add in September 2025?",
+    "opts": {
+      "a": "CloudWatch basic metrics",
+      "b": "CloudWatch Contributor Insights mode with throttling exception details and targeted metrics",
+      "c": "AWS X-Ray integration",
+      "d": "CloudTrail data logging"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Basic metrics were available much earlier.",
+      "b": "Correct. In September 2025, DynamoDB enhanced throttling diagnostics with a new CloudWatch Contributor Insights mode, added throttling exception details, and targeted CloudWatch metrics. [2]",
+      "c": "Incorrect. X-Ray integration was not the specific update.",
+      "d": "Incorrect. CloudTrail logging was available earlier."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What DynamoDB Local version migrated from AWS SDK for Java V1 to V2?",
+    "opts": {
+      "a": "Version 2.0",
+      "b": "Version 2.5",
+      "c": "Version 3.0",
+      "d": "Version 3.1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Version 2.0 is not the correct version.",
+      "b": "Incorrect. Version 2.5 doesn't exist in this context.",
+      "c": "Correct. DynamoDB Local version 3.0 was released in August 2025, migrating from AWS SDK for Java V1 to V2. [2]",
+      "d": "Incorrect. Version 3.1.0 was released in September 2025 with PartiQL improvements."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What did DynamoDB Local version 3.1.0 improve?",
+    "opts": {
+      "a": "Global table support",
+      "b": "Performance for PartiQL queries",
+      "c": "DAX integration",
+      "d": "Encryption support"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Global tables aren't supported in DynamoDB Local.",
+      "b": "Correct. DynamoDB Local version 3.1.0 (September 23, 2025) improved performance for PartiQL queries and included Joda-time dependency updates. [2]",
+      "c": "Incorrect. DAX integration was not the improvement.",
+      "d": "Incorrect. Encryption support was not the focus."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What service can be used to log DynamoDB Streams data-plane API activity?",
+    "opts": {
+      "a": "Amazon CloudWatch",
+      "b": "AWS CloudTrail",
+      "c": "AWS X-Ray",
+      "d": "Amazon EventBridge"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch provides metrics, not API logging.",
+      "b": "Correct. You can use AWS CloudTrail to log Amazon DynamoDB Streams data-plane API activity. [2]",
+      "c": "Incorrect. X-Ray is for tracing, not API logging.",
+      "d": "Incorrect. EventBridge is for event routing."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was DynamoDB VPC endpoints first introduced?",
+    "opts": {
+      "a": "June 2017",
+      "b": "August 2017",
+      "c": "November 2017",
+      "d": "February 2018"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. June 2017 introduced automatic scaling.",
+      "b": "Correct. Virtual Private Cluster (VPC) endpoints were introduced in August 2017. [4]",
+      "c": "Incorrect. November 2017 introduced global tables.",
+      "d": "Incorrect. February 2018 introduced encryption at rest."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did DynamoDB introduce transactions?",
+    "opts": {
+      "a": "April 2018",
+      "b": "November 2018",
+      "c": "November 2019",
+      "d": "June 2020"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. April 2018 introduced PITR.",
+      "b": "Correct. DynamoDB transactions were introduced in November 2018 alongside on-demand billing and enhanced encryption at rest. [4]",
+      "c": "Incorrect. November 2019 introduced PartiQL.",
+      "d": "Incorrect. This is not the correct date."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was DynamoDB automatic scaling first introduced?",
+    "opts": {
+      "a": "November 2016",
+      "b": "June 2017",
+      "c": "November 2017",
+      "d": "April 2018"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Auto scaling was introduced later.",
+      "b": "Correct. DynamoDB automatic scaling was introduced in June 2017. [4]",
+      "c": "Incorrect. November 2017 introduced global tables.",
+      "d": "Incorrect. April 2018 introduced PITR."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to integrate DynamoDB data with their analytics warehouse without building ETL pipelines. Which integration should they use?",
+    "opts": {
+      "a": "DynamoDB Streams with Lambda",
+      "b": "DynamoDB zero-ETL integration with Amazon Redshift",
+      "c": "AWS Glue crawlers",
+      "d": "Amazon Kinesis Data Firehose"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Streams with Lambda requires custom code.",
+      "b": "Correct. DynamoDB zero-ETL integration with Amazon Redshift provides a no-code, fully managed ETL pipeline with replication from DynamoDB to Amazon Redshift. [2]",
+      "c": "Incorrect. Glue crawlers still require ETL jobs.",
+      "d": "Incorrect. Kinesis Firehose requires stream processing setup."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company stores data that is accessed frequently for the first 30 days but rarely after. Which DynamoDB table class should they use for older data?",
+    "opts": {
+      "a": "Standard Table Class for all data",
+      "b": "Standard-Infrequent Access (Standard-IA) Table Class for older data",
+      "c": "DynamoDB Global Tables",
+      "d": "Move to S3 after 30 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard class costs more for infrequently accessed data.",
+      "b": "Correct. Standard-IA Table Class can reduce costs by up to 60% for infrequently accessed data. [2]",
+      "c": "Incorrect. Global Tables are for multi-region, not cost optimization.",
+      "d": "Incorrect. While S3 is cheaper, Standard-IA within DynamoDB maintains DynamoDB access patterns."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer wants to query DynamoDB using SQL-like syntax. Which feature should they use?",
+    "opts": {
+      "a": "DynamoDB Streams",
+      "b": "PartiQL",
+      "c": "DynamoDB DAX",
+      "d": "Global Secondary Indexes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Streams capture changes, not query data.",
+      "b": "Correct. PartiQL is a SQL-compatible query language for DynamoDB, introduced in November 2019. [4]",
+      "c": "Incorrect. DAX is a caching layer, not a query language.",
+      "d": "Incorrect. GSIs enable additional query patterns but don't provide SQL syntax."
+    }
+  }
+]

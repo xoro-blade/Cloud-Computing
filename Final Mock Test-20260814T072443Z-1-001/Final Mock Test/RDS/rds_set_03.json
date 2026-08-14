@@ -1,0 +1,852 @@
+[
+  {
+    "type": "mcq",
+    "q": "A company runs an RDS MySQL Multi-AZ instance. During a failover event, the application experiences connection errors. What is the most likely cause?",
+    "opts": {
+      "a": "The application is using the IP address instead of the DNS endpoint to connect",
+      "b": "The standby instance has a different security group",
+      "c": "Multi-AZ failover requires manual DNS update",
+      "d": "The Read Replica was not promoted in time"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. If the application connects using the IP address instead of the RDS DNS endpoint, it won't automatically resolve to the new primary after failover since the CNAME DNS record is what gets updated.",
+      "b": "Incorrect. The standby shares the same configuration including security groups.",
+      "c": "Incorrect. DNS is updated automatically during failover.",
+      "d": "Incorrect. Multi-AZ failover uses the standby, not a Read Replica."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An application uses RDS PostgreSQL with IAM Database Authentication. The connection fails with 'token expired'. What is the most likely issue?",
+    "opts": {
+      "a": "The KMS key has been rotated",
+      "b": "The IAM authentication token has exceeded its 15-minute validity period",
+      "c": "The SSL certificate has expired",
+      "d": "The database password was changed"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS key rotation doesn't affect IAM authentication tokens.",
+      "b": "Correct. IAM Database Authentication tokens are valid for only 15 minutes. If the token is generated and used after this window, the connection will fail.",
+      "c": "Incorrect. SSL certificate expiration would produce a different error.",
+      "d": "Incorrect. IAM authentication uses tokens, not database passwords."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You have an encrypted RDS snapshot in us-east-1. You want to restore it in eu-west-1. What steps are required?",
+    "opts": {
+      "a": "Directly restore the snapshot in eu-west-1",
+      "b": "Copy the snapshot to eu-west-1 specifying a KMS key in eu-west-1, then restore",
+      "c": "Decrypt the snapshot first, copy it, then re-encrypt in eu-west-1",
+      "d": "Share the snapshot with the eu-west-1 region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You cannot directly restore a snapshot in a different region.",
+      "b": "Correct. You must copy the encrypted snapshot to the target region, specifying a KMS key in that region, and then restore from the copied snapshot.",
+      "c": "Incorrect. You cannot decrypt a snapshot independently; you specify a new KMS key during the cross-region copy.",
+      "d": "Incorrect. Sharing is between accounts, not regions. You copy snapshots across regions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has an RDS instance with Storage Auto Scaling enabled. The maximum storage threshold is set to 1000 GB. The current allocated storage is 950 GB. What happens when the database reaches 950 GB?",
+    "opts": {
+      "a": "Storage will scale to 1000 GB and then the instance will become read-only",
+      "b": "Storage will auto-scale in increments (the greater of 10% of current storage, 10 GB, or predicted growth) up to the 1000 GB maximum",
+      "c": "The instance will immediately stop",
+      "d": "AWS will send a notification but take no action"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The instance doesn't become read-only at the threshold; scaling occurs when free space is low.",
+      "b": "Correct. Storage Auto Scaling increases storage when free space falls below 10% of allocated storage, scaling by the greater of 10% of current allocation, 10 GB, or predicted usage in the next 7 hours, up to the specified maximum.",
+      "c": "Incorrect. The instance does not stop due to storage auto-scaling.",
+      "d": "Incorrect. Auto Scaling takes action automatically when thresholds are met."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Your RDS MySQL Read Replica shows increasing ReplicaLag. Which of the following is the LEAST likely cause?",
+    "opts": {
+      "a": "Heavy write activity on the primary instance",
+      "b": "The Read Replica instance class is smaller than the primary",
+      "c": "Long-running queries on the Read Replica",
+      "d": "Enabling Multi-AZ on the primary instance"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Heavy writes increase replication lag as the replica must process more changes.",
+      "b": "Incorrect. A smaller instance class on the replica limits its ability to keep up with replication.",
+      "c": "Incorrect. Long-running queries can block the replication thread in MySQL.",
+      "d": "Correct. Enabling Multi-AZ on the primary does not significantly impact replication to Read Replicas; Multi-AZ uses synchronous replication to the standby separately."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An organization wants to enforce SSL connections to their RDS PostgreSQL instance. What should they configure?",
+    "opts": {
+      "a": "Set the rds.force_ssl parameter to 1 in the DB Parameter Group",
+      "b": "Enable SSL in the Security Group inbound rules",
+      "c": "Configure a Network ACL to allow only port 443",
+      "d": "Set require_secure_transport in the Option Group"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. For PostgreSQL, setting the rds.force_ssl parameter to 1 in the Parameter Group forces all connections to use SSL.",
+      "b": "Incorrect. Security Groups control IP/port access, not SSL enforcement.",
+      "c": "Incorrect. PostgreSQL uses port 5432, not 443; NACLs don't enforce SSL.",
+      "d": "Incorrect. require_secure_transport is a MySQL parameter, not PostgreSQL, and it's set in Parameter Groups, not Option Groups."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "For RDS MySQL, which parameter forces all client connections to use SSL/TLS?",
+    "opts": {
+      "a": "rds.force_ssl = 1",
+      "b": "require_secure_transport = ON",
+      "c": "ssl_mode = REQUIRED",
+      "d": "enforce_tls = true"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. rds.force_ssl is used for PostgreSQL and SQL Server, not MySQL.",
+      "b": "Correct. For MySQL on RDS, setting require_secure_transport to ON in the Parameter Group forces all connections to use SSL/TLS.",
+      "c": "Incorrect. ssl_mode is a client-side setting, not a server-side enforcement parameter.",
+      "d": "Incorrect. enforce_tls is not a valid RDS MySQL parameter."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer wants to use RDS Proxy with an Aurora MySQL cluster. Which authentication method does RDS Proxy use to retrieve database credentials?",
+    "opts": {
+      "a": "Credentials hardcoded in the proxy configuration",
+      "b": "AWS Secrets Manager",
+      "c": "AWS Systems Manager Parameter Store",
+      "d": "IAM Access Keys directly"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS Proxy does not use hardcoded credentials.",
+      "b": "Correct. RDS Proxy retrieves database credentials from AWS Secrets Manager, which it uses to establish and pool connections to the database.",
+      "c": "Incorrect. Parameter Store is not used by RDS Proxy for credential retrieval.",
+      "d": "Incorrect. While RDS Proxy supports IAM authentication from clients, it retrieves the actual DB credentials from Secrets Manager."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You have an Aurora MySQL cluster with 1 writer and 3 reader instances. You want traffic to be distributed among readers using a single endpoint. Which Aurora endpoint should you use?",
+    "opts": {
+      "a": "Cluster endpoint",
+      "b": "Reader endpoint",
+      "c": "Instance endpoint",
+      "d": "Custom endpoint"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cluster endpoint always connects to the current writer instance.",
+      "b": "Correct. The reader endpoint load-balances connections across all available Aurora Read Replicas in the cluster.",
+      "c": "Incorrect. Instance endpoints connect to a specific instance, not distributing traffic.",
+      "d": "Incorrect. Custom endpoints connect to a user-defined subset of instances, not all readers by default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of an Aurora Custom Endpoint?",
+    "opts": {
+      "a": "To replace the cluster endpoint with a custom DNS name",
+      "b": "To direct traffic to a chosen subset of DB instances based on workload type (e.g., analytics vs. production reads)",
+      "c": "To provide a static IP address for the cluster",
+      "d": "To encrypt connections with a custom SSL certificate"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Custom endpoints don't replace the cluster endpoint.",
+      "b": "Correct. Aurora Custom Endpoints allow you to group specific instances and route particular workloads (like analytics queries) to those instances only.",
+      "c": "Incorrect. Custom endpoints don't provide static IPs.",
+      "d": "Incorrect. Custom endpoints are about routing, not encryption."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs to run a reporting workload against their production Aurora cluster without impacting performance. The reporting queries are heavy and long-running. What is the BEST approach?",
+    "opts": {
+      "a": "Run queries directly on the writer instance during off-peak hours",
+      "b": "Create an Aurora Custom Endpoint pointing to specific larger reader instances dedicated for reporting",
+      "c": "Use the reader endpoint which distributes to all replicas",
+      "d": "Create a manual snapshot and restore for reporting"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Running heavy queries on the writer impacts production writes.",
+      "b": "Correct. Using a Custom Endpoint with dedicated larger reader instances isolates reporting workloads from production read traffic.",
+      "c": "Incorrect. The reader endpoint would distribute reporting traffic to all replicas, potentially impacting production reads.",
+      "d": "Incorrect. Restoring a snapshot is time-consuming and the data would be stale."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An RDS Oracle instance is configured with Multi-AZ. During the maintenance window, a minor engine upgrade is applied. What is the expected behavior?",
+    "opts": {
+      "a": "The upgrade is applied to primary and standby simultaneously with no downtime",
+      "b": "The upgrade is applied to the standby first, then a failover occurs, and the old primary is upgraded",
+      "c": "The upgrade is applied to the primary first, causing downtime, then to the standby",
+      "d": "The upgrade is applied only to the primary; standby remains on old version"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Upgrades cannot be applied to both simultaneously without any downtime.",
+      "b": "Correct. In Multi-AZ, the upgrade is applied to the standby, a failover promotes it to primary, and then the old primary is upgraded. This minimizes downtime.",
+      "c": "Incorrect. AWS optimizes to minimize downtime by upgrading standby first.",
+      "d": "Incorrect. Both instances must run the same engine version."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You want to configure an Aurora MySQL cluster to retain binary logs for 24 hours for external replication. Which parameter should you modify?",
+    "opts": {
+      "a": "binlog_retention_hours",
+      "b": "expire_logs_days",
+      "c": "binlog_format",
+      "d": "mysql.rds_set_configuration('binlog retention hours', 24)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. This is not a direct parameter you set in the Parameter Group for Aurora.",
+      "b": "Incorrect. expire_logs_days is a MySQL parameter but not the recommended way for RDS/Aurora.",
+      "c": "Incorrect. binlog_format sets the format (ROW, STATEMENT, MIXED) but not retention.",
+      "d": "Correct. For Aurora/RDS MySQL, you use the stored procedure mysql.rds_set_configuration to set binlog retention hours."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the impact of enabling deletion protection on an RDS instance?",
+    "opts": {
+      "a": "The instance cannot be stopped",
+      "b": "The instance cannot be deleted until deletion protection is disabled",
+      "c": "Snapshots cannot be deleted",
+      "d": "The instance cannot be modified"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deletion protection doesn't prevent stopping an instance.",
+      "b": "Correct. Deletion protection prevents the DB instance from being deleted. You must first disable it before the instance can be deleted.",
+      "c": "Incorrect. Deletion protection applies to the instance, not snapshots.",
+      "d": "Incorrect. The instance can still be modified with deletion protection enabled."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to migrate from an on-premises Oracle database to Amazon Aurora PostgreSQL. Which AWS service combination should they use?",
+    "opts": {
+      "a": "AWS DMS with AWS SCT (Schema Conversion Tool)",
+      "b": "AWS DataSync with AWS Glue",
+      "c": "AWS Transfer Family with RDS import",
+      "d": "AWS Snowball with DMS"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS SCT converts the Oracle schema to PostgreSQL-compatible schema, and AWS DMS migrates the data. This combination handles heterogeneous database migrations.",
+      "b": "Incorrect. DataSync is for file transfers; Glue is for ETL, not database migration.",
+      "c": "Incorrect. Transfer Family is for file-based protocols.",
+      "d": "Incorrect. Snowball is for physical data transfer of large datasets, not schema conversion."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between homogeneous and heterogeneous database migration in AWS DMS?",
+    "opts": {
+      "a": "Homogeneous means same engine (e.g., MySQL to MySQL); heterogeneous means different engines (e.g., Oracle to PostgreSQL)",
+      "b": "Homogeneous means same region; heterogeneous means cross-region",
+      "c": "Homogeneous means same account; heterogeneous means cross-account",
+      "d": "There is no difference; the terms are interchangeable"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Homogeneous migration is between the same database engine (e.g., Oracle to Oracle). Heterogeneous is between different engines (e.g., Oracle to Aurora PostgreSQL) and requires AWS SCT.",
+      "b": "Incorrect. The terms refer to engine types, not regions.",
+      "c": "Incorrect. They refer to engine types, not accounts.",
+      "d": "Incorrect. They have distinct meanings."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You notice that your RDS instance's 'FreeStorageSpace' metric is decreasing rapidly despite Storage Auto Scaling being enabled. The storage hasn't increased. What could be the reason?",
+    "opts": {
+      "a": "Storage Auto Scaling has a cooldown period of 6 hours between scaling events",
+      "b": "The maximum storage threshold has been reached",
+      "c": "Storage Auto Scaling only works with io1 storage type",
+      "d": "The DB instance must be rebooted for scaling to take effect"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Storage Auto Scaling has a cooldown period (at least 6 hours since the last scaling event) and also requires that low storage persists for at least 5 minutes before triggering. This can cause a delay.",
+      "b": "Incorrect. While possible, the question states storage hasn't increased, implying a delay, not a limit reached.",
+      "c": "Incorrect. Storage Auto Scaling works with gp2, gp3, and io1.",
+      "d": "Incorrect. Storage scaling doesn't require a reboot."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An Aurora cluster has a failover priority tier set for its replicas: Replica-A (tier 0), Replica-B (tier 1), Replica-C (tier 1). If the writer fails, which replica is promoted?",
+    "opts": {
+      "a": "Replica-B because it was created first",
+      "b": "Replica-A because it has the lowest (highest priority) tier number",
+      "c": "Replica-C because it has the most recent data",
+      "d": "A random replica from tier 1"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Creation order is not the primary factor.",
+      "b": "Correct. Aurora promotes the replica with the lowest tier number (tier 0 is highest priority). Replica-A at tier 0 will be promoted first.",
+      "c": "Incorrect. All replicas share the same storage and have the same data.",
+      "d": "Incorrect. Tier 0 has higher priority than tier 1."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "If two Aurora replicas have the same failover priority tier, which one gets promoted during failover?",
+    "opts": {
+      "a": "The one with the smallest instance size",
+      "b": "The one with the largest instance size",
+      "c": "The one created most recently",
+      "d": "A random selection"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Smaller instance size is not preferred.",
+      "b": "Correct. When replicas share the same priority tier, Aurora promotes the one with the largest instance size to better handle the writer workload.",
+      "c": "Incorrect. Creation time is not the tiebreaker.",
+      "d": "Incorrect. The selection is deterministic based on instance size."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses AWS DMS for ongoing replication from an on-premises MySQL to RDS MySQL. They need to capture DDL changes (ALTER TABLE, CREATE INDEX). What should they configure?",
+    "opts": {
+      "a": "Enable Change Data Capture (CDC) with DDL support in the DMS task settings",
+      "b": "DDL changes are always replicated automatically",
+      "c": "Use AWS SCT for DDL changes only",
+      "d": "DMS cannot replicate DDL changes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. DMS supports DDL replication for certain source engines, but it must be configured in the task settings. The level of DDL support varies by engine.",
+      "b": "Incorrect. Not all DDL changes are captured by default; configuration is needed.",
+      "c": "Incorrect. SCT is for one-time schema conversion, not ongoing DDL replication.",
+      "d": "Incorrect. DMS can handle many DDL changes when properly configured."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You are configuring RDS event subscriptions. Which of the following event categories can you subscribe to?",
+    "opts": {
+      "a": "Individual SQL query failures",
+      "b": "Availability, backup, configuration change, failover, and maintenance events",
+      "c": "Individual row-level data changes",
+      "d": "Application-level errors"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQL query failures are internal to the database and not exposed as RDS events.",
+      "b": "Correct. RDS Event Subscriptions support categories like availability, backup, configuration change, creation, deletion, failover, failure, low storage, maintenance, notification, recovery, and restoration.",
+      "c": "Incorrect. Row-level changes are not published as RDS events.",
+      "d": "Incorrect. Application errors are not RDS events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Your team needs to perform load testing on a production Aurora database without affecting production. The data must be an exact copy. What is the fastest approach?",
+    "opts": {
+      "a": "Create a Read Replica and use it for testing",
+      "b": "Use Aurora Cloning to create a copy-on-write clone",
+      "c": "Take a snapshot and restore to a new instance",
+      "d": "Use AWS DMS to replicate to a test instance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Read Replicas are connected to the primary and writes to them are not possible; they share the same cluster.",
+      "b": "Correct. Aurora Cloning creates an independent clone almost instantly using copy-on-write. It doesn't impact production and allows full read-write testing.",
+      "c": "Incorrect. Snapshot restore works but is slower than cloning for large databases.",
+      "d": "Incorrect. DMS replication takes time and adds complexity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An RDS MySQL instance has automated backups enabled. A developer accidentally drops a critical table at 2:30 PM. The last automated backup was at 3:00 AM. How can you recover the table?",
+    "opts": {
+      "a": "Restore from the 3:00 AM automated backup only",
+      "b": "Use point-in-time recovery to restore to 2:29 PM (just before the DROP)",
+      "c": "Contact AWS Support to undo the DROP statement",
+      "d": "Use Aurora Backtrack to rewind"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Restoring from 3:00 AM would lose all data changes between 3:00 AM and 2:30 PM.",
+      "b": "Correct. Point-in-time recovery uses automated backups and transaction logs to restore to any second within the retention period, allowing restoration to just before the DROP.",
+      "c": "Incorrect. AWS Support cannot undo SQL statements inside your database.",
+      "d": "Incorrect. Backtrack is an Aurora-only feature; this is standard RDS MySQL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You want to test your application against a specific past state of your Aurora MySQL database without creating a new instance. Which feature should you use?",
+    "opts": {
+      "a": "Point-in-time recovery",
+      "b": "Aurora Backtrack",
+      "c": "Snapshot restore",
+      "d": "Read Replica promotion"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Point-in-time recovery creates a new DB instance.",
+      "b": "Correct. Aurora Backtrack rewinds the DB cluster in-place to a previous point in time without creating a new instance. However, note this affects the running cluster.",
+      "c": "Incorrect. Snapshot restore creates a new instance.",
+      "d": "Incorrect. Promoting a Read Replica doesn't revert to a past state."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is a limitation of RDS Proxy?",
+    "opts": {
+      "a": "It does not support MySQL",
+      "b": "It does not support PostgreSQL",
+      "c": "It cannot be used with RDS instances in a private subnet without proper VPC configuration",
+      "d": "It does not support Aurora"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. RDS Proxy supports MySQL.",
+      "b": "Incorrect. RDS Proxy supports PostgreSQL.",
+      "c": "Correct. RDS Proxy must be in the same VPC as the database and requires proper subnet and security group configuration. If the RDS instance is in a private subnet, the proxy must also be configured with access to those subnets.",
+      "d": "Incorrect. RDS Proxy supports Aurora."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses RDS Proxy and wants to ensure that after a failover, active connections are not immediately dropped. What feature of RDS Proxy helps with this?",
+    "opts": {
+      "a": "Connection draining",
+      "b": "Connection multiplexing with automatic failover handling (pinning-aware)",
+      "c": "Sticky sessions",
+      "d": "Connection keep-alive"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Connection draining is a load balancer concept.",
+      "b": "Correct. RDS Proxy handles failover gracefully by automatically routing connections to the new primary instance without immediately dropping active connections, reducing application disruption.",
+      "c": "Incorrect. Sticky sessions are a load balancer concept.",
+      "d": "Incorrect. Connection keep-alive is a general networking concept, not the specific RDS Proxy mechanism."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You have an Aurora PostgreSQL Global Database with a primary cluster in us-east-1 and a secondary in eu-west-1. A disaster takes down us-east-1 completely. What must you do?",
+    "opts": {
+      "a": "Wait for us-east-1 to recover; Global Database handles this automatically",
+      "b": "Detach the secondary cluster in eu-west-1 and promote it to a standalone primary cluster",
+      "c": "Create a new cluster in eu-west-1 from the latest backup",
+      "d": "Switch the writer endpoint to eu-west-1 using Route 53"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. If the primary region is completely down, you must manually intervene.",
+      "b": "Correct. You must detach the secondary cluster from the Global Database and promote it to become an independent read-write cluster (managed planned failover or unplanned failover).",
+      "c": "Incorrect. The secondary cluster already exists and has near-real-time data.",
+      "d": "Incorrect. The writer endpoint is part of the primary cluster; you must promote the secondary."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between Aurora Global Database 'managed planned failover' and 'unplanned failover (detach and promote)'?",
+    "opts": {
+      "a": "There is no difference; both are the same operation",
+      "b": "Managed planned failover ensures zero data loss by syncing before switchover; unplanned failover may have data loss based on replication lag",
+      "c": "Managed planned failover is automatic; unplanned requires manual intervention",
+      "d": "Managed planned failover works only with Aurora MySQL; unplanned works with both"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They are different operations with different guarantees.",
+      "b": "Correct. Managed planned failover synchronizes the clusters to ensure no data loss (RPO=0). Unplanned failover (detach and promote) is used during disasters where the primary is unavailable, and some data loss may occur based on replication lag.",
+      "c": "Incorrect. Both can require manual initiation, but planned failover coordinates both regions.",
+      "d": "Incorrect. Both work with MySQL and PostgreSQL Aurora."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You want to configure an alarm when your RDS instance's CPU exceeds 80% for 5 consecutive minutes. Which service and configuration should you use?",
+    "opts": {
+      "a": "CloudWatch Alarm on CPUUtilization metric with period 60 seconds and evaluation periods 5",
+      "b": "Enhanced Monitoring alarm with 1-second granularity",
+      "c": "RDS Event Subscription for high CPU",
+      "d": "AWS Config rule for CPU threshold"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. You create a CloudWatch Alarm on the CPUUtilization metric with a period of 60 seconds and 5 evaluation periods (5 consecutive data points exceeding 80%).",
+      "b": "Incorrect. Enhanced Monitoring publishes to CloudWatch Logs, not directly to alarms in this manner.",
+      "c": "Incorrect. RDS Event Subscriptions don't include CPU threshold events.",
+      "d": "Incorrect. AWS Config evaluates resource configurations, not real-time performance metrics."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has both OLTP and OLAP workloads. They want to use Aurora for OLTP and need near-real-time analytics. What is the best AWS solution to avoid impacting OLTP performance?",
+    "opts": {
+      "a": "Run analytics queries on the Aurora reader endpoint",
+      "b": "Use Aurora zero-ETL integration with Amazon Redshift",
+      "c": "Create a DMS task to continuously replicate to a separate RDS instance",
+      "d": "Export snapshots to S3 and use Athena"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Heavy analytics on reader instances can still contend with production reads.",
+      "b": "Correct. Aurora zero-ETL integration with Redshift automatically replicates data to Redshift for analytics without impacting Aurora OLTP performance, providing near-real-time analytics.",
+      "c": "Incorrect. DMS adds complexity and has replication lag.",
+      "d": "Incorrect. Snapshot export is not near-real-time."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is 'connection pinning' in the context of RDS Proxy?",
+    "opts": {
+      "a": "Permanently assigning a fixed connection to each client",
+      "b": "A condition where a session-level state prevents the proxy from reusing the connection across clients, reducing multiplexing efficiency",
+      "c": "A security feature that pins the connection to a specific IP address",
+      "d": "A feature that pins the connection to a specific AZ"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Pinning is not permanent assignment by design; it's a condition that limits multiplexing.",
+      "b": "Correct. Connection pinning occurs when session-level variables, prepared statements, or certain operations require the proxy to dedicate a backend connection to a specific client, reducing the effectiveness of connection pooling.",
+      "c": "Incorrect. Pinning is not related to IP binding.",
+      "d": "Incorrect. Pinning is not AZ-related."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following would cause connection pinning in RDS Proxy for MySQL?",
+    "opts": {
+      "a": "Using SELECT statements",
+      "b": "Setting session-level variables (e.g., SET SESSION wait_timeout)",
+      "c": "Using parameterized queries",
+      "d": "Connecting via SSL"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Regular SELECT statements don't cause pinning.",
+      "b": "Correct. Setting session-level variables causes connection pinning because the proxy cannot share that connection with other clients who expect different session state.",
+      "c": "Incorrect. Parameterized queries don't cause pinning.",
+      "d": "Incorrect. SSL connections don't cause pinning."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You have an RDS instance with 100 GB gp2 storage. What is the baseline IOPS performance?",
+    "opts": {
+      "a": "100 IOPS",
+      "b": "300 IOPS",
+      "c": "1000 IOPS",
+      "d": "3000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The baseline is 3 IOPS per GB.",
+      "b": "Correct. gp2 provides 3 IOPS per GB baseline. For 100 GB: 100 × 3 = 300 IOPS baseline (with burst up to 3,000 IOPS).",
+      "c": "Incorrect. 1000 IOPS would require approximately 333 GB.",
+      "d": "Incorrect. 3000 IOPS is the burst capability, not the baseline for 100 GB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "At what gp2 storage size does the baseline IOPS equal the burst IOPS (eliminating the need for burst credits)?",
+    "opts": {
+      "a": "500 GB",
+      "b": "1000 GB (1 TB)",
+      "c": "2000 GB",
+      "d": "3000 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 500 GB × 3 = 1,500 IOPS baseline, still below 3,000 burst.",
+      "b": "Correct. At 1,000 GB, the baseline is 1,000 × 3 = 3,000 IOPS, which equals the burst maximum. Beyond this size, burst is no longer needed.",
+      "c": "Incorrect. At 2,000 GB the baseline would be 6,000 IOPS, already beyond burst.",
+      "d": "Incorrect. 3,000 GB would give 9,000 IOPS baseline."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A development team uses an Aurora Serverless v1 cluster that auto-pauses after 5 minutes of inactivity. When a new request arrives, how long does it typically take to resume?",
+    "opts": {
+      "a": "Instantaneous (under 1 second)",
+      "b": "A few seconds (typically under 25 seconds)",
+      "c": "1-2 minutes",
+      "d": "5-10 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There is a warm-up delay when resuming from a paused state.",
+      "b": "Correct. Aurora Serverless v1 typically takes approximately 25 seconds or less to resume from a paused state.",
+      "c": "Incorrect. Resume time is typically less than 30 seconds.",
+      "d": "Incorrect. 5-10 minutes would be too long."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which RDS feature allows you to create a secondary Multi-AZ DB instance deployment with two readable standbys using transaction log-based replication?",
+    "opts": {
+      "a": "RDS Multi-AZ DB Instance (classic)",
+      "b": "RDS Multi-AZ DB Cluster",
+      "c": "Aurora Global Database",
+      "d": "RDS Cross-Region Read Replica"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Classic Multi-AZ has one non-readable standby.",
+      "b": "Correct. Multi-AZ DB Cluster deploys one writer and two reader instances across three AZs with transaction log-based replication. The readers are accessible for read queries.",
+      "c": "Incorrect. Aurora Global Database is for cross-region replication.",
+      "d": "Incorrect. Cross-Region Read Replicas are for geographic distribution."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Your application uses an RDS MySQL instance with a db.t3.medium instance class. Under heavy load, you notice CPU performance degrades significantly. What is the most likely cause?",
+    "opts": {
+      "a": "The instance has run out of storage",
+      "b": "The burstable instance has exhausted its CPU credits",
+      "c": "The security group is throttling connections",
+      "d": "MySQL has reached its maximum connections limit"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Storage exhaustion wouldn't directly cause CPU degradation.",
+      "b": "Correct. db.t3 instances are burstable. Once CPU credits are exhausted, the instance is limited to baseline performance, causing significant performance degradation under sustained heavy load.",
+      "c": "Incorrect. Security groups don't throttle; they allow or deny traffic.",
+      "d": "Incorrect. Maximum connections would cause connection errors, not general CPU degradation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to ensure that your RDS PostgreSQL instance does NOT allow connections from the public internet. Which two configurations must be in place?",
+    "opts": {
+      "a": "Set 'Publicly Accessible' to No and place the instance in a private subnet",
+      "b": "Enable encryption and disable IAM authentication",
+      "c": "Use a VPN connection and enable Multi-AZ",
+      "d": "Configure a Network ACL to deny all traffic and enable deletion protection"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Setting 'Publicly Accessible' to No prevents a public IP assignment, and placing it in a private subnet (no internet gateway route) ensures it's not reachable from the internet.",
+      "b": "Incorrect. Encryption and IAM authentication don't control public accessibility.",
+      "c": "Incorrect. VPN provides secure access but doesn't inherently make the instance private.",
+      "d": "Incorrect. NACLs could restrict access but deletion protection is unrelated to network accessibility."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses RDS MySQL and needs to audit all database activity including logins, queries, and table access. Which RDS feature should they enable?",
+    "opts": {
+      "a": "General log and slow query log",
+      "b": "Advanced Auditing using the MariaDB Audit Plugin (for MySQL) or pgAudit (for PostgreSQL)",
+      "c": "AWS CloudTrail",
+      "d": "Enhanced Monitoring"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. General log captures all queries but is too verbose for auditing and lacks fine-grained control.",
+      "b": "Correct. RDS MySQL supports the MariaDB Audit Plugin for detailed database activity auditing (logins, queries, connections). For PostgreSQL, pgAudit provides similar functionality.",
+      "c": "Incorrect. CloudTrail audits AWS API calls, not database-level queries.",
+      "d": "Incorrect. Enhanced Monitoring provides OS metrics, not query auditing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of manual snapshots you can have per AWS account per region for RDS?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "Unlimited (subject to account-level snapshot storage limits)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 50.",
+      "b": "Correct. The default limit is 100 manual DB snapshots per region per account. This can be increased by requesting a limit increase.",
+      "c": "Incorrect. The default limit is 100.",
+      "d": "Incorrect. There is a specific default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An Aurora MySQL cluster writer instance fails. There are no Read Replicas in the cluster. What happens?",
+    "opts": {
+      "a": "The cluster becomes permanently unavailable",
+      "b": "Aurora automatically creates a new writer instance in the same AZ",
+      "c": "Aurora creates a new DB instance as the writer (typically within 10 minutes)",
+      "d": "You must manually launch a new instance"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora will attempt recovery.",
+      "b": "Incorrect. It may create the instance in a different AZ.",
+      "c": "Correct. If no replicas exist, Aurora attempts to create a new DB instance in the same AZ as the failed writer. This takes longer than promoting a replica (typically under 10 minutes).",
+      "d": "Incorrect. Aurora handles this automatically, though it takes longer without replicas."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following correctly describes how RDS handles storage scaling for io1 volumes?",
+    "opts": {
+      "a": "io1 storage can only be increased, never decreased, and changes require a few minutes of downtime",
+      "b": "io1 storage can be increased online with no downtime; storage can also be decreased",
+      "c": "io1 storage can be increased with no downtime but cannot be decreased",
+      "d": "io1 storage changes always require instance restart"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Storage increases for io1 can happen without downtime.",
+      "b": "Incorrect. Storage for RDS cannot be decreased once allocated.",
+      "c": "Correct. You can increase io1 storage without downtime, but you cannot decrease allocated storage for any RDS storage type.",
+      "d": "Incorrect. Storage increases don't require a restart."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants their RDS instances to automatically comply with a tagging policy. Which AWS service should they use to detect non-compliant instances?",
+    "opts": {
+      "a": "AWS CloudTrail",
+      "b": "AWS Config Rules",
+      "c": "Amazon Inspector",
+      "d": "AWS Trusted Advisor"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudTrail logs API calls but doesn't evaluate compliance.",
+      "b": "Correct. AWS Config Rules can evaluate whether RDS instances comply with specific configurations, including required tags.",
+      "c": "Incorrect. Inspector assesses security vulnerabilities in EC2 instances and container images.",
+      "d": "Incorrect. Trusted Advisor provides general best practice checks but not custom tagging policies."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You run an RDS instance in a VPC with a security group allowing inbound MySQL traffic (port 3306) from a specific application security group. A new application server in a different security group cannot connect. What should you do?",
+    "opts": {
+      "a": "Modify the RDS instance's subnet group",
+      "b": "Add an inbound rule to the RDS security group allowing port 3306 from the new application's security group",
+      "c": "Change the RDS instance to publicly accessible",
+      "d": "Modify the RDS parameter group"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Subnet groups define which subnets the DB can be in, not who can connect.",
+      "b": "Correct. You need to add an inbound rule to the RDS security group allowing traffic on port 3306 from the new application server's security group.",
+      "c": "Incorrect. Making it publicly accessible would be a security risk and doesn't address security group rules.",
+      "d": "Incorrect. Parameter groups configure database engine settings, not network access."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following best describes the RDS Blue/Green Deployment feature?",
+    "opts": {
+      "a": "A method to run two production databases simultaneously for load balancing",
+      "b": "A feature that creates a staging environment (green) that mirrors production (blue), allowing testing before switchover with minimal downtime",
+      "c": "A disaster recovery strategy using cross-region replicas",
+      "d": "A method to test schema changes on Read Replicas"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's not for simultaneous production load balancing.",
+      "b": "Correct. RDS Blue/Green Deployments create a separate staging (green) environment that stays in sync with production (blue). You can make changes on green, test them, and then switchover to green as the new production with minimal downtime.",
+      "c": "Incorrect. It's not specifically a cross-region DR strategy.",
+      "d": "Incorrect. While you can test changes, it's a full environment copy, not just a Read Replica."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical switchover time for an RDS Blue/Green Deployment?",
+    "opts": {
+      "a": "Under 1 minute",
+      "b": "5-10 minutes",
+      "c": "30 minutes",
+      "d": "1 hour"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. RDS Blue/Green Deployment switchover typically completes in under 1 minute, during which writes are briefly blocked.",
+      "b": "Incorrect. The switchover is faster than 5 minutes.",
+      "c": "Incorrect. 30 minutes is too long for a switchover.",
+      "d": "Incorrect. 1 hour would be unacceptable downtime for this feature."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following changes can you test using RDS Blue/Green Deployments before switching to production?",
+    "opts": {
+      "a": "Major engine version upgrades, parameter group changes, and schema changes",
+      "b": "Only minor version upgrades",
+      "c": "Only parameter group changes",
+      "d": "Only storage type changes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Blue/Green Deployments support testing major version upgrades, parameter group changes, schema modifications, and instance class changes on the green environment before switchover.",
+      "b": "Incorrect. Major version upgrades are also supported.",
+      "c": "Incorrect. Multiple types of changes can be tested.",
+      "d": "Incorrect. Many more changes beyond storage type are supported."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to ensure that your RDS instance in a Multi-AZ DB Cluster deployment commits a transaction only after it is written to at least one reader. What type of replication ensures this?",
+    "opts": {
+      "a": "Asynchronous replication",
+      "b": "Fully synchronous replication",
+      "c": "Semi-synchronous replication",
+      "d": "Lazy replication"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Asynchronous wouldn't guarantee the commit is on a reader before acknowledging.",
+      "b": "Incorrect. Fully synchronous would require all replicas to confirm, which is not how Multi-AZ DB Cluster works.",
+      "c": "Correct. Multi-AZ DB Cluster uses semi-synchronous replication, where the transaction is committed on the writer only after at least one reader acknowledges receipt of the transaction log.",
+      "d": "Incorrect. Lazy replication is not a concept used here."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Your company requires that RDS database credentials are rotated every 30 days automatically without application code changes. What architecture should you implement?",
+    "opts": {
+      "a": "Store credentials in environment variables and rotate manually",
+      "b": "Use AWS Secrets Manager with automatic rotation enabled, and have the application retrieve credentials from Secrets Manager at runtime",
+      "c": "Use IAM Database Authentication exclusively",
+      "d": "Store credentials in AWS Systems Manager Parameter Store with a CloudWatch Events rule"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual rotation requires code changes or restarts.",
+      "b": "Correct. Secrets Manager supports automatic rotation with built-in Lambda functions for RDS. The application retrieves the current credentials from Secrets Manager, so rotations are transparent.",
+      "c": "Incorrect. IAM DB Authentication works for MySQL/PostgreSQL but may not suit all use cases and has a 200 connections/second limit.",
+      "d": "Incorrect. Parameter Store doesn't have built-in automatic rotation like Secrets Manager."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An RDS PostgreSQL instance shows high 'ReadLatency' and 'DiskQueueDepth' in CloudWatch. The instance uses gp2 storage with 200 GB allocated. What is the BEST remediation?",
+    "opts": {
+      "a": "Add a Read Replica",
+      "b": "Increase storage to get higher baseline IOPS, or switch to io1/gp3 with provisioned IOPS",
+      "c": "Enable Multi-AZ",
+      "d": "Increase the backup retention period"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A Read Replica helps with read query distribution but doesn't fix the primary's I/O bottleneck.",
+      "b": "Correct. High ReadLatency and DiskQueueDepth indicate I/O saturation. Increasing gp2 storage raises the IOPS baseline (200 GB × 3 = 600 IOPS is low). Switching to io1/gp3 with provisioned IOPS directly addresses the issue.",
+      "c": "Incorrect. Multi-AZ provides HA but doesn't improve storage performance on the primary.",
+      "d": "Incorrect. Backup retention has no impact on storage performance."
+    }
+  }
+]

@@ -1,0 +1,1192 @@
+[
+  {
+    "type": "factual",
+    "q": "What is the maximum number of repositories allowed per AWS account in CodeCommit by default?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "500"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1,000 is not the default limit for CodeCommit repositories.",
+      "b": "Correct. The default maximum is 5,000 repositories per AWS account, and this limit can be increased via Service Quotas.",
+      "c": "Incorrect. 10,000 exceeds the default limit.",
+      "d": "Incorrect. 500 is too low; the actual default is 5,000."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of files allowed in a single commit in AWS CodeCommit?",
+    "opts": {
+      "a": "50",
+      "b": "200",
+      "c": "100",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 50.",
+      "b": "Incorrect. 200 exceeds the actual limit.",
+      "c": "Correct. AWS CodeCommit allows a maximum of 100 files in a single commit.",
+      "d": "Incorrect. 500 is far above the actual limit of 100."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of open pull requests allowed in a CodeCommit repository?",
+    "opts": {
+      "a": "500",
+      "b": "2,000",
+      "c": "1,000",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 500.",
+      "b": "Incorrect. 2,000 exceeds the actual maximum.",
+      "c": "Correct. CodeCommit allows a maximum of 1,000 open pull requests per repository.",
+      "d": "Incorrect. 100 is too low; the actual limit is 1,000."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of references allowed in a single push to CodeCommit?",
+    "opts": {
+      "a": "2,000",
+      "b": "4,000",
+      "c": "1,000",
+      "d": "10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The actual limit is 4,000.",
+      "b": "Correct. A maximum of 4,000 references (create, delete, and update) are allowed in a single push, with no limit on the overall number of references in the repository.",
+      "c": "Incorrect. 1,000 is below the actual limit.",
+      "d": "Incorrect. 10,000 exceeds the actual limit of 4,000."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What availability SLA do AWS CodeCommit, CodeBuild, CodePipeline, and CodeDeploy maintain?",
+    "opts": {
+      "a": "99.0%",
+      "b": "99.99%",
+      "c": "99.9%",
+      "d": "99.95%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The SLA is higher than 99.0%.",
+      "b": "Incorrect. While they exceed 99.9%, the stated SLA commitment is 99.9%.",
+      "c": "Correct. All four Code* services maintain a 99.9% uptime SLA.",
+      "d": "Incorrect. The stated SLA is 99.9%, not 99.95%."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which underlying AWS services does CodeCommit use to store customer data redundantly?",
+    "opts": {
+      "a": "Amazon EBS and Amazon RDS",
+      "b": "Amazon S3 and Amazon DynamoDB",
+      "c": "Amazon EFS and Amazon Aurora",
+      "d": "Amazon Glacier and Amazon Redshift"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS and RDS are not the storage backends for CodeCommit.",
+      "b": "Correct. CodeCommit, CodeBuild, CodePipeline, and CodeDeploy use Amazon S3 and Amazon DynamoDB to store customer data redundantly across multiple facilities.",
+      "c": "Incorrect. EFS and Aurora are not used for this purpose.",
+      "d": "Incorrect. Glacier and Redshift are not used as backend storage for Code* services."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In how many AWS regions is CodeCommit currently available?",
+    "opts": {
+      "a": "15",
+      "b": "25",
+      "c": "29",
+      "d": "32"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. CodeCommit is available in more regions.",
+      "b": "Incorrect. The number is higher than 25.",
+      "c": "Correct. AWS CodeCommit is currently available in 29 regions.",
+      "d": "Incorrect. 32 exceeds the current availability."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default timeout for a CodeDeploy deployment action in CodePipeline?",
+    "opts": {
+      "a": "1 day",
+      "b": "3 days",
+      "c": "5 days",
+      "d": "7 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 day is not the timeout for CodeDeploy actions.",
+      "b": "Incorrect. 3 days is the timeout for CloudFormation deployment actions, not CodeDeploy.",
+      "c": "Correct. CodeDeploy and CodeDeploy ECS (blue/green) deployment actions have a 5-day timeout.",
+      "d": "Incorrect. 7 days exceeds the actual timeout."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default timeout for a CloudFormation deployment action in CodePipeline?",
+    "opts": {
+      "a": "1 day",
+      "b": "3 days",
+      "c": "5 days",
+      "d": "7 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudFormation deployment actions have a longer timeout.",
+      "b": "Correct. CloudFormation deployment actions have a default timeout of 3 days.",
+      "c": "Incorrect. 5 days is the timeout for CodeDeploy actions.",
+      "d": "Incorrect. 7 days is not a valid timeout for any standard CodePipeline action."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default timeout for an AWS Lambda invoke action in CodePipeline?",
+    "opts": {
+      "a": "1 hour",
+      "b": "12 hours",
+      "c": "24 hours",
+      "d": "48 hours"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The Lambda invoke action timeout is longer than 1 hour.",
+      "b": "Incorrect. 12 hours is not the correct timeout.",
+      "c": "Correct. AWS Lambda invoke actions in CodePipeline have a 24-hour timeout.",
+      "d": "Incorrect. 48 hours exceeds the actual Lambda invoke action timeout."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which regions are planned for CodeCommit expansion starting Q3 2026?",
+    "opts": {
+      "a": "ap-south-2 and me-central-1",
+      "b": "eu-south-2 and ca-west-1",
+      "c": "af-south-1 and ap-east-1",
+      "d": "us-west-3 and eu-north-2"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These regions are not mentioned in the expansion plans.",
+      "b": "Correct. CodeCommit will expand to eu-south-2 and ca-west-1 starting Q3 2026.",
+      "c": "Incorrect. These are not the planned expansion regions.",
+      "d": "Incorrect. These regions don't exist or aren't mentioned in the plans."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Why did AWS reverse the de-emphasis of CodeCommit and return it to full General Availability?",
+    "opts": {
+      "a": "Regulatory requirements forced AWS to maintain the service",
+      "b": "Customer feedback showed CodeCommit is a critical piece of infrastructure with deep IAM integration and VPC endpoint support",
+      "c": "Competitor pressure from Azure DevOps",
+      "d": "CodeCommit was generating more revenue than expected"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While regulated industries benefit, it wasn't a regulatory mandate.",
+      "b": "Correct. AWS listened to customer feedback highlighting CodeCommit's value through IAM integration, VPC endpoint support, CloudTrail logging, and seamless connectivity with CodePipeline and CodeBuild.",
+      "c": "Incorrect. The decision was based on customer feedback, not competitor pressure.",
+      "d": "Incorrect. Revenue was not cited as the reason."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was the CodeCommit de-emphasis originally announced?",
+    "opts": {
+      "a": "January 2024",
+      "b": "July 2024",
+      "c": "November 2024",
+      "d": "March 2025"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The announcement was later in 2024.",
+      "b": "Correct. AWS announced plans to de-emphasize CodeCommit in July 2024.",
+      "c": "Incorrect. November 2025 is when the reversal was announced.",
+      "d": "Incorrect. March 2025 is not the correct date."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does CodeBuild handle scaling?",
+    "opts": {
+      "a": "It requires manual provisioning of build servers",
+      "b": "It scales up and down dynamically to meet build volume",
+      "c": "It uses reserved instances for consistent capacity",
+      "d": "It requires Auto Scaling groups to be configured manually"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeBuild is fully managed and doesn't require manual provisioning.",
+      "b": "Correct. CodeBuild scales up and down dynamically to meet your build volume automatically.",
+      "c": "Incorrect. CodeBuild doesn't use reserved instances.",
+      "d": "Incorrect. CodeBuild handles scaling automatically without manual ASG configuration."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does CodePipeline increase workflow speed?",
+    "opts": {
+      "a": "By using dedicated hardware for each pipeline",
+      "b": "By running actions in parallel",
+      "c": "By caching all build artifacts locally",
+      "d": "By pre-compiling source code"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodePipeline doesn't use dedicated hardware.",
+      "b": "Correct. CodePipeline allows you to run actions in parallel to increase workflow speeds.",
+      "c": "Incorrect. While artifact caching exists, parallel actions are the primary speed mechanism.",
+      "d": "Incorrect. Pre-compilation is not a CodePipeline feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Is there a limit on the overall number of references in a CodeCommit repository?",
+    "opts": {
+      "a": "Yes, maximum 10,000",
+      "b": "Yes, maximum 50,000",
+      "c": "No, there is no limit on the overall number of references",
+      "d": "Yes, maximum 4,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is no overall limit on references.",
+      "b": "Incorrect. There is no overall limit.",
+      "c": "Correct. While there is a limit of 4,000 references per push, there is no limit on the overall number of references in the repository.",
+      "d": "Incorrect. 4,000 is the per-push limit, not an overall limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Can the default CodeCommit repository limit of 5,000 per account be increased?",
+    "opts": {
+      "a": "No, it is a hard limit",
+      "b": "Yes, through AWS Service Quotas",
+      "c": "Yes, but only with Enterprise Support",
+      "d": "No, you must create a new AWS account"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This limit can be changed.",
+      "b": "Correct. The 5,000 repository limit can be increased by requesting a service quota increase through AWS Service Quotas.",
+      "c": "Incorrect. Service Quotas is available to all customers, not just Enterprise Support.",
+      "d": "Incorrect. You can request a limit increase without creating a new account."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to migrate their polling-based GitHub source pipelines to a more efficient event-driven approach. What should they migrate to?",
+    "opts": {
+      "a": "CloudWatch Events polling",
+      "b": "Webhooks",
+      "c": "SNS notifications",
+      "d": "Lambda scheduled functions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch Events polling is not the recommended approach.",
+      "b": "Correct. AWS recommends migrating polling pipelines to webhooks for GitHub source actions.",
+      "c": "Incorrect. SNS is not the mechanism for GitHub source detection.",
+      "d": "Incorrect. Lambda scheduled functions are not the replacement for polling."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team in a regulated industry needs a code repository with deep IAM integration, VPC endpoint support, and CloudTrail logging. Which service best meets these requirements?",
+    "opts": {
+      "a": "GitHub Enterprise",
+      "b": "AWS CodeCommit",
+      "c": "Bitbucket Cloud",
+      "d": "GitLab SaaS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GitHub doesn't offer native IAM integration or VPC endpoints.",
+      "b": "Correct. CodeCommit provides deep IAM integration, VPC endpoint support, CloudTrail logging, and seamless connectivity with other AWS services, making it ideal for regulated industries.",
+      "c": "Incorrect. Bitbucket Cloud doesn't have native AWS IAM integration.",
+      "d": "Incorrect. GitLab SaaS doesn't offer native IAM or VPC endpoint support."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodePipeline has a Lambda invoke action that has been running for 20 hours. What is the status of this action?",
+    "opts": {
+      "a": "It has already timed out",
+      "b": "It is still running within the timeout period",
+      "c": "It will timeout in exactly 4 hours",
+      "d": "Lambda actions don't have timeouts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The timeout is 24 hours, so 20 hours is still within the limit.",
+      "b": "Correct. Lambda invoke actions have a 24-hour timeout, so at 20 hours the action is still running within its allowed time.",
+      "c": "Correct that it has 4 hours remaining, but option B better describes the current status.",
+      "d": "Incorrect. Lambda actions do have a 24-hour timeout."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer is trying to push 5,000 reference updates in a single push to CodeCommit. What will happen?",
+    "opts": {
+      "a": "The push will succeed completely",
+      "b": "The push will fail because it exceeds the 4,000 reference limit per push",
+      "c": "The push will partially succeed with only 4,000 references",
+      "d": "CodeCommit will automatically split it into multiple pushes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5,000 exceeds the 4,000 per-push limit.",
+      "b": "Correct. CodeCommit has a maximum of 4,000 references per single push, so 5,000 will fail.",
+      "c": "Incorrect. CodeCommit doesn't partially process pushes in this manner.",
+      "d": "Incorrect. CodeCommit doesn't automatically split pushes."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to include 150 files in a single commit to CodeCommit. What should they do?",
+    "opts": {
+      "a": "Proceed normally as the limit is 200 files",
+      "b": "Split the commit into two separate commits since the limit is 100 files per commit",
+      "c": "Request a service quota increase",
+      "d": "Use Git LFS to bypass the limit"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is 100 files, not 200.",
+      "b": "Correct. Since CodeCommit has a maximum of 100 files per commit, the team must split 150 files into at least two commits.",
+      "c": "Incorrect. The file-per-commit limit is not adjustable via Service Quotas.",
+      "d": "Incorrect. Git LFS doesn't bypass the file count per commit limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your organization has 4,800 repositories in CodeCommit and needs to create 300 more. What should you do?",
+    "opts": {
+      "a": "Create a new AWS account",
+      "b": "Delete old repositories to make room",
+      "c": "Request a service quota increase through AWS Service Quotas",
+      "d": "It's not possible to have more than 5,000 repositories"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. While possible, requesting a quota increase is simpler.",
+      "b": "Incorrect. Deleting repositories is unnecessary when you can increase the quota.",
+      "c": "Correct. The 5,000 repository limit can be increased by requesting a service quota increase.",
+      "d": "Incorrect. The limit can be changed via Service Quotas."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodeDeploy deployment action in CodePipeline has been running for 4 days. Should you be concerned?",
+    "opts": {
+      "a": "Yes, it has exceeded its timeout",
+      "b": "No, it still has 1 day before timeout",
+      "c": "Yes, CodeDeploy actions timeout after 3 days",
+      "d": "No, CodeDeploy actions have no timeout"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeDeploy actions have a 5-day timeout.",
+      "b": "Correct. CodeDeploy deployment actions have a 5-day timeout, so at 4 days it still has 1 day remaining.",
+      "c": "Incorrect. 3 days is the CloudFormation action timeout, not CodeDeploy.",
+      "d": "Incorrect. CodeDeploy actions do have a 5-day timeout."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which of the following is NOT a feature that makes CodeCommit valuable for regulated industries?",
+    "opts": {
+      "a": "Deep IAM integration",
+      "b": "VPC endpoint support",
+      "c": "Built-in code review AI",
+      "d": "CloudTrail logging"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. IAM integration is a key feature for regulated industries.",
+      "b": "Incorrect. VPC endpoint support is a valued feature.",
+      "c": "Correct. Built-in code review AI is not mentioned as a CodeCommit feature for regulated industries.",
+      "d": "Incorrect. CloudTrail logging is a key compliance feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which type of source control system is AWS CodeCommit?",
+    "opts": {
+      "a": "Subversion (SVN)",
+      "b": "Git",
+      "c": "Mercurial",
+      "d": "Perforce"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeCommit is not SVN-based.",
+      "b": "Correct. AWS CodeCommit is an integrated Git repository service.",
+      "c": "Incorrect. CodeCommit uses Git, not Mercurial.",
+      "d": "Incorrect. CodeCommit is Git-based, not Perforce."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Who is responsible for the performance of AWS Code* services?",
+    "opts": {
+      "a": "The customer",
+      "b": "AWS service teams",
+      "c": "Third-party vendors",
+      "d": "Both customer and AWS equally"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. As fully managed services, AWS is responsible for performance.",
+      "b": "Correct. AWS services are fully managed, and service teams are responsible for the performance of the services.",
+      "c": "Incorrect. These are first-party AWS services.",
+      "d": "Incorrect. AWS service teams bear the responsibility for service performance."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the nature of CodePipeline quotas related to Region availability and naming constraints?",
+    "opts": {
+      "a": "They are soft limits that can be increased",
+      "b": "They are fixed and cannot be changed",
+      "c": "They vary by account type",
+      "d": "They can be changed with Enterprise Support"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Region availability and naming constraint quotas are fixed.",
+      "b": "Correct. Quotas related to Region availability, naming constraints, and allowed artifact sizes in CodePipeline are fixed and cannot be changed.",
+      "c": "Incorrect. These quotas are consistent across all account types.",
+      "d": "Incorrect. Even Enterprise Support cannot change these fixed quotas."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to build a CI/CD pipeline entirely within AWS. Which combination of services provides source control, build, and deployment?",
+    "opts": {
+      "a": "CodeCommit, CodeBuild, CodeDeploy",
+      "b": "S3, Lambda, CloudFormation",
+      "c": "ECR, ECS, Fargate",
+      "d": "CodeCommit, CloudWatch, Systems Manager"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodeCommit handles source control, CodeBuild handles building/testing, and CodeDeploy handles deployment. CodePipeline orchestrates the entire workflow.",
+      "b": "Incorrect. While these can be part of a CI/CD pipeline, they don't form a complete CI/CD toolchain.",
+      "c": "Incorrect. These are container services, not CI/CD tools.",
+      "d": "Incorrect. CloudWatch and Systems Manager are monitoring/management tools, not CI/CD."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What orchestrates the flow between CodeCommit, CodeBuild, and CodeDeploy in a CI/CD pipeline?",
+    "opts": {
+      "a": "AWS Step Functions",
+      "b": "AWS CodePipeline",
+      "c": "Amazon EventBridge",
+      "d": "AWS Lambda"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Step Functions is for general workflow orchestration, not CI/CD specifically.",
+      "b": "Correct. CodePipeline orchestrates the continuous delivery flow between source, build, and deploy stages.",
+      "c": "Incorrect. EventBridge can trigger pipelines but doesn't orchestrate the CI/CD flow.",
+      "d": "Incorrect. Lambda can be invoked within a pipeline but doesn't orchestrate it."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to deploy their application to both EC2 instances and on-premises servers. Which AWS service supports this?",
+    "opts": {
+      "a": "AWS CodeBuild",
+      "b": "AWS CodeDeploy",
+      "c": "AWS CodeCommit",
+      "d": "AWS CloudFormation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeBuild is for building, not deploying to instances.",
+      "b": "Correct. CodeDeploy supports deployment to EC2 instances, on-premises servers, Lambda functions, and ECS services.",
+      "c": "Incorrect. CodeCommit is for source code management.",
+      "d": "Incorrect. CloudFormation is for infrastructure provisioning, not application deployment."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What deployment strategy does CodeDeploy support for ECS services?",
+    "opts": {
+      "a": "Rolling update only",
+      "b": "Blue/Green deployment",
+      "c": "Canary only",
+      "d": "In-place only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ECS deployments via CodeDeploy use Blue/Green.",
+      "b": "Correct. CodeDeploy supports Blue/Green deployments for ECS services.",
+      "c": "Incorrect. While canary is a traffic shifting option, the deployment type is Blue/Green.",
+      "d": "Incorrect. In-place is for EC2/on-premises, not ECS."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did AWS announce that CodeCommit is returning to full General Availability?",
+    "opts": {
+      "a": "July 2024",
+      "b": "January 2025",
+      "c": "November 2025",
+      "d": "March 2026"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. July 2024 was when de-emphasis was announced.",
+      "b": "Incorrect. The announcement came later in 2025.",
+      "c": "Correct. The blog post announcing CodeCommit's return to full GA was published on 24 November 2025.",
+      "d": "Incorrect. The announcement was in November 2025."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer wants to trigger a CodePipeline execution whenever code is pushed to a CodeCommit repository. What mechanism should they use?",
+    "opts": {
+      "a": "Manual approval action",
+      "b": "Amazon EventBridge (CloudWatch Events) rule",
+      "c": "Scheduled polling every 5 minutes",
+      "d": "SNS topic subscription"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual approval requires human intervention.",
+      "b": "Correct. CodePipeline uses Amazon EventBridge rules to detect changes in CodeCommit and automatically trigger pipeline executions.",
+      "c": "Incorrect. Polling is the legacy approach; event-driven is recommended.",
+      "d": "Incorrect. While SNS can be used for notifications, EventBridge rules trigger pipelines."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which of the following is a valid CodeDeploy deployment type for EC2 instances?",
+    "opts": {
+      "a": "Blue/Green only",
+      "b": "In-place and Blue/Green",
+      "c": "Rolling only",
+      "d": "Canary only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 instances support both In-place and Blue/Green.",
+      "b": "Correct. CodeDeploy supports both In-place and Blue/Green deployment types for EC2 instances.",
+      "c": "Incorrect. Rolling is not a CodeDeploy deployment type.",
+      "d": "Incorrect. Canary is a traffic routing option within Blue/Green, not a deployment type."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the CodeDeploy agent used for?",
+    "opts": {
+      "a": "Building source code on EC2 instances",
+      "b": "Running deployments on EC2 and on-premises instances",
+      "c": "Managing Git repositories",
+      "d": "Orchestrating pipeline stages"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Building code is CodeBuild's function.",
+      "b": "Correct. The CodeDeploy agent is installed on EC2 and on-premises instances to enable CodeDeploy to run deployments on them.",
+      "c": "Incorrect. Git repositories are managed by CodeCommit.",
+      "d": "Incorrect. Pipeline orchestration is CodePipeline's function."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In CodeBuild, what file defines the build commands and settings?",
+    "opts": {
+      "a": "Dockerfile",
+      "b": "buildspec.yml",
+      "c": "pipeline.json",
+      "d": "appspec.yml"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Dockerfile is for container image building.",
+      "b": "Correct. The buildspec.yml file defines the build commands, environment variables, and artifacts for CodeBuild.",
+      "c": "Incorrect. pipeline.json is not a standard CodeBuild configuration file.",
+      "d": "Incorrect. appspec.yml is used by CodeDeploy, not CodeBuild."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In CodeDeploy, what file specifies the deployment instructions?",
+    "opts": {
+      "a": "buildspec.yml",
+      "b": "deploy.json",
+      "c": "appspec.yml",
+      "d": "taskdef.json"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. buildspec.yml is used by CodeBuild.",
+      "b": "Incorrect. deploy.json is not a standard CodeDeploy file.",
+      "c": "Correct. The appspec.yml (Application Specification) file defines the deployment actions and lifecycle hooks for CodeDeploy.",
+      "d": "Incorrect. taskdef.json is an ECS task definition file."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants their build environment to match their production environment exactly. What CodeBuild feature should they use?",
+    "opts": {
+      "a": "Managed build environments",
+      "b": "Custom Docker images",
+      "c": "Build badges",
+      "d": "Build caching"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Managed environments are pre-configured and may not match production.",
+      "b": "Correct. Custom Docker images allow teams to create build environments that exactly replicate their production environment.",
+      "c": "Incorrect. Build badges show build status, not environment configuration.",
+      "d": "Incorrect. Build caching speeds up builds but doesn't define the environment."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which CodeDeploy lifecycle hook runs before the application is installed?",
+    "opts": {
+      "a": "AfterInstall",
+      "b": "BeforeInstall",
+      "c": "ApplicationStart",
+      "d": "ValidateService"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AfterInstall runs after installation.",
+      "b": "Correct. BeforeInstall runs before the application revision is installed, used for tasks like decrypting files or creating backups.",
+      "c": "Incorrect. ApplicationStart runs after the application is installed.",
+      "d": "Incorrect. ValidateService is the last hook to verify the deployment was successful."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the phases in a CodeBuild buildspec.yml file?",
+    "opts": {
+      "a": "source, build, deploy, test",
+      "b": "install, pre_build, build, post_build",
+      "c": "init, compile, package, publish",
+      "d": "setup, execute, cleanup, notify"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not the correct buildspec phases.",
+      "b": "Correct. The buildspec.yml supports install, pre_build, build, and post_build phases.",
+      "c": "Incorrect. These are not valid buildspec phase names.",
+      "d": "Incorrect. These are not the correct phase names."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs a human to review changes before deploying to production. Which CodePipeline feature should they use?",
+    "opts": {
+      "a": "Parallel actions",
+      "b": "Manual approval action",
+      "c": "CloudWatch alarm integration",
+      "d": "Source polling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Parallel actions run multiple actions simultaneously but don't require approval.",
+      "b": "Correct. Manual approval actions pause the pipeline and require human approval before proceeding to the next stage.",
+      "c": "Incorrect. CloudWatch alarms can stop deployments but don't require human review.",
+      "d": "Incorrect. Source polling is for detecting code changes."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides notifications about events in CodePipeline?",
+    "opts": {
+      "a": "Amazon SES",
+      "b": "Amazon SNS",
+      "c": "Amazon SQS",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SES is for email sending but isn't directly integrated with CodePipeline notifications.",
+      "b": "Correct. Amazon SNS is used to send notifications about pipeline events like stage transitions, approvals, and failures.",
+      "c": "Incorrect. SQS is for message queuing, not notifications.",
+      "d": "Incorrect. Config is for resource configuration tracking."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeBuild project needs to access resources in a private VPC. What must you configure?",
+    "opts": {
+      "a": "An Internet Gateway",
+      "b": "VPC configuration in the CodeBuild project (subnet, security group)",
+      "c": "A public IP address for the build environment",
+      "d": "AWS Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. An Internet Gateway doesn't grant access to private resources.",
+      "b": "Correct. You must configure VPC settings (VPC ID, subnets, and security groups) in the CodeBuild project to access private VPC resources.",
+      "c": "Incorrect. A public IP doesn't help access private VPC resources.",
+      "d": "Incorrect. Direct Connect is for on-premises connectivity, not CodeBuild VPC access."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Where does CodePipeline store pipeline artifacts between stages?",
+    "opts": {
+      "a": "Amazon EBS",
+      "b": "Amazon S3",
+      "c": "Amazon EFS",
+      "d": "Amazon DynamoDB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS is block storage for EC2, not used for pipeline artifacts.",
+      "b": "Correct. CodePipeline uses Amazon S3 buckets (artifact stores) to pass artifacts between stages.",
+      "c": "Incorrect. EFS is not used for pipeline artifact storage.",
+      "d": "Incorrect. DynamoDB is used for metadata, not artifact storage."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team has their source code on GitHub but wants to use AWS services for build and deploy. Which pipeline configuration is correct?",
+    "opts": {
+      "a": "Source: GitHub, Build: CodeBuild, Deploy: CodeDeploy",
+      "b": "Source: CodeCommit, Build: Jenkins, Deploy: CodeDeploy",
+      "c": "Source: S3, Build: CodeBuild, Deploy: CloudFormation",
+      "d": "Source: GitHub, Build: Lambda, Deploy: ECS"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodePipeline supports GitHub as a source provider, CodeBuild for building, and CodeDeploy for deployment.",
+      "b": "Incorrect. The requirement is GitHub as source, not CodeCommit.",
+      "c": "Incorrect. S3 as source doesn't match the GitHub requirement.",
+      "d": "Incorrect. Lambda is not a build service in this context."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which CodeDeploy deployment configuration deploys to one instance at a time?",
+    "opts": {
+      "a": "CodeDeployDefault.AllAtOnce",
+      "b": "CodeDeployDefault.OneAtATime",
+      "c": "CodeDeployDefault.HalfAtATime",
+      "d": "CodeDeployDefault.Linear10Percent"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AllAtOnce deploys to all instances simultaneously.",
+      "b": "Correct. OneAtATime deploys to one instance at a time, proceeding to the next only after the current one succeeds.",
+      "c": "Incorrect. HalfAtATime deploys to half the instances at once.",
+      "d": "Incorrect. Linear10Percent is for Lambda/ECS traffic shifting."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What compute types are available in AWS CodeBuild?",
+    "opts": {
+      "a": "Small, Medium, Large only",
+      "b": "build.general1.small, build.general1.medium, build.general1.large, build.general1.2xlarge",
+      "c": "t2.micro, t2.small, t2.medium",
+      "d": "On-demand and Spot only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not the official naming conventions.",
+      "b": "Correct. CodeBuild offers build.general1.small, build.general1.medium, build.general1.large, and build.general1.2xlarge compute types.",
+      "c": "Incorrect. These are EC2 instance types, not CodeBuild compute types.",
+      "d": "Incorrect. These are pricing models, not compute types."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You need to encrypt your CodeCommit repository data at rest. What does AWS use by default?",
+    "opts": {
+      "a": "Customer-managed CMK",
+      "b": "AWS managed keys (AWS KMS)",
+      "c": "No encryption at rest",
+      "d": "SSL/TLS encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. By default, AWS managed keys are used, though customers can use CMKs.",
+      "b": "Correct. CodeCommit automatically encrypts repository data at rest using AWS managed keys in AWS KMS.",
+      "c": "Incorrect. CodeCommit always encrypts data at rest.",
+      "d": "Incorrect. SSL/TLS is for data in transit, not at rest."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What encryption does CodeCommit use for data in transit?",
+    "opts": {
+      "a": "No encryption",
+      "b": "SSH or HTTPS",
+      "c": "IPSec VPN only",
+      "d": "AWS PrivateLink only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeCommit encrypts all data in transit.",
+      "b": "Correct. CodeCommit supports both SSH and HTTPS protocols for encrypting data in transit.",
+      "c": "Incorrect. IPSec VPN is not the primary transport mechanism.",
+      "d": "Incorrect. While PrivateLink/VPC endpoints are supported, SSH and HTTPS are the standard protocols."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your organization requires all CodeCommit access to remain within the private network without traversing the internet. What should you configure?",
+    "opts": {
+      "a": "NAT Gateway",
+      "b": "VPC endpoint for CodeCommit",
+      "c": "Internet Gateway with security groups",
+      "d": "AWS Transit Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NAT Gateway still routes through the internet.",
+      "b": "Correct. VPC endpoints (AWS PrivateLink) for CodeCommit allow private connectivity without internet traversal.",
+      "c": "Incorrect. Internet Gateway routes traffic through the public internet.",
+      "d": "Incorrect. Transit Gateway connects VPCs but doesn't provide private service access."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which service logs all API calls made to CodeCommit for auditing purposes?",
+    "opts": {
+      "a": "Amazon CloudWatch Logs",
+      "b": "AWS CloudTrail",
+      "c": "AWS Config",
+      "d": "Amazon GuardDuty"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch Logs stores application logs, not API call records.",
+      "b": "Correct. AWS CloudTrail logs all API calls made to CodeCommit, providing an audit trail.",
+      "c": "Incorrect. AWS Config tracks resource configuration changes.",
+      "d": "Incorrect. GuardDuty is for threat detection."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodePipeline CloudFormation deployment action has been running for 72 hours. What happens next?",
+    "opts": {
+      "a": "It continues indefinitely",
+      "b": "It times out immediately since it's exceeded 3 days",
+      "c": "It has 2 more days before timeout",
+      "d": "It will be automatically retried"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudFormation actions have a 3-day (72-hour) timeout.",
+      "b": "Correct. CloudFormation deployment actions have a 3-day timeout, and at 72 hours the action will time out.",
+      "c": "Incorrect. 5 days is the CodeDeploy timeout, not CloudFormation's.",
+      "d": "Incorrect. Timed out actions are not automatically retried."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the valid source providers for AWS CodePipeline?",
+    "opts": {
+      "a": "CodeCommit, S3, GitHub, Bitbucket only",
+      "b": "CodeCommit, S3, GitHub, Bitbucket, GitHub Enterprise, GitLab",
+      "c": "CodeCommit and GitHub only",
+      "d": "Any Git repository"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This list is incomplete.",
+      "b": "Correct. CodePipeline supports CodeCommit, S3, GitHub (via OAuth and GitHub App), Bitbucket, GitHub Enterprise, and GitLab as source providers.",
+      "c": "Incorrect. CodePipeline supports many more source providers.",
+      "d": "Incorrect. Only specific providers are supported as source actions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of stages allowed in a single CodePipeline?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "50",
+      "d": "No limit"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can have more than 10 stages.",
+      "b": "Incorrect. The limit is higher than 20.",
+      "c": "Correct. CodePipeline allows a maximum of 50 stages per pipeline.",
+      "d": "Incorrect. There is a fixed limit of 50 stages."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of actions per stage in CodePipeline?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "10",
+      "d": "30"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 20.",
+      "b": "Correct. CodePipeline allows up to 50 actions per stage.",
+      "c": "Incorrect. 10 is too low.",
+      "d": "Incorrect. The limit is 50, not 30."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your team uses CodeBuild and wants to cache dependencies between builds to reduce build time. What caching option should they use?",
+    "opts": {
+      "a": "No caching is available",
+      "b": "S3 caching or local caching",
+      "c": "EBS volume caching",
+      "d": "ElastiCache integration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeBuild supports caching.",
+      "b": "Correct. CodeBuild supports S3 caching (stores cache in S3) and local caching (stores cache on the build host) to speed up subsequent builds.",
+      "c": "Incorrect. EBS volumes are not used for CodeBuild caching.",
+      "d": "Incorrect. ElastiCache is not integrated with CodeBuild for build caching."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How is CodeBuild priced?",
+    "opts": {
+      "a": "Monthly flat fee per project",
+      "b": "Per minute of build time",
+      "c": "Per number of builds",
+      "d": "Per lines of code compiled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeBuild doesn't charge a flat monthly fee.",
+      "b": "Correct. CodeBuild charges per minute of compute time used during your builds.",
+      "c": "Incorrect. Pricing is based on time, not number of builds.",
+      "d": "Incorrect. Lines of code is not a billing metric."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How is CodePipeline priced?",
+    "opts": {
+      "a": "Per minute of execution",
+      "b": "Per active pipeline per month",
+      "c": "Per number of stages",
+      "d": "Per number of deployments"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodePipeline charges per pipeline, not per minute.",
+      "b": "Correct. CodePipeline charges per active pipeline per month (V1 type) or per action execution (V2 type).",
+      "c": "Incorrect. Pricing is not based on the number of stages.",
+      "d": "Incorrect. Pricing is per pipeline, not per deployment."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to run unit tests, integration tests, and security scans in parallel during the Test stage. How should they configure CodePipeline?",
+    "opts": {
+      "a": "Create three separate pipelines",
+      "b": "Create three parallel actions within the same stage",
+      "c": "Create three sequential stages",
+      "d": "Use a single action with all three tasks"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Separate pipelines add unnecessary complexity.",
+      "b": "Correct. CodePipeline supports parallel actions within a stage, allowing unit tests, integration tests, and security scans to run simultaneously.",
+      "c": "Incorrect. Sequential stages would increase pipeline duration.",
+      "d": "Incorrect. Combining all tasks in one action limits parallelism and makes failures harder to identify."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the CodeCommit pricing model for the free tier?",
+    "opts": {
+      "a": "No free tier available",
+      "b": "5 active users per month, 50 GB storage, 10,000 Git requests",
+      "c": "1 repository only",
+      "d": "30-day trial only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeCommit has a free tier.",
+      "b": "Correct. The CodeCommit free tier includes 5 active users per month, 50 GB-month of storage, and 10,000 Git requests per month.",
+      "c": "Incorrect. The free tier is not limited to one repository.",
+      "d": "Incorrect. The free tier is ongoing, not a 30-day trial."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which CodeBuild feature allows you to display the build status on your repository?",
+    "opts": {
+      "a": "Build notifications",
+      "b": "Build badges",
+      "c": "Build reports",
+      "d": "Build logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Build notifications alert users but don't display status on the repository.",
+      "b": "Correct. Build badges provide an embeddable image (passing/failing) that can be displayed on your repository README or webpage.",
+      "c": "Incorrect. Build reports provide test and coverage details but aren't embeddable status indicators.",
+      "d": "Incorrect. Build logs show detailed output but aren't visual status indicators."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to gradually shift traffic from the old version to the new version during a Lambda deployment. Which CodeDeploy configuration should they use?",
+    "opts": {
+      "a": "CodeDeployDefault.AllAtOnce",
+      "b": "CodeDeployDefault.LambdaCanary10Percent5Minutes",
+      "c": "CodeDeployDefault.OneAtATime",
+      "d": "CodeDeployDefault.HalfAtATime"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AllAtOnce shifts all traffic immediately without gradual shifting.",
+      "b": "Correct. LambdaCanary10Percent5Minutes shifts 10% of traffic to the new version initially, then shifts the remaining 90% after 5 minutes if no errors occur.",
+      "c": "Incorrect. OneAtATime is for EC2/on-premises deployments.",
+      "d": "Incorrect. HalfAtATime is for EC2/on-premises deployments."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum individual file size that can be stored in a CodeCommit repository?",
+    "opts": {
+      "a": "2 GB",
+      "b": "6 MB",
+      "c": "No specific limit beyond Git's inherent limits",
+      "d": "100 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 2 GB is the total repository size recommendation, not individual file size.",
+      "b": "Correct. The maximum size of a single file in a CodeCommit API operation (such as PutFile) is 6 MB.",
+      "c": "Incorrect. There is a specific limit on file size for API operations.",
+      "d": "Incorrect. 100 MB is not the correct file size limit for CodeCommit API operations."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeDeploy deployment is failing because instances are not being detected. What is the most likely cause?",
+    "opts": {
+      "a": "The buildspec.yml file is misconfigured",
+      "b": "The CodeDeploy agent is not installed or running on the instances",
+      "c": "The pipeline has too many stages",
+      "d": "The S3 bucket is in the wrong region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. buildspec.yml is for CodeBuild, not CodeDeploy.",
+      "b": "Correct. The CodeDeploy agent must be installed and running on EC2/on-premises instances for CodeDeploy to communicate with and deploy to them.",
+      "c": "Incorrect. The number of pipeline stages doesn't affect instance detection.",
+      "d": "Incorrect. While region matters, the most common cause is a missing agent."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which CodeDeploy traffic shifting option shifts traffic in equal increments over time?",
+    "opts": {
+      "a": "Canary",
+      "b": "Linear",
+      "c": "AllAtOnce",
+      "d": "Rolling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Canary shifts a small percentage first, then all remaining traffic at once.",
+      "b": "Correct. Linear deployment shifts traffic in equal increments with an equal number of minutes between each increment.",
+      "c": "Incorrect. AllAtOnce shifts all traffic immediately.",
+      "d": "Incorrect. Rolling is not a CodeDeploy traffic shifting option."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of pipelines per region per account in CodePipeline by default?",
+    "opts": {
+      "a": "100",
+      "b": "300",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The default limit is higher than 100.",
+      "b": "Incorrect. 300 is not the default limit.",
+      "c": "Incorrect. The limit is higher than 500.",
+      "d": "Correct. The default maximum number of pipelines per region per account in CodePipeline is 1,000."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to automatically rollback a CodeDeploy deployment if a CloudWatch alarm triggers. What should they configure?",
+    "opts": {
+      "a": "Manual approval action in the pipeline",
+      "b": "Automatic rollback configuration with CloudWatch alarm in the deployment group",
+      "c": "Lambda function to monitor and rollback",
+      "d": "SNS notification to alert the team"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual approval requires human intervention and doesn't automate rollback.",
+      "b": "Correct. CodeDeploy supports automatic rollback when a specified CloudWatch alarm is triggered, configured in the deployment group settings.",
+      "c": "Incorrect. While possible, native CodeDeploy alarm-based rollback is simpler.",
+      "d": "Incorrect. SNS notifications alert the team but don't automatically rollback."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which CodeBuild environment variable provides the unique build ID?",
+    "opts": {
+      "a": "CODEBUILD_BUILD_NUMBER",
+      "b": "CODEBUILD_BUILD_ID",
+      "c": "CODEBUILD_PROJECT_NAME",
+      "d": "CODEBUILD_SOURCE_VERSION"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. BUILD_NUMBER provides the build number, not the unique ID.",
+      "b": "Correct. CODEBUILD_BUILD_ID provides the unique identifier for the build in the format project-name:build-ID.",
+      "c": "Incorrect. PROJECT_NAME provides only the project name.",
+      "d": "Incorrect. SOURCE_VERSION provides the source version (commit ID or branch)."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "You want to build Docker images in CodeBuild and push them to Amazon ECR. What must be enabled in the build environment?",
+    "opts": {
+      "a": "GPU acceleration",
+      "b": "Privileged mode",
+      "c": "VPC configuration",
+      "d": "S3 caching"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GPU acceleration is not needed for Docker builds.",
+      "b": "Correct. Privileged mode must be enabled in the CodeBuild environment to build Docker images, as it allows access to the Docker daemon.",
+      "c": "Incorrect. VPC configuration is for accessing private resources, not Docker builds.",
+      "d": "Incorrect. S3 caching speeds up builds but isn't required for Docker image building."
+    }
+  }
+]

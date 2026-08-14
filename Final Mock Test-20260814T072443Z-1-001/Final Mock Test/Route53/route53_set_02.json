@@ -1,0 +1,1073 @@
+[
+  {
+    "type": "easy",
+    "q": "What port number does DNS use, which is also the reason behind the name 'Route 53'?",
+    "opts": {
+      "a": "Port 80",
+      "b": "Port 443",
+      "c": "Port 53",
+      "d": "Port 25"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Port 80 is used for HTTP traffic, not DNS",
+      "b": "Port 443 is used for HTTPS traffic, not DNS",
+      "c": "Correct - DNS uses TCP/UDP Port 53, which is why the service is named Route 53",
+      "d": "Port 25 is used for SMTP (email), not DNS"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What are the three main functions of Amazon Route 53?",
+    "opts": {
+      "a": "Domain Registration, DNS Routing, Health Checking",
+      "b": "Load Balancing, Auto Scaling, Monitoring",
+      "c": "Domain Registration, SSL Termination, Caching",
+      "d": "DNS Routing, Firewall, VPN"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct - Route 53 provides Domain Registration, DNS Routing, and Health Checking as its three core functions",
+      "b": "Load Balancing and Auto Scaling are ELB and ASG services, not Route 53",
+      "c": "SSL Termination is handled by ACM/ELB, Caching by CloudFront, not Route 53",
+      "d": "Firewall and VPN are separate services (WAF, VPN Gateway), not core Route 53 functions"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the availability SLA that AWS provides for Route 53?",
+    "opts": {
+      "a": "99.9%",
+      "b": "99.99%",
+      "c": "99.95%",
+      "d": "100%"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "99.9% is the SLA for many AWS services, but Route 53 offers higher",
+      "b": "99.99% is high but Route 53 offers even higher SLA",
+      "c": "99.95% is the SLA for some services like multi-AZ RDS, not Route 53",
+      "d": "Correct - Route 53 is one of the few AWS services with a 100% availability SLA"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which DNS record type maps a domain name to an IPv4 address?",
+    "opts": {
+      "a": "AAAA",
+      "b": "CNAME",
+      "c": "A",
+      "d": "MX"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "AAAA record maps to IPv6 addresses, not IPv4",
+      "b": "CNAME maps a domain to another domain name, not directly to an IP",
+      "c": "Correct - A record maps a domain name directly to an IPv4 address",
+      "d": "MX record is used for mail exchange routing, not IP mapping"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which DNS record type is specific to Route 53 and can be used at the zone apex?",
+    "opts": {
+      "a": "CNAME",
+      "b": "Alias",
+      "c": "NS",
+      "d": "PTR"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "CNAME CANNOT be used at the zone apex - this is a DNS specification limitation",
+      "b": "Correct - Alias is a Route 53-specific record that works at zone apex and points to AWS resources for free",
+      "c": "NS records are standard DNS records for name server delegation, not Route 53-specific",
+      "d": "PTR is a standard reverse DNS lookup record, not Route 53-specific"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "How many name servers does Route 53 assign to each hosted zone?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "4",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Route 53 assigns more than 2 name servers for redundancy",
+      "b": "Route 53 assigns more than 3 name servers",
+      "c": "Correct - Route 53 assigns 4 name servers across different TLDs (.com, .net, .org, .co.uk) for each hosted zone",
+      "d": "Route 53 assigns exactly 4, not 5 name servers"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the default health check interval in Route 53?",
+    "opts": {
+      "a": "10 seconds",
+      "b": "30 seconds",
+      "c": "60 seconds",
+      "d": "5 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 seconds is the 'fast' interval option which costs more",
+      "b": "Correct - The default (standard) health check interval is 30 seconds",
+      "c": "60 seconds is not a Route 53 health check interval option",
+      "d": "5 seconds is not a Route 53 health check interval option"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "How many global health checkers does Route 53 use to monitor an endpoint?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "15",
+      "d": "20"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Route 53 uses more than 5 health checkers for reliability",
+      "b": "Route 53 uses more than 10 health checkers",
+      "c": "Correct - Route 53 uses 15 global health checkers distributed across multiple regions",
+      "d": "Route 53 uses exactly 15, not 20 health checkers"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What percentage of Route 53 health checkers must report healthy for an endpoint to be considered healthy?",
+    "opts": {
+      "a": "50%",
+      "b": "30%",
+      "c": "18%",
+      "d": "25%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "50% is too high - Route 53 uses a lower threshold",
+      "b": "30% is not the correct threshold",
+      "c": "Correct - At least 18% of health checkers (approximately 3 out of 15) must report healthy",
+      "d": "25% is not the correct Route 53 health check threshold"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the cost of Alias record DNS queries to AWS resources in Route 53?",
+    "opts": {
+      "a": "$0.40 per million queries",
+      "b": "$0.60 per million queries",
+      "c": "$0.50 per million queries",
+      "d": "Free"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "$0.40 per million is the cost for standard (non-Alias) queries",
+      "b": "$0.60 per million is the cost for latency-based queries",
+      "c": "$0.50 per million is not the correct pricing tier",
+      "d": "Correct - Alias queries to AWS resources (ELB, CloudFront, S3, etc.) are completely FREE"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the monthly cost of a hosted zone in Route 53?",
+    "opts": {
+      "a": "$0.25/month",
+      "b": "$0.50/month",
+      "c": "$1.00/month",
+      "d": "$0.75/month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "$0.25 is not the correct hosted zone pricing",
+      "b": "Correct - Each hosted zone costs $0.50 per month",
+      "c": "$1.00 is not the correct hosted zone pricing",
+      "d": "$0.75 is not the correct hosted zone pricing"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which two VPC settings must be enabled for a Route 53 private hosted zone to work?",
+    "opts": {
+      "a": "DNS Hostnames and DNS Support",
+      "b": "DNS Hostnames and VPC Flow Logs",
+      "c": "DNS Support and NAT Gateway",
+      "d": "DNS Hostnames and Internet Gateway"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct - Both enableDnsHostnames and enableDnsSupport must be set to true in the VPC",
+      "b": "VPC Flow Logs are for network monitoring, not DNS resolution",
+      "c": "NAT Gateway is for internet access from private subnets, not related to private DNS",
+      "d": "Internet Gateway provides internet access, not required for private DNS resolution"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "How many routing policies does Route 53 support?",
+    "opts": {
+      "a": "5",
+      "b": "6",
+      "c": "7",
+      "d": "8"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Route 53 supports more than 5 routing policies",
+      "b": "Route 53 supports more than 6 routing policies",
+      "c": "Route 53 had 7 originally but IP-based routing was added",
+      "d": "Correct - 8 routing policies: Simple, Weighted, Latency, Failover, Geolocation, Geoproximity, Multi-Value Answer, and IP-based"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "Which routing policy does NOT support health checks?",
+    "opts": {
+      "a": "Weighted",
+      "b": "Simple",
+      "c": "Latency-based",
+      "d": "Failover"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Weighted routing DOES support health checks",
+      "b": "Correct - Simple routing does NOT support health checks. If multiple values are returned, the client chooses randomly",
+      "c": "Latency-based routing DOES support health checks",
+      "d": "Failover routing requires health checks on the primary record (mandatory)"
+    }
+  },
+  {
+    "type": "easy",
+    "q": "What is the maximum number of records Route 53 Multi-Value Answer routing can return per query?",
+    "opts": {
+      "a": "4",
+      "b": "6",
+      "c": "8",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Multi-Value can return more than 4 records",
+      "b": "Multi-Value can return more than 6 records",
+      "c": "Correct - Multi-Value Answer routing returns up to 8 healthy records per DNS query",
+      "d": "The maximum is 8, not 10 records per query"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company has a web application deployed in us-east-1 and eu-west-1. They want users to be routed to the region with the fastest response time. If one region is unhealthy, traffic should automatically route to the healthy region. Which configuration should they use?",
+    "opts": {
+      "a": "Weighted routing policy with health checks",
+      "b": "Geolocation routing policy with health checks",
+      "c": "Latency-based routing policy with health checks",
+      "d": "Simple routing policy with multiple values"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Weighted routing distributes by percentage, doesn't consider actual latency/speed",
+      "b": "Geolocation routes based on user's location, not fastest response time",
+      "c": "Correct - Latency-based routing measures network latency to AWS regions and routes to the fastest. Health checks enable automatic failover",
+      "d": "Simple routing doesn't support health checks and returns random values"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company needs to point their zone apex (example.com) to an Application Load Balancer. Which record type should they create?",
+    "opts": {
+      "a": "CNAME record pointing to the ALB DNS name",
+      "b": "A record with Alias pointing to the ALB",
+      "c": "A record with the ALB's IP address",
+      "d": "NS record pointing to the ALB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "CNAME CANNOT be used at the zone apex (naked domain) - this is a DNS specification rule (RFC)",
+      "b": "Correct - Alias A record works at zone apex, points to ALB, is free, and automatically tracks ALB IP changes",
+      "c": "ALB does not have a static IP address - IPs change dynamically, so hardcoding won't work",
+      "d": "NS records are for delegating DNS authority to name servers, not for routing traffic to ALBs"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company hosts a static website on S3 at domain 'blog.example.com'. They created an S3 bucket named 'my-blog-bucket' and an Alias record in Route 53. The setup is not working. What is the issue?",
+    "opts": {
+      "a": "S3 static websites don't support Alias records",
+      "b": "The bucket name must be 'blog.example.com' to match the domain",
+      "c": "They need to use CNAME instead of Alias",
+      "d": "They need to enable CORS on the bucket"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "S3 website endpoints ARE valid Alias targets in Route 53",
+      "b": "Correct - For Route 53 Alias to S3 website endpoint, the bucket name MUST exactly match the domain/subdomain name",
+      "c": "Alias is the preferred choice (free queries, works at apex). CNAME works for subdomains but Alias is better",
+      "d": "CORS is for cross-origin browser requests, not DNS resolution issues"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company wants to monitor the health of an RDS instance in a private subnet using Route 53 health checks. What is the recommended approach?",
+    "opts": {
+      "a": "Create a health check pointing to the RDS private IP",
+      "b": "Create a VPC endpoint for Route 53 health checkers",
+      "c": "Create a CloudWatch alarm for RDS, then create a Route 53 health check based on the alarm",
+      "d": "Move the RDS instance to a public subnet"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Route 53 health checkers are outside the VPC and cannot reach private IP addresses",
+      "b": "No VPC endpoint exists for Route 53 health checkers",
+      "c": "Correct - For private resources, use CloudWatch Metric → CloudWatch Alarm → Route 53 Health Check as a bridge",
+      "d": "Moving RDS to a public subnet is a terrible security practice and unnecessary"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company registered their domain with GoDaddy but wants to use Route 53 as their DNS service. What should they do?",
+    "opts": {
+      "a": "Create a Private Hosted Zone in Route 53 and copy NS records to GoDaddy",
+      "b": "Create a Public Hosted Zone in Route 53 and update NS records at GoDaddy with Route 53's name servers",
+      "c": "Transfer the domain to Route 53 first, then create a hosted zone",
+      "d": "Create an Alias record in Route 53 pointing to GoDaddy's DNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Private Hosted Zone is for internal VPC resolution only, not public internet DNS",
+      "b": "Correct - Create a Public Hosted Zone (Route 53 gives 4 NS records), then update NS records at registrar to Route 53's name servers",
+      "c": "Domain transfer is NOT required to use Route 53 as DNS service - you can separate registrar and DNS",
+      "d": "Alias records point TO AWS resources, not to external DNS providers"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Route 53 health checks are reporting unhealthy for a web server even though users can access it normally. What is the most likely cause?",
+    "opts": {
+      "a": "The health check TTL is too high",
+      "b": "The security group is not allowing inbound traffic from Route 53 health checker IP ranges",
+      "c": "The health check interval is set to 30 seconds",
+      "d": "Route 53 health checks only work with ELB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "TTL affects caching duration, not health check pass/fail results",
+      "b": "Correct - Route 53 health checkers send requests from public IPs. If security groups don't allow these IPs, checks always fail even though users (from different IPs) can access normally",
+      "c": "30-second interval is the default and doesn't cause false unhealthy results",
+      "d": "Health checks work with any endpoint - EC2, ALB, on-premises servers, etc."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company uses Failover routing. After primary fails, it takes 5 minutes for traffic to reach secondary. How can they reduce failover time?",
+    "opts": {
+      "a": "Increase the number of health checker regions",
+      "b": "Change health check interval to 10 seconds (fast) and reduce failure threshold",
+      "c": "Reduce the TTL on the Alias record",
+      "d": "Add a second health check on the secondary record"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Adding more regions doesn't speed up detection - threshold is percentage-based (18%)",
+      "b": "Correct - Fast interval (10s vs 30s) + lower failure threshold (1-2 vs 3) dramatically reduces detection time from ~90s to ~10-20s",
+      "c": "Alias records have TTL automatically managed by Route 53 - you cannot manually change it",
+      "d": "Secondary health check doesn't affect how fast the primary failure is detected"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company has 50 microservices in a VPC needing internal DNS names like 'payment.internal' that should NOT be resolvable from the internet. What should they use?",
+    "opts": {
+      "a": "Public hosted zone with security group restrictions",
+      "b": "Private hosted zone associated with the VPC",
+      "c": "Route 53 Resolver inbound endpoints",
+      "d": "CNAME records in a public hosted zone"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Public hosted zones are always resolvable from the internet - security groups don't protect DNS queries",
+      "b": "Correct - Private hosted zone provides DNS resolution only within associated VPCs, not accessible from internet",
+      "c": "Resolver inbound endpoints are for on-premises to AWS DNS resolution, not internal service discovery",
+      "d": "Records in public hosted zones are publicly queryable regardless of the target's accessibility"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "On-premises applications need to resolve AWS private hosted zone records. The environments are connected via Direct Connect. Which Route 53 Resolver component is needed?",
+    "opts": {
+      "a": "Outbound Endpoint",
+      "b": "Inbound Endpoint",
+      "c": "Resolver Rule",
+      "d": "DNS Firewall"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Outbound Endpoint is for AWS → on-premises direction (opposite of what's needed)",
+      "b": "Correct - Inbound Endpoint allows on-premises DNS servers to forward queries INTO Route 53 for resolution",
+      "c": "Resolver Rules are used with Outbound Endpoints to define which domains to forward to on-premises",
+      "d": "DNS Firewall filters outbound VPC DNS queries, doesn't handle inbound from on-premises"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company uses Weighted routing with Record A (weight=70), Record B (weight=20), Record C (weight=10). They set Record C weight to 0. What happens?",
+    "opts": {
+      "a": "All records get equal traffic",
+      "b": "Record C gets no traffic; A gets ~78% and B gets ~22%",
+      "c": "All traffic stops",
+      "d": "Record C still gets 10% traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Equal traffic only happens when ALL records have weight = 0",
+      "b": "Correct - Weight 0 means no traffic. Remaining: A = 70/(70+20) ≈ 78%, B = 20/(70+20) ≈ 22%",
+      "c": "Traffic continues flowing to records with non-zero weights",
+      "d": "Weight = 0 explicitly means NO traffic is sent to that record"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the monthly cost of a Route 53 Traffic Flow Policy Record?",
+    "opts": {
+      "a": "$10/month",
+      "b": "$25/month",
+      "c": "$50/month",
+      "d": "$100/month"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "$10/month is not the correct Traffic Flow pricing",
+      "b": "$25/month is not the correct Traffic Flow pricing",
+      "c": "Correct - Each Traffic Flow Policy Record costs $50/month",
+      "d": "$100/month is not the correct Traffic Flow pricing"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which Route 53 routing policy REQUIRES Route 53 Traffic Flow to function?",
+    "opts": {
+      "a": "Geolocation",
+      "b": "Latency-based",
+      "c": "Geoproximity",
+      "d": "Multi-Value Answer"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Geolocation routing works without Traffic Flow",
+      "b": "Latency-based routing works without Traffic Flow",
+      "c": "Correct - Geoproximity routing with bias values REQUIRES Route 53 Traffic Flow and its visual editor",
+      "d": "Multi-Value Answer routing works without Traffic Flow"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company configures Route 53 DNS Firewall with: Rule 1 (Priority 100): BLOCK malware-list, Rule 2 (Priority 200): ALERT suspicious-list, Rule 3 (Priority 300): ALLOW all. A query matches BOTH malware-list and suspicious-list. What happens?",
+    "opts": {
+      "a": "Query is allowed because ALLOW rule exists",
+      "b": "Query triggers ALERT and is allowed",
+      "c": "Query is BLOCKED (Priority 100 evaluated first)",
+      "d": "Query is both blocked and alerted"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "ALLOW rule at Priority 300 is never reached because a lower priority rule matches first",
+      "b": "ALERT rule at Priority 200 is never reached because Rule 1 (Priority 100) matches first",
+      "c": "Correct - Rules evaluated in priority order (lowest number = highest priority). Rule 1 matches first → BLOCKED. Evaluation stops",
+      "d": "Only ONE action is taken per query - first matching rule wins, evaluation stops immediately"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the default maximum number of hosted zones per AWS account in Route 53?",
+    "opts": {
+      "a": "100",
+      "b": "200",
+      "c": "500",
+      "d": "1000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "100 is the limit for reusable delegation sets, not hosted zones",
+      "b": "200 is the default limit for health checks per account, not hosted zones",
+      "c": "Correct - Default limit is 500 hosted zones per account (soft limit, can be increased)",
+      "d": "1000 is the limit for resolver rules per region, not hosted zones"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the default maximum number of records per hosted zone in Route 53?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "50,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1,000 is too low - Route 53 supports more records per zone",
+      "b": "5,000 is not the correct limit",
+      "c": "Correct - Default limit is 10,000 records per hosted zone (soft limit, can be increased)",
+      "d": "50,000 exceeds the default limit"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "How many bytes of the response body does Route 53 health check string matching inspect?",
+    "opts": {
+      "a": "1,024 bytes",
+      "b": "2,048 bytes",
+      "c": "5,120 bytes",
+      "d": "10,240 bytes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1,024 bytes is too small - Route 53 checks more",
+      "b": "2,048 bytes is not the correct value",
+      "c": "Correct - Route 53 health checks with string matching inspect the first 5,120 bytes of the response body",
+      "d": "10,240 bytes exceeds what Route 53 inspects"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the maximum number of child health checks that can be combined in a Route 53 Calculated Health Check?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "128",
+      "d": "256"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "10 is too low - Calculated Health Checks support many more children",
+      "b": "50 is not the correct limit",
+      "c": "128 is not the correct limit",
+      "d": "Correct - A Calculated Health Check can monitor up to 256 child health checks"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company needs an ACM certificate for a CloudFront distribution serving 'www.example.com'. In which region must the certificate be created?",
+    "opts": {
+      "a": "The region closest to most users",
+      "b": "us-east-1",
+      "c": "Any region - ACM certificates are global",
+      "d": "The region where Route 53 hosted zone exists"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "User proximity doesn't determine ACM certificate region for CloudFront",
+      "b": "Correct - ACM certificates for CloudFront (and Edge-Optimized API Gateway) MUST be in us-east-1",
+      "c": "ACM certificates are regional, NOT global. CloudFront specifically requires us-east-1",
+      "d": "Route 53 is a global service without a specific region - this doesn't affect ACM placement"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "A company needs an ACM certificate for a Regional API Gateway in eu-west-1. In which region must the certificate be created?",
+    "opts": {
+      "a": "us-east-1",
+      "b": "eu-west-1",
+      "c": "Any region",
+      "d": "Both us-east-1 and eu-west-1"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "us-east-1 is required for CloudFront/Edge-Optimized API GW, NOT Regional API Gateway",
+      "b": "Correct - Regional API Gateway requires the ACM certificate in the SAME region (eu-west-1)",
+      "c": "ACM certificates are regional and must be in the correct region for the service using them",
+      "d": "Only one certificate is needed, in the same region as the Regional API Gateway"
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What HTTP status codes does Route 53 health check consider as healthy?",
+    "opts": {
+      "a": "Only 200",
+      "b": "2xx and 3xx",
+      "c": "2xx only",
+      "d": "2xx, 3xx, and 4xx"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Route 53 accepts more than just 200 status code",
+      "b": "Correct - Route 53 health checks consider any 2xx or 3xx HTTP status code as healthy",
+      "c": "3xx (redirects) are also considered healthy, not just 2xx",
+      "d": "4xx (client errors like 404, 403) are NOT considered healthy"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company uses Route 53 Failover routing with health checks. The primary is healthy but users report being routed to the secondary (maintenance page). What is the most likely cause?",
+    "opts": {
+      "a": "The secondary health check is failing",
+      "b": "The primary health check is misconfigured and reporting unhealthy to Route 53",
+      "c": "Failover routing doesn't support S3 as secondary",
+      "d": "The TTL on the primary record is set to 0"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Secondary health check failure wouldn't cause traffic to route TO the secondary",
+      "b": "Correct - If Route 53 routes to secondary, it believes primary is unhealthy. The health check is likely misconfigured (wrong endpoint, port, path, or security group blocking health checker IPs)",
+      "c": "S3 is a perfectly valid and common secondary target for maintenance pages",
+      "d": "TTL of 0 affects caching duration, not the routing decision itself"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company wants GDPR compliance (EU users must ALWAYS go to EU servers) AND best performance within allowed regions. Which combination of routing policies with Traffic Flow should they use?",
+    "opts": {
+      "a": "Latency-based routing for all regions",
+      "b": "Geolocation for EU → eu-west-1, Latency-based for other regions via Traffic Flow",
+      "c": "Geoproximity with positive bias on EU region",
+      "d": "Weighted routing with 100% to EU for European users"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Latency alone cannot GUARANTEE EU users stay in EU - they might get routed to US if latency is lower",
+      "b": "Correct - Geolocation provides STRICT geographic boundary (compliance), Latency-based optimizes performance within allowed regions. Traffic Flow enables combining policies",
+      "c": "Geoproximity doesn't provide strict boundaries - bias can be overridden by distance calculations",
+      "d": "Weighted routing doesn't route based on user geographic location"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company has a Route 53 private hosted zone in Account A. Account B's VPC needs to resolve these records. The architect cannot find the cross-account option in the console. What is correct?",
+    "opts": {
+      "a": "Share the hosted zone via AWS RAM",
+      "b": "Use CLI: create-vpc-association-authorization in Account A, then associate-vpc-with-hosted-zone in Account B",
+      "c": "Create VPC peering between accounts first",
+      "d": "Create a duplicate hosted zone in Account B"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Hosted zones CANNOT be shared via RAM - only Resolver Rules, DNS Firewall Rules, and Profiles can",
+      "b": "Correct - Cross-account private hosted zone association is CLI/API only. Three steps: authorize in Account A, associate in Account B, delete authorization (cleanup)",
+      "c": "VPC peering provides network connectivity but doesn't enable cross-account DNS resolution",
+      "d": "Duplicating defeats centralized management and records would need manual synchronization"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company plans a DNS migration next week. Current TTL is 86400 seconds (24 hours). They need changes to propagate within 60 seconds during migration. What is the correct strategy?",
+    "opts": {
+      "a": "Lower TTL to 60 seconds and immediately make the change",
+      "b": "Lower TTL to 60 seconds NOW, wait 24 hours for old caches to expire, then make the change next week",
+      "c": "Delete the old record and create a new one with 60-second TTL",
+      "d": "Contact AWS support to flush DNS caches globally"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Lowering TTL immediately doesn't flush existing caches - resolvers still hold the old 24-hour cached response",
+      "b": "Correct - Must lower TTL first, then wait for the OLD TTL duration (24 hours) for all caches to expire. After that, changes propagate within the new 60-second TTL",
+      "c": "Deleting/recreating doesn't help - external resolvers still have the old response cached for 24 hours",
+      "d": "AWS cannot control external DNS resolver caches worldwide"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company uses Route 53 DNSSEC. Which CloudWatch alarm metrics should they monitor for DNSSEC issues?",
+    "opts": {
+      "a": "DNSSECValidationFailure and DNSSECKeyExpiry",
+      "b": "DNSSECInternalFailure and DNSSECKeySigningKeysNeedingAction",
+      "c": "DNSSECSigningError and DNSSECZoneKeyFailure",
+      "d": "HealthCheckStatus and HealthCheckPercentageHealthy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "These are not valid Route 53 DNSSEC CloudWatch metrics",
+      "b": "Correct - Monitor DNSSECInternalFailure (internal signing issues) and DNSSECKeySigningKeysNeedingAction (KSK needs attention/rotation)",
+      "c": "These are not valid Route 53 DNSSEC CloudWatch metrics",
+      "d": "These are health check metrics, not DNSSEC-specific metrics"
+    }
+  },
+  {
+    "type": "high",
+    "q": "EC2 instances are exfiltrating data via DNS tunneling. The security team wants to block queries to malicious domains. They also want 'fail-close' behavior if the firewall itself fails. Which configuration is correct?",
+    "opts": {
+      "a": "Security groups blocking outbound port 53",
+      "b": "Route 53 Resolver DNS Firewall with BLOCK rules and fail-close configuration",
+      "c": "AWS WAF with DNS inspection rules",
+      "d": "Network ACL blocking all DNS traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Security groups can't inspect domain names within DNS queries - only IP/port level filtering",
+      "b": "Correct - DNS Firewall blocks specific malicious domains. Fail-close means if firewall fails, ALL queries are blocked (security over availability)",
+      "c": "AWS WAF inspects HTTP/HTTPS traffic, not DNS queries",
+      "d": "Blocking ALL DNS would break all applications - need selective domain-level blocking"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company has Multi-Value Answer routing with 12 records and health checks. 4 are unhealthy. If ALL 12 records become unhealthy, what does Route 53 return?",
+    "opts": {
+      "a": "Empty response (NXDOMAIN)",
+      "b": "Returns all 12 records regardless of health (best effort)",
+      "c": "Returns the last known 8 healthy records from cache",
+      "d": "Returns an error to the client"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Route 53 doesn't return empty response when all are unhealthy",
+      "b": "Correct - When ALL records are unhealthy, Route 53 returns all records anyway as a best-effort mechanism (better than returning nothing)",
+      "c": "Route 53 doesn't cache previous healthy states for Multi-Value responses",
+      "d": "Route 53 doesn't return errors - it always provides a DNS response"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company shares Route 53 Resolver Rules across 20 accounts via AWS RAM. Which resources CAN be shared via RAM for Route 53?",
+    "opts": {
+      "a": "Hosted Zones, Resolver Rules, Health Checks",
+      "b": "Resolver Rules, DNS Firewall Rule Groups, Route 53 Profiles",
+      "c": "Hosted Zones, DNS Firewall Rule Groups, Resolver Endpoints",
+      "d": "Resolver Rules, Resolver Endpoints, Health Checks"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Hosted Zones and Health Checks CANNOT be shared via RAM",
+      "b": "Correct - Only Resolver Rules, DNS Firewall Rule Groups, and Route 53 Profiles can be shared via AWS RAM",
+      "c": "Hosted Zones and Resolver Endpoints cannot be shared via RAM",
+      "d": "Resolver Endpoints and Health Checks cannot be shared via RAM"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company uses Route 53 with Geoproximity routing. Resources are in us-east-1 (bias=0) and eu-west-1 (bias=0). They want to shift traffic from US to EU gradually. What should they do?",
+    "opts": {
+      "a": "Increase us-east-1 bias to +50",
+      "b": "Increase eu-west-1 bias to +50",
+      "c": "Decrease eu-west-1 bias to -50",
+      "d": "Change to Weighted routing policy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Positive bias EXPANDS the region - increasing US bias would attract MORE traffic to US (opposite effect)",
+      "b": "Correct - Positive bias on eu-west-1 EXPANDS its geographic region, pulling more users toward EU and away from US",
+      "c": "Negative bias SHRINKS the region - this would push traffic AWAY from EU (opposite effect)",
+      "d": "Weighted routing works but doesn't use geographic proximity and is a different approach entirely"
+    }
+  },
+  {
+    "type": "high",
+    "q": "Which of the following is NOT a valid Alias record target in Route 53?",
+    "opts": {
+      "a": "Application Load Balancer",
+      "b": "EC2 instance DNS name",
+      "c": "CloudFront distribution",
+      "d": "S3 website endpoint"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "ALB IS a valid Alias target",
+      "b": "Correct - EC2 instance DNS name is NOT a valid Alias target. EC2 DNS names are ephemeral and change on stop/start. Use regular A record with Elastic IP or put EC2 behind an ELB",
+      "c": "CloudFront distribution IS a valid Alias target",
+      "d": "S3 website endpoint IS a valid Alias target (bucket name must match domain)"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company uses Route 53 with ACM DNS validation. They clicked 'Create record in Route 53' but the certificate stays in 'Pending validation' for over 24 hours. What is the most likely cause?",
+    "opts": {
+      "a": "The ACM certificate is in the wrong region",
+      "b": "The domain's NS records at the registrar point to a different DNS provider, not Route 53",
+      "c": "DNS validation only works with private hosted zones",
+      "d": "The CNAME validation record TTL is too high"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "ACM region affects which service can use it, not the validation process itself",
+      "b": "Correct - ACM validates by querying PUBLIC DNS. If NS records point elsewhere, the CNAME was created in Route 53 but ACM queries the other provider where the record doesn't exist",
+      "c": "DNS validation requires PUBLIC DNS resolution - works with public hosted zones",
+      "d": "TTL doesn't prevent ACM from finding the validation CNAME record"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A Route 53 Resolver Inbound Endpoint needs to be highly available. What is the minimum configuration required?",
+    "opts": {
+      "a": "1 ENI in 1 AZ",
+      "b": "2 ENIs across 2 AZs",
+      "c": "3 ENIs across 3 AZs",
+      "d": "4 ENIs across 2 AZs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Single ENI in 1 AZ is not highly available - single point of failure",
+      "b": "Correct - Minimum 2 ENIs across 2 different AZs for high availability. Each IP handles 10,000 queries/second",
+      "c": "3 ENIs is more than minimum required, though possible for extra capacity",
+      "d": "4 ENIs is more than minimum required for HA"
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the maximum number of queries per second each Route 53 Resolver Endpoint IP can handle?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "50,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1,000 queries/second is too low for a Resolver Endpoint IP",
+      "b": "5,000 queries/second is not the correct capacity",
+      "c": "Correct - Each Resolver Endpoint IP can handle 10,000 DNS queries per second",
+      "d": "50,000 exceeds the per-IP capacity of a Resolver Endpoint"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company implements Route 53 Application Recovery Controller (ARC). They want to prevent an operator from accidentally turning off ALL routing controls (causing total outage). Which ARC component prevents this?",
+    "opts": {
+      "a": "Readiness Checks",
+      "b": "Routing Controls",
+      "c": "Safety Rules (Assertion Rule)",
+      "d": "Cluster endpoints"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Readiness Checks verify DR resources are configured properly, don't prevent operator mistakes",
+      "b": "Routing Controls are the on/off switches themselves - they don't prevent misuse",
+      "c": "Correct - Safety Rules (specifically Assertion Rules) enforce that at least N routing controls must remain ON, preventing accidental total outage",
+      "d": "Cluster endpoints provide HA for the control plane, don't enforce operational guardrails"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company uses Split-View DNS with the same domain 'app.example.com' in both public and private hosted zones. An EC2 instance in the associated VPC queries this domain. Which hosted zone responds?",
+    "opts": {
+      "a": "Public hosted zone (public always takes priority)",
+      "b": "Private hosted zone (private takes priority for VPC queries)",
+      "c": "Both respond and client picks one",
+      "d": "Whichever has lower TTL responds first"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Public hosted zone does NOT take priority for queries from within the VPC",
+      "b": "Correct - For queries originating WITHIN an associated VPC, the Private Hosted Zone ALWAYS takes priority over the Public Hosted Zone",
+      "c": "Only one hosted zone responds per query - Route 53 doesn't return both",
+      "d": "TTL doesn't determine which hosted zone is queried"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company wants to log ALL DNS queries made by VPC resources and send them to S3 for long-term analysis. Which feature should they use?",
+    "opts": {
+      "a": "Route 53 DNS Query Logging (to CloudWatch Logs in us-east-1)",
+      "b": "Route 53 Resolver Query Logging (to S3)",
+      "c": "VPC Flow Logs filtering on port 53",
+      "d": "CloudTrail DNS logging"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DNS Query Logging is for PUBLIC hosted zone queries only and only supports CloudWatch Logs destination",
+      "b": "Correct - Resolver Query Logging captures ALL VPC DNS queries and supports CloudWatch Logs, S3, OR Kinesis Data Firehose as destinations",
+      "c": "VPC Flow Logs capture IP/port metadata but cannot show domain names being queried",
+      "d": "CloudTrail logs Route 53 API management calls, not DNS resolution queries"
+    }
+  },
+  {
+    "type": "high",
+    "q": "Route 53 DNS Query Logging for public hosted zones can ONLY send logs to which destination and in which region?",
+    "opts": {
+      "a": "S3 bucket in any region",
+      "b": "CloudWatch Logs in us-east-1",
+      "c": "Kinesis Data Firehose in the same region as hosted zone",
+      "d": "CloudWatch Logs in any region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DNS Query Logging does not support S3 as a destination (Resolver Query Logging does)",
+      "b": "Correct - DNS Query Logging for public hosted zones sends logs ONLY to CloudWatch Logs and the log group MUST be in us-east-1",
+      "c": "DNS Query Logging does not support Kinesis Data Firehose (Resolver Query Logging does)",
+      "d": "The CloudWatch Logs log group must specifically be in us-east-1, not any region"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company uses Route 53 Geolocation routing. They configured records for Europe and United States but forgot to create a Default record. A user from Australia makes a DNS query. What happens?",
+    "opts": {
+      "a": "Route 53 returns the geographically closest record (Europe or US)",
+      "b": "Route 53 returns no answer (NXDOMAIN or empty response)",
+      "c": "Route 53 randomly picks between Europe and US records",
+      "d": "Route 53 returns all records and client picks one"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Geolocation doesn't fall back to nearest location - it's strict matching only",
+      "b": "Correct - Without a Default record, users from non-matching locations receive NO answer. This is why creating a Default record is CRITICAL",
+      "c": "Route 53 doesn't randomly assign geolocation records",
+      "d": "Geolocation returns only the matching record, not all records"
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the Geolocation routing resolution priority when multiple records could match?",
+    "opts": {
+      "a": "Continent > Country > State > Default",
+      "b": "Default > Continent > Country > State",
+      "c": "State > Country > Continent > Default",
+      "d": "Country > Continent > State > Default"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "This is reversed - most specific wins, not least specific",
+      "b": "Default has the lowest priority, not highest",
+      "c": "Correct - Most specific wins: US State > Country > Continent > Default. A user in California matches State first, then Country (US), then Continent (North America), then Default",
+      "d": "State is more specific than Country and should be evaluated first"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company uses Route 53 Calculated Health Check with 5 children. They set minimum healthy = 3. When does the parent report UNHEALTHY?",
+    "opts": {
+      "a": "When 1 or more children are unhealthy",
+      "b": "When 2 or more children are unhealthy",
+      "c": "When 3 or more children are unhealthy",
+      "d": "When all 5 children are unhealthy"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "With minimum 3 healthy, 1 unhealthy still leaves 4 healthy (above threshold)",
+      "b": "With minimum 3 healthy, 2 unhealthy still leaves 3 healthy (meets threshold exactly)",
+      "c": "Correct - Minimum healthy = 3 means parent needs at least 3 healthy children. If 3+ are unhealthy, only 2 or fewer are healthy → parent = UNHEALTHY",
+      "d": "The parent becomes unhealthy before all 5 fail - it triggers when fewer than 3 are healthy"
+    }
+  },
+  {
+    "type": "high",
+    "q": "How are Route 53 Reusable Delegation Sets created?",
+    "opts": {
+      "a": "Through the AWS Console under Route 53 settings",
+      "b": "Through AWS CLI/API only - not available in the Console",
+      "c": "Automatically created when you register a domain",
+      "d": "Through AWS CloudFormation templates only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Reusable Delegation Sets are NOT available in the AWS Console",
+      "b": "Correct - Reusable Delegation Sets can ONLY be created via CLI or API (aws route53 create-reusable-delegation-set)",
+      "c": "Domain registration creates a regular delegation set, not a reusable one",
+      "d": "They can be created via CLI/API directly, CloudFormation is not the only method"
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the maximum number of VPCs that can be associated with a single Route 53 private hosted zone?",
+    "opts": {
+      "a": "5",
+      "b": "100",
+      "c": "300",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "5 is far too low - many more VPCs can be associated",
+      "b": "100 is not the correct limit",
+      "c": "Correct - Up to 300 VPCs can be associated with a single private hosted zone",
+      "d": "500 is the limit for hosted zones per account, not VPCs per hosted zone"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company configures Route 53 DNS Firewall with 'fail-open' behavior. What happens if the DNS Firewall service itself experiences a failure?",
+    "opts": {
+      "a": "All DNS queries are blocked until firewall recovers",
+      "b": "All DNS queries are allowed through without filtering",
+      "c": "DNS queries are queued until firewall recovers",
+      "d": "DNS queries are routed to an alternate firewall"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "This describes 'fail-close' behavior, not 'fail-open'",
+      "b": "Correct - Fail-open means if the firewall fails, all queries are ALLOWED through (availability prioritized over security)",
+      "c": "DNS queries are not queued - they need immediate resolution",
+      "d": "There's no alternate firewall routing - it's either fail-open or fail-close"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company has a Calculated Health Check (parent) with 5 children. They want the parent to be UNHEALTHY only when ALL children are unhealthy. How should they configure it?",
+    "opts": {
+      "a": "Minimum healthy children = 5, logic = AND",
+      "b": "Minimum healthy children = 1",
+      "c": "Minimum healthy children = 5, logic = OR",
+      "d": "Minimum healthy children = 0"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Minimum 5 means ALL must be healthy - parent goes unhealthy if even 1 child fails (too strict)",
+      "b": "Correct - Minimum healthy = 1 means parent stays HEALTHY as long as at least 1 child is healthy. Only when ALL 5 fail (0 healthy) does parent become UNHEALTHY",
+      "c": "The logic type (AND/OR) is separate from numeric threshold - and minimum 5 is too strict",
+      "d": "Minimum 0 would mean parent is always healthy regardless of children (defeats purpose)"
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the Geoproximity bias range in Route 53?",
+    "opts": {
+      "a": "-100 to +100",
+      "b": "-99 to +99",
+      "c": "-50 to +50",
+      "d": "-999 to +999"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "-100 and +100 are outside the valid range",
+      "b": "Correct - Geoproximity bias ranges from -99 (shrink region) to +99 (expand region), with 0 being neutral",
+      "c": "-50 to +50 is too narrow - the actual range extends to ±99",
+      "d": "-999 to +999 is far too large - the range is limited to ±99"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company wants to use Route 53 for both public internet users AND internal VPC users with the same domain name but different IP addresses. What is this pattern called?",
+    "opts": {
+      "a": "DNS Forwarding",
+      "b": "Split-View DNS (Split-Horizon DNS)",
+      "c": "DNS Delegation",
+      "d": "Hybrid DNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DNS Forwarding is sending queries to another DNS server, not serving different answers for same domain",
+      "b": "Correct - Split-View/Split-Horizon DNS uses same domain name with both Public and Private Hosted Zones, returning different answers based on query origin",
+      "c": "DNS Delegation is assigning subdomains to different name servers, not serving different answers",
+      "d": "Hybrid DNS refers to on-premises + cloud DNS integration, not same-domain different-answer pattern"
+    }
+  },
+  {
+    "type": "high",
+    "q": "How many IPs can a single Route 53 Resolver Endpoint have (maximum)?",
+    "opts": {
+      "a": "2",
+      "b": "4",
+      "c": "6",
+      "d": "8"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "2 is the minimum for HA, not the maximum",
+      "b": "4 is the limit for resolver endpoints per region per direction, not IPs per endpoint",
+      "c": "Correct - Each Resolver Endpoint can have a maximum of 6 IP addresses (ENIs)",
+      "d": "8 exceeds the maximum IPs per endpoint"
+    }
+  },
+  {
+    "type": "high",
+    "q": "A company has Route 53 with Weighted routing. ALL three records have weight set to 0. What happens to traffic?",
+    "opts": {
+      "a": "All traffic stops - no responses returned",
+      "b": "Traffic is distributed equally among all three records",
+      "c": "Route 53 returns an error",
+      "d": "Only the first record receives traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Route 53 doesn't stop traffic when all weights are 0 - it has special behavior",
+      "b": "Correct - When ALL records have weight = 0, Route 53 distributes traffic EQUALLY among all records (special case)",
+      "c": "Route 53 doesn't return errors for this configuration",
+      "d": "Traffic goes to all records equally, not just the first one"
+    }
+  }
+]

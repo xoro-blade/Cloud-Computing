@@ -1,0 +1,750 @@
+[
+  {
+    "type": "single",
+    "q": "What is the maximum number of instances that can be attached to a single EBS volume using Multi-Attach?",
+    "opts": {
+      "a": "4",
+      "b": "8",
+      "c": "16",
+      "d": "32"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is not 4 instances.",
+      "b": "Incorrect. The limit is not 8 instances.",
+      "c": "Correct. Multi-Attach allows up to 16 EC2 instances to be attached to a single io1/io2 EBS volume simultaneously.",
+      "d": "Incorrect. The limit is 16, not 32."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the minimum volume size for an EBS gp2/gp3 volume?",
+    "opts": {
+      "a": "1 GiB",
+      "b": "4 GiB",
+      "c": "8 GiB",
+      "d": "10 GiB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The minimum size for gp2 and gp3 volumes is 1 GiB.",
+      "b": "Incorrect. 4 GiB is not the minimum size for gp2/gp3.",
+      "c": "Incorrect. 8 GiB is not the minimum; it is 1 GiB.",
+      "d": "Incorrect. 10 GiB is not the minimum size."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum volume size for an EBS gp2/gp3 volume?",
+    "opts": {
+      "a": "1 TiB",
+      "b": "4 TiB",
+      "c": "16 TiB",
+      "d": "64 TiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 TiB is not the maximum for gp2/gp3.",
+      "b": "Incorrect. 4 TiB is not the maximum for gp2/gp3.",
+      "c": "Correct. The maximum size for gp2 and gp3 volumes is 16 TiB.",
+      "d": "Incorrect. 64 TiB exceeds the maximum EBS volume size."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for a gp2 EBS volume?",
+    "opts": {
+      "a": "3,000 IOPS",
+      "b": "10,000 IOPS",
+      "c": "16,000 IOPS",
+      "d": "64,000 IOPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3,000 IOPS is the baseline/burst for small gp2 volumes, not the maximum.",
+      "b": "Incorrect. 10,000 IOPS is not the maximum for gp2.",
+      "c": "Correct. gp2 volumes can deliver a maximum of 16,000 IOPS.",
+      "d": "Incorrect. 64,000 IOPS is the maximum for io1/io2 volumes, not gp2."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for a gp3 EBS volume?",
+    "opts": {
+      "a": "3,000 IOPS",
+      "b": "16,000 IOPS",
+      "c": "32,000 IOPS",
+      "d": "64,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 3,000 IOPS is the baseline for gp3, not the maximum.",
+      "b": "Correct. gp3 volumes can be provisioned up to a maximum of 16,000 IOPS.",
+      "c": "Incorrect. 32,000 IOPS exceeds the gp3 maximum.",
+      "d": "Incorrect. 64,000 IOPS is the maximum for io1/io2, not gp3."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the baseline IOPS for a gp3 volume?",
+    "opts": {
+      "a": "1,000 IOPS",
+      "b": "3,000 IOPS",
+      "c": "5,000 IOPS",
+      "d": "10,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The baseline is not 1,000 IOPS for gp3.",
+      "b": "Correct. gp3 volumes provide a baseline of 3,000 IOPS regardless of volume size.",
+      "c": "Incorrect. 5,000 IOPS is not the gp3 baseline.",
+      "d": "Incorrect. 10,000 IOPS is not the baseline for gp3."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the baseline throughput for a gp3 volume?",
+    "opts": {
+      "a": "64 MiB/s",
+      "b": "125 MiB/s",
+      "c": "250 MiB/s",
+      "d": "500 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 64 MiB/s is not the baseline throughput for gp3.",
+      "b": "Correct. gp3 volumes provide a baseline throughput of 125 MiB/s.",
+      "c": "Incorrect. 250 MiB/s is not the baseline; gp3 can be provisioned up to 1,000 MiB/s.",
+      "d": "Incorrect. 500 MiB/s is above the baseline for gp3."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum throughput for a gp3 volume?",
+    "opts": {
+      "a": "250 MiB/s",
+      "b": "500 MiB/s",
+      "c": "1,000 MiB/s",
+      "d": "2,000 MiB/s"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 250 MiB/s is the maximum throughput for gp2, not gp3.",
+      "b": "Incorrect. 500 MiB/s is the maximum throughput for st1, not gp3.",
+      "c": "Correct. gp3 volumes can be provisioned up to 1,000 MiB/s throughput.",
+      "d": "Incorrect. 2,000 MiB/s exceeds the gp3 maximum throughput."
+    }
+  },
+  {
+    "type": "single",
+    "q": "How does gp2 calculate its IOPS performance?",
+    "opts": {
+      "a": "Fixed 3,000 IOPS for all sizes",
+      "b": "3 IOPS per GiB with a minimum burst of 3,000 IOPS",
+      "c": "10 IOPS per GiB",
+      "d": "50 IOPS per GiB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IOPS scales with volume size in gp2, it is not always fixed at 3,000.",
+      "b": "Correct. gp2 provides 3 IOPS per GiB of volume size, with a burst capability of up to 3,000 IOPS for volumes under 1,000 GiB.",
+      "c": "Incorrect. 10 IOPS per GiB is not the gp2 formula.",
+      "d": "Incorrect. 50 IOPS per GiB applies to io1/io2 ratio, not gp2."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for an io1 EBS volume?",
+    "opts": {
+      "a": "16,000 IOPS",
+      "b": "32,000 IOPS",
+      "c": "64,000 IOPS",
+      "d": "256,000 IOPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 16,000 IOPS is the max for gp2/gp3.",
+      "b": "Incorrect. 32,000 IOPS is not the max for io1.",
+      "c": "Correct. io1 volumes support a maximum of 64,000 IOPS.",
+      "d": "Incorrect. 256,000 IOPS is the max for io2 Block Express, not standard io1."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for an io2 Block Express EBS volume?",
+    "opts": {
+      "a": "64,000 IOPS",
+      "b": "128,000 IOPS",
+      "c": "256,000 IOPS",
+      "d": "500,000 IOPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 64,000 IOPS is the max for standard io1/io2.",
+      "b": "Incorrect. 128,000 is not the correct maximum for io2 Block Express.",
+      "c": "Correct. io2 Block Express supports up to 256,000 IOPS.",
+      "d": "Incorrect. 500,000 IOPS exceeds the io2 Block Express maximum."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the IOPS-to-GiB ratio for io1 volumes?",
+    "opts": {
+      "a": "3 IOPS per GiB",
+      "b": "10 IOPS per GiB",
+      "c": "50 IOPS per GiB",
+      "d": "100 IOPS per GiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3 IOPS per GiB applies to gp2 volumes.",
+      "b": "Incorrect. 10 IOPS per GiB is not the io1 ratio.",
+      "c": "Correct. io1 volumes support up to 50 IOPS per GiB of provisioned storage.",
+      "d": "Incorrect. 100 IOPS per GiB is not the correct ratio for io1."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the IOPS-to-GiB ratio for io2 Block Express volumes?",
+    "opts": {
+      "a": "50 IOPS per GiB",
+      "b": "100 IOPS per GiB",
+      "c": "500 IOPS per GiB",
+      "d": "1,000 IOPS per GiB"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 50 IOPS per GiB applies to io1.",
+      "b": "Incorrect. 100 IOPS per GiB is not the ratio for io2 Block Express.",
+      "c": "Incorrect. 500 IOPS per GiB is not the correct ratio.",
+      "d": "Correct. io2 Block Express supports up to 1,000 IOPS per GiB."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum volume size for io2 Block Express?",
+    "opts": {
+      "a": "16 TiB",
+      "b": "32 TiB",
+      "c": "64 TiB",
+      "d": "128 TiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 16 TiB is the max for standard EBS volumes like gp2/gp3/io1.",
+      "b": "Incorrect. 32 TiB is not the max for io2 Block Express.",
+      "c": "Correct. io2 Block Express volumes can be up to 64 TiB in size.",
+      "d": "Incorrect. 128 TiB exceeds the maximum for io2 Block Express."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum throughput for an st1 (Throughput Optimized HDD) volume?",
+    "opts": {
+      "a": "250 MiB/s",
+      "b": "500 MiB/s",
+      "c": "1,000 MiB/s",
+      "d": "125 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 250 MiB/s is the max throughput for sc1 and gp2.",
+      "b": "Correct. st1 volumes can achieve a maximum throughput of 500 MiB/s.",
+      "c": "Incorrect. 1,000 MiB/s is the max throughput for gp3.",
+      "d": "Incorrect. 125 MiB/s is the baseline throughput for gp3."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum throughput for an sc1 (Cold HDD) volume?",
+    "opts": {
+      "a": "125 MiB/s",
+      "b": "250 MiB/s",
+      "c": "500 MiB/s",
+      "d": "40 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 125 MiB/s is not the max throughput for sc1.",
+      "b": "Correct. sc1 volumes can achieve a maximum throughput of 250 MiB/s.",
+      "c": "Incorrect. 500 MiB/s is the max throughput for st1.",
+      "d": "Incorrect. 40 MiB/s is too low for sc1 max throughput."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for an st1 volume?",
+    "opts": {
+      "a": "250 IOPS",
+      "b": "500 IOPS",
+      "c": "1,000 IOPS",
+      "d": "16,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 250 IOPS is the max for sc1, not st1.",
+      "b": "Correct. st1 volumes support a maximum of 500 IOPS.",
+      "c": "Incorrect. 1,000 IOPS exceeds st1 capability.",
+      "d": "Incorrect. 16,000 IOPS is the max for gp2/gp3, not st1."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum IOPS for an sc1 volume?",
+    "opts": {
+      "a": "100 IOPS",
+      "b": "250 IOPS",
+      "c": "500 IOPS",
+      "d": "1,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 100 IOPS is not the max for sc1.",
+      "b": "Correct. sc1 volumes support a maximum of 250 IOPS.",
+      "c": "Incorrect. 500 IOPS is the max for st1, not sc1.",
+      "d": "Incorrect. 1,000 IOPS far exceeds sc1 capability."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the minimum size for st1 and sc1 volumes?",
+    "opts": {
+      "a": "1 GiB",
+      "b": "125 GiB",
+      "c": "500 GiB",
+      "d": "1,000 GiB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 GiB is the minimum for gp2/gp3, not st1/sc1.",
+      "b": "Correct. Both st1 and sc1 volumes have a minimum size of 125 GiB.",
+      "c": "Incorrect. 500 GiB is not the minimum for st1/sc1.",
+      "d": "Incorrect. 1,000 GiB is not the minimum for these volume types."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What retention period can you set for the EBS Recycle Bin?",
+    "opts": {
+      "a": "1 day to 1 year",
+      "b": "7 days only",
+      "c": "30 days only",
+      "d": "Unlimited"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. You can set a retention period from 1 day to 1 year (365 days) for the EBS Recycle Bin.",
+      "b": "Incorrect. 7 days is not the only option.",
+      "c": "Incorrect. 30 days is not the only option.",
+      "d": "Incorrect. There is a maximum retention of 1 year."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the durability of EBS volumes?",
+    "opts": {
+      "a": "99.9%",
+      "b": "99.8% - 99.9% (gp2/gp3/st1/sc1) and 99.999% (io1/io2)",
+      "c": "99.99% for all types",
+      "d": "100%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is incomplete.",
+      "b": "Correct. Standard EBS volumes (gp2/gp3/st1/sc1) offer 99.8%-99.9% durability, while io1/io2 offer 99.999% durability.",
+      "c": "Incorrect. Durability varies by volume type.",
+      "d": "Incorrect. No storage service guarantees 100% durability."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the SLA availability for EBS volumes?",
+    "opts": {
+      "a": "99.0%",
+      "b": "99.9%",
+      "c": "99.99%",
+      "d": "99.999%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 99.0% is too low for EBS SLA.",
+      "b": "Incorrect. 99.9% is lower than the actual EBS SLA.",
+      "c": "Correct. EBS provides an SLA of 99.99% availability.",
+      "d": "Incorrect. 99.999% is the durability for io1/io2, not the availability SLA."
+    }
+  },
+  {
+    "type": "single",
+    "q": "How many EBS volumes can you attach to a single EC2 instance (approximate maximum)?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "28",
+      "d": "128"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can attach more than 5 volumes.",
+      "b": "Incorrect. The limit is higher than 10.",
+      "c": "Correct. You can typically attach up to 28 EBS volumes to a single EC2 instance (limit varies by instance type, with some Nitro instances supporting more).",
+      "d": "Incorrect. 128 is too high for standard instances."
+    }
+  },
+  {
+    "type": "single",
+    "q": "An application running on EC2 uses a gp2 volume of 200 GiB. What is the baseline IOPS performance of this volume?",
+    "opts": {
+      "a": "200 IOPS",
+      "b": "600 IOPS",
+      "c": "3,000 IOPS (burst)",
+      "d": "1,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The formula is 3 IOPS per GiB, not 1 IOPS per GiB.",
+      "b": "Correct. gp2 provides 3 IOPS per GiB, so 200 GiB × 3 = 600 IOPS baseline. However, it can burst up to 3,000 IOPS.",
+      "c": "Incorrect. 3,000 IOPS is the burst capability, not the sustained baseline for a 200 GiB volume.",
+      "d": "Incorrect. The calculation is 200 × 3 = 600 IOPS."
+    }
+  },
+  {
+    "type": "single",
+    "q": "A gp2 volume of 200 GiB has a baseline of 600 IOPS. What burst IOPS can it achieve?",
+    "opts": {
+      "a": "600 IOPS",
+      "b": "1,800 IOPS",
+      "c": "3,000 IOPS",
+      "d": "16,000 IOPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 600 IOPS is the baseline, not the burst.",
+      "b": "Incorrect. 1,800 IOPS is not the burst limit.",
+      "c": "Correct. All gp2 volumes below 1,000 GiB can burst up to 3,000 IOPS regardless of their baseline.",
+      "d": "Incorrect. 16,000 IOPS is the maximum for gp2 volumes at 5,334 GiB or larger."
+    }
+  },
+  {
+    "type": "single",
+    "q": "At what size does a gp2 volume reach its maximum IOPS of 16,000 without needing burst credits?",
+    "opts": {
+      "a": "1,000 GiB",
+      "b": "3,000 GiB",
+      "c": "5,334 GiB",
+      "d": "16,000 GiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,000 GiB × 3 = 3,000 IOPS, not 16,000.",
+      "b": "Incorrect. 3,000 GiB × 3 = 9,000 IOPS, not 16,000.",
+      "c": "Correct. 16,000 IOPS ÷ 3 IOPS per GiB = 5,334 GiB. At this size, the baseline equals the maximum.",
+      "d": "Incorrect. 16,000 GiB would still provide 16,000 IOPS (the max), but 5,334 GiB is the point where baseline reaches max."
+    }
+  },
+  {
+    "type": "single",
+    "q": "An EBS io1 volume of 100 GiB is provisioned. What is the maximum IOPS that can be provisioned for this volume?",
+    "opts": {
+      "a": "3,000 IOPS",
+      "b": "5,000 IOPS",
+      "c": "10,000 IOPS",
+      "d": "64,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The maximum is calculated as 50 IOPS × GiB size.",
+      "b": "Correct. io1 supports up to 50 IOPS per GiB, so 100 GiB × 50 = 5,000 IOPS maximum for this volume size.",
+      "c": "Incorrect. 10,000 IOPS would require at least 200 GiB (200 × 50 = 10,000).",
+      "d": "Incorrect. 64,000 IOPS is the absolute max for io1, but volume size limits it to 5,000 for 100 GiB."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What minimum volume size is needed for an io1 volume to achieve its maximum of 64,000 IOPS?",
+    "opts": {
+      "a": "640 GiB",
+      "b": "1,280 GiB",
+      "c": "3,200 GiB",
+      "d": "6,400 GiB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 640 × 50 = 32,000 IOPS, not 64,000.",
+      "b": "Correct. 64,000 IOPS ÷ 50 IOPS per GiB = 1,280 GiB minimum volume size needed.",
+      "c": "Incorrect. 3,200 GiB × 50 = 160,000, which exceeds the maximum anyway (capped at 64,000).",
+      "d": "Incorrect. 6,400 GiB is more than needed."
+    }
+  },
+  {
+    "type": "single",
+    "q": "A snapshot was taken of a 500 GiB EBS volume that only has 100 GiB of data. How much storage does the first snapshot approximately consume?",
+    "opts": {
+      "a": "500 GiB",
+      "b": "100 GiB",
+      "c": "250 GiB",
+      "d": "50 GiB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Snapshots only store used blocks, not the full allocated volume size.",
+      "b": "Correct. The first snapshot stores only the blocks that contain data, approximately 100 GiB in this case.",
+      "c": "Incorrect. It does not store half the volume size.",
+      "d": "Incorrect. The first snapshot stores all used blocks, approximately 100 GiB."
+    }
+  },
+  {
+    "type": "single",
+    "q": "After the initial 100 GiB snapshot, 20 GiB of data is modified. How much additional storage does the second snapshot consume?",
+    "opts": {
+      "a": "100 GiB",
+      "b": "120 GiB",
+      "c": "20 GiB",
+      "d": "500 GiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The second snapshot only stores changed blocks.",
+      "b": "Incorrect. The second snapshot does not store all data again.",
+      "c": "Correct. EBS snapshots are incremental, so the second snapshot only stores the 20 GiB of changed blocks.",
+      "d": "Incorrect. Snapshots are incremental, not full copies."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum throughput of an io2 Block Express volume?",
+    "opts": {
+      "a": "1,000 MiB/s",
+      "b": "2,000 MiB/s",
+      "c": "4,000 MiB/s",
+      "d": "10,000 MiB/s"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,000 MiB/s is the max for gp3 and standard io1/io2.",
+      "b": "Incorrect. 2,000 MiB/s is not the max for io2 Block Express.",
+      "c": "Correct. io2 Block Express supports up to 4,000 MiB/s throughput.",
+      "d": "Incorrect. 10,000 MiB/s exceeds io2 Block Express capabilities."
+    }
+  },
+  {
+    "type": "single",
+    "q": "A company uses RAID 0 striping with four 4 TiB gp3 volumes each provisioned at 16,000 IOPS. What is the aggregate IOPS of the RAID 0 array?",
+    "opts": {
+      "a": "16,000 IOPS",
+      "b": "32,000 IOPS",
+      "c": "48,000 IOPS",
+      "d": "64,000 IOPS"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. RAID 0 adds the IOPS of all volumes.",
+      "b": "Incorrect. 32,000 would be two volumes.",
+      "c": "Incorrect. 48,000 would be three volumes.",
+      "d": "Correct. RAID 0 stripes data across all volumes, so aggregate IOPS = 4 × 16,000 = 64,000 IOPS."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum number of EBS snapshots you can have per AWS account per region?",
+    "opts": {
+      "a": "1,000",
+      "b": "10,000",
+      "c": "100,000",
+      "d": "Unlimited (soft limit of 100,000 with possible increase)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 1,000.",
+      "b": "Incorrect. The limit is higher than 10,000.",
+      "c": "Correct. The default limit is 100,000 EBS snapshots per account per region.",
+      "d": "Incorrect. While you can request an increase, the default is 100,000, not unlimited."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum number of EBS volumes per account per region (default)?",
+    "opts": {
+      "a": "500",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "50,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default limit is higher than 500.",
+      "b": "Correct. The default limit is 5,000 EBS volumes per account per region (can be increased by request).",
+      "c": "Incorrect. 10,000 is not the default limit for volumes.",
+      "d": "Incorrect. 50,000 far exceeds the default limit."
+    }
+  },
+  {
+    "type": "single",
+    "q": "You need to ensure that your EBS-backed EC2 instance can handle a sudden spike of I/O during business hours. The volume is gp2 with 100 GiB. What is the burst duration approximately?",
+    "opts": {
+      "a": "Indefinite",
+      "b": "Approximately 30 minutes at 3,000 IOPS with a full credit balance",
+      "c": "Approximately 60 minutes at 3,000 IOPS",
+      "d": "5 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Burst is not indefinite; it depends on credit balance.",
+      "b": "Correct. A 100 GiB gp2 volume has a 300 IOPS baseline and 5.4 million burst credits. At 3,000 IOPS burst, credits deplete in approximately 5,400,000 / (3,000 - 300) = ~2,000 seconds ≈ 33 minutes.",
+      "c": "Incorrect. 60 minutes would require more credits than available.",
+      "d": "Incorrect. 5 minutes is too short for a full credit balance."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum throughput for a standard io1/io2 volume (non-Block Express)?",
+    "opts": {
+      "a": "250 MiB/s",
+      "b": "500 MiB/s",
+      "c": "1,000 MiB/s",
+      "d": "4,000 MiB/s"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 250 MiB/s is the max throughput for gp2 and sc1.",
+      "b": "Incorrect. 500 MiB/s is the max for st1.",
+      "c": "Correct. Standard io1/io2 volumes support up to 1,000 MiB/s throughput.",
+      "d": "Incorrect. 4,000 MiB/s is the max for io2 Block Express."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the io2 standard (non-Block Express) IOPS-to-GiB ratio?",
+    "opts": {
+      "a": "50 IOPS per GiB",
+      "b": "100 IOPS per GiB",
+      "c": "500 IOPS per GiB",
+      "d": "1,000 IOPS per GiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50 IOPS per GiB is the ratio for io1.",
+      "b": "Incorrect. 100 IOPS per GiB is not the io2 ratio.",
+      "c": "Correct. Standard io2 provides up to 500 IOPS per GiB (compared to 50 for io1).",
+      "d": "Incorrect. 1,000 IOPS per GiB is the ratio for io2 Block Express."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum size of an I/O operation for SSD-based EBS volumes (gp2, gp3, io1, io2)?",
+    "opts": {
+      "a": "16 KiB",
+      "b": "64 KiB",
+      "c": "256 KiB",
+      "d": "1 MiB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 16 KiB is the I/O size counted as one IOPS for SSD volumes.",
+      "b": "Incorrect. 64 KiB is not the maximum I/O size for SSD volumes.",
+      "c": "Correct. SSD-based EBS volumes support a maximum I/O size of 256 KiB. Each 16 KiB counts as one IOPS.",
+      "d": "Incorrect. 1 MiB is the maximum I/O size for HDD volumes, not SSD."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the maximum size of an I/O operation for HDD-based EBS volumes (st1, sc1)?",
+    "opts": {
+      "a": "16 KiB",
+      "b": "256 KiB",
+      "c": "512 KiB",
+      "d": "1 MiB"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 16 KiB is too small for HDD maximum I/O.",
+      "b": "Incorrect. 256 KiB is the max for SSD volumes.",
+      "c": "Incorrect. 512 KiB is not the correct maximum for HDD volumes.",
+      "d": "Correct. HDD-based EBS volumes (st1, sc1) support a maximum I/O size of 1 MiB."
+    }
+  },
+  {
+    "type": "single",
+    "q": "An application writes 256 KiB I/O operations to a gp3 volume. How many IOPS does each write consume?",
+    "opts": {
+      "a": "1 IOPS",
+      "b": "4 IOPS",
+      "c": "16 IOPS",
+      "d": "256 IOPS"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. For SSD volumes, 1 IOPS = 16 KiB.",
+      "b": "Incorrect. 4 IOPS would be 64 KiB.",
+      "c": "Correct. For SSD volumes, each 16 KiB counts as 1 IOPS. A 256 KiB operation = 256 / 16 = 16 IOPS.",
+      "d": "Incorrect. 256 IOPS is too high; the calculation is 256 KiB / 16 KiB = 16."
+    }
+  },
+  {
+    "type": "single",
+    "q": "A 2 TiB st1 volume is created. What is its baseline throughput?",
+    "opts": {
+      "a": "40 MiB/s",
+      "b": "80 MiB/s",
+      "c": "250 MiB/s",
+      "d": "500 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 40 MiB/s is the baseline per TiB, so 1 TiB would get 40 MiB/s.",
+      "b": "Correct. Baseline = 40 MiB/s × 2 TiB = 80 MiB/s.",
+      "c": "Incorrect. 250 MiB/s per TiB is the burst rate, not baseline.",
+      "d": "Incorrect. 500 MiB/s is the maximum burst throughput regardless of size."
+    }
+  },
+  {
+    "type": "single",
+    "q": "A developer creates an io2 volume of 200 GiB. What is the maximum IOPS they can provision using the standard io2 (non-Block Express) ratio?",
+    "opts": {
+      "a": "10,000 IOPS",
+      "b": "64,000 IOPS",
+      "c": "100,000 IOPS",
+      "d": "200,000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. With 500 IOPS/GiB ratio: 200 × 500 = 100,000. But the maximum cap for standard io2 is 64,000 IOPS.",
+      "b": "Correct. While 200 GiB × 500 IOPS/GiB = 100,000, the standard io2 volume cap is 64,000 IOPS, so the maximum is 64,000 IOPS.",
+      "c": "Incorrect. The ratio allows 100,000 but the volume type cap is 64,000 for standard io2.",
+      "d": "Incorrect. 200,000 exceeds all standard io2 limits."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the throughput calculation for st1 volumes?",
+    "opts": {
+      "a": "3 IOPS per GiB",
+      "b": "40 MiB/s per TiB baseline, bursting to 250 MiB/s per TiB",
+      "c": "500 MiB/s flat rate",
+      "d": "125 MiB/s baseline for all sizes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. That formula is for gp2 IOPS.",
+      "b": "Correct. st1 provides 40 MiB/s per TiB as baseline throughput, with burst capability up to 250 MiB/s per TiB, capped at 500 MiB/s maximum.",
+      "c": "Incorrect. 500 MiB/s is the maximum, not a flat rate for all sizes.",
+      "d": "Incorrect. 125 MiB/s is the gp3 baseline, not st1."
+    }
+  },
+  {
+    "type": "single",
+    "q": "What is the throughput calculation for sc1 volumes?",
+    "opts": {
+      "a": "12 MiB/s per TiB baseline, bursting to 80 MiB/s per TiB",
+      "b": "40 MiB/s per TiB baseline, bursting to 250 MiB/s per TiB",
+      "c": "125 MiB/s flat for all sizes",
+      "d": "500 MiB/s flat for all sizes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. sc1 provides 12 MiB/s per TiB baseline throughput, bursting to 80 MiB/s per TiB, capped at 250 MiB/s maximum.",
+      "b": "Incorrect. This is the formula for st1, not sc1.",
+      "c": "Incorrect. 125 MiB/s is the gp3 baseline.",
+      "d": "Incorrect. 500 MiB/s is the st1 maximum throughput."
+    }
+  }
+]

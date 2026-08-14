@@ -1,0 +1,852 @@
+[
+  {
+    "type": "MCQ",
+    "q": "In Aurora's storage architecture, data is stored in 10 GB segments called what?",
+    "opts": {
+      "a": "Shards",
+      "b": "Protection Groups",
+      "c": "Partitions",
+      "d": "Chunks"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Shards is a term used in DynamoDB and other distributed databases, not Aurora's storage segments.",
+      "b": "Correct. Aurora divides the storage volume into 10 GB segments called Protection Groups, each replicated 6 ways across 3 AZs.",
+      "c": "Incorrect. Partitions is a general term; Aurora specifically calls its 10 GB segments Protection Groups.",
+      "d": "Incorrect. Chunks is not the official Aurora terminology for its storage segments."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What happens if Aurora loses an entire Availability Zone (2 copies of data)?",
+    "opts": {
+      "a": "The database becomes completely unavailable",
+      "b": "Write availability is lost but reads continue",
+      "c": "Both read and write operations continue without interruption",
+      "d": "Only read operations are lost"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora is designed to tolerate the loss of an entire AZ without losing availability.",
+      "b": "Incorrect. With 4 remaining copies, Aurora still meets its write quorum (4/6) and read quorum (3/6).",
+      "c": "Correct. Losing an AZ means losing 2 copies; Aurora still has 4 copies which satisfies both write quorum (4/6) and read quorum (3/6).",
+      "d": "Incorrect. Both read and write operations continue since quorums are still met."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which Aurora feature allows you to export data from Aurora to Amazon S3 in Apache Parquet format?",
+    "opts": {
+      "a": "Aurora Data API",
+      "b": "SELECT INTO OUTFILE S3",
+      "c": "Aurora Export to S3 (snapshot export)",
+      "d": "Aurora ETL Integration"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Data API is for HTTP-based SQL access, not exporting to S3 in Parquet.",
+      "b": "Incorrect. SELECT INTO OUTFILE S3 exports in CSV/text format, not Parquet.",
+      "c": "Correct. Aurora's snapshot export feature exports data to S3 in Apache Parquet format, useful for analytics.",
+      "d": "Incorrect. There is no feature specifically called Aurora ETL Integration."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between Aurora Replicas and MySQL Read Replicas when used with Aurora MySQL?",
+    "opts": {
+      "a": "Aurora Replicas share the same storage volume; MySQL Read Replicas use asynchronous replication of data",
+      "b": "There is no difference; they are the same",
+      "c": "MySQL Read Replicas are faster than Aurora Replicas",
+      "d": "Aurora Replicas cannot be used for failover"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Replicas share the cluster volume (minimal lag ~10ms), while MySQL Read Replicas use traditional asynchronous binary log replication (higher lag).",
+      "b": "Incorrect. They differ significantly in architecture and performance.",
+      "c": "Incorrect. Aurora Replicas have much lower replication lag than MySQL Read Replicas.",
+      "d": "Incorrect. Aurora Replicas support automatic failover; MySQL Read Replicas do not."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How does Aurora prioritize which replica to promote during failover?",
+    "opts": {
+      "a": "Random selection",
+      "b": "Based on the replica's tier priority (0-15), then largest size",
+      "c": "Always the oldest replica",
+      "d": "Based on geographic location"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora uses a defined priority system, not random selection.",
+      "b": "Correct. Aurora promotes the replica with the lowest tier number (0 = highest priority). If tiers are equal, it promotes the largest replica.",
+      "c": "Incorrect. Age of the replica is not the primary factor in failover selection.",
+      "d": "Incorrect. Geographic location within a region is not the failover selection criterion."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What priority tier values can you assign to Aurora Replicas for failover preference?",
+    "opts": {
+      "a": "1 to 5",
+      "b": "0 to 15",
+      "c": "1 to 10",
+      "d": "0 to 100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The failover priority range is 0 to 15.",
+      "b": "Correct. You can assign priority tiers from 0 (highest priority) to 15 (lowest priority) to Aurora Replicas.",
+      "c": "Incorrect. The range is 0 to 15, not 1 to 10.",
+      "d": "Incorrect. The range is 0 to 15, not 0 to 100."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the key advantage of Aurora Serverless v2 over v1?",
+    "opts": {
+      "a": "v2 is cheaper",
+      "b": "v2 scales instantly and in fine-grained increments (0.5 ACU), supports all Aurora features",
+      "c": "v2 supports only PostgreSQL",
+      "d": "v2 has higher maximum storage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While pricing may differ, the key advantage is scaling capability and feature parity.",
+      "b": "Correct. Aurora Serverless v2 scales in fine-grained 0.5 ACU increments, scales instantly, and supports features like read replicas, Global Database, and Multi-AZ that v1 did not.",
+      "c": "Incorrect. v2 supports both MySQL and PostgreSQL.",
+      "d": "Incorrect. Both versions share the same underlying Aurora storage with 128 TB maximum."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Can Aurora Serverless v1 scale down to zero capacity (pause)?",
+    "opts": {
+      "a": "No, it always has a minimum capacity",
+      "b": "Yes, it can pause after a configurable period of inactivity",
+      "c": "Only during maintenance windows",
+      "d": "Only if manually triggered"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora Serverless v1 can pause and scale to zero.",
+      "b": "Correct. Aurora Serverless v1 can automatically pause after a configurable period of inactivity (5 minutes minimum), scaling compute to zero.",
+      "c": "Incorrect. Pausing can happen anytime based on inactivity, not just maintenance windows.",
+      "d": "Incorrect. The pause happens automatically based on inactivity timeout configuration."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the cold start time when Aurora Serverless v1 resumes from a paused state?",
+    "opts": {
+      "a": "Instant (less than 1 second)",
+      "b": "Approximately 5-10 seconds",
+      "c": "Approximately 25-30 seconds or more",
+      "d": "Approximately 5 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is a noticeable delay when resuming from a paused state.",
+      "b": "Incorrect. The cold start typically takes longer than 5-10 seconds.",
+      "c": "Correct. When Aurora Serverless v1 resumes from a paused state, it can take approximately 25-30 seconds or more, which is the cold start penalty.",
+      "d": "Incorrect. While it varies, 5 minutes is too long for the typical cold start."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS service would you use to migrate an on-premises MySQL database to Aurora?",
+    "opts": {
+      "a": "AWS DataSync",
+      "b": "AWS Database Migration Service (DMS)",
+      "c": "AWS Transfer Family",
+      "d": "AWS Snowball"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DataSync is for file/object storage migration, not databases.",
+      "b": "Correct. AWS DMS supports migrating databases to Aurora with minimal downtime, supporting both homogeneous and heterogeneous migrations.",
+      "c": "Incorrect. Transfer Family is for SFTP/FTP file transfers, not database migration.",
+      "d": "Incorrect. Snowball is for large-scale data transfer using physical devices, not suited for live database migration."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "When migrating from a different database engine (e.g., Oracle) to Aurora, which tool converts the schema?",
+    "opts": {
+      "a": "AWS DMS",
+      "b": "AWS Schema Conversion Tool (SCT)",
+      "c": "AWS Glue",
+      "d": "AWS DataBrew"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DMS handles data migration but not schema conversion for heterogeneous migrations.",
+      "b": "Correct. AWS SCT converts database schemas from one engine to another (e.g., Oracle to Aurora PostgreSQL) including stored procedures and functions.",
+      "c": "Incorrect. Glue is an ETL service, not a schema conversion tool.",
+      "d": "Incorrect. DataBrew is for data preparation, not database schema conversion."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of secondary regions that can have up to 16 read replicas each in Aurora Global Database?",
+    "opts": {
+      "a": "5 secondary regions, each with up to 16 replicas",
+      "b": "3 secondary regions, each with up to 15 replicas",
+      "c": "5 secondary regions, each with up to 15 replicas",
+      "d": "3 secondary regions, each with up to 16 replicas"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Global Database supports up to 5 secondary regions, and each secondary region can have up to 16 read replicas.",
+      "b": "Incorrect. The maximum is 5 secondary regions, not 3, and each can have up to 16 replicas.",
+      "c": "Incorrect. Each secondary region supports up to 16 replicas, not 15.",
+      "d": "Incorrect. The maximum is 5 secondary regions, not 3."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What type of replication does Aurora Global Database use for cross-region replication?",
+    "opts": {
+      "a": "Logical replication using binlog",
+      "b": "Physical storage-based replication at the storage layer",
+      "c": "Synchronous replication",
+      "d": "Statement-based replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora Global Database does not use binary log for cross-region replication.",
+      "b": "Correct. Aurora Global Database replicates data at the storage layer, streaming redo logs across regions for fast, low-impact replication.",
+      "c": "Incorrect. The replication is asynchronous (typically under 1 second lag), not synchronous.",
+      "d": "Incorrect. Statement-based replication is not used; Aurora uses physical storage-level replication."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is Aurora's write forwarding feature in Global Database?",
+    "opts": {
+      "a": "Forwarding reads to the primary region",
+      "b": "Allowing secondary region instances to forward write requests to the primary region",
+      "c": "Forwarding backups to another region",
+      "d": "Forwarding logs to CloudWatch in another region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Reads are served locally in secondary regions; writes are forwarded.",
+      "b": "Correct. Write forwarding allows applications connected to secondary region clusters to submit write queries that are transparently forwarded to the primary region.",
+      "c": "Incorrect. Backup forwarding is not what this feature does.",
+      "d": "Incorrect. Log forwarding to CloudWatch is not related to write forwarding."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How does Aurora handle crash recovery differently from traditional MySQL?",
+    "opts": {
+      "a": "Aurora uses the same InnoDB crash recovery",
+      "b": "Aurora performs crash recovery asynchronously in the storage layer, not at database startup",
+      "c": "Aurora does not support crash recovery",
+      "d": "Aurora requires manual crash recovery"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora has redesigned crash recovery to be faster than traditional InnoDB.",
+      "b": "Correct. Aurora performs redo log replay in the storage layer in parallel and asynchronously, making crash recovery nearly instant at startup.",
+      "c": "Incorrect. Aurora absolutely supports crash recovery; it's just implemented differently.",
+      "d": "Incorrect. Crash recovery is automatic and does not require manual intervention."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the typical crash recovery time for Aurora compared to traditional MySQL?",
+    "opts": {
+      "a": "Same as traditional MySQL (minutes to hours depending on workload)",
+      "b": "Usually less than 60 seconds regardless of database size",
+      "c": "Always exactly 30 seconds",
+      "d": "Depends on the number of replicas"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora's crash recovery is significantly faster than traditional MySQL.",
+      "b": "Correct. Aurora's crash recovery is nearly instantaneous because redo log replay happens in the storage layer, independent of database size.",
+      "c": "Incorrect. It's not a fixed time but is typically very fast (seconds, not minutes).",
+      "d": "Incorrect. Crash recovery time is independent of the number of replicas."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of the Aurora cluster volume?",
+    "opts": {
+      "a": "To store only backup data",
+      "b": "A virtual database storage volume spanning multiple AZs that all instances in the cluster share",
+      "c": "To store only read replica data",
+      "d": "To provide temporary storage for queries"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cluster volume stores all active database data, not just backups.",
+      "b": "Correct. The cluster volume is a shared virtual storage layer spanning multiple AZs that all DB instances (primary and replicas) use.",
+      "c": "Incorrect. The cluster volume is shared by all instances including the primary.",
+      "d": "Incorrect. It stores persistent data, not temporary query data."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which statement about Aurora encryption is TRUE?",
+    "opts": {
+      "a": "You can encrypt individual tables but not the entire cluster",
+      "b": "Encryption covers the cluster volume, snapshots, replicas, and backups",
+      "c": "Encryption only applies to data at rest, not snapshots",
+      "d": "Encrypted and unencrypted instances can exist in the same cluster"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora encryption is applied at the cluster level, not individual tables.",
+      "b": "Correct. When encryption is enabled, it covers the underlying storage, automated backups, snapshots, and replicas.",
+      "c": "Incorrect. Encryption applies to all data including snapshots and backups.",
+      "d": "Incorrect. All instances in an encrypted cluster must be encrypted; you cannot mix."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of custom endpoints you can create per Aurora cluster?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "There is no hard limit (within service quotas)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can create up to 5 custom endpoints per cluster.",
+      "b": "Correct. Each Aurora cluster supports up to 5 custom endpoints.",
+      "c": "Incorrect. The limit is 5 custom endpoints, not 10.",
+      "d": "Incorrect. There is a defined limit of 5 custom endpoints per cluster."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which Aurora feature allows you to invoke an AWS Lambda function from within the database using SQL?",
+    "opts": {
+      "a": "Aurora Triggers",
+      "b": "Aurora Native Lambda Integration",
+      "c": "Aurora Event Notifications",
+      "d": "Aurora Stored Procedures only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While triggers can be used, the feature is specifically called Native Lambda Integration.",
+      "b": "Correct. Aurora MySQL and PostgreSQL support native integration to invoke Lambda functions directly from within the database via SQL.",
+      "c": "Incorrect. Event Notifications are an RDS feature for operational events, not in-database Lambda invocations.",
+      "d": "Incorrect. While stored procedures can be used, the native integration allows direct SQL-level Lambda calls."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Aurora fast clone time for a 1 TB database approximately?",
+    "opts": {
+      "a": "Several hours",
+      "b": "30-60 minutes",
+      "c": "A few seconds to minutes regardless of size",
+      "d": "Proportional to database size (about 1 hour per TB)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora cloning is nearly instantaneous due to copy-on-write.",
+      "b": "Incorrect. Cloning does not take 30-60 minutes.",
+      "c": "Correct. Aurora cloning uses copy-on-write protocol, so it takes only seconds to minutes regardless of database size.",
+      "d": "Incorrect. Clone time is not proportional to database size because of the copy-on-write mechanism."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between an Aurora snapshot restore and Aurora cloning?",
+    "opts": {
+      "a": "There is no difference",
+      "b": "Snapshot restore creates a full copy of data; cloning uses copy-on-write and is faster",
+      "c": "Cloning creates a full copy; snapshot restore uses copy-on-write",
+      "d": "Snapshot restore can only be done cross-region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They are fundamentally different in mechanism and speed.",
+      "b": "Correct. Snapshot restore copies all data to create a new cluster (takes longer). Cloning uses copy-on-write, sharing the underlying storage initially (nearly instant).",
+      "c": "Incorrect. It's the opposite; cloning uses copy-on-write.",
+      "d": "Incorrect. Snapshot restore can be done in the same region or cross-region."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How does Aurora handle automatic failover when no replicas are available?",
+    "opts": {
+      "a": "The database remains unavailable until manually fixed",
+      "b": "Aurora attempts to create a new DB instance in the same AZ",
+      "c": "Aurora attempts to create a new DB instance in a different AZ",
+      "d": "Aurora restores from the most recent backup"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora will attempt recovery even without replicas.",
+      "b": "Incorrect. Aurora prefers a different AZ for better fault tolerance.",
+      "c": "Correct. If no replicas exist, Aurora will attempt to create a new primary instance, preferably in a different AZ than the failed one.",
+      "d": "Incorrect. Aurora uses the shared cluster volume (which persists) rather than restoring from backup."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Enhanced Monitoring feature in Aurora and at what granularity can it collect metrics?",
+    "opts": {
+      "a": "Application-level metrics at 30-second intervals",
+      "b": "OS-level metrics at intervals as low as 1 second",
+      "c": "Database query metrics at 5-second intervals",
+      "d": "Network-level metrics at 10-second intervals"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Enhanced Monitoring provides OS-level metrics, not application-level.",
+      "b": "Correct. Enhanced Monitoring provides OS-level metrics (CPU, memory, file system, disk I/O) at intervals as granular as 1 second.",
+      "c": "Incorrect. Query-level metrics are from Performance Insights, not Enhanced Monitoring.",
+      "d": "Incorrect. Enhanced Monitoring covers OS metrics broadly, not just network, and goes down to 1-second intervals."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What port does Aurora MySQL use by default?",
+    "opts": {
+      "a": "5432",
+      "b": "3306",
+      "c": "1433",
+      "d": "1521"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Port 5432 is the default for PostgreSQL, not MySQL.",
+      "b": "Correct. Aurora MySQL uses port 3306 by default, the same as standard MySQL.",
+      "c": "Incorrect. Port 1433 is the default for SQL Server.",
+      "d": "Incorrect. Port 1521 is the default for Oracle."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What port does Aurora PostgreSQL use by default?",
+    "opts": {
+      "a": "5432",
+      "b": "3306",
+      "c": "5439",
+      "d": "27017"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora PostgreSQL uses port 5432 by default, the same as standard PostgreSQL.",
+      "b": "Incorrect. Port 3306 is the default for MySQL.",
+      "c": "Incorrect. Port 5439 is the default for Amazon Redshift.",
+      "d": "Incorrect. Port 27017 is the default for MongoDB."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which IAM feature allows temporary database authentication tokens for Aurora connections?",
+    "opts": {
+      "a": "IAM Roles",
+      "b": "IAM Database Authentication (generates 15-minute tokens)",
+      "c": "IAM Access Keys",
+      "d": "IAM MFA"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM Roles provide permissions but the specific feature is IAM DB Authentication.",
+      "b": "Correct. IAM Database Authentication generates temporary authentication tokens valid for 15 minutes, eliminating the need to store database passwords.",
+      "c": "Incorrect. IAM Access Keys are for API calls, not database connections.",
+      "d": "Incorrect. MFA is for multi-factor login, not database token generation."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of connections supported by IAM Database Authentication for Aurora?",
+    "opts": {
+      "a": "100 connections per second per instance",
+      "b": "200 connections per second per instance",
+      "c": "256 connections per second per instance",
+      "d": "Unlimited connections"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is 200 new connections per second, not 100.",
+      "b": "Correct. IAM Database Authentication supports a maximum of 200 new connections per second per DB instance.",
+      "c": "Incorrect. The limit is 200, not 256.",
+      "d": "Incorrect. There is a defined limit of 200 connections per second for IAM DB Auth."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is Amazon Aurora I/O-Optimized configuration?",
+    "opts": {
+      "a": "A separate Aurora edition with different storage",
+      "b": "A cluster configuration that provides predictable pricing by including I/O costs in instance and storage pricing",
+      "c": "A special instance type for I/O-intensive workloads",
+      "d": "An add-on feature for faster disk performance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's a configuration option, not a separate edition.",
+      "b": "Correct. Aurora I/O-Optimized is a configuration where I/O charges are included in the instance/storage price, providing predictable costs for I/O-intensive workloads (up to 40% savings).",
+      "c": "Incorrect. It's not a special instance type; it's a pricing/configuration choice.",
+      "d": "Incorrect. It's a pricing model configuration, not a performance add-on."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "When should you choose Aurora I/O-Optimized over Aurora Standard?",
+    "opts": {
+      "a": "When I/O costs are less than 25% of total Aurora spending",
+      "b": "When I/O costs exceed 25% of total Aurora spending",
+      "c": "When you have very few read operations",
+      "d": "When using Aurora Serverless only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. If I/O is less than 25%, Standard is more cost-effective.",
+      "b": "Correct. AWS recommends Aurora I/O-Optimized when I/O charges account for more than 25% of your total Aurora database spend.",
+      "c": "Incorrect. Fewer reads would mean lower I/O, making Standard more economical.",
+      "d": "Incorrect. I/O-Optimized is available for both provisioned and Serverless v2."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What happens to Aurora Replicas during a failover event?",
+    "opts": {
+      "a": "All replicas are terminated and new ones are created",
+      "b": "One replica is promoted to primary; other replicas briefly disconnect and reconnect to the new primary",
+      "c": "All replicas continue without any interruption",
+      "d": "Replicas are frozen until the primary is restored"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Replicas are not terminated during failover.",
+      "b": "Correct. The highest-priority replica is promoted to primary, and other replicas experience a brief interruption as they reconnect to the new writer.",
+      "c": "Incorrect. There is a brief interruption during the DNS failover.",
+      "d": "Incorrect. Replicas are not frozen; they briefly reconnect to the new primary."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Aurora cluster parameter group used for?",
+    "opts": {
+      "a": "Managing individual instance settings",
+      "b": "Managing database settings that apply to all instances in the cluster",
+      "c": "Managing security group rules",
+      "d": "Managing subnet configurations"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Individual instance settings are managed by the DB instance parameter group.",
+      "b": "Correct. The cluster parameter group contains settings that apply to all instances in the Aurora cluster (e.g., timezone, character set).",
+      "c": "Incorrect. Security groups are managed separately, not through parameter groups.",
+      "d": "Incorrect. Subnet configurations are in DB subnet groups, not parameter groups."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Can you create a cross-region read replica of an Aurora cluster without using Global Database?",
+    "opts": {
+      "a": "No, cross-region replication requires Global Database",
+      "b": "Yes, using MySQL binary log (binlog) replication for Aurora MySQL",
+      "c": "Yes, using Aurora's native storage replication",
+      "d": "Only with Aurora PostgreSQL"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can create cross-region replicas using binlog replication, though Global Database is preferred.",
+      "b": "Correct. For Aurora MySQL, you can create cross-region read replicas using traditional MySQL binlog replication, though Global Database is the recommended approach with lower lag.",
+      "c": "Incorrect. Native storage replication is what Global Database uses.",
+      "d": "Incorrect. This capability exists for Aurora MySQL using binlog."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Aurora Serverless v2 scaling response time compared to v1?",
+    "opts": {
+      "a": "Same as v1",
+      "b": "v2 scales in seconds; v1 can take minutes to scale",
+      "c": "v1 is faster than v2",
+      "d": "Both take approximately 5 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. v2 scaling is significantly faster than v1.",
+      "b": "Correct. Aurora Serverless v2 scales in seconds with fine-grained increments, while v1 could take 30 seconds to several minutes to find a scaling point.",
+      "c": "Incorrect. v2 is faster at scaling than v1.",
+      "d": "Incorrect. v2 scales in seconds, not minutes."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which service can you use with Aurora to cache frequently accessed data and reduce database load?",
+    "opts": {
+      "a": "Amazon S3",
+      "b": "Amazon ElastiCache",
+      "c": "Amazon CloudFront",
+      "d": "AWS Storage Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 is object storage, not a caching layer for databases.",
+      "b": "Correct. Amazon ElastiCache (Redis or Memcached) is commonly used as a caching layer in front of Aurora to reduce database load.",
+      "c": "Incorrect. CloudFront is a CDN for web content, not a database cache.",
+      "d": "Incorrect. Storage Gateway is for hybrid cloud storage, not database caching."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Aurora activity stream used for?",
+    "opts": {
+      "a": "Streaming Aurora data to Kinesis for real-time analytics",
+      "b": "Providing a near-real-time stream of database activity for compliance and auditing",
+      "c": "Streaming backup data to S3",
+      "d": "Monitoring CPU activity"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While it uses Kinesis, the purpose is auditing, not general analytics.",
+      "b": "Correct. Aurora Database Activity Streams provide a near-real-time stream of database activity to Amazon Kinesis for compliance, auditing, and security monitoring.",
+      "c": "Incorrect. Backups are handled separately, not through activity streams.",
+      "d": "Incorrect. CPU monitoring is done by CloudWatch, not activity streams."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What are the two modes of Aurora Database Activity Streams?",
+    "opts": {
+      "a": "Real-time and batch",
+      "b": "Synchronous and asynchronous",
+      "c": "Standard and enhanced",
+      "d": "Active and passive"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The modes are called synchronous and asynchronous, not real-time and batch.",
+      "b": "Correct. Synchronous mode prioritizes accuracy (blocks if stream unavailable). Asynchronous mode prioritizes performance (database activity continues even if stream is disrupted).",
+      "c": "Incorrect. The modes are synchronous and asynchronous.",
+      "d": "Incorrect. Active/passive is not the terminology used."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum instance size available for Aurora (as of recent offerings)?",
+    "opts": {
+      "a": "db.r6g.4xlarge (128 GB RAM)",
+      "b": "db.r6g.8xlarge (256 GB RAM)",
+      "c": "db.r6g.16xlarge (512 GB RAM)",
+      "d": "db.r5.24xlarge (768 GB RAM)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Larger instance sizes are available for Aurora.",
+      "b": "Incorrect. There are larger instances available.",
+      "c": "Incorrect. db.r5.24xlarge with 768 GB is larger.",
+      "d": "Correct. The db.r5.24xlarge (768 GB RAM) is among the largest instance types available for Aurora."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How does Aurora pricing for storage work?",
+    "opts": {
+      "a": "You pre-provision storage and pay for the provisioned amount",
+      "b": "You pay only for the storage actually consumed, billed per GB-month",
+      "c": "Storage is free; you only pay for compute",
+      "d": "You pay a flat monthly fee regardless of usage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Unlike RDS, Aurora does not require pre-provisioning storage; it auto-scales.",
+      "b": "Correct. Aurora charges for storage based on actual usage (per GB-month), with storage automatically growing as needed.",
+      "c": "Incorrect. Storage is not free; it's billed per GB-month of actual usage.",
+      "d": "Incorrect. Billing is usage-based, not a flat fee."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the I/O pricing model in Aurora Standard configuration?",
+    "opts": {
+      "a": "I/O is included in the instance price",
+      "b": "Charged per million I/O requests",
+      "c": "Charged per GB transferred",
+      "d": "Flat rate regardless of I/O volume"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. In Standard configuration, I/O is charged separately (I/O-Optimized includes it).",
+      "b": "Correct. Aurora Standard charges per million I/O requests in addition to instance and storage costs.",
+      "c": "Incorrect. Pricing is per I/O request, not per GB transferred.",
+      "d": "Incorrect. It's usage-based per million requests, not a flat rate."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What happens to an Aurora cluster if you delete all DB instances but not the cluster itself?",
+    "opts": {
+      "a": "All data is immediately lost",
+      "b": "The cluster volume (with data) persists and you can add instances later",
+      "c": "The cluster is automatically deleted",
+      "d": "A snapshot is automatically created and the cluster is deleted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cluster volume persists even when all instances are removed.",
+      "b": "Correct. The Aurora cluster volume (storage) persists independently of compute instances. You can add new instances to access the data again.",
+      "c": "Incorrect. The cluster is not automatically deleted when instances are removed.",
+      "d": "Incorrect. No automatic snapshot/deletion occurs; the cluster volume remains."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which feature allows Aurora PostgreSQL to use the pg_cron extension for scheduling tasks?",
+    "opts": {
+      "a": "Aurora Scheduled Actions",
+      "b": "Aurora PostgreSQL supports pg_cron extension natively",
+      "c": "You must use AWS Lambda for all scheduling",
+      "d": "EventBridge Scheduler only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There is no specific Aurora Scheduled Actions feature for this purpose.",
+      "b": "Correct. Aurora PostgreSQL supports the pg_cron extension, allowing you to schedule SQL-based tasks directly within the database.",
+      "c": "Incorrect. While Lambda can schedule tasks, pg_cron provides in-database scheduling.",
+      "d": "Incorrect. EventBridge is one option, but Aurora PostgreSQL natively supports pg_cron."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Aurora Recommendations feature?",
+    "opts": {
+      "a": "ML-based query optimization that auto-tunes queries",
+      "b": "Automated recommendations for improving security, performance, and cost of Aurora clusters",
+      "c": "A feature that recommends which AWS region to deploy in",
+      "d": "A recommendation engine for database schema design"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora doesn't auto-tune queries; recommendations are operational best practices.",
+      "b": "Correct. Aurora provides automated recommendations for improving cluster configuration, security settings, and performance optimizations.",
+      "c": "Incorrect. Region selection is not what Aurora Recommendations covers.",
+      "d": "Incorrect. Schema design recommendations are not part of this feature."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How does Aurora integrate with AWS Secrets Manager?",
+    "opts": {
+      "a": "Secrets Manager encrypts Aurora data at rest",
+      "b": "Secrets Manager can manage and automatically rotate Aurora database credentials",
+      "c": "Secrets Manager provides Aurora backups",
+      "d": "Secrets Manager manages Aurora cluster endpoints"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS handles encryption at rest, not Secrets Manager.",
+      "b": "Correct. AWS Secrets Manager can store, manage, and automatically rotate Aurora master credentials and user passwords.",
+      "c": "Incorrect. Backups are managed by Aurora itself to S3.",
+      "d": "Incorrect. Endpoints are managed by Aurora, not Secrets Manager."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the blue/green deployment feature available for Aurora?",
+    "opts": {
+      "a": "A deployment method using two separate AWS accounts",
+      "b": "A managed feature that creates a staging (green) copy alongside production (blue) for safe updates and switchover",
+      "c": "A feature for deploying Aurora across two regions simultaneously",
+      "d": "A CI/CD pipeline integration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Blue/green deployments work within the same account.",
+      "b": "Correct. Amazon RDS Blue/Green Deployments for Aurora create a staging environment (green) that mirrors production (blue), allowing safe testing and quick switchover with minimal downtime.",
+      "c": "Incorrect. Cross-region deployment is Global Database, not blue/green.",
+      "d": "Incorrect. It's a managed database feature, not a CI/CD pipeline."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the typical switchover time for an Aurora blue/green deployment?",
+    "opts": {
+      "a": "Several hours",
+      "b": "About 30 minutes",
+      "c": "Usually under 1 minute",
+      "d": "Exactly 5 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Switchover is much faster than several hours.",
+      "b": "Incorrect. 30 minutes is too long; switchover is typically very quick.",
+      "c": "Correct. Blue/green switchover for Aurora typically completes in under 1 minute with minimal downtime.",
+      "d": "Incorrect. It's not a fixed 5 minutes; it's typically under 1 minute."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS service provides event notifications for Aurora operational events (e.g., failover, snapshot creation)?",
+    "opts": {
+      "a": "Amazon SNS via RDS Event Notifications",
+      "b": "Amazon SQS directly",
+      "c": "AWS CloudTrail",
+      "d": "Amazon CloudWatch Alarms only"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora/RDS Event Notifications send operational events to Amazon SNS topics, which can then trigger various actions.",
+      "b": "Incorrect. SQS is not directly integrated; events go through SNS first.",
+      "c": "Incorrect. CloudTrail logs API calls, not operational database events like failovers.",
+      "d": "Incorrect. CloudWatch Alarms are for metrics thresholds, not operational event notifications."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between Aurora and standard Amazon RDS in terms of architecture?",
+    "opts": {
+      "a": "No difference; they use the same architecture",
+      "b": "Aurora separates compute from storage with a distributed storage layer; RDS uses instance-attached EBS",
+      "c": "RDS uses distributed storage; Aurora uses local storage",
+      "d": "Aurora uses EBS; RDS uses S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora has a fundamentally different architecture from standard RDS.",
+      "b": "Correct. Aurora decouples compute from storage with a purpose-built distributed storage layer, while standard RDS uses instance-attached Amazon EBS volumes.",
+      "c": "Incorrect. It's the opposite; Aurora uses distributed storage.",
+      "d": "Incorrect. Standard RDS uses EBS; Aurora uses its own distributed storage system."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Can Aurora be deployed in a single Availability Zone?",
+    "opts": {
+      "a": "Yes, and it's the default configuration",
+      "b": "No, Aurora always requires multiple AZs for its storage, but instances can be in one AZ",
+      "c": "Yes, with no replication at all",
+      "d": "Only for development purposes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While you can place instances in one AZ, the storage always spans 3 AZs.",
+      "b": "Correct. Aurora's storage layer always replicates data across 3 AZs (6 copies) regardless of where you place your compute instances.",
+      "c": "Incorrect. Aurora always replicates storage across 3 AZs; there's no single-AZ storage option.",
+      "d": "Incorrect. The storage is always multi-AZ by design, not just for development."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Aurora zero-ETL integration with Amazon Redshift?",
+    "opts": {
+      "a": "A feature to run Redshift queries on Aurora data without moving data",
+      "b": "A feature that automatically replicates Aurora data to Redshift without building ETL pipelines",
+      "c": "A feature to migrate from Redshift to Aurora",
+      "d": "A feature that uses Glue to transform Aurora data for Redshift"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Zero-ETL does move data to Redshift, not just query in place.",
+      "b": "Correct. Aurora zero-ETL integration with Redshift automatically replicates transactional data from Aurora to Redshift in near real-time without requiring ETL pipeline development.",
+      "c": "Incorrect. It replicates from Aurora to Redshift, not the other way.",
+      "d": "Incorrect. The point of zero-ETL is that no Glue or other ETL tools are needed."
+    }
+  }
+]

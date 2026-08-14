@@ -1,0 +1,954 @@
+[
+  {
+    "type": "mcq",
+    "q": "A company has a DynamoDB table with provisioned capacity of 100 RCUs. They need to perform 100 strongly consistent reads per second on items that are 8 KB each. What will happen?",
+    "opts": {
+      "a": "All reads will succeed without throttling",
+      "b": "Reads will be throttled because 200 RCUs are needed",
+      "c": "Reads will be throttled because 400 RCUs are needed",
+      "d": "DynamoDB will automatically increase capacity"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "100 RCUs is insufficient for 8 KB strongly consistent reads at 100 per second.",
+      "b": "8 KB / 4 KB = 2 RCUs per read. 100 reads × 2 RCUs = 200 RCUs needed. With only 100 provisioned, requests will be throttled.",
+      "c": "400 RCUs would be needed for 4 RCUs per read, which is not the case for 8 KB items.",
+      "d": "In provisioned mode without Auto Scaling enabled, DynamoDB does not automatically increase capacity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An application performs 500 eventually consistent reads per second on items of 3.5 KB each. How many RCUs should be provisioned?",
+    "opts": {
+      "a": "125 RCU",
+      "b": "250 RCU",
+      "c": "500 RCU",
+      "d": "1000 RCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "125 RCU is half of what's needed.",
+      "b": "3.5 KB rounds up to 4 KB = 1 RCU per strongly consistent read. Eventually consistent reads cost half: 0.5 RCU per read. 500 × 0.5 = 250 RCUs.",
+      "c": "500 RCU would be for strongly consistent reads of 4 KB items.",
+      "d": "1000 RCU is far more than needed for this scenario."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A DynamoDB table has a GSI that is experiencing throttling. The base table has sufficient capacity. What is the most likely cause?",
+    "opts": {
+      "a": "The base table's partition key has low cardinality",
+      "b": "The GSI has insufficient provisioned write capacity",
+      "c": "The table has too many LSIs",
+      "d": "DAX cache has expired"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "The base table's partition key design affects base table performance, but GSI throttling is related to GSI capacity.",
+      "b": "GSIs have their own provisioned capacity. If the GSI write capacity is insufficient for the incoming traffic, the GSI and consequently the base table writes will be throttled.",
+      "c": "LSIs share capacity with the base table and don't directly impact GSI performance.",
+      "d": "DAX cache expiration does not cause GSI throttling."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer wants to ensure that an item is only written to DynamoDB if a specific attribute does not already exist. Which approach should they use?",
+    "opts": {
+      "a": "PutItem with ConditionExpression using attribute_not_exists()",
+      "b": "UpdateItem with FilterExpression",
+      "c": "GetItem followed by PutItem",
+      "d": "BatchWriteItem with conditions"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "PutItem with ConditionExpression 'attribute_not_exists(pk)' ensures the item is only created if the partition key doesn't exist, preventing overwrites.",
+      "b": "FilterExpression is for read operations, not write conditions.",
+      "c": "GetItem then PutItem creates a race condition and is not atomic.",
+      "d": "BatchWriteItem does not support ConditionExpressions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which conflict resolution strategy does DynamoDB Global Tables use when the same item is modified in two regions simultaneously?",
+    "opts": {
+      "a": "First-writer-wins",
+      "b": "Last-writer-wins based on timestamp",
+      "c": "Manual conflict resolution required",
+      "d": "The write is rejected in both regions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "First-writer-wins is not the conflict resolution strategy used by Global Tables.",
+      "b": "DynamoDB Global Tables uses a last-writer-wins strategy based on the timestamp of the write operation.",
+      "c": "No manual intervention is required; conflict resolution is automatic.",
+      "d": "Writes are not rejected; one will eventually win based on timestamp."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An application needs to read 10 items simultaneously from DynamoDB, each item is 350 KB. Which operation is most efficient?",
+    "opts": {
+      "a": "10 individual GetItem calls",
+      "b": "A single BatchGetItem call",
+      "c": "A Query operation",
+      "d": "A Scan operation with FilterExpression"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 individual GetItem calls require 10 separate API calls with higher latency.",
+      "b": "BatchGetItem retrieves up to 100 items in a single API call, reducing round trips and improving efficiency.",
+      "c": "Query requires items to share the same partition key and cannot retrieve arbitrary items.",
+      "d": "Scan reads the entire table and is the least efficient option."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A DynamoDB table uses a partition key of 'UserID' and stores 500 million items. Queries are becoming slow. What is the most likely issue?",
+    "opts": {
+      "a": "The table has reached its storage limit",
+      "b": "Hot partition due to uneven access patterns on certain UserIDs",
+      "c": "DynamoDB does not support tables this large",
+      "d": "Too many GSIs on the table"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB has virtually unlimited storage and doesn't have a table storage limit.",
+      "b": "If certain UserIDs are accessed much more frequently (celebrity users, popular accounts), their partitions become hot, causing throttling.",
+      "c": "DynamoDB supports tables with billions of items.",
+      "d": "While too many GSIs can impact write performance, query slowness on the base table suggests hot partitions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB feature should you use to aggregate item changes and send them to Amazon Kinesis Data Firehose for analytics?",
+    "opts": {
+      "a": "DynamoDB Export to S3",
+      "b": "DynamoDB Streams with Lambda forwarding to Firehose",
+      "c": "Amazon Kinesis Data Streams for DynamoDB",
+      "d": "DynamoDB Contributor Insights"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Export to S3 is for point-in-time exports, not real-time streaming to Firehose.",
+      "b": "While this works, it adds Lambda complexity. Kinesis Data Streams for DynamoDB is more direct.",
+      "c": "Kinesis Data Streams for DynamoDB captures changes and can be directly connected to Kinesis Data Firehose for analytics without Lambda.",
+      "d": "Contributor Insights identifies hot keys but doesn't stream data to Firehose."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A table has a composite primary key (UserID, Timestamp). A query needs all items for UserID='U123' between two dates. Which approach is correct?",
+    "opts": {
+      "a": "Scan with FilterExpression on UserID and Timestamp",
+      "b": "Query with KeyConditionExpression using partition key and sort key range",
+      "c": "GetItem with both keys specified",
+      "d": "BatchGetItem with all possible timestamps"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Scan reads the entire table and is inefficient for this use case.",
+      "b": "Query with KeyConditionExpression: UserID = 'U123' AND Timestamp BETWEEN date1 AND date2 efficiently retrieves only matching items.",
+      "c": "GetItem retrieves a single item; it cannot retrieve a range of items.",
+      "d": "BatchGetItem requires knowing exact keys and is impractical for time ranges."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the behavior of DAX when a write operation occurs?",
+    "opts": {
+      "a": "Write-around: writes go directly to DynamoDB, bypassing DAX",
+      "b": "Write-through: writes are sent to both DAX and DynamoDB simultaneously",
+      "c": "Write-back: writes go to DAX first, then asynchronously to DynamoDB",
+      "d": "Write-invalidate: DAX invalidates the cache entry and writes to DynamoDB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DAX does not bypass writes; it uses write-through caching.",
+      "b": "DAX uses write-through caching: writes are written to DynamoDB first, and the item cache is updated simultaneously.",
+      "c": "Write-back would risk data loss and is not used by DAX.",
+      "d": "DAX updates the item cache, not just invalidates it."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to atomically increment a counter in DynamoDB without reading the current value first. Which operation should they use?",
+    "opts": {
+      "a": "GetItem then PutItem",
+      "b": "UpdateItem with SET expression",
+      "c": "UpdateItem with ADD expression",
+      "d": "TransactWriteItems"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "GetItem then PutItem is not atomic and creates race conditions.",
+      "b": "SET requires knowing the current value to set the new value.",
+      "c": "UpdateItem with ADD atomically increments a numeric attribute without needing to read the current value first.",
+      "d": "TransactWriteItems provides transactions but is overkill for simple atomic counters."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An e-commerce application needs to transfer funds between two accounts in DynamoDB. Which feature ensures both updates succeed or neither does?",
+    "opts": {
+      "a": "BatchWriteItem",
+      "b": "DynamoDB Transactions (TransactWriteItems)",
+      "c": "Conditional PutItem",
+      "d": "DynamoDB Streams"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "BatchWriteItem is not atomic across items; individual items can fail independently.",
+      "b": "TransactWriteItems provides all-or-nothing (ACID) guarantees across multiple items, ensuring both debit and credit succeed or neither does.",
+      "c": "Conditional PutItem only applies to a single item and cannot ensure atomicity across two items.",
+      "d": "DynamoDB Streams captures changes but doesn't provide transactional guarantees."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the impact on WCUs when writing to a DynamoDB table that has 3 Global Secondary Indexes?",
+    "opts": {
+      "a": "No additional WCU cost for GSIs",
+      "b": "Each GSI consumes its own WCUs when the indexed attributes are modified",
+      "c": "Total WCU cost is always 4x (base table + 3 GSIs)",
+      "d": "GSIs only consume WCUs during index backfilling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "GSIs do consume WCUs when data changes affect indexed attributes.",
+      "b": "Each GSI has its own provisioned WCUs. When a write to the base table includes attributes that are part of a GSI's key or projected attributes, that GSI consumes its own WCUs.",
+      "c": "Not every write affects all GSIs; only writes that change indexed/projected attributes consume GSI WCUs.",
+      "d": "GSIs consume WCUs for all ongoing writes that affect them, not just during backfilling."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A DynamoDB table needs to support queries by both 'email' and 'phone number' as alternate lookup keys. The table's primary key is 'UserID'. What should you do?",
+    "opts": {
+      "a": "Create two LSIs with email and phone as sort keys",
+      "b": "Create two GSIs: one with email as partition key and one with phone as partition key",
+      "c": "Create a composite primary key with email and phone",
+      "d": "Perform Scan operations with FilterExpression"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "LSIs share the same partition key as the base table (UserID), so they can't enable lookups by email or phone alone.",
+      "b": "GSIs allow completely different partition keys, enabling efficient lookups by email and phone number independently.",
+      "c": "Changing the primary key doesn't solve the need for multiple alternate lookup patterns.",
+      "d": "Scan with FilterExpression reads the entire table and is highly inefficient."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of a single Scan or Query response before pagination is required?",
+    "opts": {
+      "a": "256 KB",
+      "b": "1 MB",
+      "c": "4 MB",
+      "d": "16 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "256 KB is too small; DynamoDB returns more data per response.",
+      "b": "A single Query or Scan response can return up to 1 MB of data. If more data exists, LastEvaluatedKey is returned for pagination.",
+      "c": "4 MB is the transaction limit, not the Query/Scan response limit.",
+      "d": "16 MB is the BatchGetItem limit, not the Query/Scan response limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to ensure their DynamoDB table is protected against accidental deletion. Which feature should they enable?",
+    "opts": {
+      "a": "DynamoDB Streams",
+      "b": "Deletion Protection",
+      "c": "DynamoDB TTL",
+      "d": "DynamoDB DAX"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB Streams captures data changes but doesn't protect against table deletion.",
+      "b": "DynamoDB Deletion Protection prevents a table from being accidentally deleted. It must be disabled before the table can be deleted.",
+      "c": "TTL is for automatic item expiration, not table protection.",
+      "d": "DAX is a caching layer and doesn't protect tables from deletion."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You are designing a leaderboard system. Players have scores that change frequently, and you need to query top 10 players. Which design is most efficient?",
+    "opts": {
+      "a": "Table with PlayerID as partition key and use Scan to find top 10",
+      "b": "GSI with a fixed partition key (e.g., 'GAME#1') and Score as sort key, query in descending order with Limit 10",
+      "c": "Store top 10 in a separate table updated by Lambda",
+      "d": "Use DAX to cache all player scores"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Scan reads the entire table every time and is highly inefficient for leaderboard queries.",
+      "b": "Using a GSI with a fixed partition key groups all players together, and a sort key on Score allows efficient top-N queries with ScanIndexForward=false and Limit=10.",
+      "c": "While this works, it adds complexity with Lambda and additional tables; the GSI approach is simpler.",
+      "d": "DAX caches individual reads but doesn't solve the problem of efficiently querying top scores."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between DynamoDB 'Query' with FilterExpression and 'Query' with KeyConditionExpression?",
+    "opts": {
+      "a": "Both reduce the RCU consumption equally",
+      "b": "KeyConditionExpression reduces data read from storage; FilterExpression filters after data is read",
+      "c": "FilterExpression is applied before data is read; KeyConditionExpression is applied after",
+      "d": "They are the same thing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Only KeyConditionExpression reduces the amount of data read and thus RCU consumption.",
+      "b": "KeyConditionExpression determines which items are read from the partition (reducing I/O), while FilterExpression is applied after items are read (RCUs already consumed).",
+      "c": "This is reversed; KeyConditionExpression is applied first to determine what to read.",
+      "d": "They serve different purposes and are applied at different stages."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A table has a partition key 'Country' with values like 'US', 'UK', 'IN'. Approximately 80% of traffic goes to 'US'. What is the best strategy?",
+    "opts": {
+      "a": "Increase the overall provisioned capacity",
+      "b": "Use write sharding by appending a random suffix to the partition key (e.g., US_1, US_2, US_3)",
+      "c": "Switch to on-demand capacity mode",
+      "d": "Add a GSI"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Increasing capacity doesn't solve the hot partition problem; US partition will still be throttled.",
+      "b": "Write sharding distributes the 'US' traffic across multiple partitions (US_1, US_2, etc.), eliminating the hot partition issue.",
+      "c": "On-demand mode still has per-partition limits and won't fully solve hot partition issues.",
+      "d": "Adding a GSI doesn't solve the hot partition problem on the base table."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which UpdateExpression action removes an attribute from a DynamoDB item?",
+    "opts": {
+      "a": "DELETE",
+      "b": "REMOVE",
+      "c": "DROP",
+      "d": "UNSET"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DELETE is used to remove elements from a Set data type, not to remove an attribute entirely.",
+      "b": "REMOVE removes one or more attributes from an item entirely.",
+      "c": "DROP is not a valid UpdateExpression action in DynamoDB.",
+      "d": "UNSET is not a valid UpdateExpression action in DynamoDB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What are the valid UpdateExpression actions in DynamoDB?",
+    "opts": {
+      "a": "SET, REMOVE, ADD, DELETE",
+      "b": "INSERT, UPDATE, DELETE, SELECT",
+      "c": "SET, GET, ADD, REMOVE",
+      "d": "PUT, SET, REMOVE, DROP"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "The four valid UpdateExpression actions are SET (modify/add), REMOVE (remove attributes), ADD (add to number or set), and DELETE (remove from set).",
+      "b": "INSERT, UPDATE, DELETE, SELECT are SQL commands, not DynamoDB UpdateExpression actions.",
+      "c": "GET is not an UpdateExpression action; it's a separate read operation.",
+      "d": "PUT and DROP are not valid UpdateExpression actions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An application is using DAX for read caching. After updating an item, the application still reads stale data. What is the most likely cause?",
+    "opts": {
+      "a": "DAX write-through failed",
+      "b": "The application is reading from the DAX query cache which was not invalidated",
+      "c": "DynamoDB has not replicated the write",
+      "d": "The table is in on-demand mode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DAX write-through updates the item cache, but may not invalidate query cache entries.",
+      "b": "DAX maintains separate item and query caches. Write-through updates the item cache, but the query cache may still contain stale results until its TTL expires.",
+      "c": "DynamoDB writes are immediately consistent within a region for the base table.",
+      "d": "Capacity mode does not affect DAX caching behavior."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB feature allows you to create an exact copy of a table for testing without impacting production?",
+    "opts": {
+      "a": "DynamoDB Streams",
+      "b": "On-demand backup and restore to a new table",
+      "c": "Global Tables",
+      "d": "DAX"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB Streams captures changes but doesn't create a table copy directly.",
+      "b": "On-demand backup allows you to create a backup and restore it to a new table name, creating an exact copy without impacting the source table.",
+      "c": "Global Tables creates replicas across regions for high availability, not for testing purposes.",
+      "d": "DAX is a cache and does not create table copies."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the behavior of DynamoDB when a partition's 10 GB storage limit is reached?",
+    "opts": {
+      "a": "The table becomes read-only",
+      "b": "DynamoDB automatically splits the partition",
+      "c": "Writes are permanently rejected",
+      "d": "The table is deleted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "The table does not become read-only when a partition fills up.",
+      "b": "When a partition approaches or reaches 10 GB, DynamoDB automatically splits it into two new partitions to distribute the data.",
+      "c": "Writes are not permanently rejected; partition splitting handles growth.",
+      "d": "DynamoDB never automatically deletes a table."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to perform 30 transactional reads per second on items of 8 KB each. How many RCUs are required?",
+    "opts": {
+      "a": "60 RCU",
+      "b": "120 RCU",
+      "c": "240 RCU",
+      "d": "480 RCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "60 RCU doesn't account for the transactional overhead.",
+      "b": "8 KB / 4 KB = 2 RCUs per strongly consistent read. Transactional = 2 × 2 = 4 RCUs per read. 30 × 4 = 120 RCUs.",
+      "c": "240 RCU would be for 60 transactional reads, not 30.",
+      "d": "480 RCU is far more than needed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A DynamoDB table uses On-Demand capacity. What is the initial throughput for a newly created table?",
+    "opts": {
+      "a": "Unlimited from the start",
+      "b": "Up to 40,000 RCUs and 40,000 WCUs",
+      "c": "4,000 RCUs and 4,000 WCUs",
+      "d": "100 RCUs and 100 WCUs"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "On-demand is not unlimited from the start; it has initial limits that scale up.",
+      "b": "40,000 is the account-level default limit, not the initial table throughput.",
+      "c": "A new on-demand table can handle up to 4,000 RCUs and 4,000 WCUs immediately. It scales up as traffic increases.",
+      "d": "100 is too low; newly created on-demand tables support higher initial throughput."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum previous peak that DynamoDB On-Demand mode can instantly accommodate?",
+    "opts": {
+      "a": "Equal to the previous peak",
+      "b": "Up to double the previous peak",
+      "c": "Up to 5x the previous peak",
+      "d": "Up to 10x the previous peak"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "On-demand can handle more than just the previous peak.",
+      "b": "DynamoDB On-Demand can instantly accommodate up to double (2x) the previous peak traffic. Beyond that, throttling may occur until capacity scales further.",
+      "c": "5x exceeds the instant scaling capability.",
+      "d": "10x exceeds the instant scaling capability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does DynamoDB handle the 'fetch' operation when a projected attribute in a GSI is not available?",
+    "opts": {
+      "a": "Returns null for the attribute",
+      "b": "Performs a 'fetch' back to the base table, consuming additional RCUs",
+      "c": "Throws an error",
+      "d": "Returns the item without the attribute"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB can retrieve the attribute from the base table, not return null.",
+      "b": "If you request attributes not projected into the GSI, DynamoDB fetches them from the base table, consuming additional RCUs from the base table.",
+      "c": "DynamoDB does not throw an error; it fetches from the base table.",
+      "d": "For Query/Scan on GSI, non-projected attributes are fetched from the base table if requested."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which scenario best suits DynamoDB On-Demand capacity mode?",
+    "opts": {
+      "a": "Steady, predictable traffic with consistent load 24/7",
+      "b": "Unpredictable traffic with spiky workloads and new applications with unknown patterns",
+      "c": "Very low traffic that never changes",
+      "d": "Applications requiring reserved capacity discounts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Steady traffic is better served by provisioned capacity with reserved capacity for cost savings.",
+      "b": "On-demand is ideal for unpredictable, spiky workloads and new applications where traffic patterns are unknown.",
+      "c": "Very low, stable traffic could use provisioned capacity at minimum settings for lower cost.",
+      "d": "Reserved capacity is only available with provisioned mode, not on-demand."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer enables DynamoDB Streams on a table and configures a Lambda function as a consumer. The Lambda function fails processing a record. What happens?",
+    "opts": {
+      "a": "The failed record is skipped and processing continues",
+      "b": "Lambda retries the entire batch until it succeeds or the record expires from the stream (24 hours)",
+      "c": "The stream is automatically disabled",
+      "d": "Only the failed record is retried individually"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "By default, failed records are not skipped; Lambda retries the batch.",
+      "b": "Lambda retries the entire batch of records until successful processing or until the records expire from DynamoDB Streams (24 hours). This can block processing of new records.",
+      "c": "Streams are never automatically disabled due to consumer failures.",
+      "d": "Lambda processes records in batches; it retries the entire batch, not individual records (unless configured with bisect batch on error)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can you prevent a Lambda function from being blocked by a poison pill record in DynamoDB Streams?",
+    "opts": {
+      "a": "Increase Lambda timeout",
+      "b": "Configure 'Maximum retry attempts' and 'On-failure destination' (e.g., SQS dead-letter queue)",
+      "c": "Disable DynamoDB Streams",
+      "d": "Increase stream retention"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Increasing timeout doesn't solve the poison pill problem; the record will still fail.",
+      "b": "Configuring maximum retry attempts limits retries, and an on-failure destination (DLQ) captures failed records for later analysis without blocking the stream.",
+      "c": "Disabling streams removes all real-time processing capability.",
+      "d": "Increasing retention doesn't prevent blocking; it actually extends the blocking duration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'BisectBatchOnFunctionError' feature in Lambda's DynamoDB Streams event source mapping?",
+    "opts": {
+      "a": "It splits the Lambda function into two instances",
+      "b": "It splits the failing batch into two smaller batches and retries each separately to isolate the problematic record",
+      "c": "It duplicates the stream records",
+      "d": "It cuts the Lambda timeout in half"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "It does not split the Lambda function; it splits the batch of records.",
+      "b": "BisectBatchOnFunctionError splits a failing batch in half and retries each sub-batch, progressively isolating the problematic record(s).",
+      "c": "It does not duplicate records; it splits batches for retry purposes.",
+      "d": "It has nothing to do with Lambda timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You want to use DynamoDB to store user profiles where each user has a different set of attributes. Which DynamoDB characteristic makes this possible?",
+    "opts": {
+      "a": "Secondary indexes",
+      "b": "Schema-less nature (flexible schema)",
+      "c": "DynamoDB Streams",
+      "d": "Strong consistency"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Secondary indexes enable alternate query patterns, not flexible schemas.",
+      "b": "DynamoDB is schema-less beyond the primary key; each item can have different attributes, making it ideal for varying user profile structures.",
+      "c": "Streams capture data changes, not related to schema flexibility.",
+      "d": "Consistency relates to read behavior, not schema structure."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A table has an LSI with projection type 'KEYS_ONLY'. A query on the LSI requests a non-key attribute. What happens?",
+    "opts": {
+      "a": "The query fails with an error",
+      "b": "DynamoDB fetches the attribute from the base table (at additional RCU cost)",
+      "c": "NULL is returned for that attribute",
+      "d": "The attribute is automatically added to the LSI projection"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "The query does not fail; DynamoDB can still retrieve the attribute.",
+      "b": "For LSIs, DynamoDB performs a 'fetch' back to the base table to retrieve non-projected attributes, consuming additional RCUs.",
+      "c": "DynamoDB retrieves the actual value, not NULL.",
+      "d": "Projections are not automatically modified."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between GSI fetch behavior and LSI fetch behavior for non-projected attributes?",
+    "opts": {
+      "a": "Both GSI and LSI can fetch from the base table",
+      "b": "LSIs can fetch from base table; GSIs cannot return non-projected attributes at all",
+      "c": "GSIs fetch from the base table; LSIs cannot",
+      "d": "Neither can fetch non-projected attributes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Only LSIs can fetch from the base table; GSIs cannot.",
+      "b": "LSIs can fetch non-projected attributes from the base table because they share the same partition. GSIs cannot; you can only get attributes that are projected into the GSI.",
+      "c": "This is reversed; LSIs can fetch, GSIs cannot.",
+      "d": "LSIs can fetch non-projected attributes from the base table."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A DynamoDB table receives 1000 writes per second with items averaging 0.5 KB. The table has 2 GSIs that index all items. What is the minimum WCU needed for the base table alone?",
+    "opts": {
+      "a": "500 WCU",
+      "b": "1000 WCU",
+      "c": "2000 WCU",
+      "d": "3000 WCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "500 WCU is insufficient; 0.5 KB rounds up to 1 KB = 1 WCU per write.",
+      "b": "0.5 KB rounds up to 1 KB = 1 WCU per write. 1000 writes × 1 WCU = 1000 WCUs for the base table. GSIs have separate capacity.",
+      "c": "2000 WCU would be base table + 1 GSI combined, but the question asks for base table alone.",
+      "d": "3000 WCU would be base table + 2 GSIs combined."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is DynamoDB's behavior when using ExpressionAttributeNames in queries?",
+    "opts": {
+      "a": "It creates new attributes in the table",
+      "b": "It provides name substitution for reserved words and special characters in expressions",
+      "c": "It encrypts attribute names",
+      "d": "It creates aliases for table names"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "ExpressionAttributeNames does not create new attributes.",
+      "b": "ExpressionAttributeNames provides placeholder substitution (e.g., #s for 'status') when attribute names are DynamoDB reserved words or contain special characters.",
+      "c": "It does not encrypt anything; it's for name substitution in expressions.",
+      "d": "It substitutes attribute names, not table names."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of ExpressionAttributeValues in DynamoDB operations?",
+    "opts": {
+      "a": "To define default values for new attributes",
+      "b": "To provide value substitution placeholders in condition and filter expressions",
+      "c": "To encrypt values before storage",
+      "d": "To define data types for attributes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "ExpressionAttributeValues doesn't define default values for attributes.",
+      "b": "ExpressionAttributeValues provides value placeholders (e.g., :val1) in expressions, allowing you to specify comparison values safely.",
+      "c": "It does not perform encryption.",
+      "d": "While values include type information, the primary purpose is substitution in expressions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs to process DynamoDB Streams with exactly-once semantics. Which approach should they consider?",
+    "opts": {
+      "a": "Use Lambda with DynamoDB Streams (at-least-once by default)",
+      "b": "Make the Lambda function idempotent so duplicate processing has no side effects",
+      "c": "Use SQS as an intermediary",
+      "d": "Increase stream retention to 48 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Lambda with DynamoDB Streams provides at-least-once delivery, not exactly-once.",
+      "b": "Since DynamoDB Streams guarantees at-least-once delivery, making the processing function idempotent ensures that duplicate records don't cause incorrect results, effectively achieving exactly-once semantics.",
+      "c": "SQS doesn't provide exactly-once semantics by default either (except FIFO with deduplication).",
+      "d": "Stream retention cannot be changed from 24 hours and doesn't solve the semantics issue."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A multi-tenant application stores data for 10,000 tenants. Which partition key design prevents hot partitions while enabling efficient per-tenant queries?",
+    "opts": {
+      "a": "Use 'TENANT' as partition key for all items",
+      "b": "Use TenantID as partition key",
+      "c": "Use a composite key of TenantID#random_suffix as partition key",
+      "d": "Use a sequential numeric ID as partition key"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Using the same value for all items creates a massive hot partition.",
+      "b": "Using TenantID as partition key distributes data across tenants and enables efficient queries for each tenant's data.",
+      "c": "Random suffix makes it difficult to query all items for a single tenant efficiently.",
+      "d": "Sequential IDs can create hot partitions if most writes go to recent IDs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens to LSIs when the 10 GB item collection size limit is reached?",
+    "opts": {
+      "a": "The LSI is automatically deleted",
+      "b": "Writes that would exceed the limit are rejected with ItemCollectionSizeLimitExceededException",
+      "c": "DynamoDB automatically creates a new partition",
+      "d": "The LSI stops updating"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "LSIs are never automatically deleted.",
+      "b": "When the total size of items sharing a partition key (across the table and all LSIs) exceeds 10 GB, DynamoDB rejects further writes with ItemCollectionSizeLimitExceededException.",
+      "c": "The 10 GB limit is per partition key collection when LSIs exist; it's not resolved by partition splitting.",
+      "d": "LSIs don't stop updating; writes are rejected entirely."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB operation should you use to check if an item exists without consuming full read capacity for large items?",
+    "opts": {
+      "a": "GetItem with ProjectionExpression returning only the key",
+      "b": "Query with Limit 1",
+      "c": "Scan with FilterExpression",
+      "d": "DescribeTable"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "GetItem with ProjectionExpression to return only the key attributes minimizes data returned, though RCUs are still based on item size (minimum 4 KB). However, it's the most targeted approach.",
+      "b": "Query with Limit 1 works but is more suited for composite keys with sort key conditions.",
+      "c": "Scan reads the entire table and is extremely inefficient for existence checks.",
+      "d": "DescribeTable returns table metadata, not item existence information."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum batch size (number of records) that Lambda can receive from DynamoDB Streams in a single invocation?",
+    "opts": {
+      "a": "100",
+      "b": "1,000",
+      "c": "10,000",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "100 is the default batch size, but not the maximum.",
+      "b": "1,000 is below the maximum configurable batch size.",
+      "c": "The maximum batch size for Lambda reading from DynamoDB Streams is 10,000 records per invocation.",
+      "d": "100,000 exceeds the maximum batch size limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A DynamoDB table has Auto Scaling configured with target utilization of 70%. What does this mean?",
+    "opts": {
+      "a": "Auto Scaling triggers when consumed capacity reaches 70% of provisioned capacity",
+      "b": "70% of requests will succeed",
+      "c": "The table will always use 70% of maximum capacity",
+      "d": "30% of capacity is reserved for burst traffic"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Auto Scaling adjusts provisioned capacity to maintain approximately 70% utilization, scaling up when consumption approaches this target.",
+      "b": "Target utilization is about capacity management, not request success rate.",
+      "c": "The table doesn't always use 70%; this is the target around which capacity is managed.",
+      "d": "While there is effectively headroom, it's not explicitly reserved for burst."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to store a DynamoDB item that contains a nested JSON structure 5 levels deep. Is this supported?",
+    "opts": {
+      "a": "No, DynamoDB only supports flat key-value pairs",
+      "b": "Yes, using Map and List data types with up to 32 levels of nesting",
+      "c": "Yes, but only up to 3 levels of nesting",
+      "d": "Yes, with unlimited nesting depth"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB supports complex nested data structures using Map and List types.",
+      "b": "DynamoDB supports nesting using Map and List data types up to 32 levels deep. 5 levels is well within this limit.",
+      "c": "DynamoDB supports much more than 3 levels of nesting.",
+      "d": "Nesting is limited to 32 levels, not unlimited."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum nesting depth for DynamoDB document types (Maps and Lists)?",
+    "opts": {
+      "a": "8 levels",
+      "b": "16 levels",
+      "c": "32 levels",
+      "d": "64 levels"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "8 levels is below the actual maximum nesting depth.",
+      "b": "16 levels is below the actual maximum nesting depth.",
+      "c": "DynamoDB supports a maximum nesting depth of 32 levels for document type attributes.",
+      "d": "64 levels exceeds the DynamoDB nesting limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An application requires reading the same DynamoDB item thousands of times per second. Which solution provides the best performance?",
+    "opts": {
+      "a": "Increase RCUs on the base table",
+      "b": "Use DynamoDB DAX for microsecond latency cached reads",
+      "c": "Use Global Tables across all regions",
+      "d": "Add a GSI"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Increasing RCUs helps but still limited to per-partition throughput of 3000 RCU.",
+      "b": "DAX provides microsecond response times for repeated reads of the same item by caching it in memory, dramatically reducing load on DynamoDB.",
+      "c": "Global Tables is for multi-region availability, not for improving read performance of a single item.",
+      "d": "GSIs provide alternate query patterns but don't cache frequently accessed items."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the consistency behavior of DAX for read operations?",
+    "opts": {
+      "a": "DAX always provides strongly consistent reads",
+      "b": "DAX provides eventually consistent reads from cache; strongly consistent reads bypass DAX and go directly to DynamoDB",
+      "c": "DAX provides both strongly and eventually consistent reads from cache",
+      "d": "DAX only caches write operations"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DAX does not provide strongly consistent reads from cache.",
+      "b": "DAX serves eventually consistent reads from its cache. If you request a strongly consistent read, DAX passes the request directly to DynamoDB, bypassing the cache.",
+      "c": "DAX cannot guarantee strong consistency from cache.",
+      "d": "DAX primarily caches read operations, with write-through for writes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which scenario would make DynamoDB a poor choice compared to Amazon RDS?",
+    "opts": {
+      "a": "Storing session data with high throughput requirements",
+      "b": "Complex multi-table JOIN operations with ACID transactions across many tables",
+      "c": "Key-value lookups at scale",
+      "d": "Storing IoT sensor data with time-series patterns"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Session data with high throughput is an ideal DynamoDB use case.",
+      "b": "Complex JOIN operations across many tables are better served by relational databases like RDS. DynamoDB doesn't support JOINs.",
+      "c": "Key-value lookups are DynamoDB's primary strength.",
+      "d": "IoT time-series data with partition key (device ID) and sort key (timestamp) works well in DynamoDB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of concurrent DynamoDB Streams consumers for a single shard?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "More than 1 consumer can read from a DynamoDB stream shard simultaneously.",
+      "b": "A DynamoDB stream shard supports a maximum of 2 simultaneous readers/consumers to avoid throttling.",
+      "c": "5 simultaneous readers would exceed the shard read capacity.",
+      "d": "There is a limit of 2 concurrent readers per shard."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You have a DynamoDB table with a composite key (PK: CustomerID, SK: OrderID). You want to query all orders for a customer sorted by order date. What should you do?",
+    "opts": {
+      "a": "Create a LSI with OrderDate as the sort key",
+      "b": "Create a GSI with CustomerID as partition key and OrderDate as sort key",
+      "c": "Both A and B would work",
+      "d": "Use Scan with FilterExpression"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "An LSI with OrderDate as sort key would work since LSIs share the same partition key (CustomerID).",
+      "b": "A GSI with CustomerID as partition key and OrderDate as sort key would also work.",
+      "c": "Both approaches work. LSI must be created at table creation and shares throughput; GSI can be added later with independent capacity.",
+      "d": "Scan is inefficient and reads the entire table."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the 'ReturnConsumedCapacity' parameter in DynamoDB requests?",
+    "opts": {
+      "a": "To limit the capacity consumed by the request",
+      "b": "To return information about how much capacity was consumed by the request",
+      "c": "To reserve capacity for future requests",
+      "d": "To throttle the request if capacity is insufficient"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "This parameter doesn't limit capacity consumption.",
+      "b": "ReturnConsumedCapacity returns detailed information about the capacity units consumed by the operation (TOTAL, INDEXES, or NONE).",
+      "c": "It doesn't reserve capacity; it reports consumption after the fact.",
+      "d": "Throttling happens automatically based on provisioned capacity, not due to this parameter."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'ReturnValues' parameter used for in DynamoDB write operations?",
+    "opts": {
+      "a": "To validate input data",
+      "b": "To return the item's attribute values before or after the operation",
+      "c": "To specify which table to write to",
+      "d": "To enable encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "ReturnValues doesn't validate input data.",
+      "b": "ReturnValues specifies whether to return the item attributes before (ALL_OLD, UPDATED_OLD) or after (ALL_NEW, UPDATED_NEW) the modification, or NONE.",
+      "c": "The table is specified in the TableName parameter, not ReturnValues.",
+      "d": "Encryption is configured at the table level, not per-operation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A DynamoDB table with On-Demand capacity experiences a sudden traffic spike of 10x the normal load within seconds. What is the expected behavior?",
+    "opts": {
+      "a": "All requests succeed immediately",
+      "b": "Some requests may be throttled initially until DynamoDB scales up",
+      "c": "The table crashes",
+      "d": "DynamoDB automatically converts to provisioned mode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Not all requests will necessarily succeed during an extreme sudden spike.",
+      "b": "On-demand can instantly handle up to 2x the previous peak. Beyond that, some throttling may occur while DynamoDB scales to accommodate the new traffic level.",
+      "c": "DynamoDB does not crash; it is highly resilient.",
+      "d": "DynamoDB never automatically converts between capacity modes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB feature helps you understand the access patterns of your table to optimize cost?",
+    "opts": {
+      "a": "DynamoDB Contributor Insights",
+      "b": "AWS Cost Explorer with DynamoDB filters",
+      "c": "CloudWatch ConsumedCapacity metrics",
+      "d": "All of the above"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Contributor Insights identifies frequently accessed keys and throttled items.",
+      "b": "Cost Explorer shows DynamoDB spending trends and cost breakdown.",
+      "c": "CloudWatch metrics show actual capacity consumption patterns.",
+      "d": "All three tools together provide comprehensive insight into access patterns and cost optimization opportunities."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the DynamoDB burst capacity feature?",
+    "opts": {
+      "a": "A paid add-on for extra capacity during traffic spikes",
+      "b": "DynamoDB retains up to 5 minutes of unused read/write capacity for occasional bursts",
+      "c": "An automatic switch to on-demand mode during bursts",
+      "d": "A reserved pool of 10,000 extra RCUs/WCUs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Burst capacity is not a paid add-on; it's included automatically.",
+      "b": "DynamoDB retains up to 5 minutes (300 seconds) of unused provisioned capacity that can be consumed during short traffic bursts.",
+      "c": "DynamoDB does not automatically switch capacity modes.",
+      "d": "Burst capacity is based on unused provisioned capacity, not a fixed pool."
+    }
+  }
+]

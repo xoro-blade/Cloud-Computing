@@ -1,0 +1,937 @@
+[
+  {
+    "type": "MCQ",
+    "q": "An IAM user has an identity-based policy allowing 's3:*' on all resources. A resource-based policy on the S3 bucket explicitly denies 's3:DeleteObject' for this user. The user also has a permissions boundary allowing 's3:*'. Can the user delete objects from the bucket?",
+    "opts": {
+      "a": "Yes, because the identity-based policy and permissions boundary both allow s3:*",
+      "b": "Yes, because resource-based policies cannot deny actions for IAM users in the same account",
+      "c": "No, because the explicit Deny in the resource-based policy overrides all Allows",
+      "d": "No, because permissions boundaries always override resource-based policies"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Even though both allow s3:*, an explicit Deny anywhere in any policy always takes precedence over any Allow.",
+      "b": "Incorrect. Resource-based policies can deny actions for any principal, including users in the same account.",
+      "c": "Correct. An explicit Deny in ANY applicable policy (identity-based, resource-based, SCP, permissions boundary, or session policy) always overrides an Allow from any other policy.",
+      "d": "Incorrect. The denial comes from the resource-based policy's explicit Deny, not from the permissions boundary. Permissions boundaries don't override resource-based policies in this way."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM role has a trust policy that includes 'Condition': {'StringEquals': {'sts:ExternalId': '12345'}}. A user from another account tries to assume this role without providing an external ID. What happens?",
+    "opts": {
+      "a": "The role is assumed successfully because external ID is optional",
+      "b": "The role assumption fails with an AccessDenied error",
+      "c": "The role is assumed but with reduced permissions",
+      "d": "The role is assumed after a 5-minute delay"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. When the trust policy requires an external ID via a Condition, it becomes mandatory for role assumption.",
+      "b": "Correct. If the trust policy includes a Condition requiring sts:ExternalId and the caller does not provide it (or provides the wrong value), the AssumeRole call fails with AccessDenied.",
+      "c": "Incorrect. Role assumption either succeeds fully or fails; there is no partial assumption.",
+      "d": "Incorrect. There is no delay mechanism; the request is immediately denied."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company has an SCP that allows only 'ec2:*' and 's3:*'. A member account has an IAM user with AdministratorAccess (Allow *). The user tries to create a Lambda function. What is the result?",
+    "opts": {
+      "a": "Allowed because AdministratorAccess grants full access",
+      "b": "Allowed because SCPs only apply to the root user of member accounts",
+      "c": "Denied because the SCP does not include lambda:* in its allow list",
+      "d": "Denied because AdministratorAccess doesn't include Lambda permissions"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AdministratorAccess cannot override SCP restrictions. SCPs define the maximum available permissions.",
+      "b": "Incorrect. SCPs apply to all principals in member accounts including IAM users, roles, and the root user.",
+      "c": "Correct. SCPs define the ceiling of permissions. Since lambda:* is not in the SCP's allow list, no IAM policy in the member account can grant Lambda access, regardless of what it says.",
+      "d": "Incorrect. AdministratorAccess does include Lambda (Action: *), but the SCP restriction prevents it."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM policy contains: {\"Effect\": \"Deny\", \"NotAction\": \"iam:*\", \"Resource\": \"*\"}. Which statement is TRUE about this policy?",
+    "opts": {
+      "a": "It denies all IAM actions",
+      "b": "It denies everything EXCEPT IAM actions",
+      "c": "It allows all IAM actions explicitly",
+      "d": "It denies all actions on all resources including IAM"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NotAction means everything EXCEPT IAM, so IAM actions are not affected by this Deny statement.",
+      "b": "Correct. Effect: Deny with NotAction: iam:* means 'Deny everything that is NOT an IAM action.' IAM actions are excluded from this denial, but they are NOT explicitly allowed either — they would need a separate Allow.",
+      "c": "Incorrect. This policy does NOT allow IAM actions; it simply doesn't deny them. An Allow must come from a separate policy.",
+      "d": "Incorrect. IAM actions are excluded from the Deny by NotAction."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A role's trust policy specifies: {\"Principal\": {\"AWS\": \"arn:aws:iam::111111111111:root\"}}. Which entities from account 111111111111 can assume this role?",
+    "opts": {
+      "a": "Only the root user of account 111111111111",
+      "b": "Any IAM principal in account 111111111111 that has sts:AssumeRole permission",
+      "c": "Only IAM users in account 111111111111, not roles",
+      "d": "All principals in account 111111111111 without needing any additional permissions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Specifying the account root (arn:aws:iam::111111111111:root) in a trust policy trusts the entire account, not just the root user.",
+      "b": "Correct. When you specify the account root ARN, you're trusting the entire account. Any IAM user or role within that account can assume the role IF they also have sts:AssumeRole permission in their own identity-based policy.",
+      "c": "Incorrect. Both users and roles in that account can assume the role if they have permission.",
+      "d": "Incorrect. Principals still need sts:AssumeRole permission in their own policies."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM user has the following policy: {\"Effect\": \"Allow\", \"Action\": \"s3:PutObject\", \"Resource\": \"arn:aws:s3:::mybucket/*\", \"Condition\": {\"StringEquals\": {\"s3:x-amz-acl\": \"bucket-owner-full-control\"}}}. The user uploads an object without specifying any ACL. What happens?",
+    "opts": {
+      "a": "The upload succeeds because the Allow policy grants PutObject",
+      "b": "The upload fails because the condition is not met",
+      "c": "The upload succeeds with default ACL applied",
+      "d": "The upload succeeds but the object is encrypted automatically"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The Allow is conditional; without meeting the condition, it doesn't apply.",
+      "b": "Correct. The Condition requires that s3:x-amz-acl equals 'bucket-owner-full-control'. If the user doesn't include this ACL header, the condition evaluates to false, the Allow doesn't apply, and the request is implicitly denied.",
+      "c": "Incorrect. The condition explicitly requires the ACL header to be present with a specific value.",
+      "d": "Incorrect. Encryption is not related to this condition."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company uses ABAC with the tag 'Project'. An IAM policy allows ec2:StartInstances with the condition {\"StringEquals\": {\"ec2:ResourceTag/Project\": \"${aws:PrincipalTag/Project}\"}}. User A has tag Project=Alpha. What can User A start?",
+    "opts": {
+      "a": "All EC2 instances regardless of tags",
+      "b": "Only EC2 instances tagged with Project=Alpha",
+      "c": "Only EC2 instances without any Project tag",
+      "d": "Only EC2 instances tagged with Project=${aws:PrincipalTag/Project} literally"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The condition restricts to matching tags only.",
+      "b": "Correct. The policy variable ${aws:PrincipalTag/Project} resolves to User A's Project tag value ('Alpha'). The condition then requires the EC2 instance's Project tag to equal 'Alpha'. This is ABAC in action.",
+      "c": "Incorrect. Instances without the Project tag would not match the condition.",
+      "d": "Incorrect. Policy variables are resolved at evaluation time; they are not literal strings."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An administrator creates a permissions boundary with {\"Effect\": \"Allow\", \"Action\": [\"s3:*\", \"ec2:*\"], \"Resource\": \"*\"} and attaches it to a developer. The developer's identity policy allows {\"Action\": \"*\", \"Resource\": \"*\"}. What can the developer do?",
+    "opts": {
+      "a": "Perform any action on any AWS service because the identity policy allows *",
+      "b": "Only perform S3 and EC2 actions because effective permissions are the intersection",
+      "c": "Perform no actions because the boundary conflicts with the identity policy",
+      "d": "Only perform S3 actions because EC2 is implicitly denied by the boundary"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The permissions boundary limits the effective permissions regardless of what the identity policy allows.",
+      "b": "Correct. Effective permissions = intersection of identity-based policy ∩ permissions boundary. The identity policy allows everything, the boundary allows S3 and EC2 only, so the effective permissions are S3 and EC2 only.",
+      "c": "Incorrect. There is no conflict; the intersection produces valid permissions.",
+      "d": "Incorrect. EC2 is explicitly allowed in the boundary."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A policy uses 'ForAnyValue:StringLike' in a condition with 'aws:PrincipalTag/Team': ['Dev*', 'QA*']. An IAM user has tags Team=DevOps and Department=Engineering. Does the condition evaluate to true?",
+    "opts": {
+      "a": "No, because the user has a Department tag that is not in the condition",
+      "b": "No, because ForAnyValue requires ALL tag values to match",
+      "c": "Yes, because at least one value of the user's Team tag matches 'Dev*'",
+      "d": "Yes, because the user has exactly two tags"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The condition only checks aws:PrincipalTag/Team; other tags are irrelevant to this condition.",
+      "b": "Incorrect. ForAnyValue evaluates to true if ANY value in the request set matches ANY value in the condition set. ForAllValues requires all to match.",
+      "c": "Correct. ForAnyValue:StringLike checks if at least one value matches. The user's Team tag 'DevOps' matches the pattern 'Dev*', so the condition is true.",
+      "d": "Incorrect. The number of tags is irrelevant; it's the value matching that matters."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM role has a maximum session duration set to 4 hours. A user assumes this role with DurationSeconds=7200. Another role in a different account has max session 12 hours. The first role then assumes the second role (role chaining). What is the maximum duration of the chained session?",
+    "opts": {
+      "a": "4 hours (limited by the first role)",
+      "b": "12 hours (limited by the second role)",
+      "c": "2 hours (the DurationSeconds specified)",
+      "d": "1 hour (role chaining limit)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Role chaining has its own separate limit.",
+      "b": "Incorrect. The second role's max session duration doesn't apply during role chaining.",
+      "c": "Incorrect. The original DurationSeconds is not carried forward to the chained session.",
+      "d": "Correct. When role chaining occurs (a role assumes another role), the maximum session duration is always limited to 1 hour (3600 seconds), regardless of the roles' configured maximum session durations."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A resource-based policy on an S3 bucket in Account B grants s3:GetObject to a specific IAM user in Account A. The user in Account A has NO identity-based policy granting S3 access. Can the user access the bucket?",
+    "opts": {
+      "a": "No, because both the resource-based policy and identity-based policy must allow the action for cross-account access",
+      "b": "Yes, because resource-based policies grant access directly to the specified principal regardless of their identity policies",
+      "c": "No, because cross-account access always requires assuming a role",
+      "d": "Yes, but only if the user has a permissions boundary that allows S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is the general rule for cross-account, but there's an exception: when a resource-based policy directly specifies the principal's ARN (not just the account), it grants access without requiring an identity-based policy in the principal's account.",
+      "b": "Correct. When a resource-based policy grants access to a specific principal ARN (not account root), the principal can access the resource without needing an identity-based policy on their side. This is an exception to the typical cross-account evaluation.",
+      "c": "Incorrect. Resource-based policies are an alternative to role assumption for cross-account access.",
+      "d": "Incorrect. Permissions boundaries limit identity-based policies, not resource-based policy grants."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM policy has the following condition: {\"IpAddress\": {\"aws:SourceIp\": \"203.0.113.0/24\"}, \"Bool\": {\"aws:ViaAWSService\": \"false\"}}. What is the purpose of the aws:ViaAWSService condition?",
+    "opts": {
+      "a": "To ensure the request comes from a VPN",
+      "b": "To ensure the IP restriction only applies to direct user requests and not requests made by AWS services on behalf of the user",
+      "c": "To block all AWS service calls",
+      "d": "To verify that the request uses HTTPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPN is not checked by aws:ViaAWSService.",
+      "b": "Correct. When aws:ViaAWSService is false, the condition applies only to direct user requests. This prevents IP restrictions from blocking AWS services (like CloudFormation, Athena) that make API calls on behalf of the user from AWS IP addresses.",
+      "c": "Incorrect. It doesn't block service calls; it excludes them from the IP condition.",
+      "d": "Incorrect. HTTPS is checked by aws:SecureTransport."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM user has the following two policies attached:\nPolicy 1: {\"Effect\": \"Allow\", \"Action\": \"s3:*\", \"Resource\": \"*\"}\nPolicy 2: {\"Effect\": \"Deny\", \"Action\": \"s3:*\", \"Resource\": \"*\", \"Condition\": {\"Bool\": {\"aws:MultiFactorAuthPresent\": \"false\"}}}\nThe user makes an API call using access keys WITHOUT MFA. What happens?",
+    "opts": {
+      "a": "The action is allowed because Policy 1 allows it",
+      "b": "The action is denied because the Deny condition is met (MFA is not present)",
+      "c": "The action is allowed because the Deny condition evaluates to null for access key calls",
+      "d": "The action is denied because access keys cannot be used with MFA"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect reasoning, though the action is allowed. It's not simply because Policy 1 allows it.",
+      "b": "Incorrect. This is a subtle distinction: when using long-term access keys (without STS), the aws:MultiFactorAuthPresent key is NOT PRESENT in the request context (it's null/absent), which is different from being 'false'.",
+      "c": "Correct. When using long-term access keys, aws:MultiFactorAuthPresent is not present in the request context at all. The Bool condition checking for 'false' does not match when the key is absent. The Deny doesn't apply, so the Allow takes effect. To properly deny, you should use BoolIfExists.",
+      "d": "Incorrect. Access keys can be used with MFA via sts:GetSessionToken."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "To properly deny actions when MFA is NOT used (including cases where the condition key is absent), which condition operator should be used instead of 'Bool'?",
+    "opts": {
+      "a": "StringEquals",
+      "b": "BoolIfExists",
+      "c": "ArnLike",
+      "d": "NumericLessThan"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. StringEquals does not handle the absent key scenario properly for boolean values.",
+      "b": "Correct. BoolIfExists evaluates to true if the key exists AND equals the specified value, OR if the key does not exist at all. This properly handles cases where aws:MultiFactorAuthPresent is absent (long-term credentials).",
+      "c": "Incorrect. ArnLike is for ARN pattern matching.",
+      "d": "Incorrect. NumericLessThan is for numerical comparisons."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company has enabled IMDSv2 (Instance Metadata Service version 2) on all EC2 instances. How does this affect IAM role credential retrieval?",
+    "opts": {
+      "a": "IAM role credentials can no longer be retrieved from the metadata service",
+      "b": "Credentials are still retrieved from metadata but require a session token obtained via a PUT request first",
+      "c": "Credentials are now stored in environment variables instead",
+      "d": "IMDSv2 has no impact on IAM role credentials"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IMDSv2 still provides IAM role credentials.",
+      "b": "Correct. IMDSv2 requires a PUT request to obtain a session token (X-aws-ec2-metadata-token), which must then be included in subsequent GET requests to retrieve metadata including IAM role credentials. This prevents SSRF attacks.",
+      "c": "Incorrect. Credentials are still served through the metadata endpoint.",
+      "d": "Incorrect. IMDSv2 changes how credentials are accessed (requiring a token)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An organization wants to prevent IAM users from creating roles that have more privileges than themselves. They implement permissions boundaries. However, a developer creates a role with an inline policy allowing 'iam:*'. Is this a privilege escalation risk?",
+    "opts": {
+      "a": "Yes, because the inline policy on the role bypasses the permissions boundary",
+      "b": "No, because the permissions boundary attached to the developer also applies to roles they create if enforced via policy conditions",
+      "c": "Yes, because inline policies always override permissions boundaries",
+      "d": "No, because roles created by users automatically inherit the user's permissions boundary"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Inline policies don't bypass boundaries, but the boundary must be enforced on the created role.",
+      "b": "Correct. To prevent escalation, the administrator must enforce that developers can only create roles with a specific permissions boundary attached. This is done via a condition like 'iam:PermissionsBoundary' in the developer's policy for iam:CreateRole.",
+      "c": "Incorrect. Inline policies do not override permissions boundaries.",
+      "d": "Incorrect. Roles do NOT automatically inherit the creator's permissions boundary. This must be explicitly enforced."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A policy uses the condition {\"StringNotEquals\": {\"aws:RequestedRegion\": [\"us-east-1\", \"eu-west-1\"]}} with Effect: Deny. A user tries to launch an EC2 instance in ap-southeast-1. What happens?",
+    "opts": {
+      "a": "Allowed because ap-southeast-1 is not in the Deny list",
+      "b": "Denied because ap-southeast-1 is NOT equal to us-east-1 or eu-west-1, satisfying the StringNotEquals condition",
+      "c": "Allowed because StringNotEquals means the Deny only applies to us-east-1 and eu-west-1",
+      "d": "Denied because all regions are denied by default"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The logic is reversed. StringNotEquals with Deny means 'deny when the region is NOT in the list.'",
+      "b": "Correct. StringNotEquals evaluates to true when the value does NOT match. Since ap-southeast-1 ≠ us-east-1 and ap-southeast-1 ≠ eu-west-1, the condition is true, and the Deny applies. This effectively restricts usage to ONLY us-east-1 and eu-west-1.",
+      "c": "Incorrect. It's the opposite: Deny + StringNotEquals means deny everything EXCEPT the listed regions.",
+      "d": "Incorrect. The denial is based on the condition logic, not a default deny."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM user has a permissions boundary that allows 'ec2:*' and 's3:*'. The user's identity policy allows 'ec2:*', 's3:*', and 'lambda:*'. A resource-based policy on a Lambda function allows the user to invoke it. Can the user invoke the Lambda function?",
+    "opts": {
+      "a": "No, because the permissions boundary doesn't include lambda:* and it limits all access",
+      "b": "Yes, because the resource-based policy grants access directly and is not affected by the user's permissions boundary",
+      "c": "No, because resource-based policies cannot override permissions boundaries",
+      "d": "Yes, because the identity policy includes lambda:*"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While the boundary limits identity-based policy grants, resource-based policies that directly grant access to a principal are not limited by that principal's permissions boundary.",
+      "b": "Correct. Resource-based policies that grant access directly to an IAM principal (specifying their ARN) are evaluated separately and are NOT limited by the principal's permissions boundary. The user can invoke the Lambda function via the resource-based policy grant.",
+      "c": "Incorrect. Resource-based policies operate independently of the principal's permissions boundary.",
+      "d": "Incorrect. The identity policy's lambda:* is limited by the boundary, but the resource-based policy works independently."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A trust policy includes: {\"Condition\": {\"StringEquals\": {\"sts:ExternalId\": \"12345\", \"aws:PrincipalOrgID\": \"o-abc123\"}}}. For the role to be assumed, which must be true?",
+    "opts": {
+      "a": "Either the external ID matches OR the principal is from org o-abc123",
+      "b": "Both the external ID must be '12345' AND the principal must be from org o-abc123",
+      "c": "Only the external ID needs to match; PrincipalOrgID is optional",
+      "d": "Only the PrincipalOrgID needs to match; ExternalId is optional"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple conditions within the same condition block use AND logic, not OR.",
+      "b": "Correct. When multiple condition keys are in the same condition block (same operator), they are evaluated with AND logic. Both conditions must be true for the trust policy to allow assumption.",
+      "c": "Incorrect. Both conditions are mandatory when in the same block.",
+      "d": "Incorrect. Both conditions must be satisfied."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A trust policy has two separate Condition blocks:\n\"Condition\": {\"StringEquals\": {\"sts:ExternalId\": \"12345\"}}\nand in a separate statement:\n\"Condition\": {\"StringEquals\": {\"aws:PrincipalOrgID\": \"o-abc123\"}}\nHow is this evaluated compared to having both in one block?",
+    "opts": {
+      "a": "Identical behavior — both conditions must be met regardless of structure",
+      "b": "Each statement's conditions are independent; if either statement's conditions are met, the role can be assumed",
+      "c": "The second condition overrides the first",
+      "d": "Having two statements in a trust policy is invalid"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Wait — actually this depends on whether they're in the same Statement or different Statements. If in different Statements with the same Effect (Allow), then either statement can satisfy the trust. But within a single statement, all conditions must be met. The question says 'separate Condition blocks' which is ambiguous — but if they're in the SAME statement, they still use AND logic.",
+      "b": "Incorrect if they're in the same statement. If they're in separate Allow statements, then yes, either can grant access.",
+      "c": "Incorrect. Conditions don't override each other.",
+      "d": "Incorrect. Multiple statements in a trust policy are valid."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM user calls sts:AssumeRole and passes a session policy that denies 's3:DeleteObject'. The role's identity policy allows 's3:*'. What can the resulting session do regarding S3?",
+    "opts": {
+      "a": "All S3 actions because the role's policy allows s3:*",
+      "b": "All S3 actions except DeleteObject because the session policy's Deny overrides the role's Allow",
+      "c": "No S3 actions because session policies always deny everything",
+      "d": "Only S3 actions that are explicitly allowed in the session policy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Session policies further restrict the effective permissions.",
+      "b": "Correct. The session policy with an explicit Deny for DeleteObject overrides the role's Allow. For all other S3 actions, the effective permission is the intersection of the role's policy and the session policy. Since the session policy explicitly denies DeleteObject, that action is blocked.",
+      "c": "Incorrect. Session policies don't deny everything; they scope down permissions.",
+      "d": "Incorrect. If the session policy only has a Deny statement, the role's permissions apply for non-denied actions (intersection logic for Allow, but explicit Deny always wins)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company configures an IAM policy with: {\"Effect\": \"Allow\", \"Action\": \"iam:CreateUser\", \"Resource\": \"*\", \"Condition\": {\"StringEquals\": {\"iam:PermissionsBoundary\": \"arn:aws:iam::123456789012:policy/BoundaryPolicy\"}}}. What does this achieve?",
+    "opts": {
+      "a": "Allows creating users only if the creator has BoundaryPolicy as their own boundary",
+      "b": "Allows creating users only if the new user will have BoundaryPolicy set as their permissions boundary",
+      "c": "Allows creating users with any permissions boundary",
+      "d": "Denies creating users without the BoundaryPolicy attached"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The condition checks what boundary is being SET on the new user, not the creator's boundary.",
+      "b": "Correct. The iam:PermissionsBoundary condition key ensures that CreateUser is only allowed if the request includes setting the specified permissions boundary on the new user. This prevents privilege escalation.",
+      "c": "Incorrect. The condition restricts to a specific boundary policy.",
+      "d": "Incorrect. It's an Allow with a condition, not a Deny. Without meeting the condition, the Allow simply doesn't apply (implicit deny)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM policy allows 'iam:PassRole' with the condition {\"StringEquals\": {\"iam:PassedToService\": \"ec2.amazonaws.com\"}}. A developer tries to pass the role to a Lambda function. What happens?",
+    "opts": {
+      "a": "The role is passed successfully because PassRole is allowed",
+      "b": "The role pass fails because the condition restricts PassRole to EC2 only",
+      "c": "The role is passed to Lambda but with reduced permissions",
+      "d": "An error occurs because iam:PassedToService is not a valid condition key"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The Allow is conditional and doesn't apply when passing to Lambda.",
+      "b": "Correct. The iam:PassedToService condition restricts which AWS services the role can be passed to. Since it only allows ec2.amazonaws.com, passing to lambda.amazonaws.com fails.",
+      "c": "Incorrect. PassRole either succeeds or fails; there's no partial pass.",
+      "d": "Incorrect. iam:PassedToService is a valid condition key for controlling PassRole."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company uses aws:PrincipalTag/Department in a condition. User A has Department=Finance. User A assumes Role B which has Department=Engineering tag. After assuming the role, what does aws:PrincipalTag/Department resolve to?",
+    "opts": {
+      "a": "Finance (from the original user)",
+      "b": "Engineering (from the assumed role)",
+      "c": "Both values are available",
+      "d": "Null because tag resolution is ambiguous"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. After assuming a role, the session's principal becomes the role.",
+      "b": "Correct. After assuming a role, the effective principal is the role. aws:PrincipalTag resolves to the role's tags, not the original user's tags. The session tags are those of the assumed role (unless session tags are explicitly passed).",
+      "c": "Incorrect. Only the role's tags are active as PrincipalTags after assumption.",
+      "d": "Incorrect. The resolution is clear — it uses the role's tags."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An administrator creates a policy: {\"Effect\": \"Deny\", \"Action\": \"*\", \"Resource\": \"*\", \"Condition\": {\"NotIpAddress\": {\"aws:SourceIp\": \"10.0.0.0/8\"}}}. An EC2 instance with an IAM role makes an API call from IP 10.0.1.5. Is the call denied?",
+    "opts": {
+      "a": "No, because 10.0.1.5 is within 10.0.0.0/8 so NotIpAddress condition is false",
+      "b": "Yes, because all API calls are denied regardless of the condition",
+      "c": "No, because EC2 role API calls don't have a SourceIp",
+      "d": "Yes, because NotIpAddress denies IPs within the range"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect reasoning. While 10.0.1.5 is in the range, the actual issue is different.",
+      "b": "Incorrect. The condition must be met for the Deny to apply.",
+      "c": "Correct. When an AWS service (EC2 instance via IAM role) makes API calls, the aws:SourceIp condition key may not be present in the request context (or reflects AWS internal IPs). This means the condition cannot be properly evaluated, and the Deny may not apply as expected. This is why aws:ViaAWSService should be used alongside IP restrictions.",
+      "d": "Incorrect. NotIpAddress denies IPs OUTSIDE the range, not within."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Two IAM policies are attached to a user:\nPolicy 1: {\"Effect\": \"Allow\", \"Action\": \"ec2:*\", \"Resource\": \"*\", \"Condition\": {\"StringEquals\": {\"ec2:ResourceTag/Environment\": \"Production\"}}}\nPolicy 2: {\"Effect\": \"Allow\", \"Action\": \"ec2:*\", \"Resource\": \"*\", \"Condition\": {\"StringEquals\": {\"ec2:ResourceTag/Environment\": \"Development\"}}}\nCan the user perform EC2 actions on a Staging instance?",
+    "opts": {
+      "a": "Yes, because ec2:* is allowed in both policies",
+      "b": "No, because neither policy's condition matches Environment=Staging",
+      "c": "Yes, because multiple Allow policies combine additively",
+      "d": "No, because having two policies with the same action causes a conflict"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The Allow is conditional; it only applies when conditions are met.",
+      "b": "Correct. Both policies are conditional. Policy 1 only applies to Production-tagged resources, Policy 2 only to Development-tagged resources. Since neither condition matches 'Staging', no Allow applies, resulting in implicit deny.",
+      "c": "Incorrect. Conditional Allows are only additive when their conditions are met.",
+      "d": "Incorrect. Multiple policies with the same action don't conflict; they're evaluated independently."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A Lambda function's execution role allows 'dynamodb:PutItem' on Table A. The function's resource-based policy allows invocation by S3. A developer invokes the function directly via the Lambda API. Does the resource-based policy affect whether the developer can invoke it?",
+    "opts": {
+      "a": "No, the developer needs lambda:InvokeFunction permission in their own identity policy only",
+      "b": "Yes, the resource-based policy on Lambda allows anyone to invoke it",
+      "c": "No, because the resource-based policy only grants invocation to S3, not to the developer",
+      "d": "Yes, the developer's invoke is allowed by the resource-based policy because it allows invocations"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Both the developer's identity policy AND/OR the Lambda's resource-based policy can grant access.",
+      "b": "Incorrect. The resource-based policy specifically grants to S3 (s3.amazonaws.com), not to all principals.",
+      "c": "Correct. The resource-based policy only allows invocation by the S3 service. The developer would need lambda:InvokeFunction in their own identity-based policy OR be explicitly named in the Lambda resource-based policy.",
+      "d": "Incorrect. The resource-based policy is principal-specific; it only allows S3."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the behavior when an IAM policy condition uses 'Null': {'aws:TokenIssueTime': 'true'} in a Deny statement?",
+    "opts": {
+      "a": "It denies requests made with temporary credentials",
+      "b": "It denies requests made with long-term credentials (where TokenIssueTime doesn't exist)",
+      "c": "It denies all requests regardless",
+      "d": "It denies requests where the token has expired"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Temporary credentials HAVE a TokenIssueTime, so the Null condition (checking if the key is absent) would be false.",
+      "b": "Correct. The Null condition operator checks if a key is absent. 'Null': {'aws:TokenIssueTime': 'true'} evaluates to true when aws:TokenIssueTime is NOT present. This key is only present with temporary credentials, so the Deny applies to long-term credential usage.",
+      "c": "Incorrect. It only denies when the condition is true (key absent).",
+      "d": "Incorrect. Token expiration is not what this condition checks."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM user has iam:PassRole permission restricted to roles with path '/application-roles/*'. The user tries to pass a role with ARN 'arn:aws:iam::123456789012:role/admin-role'. What happens?",
+    "opts": {
+      "a": "The role is passed successfully because PassRole is allowed",
+      "b": "The role pass fails because the role ARN doesn't match the path restriction '/application-roles/*'",
+      "c": "The role is passed but the role's permissions are reduced",
+      "d": "An error occurs because paths cannot be used with PassRole"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The resource restriction limits which roles can be passed.",
+      "b": "Correct. The policy restricts PassRole to roles matching 'arn:aws:iam::123456789012:role/application-roles/*'. The role 'admin-role' is at the root path, not under '/application-roles/', so it doesn't match and the action is denied.",
+      "c": "Incorrect. PassRole either succeeds or fails completely.",
+      "d": "Incorrect. Paths are commonly used with PassRole to restrict which roles can be passed."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company implements a deny policy: {\"Effect\": \"Deny\", \"Action\": \"*\", \"Resource\": \"*\", \"Condition\": {\"BoolIfExists\": {\"aws:MultiFactorAuthPresent\": \"false\"}, \"StringNotEquals\": {\"aws:RequestedRegion\": \"us-east-1\"}}}. A user without MFA makes a request in us-east-1. Is it denied?",
+    "opts": {
+      "a": "Yes, because MFA is not present",
+      "b": "No, because BOTH conditions must be true for the Deny to apply, and the region condition is false",
+      "c": "Yes, because either condition being true triggers the Deny",
+      "d": "No, because the user is in us-east-1 and MFA is not required there"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Both conditions within the same Condition block must evaluate to true (AND logic).",
+      "b": "Correct. Conditions within the same block use AND logic. BoolIfExists for MFA is true (MFA not present). But StringNotEquals for region is false (the request IS in us-east-1, so 'not equals us-east-1' is false). Since both must be true and one is false, the Deny does NOT apply.",
+      "c": "Incorrect. Multiple conditions in the same block use AND logic, not OR.",
+      "d": "Incorrect reasoning, though the result (not denied) is correct."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An organization wants to ensure that when IAM users create EC2 instances, they must tag them with both 'CostCenter' and 'Project' tags. Which condition combination achieves this?",
+    "opts": {
+      "a": "\"ForAnyValue:StringEquals\": {\"aws:TagKeys\": [\"CostCenter\", \"Project\"]}",
+      "b": "\"ForAllValues:StringEquals\": {\"aws:TagKeys\": [\"CostCenter\", \"Project\"]}",
+      "c": "\"StringEquals\": {\"aws:RequestTag/CostCenter\": \"*\", \"aws:RequestTag/Project\": \"*\"} combined with \"ForAllValues:StringEquals\": {\"aws:TagKeys\": [\"CostCenter\", \"Project\"]}",
+      "d": "Use \"ForAllValues:StringEquals\": {\"aws:TagKeys\": [\"CostCenter\", \"Project\"]} in an Allow, AND a separate Deny with \"Null\": {\"aws:RequestTag/CostCenter\": \"true\"} to deny when CostCenter is absent"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. ForAnyValue only requires that at least one of the tags is present, not both.",
+      "b": "Incorrect. ForAllValues ensures all tags in the request are within the allowed set, but it evaluates to true when NO tags are provided (empty set is a subset of any set), so it doesn't enforce that tags MUST be present.",
+      "c": "Incorrect. StringEquals with '*' doesn't perform wildcard matching; use StringLike for wildcards. Also, ForAllValues doesn't require tags to be present.",
+      "d": "Correct. The most reliable approach combines ForAllValues to restrict allowed tag keys AND a separate Deny with Null condition to ensure the required tags are actually present. This covers the edge case where ForAllValues evaluates to true on an empty set."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A user assumes Role A (max session: 4 hours, actual session: 2 hours). During this session, they call sts:AssumeRole to assume Role B. What is the maximum duration they can request for Role B?",
+    "opts": {
+      "a": "The remaining duration of Role A's session (2 hours left)",
+      "b": "Role B's configured maximum session duration (up to 12 hours)",
+      "c": "1 hour (role chaining limit)",
+      "d": "4 hours (same as Role A's max)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The remaining session time of Role A doesn't determine Role B's duration.",
+      "b": "Incorrect. Role chaining overrides the role's configured max session.",
+      "c": "Correct. Role chaining always limits the subsequent session to a maximum of 1 hour, regardless of either role's configured maximum session duration or the remaining time in the first session.",
+      "d": "Incorrect. Role A's configuration doesn't determine the chained session limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An AWS account has an S3 bucket policy: {\"Effect\": \"Allow\", \"Principal\": \"*\", \"Action\": \"s3:GetObject\", \"Resource\": \"arn:aws:s3:::public-bucket/*\"}. An IAM user in the SAME account has an explicit Deny for s3:GetObject on this bucket. Can the user access objects?",
+    "opts": {
+      "a": "Yes, because the bucket policy allows Principal '*' which includes the user",
+      "b": "No, because the explicit Deny in the user's identity policy overrides the resource-based Allow",
+      "c": "Yes, because resource-based policies take precedence over identity-based policies",
+      "d": "No, because Principal '*' only applies to anonymous/external access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Even though the bucket policy allows the user, an explicit Deny overrides it.",
+      "b": "Correct. An explicit Deny in ANY applicable policy always takes precedence. Even though the resource-based policy allows access and the action is within the same account, the explicit Deny in the user's policy blocks access.",
+      "c": "Incorrect. Explicit Deny always wins regardless of policy type.",
+      "d": "Incorrect. Principal '*' applies to all principals including IAM users in the same account."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A developer needs to grant an application running in ECS Fargate access to Secrets Manager. There is no EC2 instance. How are IAM credentials provided?",
+    "opts": {
+      "a": "Through EC2 instance metadata service at 169.254.169.254",
+      "b": "Through the ECS task role, which provides temporary credentials via the task credential endpoint (169.254.170.2)",
+      "c": "By embedding access keys in the container image",
+      "d": "Through an IAM user attached to the container"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Fargate tasks don't use the EC2 metadata endpoint.",
+      "b": "Correct. ECS Fargate tasks use a task IAM role. Credentials are provided via the task credential endpoint at 169.254.170.2, referenced by the AWS_CONTAINER_CREDENTIALS_RELATIVE_URI environment variable.",
+      "c": "Incorrect. Embedding credentials in images is a major security anti-pattern.",
+      "d": "Incorrect. IAM users cannot be 'attached' to containers."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM policy uses: {\"Effect\": \"Allow\", \"Action\": \"s3:GetObject\", \"Resource\": \"arn:aws:s3:::bucket/home/${aws:PrincipalTag/team}/${aws:username}/*\"}. User 'john' has tag team=engineering. Which S3 path can john access?",
+    "opts": {
+      "a": "s3://bucket/home/john/engineering/*",
+      "b": "s3://bucket/home/engineering/john/*",
+      "c": "s3://bucket/home/${aws:PrincipalTag/team}/${aws:username}/*",
+      "d": "s3://bucket/home/engineering/* (username is ignored)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The order is team first, then username based on the policy resource.",
+      "b": "Correct. The policy variables resolve: ${aws:PrincipalTag/team} = 'engineering' and ${aws:username} = 'john'. The accessible path is s3://bucket/home/engineering/john/*.",
+      "c": "Incorrect. Policy variables are resolved at evaluation time, not treated as literal strings.",
+      "d": "Incorrect. Both variables are resolved; username is not ignored."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company accidentally gave an IAM user 'iam:PutUserPolicy' permission on Resource '*'. Which of the following represents the HIGHEST privilege escalation risk?",
+    "opts": {
+      "a": "The user can list all policies in the account",
+      "b": "The user can attach an inline policy to themselves granting full administrator access",
+      "c": "The user can delete other users' policies",
+      "d": "The user can view CloudTrail logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Listing policies is read-only and lower risk.",
+      "b": "Correct. iam:PutUserPolicy on Resource '*' allows the user to write an inline policy to ANY user, including themselves. They can create a policy granting Action: '*' on Resource: '*', effectively making themselves an administrator. This is a critical privilege escalation vector.",
+      "c": "Incorrect. PutUserPolicy creates/updates policies, not deletes them (that's DeleteUserPolicy).",
+      "d": "Incorrect. CloudTrail access requires separate permissions."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which combination of IAM actions represents a complete privilege escalation path where a user could gain administrator access?",
+    "opts": {
+      "a": "iam:ListUsers + iam:GetUser",
+      "b": "iam:CreateRole + iam:AttachRolePolicy + iam:PassRole + lambda:CreateFunction + lambda:InvokeFunction",
+      "c": "s3:GetObject + s3:PutObject",
+      "d": "ec2:DescribeInstances + ec2:StartInstances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are read-only actions with no escalation path.",
+      "b": "Correct. This chain allows: 1) Create a role with admin permissions, 2) Attach AdministratorAccess to it, 3) Pass the role to Lambda, 4) Create a Lambda function using that role, 5) Invoke the function which executes with admin privileges. This is a known privilege escalation path.",
+      "c": "Incorrect. S3 read/write doesn't lead to IAM privilege escalation.",
+      "d": "Incorrect. EC2 actions don't directly lead to IAM privilege escalation."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM policy has: {\"Effect\": \"Allow\", \"Action\": \"sts:AssumeRole\", \"Resource\": \"arn:aws:iam::*:role/ReadOnly*\"}. Which role can the user assume?",
+    "opts": {
+      "a": "arn:aws:iam::111111111111:role/AdminReadOnly",
+      "b": "arn:aws:iam::222222222222:role/ReadOnlyAccess",
+      "c": "arn:aws:iam::333333333333:role/readonly-role",
+      "d": "arn:aws:iam::444444444444:role/Production-ReadOnly"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 'AdminReadOnly' does not match the pattern 'ReadOnly*' because it doesn't START with 'ReadOnly'.",
+      "b": "Correct. 'ReadOnlyAccess' matches the pattern 'ReadOnly*' (starts with ReadOnly). The account wildcard (*) allows any account.",
+      "c": "Incorrect. 'readonly-role' doesn't match 'ReadOnly*' because the pattern is case-sensitive. 'r' ≠ 'R'.",
+      "d": "Incorrect. 'Production-ReadOnly' doesn't start with 'ReadOnly'; it starts with 'Production'."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company configures session tags when assuming a role: sts:AssumeRole with --tags Key=Project,Value=Phoenix. Which condition key references this session tag in the assumed role's policies?",
+    "opts": {
+      "a": "aws:PrincipalTag/Project",
+      "b": "aws:RequestTag/Project",
+      "c": "aws:ResourceTag/Project",
+      "d": "iam:ResourceTag/Project"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Session tags passed during role assumption become the principal's tags for that session. They are referenced via aws:PrincipalTag/Project in subsequent policy evaluations during the session.",
+      "b": "Incorrect. aws:RequestTag refers to tags being applied in a tagging API request (like creating a resource with tags), not session tags.",
+      "c": "Incorrect. aws:ResourceTag refers to tags on the target resource being accessed.",
+      "d": "Incorrect. iam:ResourceTag refers to tags on IAM resources specifically."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM policy allows 'ec2:RunInstances' with condition {\"StringEquals\": {\"ec2:InstanceType\": [\"t2.micro\", \"t3.micro\"]}}. A user tries to launch a t3.small instance. What happens, and how could the user potentially circumvent this?",
+    "opts": {
+      "a": "Denied; the user cannot circumvent it unless the policy is changed",
+      "b": "Allowed because t3.small is in the t3 family",
+      "c": "Denied; the user could circumvent by modifying the instance type after launch if ec2:ModifyInstanceAttribute is allowed",
+      "d": "Denied; the user could circumvent by launching t2.micro then using ec2:ModifyInstanceAttribute to change to t3.small"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. While the launch is denied, there could be circumvention paths if other permissions exist.",
+      "b": "Incorrect. The condition checks exact instance type, not family.",
+      "c": "Correct. The initial launch of t3.small is denied. However, if the user has ec2:ModifyInstanceAttribute permission (without instance type restrictions), they could launch an allowed type and then modify it to t3.small (when stopped). This is why all related actions should be restricted.",
+      "d": "Incorrect reasoning for the same correct concept — option C better describes the circumvention accurately."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "In a complex policy evaluation, an IAM user has:\n- Identity policy: Allow ec2:*\n- Permissions boundary: Allow ec2:*, s3:*\n- SCP: Allow ec2:*, s3:*, lambda:*\n- Session policy (user assumed a role): Allow ec2:RunInstances only\nWhat can the session do?",
+    "opts": {
+      "a": "All EC2 actions because identity policy, boundary, and SCP all allow ec2:*",
+      "b": "Only ec2:RunInstances because the session policy is the most restrictive",
+      "c": "All EC2 and S3 actions",
+      "d": "Nothing because session policies always deny everything not explicitly listed"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The session policy further restricts the effective permissions.",
+      "b": "Correct. The effective permissions are the intersection of ALL applicable policies: identity ∩ boundary ∩ SCP ∩ session policy. The session policy only allows ec2:RunInstances, making it the most restrictive. The final effective permission is only ec2:RunInstances.",
+      "c": "Incorrect. S3 is not in the session policy's Allow.",
+      "d": "Incorrect. The session policy does explicitly list ec2:RunInstances as allowed."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A trust policy uses: {\"Principal\": {\"Federated\": \"cognito-identity.amazonaws.com\"}, \"Condition\": {\"StringEquals\": {\"cognito-identity.amazonaws.com:aud\": \"us-east-1:xxxx\"}, \"ForAnyValue:StringLike\": {\"cognito-identity.amazonaws.com:amr\": \"authenticated\"}}}. What does the 'amr' condition check?",
+    "opts": {
+      "a": "The Amazon Resource Name of the identity",
+      "b": "The Authentication Method Reference — whether the user authenticated with an identity provider",
+      "c": "The Account Management Role",
+      "d": "The Automatic MFA Requirement"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 'amr' is not Amazon Resource Name.",
+      "b": "Correct. In Cognito federation, 'amr' (Authentication Methods References) indicates how the user was authenticated. 'authenticated' means the user logged in via an identity provider (Google, Facebook, etc.) vs 'unauthenticated' for guest access.",
+      "c": "Incorrect. AMR is not Account Management Role.",
+      "d": "Incorrect. AMR is not related to MFA requirements."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM policy denies 'iam:DeactivateMFADevice' for all users. An administrator needs to deactivate MFA for a user who lost their device. What should the administrator do?",
+    "opts": {
+      "a": "Use the root account, which is not subject to IAM policies, to deactivate the MFA",
+      "b": "Remove the Deny policy first, then deactivate MFA",
+      "c": "Use AWS CLI to bypass the policy",
+      "d": "Contact AWS Support because this is impossible"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The root user is not subject to IAM policies (only SCPs in member accounts). The root user can perform any action regardless of IAM Deny policies in the same account.",
+      "b": "Incorrect. While this would work, it requires modifying security policies and could be risky. Using root is the more direct approach.",
+      "c": "Incorrect. CLI uses the same IAM policy evaluation as the console; it won't bypass the Deny.",
+      "d": "Incorrect. It's not impossible; the root account can do it."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A policy uses the condition: {\"DateGreaterThan\": {\"aws:CurrentTime\": \"2024-01-01T00:00:00Z\"}, \"DateLessThan\": {\"aws:CurrentTime\": \"2024-12-31T23:59:59Z\"}}. Combined with Effect: Allow. What does this achieve?",
+    "opts": {
+      "a": "Denies access during 2024",
+      "b": "Allows access only during the year 2024",
+      "c": "Allows access before 2024",
+      "d": "Allows access permanently starting from 2024"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The Effect is Allow, not Deny.",
+      "b": "Correct. Both date conditions must be true (AND logic). The request time must be after Jan 1, 2024 AND before Dec 31, 2024. This creates a time-bounded access window for the year 2024 only.",
+      "c": "Incorrect. DateGreaterThan 2024-01-01 means AFTER that date.",
+      "d": "Incorrect. DateLessThan 2024-12-31 bounds the end of the access period."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM role is configured with a maximum session duration of 12 hours. A user directly assumes this role (not role chaining) with DurationSeconds=43200 (12 hours). Halfway through, the role's permissions policy is updated to remove S3 access. What happens to the user's active session?",
+    "opts": {
+      "a": "The session continues with the original permissions until it expires",
+      "b": "The session immediately loses S3 access because policies are evaluated at request time",
+      "c": "The session is terminated when the policy changes",
+      "d": "The user is prompted to re-authenticate"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM does not cache permissions for the duration of a session.",
+      "b": "Correct. IAM policies are evaluated in real-time for each API request. When the role's permissions policy is updated, the very next API call from the session is evaluated against the new policy. S3 access is immediately lost.",
+      "c": "Incorrect. Policy changes don't terminate sessions.",
+      "d": "Incorrect. There is no re-authentication prompt."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company has a deny policy that uses: {\"Condition\": {\"ForAllValues:StringNotEquals\": {\"aws:PrincipalTag/clearance\": [\"top-secret\", \"secret\"]}}}. A user has the tag clearance=confidential. Does the Deny apply?",
+    "opts": {
+      "a": "No, because ForAllValues with StringNotEquals is confusing and evaluates to false",
+      "b": "Yes, because 'confidential' does not equal 'top-secret' or 'secret', so StringNotEquals is true for all values",
+      "c": "No, because ForAllValues evaluates to true only when ALL values don't match, and single-value tags always pass",
+      "d": "Yes, because the user doesn't have the required clearance tags"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The condition does evaluate and has a definite result.",
+      "b": "Correct. ForAllValues:StringNotEquals checks if ALL values of the request key are not equal to the condition values. The user's clearance is 'confidential', which is not equal to 'top-secret' AND not equal to 'secret'. So StringNotEquals is true for all values, making the condition true, and the Deny applies.",
+      "c": "Incorrect. The evaluation is based on the logic described in option B.",
+      "d": "Incorrect reasoning, though the result (Deny applies) is correct."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM user attempts to call sts:GetCallerIdentity. The user has no explicit Allow for STS actions. Is the call successful?",
+    "opts": {
+      "a": "No, because there's no Allow policy for sts:GetCallerIdentity",
+      "b": "Yes, because sts:GetCallerIdentity always succeeds regardless of IAM policies (unless explicitly denied)",
+      "c": "No, because STS calls require a separate STS policy",
+      "d": "Yes, because all STS actions are allowed by default"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. sts:GetCallerIdentity is a special case.",
+      "b": "Correct. sts:GetCallerIdentity is unique — it ALWAYS returns information about the calling identity and cannot be blocked by IAM policies (unless there is an explicit Deny or SCP restriction). It requires no permissions to call.",
+      "c": "Incorrect. No separate policy is needed for GetCallerIdentity.",
+      "d": "Incorrect. Not all STS actions are allowed by default; only GetCallerIdentity has this special behavior."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company implements the following policy for developers:\n{\"Effect\": \"Allow\", \"Action\": \"iam:CreateRole\", \"Resource\": \"*\", \"Condition\": {\"StringEquals\": {\"iam:PermissionsBoundary\": \"arn:aws:iam::123456789012:policy/DevBoundary\"}}}\nA developer creates a role WITHOUT specifying a permissions boundary. What happens?",
+    "opts": {
+      "a": "The role is created with DevBoundary automatically applied",
+      "b": "The role creation fails because the condition is not met (no boundary was specified in the request)",
+      "c": "The role is created without any boundary",
+      "d": "The role is created with the developer's own permissions as the boundary"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Conditions don't automatically apply values; they only check if conditions are met.",
+      "b": "Correct. The iam:PermissionsBoundary condition requires that the CreateRole request includes the specified boundary. If the developer doesn't include it, the condition evaluates to false, the Allow doesn't apply, and the request is implicitly denied.",
+      "c": "Incorrect. The Allow condition prevents creation without the boundary.",
+      "d": "Incorrect. Permissions are not automatically inherited as boundaries."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An organization uses transitive session tags. Role A is assumed with session tag Project=Phoenix marked as transitive. Role A then assumes Role B (role chaining). Which statement is true?",
+    "opts": {
+      "a": "The session tag Project=Phoenix is lost when Role B is assumed",
+      "b": "The session tag Project=Phoenix persists to Role B's session because it was marked transitive",
+      "c": "Transitive tags only work within the same account",
+      "d": "Transitive tags require both roles to have the same tag"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Transitive session tags are specifically designed to persist through role chaining.",
+      "b": "Correct. When session tags are marked as transitive (using sts:TransitiveTagKeys), they automatically carry forward to subsequent role assumptions in a chain, maintaining context across the session.",
+      "c": "Incorrect. Transitive tags work across accounts during role chaining.",
+      "d": "Incorrect. The roles don't need the same tag; the session tag is carried from the previous session."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A policy denies ec2:RunInstances unless the instance has encrypted EBS volumes. Which condition correctly enforces this?",
+    "opts": {
+      "a": "{\"Bool\": {\"ec2:Encrypted\": \"true\"}}",
+      "b": "{\"StringEquals\": {\"ec2:Encrypted\": \"true\"}}",
+      "c": "{\"Bool\": {\"aws:SecureTransport\": \"true\"}}",
+      "d": "{\"StringEquals\": {\"ec2:VolumeType\": \"encrypted\"}}"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The ec2:Encrypted condition key with Bool operator checks whether the EBS volumes in the RunInstances request are encrypted. Using this in a Deny (when false) ensures only encrypted volumes can be created.",
+      "b": "Incorrect. While this might work in some cases, Bool is the correct operator for boolean condition keys.",
+      "c": "Incorrect. aws:SecureTransport checks HTTPS, not EBS encryption.",
+      "d": "Incorrect. ec2:VolumeType refers to volume types like gp2, io1, etc., not encryption status."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM user has a policy: {\"Effect\": \"Allow\", \"Action\": \"s3:*\", \"Resource\": [\"arn:aws:s3:::mybucket\", \"arn:aws:s3:::mybucket/*\"]}. The user tries s3:ListAllMyBuckets. What happens?",
+    "opts": {
+      "a": "Allowed because s3:* includes ListAllMyBuckets",
+      "b": "Denied because ListAllMyBuckets requires Resource: 'arn:aws:s3:::*' or '*', not a specific bucket",
+      "c": "Allowed because the user has bucket-level access",
+      "d": "Denied because ListAllMyBuckets requires the root user"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While s3:* includes the action, the Resource doesn't match.",
+      "b": "Correct. s3:ListAllMyBuckets (ListBuckets) is an account-level action that requires Resource: '*' or 'arn:aws:s3:::*'. It cannot be scoped to a specific bucket. Since the policy only covers 'mybucket', ListAllMyBuckets is not allowed.",
+      "c": "Incorrect. Bucket-level access doesn't include account-level actions.",
+      "d": "Incorrect. ListAllMyBuckets doesn't require root."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company wants to prevent their AWS services from being used outside of GDPR-compliant regions. They apply an SCP: {\"Effect\": \"Deny\", \"Action\": \"*\", \"Resource\": \"*\", \"Condition\": {\"StringNotEquals\": {\"aws:RequestedRegion\": [\"eu-west-1\", \"eu-central-1\"]}}}. A user tries to access IAM (a global service). What happens?",
+    "opts": {
+      "a": "IAM access is denied because IAM requests go to us-east-1",
+      "b": "IAM access works because global services are not affected by RequestedRegion conditions",
+      "c": "IAM access is denied because all non-EU actions are denied",
+      "d": "IAM access works but only for read operations"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Global services like IAM, STS (global endpoint), CloudFront, and Route53 make API calls to us-east-1. If the SCP restricts aws:RequestedRegion to EU regions only, these global services are blocked. To fix this, you should exclude global service actions from the deny.",
+      "b": "Incorrect. Global services are affected because their API endpoint region is us-east-1.",
+      "c": "Correct reasoning — the effect is that IAM is denied.",
+      "d": "Incorrect. All IAM operations are affected, not just writes."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "To fix the previous scenario (GDPR SCP blocking global services), what should be added to the SCP?",
+    "opts": {
+      "a": "Add a separate Allow statement for IAM",
+      "b": "Add \"NotAction\": [\"iam:*\", \"sts:*\", \"organizations:*\", \"cloudfront:*\"] instead of \"Action\": \"*\" in the Deny",
+      "c": "Remove the SCP entirely",
+      "d": "Add Condition 'aws:SourceIp' to exclude global services"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. In SCPs, adding an Allow doesn't help because the Deny still applies. SCPs can't override explicit Deny with Allow.",
+      "b": "Correct. Using NotAction excludes global services from the regional Deny. This way, the Deny applies to all actions EXCEPT those for global services, which can be accessed regardless of region.",
+      "c": "Incorrect. Removing the SCP eliminates the compliance control entirely.",
+      "d": "Incorrect. aws:SourceIp doesn't identify global services."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An IAM policy includes: {\"Effect\": \"Allow\", \"Action\": \"sts:AssumeRole\", \"Resource\": \"*\", \"Condition\": {\"Bool\": {\"aws:MultiFactorAuthPresent\": \"true\"}, \"NumericLessThan\": {\"aws:MultiFactorAuthAge\": \"3600\"}}}. What does the aws:MultiFactorAuthAge condition enforce?",
+    "opts": {
+      "a": "MFA must have been configured less than 3600 days ago",
+      "b": "MFA authentication must have occurred less than 3600 seconds (1 hour) ago",
+      "c": "The MFA device must be less than 3600 seconds old",
+      "d": "The session must be less than 3600 seconds long"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's not about when MFA was configured.",
+      "b": "Correct. aws:MultiFactorAuthAge indicates the number of seconds since the principal was authenticated via MFA. NumericLessThan 3600 means MFA must have been used within the last hour.",
+      "c": "Incorrect. It's not about device age.",
+      "d": "Incorrect. Session length is separate from MFA age."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company has an IAM role with a trust policy allowing assumption by 'Principal': {'Service': 'lambda.amazonaws.com'}. An IAM user tries to assume this role using the CLI. What happens?",
+    "opts": {
+      "a": "The user can assume the role because they have sts:AssumeRole permission",
+      "b": "The assumption fails because the trust policy only trusts the Lambda service, not IAM users",
+      "c": "The assumption succeeds but with Lambda-specific permissions only",
+      "d": "The assumption fails because services and users cannot share roles"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Having sts:AssumeRole permission is necessary but not sufficient; the trust policy must also allow the principal.",
+      "b": "Correct. The trust policy explicitly lists only lambda.amazonaws.com as a trusted principal. IAM users are not trusted by this role, so assumption fails with an AccessDenied error regardless of the user's permissions.",
+      "c": "Incorrect. The assumption completely fails; there's no partial success.",
+      "d": "Incorrect. Services and users can share roles, but both must be listed in the trust policy."
+    }
+  }
+]

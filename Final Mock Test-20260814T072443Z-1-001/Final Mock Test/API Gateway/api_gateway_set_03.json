@@ -1,0 +1,920 @@
+[
+  {
+    "type": "mcq",
+    "q": "A company uses API Gateway with Lambda Proxy integration. The Lambda function returns a valid JSON object but clients receive a 502 Bad Gateway error. What is the most likely cause?",
+    "opts": {
+      "a": "The Lambda function exceeded memory limits",
+      "b": "The Lambda function response does not conform to the required format (missing statusCode, headers, or body fields)",
+      "c": "The API Gateway cache is corrupted",
+      "d": "The API key is invalid"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Memory limit errors would cause Lambda to crash with a specific error, but the most common cause of 502 is malformed response.",
+      "b": "Correct. Lambda Proxy integration requires a specific response format with statusCode (integer), headers (object), and body (string). A malformed response causes 502.",
+      "c": "Incorrect. Cache corruption doesn't cause 502 errors.",
+      "d": "Incorrect. Invalid API keys cause 403 errors."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An API Gateway REST API has caching enabled with a 300-second TTL. A client sends a request with the header 'Cache-Control: max-age=0'. Under what condition will the cache be invalidated?",
+    "opts": {
+      "a": "Always, regardless of any settings",
+      "b": "Only if the 'Require authorization' checkbox for cache invalidation is unchecked, OR the client has the execute-api:InvalidateCache IAM permission",
+      "c": "Never, because cache invalidation is not supported",
+      "d": "Only if the request uses the POST method"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cache invalidation requires proper authorization.",
+      "b": "Correct. If 'Require authorization' is enabled, the client must have execute-api:InvalidateCache permission. If unchecked, any client can invalidate.",
+      "c": "Incorrect. Cache invalidation is supported.",
+      "d": "Incorrect. The HTTP method doesn't determine cache invalidation ability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer is building a real-time chat application. They need bi-directional communication between clients and server. Which API Gateway API type should they use?",
+    "opts": {
+      "a": "REST API with long polling",
+      "b": "HTTP API with Server-Sent Events",
+      "c": "WebSocket API",
+      "d": "REST API with MOCK integration"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Long polling is not natively supported and is inefficient for real-time chat.",
+      "b": "Incorrect. Server-Sent Events are unidirectional (server to client only).",
+      "c": "Correct. WebSocket API provides full-duplex, bi-directional communication ideal for real-time applications like chat.",
+      "d": "Incorrect. MOCK integration returns static responses."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has an API Gateway REST API with a Lambda authorizer that has a 300-second TTL cache enabled. After updating the authorizer logic, some clients are still being authorized with the old policy. What should be done?",
+    "opts": {
+      "a": "Redeploy the API",
+      "b": "Flush the stage cache or wait for the authorizer cache TTL to expire",
+      "c": "Restart the Lambda function",
+      "d": "Regenerate all API keys"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Redeploying doesn't flush authorizer cache.",
+      "b": "Correct. The cached authorizer policies will persist until TTL expires. You can flush the cache or wait for expiration.",
+      "c": "Incorrect. Lambda functions don't need restarting.",
+      "d": "Incorrect. API keys are unrelated to authorizer caching."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to pass the API Gateway stage name to a Lambda function without using Lambda Proxy integration. How can this be achieved?",
+    "opts": {
+      "a": "It's automatically available in the event object",
+      "b": "Use a mapping template in the Integration Request to pass $context.stage as a parameter",
+      "c": "Configure it as a Lambda environment variable",
+      "d": "Use CloudFormation parameters"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. In non-proxy integration, context variables must be explicitly mapped.",
+      "b": "Correct. In non-proxy integration, you must use mapping templates to pass $context.stage to the Lambda function.",
+      "c": "Incorrect. Lambda environment variables are static and don't dynamically reflect the stage.",
+      "d": "Incorrect. CloudFormation parameters are for deployment, not runtime."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An organization has three environments (dev, staging, prod) and wants to route API Gateway stage variables to different Lambda function versions. What is the recommended approach?",
+    "opts": {
+      "a": "Create three separate APIs",
+      "b": "Use stage variables to point to Lambda aliases (e.g., ${stageVariables.lambdaAlias}), and map aliases to function versions",
+      "c": "Hardcode Lambda ARNs in each stage",
+      "d": "Use API keys to differentiate environments"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Three separate APIs increase maintenance overhead.",
+      "b": "Correct. Stage variables can reference Lambda aliases, and aliases point to specific versions, enabling per-stage routing.",
+      "c": "Incorrect. Hardcoding ARNs is not flexible and doesn't leverage stage variables.",
+      "d": "Incorrect. API keys identify callers, not environments."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the order of evaluation when multiple authorization mechanisms are configured on an API Gateway method?",
+    "opts": {
+      "a": "Resource policy → Lambda Authorizer → IAM",
+      "b": "Resource policy is evaluated in combination with the authentication method (both must allow)",
+      "c": "IAM → Resource policy → Lambda Authorizer",
+      "d": "Lambda Authorizer always overrides everything"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They don't evaluate in a strict sequential order.",
+      "b": "Correct. Resource policies are evaluated alongside the authentication method. The final result depends on whether both allow (explicit deny from either results in denial).",
+      "c": "Incorrect. This is not the correct evaluation model.",
+      "d": "Incorrect. Lambda Authorizers don't override resource policies."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to limit a specific partner to 10,000 API calls per month with a rate of 100 requests per second. How should this be configured?",
+    "opts": {
+      "a": "Create a usage plan with quota of 10,000/month and throttle rate of 100 RPS, then associate the partner's API key",
+      "b": "Set account-level throttling to 100 RPS",
+      "c": "Use a Lambda Authorizer to count requests",
+      "d": "Configure WAF rate-based rules"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Usage plans with quota and throttle settings associated with API keys provide per-client rate and quota management.",
+      "b": "Incorrect. Account-level throttling applies to all clients, not just one partner.",
+      "c": "Incorrect. Lambda Authorizer would need external state management and is not the ideal approach.",
+      "d": "Incorrect. WAF rate-based rules don't provide monthly quotas per API key."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer is using API Gateway with a Cognito User Pool authorizer. The client receives a 401 Unauthorized error. What are the possible causes?",
+    "opts": {
+      "a": "The JWT token is expired, malformed, or issued by a different User Pool",
+      "b": "The API Gateway cache is full",
+      "c": "The Lambda function has an error",
+      "d": "The VPC Link is misconfigured"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 401 with Cognito authorizer indicates the token is invalid, expired, or from a different User Pool than configured.",
+      "b": "Incorrect. Cache issues don't cause 401 errors.",
+      "c": "Incorrect. Lambda errors cause 502, not 401.",
+      "d": "Incorrect. VPC Link issues cause 503 or 504, not 401."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can you implement request rate limiting per individual IP address using API Gateway?",
+    "opts": {
+      "a": "Use API keys (one per IP)",
+      "b": "Use AWS WAF rate-based rules associated with the API Gateway stage",
+      "c": "Use Lambda Authorizer only",
+      "d": "Use CloudFront signed URLs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Assigning API keys per IP is impractical.",
+      "b": "Correct. AWS WAF rate-based rules can limit requests per IP address when associated with API Gateway.",
+      "c": "Incorrect. Lambda Authorizer alone cannot track and limit per-IP rates efficiently.",
+      "d": "Incorrect. CloudFront signed URLs are for content access control, not rate limiting."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer configures a canary deployment with 10% traffic to the canary. After testing, they want to promote the canary to receive 100% traffic. What should they do?",
+    "opts": {
+      "a": "Delete the canary and create a new deployment",
+      "b": "Promote the canary release, which updates the stage deployment to the canary version",
+      "c": "Increase the canary percentage to 100%",
+      "d": "Create a new stage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deleting and redeploying is not the proper canary promotion workflow.",
+      "b": "Correct. Promoting the canary release updates the main stage to use the canary deployment version.",
+      "c": "Incorrect. Setting to 100% is not the same as promoting; the canary should be promoted to become the main deployment.",
+      "d": "Incorrect. Creating a new stage is unnecessary."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An API Gateway REST API needs to return custom headers like X-Request-Id to clients. Using Lambda Proxy integration, where should these headers be set?",
+    "opts": {
+      "a": "In the Method Response configuration",
+      "b": "In the Lambda function response object's headers field",
+      "c": "In the Integration Response mapping template",
+      "d": "In the stage settings"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Method Response defines allowed headers but doesn't set values in Proxy integration.",
+      "b": "Correct. With Lambda Proxy integration, headers must be returned directly in the Lambda function's response headers object.",
+      "c": "Incorrect. Integration Response mapping is not used with Proxy integration.",
+      "d": "Incorrect. Stage settings don't configure response headers."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has APIs in both us-east-1 and eu-west-1 for latency optimization. They want a single custom domain name (api.example.com) to route to the nearest region. What should they configure?",
+    "opts": {
+      "a": "Edge-optimized endpoint with a single API",
+      "b": "Regional endpoints in both regions with Route 53 latency-based routing and custom domain names in each region",
+      "c": "Private endpoints with VPC peering",
+      "d": "A single regional endpoint with CloudFront"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Edge-optimized still routes to a single region backend.",
+      "b": "Correct. Regional endpoints in multiple regions with Route 53 latency-based routing provides true multi-region API routing.",
+      "c": "Incorrect. Private endpoints are for VPC-internal access only.",
+      "d": "Incorrect. A single regional endpoint doesn't provide multi-region routing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens to WebSocket connections when API Gateway receives a message that doesn't match any defined route?",
+    "opts": {
+      "a": "The connection is immediately closed",
+      "b": "The message is routed to the $default route",
+      "c": "The message is dropped silently",
+      "d": "A 404 error is returned"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The connection is not closed for unmatched routes.",
+      "b": "Correct. If no route matches, the message is sent to the $default route if configured.",
+      "c": "Incorrect. If $default is configured, the message is processed.",
+      "d": "Incorrect. WebSocket doesn't return HTTP error codes for messages."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer wants to use API Gateway to directly write records to a Kinesis Data Stream without Lambda. What must they configure?",
+    "opts": {
+      "a": "HTTP Proxy integration pointing to Kinesis endpoint",
+      "b": "AWS service integration with Kinesis, an IAM execution role, and mapping templates to format the PutRecord request",
+      "c": "Lambda Proxy integration that calls Kinesis",
+      "d": "VPC Link to Kinesis"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. HTTP Proxy won't work directly with Kinesis internal API.",
+      "b": "Correct. AWS service integration requires an IAM role for API Gateway to assume, and mapping templates to transform the request into Kinesis PutRecord format.",
+      "c": "Incorrect. This uses Lambda, which the question excludes.",
+      "d": "Incorrect. VPC Link is not needed for Kinesis integration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What IAM action must be allowed in the execution role for API Gateway to invoke a Lambda function?",
+    "opts": {
+      "a": "lambda:CreateFunction",
+      "b": "lambda:InvokeFunction",
+      "c": "lambda:GetFunction",
+      "d": "lambda:UpdateFunctionCode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CreateFunction is for creating new functions.",
+      "b": "Correct. API Gateway needs lambda:InvokeFunction permission to call the Lambda function.",
+      "c": "Incorrect. GetFunction retrieves function configuration.",
+      "d": "Incorrect. UpdateFunctionCode is for deployments."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer notices that their API Gateway is not logging to CloudWatch. What could be the issue?",
+    "opts": {
+      "a": "CloudWatch Logs are enabled by default",
+      "b": "The API Gateway IAM role for CloudWatch logging is not configured or lacks logs:PutLogEvents permission",
+      "c": "The API uses HTTP APIs which don't support logging",
+      "d": "Logging only works with edge-optimized endpoints"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch logging must be explicitly configured.",
+      "b": "Correct. API Gateway requires a CloudWatch Logs IAM role ARN configured at the account level with proper permissions.",
+      "c": "Incorrect. HTTP APIs also support logging.",
+      "d": "Incorrect. Logging works with all endpoint types."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between 'proxy' and 'non-proxy' integration in API Gateway?",
+    "opts": {
+      "a": "Proxy uses HTTP; non-proxy uses HTTPS",
+      "b": "Proxy passes the entire request to backend as-is; non-proxy allows transformation via mapping templates",
+      "c": "Proxy is faster; non-proxy is slower",
+      "d": "Proxy works with Lambda only; non-proxy works with HTTP only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Both can use HTTPS.",
+      "b": "Correct. Proxy integration passes requests directly without transformation. Non-proxy allows request/response mapping using VTL templates.",
+      "c": "Incorrect. Speed depends on configuration, not integration type.",
+      "d": "Incorrect. Both can work with Lambda and HTTP endpoints."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company's API receives traffic spikes during peak hours that exceed the account-level throttle limit. What options do they have?",
+    "opts": {
+      "a": "Nothing can be done; the limit is hard",
+      "b": "Request a limit increase from AWS, implement caching, or use usage plans to prioritize important clients",
+      "c": "Switch to HTTP APIs which have no limits",
+      "d": "Deploy multiple APIs to different accounts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The account-level limit can be increased.",
+      "b": "Correct. You can request limit increases, use caching to reduce backend calls, and use usage plans to manage client access.",
+      "c": "Incorrect. HTTP APIs also have throttling limits.",
+      "d": "Incorrect. While possible, this adds complexity and is not the recommended first approach."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does API Gateway handle request validation for the request body?",
+    "opts": {
+      "a": "It validates against a JSON Schema model defined in the API",
+      "b": "It uses regular expressions only",
+      "c": "It validates using Lambda functions",
+      "d": "It only checks if the body is not empty"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Request body validation is performed against a JSON Schema model associated with the method's content type.",
+      "b": "Incorrect. JSON Schema is used, not regex.",
+      "c": "Incorrect. Validation is done by API Gateway, not Lambda.",
+      "d": "Incorrect. Full schema validation is performed, not just empty checks."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What request validator options are available in API Gateway?",
+    "opts": {
+      "a": "Validate body only",
+      "b": "Validate body, Validate parameters and headers, Validate body and parameters and headers",
+      "c": "Validate query strings only",
+      "d": "No validation options exist"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple validation options are available.",
+      "b": "Correct. You can validate body only, parameters/headers only, or both together.",
+      "c": "Incorrect. Query string validation is part of 'parameters' validation.",
+      "d": "Incorrect. Request validators are available."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer wants to implement OAuth 2.0 scopes for fine-grained access control on HTTP API routes. What should they configure?",
+    "opts": {
+      "a": "IAM policies with conditions",
+      "b": "JWT authorizer with authorization scopes on each route",
+      "c": "Lambda Authorizer returning scope-based policies",
+      "d": "API keys with usage plans"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM policies don't natively handle OAuth scopes on HTTP APIs.",
+      "b": "Correct. HTTP API JWT authorizers support authorization scopes that can be configured per route for fine-grained access.",
+      "c": "Incorrect. While possible, native JWT authorizer with scopes is the recommended approach for HTTP APIs.",
+      "d": "Incorrect. API keys don't support OAuth scopes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the $input.path() function used for in API Gateway mapping templates?",
+    "opts": {
+      "a": "To define the URL path of the API",
+      "b": "To extract a value from the request body using a JSONPath expression",
+      "c": "To set the file path in S3",
+      "d": "To define the resource path"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. URL paths are defined in resources.",
+      "b": "Correct. $input.path('$.fieldName') extracts values from the request payload using JSONPath expressions.",
+      "c": "Incorrect. S3 file paths are unrelated.",
+      "d": "Incorrect. Resource paths are configured separately."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses API Gateway with mutual TLS (mTLS). Where must the client certificates' truststore be stored?",
+    "opts": {
+      "a": "In AWS Secrets Manager",
+      "b": "In an S3 bucket as a PEM-encoded file",
+      "c": "In AWS Certificate Manager",
+      "d": "In IAM certificate store"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Secrets Manager is not used for mTLS truststores.",
+      "b": "Correct. The truststore containing trusted CA certificates must be stored in S3 as a PEM file and referenced by the custom domain.",
+      "c": "Incorrect. ACM is for server certificates, not client certificate truststores.",
+      "d": "Incorrect. IAM certificate store is deprecated for this purpose."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the WebSocket API connection URL format used by the backend to send messages to connected clients?",
+    "opts": {
+      "a": "wss://{api-id}.execute-api.{region}.amazonaws.com/{stage}",
+      "b": "https://{api-id}.execute-api.{region}.amazonaws.com/{stage}/@connections/{connection_id}",
+      "c": "http://{api-id}.execute-api.{region}.amazonaws.com/callback",
+      "d": "tcp://{api-id}.execute-api.{region}.amazonaws.com/{stage}"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is the WebSocket client connection URL, not the callback URL.",
+      "b": "Correct. The backend uses HTTPS POST to @connections/{connectionId} to send messages to specific clients.",
+      "c": "Incorrect. This is not the correct format.",
+      "d": "Incorrect. TCP protocol is not used."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer receives 'Execution failed due to configuration error: Invalid permissions on Lambda function' error. What is the fix?",
+    "opts": {
+      "a": "Update the Lambda function code",
+      "b": "Add a resource-based policy to the Lambda function granting API Gateway (apigateway.amazonaws.com) permission to invoke it",
+      "c": "Increase Lambda memory",
+      "d": "Change the Lambda runtime"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The error is about permissions, not code.",
+      "b": "Correct. Lambda needs a resource-based policy allowing API Gateway principal (apigateway.amazonaws.com) to invoke the function.",
+      "c": "Incorrect. Memory doesn't affect permissions.",
+      "d": "Incorrect. Runtime doesn't affect permissions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can API Gateway be used to implement the Backend for Frontend (BFF) pattern?",
+    "opts": {
+      "a": "By creating separate APIs tailored to each client type (web, mobile, IoT) with different response transformations",
+      "b": "By using a single API for all frontends",
+      "c": "By using only WebSocket APIs",
+      "d": "By disabling CORS"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. BFF pattern uses separate APIs (or stages) for each client type with tailored response shapes using mapping templates.",
+      "b": "Incorrect. BFF pattern specifically advocates for different backends per frontend.",
+      "c": "Incorrect. WebSocket is not specifically for BFF.",
+      "d": "Incorrect. CORS is unrelated to BFF pattern."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the effect of setting 'Integration Timeout' to 10,000 ms on an API Gateway method?",
+    "opts": {
+      "a": "The backend has 10 seconds to respond before API Gateway returns a timeout error",
+      "b": "The API caches responses for 10 seconds",
+      "c": "The client must wait 10 seconds between requests",
+      "d": "The stage deploys in 10 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Integration timeout (10,000 ms = 10 seconds) means if the backend doesn't respond within 10 seconds, API Gateway returns a 504 timeout.",
+      "b": "Incorrect. Cache TTL is configured separately.",
+      "c": "Incorrect. Client wait time is controlled by throttling.",
+      "d": "Incorrect. Deployment time is unrelated."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to expose only specific resources of their API to a partner account. Which combination of features should they use?",
+    "opts": {
+      "a": "Resource policy with aws:PrincipalAccount condition and specific resource paths",
+      "b": "Only API keys",
+      "c": "Only CORS settings",
+      "d": "Only stage variables"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Resource policies can restrict access to specific resources for specific AWS accounts using conditions.",
+      "b": "Incorrect. API keys alone don't restrict by account or resource path.",
+      "c": "Incorrect. CORS is for browser cross-origin access.",
+      "d": "Incorrect. Stage variables are for configuration, not access control."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does API Gateway handle concurrent Lambda invocations when traffic spikes?",
+    "opts": {
+      "a": "API Gateway manages Lambda concurrency automatically with no limits",
+      "b": "API Gateway throttles at its level, and Lambda has its own concurrency limits; both can cause throttling",
+      "c": "Lambda always scales without any limits",
+      "d": "API Gateway queues all requests for Lambda"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Both services have limits.",
+      "b": "Correct. API Gateway has throttling limits and Lambda has concurrency limits. Either can throttle requests during spikes.",
+      "c": "Incorrect. Lambda has concurrency limits (1000 default per region).",
+      "d": "Incorrect. API Gateway doesn't queue requests for Lambda."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the impact of enabling detailed CloudWatch metrics on API Gateway?",
+    "opts": {
+      "a": "No additional cost",
+      "b": "Additional CloudWatch charges per metric and ability to see per-method metrics (e.g., 4XX/5XX per route)",
+      "c": "Reduced API performance by 50%",
+      "d": "Automatic scaling is disabled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Detailed metrics incur additional CloudWatch charges.",
+      "b": "Correct. Detailed metrics provide per-method level metrics but incur additional CloudWatch costs.",
+      "c": "Incorrect. Metrics don't significantly impact performance.",
+      "d": "Incorrect. Metrics don't affect scaling."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer wants to implement content negotiation where the same endpoint returns JSON or XML based on the Accept header. How can this be done?",
+    "opts": {
+      "a": "Create separate endpoints for each content type",
+      "b": "Use mapping templates in Integration Response with content-type mapping to transform output based on Accept header",
+      "c": "Use API keys to differentiate",
+      "d": "Use different stages for each content type"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Separate endpoints is inefficient for content negotiation.",
+      "b": "Correct. Integration Response mapping templates can be configured per content type, transforming the backend response based on the client's Accept header.",
+      "c": "Incorrect. API keys don't handle content negotiation.",
+      "d": "Incorrect. Stages are for lifecycle management, not content negotiation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when the API Gateway account-level throttle is 10,000 RPS and a usage plan throttle is set to 500 RPS for a specific API key?",
+    "opts": {
+      "a": "The API key gets 10,000 RPS",
+      "b": "The API key is limited to 500 RPS, and the remaining 9,500 RPS is available for other clients",
+      "c": "The account limit is reduced to 500 RPS",
+      "d": "Both limits are ignored"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The usage plan limits the specific API key.",
+      "b": "Correct. The API key is throttled at 500 RPS per the usage plan, while other clients share the remaining account capacity.",
+      "c": "Incorrect. The account limit remains unchanged.",
+      "d": "Incorrect. Both limits are enforced."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can you implement a blue-green deployment strategy using API Gateway?",
+    "opts": {
+      "a": "Use canary deployments with 0% then 100% traffic switch",
+      "b": "Use stage variables to point to different Lambda aliases, then update the alias to point to the new version",
+      "c": "Create two stages and use Route 53 weighted routing between them",
+      "d": "All of the above are valid approaches"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. This is one valid approach but not the only one.",
+      "b": "Incorrect. This is one valid approach but not the only one.",
+      "c": "Incorrect. This is one valid approach but not the only one.",
+      "d": "Correct. All three are valid blue-green deployment strategies with API Gateway."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A REST API method has both a resource policy and IAM authorization configured. The resource policy explicitly allows an account, but the IAM user in that account has no execute-api permissions. What happens?",
+    "opts": {
+      "a": "Access is allowed because resource policy allows",
+      "b": "Access is denied because both resource policy AND IAM must allow (cross-account requires both)",
+      "c": "Access depends on the stage",
+      "d": "The request is cached"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. For cross-account access, both must allow.",
+      "b": "Correct. For cross-account access, both the resource policy AND the caller's IAM policy must explicitly allow the action.",
+      "c": "Incorrect. Stage doesn't determine authorization outcome.",
+      "d": "Incorrect. Caching is unrelated to authorization decisions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the Gateway Response type 'DEFAULT_5XX' used for?",
+    "opts": {
+      "a": "To customize the response format for all 5XX errors generated by API Gateway itself",
+      "b": "To create 5XX errors",
+      "c": "To log 5XX errors",
+      "d": "To prevent 5XX errors"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. DEFAULT_5XX Gateway Response allows customizing the response body, headers, and status code for all API Gateway-generated 5XX errors.",
+      "b": "Incorrect. It doesn't create errors; it customizes error responses.",
+      "c": "Incorrect. Logging is handled by CloudWatch.",
+      "d": "Incorrect. It doesn't prevent errors; it customizes the response."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to pass a path parameter from the API Gateway URL to a Lambda function in non-proxy integration. What must they configure?",
+    "opts": {
+      "a": "Nothing; path parameters are automatically passed",
+      "b": "Define the path parameter in Method Request, then use a mapping template in Integration Request to pass method.request.path.paramName",
+      "c": "Use stage variables",
+      "d": "Use query string parameters instead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. In non-proxy integration, parameters must be explicitly mapped.",
+      "b": "Correct. Path parameters must be defined in Method Request and mapped in Integration Request using method.request.path.paramName.",
+      "c": "Incorrect. Stage variables are for configuration, not path parameters.",
+      "d": "Incorrect. Path parameters can be used directly with proper mapping."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of a mapping template in API Gateway?",
+    "opts": {
+      "a": "50 KB",
+      "b": "100 KB",
+      "c": "300 KB",
+      "d": "1 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50 KB is below the limit.",
+      "b": "Incorrect. 100 KB is below the limit.",
+      "c": "Correct. The maximum size of a mapping template is 300 KB.",
+      "d": "Incorrect. 1 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to use API Gateway to accept file uploads larger than 10 MB. What should they do?",
+    "opts": {
+      "a": "Increase the payload limit via support request",
+      "b": "Use API Gateway to generate a pre-signed S3 URL and have the client upload directly to S3",
+      "c": "Use chunked transfer encoding",
+      "d": "Compress the file to under 10 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The 10 MB payload limit cannot be increased.",
+      "b": "Correct. The recommended pattern is to use API Gateway to generate pre-signed S3 URLs, allowing direct uploads to S3 bypassing the 10 MB limit.",
+      "c": "Incorrect. Chunked encoding doesn't bypass the payload size limit.",
+      "d": "Incorrect. Compression may not always reduce file size below 10 MB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can you implement request deduplication in an API Gateway + Lambda architecture?",
+    "opts": {
+      "a": "API Gateway automatically deduplicates requests",
+      "b": "Use an idempotency token passed in the request, stored in DynamoDB by the Lambda function",
+      "c": "Enable caching on API Gateway",
+      "d": "Use API keys"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway doesn't automatically deduplicate.",
+      "b": "Correct. Implementing idempotency with a unique token stored in DynamoDB ensures duplicate requests produce the same result.",
+      "c": "Incorrect. Caching returns stored responses but isn't true deduplication for write operations.",
+      "d": "Incorrect. API keys don't handle deduplication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of 'endpoint configuration' in API Gateway's custom domain name setup?",
+    "opts": {
+      "a": "To specify whether the custom domain maps to an edge-optimized or regional endpoint",
+      "b": "To configure the Lambda function endpoint",
+      "c": "To set up VPC endpoints",
+      "d": "To configure the database endpoint"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Custom domain endpoint configuration determines if the domain uses edge-optimized (requires us-east-1 ACM cert) or regional (same-region ACM cert) endpoint.",
+      "b": "Incorrect. Lambda endpoints are configured in integration settings.",
+      "c": "Incorrect. VPC endpoints are separate from custom domain configuration.",
+      "d": "Incorrect. Database endpoints are unrelated."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "For an edge-optimized custom domain name in API Gateway, in which region must the ACM certificate be created?",
+    "opts": {
+      "a": "Any region",
+      "b": "The same region as the API",
+      "c": "us-east-1 (N. Virginia)",
+      "d": "eu-west-1 (Ireland)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Edge-optimized requires a specific region.",
+      "b": "Incorrect. It must be in us-east-1, not necessarily the API's region.",
+      "c": "Correct. Edge-optimized custom domains require ACM certificates in us-east-1 because they use CloudFront.",
+      "d": "Incorrect. eu-west-1 is not required."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer configures API Gateway with a Lambda function that occasionally takes 35 seconds to complete. What will happen?",
+    "opts": {
+      "a": "The request will succeed after 35 seconds",
+      "b": "API Gateway will return a 504 Gateway Timeout after 29 seconds, even though Lambda continues executing",
+      "c": "API Gateway will wait indefinitely",
+      "d": "Lambda will be terminated at 29 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway times out at 29 seconds.",
+      "b": "Correct. API Gateway returns 504 after 29 seconds. Lambda may continue executing but the response is lost to the client.",
+      "c": "Incorrect. API Gateway has a hard 29-second timeout.",
+      "d": "Incorrect. Lambda isn't terminated by API Gateway; it continues but the response isn't relayed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "For long-running operations that exceed API Gateway's 29-second timeout, what is the recommended architectural pattern?",
+    "opts": {
+      "a": "Increase API Gateway timeout",
+      "b": "Asynchronous pattern: API Gateway triggers Lambda/Step Functions, returns a 202 Accepted with a status URL, client polls for result",
+      "c": "Use multiple sequential API calls",
+      "d": "Use WebSocket for all API calls"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway timeout cannot exceed 29 seconds.",
+      "b": "Correct. The async pattern returns immediately with 202 and a tracking ID, then the client polls a separate endpoint for results.",
+      "c": "Incorrect. Sequential calls don't solve long-running operations.",
+      "d": "Incorrect. WebSocket could work for notifications but the async pattern with polling is the standard approach."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the impact of enabling X-Ray tracing on API Gateway performance?",
+    "opts": {
+      "a": "Significant performance degradation (>50% latency increase)",
+      "b": "Minimal performance impact; X-Ray adds a small amount of latency for trace data collection",
+      "c": "No impact at all",
+      "d": "X-Ray reduces latency by optimizing routes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. X-Ray is designed to have minimal impact.",
+      "b": "Correct. X-Ray adds minimal overhead for sampling and sending trace segments.",
+      "c": "Incorrect. There is a small but minimal impact.",
+      "d": "Incorrect. X-Ray doesn't optimize routes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to implement a GraphQL API on AWS. Should they use API Gateway?",
+    "opts": {
+      "a": "Yes, API Gateway natively supports GraphQL",
+      "b": "No, AWS AppSync is the recommended service for GraphQL APIs",
+      "c": "Yes, but only with WebSocket APIs",
+      "d": "GraphQL is not supported on AWS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway doesn't natively support GraphQL.",
+      "b": "Correct. AWS AppSync is the purpose-built service for GraphQL APIs on AWS, with features like subscriptions, caching, and resolver mapping.",
+      "c": "Incorrect. WebSocket APIs don't provide GraphQL support.",
+      "d": "Incorrect. AWS supports GraphQL through AppSync."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can you implement response compression in API Gateway?",
+    "opts": {
+      "a": "It's not supported",
+      "b": "Enable content encoding on the API and the client must send Accept-Encoding header; API Gateway compresses responses above the minimum compression size",
+      "c": "Use CloudFront only",
+      "d": "Compress in Lambda only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Response compression is supported.",
+      "b": "Correct. Enable content encoding with a minimum compression size. When clients send Accept-Encoding: gzip, API Gateway compresses responses exceeding that size.",
+      "c": "Incorrect. API Gateway has native compression support.",
+      "d": "Incorrect. While Lambda can compress, API Gateway has built-in support."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum compression size that can be configured in API Gateway?",
+    "opts": {
+      "a": "0 bytes (compress everything)",
+      "b": "1 byte",
+      "c": "1 KB",
+      "d": "10 KB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The minimum content encoding size can be set to 0 bytes, meaning all responses are eligible for compression. The range is 0 to 10,485,760 bytes (10 MB).",
+      "b": "Incorrect. The minimum setting is 0, not 1.",
+      "c": "Incorrect. It can be set lower than 1 KB.",
+      "d": "Incorrect. It can be set lower than 10 KB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer creates an API Gateway REST API and adds a new resource but clients still see the old API structure. Even after deploying to the 'prod' stage, the issue persists. What could be wrong?",
+    "opts": {
+      "a": "The deployment failed silently",
+      "b": "The client is hitting a cached response from CloudFront (edge-optimized) or their browser cache; the developer should check with a cache-busting request",
+      "c": "API Gateway doesn't support adding resources after initial creation",
+      "d": "The Lambda function needs updating"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Silent deployment failures are rare and would show in console.",
+      "b": "Correct. Edge-optimized endpoints use CloudFront which may cache responses. Client-side caching could also be the issue.",
+      "c": "Incorrect. Resources can be added anytime and redeployed.",
+      "d": "Incorrect. Lambda updates are separate from API structure changes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the recommended way to handle API Gateway throttling errors (429) in client applications?",
+    "opts": {
+      "a": "Immediately retry the request",
+      "b": "Implement exponential backoff with jitter",
+      "c": "Switch to a different endpoint",
+      "d": "Increase the client timeout"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Immediate retries can worsen the throttling situation.",
+      "b": "Correct. Exponential backoff with jitter spreads retry attempts over time, reducing the chance of continued throttling.",
+      "c": "Incorrect. Switching endpoints doesn't solve throttling if it's account-level.",
+      "d": "Incorrect. Timeout doesn't address throttling."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What CloudWatch alarm should be set up to detect when API Gateway backend integration is experiencing issues?",
+    "opts": {
+      "a": "Monitor 4XXError metric",
+      "b": "Monitor 5XXError metric and IntegrationLatency",
+      "c": "Monitor Count metric only",
+      "d": "Monitor CacheHitCount"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 4XX errors are client-side errors, not backend issues.",
+      "b": "Correct. 5XXError indicates backend/integration failures, and high IntegrationLatency suggests backend performance degradation.",
+      "c": "Incorrect. Count alone doesn't indicate issues.",
+      "d": "Incorrect. CacheHitCount indicates cache performance, not backend issues."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses API Gateway with WAF. They want to block requests from specific countries. Which WAF rule type should they use?",
+    "opts": {
+      "a": "Rate-based rule",
+      "b": "Geo-match condition rule",
+      "c": "IP set rule",
+      "d": "Size constraint rule"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Rate-based rules limit request rates, not geographic origin.",
+      "b": "Correct. Geo-match conditions in WAF allow blocking or allowing requests based on the originating country.",
+      "c": "Incorrect. IP set rules block specific IPs, not entire countries efficiently.",
+      "d": "Incorrect. Size constraint rules check request sizes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the 'passthrough behavior' setting in non-proxy integration?",
+    "opts": {
+      "a": "To determine how API Gateway handles requests when no matching mapping template is found for the Content-Type",
+      "b": "To pass all requests to CloudFront",
+      "c": "To bypass authentication",
+      "d": "To skip request validation"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Passthrough behavior (WHEN_NO_MATCH, WHEN_NO_TEMPLATES, NEVER) defines what happens when the request Content-Type doesn't match any defined mapping template.",
+      "b": "Incorrect. CloudFront routing is separate.",
+      "c": "Incorrect. Authentication is not bypassed by passthrough behavior.",
+      "d": "Incorrect. Request validation is separate."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What are the three passthrough behavior options in API Gateway?",
+    "opts": {
+      "a": "ALLOW, DENY, REDIRECT",
+      "b": "WHEN_NO_MATCH, WHEN_NO_TEMPLATES, NEVER",
+      "c": "ALWAYS, SOMETIMES, NEVER",
+      "d": "PASS, BLOCK, TRANSFORM"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not valid passthrough options.",
+      "b": "Correct. WHEN_NO_MATCH passes if Content-Type doesn't match; WHEN_NO_TEMPLATES passes only if no templates defined; NEVER rejects unmatched content types.",
+      "c": "Incorrect. These are not valid options.",
+      "d": "Incorrect. These are not valid options."
+    }
+  }
+]

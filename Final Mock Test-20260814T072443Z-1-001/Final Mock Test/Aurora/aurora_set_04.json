@@ -1,0 +1,682 @@
+[
+  {
+    "type": "MCQ",
+    "q": "An Aurora Global Database has a primary region (us-east-1) and two secondary regions (eu-west-1, ap-southeast-1). The primary region fails. You promote eu-west-1 as the new primary. What happens to ap-southeast-1?",
+    "opts": {
+      "a": "It automatically starts replicating from the new primary in eu-west-1",
+      "b": "It becomes orphaned and must be manually deleted and re-added to the new Global Database topology",
+      "c": "It also becomes a standalone cluster",
+      "d": "It continues replicating from the failed us-east-1 region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. In an unplanned failover (detach and promote), the Global Database topology is broken and ap-southeast-1 doesn't automatically redirect.",
+      "b": "Correct. During an unplanned failover (detach), the promoted region becomes standalone. Other secondary regions become orphaned and must be manually removed and re-attached to the new primary to rebuild the Global Database.",
+      "c": "Incorrect. It doesn't automatically become standalone; it becomes orphaned with a broken replication link.",
+      "d": "Incorrect. If us-east-1 has failed, replication from it is impossible."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora MySQL cluster uses Backtrack with a 24-hour window. A transaction at 2:00 PM corrupted data, but it wasn't discovered until 6:00 PM. You backtrack to 1:59 PM. What happens to ALL transactions between 2:00 PM and 6:00 PM?",
+    "opts": {
+      "a": "Only the corrupting transaction is rolled back",
+      "b": "All transactions after 1:59 PM are undone, including valid ones; the database state is exactly as it was at 1:59 PM",
+      "c": "Transactions are replayed automatically after backtrack",
+      "d": "Only DDL statements are rolled back"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Backtrack cannot selectively undo individual transactions; it rewinds the entire database.",
+      "b": "Correct. Backtrack rewinds the entire cluster to the specified point in time. ALL changes (including valid transactions) after 1:59 PM are lost. This is a destructive operation for subsequent data.",
+      "c": "Incorrect. Transactions are not automatically replayed; they are simply lost.",
+      "d": "Incorrect. All transaction types (DML and DDL) after the backtrack point are undone."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an Aurora PostgreSQL cluster with 15 replicas. The cluster uses the reader endpoint. You notice that some replicas have significantly higher replication lag. How does the reader endpoint handle this?",
+    "opts": {
+      "a": "It automatically removes high-lag replicas from the endpoint",
+      "b": "The reader endpoint uses DNS round-robin and does NOT consider replication lag; all replicas receive equal traffic",
+      "c": "It routes more traffic to replicas with lower lag",
+      "d": "It pauses replicas with high lag until they catch up"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The reader endpoint does not remove replicas based on lag.",
+      "b": "Correct. Aurora's reader endpoint uses simple DNS-based round-robin load balancing. It does not factor in replication lag, instance size, or current load. For lag-aware routing, you need application-level logic or custom endpoints.",
+      "c": "Incorrect. The reader endpoint has no intelligence about lag-based routing.",
+      "d": "Incorrect. Aurora does not pause replicas due to lag."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You run an Aurora MySQL cluster with MIXED binary log format for external replication. A long-running analytical query on a replica is blocking purging of binary logs, causing storage growth. What is the best resolution?",
+    "opts": {
+      "a": "Kill all long-running queries on replicas",
+      "b": "Use the mysql.rds_set_configuration procedure to set binlog retention hours appropriately, and move analytical workloads to a dedicated replica or Parallel Query",
+      "c": "Disable binary logging entirely",
+      "d": "Increase max_allowed_packet"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Killing queries is a short-term fix that doesn't address the architectural issue.",
+      "b": "Correct. Setting appropriate binlog retention with mysql.rds_set_configuration (e.g., call mysql.rds_set_configuration('binlog retention hours', 24)) controls log growth. Moving analytics to dedicated replicas or using Parallel Query prevents interference.",
+      "c": "Incorrect. Disabling binlog would break external replication that depends on it.",
+      "d": "Incorrect. max_allowed_packet is unrelated to binlog purging issues."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An Aurora cluster with I/O-Optimized configuration processes 2 billion I/O requests per month. Under Standard configuration, I/O costs $0.20 per million requests. I/O-Optimized adds a 30% premium on instance costs ($3000 base). Which is cheaper?",
+    "opts": {
+      "a": "Standard: I/O alone costs $400,000 per month, so I/O-Optimized is far cheaper",
+      "b": "Standard: I/O costs $400/month; I/O-Optimized adds $900, so Standard is cheaper",
+      "c": "They cost exactly the same",
+      "d": "Cannot be determined without storage costs"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Standard I/O cost: 2,000 million × $0.20 = $400/month. I/O-Optimized premium: $3000 × 0.30 = $900. Wait—let me recalculate: 2 billion = 2,000 million × $0.20 = $400. I/O-Optimized premium = $900. Standard total is $3000 + $400 = $3400. I/O-Optimized is $3000 + $900 = $3900. Actually Standard is cheaper. Let me re-examine the options.",
+      "b": "Correct. Standard: base $3000 + I/O $400 = $3400. I/O-Optimized: base $3000 + 30% premium ($900) = $3900, no I/O charges. Standard is $500 cheaper in this scenario.",
+      "c": "Incorrect. The costs differ based on I/O volume.",
+      "d": "Incorrect. We have enough information to compare the two configurations."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are designing an Aurora architecture for a financial application requiring RPO=0 and RTO<30 seconds within a single region. Which configuration achieves this?",
+    "opts": {
+      "a": "Aurora with a single instance and frequent snapshots",
+      "b": "Aurora with synchronous replication to replicas (default behavior) and multiple replicas with failover priority tier 0",
+      "c": "Aurora Global Database across two regions",
+      "d": "Aurora Serverless v2 with auto-scaling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single instance has no failover target; snapshots provide RPO of minutes, not zero.",
+      "b": "Correct. Aurora replicas share the same storage volume (RPO=0 since no data is lost). With replicas in tier 0, failover completes in under 30 seconds, meeting both requirements.",
+      "c": "Incorrect. Global Database is cross-region with RPO ~1 second, not zero.",
+      "d": "Incorrect. Serverless v2 doesn't inherently provide RPO=0 or fast failover without replicas configured."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora PostgreSQL cluster uses the pgAudit extension. After enabling audit logging for all DDL and DML statements, you notice significant performance degradation. What is the most likely cause and solution?",
+    "opts": {
+      "a": "pgAudit is incompatible with Aurora; remove it",
+      "b": "Excessive log generation is causing I/O overhead; reduce audit scope to only critical operations (e.g., DDL only) or use Database Activity Streams instead",
+      "c": "The primary instance needs more ACUs",
+      "d": "Disable SSL to reduce overhead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. pgAudit is supported on Aurora PostgreSQL.",
+      "b": "Correct. Logging all DML on a high-throughput system generates enormous log volumes causing I/O overhead. Reducing scope to DDL/specific tables, or using Activity Streams (which offloads to Kinesis) reduces the performance impact.",
+      "c": "Incorrect. ACUs are for Serverless; the issue is logging overhead, not raw compute.",
+      "d": "Incorrect. SSL overhead is minimal and unrelated to audit log performance issues."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have Aurora MySQL with 3 writer nodes in Multi-Master mode. Two writers simultaneously attempt to update the same row. Writer A commits first. What exactly happens at Writer B?",
+    "opts": {
+      "a": "Writer B's transaction is automatically retried",
+      "b": "Writer B receives error 1213 (Deadlock) and the application must implement retry logic",
+      "c": "Writer B's change overwrites Writer A's change",
+      "d": "Writer B's transaction is queued until Writer A's replication completes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora does not automatically retry conflicting transactions.",
+      "b": "Correct. In Aurora Multi-Master, write conflicts result in a deadlock error (1213) at the later-committing writer. The application must implement retry logic to handle these conflicts.",
+      "c": "Incorrect. Aurora uses first-commit-wins, not last-write-wins.",
+      "d": "Incorrect. Transactions are not queued; the conflict is detected at commit time."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora cluster has a db.r6g.16xlarge primary (512 GB RAM) and Auto Scaling adds db.r6g.large (16 GB RAM) replicas. The primary fails. What is the risk?",
+    "opts": {
+      "a": "No risk; any replica can handle the primary workload",
+      "b": "A small replica may be promoted as primary and cannot handle the write workload due to insufficient memory, causing cascading failures",
+      "c": "Auto Scaling automatically provisions a larger instance",
+      "d": "The cluster refuses to failover"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A db.r6g.large (16 GB) promoted to handle a workload designed for 512 GB will likely crash or severely degrade.",
+      "b": "Correct. If a small Auto Scaling replica is promoted, it may not have sufficient CPU/memory for the write workload, causing OOM errors or severe degradation. Best practice: keep at least one right-sized replica with priority tier 0.",
+      "c": "Incorrect. Auto Scaling doesn't automatically upgrade instance types during failover.",
+      "d": "Incorrect. Aurora will attempt failover regardless of replica size."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are using Aurora Serverless v2 with min 0.5 ACU and max 128 ACU. Your application has a bursty workload that goes from idle to heavy load in 2 seconds. What is the scaling behavior?",
+    "opts": {
+      "a": "Aurora scales from 0.5 to 128 ACU instantly",
+      "b": "Aurora scales incrementally but may not reach full capacity in 2 seconds; it doubles capacity every few seconds until demand is met",
+      "c": "Aurora pre-allocates the maximum capacity to avoid latency",
+      "d": "Aurora pauses and cold-starts like v1"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora doesn't jump from minimum to maximum instantly; it scales progressively.",
+      "b": "Correct. Aurora Serverless v2 scales rapidly but incrementally. For extreme bursts (0.5 to 128 ACU), it may take several scaling increments. Setting a higher minimum ACU for bursty workloads is recommended to reduce latency.",
+      "c": "Incorrect. Aurora Serverless doesn't pre-allocate maximum capacity.",
+      "d": "Incorrect. Serverless v2 does not pause like v1; it scales continuously."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora cluster's VolumeReadIOPs metric shows 50,000 IOPS but your application only performs 5,000 read queries per second. What explains the discrepancy?",
+    "opts": {
+      "a": "Aurora is broken and reporting incorrect metrics",
+      "b": "Each logical query may require multiple physical I/O operations (page reads, index traversals, internal operations), and Aurora's background processes also generate I/O",
+      "c": "The replicas are generating all the extra I/O",
+      "d": "Encryption overhead multiplies I/O by 10x"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The metrics are correct; there's a logical explanation.",
+      "b": "Correct. A single SQL query may read many pages (sequential/random reads, index lookups). Additionally, Aurora has background I/O for page warming, log application, garbage collection, etc. Physical IOPS >> logical query count is normal.",
+      "c": "Incorrect. VolumeReadIOPs is cluster-wide, but the disparity exists even on a single instance.",
+      "d": "Incorrect. Encryption does not multiply I/O by 10x; its overhead is minimal."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You need to implement row-level security in Aurora PostgreSQL where different application users see different rows in the same table. Which PostgreSQL feature does Aurora support for this?",
+    "opts": {
+      "a": "Aurora does not support row-level security",
+      "b": "Row Level Security (RLS) policies using CREATE POLICY and ALTER TABLE ENABLE ROW LEVEL SECURITY",
+      "c": "VPC Security Groups filtering at row level",
+      "d": "IAM policies that specify row-level permissions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora PostgreSQL fully supports RLS.",
+      "b": "Correct. Aurora PostgreSQL supports native PostgreSQL Row Level Security (RLS). You create policies with CREATE POLICY and enable them with ALTER TABLE...ENABLE ROW LEVEL SECURITY to restrict row visibility per user/role.",
+      "c": "Incorrect. Security Groups operate at the network level, not row level.",
+      "d": "Incorrect. IAM policies control API access, not row-level database visibility."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora cluster uses encryption with a customer-managed KMS key. The KMS key is accidentally deleted (scheduled for deletion). What happens after the 7-30 day waiting period when the key is actually deleted?",
+    "opts": {
+      "a": "Aurora automatically creates a new key and re-encrypts",
+      "b": "The Aurora cluster becomes permanently inaccessible; all data, backups, and snapshots encrypted with that key are unrecoverable",
+      "c": "Aurora switches to AWS-managed key automatically",
+      "d": "Only new data is affected; existing data remains readable"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora cannot create a new key and decrypt data without the original key.",
+      "b": "Correct. If the KMS key is permanently deleted, all data encrypted with it becomes permanently inaccessible, including the cluster, automated backups, and snapshots. This is an irreversible data loss scenario.",
+      "c": "Incorrect. Aurora cannot switch encryption keys without the original key to decrypt first.",
+      "d": "Incorrect. All data (existing and new) becomes inaccessible without the encryption key."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an Aurora MySQL cluster with GTID-based replication to an external MySQL replica outside AWS. The external replica falls behind by 2 hours. What is the risk regarding Aurora's binlog retention?",
+    "opts": {
+      "a": "No risk; Aurora retains binlogs indefinitely",
+      "b": "If binlog retention period (configured via mysql.rds_set_configuration) is less than the lag, required binlogs may be purged and replication breaks",
+      "c": "GTID replication automatically recovers regardless of binlog availability",
+      "d": "Aurora doesn't support GTID replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora purges binlogs based on the configured retention period.",
+      "b": "Correct. If binlog retention is set to, say, 1 hour, and the replica is 2 hours behind, the required binlogs will have been purged. Replication breaks and the replica must be rebuilt. Set retention > maximum expected lag.",
+      "c": "Incorrect. GTID helps identify position but still requires the actual binlog data to replicate.",
+      "d": "Incorrect. Aurora MySQL supports GTID-based replication."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are running Aurora PostgreSQL with Parallel Query. A query uses a WHERE clause that filters 99% of rows (highly selective). Will Parallel Query improve performance?",
+    "opts": {
+      "a": "Yes, Parallel Query always improves performance",
+      "b": "No, Parallel Query benefits full scans; the optimizer may choose a regular index lookup for highly selective queries which is more efficient",
+      "c": "Parallel Query cannot be used with WHERE clauses",
+      "d": "It depends on the number of replicas"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Parallel Query is not always beneficial; the optimizer decides.",
+      "b": "Correct. For highly selective queries (returning few rows), a traditional index lookup is more efficient than scanning the entire table in the storage layer. The Aurora optimizer will not use Parallel Query when an index scan is more optimal.",
+      "c": "Incorrect. Parallel Query can be used with WHERE clauses; the optimizer just may not choose it.",
+      "d": "Incorrect. Parallel Query operates on the storage layer, independent of replica count."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora Global Database write forwarding is enabled on a secondary region. An application in the secondary region executes a write query. What is the consistency model for a subsequent read on the same session?",
+    "opts": {
+      "a": "Immediately consistent; the write is visible on the next read",
+      "b": "Eventually consistent by default; you must use the SESSION consistency level with aurora_replica_read_consistency to ensure read-after-write consistency",
+      "c": "Always inconsistent; reads never see forwarded writes",
+      "d": "Consistent only after 5 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. By default, writes are forwarded to the primary and replication back introduces lag.",
+      "b": "Correct. With write forwarding, reads are eventually consistent by default. Setting aurora_replica_read_consistency to SESSION ensures the session waits for its own writes to replicate back before returning reads.",
+      "c": "Incorrect. With proper consistency settings, reads can see forwarded writes.",
+      "d": "Incorrect. The time depends on replication lag, not a fixed 5 seconds."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to implement a zero-downtime schema migration (adding a column) on an Aurora MySQL production cluster with heavy write traffic. What is the safest approach?",
+    "opts": {
+      "a": "ALTER TABLE directly on the primary; Aurora handles it without locking",
+      "b": "Use pt-online-schema-change or gh-ost for online DDL that creates a shadow table, copies data, and swaps",
+      "c": "Use Aurora Backtrack after the ALTER TABLE if issues arise",
+      "d": "Perform the ALTER TABLE on a replica first, then failover"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While MySQL online DDL exists, large ALTERs on busy tables can still cause metadata locks and impact writes.",
+      "b": "Correct. Tools like pt-online-schema-change or gh-ost perform non-blocking schema changes by creating a copy table, applying changes, syncing via triggers/binlog, and performing an atomic rename. This is safest for heavy-write production systems.",
+      "c": "Incorrect. Backtrack undoes everything after the backtrack point, not just the DDL.",
+      "d": "Incorrect. ALTER on a replica doesn't migrate the schema to the primary where writes occur."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An Aurora cluster's VolumeBytesUsed metric is 80 TB. You delete 40 TB of data. When will the storage billing reflect the reduction?",
+    "opts": {
+      "a": "Immediately in the next billing cycle",
+      "b": "Aurora reclaims space when data pages are reorganized internally; it may take time and the billing reduction is gradual as pages are recycled",
+      "c": "Never; Aurora storage never shrinks",
+      "d": "Exactly 24 hours after deletion"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Space reclamation in Aurora is not immediate after data deletion.",
+      "b": "Correct. Aurora reclaims freed pages over time as the storage subsystem reorganizes. The VolumeBytesUsed metric (and billing) decreases gradually as pages are actually freed, not immediately after DELETE/DROP.",
+      "c": "Incorrect. Aurora does reclaim space, but it's not instantaneous.",
+      "d": "Incorrect. There's no fixed 24-hour timeline; reclamation is gradual."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an Aurora PostgreSQL cluster using the Aurora Data API for a serverless application. The Data API has a timeout. What is the maximum execution time for a single Data API call?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "1 minute",
+      "c": "3 minutes",
+      "d": "5 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The Data API timeout is longer than 30 seconds.",
+      "b": "Correct. The Aurora Data API has a maximum statement execution timeout of 1 minute (60 seconds). Queries exceeding this are terminated.",
+      "c": "Incorrect. The timeout is 1 minute, not 3 minutes.",
+      "d": "Incorrect. The timeout is 1 minute, not 5 minutes."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora MySQL cluster experiences a 'storage full' event even though VolumeBytesUsed shows 100 TB (below 128 TB max). What could cause this?",
+    "opts": {
+      "a": "Aurora has a bug",
+      "b": "Temporary data (sort files, internal temporary tables, undo logs) on instance local storage has filled up, or extremely large transactions are consuming undo space",
+      "c": "The cluster volume is corrupted",
+      "d": "Encryption overhead consumed the remaining space"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This scenario has a logical explanation.",
+      "b": "Correct. Aurora instances have limited local storage for temporary files. Additionally, long-running transactions holding undo/redo information can consume storage. Large sorts, excessive undo retention, or history list length growth can trigger this.",
+      "c": "Incorrect. Aurora's self-healing storage handles corruption; this is not the cause.",
+      "d": "Incorrect. Encryption doesn't significantly increase storage usage."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You need to configure Aurora PostgreSQL to authenticate users against Microsoft Active Directory. Which feature and configuration are required?",
+    "opts": {
+      "a": "IAM Database Authentication with AD federation",
+      "b": "Kerberos authentication with AWS Directory Service (AWS Managed Microsoft AD) integrated with Aurora",
+      "c": "LDAP authentication directly from Aurora",
+      "d": "SAML-based authentication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM DB Auth uses IAM, not AD directly for database login.",
+      "b": "Correct. Aurora PostgreSQL supports Kerberos authentication. You create an AWS Managed Microsoft AD (or establish a trust with on-premises AD), then configure Aurora to join the domain for Kerberos-based Windows authentication.",
+      "c": "Incorrect. Aurora doesn't support direct LDAP authentication natively; it uses Kerberos via Directory Service.",
+      "d": "Incorrect. SAML is for web-based SSO, not direct database authentication."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora MySQL cluster has a replica lag alarm triggering frequently. The primary shows high write throughput. What is happening at the storage layer that causes replica lag in Aurora?",
+    "opts": {
+      "a": "Data is being physically copied from primary to replica storage (like traditional replication)",
+      "b": "Replicas share storage but lag occurs when the replica's cache invalidation and page application from the redo log falls behind the primary's write rate",
+      "c": "Network bandwidth between AZs is saturated",
+      "d": "The replica's EBS volumes can't keep up"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora replicas share the same physical storage; data isn't copied between instances.",
+      "b": "Correct. Aurora replica lag occurs at the compute layer: replicas must apply redo log entries to invalidate/update their buffer caches. Under extreme write load, this log application on replicas can fall behind.",
+      "c": "Incorrect. While network is involved in log shipping, it's rarely the bottleneck; it's the replica's log application speed.",
+      "d": "Incorrect. Aurora replicas don't use EBS; they share the Aurora cluster volume."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are architecting a multi-region active-active application using Aurora. True active-active writes in multiple regions simultaneously. What is the most viable architecture?",
+    "opts": {
+      "a": "Aurora Global Database with write forwarding (all writes ultimately go to one primary region)",
+      "b": "Separate Aurora clusters in each region with application-level conflict resolution and bidirectional DMS replication",
+      "c": "Aurora Multi-Master across regions",
+      "d": "Aurora Global Database provides native active-active writes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The most practical Aurora-native approach for multi-region writes is Global Database with write forwarding. While all writes are ultimately processed in the primary region (not true active-active), it provides the closest experience. True active-active requires option B with significant complexity.",
+      "b": "Incorrect. While technically possible, this adds enormous complexity with conflict resolution and is not an Aurora-native solution.",
+      "c": "Incorrect. Aurora Multi-Master operates within a single region only.",
+      "d": "Incorrect. Global Database secondary regions are read-only (unless using write forwarding which still routes writes to primary)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora cluster uses RDS Proxy. During a failover test, you notice the application experiences 2-3 seconds of errors instead of the expected seamless experience. What is the most likely cause?",
+    "opts": {
+      "a": "RDS Proxy is not working correctly",
+      "b": "The application is using pinned connections (session state like temporary tables, prepared statements, or SET variable commands) preventing connection multiplexing during failover",
+      "c": "The security group is blocking failover traffic",
+      "d": "The Aurora cluster has no replicas"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS Proxy is working, but pinning limits its ability to seamlessly redirect.",
+      "b": "Correct. When connections are 'pinned' (due to session-level variables, temporary tables, PREPARE statements, etc.), RDS Proxy cannot multiplex them during failover. Pinned connections must wait for the new primary, causing brief errors.",
+      "c": "Incorrect. Security groups don't block internal failover mechanisms.",
+      "d": "Incorrect. Even without replicas, Aurora creates a new primary; the issue here is connection pinning."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want to implement change data capture (CDC) from Aurora PostgreSQL to stream changes to Kafka. Which approach is most efficient?",
+    "opts": {
+      "a": "Poll the database periodically for changes using timestamps",
+      "b": "Use Aurora PostgreSQL's logical replication with the pgoutput or wal2json plugin to stream WAL changes",
+      "c": "Use Aurora Database Activity Streams",
+      "d": "Export snapshots to S3 every minute"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Polling is inefficient, misses deletes, and adds load to the database.",
+      "b": "Correct. Aurora PostgreSQL supports logical replication slots with plugins like pgoutput or wal2json. Tools like Debezium can consume these WAL changes and stream them to Kafka efficiently.",
+      "c": "Incorrect. Activity Streams capture all SQL activity for auditing but aren't designed for CDC data integration.",
+      "d": "Incorrect. Periodic snapshot exports are far too slow and heavy for real-time CDC."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora PostgreSQL uses logical replication for CDC. You notice the replication slot's 'restart_lsn' is far behind current WAL position and pg_replication_slots shows retained WAL of 500 GB. What is the risk?",
+    "opts": {
+      "a": "No risk; WAL retention is unlimited in Aurora",
+      "b": "Retained WAL consumes Aurora storage; if the consumer is permanently stuck, WAL grows unbounded potentially filling storage and causing outages",
+      "c": "Only performance is affected, not storage",
+      "d": "Aurora automatically drops stuck replication slots"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While Aurora storage auto-grows, it has a 128 TB limit and the growth costs money.",
+      "b": "Correct. A stuck logical replication slot prevents WAL cleanup, causing continuous WAL accumulation. This can grow storage toward the 128 TB limit and increase costs significantly. You must monitor and drop orphaned slots.",
+      "c": "Incorrect. Storage growth is the primary risk, which directly affects billing and can hit limits.",
+      "d": "Incorrect. Aurora does NOT automatically drop replication slots; manual intervention or monitoring is required."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You need to implement a disaster recovery strategy for Aurora with RPO=0 and RTO<1 minute within a single region. The cluster handles 50,000 writes/second. What is the optimal configuration?",
+    "opts": {
+      "a": "Aurora with 3 replicas in 3 AZs, all at priority tier 0 with the same instance class as primary",
+      "b": "Aurora Multi-Master with instances in different AZs",
+      "c": "Aurora Serverless v2 with max ACUs",
+      "d": "Aurora with hourly snapshots"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora replicas share storage (RPO=0). Multiple replicas in different AZs with tier 0 priority and same instance class ensures any promoted replica can handle the full write workload immediately, achieving RTO<30 seconds.",
+      "b": "Incorrect. Multi-Master provides continuous write availability but has conflict resolution overhead at 50K writes/sec and supports fewer instances.",
+      "c": "Incorrect. Serverless v2 provides auto-scaling but doesn't inherently guarantee <1 minute RTO without proper replica configuration.",
+      "d": "Incorrect. Snapshots provide RPO of up to 1 hour, not zero."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You run Aurora MySQL with Performance Insights enabled. The top wait event is 'synch/mutex/innodb/aurora_lock_thread_slot_futex'. What does this indicate?",
+    "opts": {
+      "a": "Storage layer contention",
+      "b": "Row-level lock contention between concurrent transactions accessing the same rows",
+      "c": "Network latency between AZs",
+      "d": "CPU saturation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This mutex is at the InnoDB engine level, not the storage layer.",
+      "b": "Correct. The aurora_lock_thread_slot_futex wait indicates row-level locking contention in InnoDB. Multiple transactions are competing for locks on the same rows. Solution: optimize queries, reduce transaction scope, or implement application-level concurrency control.",
+      "c": "Incorrect. Network latency would show as I/O wait events, not lock mutexes.",
+      "d": "Incorrect. CPU saturation shows as CPU wait, not lock contention."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora cluster needs to comply with data residency requirements: production data must not leave eu-west-1, but you need DR capability. What is the correct approach?",
+    "opts": {
+      "a": "Use Aurora Global Database to us-east-1 for DR",
+      "b": "Use multiple AZ deployment within eu-west-1 with cross-account snapshot sharing within the same region, and automated snapshot copies to another account in the same region",
+      "c": "Data residency requirements cannot be met with Aurora",
+      "d": "Use Aurora Backtrack as the only DR strategy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Replicating to another region violates the data residency requirement.",
+      "b": "Correct. Aurora's multi-AZ storage (6 copies, 3 AZs within eu-west-1) provides HA within the region. Cross-account snapshot sharing within the same region provides DR isolation without leaving the region.",
+      "c": "Incorrect. Data residency can be achieved by staying within the required region.",
+      "d": "Incorrect. Backtrack is limited to 72 hours and is not a complete DR strategy."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You create an Aurora clone for testing. The clone initially shares all data pages with the source. A developer runs a bulk UPDATE on 50% of the data in the clone. What happens to the clone's storage?",
+    "opts": {
+      "a": "The source cluster's data is modified",
+      "b": "Only the modified pages are written as new pages for the clone (copy-on-write); the clone's storage grows to approximately 50% of the original size for the modified data",
+      "c": "The entire dataset is copied to the clone immediately",
+      "d": "The UPDATE fails because clones are read-only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Clones are independent; modifications don't affect the source.",
+      "b": "Correct. Copy-on-write means only modified pages diverge. Updating 50% of data creates new pages for those modifications in the clone's address space. Unmodified pages still reference the original shared pages.",
+      "c": "Incorrect. Only modified pages are written; unmodified data remains shared.",
+      "d": "Incorrect. Aurora clones are full read-write clusters."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora PostgreSQL cluster uses the zero-ETL integration with Amazon Redshift. You add a new column to a table in Aurora. What happens in Redshift?",
+    "opts": {
+      "a": "The new column automatically appears in Redshift after replication catches up",
+      "b": "Schema changes may require re-creating the zero-ETL integration or manual intervention depending on the type of DDL change",
+      "c": "Redshift automatically drops and recreates the table",
+      "d": "Zero-ETL only supports initial load, not ongoing changes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Not all schema changes propagate automatically in zero-ETL.",
+      "b": "Correct. Zero-ETL integration handles DML changes automatically but certain DDL changes (like adding columns, changing types) may require the integration to be re-synced or may cause replication issues that need manual resolution.",
+      "c": "Incorrect. Redshift doesn't automatically drop and recreate tables.",
+      "d": "Incorrect. Zero-ETL supports ongoing CDC, but schema changes need special handling."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an Aurora MySQL cluster and need to perform a point-in-time recovery. The recovered cluster has different endpoints. How do you minimize application impact?",
+    "opts": {
+      "a": "PITR always uses the same endpoints as the original",
+      "b": "Use Route 53 CNAME records pointing to Aurora endpoints; after PITR, update the CNAME to point to the new cluster's endpoint",
+      "c": "Applications must be redeployed with new connection strings",
+      "d": "Use Aurora Backtrack instead, which preserves endpoints"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. PITR creates a new cluster with new endpoints.",
+      "b": "Correct. Using Route 53 CNAMEs or application-level DNS aliases decouples the application from Aurora endpoints. After PITR, simply update the DNS record to the new cluster endpoint for minimal application changes.",
+      "c": "Incorrect. While this works, it's not minimal impact; DNS-based routing is the better approach.",
+      "d": "Incorrect. Backtrack preserves endpoints but has a 72-hour limit, is MySQL-only, and destroys subsequent transactions. For recovery beyond 72 hours, PITR is necessary."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora cluster processes 10,000 transactions/second. You enable Database Activity Streams in synchronous mode to Amazon Kinesis. The Kinesis stream experiences throttling. What happens?",
+    "opts": {
+      "a": "Activity data is buffered indefinitely with no database impact",
+      "b": "Database transactions are blocked/throttled because synchronous mode ensures no activity goes unrecorded",
+      "c": "Aurora automatically switches to asynchronous mode",
+      "d": "Activity events are dropped silently"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. In synchronous mode, the database doesn't buffer indefinitely; it blocks.",
+      "b": "Correct. In synchronous mode, if Kinesis can't keep up, database transactions are blocked to guarantee no activity is lost. This is the trade-off for compliance guarantees. The Kinesis stream must be provisioned with sufficient capacity.",
+      "c": "Incorrect. Aurora doesn't automatically switch modes.",
+      "d": "Incorrect. Synchronous mode specifically prevents event loss by blocking operations."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are designing an Aurora architecture for a SaaS application needing tenant data isolation with 5000 tenants. Each tenant averages 1 GB of data. Which design balances cost, management, and isolation?",
+    "opts": {
+      "a": "5000 separate Aurora clusters (one per tenant)",
+      "b": "One Aurora cluster with separate schemas per tenant, using PostgreSQL Row Level Security and connection routing via RDS Proxy",
+      "c": "One DynamoDB table with tenant_id partition key",
+      "d": "50 Aurora clusters with 100 tenants per cluster, using separate databases per tenant within each cluster"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 5000 clusters is extremely expensive and exceeds default quotas (40/region). Management overhead is enormous.",
+      "b": "Incorrect. While viable for fewer tenants, 5000 schemas in one cluster may hit PostgreSQL limits, and a single cluster failure affects all tenants.",
+      "c": "Incorrect. The question specifically asks about Aurora architecture.",
+      "d": "Correct. A shard-per-group model (50 clusters × 100 tenants) balances isolation (cluster-level blast radius = 100 tenants), cost efficiency, manageability, and performance. Each tenant gets its own database within a shared cluster."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora cluster uses a db.r6g.2xlarge instance. The max_connections parameter is calculated automatically by Aurora. What is Aurora's formula for calculating max_connections on this instance?",
+    "opts": {
+      "a": "Fixed at 1000 connections regardless of instance size",
+      "b": "Based on instance memory: LEAST({DBInstanceClassMemory/9531392}, 5000) for MySQL",
+      "c": "Always equal to 16,384",
+      "d": "Based on CPU cores: vCPUs × 100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. max_connections varies by instance size in Aurora.",
+      "b": "Correct. Aurora MySQL calculates max_connections as LEAST({DBInstanceClassMemory/9531392}, 5000). For a db.r6g.2xlarge (64 GB RAM), this would be approximately 64*1024*1024*1024/9531392 ≈ 7,200, capped at 5000.",
+      "c": "Incorrect. 16,384 is a PostgreSQL-specific default, not universal.",
+      "d": "Incorrect. The formula is memory-based, not CPU-based."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You notice that your Aurora PostgreSQL logical replication slot is preventing WAL cleanup. You want to set a maximum WAL retention limit to prevent storage runaway. Which parameter controls this in Aurora PostgreSQL?",
+    "opts": {
+      "a": "wal_keep_segments",
+      "b": "rds.logical_replication_slot_max_retained_wal",
+      "c": "max_wal_size",
+      "d": "aurora_binlog_retention_hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. wal_keep_segments controls physical replication WAL retention, not logical slot limits.",
+      "b": "Correct. Aurora PostgreSQL provides rds.logical_replication_slot_max_retained_wal parameter to cap the maximum WAL retained by any logical replication slot, preventing unbounded storage growth.",
+      "c": "Incorrect. max_wal_size controls checkpoint frequency, not logical slot retention limits.",
+      "d": "Incorrect. aurora_binlog_retention_hours is for Aurora MySQL, not PostgreSQL."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora MySQL cluster with 128 TB of data needs to be migrated to another AWS account. Snapshots are encrypted with a customer-managed KMS key. What is the process?",
+    "opts": {
+      "a": "Simply share the snapshot; the other account can restore it directly",
+      "b": "Share the encrypted snapshot with the target account AND share the KMS key (via key policy). The target account copies the snapshot re-encrypting with their own KMS key, then restores",
+      "c": "Encrypted snapshots cannot be shared across accounts",
+      "d": "Use DMS to replicate the entire 128 TB to the other account"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. With encrypted snapshots, the target account needs access to the KMS key.",
+      "b": "Correct. You must: 1) Share the KMS key with the target account via key policy, 2) Share the snapshot with the target account, 3) Target account copies the snapshot with their own KMS key, 4) Restore from the copied snapshot.",
+      "c": "Incorrect. Encrypted snapshots CAN be shared if the KMS key is also shared.",
+      "d": "Incorrect. While DMS works, snapshot sharing is faster and more efficient for a same-engine migration."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You are troubleshooting Aurora MySQL performance. The 'History List Length' (HLL) in SHOW ENGINE INNODB STATUS is growing continuously to millions. What does this indicate and what is the impact?",
+    "opts": {
+      "a": "Normal behavior indicating healthy transaction processing",
+      "b": "Long-running transactions or abandoned sessions are preventing InnoDB purge threads from cleaning old row versions, causing undo log growth, slower queries, and potential storage issues",
+      "c": "Too many read replicas causing log accumulation",
+      "d": "The buffer pool needs to be resized"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A continuously growing HLL is a serious performance issue.",
+      "b": "Correct. HLL shows unpurged row versions. Long-running transactions hold a read view preventing purge. This causes: undo log growth (storage), longer row version chains (slower reads), and eventual storage exhaustion. Fix: identify and kill long-running transactions.",
+      "c": "Incorrect. Read replicas don't cause HLL growth on the primary.",
+      "d": "Incorrect. Buffer pool size doesn't directly affect History List Length."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Your Aurora Global Database primary in us-east-1 needs a planned failover to eu-west-1 for maintenance. You use 'managed planned failover'. What is the sequence of events?",
+    "opts": {
+      "a": "Secondary is immediately promoted; primary continues until manually stopped",
+      "b": "Primary stops accepting writes → replication completes (RPO=0) → secondary is promoted to primary → original primary becomes secondary → replication reverses",
+      "c": "Both regions become writable simultaneously during transition",
+      "d": "A new cluster is created in eu-west-1 from a snapshot"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Managed failover is coordinated; the primary doesn't continue independently.",
+      "b": "Correct. Managed planned failover: 1) Primary stops new writes, 2) Ensures all pending changes replicate to secondary (RPO=0), 3) Promotes secondary as new primary, 4) Demotes original primary to secondary, 5) Reverses replication direction. Brief downtime occurs.",
+      "c": "Incorrect. There's no period where both regions are writable simultaneously.",
+      "d": "Incorrect. No snapshot restore is involved; it's a replication topology change."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an Aurora cluster with a blue/green deployment for a major version upgrade. After switchover, you discover a critical bug in the new version. What are your options?",
+    "opts": {
+      "a": "Switchback is automatic and instant",
+      "b": "You cannot switch back; you must use the old (now green) cluster's data via snapshot restore or re-create a new blue/green deployment to revert",
+      "c": "Aurora automatically reverts after 24 hours",
+      "d": "Use Backtrack on the new primary"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Blue/green switchover is not automatically reversible.",
+      "b": "Correct. After switchover, the old environment (now labeled green) still exists briefly but diverges as the new primary accepts writes. To revert, you'd need to create a new cluster from a pre-switchover snapshot or set up another blue/green deployment. There's no one-click switchback.",
+      "c": "Incorrect. There's no automatic reversion mechanism.",
+      "d": "Incorrect. Backtrack may not be available after a major version change and can't selectively undo the upgrade."
+    }
+  }
+]

@@ -1,0 +1,1056 @@
+[
+  {
+    "type": "scenario",
+    "q": "A company is using Amazon ECR and wants to replicate container images to another AWS account for disaster recovery. Where must the registry permissions policy be configured?",
+    "opts": {
+      "a": "On the source account only",
+      "b": "On the destination account only",
+      "c": "On both source and destination accounts",
+      "d": "On a shared services account"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The source account does not require any special repository or registry policies for cross-account replication.",
+      "b": "Correct. Cross-account ECR replication requires policy configuration on the destination account only. The source account does not require any special repository or registry policies. [4]",
+      "c": "Incorrect. Only the destination account needs the permissions policy.",
+      "d": "Incorrect. No shared services account is required."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of replication rules allowed per ECR registry?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "25",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 5 rules are allowed.",
+      "b": "Correct. A replication configuration may contain up to 10 rules. [1]",
+      "c": "Incorrect. 25 is the maximum destinations, not rules.",
+      "d": "Incorrect. 50 exceeds the maximum."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of unique destinations allowed across all ECR replication rules?",
+    "opts": {
+      "a": "10",
+      "b": "15",
+      "c": "25",
+      "d": "50"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10 is the maximum number of rules, not destinations.",
+      "b": "Incorrect. 15 is below the actual limit.",
+      "c": "Correct. A replication configuration supports up to 25 unique destinations across all rules. [1]",
+      "d": "Incorrect. 50 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of filters per ECR replication rule?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is much higher than 10.",
+      "b": "Incorrect. 25 is the destination limit, not filter limit.",
+      "c": "Incorrect. 50 is below the actual limit.",
+      "d": "Correct. Each replication rule supports up to 100 filters. [1]"
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was AWS App Mesh officially discontinued?",
+    "opts": {
+      "a": "September 24, 2024",
+      "b": "December 31, 2025",
+      "c": "September 30, 2026",
+      "d": "March 31, 2027"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. September 24, 2024 was when new customer onboarding was blocked.",
+      "b": "Incorrect. December 2025 is not the discontinuation date.",
+      "c": "Correct. AWS App Mesh was discontinued effective September 30th, 2026. [5]",
+      "d": "Incorrect. March 2027 is not the correct date."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the recommended replacement for AWS App Mesh?",
+    "opts": {
+      "a": "AWS Cloud Map",
+      "b": "Amazon ECS Service Connect",
+      "c": "AWS Transit Gateway",
+      "d": "Amazon VPC Lattice"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cloud Map is for service discovery, not a full service mesh replacement.",
+      "b": "Correct. Amazon ECS Service Connect is the recommended migration path from App Mesh, providing streamlined abstractions and managed networking. [5]",
+      "c": "Incorrect. Transit Gateway is for VPC connectivity.",
+      "d": "Incorrect. While VPC Lattice offers service-to-service connectivity, Service Connect is the direct migration path for App Mesh on ECS."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team is comparing App Mesh to ECS Service Connect for observability. What is the key difference?",
+    "opts": {
+      "a": "App Mesh provides better CloudWatch integration",
+      "b": "Service Connect provides free application-level traffic metrics sent to CloudWatch automatically, while App Mesh requires you to capture and ship metrics yourself",
+      "c": "Neither provides built-in metrics",
+      "d": "Both provide identical observability features"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. App Mesh requires manual metric configuration.",
+      "b": "Correct. With App Mesh, it's your responsibility to capture traffic metrics and ship them to a monitoring service. Service Connect provides free application-level traffic metrics sent to CloudWatch, visible in both the CloudWatch console and Amazon ECS console. [5]",
+      "c": "Incorrect. Service Connect does provide built-in metrics.",
+      "d": "Incorrect. Their observability capabilities differ significantly."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team needs mutual TLS (mTLS) between their ECS services. Which service supports this?",
+    "opts": {
+      "a": "Only ECS Service Connect",
+      "b": "Only AWS App Mesh",
+      "c": "Both App Mesh and Service Connect",
+      "d": "Neither service supports mTLS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Service Connect does not yet support mTLS.",
+      "b": "Correct. App Mesh has the ability to implement two-way peer authentication using mutual TLS (mTLS), a feature not yet available for Service Connect. [5]",
+      "c": "Incorrect. mTLS is only available in App Mesh.",
+      "d": "Incorrect. App Mesh supports mTLS."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company is migrating from App Mesh to Service Connect. They currently fine-tune outlier detection and retry parameters. What limitation will they face with Service Connect?",
+    "opts": {
+      "a": "Service Connect doesn't support any reliability features",
+      "b": "Service Connect has opinionated defaults with only timeouts being configurable, unlike App Mesh where all variables can be fine-tuned",
+      "c": "Service Connect requires more configuration than App Mesh",
+      "d": "There is no difference in configuration flexibility"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Service Connect does support reliability features.",
+      "b": "Correct. With App Mesh these variables can be fine-tuned, whereas with Service Connect there are opinionated defaults with only timeouts being configurable. [5]",
+      "c": "Incorrect. Service Connect requires less configuration, not more.",
+      "d": "Incorrect. App Mesh provides more configuration flexibility."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to use TLS between their ECS services with Service Connect. What certificate type can they use that reduces cost compared to App Mesh?",
+    "opts": {
+      "a": "Self-signed certificates",
+      "b": "AWS PCA short-lived certificates instead of general purpose certificates",
+      "c": "ACM public certificates",
+      "d": "Let's Encrypt certificates"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Self-signed certificates aren't the recommended approach.",
+      "b": "Correct. Service Connect simplifies TLS configuration and you can use lower-cost AWS PCA short-lived certificates, compared to App Mesh which requires general purpose certificates from AWS Private Certificate Authority. [5]",
+      "c": "Incorrect. ACM public certificates are for public endpoints.",
+      "d": "Incorrect. Let's Encrypt is not an AWS-native solution for this."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was Amazon ECS Service Connect introduced?",
+    "opts": {
+      "a": "re:Invent 2021",
+      "b": "re:Invent 2022",
+      "c": "re:Invent 2023",
+      "d": "re:Invent 2024"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Service Connect was introduced later.",
+      "b": "Correct. At re:Invent 2022, AWS introduced Amazon ECS Service Connect, a new way to connect microservices within Amazon ECS. [5]",
+      "c": "Incorrect. It was introduced a year earlier.",
+      "d": "Incorrect. Service Connect was available well before 2024."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default Fargate vCPU quota for new AWS accounts?",
+    "opts": {
+      "a": "2 concurrent vCPUs",
+      "b": "6 concurrent vCPUs",
+      "c": "20 concurrent vCPUs",
+      "d": "100 concurrent vCPUs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 2.",
+      "b": "Correct. New AWS accounts have a default quota of 6 concurrent Fargate vCPUs per region. [3]",
+      "c": "Incorrect. 20 exceeds the initial default.",
+      "d": "Incorrect. 100 is far above the initial default."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A new AWS account is trying to launch 10 Fargate tasks each with 1 vCPU. The task launches fail. What is the most likely cause?",
+    "opts": {
+      "a": "Insufficient IAM permissions",
+      "b": "The default Fargate quota of 6 concurrent vCPUs is being exceeded",
+      "c": "The task definition is invalid",
+      "d": "The region doesn't support Fargate"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While possible, quota is the most likely issue for a new account.",
+      "b": "Correct. New accounts have a default quota of 6 concurrent Fargate vCPUs per region. Launching 10 tasks at 1 vCPU each requires 10 vCPUs, exceeding the 6 vCPU limit. [3]",
+      "c": "Incorrect. Task definition issues would show different errors.",
+      "d": "Incorrect. Fargate is available in most regions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does Fargate automatically handle the vCPU quota over time?",
+    "opts": {
+      "a": "It never changes",
+      "b": "Fargate auto-increases the quota based on usage",
+      "c": "It doubles every month",
+      "d": "It increases only after 12 months"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The quota does change over time.",
+      "b": "Correct. Fargate auto-increases the vCPU quota over time based on usage, but you can also request a quota increase through the Service Quotas console. [3]",
+      "c": "Incorrect. It doesn't follow a fixed doubling schedule.",
+      "d": "Incorrect. Increases happen based on usage, not a fixed timeline."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the cost per hour for a public IPv4 address attached to a Fargate task ENI?",
+    "opts": {
+      "a": "$0.001/hr",
+      "b": "$0.005/hr",
+      "c": "$0.01/hr",
+      "d": "$0.05/hr"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cost is higher than $0.001.",
+      "b": "Correct. Each Fargate task with a public IP pays $0.005/hr per public IPv4 address, introduced in February 2024. [3]",
+      "c": "Incorrect. $0.01 exceeds the actual rate.",
+      "d": "Incorrect. $0.05 is far above the actual rate."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company runs 100 Fargate tasks 24/7 in public subnets with public IPs. What is their monthly cost just for public IPv4 addresses?",
+    "opts": {
+      "a": "$36",
+      "b": "$180",
+      "c": "$360",
+      "d": "$720"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. $36 is the cost for 10 tasks, not 100.",
+      "b": "Incorrect. This underestimates the cost.",
+      "c": "Correct. 100 tasks × $0.005/hr × 24 hours × 30 days = $360/month in IPv4 charges alone. [3]",
+      "d": "Incorrect. $720 overestimates the cost."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team runs 10 Fargate tasks 24/7 with public IPs. How much do they pay monthly just for IPv4 addresses?",
+    "opts": {
+      "a": "$3.60",
+      "b": "$18",
+      "c": "$36",
+      "d": "$72"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. This underestimates the cost.",
+      "b": "Incorrect. $18 is not the correct amount.",
+      "c": "Correct. 10 tasks running 24/7 = $36/month in IPv4 charges alone. [3]",
+      "d": "Incorrect. $72 overestimates the cost."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was the public IPv4 pricing change for Fargate introduced?",
+    "opts": {
+      "a": "January 2023",
+      "b": "February 2024",
+      "c": "March 2025",
+      "d": "January 2026"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The change was later than 2023.",
+      "b": "Correct. The per-task public IPv4 charge was introduced in February 2024 as part of AWS's global public IPv4 pricing change. [3]",
+      "c": "Incorrect. The change was in 2024.",
+      "d": "Incorrect. This was a 2024 change."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new feature did Amazon ECR announce on January 20, 2026?",
+    "opts": {
+      "a": "Multi-architecture image support",
+      "b": "Cross-repository layer sharing to optimize storage and improve push performance",
+      "c": "Image signing support",
+      "d": "Automated image building"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multi-arch support was available earlier.",
+      "b": "Correct. On January 20, 2026, Amazon ECR announced cross-repository layer sharing to optimize storage and improve push performance. [12]",
+      "c": "Incorrect. Image signing was not the January 2026 announcement.",
+      "d": "Incorrect. ECR doesn't build images."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new feature did Amazon ECS announce on April 1, 2026?",
+    "opts": {
+      "a": "Service Connect improvements",
+      "b": "Managed Daemons for ECS Managed Instances",
+      "c": "Windows container support",
+      "d": "GPU task support"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Service Connect improvements were not the April 2026 announcement.",
+      "b": "Correct. On April 1, 2026, Amazon ECS announced Managed Daemons for ECS Managed Instances. [16]",
+      "c": "Incorrect. Windows support was available earlier.",
+      "d": "Incorrect. GPU support was not the April 2026 announcement."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was Kubernetes version 1.35 released on Amazon EKS?",
+    "opts": {
+      "a": "December 17, 2025",
+      "b": "January 27, 2026",
+      "c": "April 22, 2026",
+      "d": "June 2, 2026"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. December 17, 2025 was the upstream Kubernetes 1.35 release.",
+      "b": "Correct. Kubernetes version 1.35 was released on Amazon EKS on January 27, 2026. [14]",
+      "c": "Incorrect. April 22, 2026 was the upstream release of 1.36.",
+      "d": "Incorrect. June 2, 2026 was the EKS release of 1.36."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was the upstream Kubernetes 1.35 released?",
+    "opts": {
+      "a": "October 2025",
+      "b": "December 17, 2025",
+      "c": "January 27, 2026",
+      "d": "March 2026"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. October 2025 is not the correct date.",
+      "b": "Correct. The upstream Kubernetes 1.35 was released on December 17, 2025. [14]",
+      "c": "Incorrect. January 27, 2026 was the EKS release, not the upstream release.",
+      "d": "Incorrect. March 2026 is not the correct date."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company using ECS capacity providers launches a large number of tasks simultaneously across multiple services. The capacity provider is launching new EC2 instances, but task placement is slow. What is happening?",
+    "opts": {
+      "a": "The ECS agent is crashing",
+      "b": "The ECS service scheduler implements back-off and exponential throttling for task placement while waiting for new instances",
+      "c": "The tasks are too large for the instances",
+      "d": "The VPC has run out of IP addresses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The ECS agent isn't crashing.",
+      "b": "Correct. When there is insufficient cluster capacity, the Amazon ECS service scheduler implements a back-off and exponential throttling strategy for retrying task placement as new container instances are launched, resulting in slower deployment times. [11]",
+      "c": "Incorrect. Task size isn't the primary issue here.",
+      "d": "Incorrect. IP exhaustion would cause different errors."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "How can a team avoid slow deployments caused by ECS capacity provider throttling when launching many services simultaneously?",
+    "opts": {
+      "a": "Use smaller task definitions",
+      "b": "Either deploy a limited number of services at a time or pre-scale the Auto Scaling group before deployment",
+      "c": "Disable capacity providers",
+      "d": "Switch to Fargate"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Task definition size doesn't solve the capacity issue.",
+      "b": "Correct. To avoid this situation, you can plan service deployments by either deploying a limited number at a time or pre-scaling infrastructure. [11]",
+      "c": "Incorrect. Disabling capacity providers removes auto-scaling capability.",
+      "d": "Incorrect. While Fargate avoids EC2 capacity issues, it may not suit all workloads."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does Amazon ECS recommend for safely terminating EC2 instances that are running tasks?",
+    "opts": {
+      "a": "Force stop all tasks immediately",
+      "b": "Use managed instance draining, which is enabled by default",
+      "c": "Manually drain instances before termination",
+      "d": "Remove instances from the cluster first"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Force stopping disrupts workloads.",
+      "b": "Correct. AWS recommends using managed instance draining to allow for graceful termination of Amazon EC2 instances. This feature is on by default. [13]",
+      "c": "Incorrect. Manual draining is unnecessary when managed draining is available.",
+      "d": "Incorrect. Removing from cluster before draining tasks can cause disruption."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to use both On-Demand and Spot Instances for their ECS service. How should they configure capacity providers?",
+    "opts": {
+      "a": "Use a single Auto Scaling group with mixed instances",
+      "b": "Create two capacity providers: one connected to an On-Demand Auto Scaling group and one to a Spot Auto Scaling group, then use a custom capacity provider strategy",
+      "c": "Use Fargate and Fargate Spot",
+      "d": "Manually manage instance types"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single ASG with mixed instances doesn't provide the same control as separate capacity providers.",
+      "b": "Correct. Use two capacity providers connected to two Auto Scaling groups—one with 100% On-Demand and one with 100% Spot. A custom strategy configures a base of On-Demand tasks with remaining tasks split between providers. [7]",
+      "c": "Incorrect. While Fargate Spot exists, the question asks about EC2-based capacity.",
+      "d": "Incorrect. Manual management defeats the purpose of capacity providers."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company configures a capacity provider strategy with a base of 2 tasks on On-Demand and equal weight for remaining tasks between On-Demand and Spot. If they scale to 12 tasks, how many run on each?",
+    "opts": {
+      "a": "6 On-Demand, 6 Spot",
+      "b": "2 On-Demand (base) + 5 On-Demand + 5 Spot",
+      "c": "7 On-Demand (2 base + 5 equal split), 5 Spot",
+      "d": "2 On-Demand, 10 Spot"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The base parameter gives On-Demand priority for the first 2 tasks.",
+      "b": "Correct logic structure but format differs.",
+      "c": "Correct. Base parameter places 2 tasks on On-Demand first. Remaining 10 tasks split equally: 5 On-Demand + 5 Spot. Total: 7 On-Demand, 5 Spot. [7]",
+      "d": "Incorrect. Equal weight means remaining tasks are split, not all going to Spot."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does Amazon ECS recommend for instance type selection when using Spot Instances with capacity providers?",
+    "opts": {
+      "a": "Use a single large instance type",
+      "b": "Use attribute-based instance type selection for flexibility across multiple instance types",
+      "c": "Always use the cheapest instance type",
+      "d": "Use only Graviton instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Single instance types reduce Spot availability.",
+      "b": "Correct. Use attribute-based instance type selection to select all instance types that match requirements (e.g., 2–4 vCPU, 4–8 GiB memory). Instance type flexibility is a key best practice for Spot Instances. [7]",
+      "c": "Incorrect. Cheapest isn't always best for availability.",
+      "d": "Incorrect. Graviton is good but flexibility is the priority."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the trade-off of instance type flexibility when using ECS Cluster Auto Scaling (CAS) with Spot?",
+    "opts": {
+      "a": "No trade-offs exist",
+      "b": "Scaling with CAS is fastest when using the same instance sizes, but flexibility is needed for Spot availability",
+      "c": "CAS doesn't work with Spot Instances",
+      "d": "Flexible instances cost more"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There is a trade-off to consider.",
+      "b": "Correct. Scaling with Amazon ECS Cluster Auto Scaling (CAS) is fastest when using the same instance sizes; however, instance type flexibility is a key best practice for using Spot Instances. [7]",
+      "c": "Incorrect. CAS works with Spot Instances.",
+      "d": "Incorrect. Flexible instances don't necessarily cost more."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does ECS managed scaling work with capacity providers?",
+    "opts": {
+      "a": "It uses simple cron-based scheduling",
+      "b": "It creates an AWS Auto Scaling plan with a target tracking scaling policy associated with the Auto Scaling group",
+      "c": "It uses step scaling only",
+      "d": "It requires manual configuration of CloudWatch alarms"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cron scheduling is not how managed scaling works.",
+      "b": "Correct. When you enable managed scaling, Amazon ECS creates an AWS Auto Scaling plan with a target tracking scaling policy and associates it with the Auto Scaling group. [7]",
+      "c": "Incorrect. Target tracking is used, not step scaling.",
+      "d": "Incorrect. CloudWatch alarms are created automatically, not manually."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company is comparing Fargate vs EC2 for their EKS workloads. They need to pack multiple pods onto compute efficiently. Which option is better for cost?",
+    "opts": {
+      "a": "Fargate is always cheaper",
+      "b": "EC2 nodes are often more cost-effective because they can pack multiple pods, while each Fargate pod runs on single-tenant compute isolation",
+      "c": "They cost the same",
+      "d": "Fargate is cheaper for large workloads"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Fargate is not always cheaper.",
+      "b": "Correct. Each EKS Fargate pod runs on single-tenant compute isolation, versus EC2 nodes that can pack multiple pods — which is why Fargate on EKS often needs more total resources for the same workload. [3]",
+      "c": "Incorrect. They have different cost characteristics.",
+      "d": "Incorrect. Fargate is often more expensive for dense workloads."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does the Amazon EKS cost optimization documentation say about Fargate compute?",
+    "opts": {
+      "a": "Fargate is the most cost-effective option",
+      "b": "Fargate may require more compute capacity and be more expensive than other capacity types",
+      "c": "Fargate and EC2 cost the same",
+      "d": "Fargate is only recommended for production"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EKS documentation doesn't claim Fargate is most cost-effective.",
+      "b": "Correct. The Amazon EKS cost optimization best practices documentation states: 'Fargate compute is a fully managed compute option for EKS clusters but may require more compute capacity and be more expensive than other capacity types.' [3]",
+      "c": "Incorrect. They do not cost the same.",
+      "d": "Incorrect. This is not what the documentation states."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the five billing dimensions for AWS Fargate pricing?",
+    "opts": {
+      "a": "CPU, Memory, Storage, Network, Duration",
+      "b": "vCPU, Memory, Operating System, CPU Architecture, and Ephemeral Storage",
+      "c": "CPU, RAM, Disk, GPU, Network",
+      "d": "Compute, Storage, Transfer, Requests, Duration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This list doesn't match Fargate's billing dimensions.",
+      "b": "Correct. Fargate has five independently configurable billing dimensions: vCPU, memory, Operating System, CPU Architecture, and ephemeral storage. [3]",
+      "c": "Incorrect. GPU and Network are not Fargate billing dimensions.",
+      "d": "Incorrect. These are not Fargate's billing dimensions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When does the Fargate billing clock start?",
+    "opts": {
+      "a": "When the task reaches RUNNING state",
+      "b": "When the container image download begins (earlier than most engineers expect)",
+      "c": "When the first request hits the container",
+      "d": "When the task definition is registered"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Billing starts before the RUNNING state.",
+      "b": "Correct. The billing clock starts earlier than most engineers expect—from the time you start to download your container image until the task/pod terminates. [3]",
+      "c": "Incorrect. Billing is not request-based.",
+      "d": "Incorrect. Registering a task definition doesn't start billing."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team's Fargate calculator shows $45/month but their AWS bill shows $90. What likely explains the discrepancy?",
+    "opts": {
+      "a": "AWS billing error",
+      "b": "Hidden costs like ALB, NAT Gateway, CloudWatch, and public IPv4 charges that most Fargate estimates miss",
+      "c": "Tax charges",
+      "d": "Data transfer between regions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is a common estimation error, not a billing error.",
+      "b": "Correct. Many Fargate cost estimates only account for compute but miss ALB, NAT Gateway, CloudWatch, and public IPv4 charges. As the source states: 'Your Fargate calculator shows $45/month. Your AWS bill shows $90. The gap isn't a mistake.' [3]",
+      "c": "Incorrect. Tax alone wouldn't double the bill.",
+      "d": "Incorrect. While possible, this isn't the typical reason for 2x discrepancy."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which pricing region does AWS typically use as the baseline for documentation examples?",
+    "opts": {
+      "a": "US West (Oregon)",
+      "b": "US East (N. Virginia)",
+      "c": "EU (Ireland)",
+      "d": "Asia Pacific (Tokyo)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Oregon is not the typical baseline.",
+      "b": "Correct. All rates in Fargate pricing guides reflect AWS US East (N. Virginia) pricing. Other regions are typically 10–30% higher. [3]",
+      "c": "Incorrect. EU regions are typically more expensive.",
+      "d": "Incorrect. Tokyo is not the baseline region."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How much more expensive are non-us-east-1 regions typically for Fargate?",
+    "opts": {
+      "a": "5–10% higher",
+      "b": "10–30% higher",
+      "c": "50–100% higher",
+      "d": "Same price in all regions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The difference is larger.",
+      "b": "Correct. Other regions are typically 10–30% higher than US East (N. Virginia) pricing. [3]",
+      "c": "Incorrect. 50–100% overestimates the typical difference.",
+      "d": "Incorrect. Prices vary by region."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the key difference between EKS managed node groups and self-managed node groups regarding upgrades?",
+    "opts": {
+      "a": "Both require manual upgrades",
+      "b": "Managed node groups can be upgraded with EKS, while self-managed nodes must be manually updated and have no console indicator that they need updating",
+      "c": "Self-managed groups upgrade automatically",
+      "d": "There is no difference"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Managed node groups have automated upgrade capabilities.",
+      "b": "Correct. Self-managed node group instances aren't automatically upgraded when you update the control plane. They have no console indication that they need updating. You must manually update the nodes. [14]",
+      "c": "Incorrect. Self-managed groups do NOT upgrade automatically.",
+      "d": "Incorrect. There are significant differences."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A DevOps engineer wants to check if self-managed EKS nodes need updating. How can they determine which nodes require updates?",
+    "opts": {
+      "a": "Check the EKS console dashboard",
+      "b": "View the kubelet version by selecting nodes in the Nodes list on the Overview tab of the cluster",
+      "c": "Run kubectl get nodes and check automatically",
+      "d": "AWS sends email notifications"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Self-managed nodes don't show update indicators on the dashboard.",
+      "b": "Correct. You can view the kubelet version installed on a node by selecting the node in the Nodes list on the Overview tab of your cluster to determine which nodes need updating. [14]",
+      "c": "Incorrect. While kubectl shows versions, the EKS console method is documented.",
+      "d": "Incorrect. AWS doesn't send email notifications for self-managed node updates."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is a 'pull through cache rule' in Amazon ECR?",
+    "opts": {
+      "a": "A rule that caches frequently accessed images on EC2 instances",
+      "b": "A way to cache repositories in an upstream registry in your private Amazon ECR registry",
+      "c": "A CDN caching rule for container images",
+      "d": "A rule that pre-pulls images to all nodes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Pull through cache is not about EC2 instance-level caching.",
+      "b": "Correct. Pull through cache rules provide a way to cache repositories in an upstream registry in your private Amazon ECR registry. [2]",
+      "c": "Incorrect. It's not a CDN feature.",
+      "d": "Incorrect. It doesn't pre-pull to nodes."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Where is ECR replication configured?",
+    "opts": {
+      "a": "At the individual repository level",
+      "b": "As a registry setting, configured on a per-Region basis",
+      "c": "At the AWS Organization level",
+      "d": "In the IAM console"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Replication is not configured per repository.",
+      "b": "Correct. Cross-Region and cross-account replication is configured as a registry setting and is on a per-Region basis. [2]",
+      "c": "Incorrect. It's not configured at the Organization level.",
+      "d": "Incorrect. IAM console is not where replication is configured."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to set up ECR cross-region replication within the same account. What registryId should they specify in the replication rule?",
+    "opts": {
+      "a": "The destination region name",
+      "b": "Their own account ID",
+      "c": "The AWS account root email",
+      "d": "A service-linked role ARN"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The region is specified separately.",
+      "b": "Correct. To configure cross-Region replication within your own account, you specify your own account ID as the registryId. [1]",
+      "c": "Incorrect. Email addresses are not used in replication configuration.",
+      "d": "Incorrect. Role ARNs are not used in the replication rule destination."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team configures ECR cross-account replication from Account A (source) to Account B (destination). What must Account A configure for replication to work?",
+    "opts": {
+      "a": "A registry permissions policy allowing the destination to pull",
+      "b": "Nothing - the source account does not require any special repository or registry policies",
+      "c": "An IAM role for the destination account",
+      "d": "A VPC endpoint to the destination account"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The permissions policy goes on the destination, not source.",
+      "b": "Correct. Cross-account ECR replication requires policy configuration on the destination account only. The source account does not require any special repository or registry policies. [4]",
+      "c": "Incorrect. IAM roles on the source aren't required.",
+      "d": "Incorrect. VPC endpoints aren't required for replication."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An organization has configured ECR replication to a destination account, but images are not being replicated. What is the most likely cause?",
+    "opts": {
+      "a": "The source account is missing permissions",
+      "b": "The destination account has not configured a registry permissions policy to allow replication from the source",
+      "c": "ECR replication is not available in the region",
+      "d": "The images are too large"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Source accounts don't need special policies.",
+      "b": "Correct. For cross-account replication to occur, the destination account must configure a registry permissions policy to allow replication to occur. [1][4]",
+      "c": "Incorrect. ECR replication is widely available.",
+      "d": "Incorrect. Image size doesn't affect replication."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What guides has AWS published for EKS best practices regarding autoscaling?",
+    "opts": {
+      "a": "Only Cluster Autoscaler",
+      "b": "Karpenter, cluster-autoscaler, and EKS Auto Mode",
+      "c": "Only Karpenter",
+      "d": "HPA and VPA only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS has published guides for multiple autoscalers.",
+      "b": "Correct. AWS has published best practices guides for Cluster Autoscaling: Karpenter, Cluster Autoscaling: cluster-autoscaler, and Cluster Autoscaling: EKS Auto Mode. [15]",
+      "c": "Incorrect. Multiple guides exist beyond Karpenter.",
+      "d": "Incorrect. HPA and VPA are not the cluster-level autoscaling guides."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What EKS best practices guide topics has AWS published?",
+    "opts": {
+      "a": "Only Security",
+      "b": "Security, Reliability, Cluster Autoscaling (Karpenter, cluster-autoscaler, EKS Auto Mode), and Networking",
+      "c": "Only Networking and Security",
+      "d": "Only Cost Optimization"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple topics are covered.",
+      "b": "Correct. AWS has published guides for Security, Reliability, Cluster Autoscaling (Karpenter, cluster-autoscaler, EKS Auto Mode), and Networking. [15]",
+      "c": "Incorrect. More topics are covered than just these two.",
+      "d": "Incorrect. Cost optimization is not the only topic."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to migrate from EKS Cluster Autoscaler to Karpenter. Where can they find official guidance?",
+    "opts": {
+      "a": "There is no official migration guide",
+      "b": "The Karpenter documentation includes a 'Migrating from Cluster Autoscaler' guide",
+      "c": "Only through AWS Support",
+      "d": "In the ECS documentation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Official migration guidance exists.",
+      "b": "Correct. Karpenter documentation includes 'Migrating from Cluster Autoscaler' and 'Migrate to Karpenter from Cluster Autoscaler' guides. [9]",
+      "c": "Incorrect. Documentation is publicly available.",
+      "d": "Incorrect. Karpenter guides are in EKS documentation, not ECS."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does the ECS capacity provider 'Tasks in PROVISIONING state per cluster' quota represent?",
+    "opts": {
+      "a": "Total tasks per cluster",
+      "b": "The maximum number of tasks in the PROVISIONING state per cluster for which capacity providers can increase capacity",
+      "c": "Tasks per service",
+      "d": "Tasks per instance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is specifically about provisioning state, not total tasks.",
+      "b": "Correct. This quota is the maximum number of tasks in the PROVISIONING state for each cluster for which capacity providers can increase capacity. [11]",
+      "c": "Incorrect. This quota is per cluster, not per service.",
+      "d": "Incorrect. This is per cluster, not per instance."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team hits the 'Tasks in PROVISIONING state' quota during a large deployment. What are their options?",
+    "opts": {
+      "a": "Wait indefinitely for tasks to provision",
+      "b": "Create more clusters or request a service quota increase",
+      "c": "Delete all existing tasks",
+      "d": "Switch to a different region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Waiting may not resolve the issue if the quota is the bottleneck.",
+      "b": "Correct. If you require more capacity, you can create more clusters or request a service quota increase. [11]",
+      "c": "Incorrect. Deleting tasks doesn't increase the quota.",
+      "d": "Incorrect. The quota exists in all regions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did ECR cross-region replication first launch?",
+    "opts": {
+      "a": "re:Invent 2019",
+      "b": "re:Invent 2020 (December 2020)",
+      "c": "re:Invent 2021",
+      "d": "re:Invent 2022"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CRR launched later.",
+      "b": "Correct. ECR cross-region replication launched on December 8, 2020, announced at re:Invent 2020. [6]",
+      "c": "Incorrect. It was available before 2021.",
+      "d": "Incorrect. CRR was available well before 2022."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does ECR cross-region replication support for multi-architecture images?",
+    "opts": {
+      "a": "Only single-architecture images",
+      "b": "Support for manifest lists (multi-architecture images)",
+      "c": "Only linux/amd64 images",
+      "d": "Multi-arch is not supported with replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multi-arch images are supported.",
+      "b": "Correct. ECR cross-region replication includes support for manifest lists, enabling multi-architecture image replication. [6]",
+      "c": "Incorrect. All architectures are supported.",
+      "d": "Incorrect. Multi-arch replication is fully supported."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company is setting up ECR replication in the console. They want both cross-region AND cross-account replication. Can they configure both simultaneously?",
+    "opts": {
+      "a": "No, you must choose one or the other",
+      "b": "Yes, on the Destination types page you can enable cross-Region replication, cross-account replication, or both",
+      "c": "Only via CLI, not the console",
+      "d": "Requires two separate replication rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Both can be enabled simultaneously.",
+      "b": "Correct. On the Destination types page, you can choose to enable cross-Region replication, cross-account replication, or both. [1]",
+      "c": "Incorrect. The console supports this configuration.",
+      "d": "Incorrect. A single rule can include both."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to use ECS Service Connect for their microservices. What reliability features does it provide out of the box?",
+    "opts": {
+      "a": "No reliability features",
+      "b": "Built-in health checks, outlier detection, and retry mechanisms with opinionated defaults",
+      "c": "Only basic TCP load balancing",
+      "d": "Only DNS-based service discovery"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Service Connect provides multiple reliability features.",
+      "b": "Correct. Service Connect improves the reliability of containerized microservices through built-in health checks, outlier detection, and retry mechanisms. [5]",
+      "c": "Incorrect. Service Connect provides application-level features beyond TCP.",
+      "d": "Incorrect. Service Connect is more than DNS-based discovery."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team is deploying ECS services with capacity providers but experiences deployment bottlenecks when scaling rapidly. What quota should they investigate?",
+    "opts": {
+      "a": "ECS service count quota",
+      "b": "Tasks in the PROVISIONING state per cluster quota",
+      "c": "Container instance memory limit",
+      "d": "Network interface quota"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Service count isn't the bottleneck for scaling.",
+      "b": "Correct. If you use Amazon ECS cluster auto scaling with a capacity provider, when scaling your services consider the Tasks in the PROVISIONING state per cluster quota. This can become a deployment bottleneck. [11]",
+      "c": "Incorrect. Memory limits are per-task, not the scaling bottleneck.",
+      "d": "Incorrect. While relevant, the provisioning quota is the primary ECS-specific bottleneck."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A startup is deciding between ECS Service Connect and deploying their own service mesh with Istio. What advantage does Service Connect offer for observability?",
+    "opts": {
+      "a": "Better Grafana integration",
+      "b": "Free application-level traffic metrics sent to CloudWatch without additional configuration",
+      "c": "More customizable metrics",
+      "d": "Open Telemetry support"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Grafana integration isn't the primary advantage.",
+      "b": "Correct. Service Connect provides free application-level networking metrics sent to CloudWatch, visible in both CloudWatch and Amazon ECS console, without requiring you to configure metric collection. [5]",
+      "c": "Incorrect. Custom meshes may offer more customization but require more effort.",
+      "d": "Incorrect. While OTel support exists, the free CloudWatch metrics are the key advantage."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What happened to new AWS App Mesh customer onboarding starting September 24, 2024?",
+    "opts": {
+      "a": "Nothing changed",
+      "b": "New customers were blocked from onboarding to AWS App Mesh",
+      "c": "Pricing was increased",
+      "d": "Only EKS customers could use App Mesh"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Significant changes occurred.",
+      "b": "Correct. Starting from September 24th, 2024, new customers were blocked from onboarding to AWS App Mesh. [5]",
+      "c": "Incorrect. Pricing change was not the restriction.",
+      "d": "Incorrect. The restriction was a complete block on new customers."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An existing AWS App Mesh customer wants to know if they can still create new resources before the discontinuation date. What can they do?",
+    "opts": {
+      "a": "No new resources can be created",
+      "b": "Existing customers can use the service as normal, including creating new resources via CLI and CloudFormation until September 30, 2026",
+      "c": "Only via the console",
+      "d": "Only read operations are permitted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Existing customers retain full capabilities.",
+      "b": "Correct. Until September 30, 2026, existing AWS App Mesh customers can use the service as normal, including creating new resources and onboarding new accounts via the AWS CLI and AWS CloudFormation. [5]",
+      "c": "Incorrect. CLI and CloudFormation are both supported.",
+      "d": "Incorrect. Full read/write operations are permitted."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What proxy technology do both App Mesh and ECS Service Connect use?",
+    "opts": {
+      "a": "NGINX",
+      "b": "Envoy",
+      "c": "HAProxy",
+      "d": "Traefik"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NGINX is not used by either service.",
+      "b": "Correct. Both App Mesh and Service Connect use Envoy's outlier detection, health checking, and retry mechanisms. [5]",
+      "c": "Incorrect. HAProxy is not the underlying proxy.",
+      "d": "Incorrect. Traefik is not used."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company using ECR replication wants to replicate images from us-west-2 (source) to both eu-west-1 and ap-southeast-1 within the same account. What must they do?",
+    "opts": {
+      "a": "Create separate replication configurations in each destination region",
+      "b": "Configure the replication rule in us-west-2 specifying their own account ID with both destination regions",
+      "c": "Contact AWS Support to enable multi-region replication",
+      "d": "Use S3 cross-region replication instead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Configuration is done in the source region.",
+      "b": "Correct. Create the replication rule in the source region (us-west-2) specifying your own account ID with multiple destination regions in a single rule. [1][6]",
+      "c": "Incorrect. Multi-region replication is self-service.",
+      "d": "Incorrect. S3 CRR doesn't apply to ECR."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does ECS Cluster Auto Scaling (CAS) differ from standard EC2 Auto Scaling?",
+    "opts": {
+      "a": "They are the same thing",
+      "b": "CAS creates an AWS Auto Scaling plan with a target tracking policy specifically designed for ECS task placement demand",
+      "c": "CAS only uses scheduled scaling",
+      "d": "CAS is only for Fargate"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CAS is purpose-built for ECS.",
+      "b": "Correct. When managed scaling is enabled, Amazon ECS creates an AWS Auto Scaling plan with a target tracking scaling policy and associates it with the Auto Scaling group, specifically designed to match capacity to ECS task demand. [7]",
+      "c": "Incorrect. CAS uses target tracking, not just scheduled scaling.",
+      "d": "Incorrect. CAS is for EC2 capacity providers, not Fargate."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A Solutions Architect needs to recommend an approach for a team migrating from App Mesh to Service Connect. What should they consider regarding traffic routing flexibility?",
+    "opts": {
+      "a": "Service Connect offers more routing flexibility",
+      "b": "App Mesh provides more fine-grained traffic routing control, while Service Connect uses opinionated defaults; the team should evaluate if the simplified approach meets their needs",
+      "c": "Both offer identical routing capabilities",
+      "d": "Neither supports traffic routing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. App Mesh actually offers more routing flexibility.",
+      "b": "Correct. The migration post discusses the key differences in traffic routing, observability, security, and resource sharing, noting that Service Connect provides streamlined abstractions with opinionated defaults while App Mesh allows fine-tuning. [5]",
+      "c": "Incorrect. Their routing capabilities differ.",
+      "d": "Incorrect. Both support traffic routing."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company deploys 50 ECS services simultaneously, each with 100 tasks, using a capacity provider. What problem are they likely to encounter?",
+    "opts": {
+      "a": "Services will fail to create",
+      "b": "Task placement will be throttled due to insufficient cluster capacity, with back-off and exponential retry as new instances launch",
+      "c": "All tasks will run immediately",
+      "d": "The ECS cluster will be deleted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Services will be created but task placement will be slow.",
+      "b": "Correct. When launching large numbers of tasks simultaneously, you can meet the quota for tasks in PROVISIONING state. The ECS service scheduler implements back-off and exponential throttling for retrying task placement as new instances launch. [11]",
+      "c": "Incorrect. There isn't enough capacity for immediate placement.",
+      "d": "Incorrect. The cluster won't be deleted."
+    }
+  }
+]

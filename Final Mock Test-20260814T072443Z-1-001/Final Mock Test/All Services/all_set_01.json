@@ -1,0 +1,3113 @@
+[
+  {
+    "type": "mcq",
+    "q": "What does IAM stand for in AWS?",
+    "opts": {
+      "a": "Identity and Access Management",
+      "b": "Internet and Application Management",
+      "c": "Infrastructure and Access Monitoring",
+      "d": "Identity and Application Monitoring"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. IAM stands for Identity and Access Management, which is used to manage access to AWS services and resources securely.",
+      "b": "Incorrect. IAM does not relate to Internet and Application Management.",
+      "c": "Incorrect. IAM is not Infrastructure and Access Monitoring.",
+      "d": "Incorrect. IAM does not stand for Identity and Application Monitoring."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a virtual network dedicated to your AWS account?",
+    "opts": {
+      "a": "Amazon VPC",
+      "b": "Amazon Route 53",
+      "c": "AWS Direct Connect",
+      "d": "Amazon CloudFront"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon VPC (Virtual Private Cloud) lets you provision a logically isolated section of the AWS Cloud.",
+      "b": "Incorrect. Route 53 is a DNS web service.",
+      "c": "Incorrect. Direct Connect provides a dedicated network connection from on-premises to AWS.",
+      "d": "Incorrect. CloudFront is a CDN service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of IAM users you can create per AWS account by default?",
+    "opts": {
+      "a": "5000",
+      "b": "1000",
+      "c": "10000",
+      "d": "500"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default limit is 5000 IAM users per AWS account.",
+      "b": "Incorrect. 1000 is not the default limit.",
+      "c": "Incorrect. 10000 exceeds the default limit.",
+      "d": "Incorrect. 500 is below the actual default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which EC2 instance type is best suited for memory-intensive applications like in-memory databases?",
+    "opts": {
+      "a": "R-series (Memory Optimized)",
+      "b": "C-series (Compute Optimized)",
+      "c": "T-series (General Purpose)",
+      "d": "P-series (Accelerated Computing)"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. R-series instances are memory optimized and ideal for in-memory databases like Redis or SAP HANA.",
+      "b": "Incorrect. C-series is optimized for compute-intensive tasks.",
+      "c": "Incorrect. T-series provides a balance of compute, memory, and networking.",
+      "d": "Incorrect. P-series is for GPU-based workloads like machine learning."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: An Elastic Load Balancer can distribute traffic across multiple Availability Zones.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ELB supports cross-zone load balancing to distribute traffic across instances in multiple AZs.",
+      "b": "Incorrect. ELB is specifically designed to distribute traffic across multiple AZs for high availability.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default minimum size of an EBS General Purpose SSD (gp2) volume?",
+    "opts": {
+      "a": "1 GiB",
+      "b": "10 GiB",
+      "c": "8 GiB",
+      "d": "20 GiB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The minimum size of an EBS gp2 volume is 1 GiB.",
+      "b": "Incorrect. 10 GiB is not the minimum size.",
+      "c": "Incorrect. 8 GiB is the default root volume for some AMIs, not the minimum EBS size.",
+      "d": "Incorrect. 20 GiB exceeds the minimum requirement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is a fully managed relational database that supports MySQL, PostgreSQL, MariaDB, Oracle, and SQL Server?",
+    "opts": {
+      "a": "Amazon RDS",
+      "b": "Amazon DynamoDB",
+      "c": "Amazon Redshift",
+      "d": "Amazon ElastiCache"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon RDS is a managed relational database service supporting multiple database engines.",
+      "b": "Incorrect. DynamoDB is a NoSQL database service.",
+      "c": "Incorrect. Redshift is a data warehouse service.",
+      "d": "Incorrect. ElastiCache is an in-memory caching service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs to route traffic based on the geographic location of users. Which Route 53 routing policy should they use?",
+    "opts": {
+      "a": "Geolocation routing",
+      "b": "Simple routing",
+      "c": "Weighted routing",
+      "d": "Failover routing"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Geolocation routing lets you route traffic based on the geographic location of your users.",
+      "b": "Incorrect. Simple routing is used for a single resource that performs a given function.",
+      "c": "Incorrect. Weighted routing distributes traffic based on assigned weights.",
+      "d": "Incorrect. Failover routing is used for active-passive failover configurations."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of a single object you can upload to Amazon S3?",
+    "opts": {
+      "a": "5 TB",
+      "b": "5 GB",
+      "c": "10 TB",
+      "d": "1 TB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The maximum size of a single object in S3 is 5 TB.",
+      "b": "Incorrect. 5 GB is the maximum for a single PUT operation, not the object limit.",
+      "c": "Incorrect. 10 TB exceeds the maximum object size.",
+      "d": "Incorrect. 1 TB is below the actual maximum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is used for serverless compute and executes code in response to events?",
+    "opts": {
+      "a": "AWS Lambda",
+      "b": "Amazon EC2",
+      "c": "Amazon ECS",
+      "d": "AWS Elastic Beanstalk"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Lambda is a serverless compute service that runs code in response to events.",
+      "b": "Incorrect. EC2 provides virtual servers that require management.",
+      "c": "Incorrect. ECS is a container orchestration service.",
+      "d": "Incorrect. Elastic Beanstalk is a PaaS that still provisions EC2 instances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum execution timeout for an AWS Lambda function?",
+    "opts": {
+      "a": "15 minutes",
+      "b": "5 minutes",
+      "c": "30 minutes",
+      "d": "60 minutes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Lambda functions have a maximum execution timeout of 15 minutes (900 seconds).",
+      "b": "Incorrect. 5 minutes was the old limit; it was increased to 15 minutes.",
+      "c": "Incorrect. 30 minutes exceeds the maximum timeout.",
+      "d": "Incorrect. 60 minutes exceeds the maximum timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which DynamoDB feature allows you to automatically expire items after a specified timestamp?",
+    "opts": {
+      "a": "TTL (Time to Live)",
+      "b": "DynamoDB Streams",
+      "c": "Global Tables",
+      "d": "DAX (DynamoDB Accelerator)"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. TTL automatically deletes expired items from a DynamoDB table without consuming write throughput.",
+      "b": "Incorrect. DynamoDB Streams captures data modification events in a table.",
+      "c": "Incorrect. Global Tables provides multi-region replication.",
+      "d": "Incorrect. DAX is an in-memory cache for DynamoDB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: Amazon Aurora is compatible with MySQL and PostgreSQL.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora is AWS's proprietary database that is compatible with both MySQL and PostgreSQL.",
+      "b": "Incorrect. Aurora indeed supports both MySQL and PostgreSQL compatibility.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A startup wants to deploy a Docker container without managing the underlying infrastructure. Which AWS service combination should they use?",
+    "opts": {
+      "a": "ECS with Fargate",
+      "b": "EC2 with Docker installed",
+      "c": "Lambda with container images",
+      "d": "Elastic Beanstalk with Docker"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ECS with Fargate allows you to run containers without managing servers or clusters.",
+      "b": "Incorrect. EC2 with Docker requires you to manage the underlying infrastructure.",
+      "c": "Incorrect. Lambda with container images has execution time limits and is event-driven.",
+      "d": "Incorrect. Elastic Beanstalk still manages EC2 instances in the background."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a fully managed message queuing service that decouples microservices?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "Amazon SNS",
+      "c": "Amazon Kinesis",
+      "d": "Amazon MQ"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon SQS (Simple Queue Service) is a fully managed message queuing service for decoupling components.",
+      "b": "Incorrect. SNS is a pub/sub messaging service, not a queue.",
+      "c": "Incorrect. Kinesis is for real-time streaming data.",
+      "d": "Incorrect. Amazon MQ is a managed message broker for ActiveMQ and RabbitMQ."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default visibility timeout for an SQS message?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "60 seconds",
+      "c": "12 hours",
+      "d": "5 minutes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default visibility timeout for SQS messages is 30 seconds.",
+      "b": "Incorrect. 60 seconds is not the default.",
+      "c": "Incorrect. 12 hours is the maximum visibility timeout, not the default.",
+      "d": "Incorrect. 5 minutes is not the default visibility timeout."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is used to create and manage REST APIs at scale?",
+    "opts": {
+      "a": "Amazon API Gateway",
+      "b": "AWS AppSync",
+      "c": "Amazon CloudFront",
+      "d": "Elastic Load Balancer"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon API Gateway enables you to create, publish, maintain, and secure REST, HTTP, and WebSocket APIs.",
+      "b": "Incorrect. AppSync is for GraphQL APIs.",
+      "c": "Incorrect. CloudFront is a CDN, not an API management service.",
+      "d": "Incorrect. ELB distributes traffic but doesn't manage APIs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In the AWS Well-Architected Framework, which pillar focuses on the ability to recover from failures?",
+    "opts": {
+      "a": "Reliability",
+      "b": "Performance Efficiency",
+      "c": "Security",
+      "d": "Operational Excellence"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The Reliability pillar focuses on the ability of a workload to recover from infrastructure or service disruptions.",
+      "b": "Incorrect. Performance Efficiency focuses on using computing resources efficiently.",
+      "c": "Incorrect. Security focuses on protecting information and systems.",
+      "d": "Incorrect. Operational Excellence focuses on running and monitoring systems."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Terraform command is used to create an execution plan showing what actions will be taken?",
+    "opts": {
+      "a": "terraform plan",
+      "b": "terraform apply",
+      "c": "terraform init",
+      "d": "terraform validate"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 'terraform plan' creates an execution plan showing what changes will be made.",
+      "b": "Incorrect. 'terraform apply' executes the planned changes.",
+      "c": "Incorrect. 'terraform init' initializes the working directory.",
+      "d": "Incorrect. 'terraform validate' checks configuration syntax."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of Terraform state file?",
+    "opts": {
+      "a": "To map real-world resources to your configuration and track metadata",
+      "b": "To store provider credentials securely",
+      "c": "To define the desired infrastructure configuration",
+      "d": "To log all Terraform commands executed"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The state file maps resources in your configuration to real-world objects and tracks resource metadata.",
+      "b": "Incorrect. Credentials should not be stored in the state file.",
+      "c": "Incorrect. The configuration files (.tf) define the desired infrastructure.",
+      "d": "Incorrect. The state file does not log commands."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a content delivery network (CDN) to deliver content with low latency?",
+    "opts": {
+      "a": "Amazon CloudFront",
+      "b": "Amazon Route 53",
+      "c": "AWS Global Accelerator",
+      "d": "Amazon S3 Transfer Acceleration"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront is AWS's CDN service that caches content at edge locations for low-latency delivery.",
+      "b": "Incorrect. Route 53 is a DNS service.",
+      "c": "Incorrect. Global Accelerator improves availability and performance but is not a CDN.",
+      "d": "Incorrect. S3 Transfer Acceleration speeds up uploads to S3, not content delivery."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Availability Zones does Aurora automatically replicate data across?",
+    "opts": {
+      "a": "3",
+      "b": "2",
+      "c": "6",
+      "d": "1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora stores data across 3 AZs but creates 6 copies total.",
+      "b": "Incorrect. 2 is fewer than the actual number.",
+      "c": "Correct. Aurora automatically replicates your data across 3 Availability Zones with 6 copies of your data (2 copies per AZ).",
+      "d": "Incorrect. 1 would provide no redundancy."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a managed Kubernetes service?",
+    "opts": {
+      "a": "Amazon EKS",
+      "b": "Amazon ECS",
+      "c": "AWS Fargate",
+      "d": "AWS Lambda"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon EKS (Elastic Kubernetes Service) is a managed Kubernetes service.",
+      "b": "Incorrect. ECS is AWS's proprietary container orchestration service.",
+      "c": "Incorrect. Fargate is a serverless compute engine for containers.",
+      "d": "Incorrect. Lambda is a serverless function service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: AWS CloudFormation allows you to model and provision AWS resources using code (Infrastructure as Code).",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFormation is AWS's native IaC service that allows you to define resources using JSON or YAML templates.",
+      "b": "Incorrect. CloudFormation is indeed an Infrastructure as Code service.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum retention period for SQS messages?",
+    "opts": {
+      "a": "14 days",
+      "b": "7 days",
+      "c": "30 days",
+      "d": "1 day"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. SQS messages can be retained for a maximum of 14 days.",
+      "b": "Incorrect. 7 days is not the maximum retention period.",
+      "c": "Incorrect. 30 days exceeds the maximum.",
+      "d": "Incorrect. 1 day is the minimum retention period."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs to process real-time streaming data from IoT devices. Which AWS service is most appropriate?",
+    "opts": {
+      "a": "Amazon Kinesis",
+      "b": "Amazon SQS",
+      "c": "Amazon SNS",
+      "d": "AWS Step Functions"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon Kinesis is designed for real-time streaming data processing.",
+      "b": "Incorrect. SQS is for message queuing, not real-time streaming.",
+      "c": "Incorrect. SNS is for pub/sub notifications.",
+      "d": "Incorrect. Step Functions orchestrates workflows, not streaming data."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which type of Elastic Load Balancer operates at Layer 7 (Application Layer) and supports path-based routing?",
+    "opts": {
+      "a": "Application Load Balancer (ALB)",
+      "b": "Network Load Balancer (NLB)",
+      "c": "Classic Load Balancer (CLB)",
+      "d": "Gateway Load Balancer (GWLB)"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ALB operates at Layer 7 and supports path-based and host-based routing.",
+      "b": "Incorrect. NLB operates at Layer 4 (TCP/UDP).",
+      "c": "Incorrect. CLB supports both Layer 4 and Layer 7 but lacks advanced routing features.",
+      "d": "Incorrect. GWLB operates at Layer 3 for network appliances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of an Auto Scaling Group (ASG) in AWS?",
+    "opts": {
+      "a": "To automatically adjust the number of EC2 instances based on demand",
+      "b": "To automatically resize EBS volumes",
+      "c": "To scale database read replicas",
+      "d": "To manage Lambda concurrent executions"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ASG automatically scales EC2 instances in or out based on defined conditions.",
+      "b": "Incorrect. EBS volumes are not managed by ASG.",
+      "c": "Incorrect. Read replicas are managed through RDS, not ASG directly.",
+      "d": "Incorrect. Lambda concurrency is managed separately."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which S3 storage class is most cost-effective for data that is accessed infrequently but requires rapid access when needed?",
+    "opts": {
+      "a": "S3 Standard-IA",
+      "b": "S3 Glacier",
+      "c": "S3 Standard",
+      "d": "S3 Glacier Deep Archive"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 Standard-IA (Infrequent Access) is cheaper than Standard but still provides millisecond access.",
+      "b": "Incorrect. Glacier has retrieval times from minutes to hours.",
+      "c": "Incorrect. S3 Standard is more expensive for infrequently accessed data.",
+      "d": "Incorrect. Deep Archive has retrieval times of 12+ hours."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is used to manage encryption keys for encrypting data?",
+    "opts": {
+      "a": "AWS KMS",
+      "b": "AWS IAM",
+      "c": "AWS Shield",
+      "d": "AWS WAF"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS KMS (Key Management Service) is used to create and manage cryptographic keys.",
+      "b": "Incorrect. IAM manages access permissions, not encryption keys.",
+      "c": "Incorrect. Shield provides DDoS protection.",
+      "d": "Incorrect. WAF is a web application firewall."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does the acronym SDLC stand for?",
+    "opts": {
+      "a": "Software Development Life Cycle",
+      "b": "System Design Life Cycle",
+      "c": "Software Delivery Logical Chain",
+      "d": "System Development Launch Configuration"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. SDLC stands for Software Development Life Cycle.",
+      "b": "Incorrect. SDLC does not stand for System Design Life Cycle.",
+      "c": "Incorrect. This is not what SDLC represents.",
+      "d": "Incorrect. SDLC is not System Development Launch Configuration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In DevOps, what does CI/CD stand for?",
+    "opts": {
+      "a": "Continuous Integration / Continuous Delivery (or Deployment)",
+      "b": "Cloud Integration / Cloud Deployment",
+      "c": "Continuous Inspection / Continuous Development",
+      "d": "Container Integration / Container Delivery"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CI/CD stands for Continuous Integration and Continuous Delivery/Deployment.",
+      "b": "Incorrect. CI/CD is not related to Cloud Integration.",
+      "c": "Incorrect. CI/CD does not stand for Continuous Inspection.",
+      "d": "Incorrect. CI/CD is not about Container Integration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is used to store Docker container images?",
+    "opts": {
+      "a": "Amazon ECR",
+      "b": "Amazon ECS",
+      "c": "Amazon EKS",
+      "d": "AWS Fargate"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon ECR (Elastic Container Registry) is a fully managed Docker container registry.",
+      "b": "Incorrect. ECS is a container orchestration service.",
+      "c": "Incorrect. EKS is a managed Kubernetes service.",
+      "d": "Incorrect. Fargate is a serverless compute engine for containers."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: Amazon EFS can be mounted on multiple EC2 instances simultaneously.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EFS is a shared file system that can be mounted on multiple EC2 instances across multiple AZs.",
+      "b": "Incorrect. Unlike EBS which is attached to a single instance, EFS supports concurrent access from multiple instances.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides temporary security credentials for assuming roles?",
+    "opts": {
+      "a": "AWS STS",
+      "b": "AWS KMS",
+      "c": "AWS IAM",
+      "d": "AWS Cognito"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS STS (Security Token Service) provides temporary, limited-privilege credentials.",
+      "b": "Incorrect. KMS manages encryption keys.",
+      "c": "Incorrect. IAM manages users and policies but STS provides temporary credentials.",
+      "d": "Incorrect. Cognito is for user authentication in applications."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of tags you can assign to an AWS resource?",
+    "opts": {
+      "a": "50",
+      "b": "10",
+      "c": "100",
+      "d": "25"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Most AWS resources support up to 50 tags per resource.",
+      "b": "Incorrect. 10 is too few; the limit is higher.",
+      "c": "Incorrect. 100 exceeds the standard limit.",
+      "d": "Incorrect. 25 is below the actual limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS CodeDeploy deployment strategy deploys to a fraction of instances at a time?",
+    "opts": {
+      "a": "Rolling deployment",
+      "b": "All-at-once deployment",
+      "c": "Blue/Green deployment",
+      "d": "Canary deployment"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Rolling deployment deploys updates to a batch of instances at a time.",
+      "b": "Incorrect. All-at-once deploys to all instances simultaneously.",
+      "c": "Incorrect. Blue/Green creates a new set of instances and switches traffic.",
+      "d": "Incorrect. Canary shifts a small percentage of traffic first."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service records API calls made to your account for auditing purposes?",
+    "opts": {
+      "a": "AWS CloudTrail",
+      "b": "Amazon CloudWatch",
+      "c": "AWS X-Ray",
+      "d": "AWS Config"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudTrail records AWS API calls for your account and delivers log files for auditing.",
+      "b": "Incorrect. CloudWatch is for monitoring metrics and logs.",
+      "c": "Incorrect. X-Ray is for tracing distributed applications.",
+      "d": "Incorrect. Config tracks resource configuration changes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In Amazon Cognito, what is the difference between User Pools and Identity Pools?",
+    "opts": {
+      "a": "User Pools handle authentication; Identity Pools provide AWS credentials for authorization",
+      "b": "User Pools provide AWS credentials; Identity Pools handle authentication",
+      "c": "Both are identical in functionality",
+      "d": "User Pools are for mobile only; Identity Pools are for web only"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. User Pools are user directories for sign-up/sign-in; Identity Pools grant temporary AWS credentials.",
+      "b": "Incorrect. This reverses their actual purposes.",
+      "c": "Incorrect. They serve different purposes.",
+      "d": "Incorrect. Both can be used for mobile and web applications."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a serverless orchestration of workflows using state machines?",
+    "opts": {
+      "a": "AWS Step Functions",
+      "b": "AWS Lambda",
+      "c": "Amazon SWF",
+      "d": "AWS Batch"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Step Functions lets you coordinate multiple AWS services using visual workflows (state machines).",
+      "b": "Incorrect. Lambda executes individual functions, not orchestrating workflows.",
+      "c": "Incorrect. SWF is an older workflow service being replaced by Step Functions.",
+      "d": "Incorrect. AWS Batch runs batch computing workloads."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the primary purpose of AWS CloudWatch?",
+    "opts": {
+      "a": "Monitoring and observability of AWS resources and applications",
+      "b": "Auditing API calls",
+      "c": "Managing encryption keys",
+      "d": "Distributing traffic across instances"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudWatch provides monitoring for AWS resources including metrics, logs, and alarms.",
+      "b": "Incorrect. Auditing API calls is done by CloudTrail.",
+      "c": "Incorrect. KMS manages encryption keys.",
+      "d": "Incorrect. Load balancers distribute traffic."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: EBS volumes can only be attached to one EC2 instance at a time (except io1/io2 with multi-attach).",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Standard EBS volumes attach to one instance, except io1/io2 which support multi-attach in the same AZ.",
+      "b": "Incorrect. EBS is generally single-attach with the noted exception.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Terraform collection data type stores key-value pairs?",
+    "opts": {
+      "a": "Map",
+      "b": "List",
+      "c": "Set",
+      "d": "Tuple"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Map in Terraform stores key-value pairs where each value is of the same type.",
+      "b": "Incorrect. List stores ordered sequences of values.",
+      "c": "Incorrect. Set stores unordered unique values.",
+      "d": "Incorrect. Tuple stores a fixed-length sequence of values with different types."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of Jenkins in a CI/CD pipeline?",
+    "opts": {
+      "a": "To automate the building, testing, and deployment of applications",
+      "b": "To provision cloud infrastructure",
+      "c": "To monitor application performance",
+      "d": "To manage container orchestration"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Jenkins is an open-source automation server for implementing CI/CD pipelines.",
+      "b": "Incorrect. Infrastructure provisioning is done by tools like Terraform or CloudFormation.",
+      "c": "Incorrect. Monitoring is done by tools like CloudWatch.",
+      "d": "Incorrect. Container orchestration is managed by Kubernetes or ECS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which pillar of the AWS Well-Architected Framework focuses on minimizing costs?",
+    "opts": {
+      "a": "Cost Optimization",
+      "b": "Performance Efficiency",
+      "c": "Operational Excellence",
+      "d": "Sustainability"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The Cost Optimization pillar focuses on avoiding unnecessary costs.",
+      "b": "Incorrect. Performance Efficiency focuses on using resources efficiently.",
+      "c": "Incorrect. Operational Excellence focuses on operations.",
+      "d": "Incorrect. Sustainability focuses on environmental impacts."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to store configuration parameters and secrets securely. Which AWS service should they use?",
+    "opts": {
+      "a": "AWS Systems Manager Parameter Store",
+      "b": "Amazon S3",
+      "c": "AWS CloudFormation",
+      "d": "Amazon DynamoDB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. SSM Parameter Store provides secure, hierarchical storage for configuration data and secrets.",
+      "b": "Incorrect. S3 is object storage, not designed for secrets management.",
+      "c": "Incorrect. CloudFormation is for infrastructure provisioning.",
+      "d": "Incorrect. DynamoDB is a general database, not designed for secrets."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does SAM stand for in the context of AWS serverless?",
+    "opts": {
+      "a": "Serverless Application Model",
+      "b": "Server Architecture Management",
+      "c": "Secure Access Management",
+      "d": "Simple Application Monitoring"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. SAM stands for Serverless Application Model, an open-source framework for building serverless applications.",
+      "b": "Incorrect. SAM is not Server Architecture Management.",
+      "c": "Incorrect. SAM is not Secure Access Management.",
+      "d": "Incorrect. SAM is not Simple Application Monitoring."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which ElastiCache engine supports data persistence and complex data structures?",
+    "opts": {
+      "a": "Redis",
+      "b": "Memcached",
+      "c": "Both Redis and Memcached",
+      "d": "Neither Redis nor Memcached"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Redis supports data persistence, replication, and complex data structures like sorted sets.",
+      "b": "Incorrect. Memcached is simpler and does not support data persistence.",
+      "c": "Incorrect. Only Redis supports persistence.",
+      "d": "Incorrect. Redis does support these features."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many pillars does the AWS Well-Architected Framework have?",
+    "opts": {
+      "a": "6",
+      "b": "5",
+      "c": "4",
+      "d": "7"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The AWS Well-Architected Framework has 6 pillars: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability.",
+      "b": "Incorrect. It was 5 pillars before Sustainability was added.",
+      "c": "Incorrect. 4 is too few.",
+      "d": "Incorrect. 7 is too many."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a GraphQL API interface for application data?",
+    "opts": {
+      "a": "AWS AppSync",
+      "b": "Amazon API Gateway",
+      "c": "AWS Lambda",
+      "d": "Amazon CloudFront"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS AppSync is a managed GraphQL service for building data-driven applications.",
+      "b": "Incorrect. API Gateway supports REST and WebSocket APIs, not GraphQL natively.",
+      "c": "Incorrect. Lambda executes functions but doesn't provide GraphQL interface.",
+      "d": "Incorrect. CloudFront is a CDN."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default maximum number of VPCs you can create per AWS region?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "3",
+      "d": "20"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default limit is 5 VPCs per region, but this can be increased via a support request.",
+      "b": "Incorrect. 10 exceeds the default limit.",
+      "c": "Incorrect. 3 is below the default.",
+      "d": "Incorrect. 20 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Route 53 record type maps a domain name to an IPv4 address?",
+    "opts": {
+      "a": "A record",
+      "b": "CNAME record",
+      "c": "AAAA record",
+      "d": "MX record"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. An A record maps a domain name to an IPv4 address.",
+      "b": "Incorrect. CNAME maps a domain to another domain name.",
+      "c": "Incorrect. AAAA maps a domain to an IPv6 address.",
+      "d": "Incorrect. MX is for mail exchange records."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service allows you to query data directly from S3 using SQL without loading it into a database?",
+    "opts": {
+      "a": "Amazon Athena",
+      "b": "Amazon Redshift",
+      "c": "Amazon RDS",
+      "d": "Amazon DynamoDB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Athena is a serverless query service that allows you to analyze data directly in S3 using standard SQL.",
+      "b": "Incorrect. Redshift requires data to be loaded into its data warehouse.",
+      "c": "Incorrect. RDS is a relational database, not for querying S3.",
+      "d": "Incorrect. DynamoDB is a NoSQL database."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In Terraform, what does 'terraform init' do?",
+    "opts": {
+      "a": "Initializes the working directory and downloads required provider plugins",
+      "b": "Creates infrastructure resources",
+      "c": "Destroys all managed resources",
+      "d": "Validates the configuration syntax"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 'terraform init' initializes the working directory, downloads providers, and configures the backend.",
+      "b": "Incorrect. Creating resources is done by 'terraform apply'.",
+      "c": "Incorrect. Destroying resources is done by 'terraform destroy'.",
+      "d": "Incorrect. Validating syntax is done by 'terraform validate'."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: Amazon SNS follows a publish-subscribe messaging pattern.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. SNS (Simple Notification Service) is a pub/sub messaging service where publishers send messages to topics and subscribers receive them.",
+      "b": "Incorrect. SNS is indeed based on the publish-subscribe pattern.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the primary difference between EBS and EFS?",
+    "opts": {
+      "a": "EBS is block storage attached to a single instance; EFS is a shared file system accessible by multiple instances",
+      "b": "EBS is object storage; EFS is block storage",
+      "c": "EBS supports Linux only; EFS supports Windows only",
+      "d": "EBS is regional; EFS is per-AZ"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EBS is block-level storage for a single EC2 instance; EFS is a shared NFS file system for multiple instances.",
+      "b": "Incorrect. Both are not object storage. S3 is object storage.",
+      "c": "Incorrect. EBS works with any OS; EFS supports Linux-based systems.",
+      "d": "Incorrect. EBS is AZ-specific; EFS is regional."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which deployment model in Elastic Beanstalk creates a new environment and swaps URLs for zero-downtime deployment?",
+    "opts": {
+      "a": "Blue/Green deployment",
+      "b": "Rolling deployment",
+      "c": "All at once",
+      "d": "Immutable deployment"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Blue/Green deployment creates a separate environment and swaps CNAMEs for zero downtime.",
+      "b": "Incorrect. Rolling updates instances in batches with some reduced capacity.",
+      "c": "Incorrect. All at once deploys to all instances simultaneously causing downtime.",
+      "d": "Incorrect. Immutable creates new instances in the same environment."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a fully managed source control service that hosts Git repositories?",
+    "opts": {
+      "a": "AWS CodeCommit",
+      "b": "AWS CodeBuild",
+      "c": "AWS CodeDeploy",
+      "d": "AWS CodePipeline"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodeCommit is a fully managed source control service that hosts private Git repositories.",
+      "b": "Incorrect. CodeBuild compiles code and runs tests.",
+      "c": "Incorrect. CodeDeploy automates deployments.",
+      "d": "Incorrect. CodePipeline orchestrates the CI/CD workflow."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum message size for Amazon SQS?",
+    "opts": {
+      "a": "256 KB",
+      "b": "1 MB",
+      "c": "64 KB",
+      "d": "512 KB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The maximum message size for SQS is 256 KB.",
+      "b": "Incorrect. 1 MB exceeds the SQS message size limit.",
+      "c": "Incorrect. 64 KB was the old limit.",
+      "d": "Incorrect. 512 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Terraform feature allows you to conditionally create nested blocks within a resource?",
+    "opts": {
+      "a": "Dynamic blocks",
+      "b": "Modules",
+      "c": "Workspaces",
+      "d": "Provisioners"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Dynamic blocks allow you to generate repeated nested blocks within resources based on collections.",
+      "b": "Incorrect. Modules are reusable configurations.",
+      "c": "Incorrect. Workspaces manage multiple state files.",
+      "d": "Incorrect. Provisioners execute scripts on resources."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is used to trace requests through distributed applications for debugging?",
+    "opts": {
+      "a": "AWS X-Ray",
+      "b": "Amazon CloudWatch",
+      "c": "AWS CloudTrail",
+      "d": "AWS Config"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. X-Ray helps analyze and debug distributed applications by tracing requests.",
+      "b": "Incorrect. CloudWatch monitors metrics and logs.",
+      "c": "Incorrect. CloudTrail records API calls.",
+      "d": "Incorrect. Config tracks resource configurations."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to ensure that a DynamoDB table can handle 100 strongly consistent reads per second, each up to 4 KB. How many RCUs are needed?",
+    "opts": {
+      "a": "100 RCUs",
+      "b": "50 RCUs",
+      "c": "200 RCUs",
+      "d": "25 RCUs"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 1 RCU = 1 strongly consistent read per second for items up to 4 KB. So 100 reads × 1 RCU = 100 RCUs.",
+      "b": "Incorrect. 50 RCUs would support 50 strongly consistent reads or 100 eventually consistent reads.",
+      "c": "Incorrect. 200 RCUs would be double what's needed.",
+      "d": "Incorrect. 25 RCUs is far below the requirement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the Cloud Adoption Framework (CAF) primarily used for?",
+    "opts": {
+      "a": "To guide organizations through cloud adoption with best practices across multiple perspectives",
+      "b": "To deploy infrastructure automatically",
+      "c": "To monitor cloud costs",
+      "d": "To manage container workloads"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS CAF provides guidance across Business, People, Governance, Platform, Security, and Operations perspectives.",
+      "b": "Incorrect. Infrastructure deployment is done through IaC tools.",
+      "c": "Incorrect. Cost monitoring is done through Cost Explorer and Budgets.",
+      "d": "Incorrect. Container management uses ECS/EKS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service automates code deployments to EC2 instances, Lambda functions, or on-premises servers?",
+    "opts": {
+      "a": "AWS CodeDeploy",
+      "b": "AWS CodeBuild",
+      "c": "AWS CodePipeline",
+      "d": "AWS CloudFormation"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodeDeploy automates application deployments to compute services.",
+      "b": "Incorrect. CodeBuild compiles source code and runs tests.",
+      "c": "Incorrect. CodePipeline orchestrates the entire CI/CD workflow.",
+      "d": "Incorrect. CloudFormation provisions infrastructure, not application code."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: Terraform Sentinel is a policy-as-code framework for enforcing governance policies.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Sentinel is HashiCorp's policy-as-code framework embedded in Terraform Enterprise/Cloud for governance.",
+      "b": "Incorrect. Sentinel is indeed a policy-as-code framework used with Terraform.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides managed Memcached or Redis for caching?",
+    "opts": {
+      "a": "Amazon ElastiCache",
+      "b": "Amazon DynamoDB DAX",
+      "c": "Amazon CloudFront",
+      "d": "Amazon RDS"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ElastiCache supports both Memcached and Redis as in-memory caching engines.",
+      "b": "Incorrect. DAX is specifically for DynamoDB caching.",
+      "c": "Incorrect. CloudFront is a CDN, not an in-memory cache.",
+      "d": "Incorrect. RDS is a relational database service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the primary purpose of the AWS CDK (Cloud Development Kit)?",
+    "opts": {
+      "a": "To define cloud infrastructure using familiar programming languages like Python, TypeScript, or Java",
+      "b": "To monitor cloud resources",
+      "c": "To manage IAM policies",
+      "d": "To deploy container workloads"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS CDK allows you to define infrastructure using programming languages, which synthesizes to CloudFormation.",
+      "b": "Incorrect. Monitoring is done by CloudWatch.",
+      "c": "Incorrect. IAM policies are managed through IAM.",
+      "d": "Incorrect. Container workloads use ECS/EKS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In a VPC, what is the purpose of a NAT Gateway?",
+    "opts": {
+      "a": "To allow instances in a private subnet to access the internet without exposing them to inbound traffic",
+      "b": "To connect two VPCs together",
+      "c": "To route traffic between subnets",
+      "d": "To provide DNS resolution"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. NAT Gateway enables outbound internet access for private subnet instances while preventing unsolicited inbound connections.",
+      "b": "Incorrect. VPC Peering connects two VPCs.",
+      "c": "Incorrect. Route tables handle routing between subnets.",
+      "d": "Incorrect. DNS resolution is handled by Route 53 or VPC DNS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which deployment strategy in AWS CodeDeploy routes a small percentage of traffic to the new version first?",
+    "opts": {
+      "a": "Canary",
+      "b": "Linear",
+      "c": "All-at-once",
+      "d": "Rolling"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Canary deployment shifts a small percentage of traffic initially, then shifts the rest after validation.",
+      "b": "Incorrect. Linear shifts traffic in equal increments over time.",
+      "c": "Incorrect. All-at-once shifts all traffic immediately.",
+      "d": "Incorrect. Rolling updates instances in batches."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of subnets you can create per VPC?",
+    "opts": {
+      "a": "200",
+      "b": "100",
+      "c": "50",
+      "d": "500"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default limit is 200 subnets per VPC.",
+      "b": "Incorrect. 100 is below the actual limit.",
+      "c": "Incorrect. 50 is too low.",
+      "d": "Incorrect. 500 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Jenkins file type defines a CI/CD pipeline using declarative or scripted syntax?",
+    "opts": {
+      "a": "Jenkinsfile",
+      "b": "Dockerfile",
+      "c": "build.gradle",
+      "d": "pom.xml"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. A Jenkinsfile defines the pipeline using either declarative or scripted Groovy syntax.",
+      "b": "Incorrect. Dockerfile defines container images.",
+      "c": "Incorrect. build.gradle is a Gradle build file.",
+      "d": "Incorrect. pom.xml is a Maven configuration file."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is designed to migrate on-premises workloads to AWS with minimal downtime?",
+    "opts": {
+      "a": "AWS CloudEndure Migration",
+      "b": "AWS DataSync",
+      "c": "AWS Snowball",
+      "d": "AWS Transfer Family"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudEndure Migration (now AWS Application Migration Service) provides continuous replication for minimal downtime migration.",
+      "b": "Incorrect. DataSync is for data transfer between on-premises storage and AWS.",
+      "c": "Incorrect. Snowball is for large-scale physical data transfer.",
+      "d": "Incorrect. Transfer Family is for SFTP/FTPS file transfers."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In DynamoDB, what is the maximum size of a single item?",
+    "opts": {
+      "a": "400 KB",
+      "b": "256 KB",
+      "c": "1 MB",
+      "d": "64 KB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The maximum item size in DynamoDB is 400 KB.",
+      "b": "Incorrect. 256 KB is the SQS message limit, not DynamoDB.",
+      "c": "Incorrect. 1 MB exceeds the DynamoDB item limit.",
+      "d": "Incorrect. 64 KB is too small."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the scripting language used in Jenkins pipelines?",
+    "opts": {
+      "a": "Groovy",
+      "b": "Python",
+      "c": "Bash",
+      "d": "YAML"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Jenkins pipelines use Groovy as the scripting language.",
+      "b": "Incorrect. Python is not the native language for Jenkins pipelines.",
+      "c": "Incorrect. Bash can be used within steps but is not the pipeline language.",
+      "d": "Incorrect. YAML is not used for Jenkins pipelines (though it is for other CI tools)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which component of a VPC controls inbound and outbound traffic at the subnet level?",
+    "opts": {
+      "a": "Network ACL (NACL)",
+      "b": "Security Group",
+      "c": "Route Table",
+      "d": "Internet Gateway"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. NACLs are stateless firewalls that operate at the subnet level.",
+      "b": "Incorrect. Security Groups operate at the instance (ENI) level.",
+      "c": "Incorrect. Route Tables determine where traffic is directed.",
+      "d": "Incorrect. Internet Gateway connects VPC to the internet."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: Security Groups in AWS are stateful, meaning return traffic is automatically allowed.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Security Groups are stateful; if inbound traffic is allowed, the response is automatically allowed.",
+      "b": "Incorrect. Security Groups are indeed stateful, unlike NACLs which are stateless.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of an S3 bucket policy?",
+    "opts": {
+      "a": "To define access permissions for the S3 bucket and its objects",
+      "b": "To encrypt data at rest",
+      "c": "To configure versioning",
+      "d": "To set up cross-region replication"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Bucket policies are resource-based policies that define who can access the bucket and what actions they can perform.",
+      "b": "Incorrect. Encryption is configured separately.",
+      "c": "Incorrect. Versioning is a separate bucket setting.",
+      "d": "Incorrect. CRR is configured through replication rules."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides pub/sub messaging and push notifications to mobile devices?",
+    "opts": {
+      "a": "Amazon SNS",
+      "b": "Amazon SQS",
+      "c": "Amazon Kinesis",
+      "d": "Amazon MQ"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. SNS provides pub/sub messaging, SMS, email, and mobile push notifications.",
+      "b": "Incorrect. SQS is a message queue, not pub/sub.",
+      "c": "Incorrect. Kinesis is for streaming data.",
+      "d": "Incorrect. MQ is a managed message broker."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In Terraform, what is a module?",
+    "opts": {
+      "a": "A container for multiple resources that are used together as a reusable package",
+      "b": "A single resource definition",
+      "c": "A state file",
+      "d": "A provider plugin"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. A Terraform module is a set of Terraform configuration files in a directory, used to encapsulate and reuse configurations.",
+      "b": "Incorrect. A module contains multiple resources.",
+      "c": "Incorrect. A state file tracks resource states.",
+      "d": "Incorrect. A provider plugin connects to cloud APIs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service automatically builds and tests code every time a code change is pushed?",
+    "opts": {
+      "a": "AWS CodeBuild",
+      "b": "AWS CodeDeploy",
+      "c": "AWS CodeCommit",
+      "d": "AWS CodeStar"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodeBuild is a fully managed build service that compiles code, runs tests, and produces deployable artifacts.",
+      "b": "Incorrect. CodeDeploy handles deployment, not building.",
+      "c": "Incorrect. CodeCommit is a source code repository.",
+      "d": "Incorrect. CodeStar provides a unified UI for managing software development activities."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default retention period for CloudWatch Logs?",
+    "opts": {
+      "a": "Never expire (indefinite)",
+      "b": "30 days",
+      "c": "90 days",
+      "d": "7 days"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. By default, CloudWatch Logs are stored indefinitely and never expire.",
+      "b": "Incorrect. 30 days is not the default; logs persist indefinitely unless you set a retention policy.",
+      "c": "Incorrect. 90 days is not the default.",
+      "d": "Incorrect. 7 days is not the default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature of Amazon S3 allows you to keep multiple versions of an object in a bucket?",
+    "opts": {
+      "a": "Versioning",
+      "b": "Lifecycle policies",
+      "c": "Cross-region replication",
+      "d": "Transfer acceleration"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 Versioning preserves, retrieves, and restores every version of every object.",
+      "b": "Incorrect. Lifecycle policies manage transitions between storage classes.",
+      "c": "Incorrect. CRR copies objects to another region.",
+      "d": "Incorrect. Transfer acceleration speeds up uploads."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs a NoSQL database that provides single-digit millisecond latency at any scale. Which service should they use?",
+    "opts": {
+      "a": "Amazon DynamoDB",
+      "b": "Amazon RDS",
+      "c": "Amazon Redshift",
+      "d": "Amazon Aurora"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. DynamoDB is a fully managed NoSQL database providing consistent single-digit millisecond latency.",
+      "b": "Incorrect. RDS is a relational database.",
+      "c": "Incorrect. Redshift is a data warehouse for analytics.",
+      "d": "Incorrect. Aurora is a relational database."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Terraform command destroys all resources managed by the current configuration?",
+    "opts": {
+      "a": "terraform destroy",
+      "b": "terraform delete",
+      "c": "terraform remove",
+      "d": "terraform clean"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 'terraform destroy' removes all resources defined in the Terraform configuration.",
+      "b": "Incorrect. 'terraform delete' is not a valid command.",
+      "c": "Incorrect. 'terraform remove' is not a valid command.",
+      "d": "Incorrect. 'terraform clean' is not a valid command."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of an Internet Gateway in a VPC?",
+    "opts": {
+      "a": "To allow communication between instances in the VPC and the internet",
+      "b": "To connect two VPCs together",
+      "c": "To provide DNS resolution",
+      "d": "To encrypt traffic between subnets"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. An Internet Gateway enables resources in public subnets to connect to the internet.",
+      "b": "Incorrect. VPC Peering connects VPCs.",
+      "c": "Incorrect. DNS is handled by Route 53.",
+      "d": "Incorrect. Encryption is handled by other services."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: AWS Lambda supports container images up to 10 GB in size.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Lambda supports container images up to 10 GB stored in Amazon ECR.",
+      "b": "Incorrect. Lambda does support container images up to 10 GB.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service orchestrates the entire CI/CD pipeline by connecting source, build, and deploy stages?",
+    "opts": {
+      "a": "AWS CodePipeline",
+      "b": "AWS CodeBuild",
+      "c": "AWS CodeDeploy",
+      "d": "AWS CodeCommit"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodePipeline automates release pipelines by connecting source, build, test, and deploy stages.",
+      "b": "Incorrect. CodeBuild only handles the build stage.",
+      "c": "Incorrect. CodeDeploy only handles deployment.",
+      "d": "Incorrect. CodeCommit only handles source control."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum capacity for a DynamoDB table in on-demand mode?",
+    "opts": {
+      "a": "No minimum; it scales automatically based on workload",
+      "b": "5 RCUs and 5 WCUs",
+      "c": "10 RCUs and 10 WCUs",
+      "d": "1 RCU and 1 WCU"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. In on-demand mode, DynamoDB instantly scales to accommodate workloads with no minimum capacity.",
+      "b": "Incorrect. 5 RCUs/WCUs is the default in provisioned mode, not on-demand.",
+      "c": "Incorrect. There is no minimum in on-demand mode.",
+      "d": "Incorrect. There is no minimum in on-demand mode."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which type of scaling policy for ASG uses a target value for a specific metric (e.g., 50% CPU)?",
+    "opts": {
+      "a": "Target Tracking Scaling",
+      "b": "Step Scaling",
+      "c": "Simple Scaling",
+      "d": "Scheduled Scaling"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Target Tracking adjusts capacity to maintain a specified metric at a target value.",
+      "b": "Incorrect. Step Scaling adjusts capacity based on the size of the alarm breach.",
+      "c": "Incorrect. Simple Scaling adjusts by a fixed amount.",
+      "d": "Incorrect. Scheduled Scaling adjusts based on time."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is an in-memory caching layer specifically designed for DynamoDB?",
+    "opts": {
+      "a": "DynamoDB Accelerator (DAX)",
+      "b": "Amazon ElastiCache",
+      "c": "Amazon CloudFront",
+      "d": "AWS Global Accelerator"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. DAX provides microsecond latency for DynamoDB read operations by caching data in memory.",
+      "b": "Incorrect. ElastiCache is a general-purpose caching service (Redis/Memcached).",
+      "c": "Incorrect. CloudFront is a CDN.",
+      "d": "Incorrect. Global Accelerator improves network performance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of S3 Lifecycle policies?",
+    "opts": {
+      "a": "To automatically transition objects between storage classes or expire them after a defined period",
+      "b": "To encrypt objects automatically",
+      "c": "To replicate objects across regions",
+      "d": "To version objects"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Lifecycle policies automate transitioning objects to cheaper storage tiers or deleting them.",
+      "b": "Incorrect. Encryption is configured separately.",
+      "c": "Incorrect. Cross-region replication is a different feature.",
+      "d": "Incorrect. Versioning is enabled separately."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In a microservices architecture, what is the primary benefit of using an API Gateway?",
+    "opts": {
+      "a": "It provides a single entry point for all client requests and handles cross-cutting concerns",
+      "b": "It stores microservice code",
+      "c": "It provides database connections",
+      "d": "It compiles application code"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. API Gateway acts as a single entry point handling routing, authentication, rate limiting, and monitoring.",
+      "b": "Incorrect. Code storage is handled by repositories.",
+      "c": "Incorrect. Database connections are managed by the services themselves.",
+      "d": "Incorrect. Code compilation is done by build services."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Terraform function is used to read the contents of a file?",
+    "opts": {
+      "a": "file()",
+      "b": "read()",
+      "c": "open()",
+      "d": "load()"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The file() function reads the contents of a file at a given path and returns it as a string.",
+      "b": "Incorrect. read() is not a Terraform function.",
+      "c": "Incorrect. open() is not a Terraform function.",
+      "d": "Incorrect. load() is not a Terraform function."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when you enable S3 Cross-Region Replication (CRR)?",
+    "opts": {
+      "a": "Objects are automatically replicated to a bucket in another AWS region",
+      "b": "Objects are replicated within the same region",
+      "c": "Objects are cached at edge locations",
+      "d": "Objects are encrypted automatically"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CRR automatically replicates objects from a source bucket to a destination bucket in a different region.",
+      "b": "Incorrect. Same-region replication is SRR, not CRR.",
+      "c": "Incorrect. Edge caching is done by CloudFront.",
+      "d": "Incorrect. Encryption is configured separately."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is used to define serverless applications using a simplified CloudFormation syntax?",
+    "opts": {
+      "a": "AWS SAM",
+      "b": "AWS CDK",
+      "c": "AWS CloudFormation",
+      "d": "Terraform"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS SAM is a framework that extends CloudFormation with simplified syntax for serverless resources.",
+      "b": "Incorrect. CDK uses programming languages to define infrastructure.",
+      "c": "Incorrect. CloudFormation is the underlying service but SAM provides simplified syntax.",
+      "d": "Incorrect. Terraform is a third-party IaC tool."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of security groups you can assign to a network interface?",
+    "opts": {
+      "a": "5",
+      "b": "3",
+      "c": "10",
+      "d": "1"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. You can assign up to 5 security groups to a network interface by default.",
+      "b": "Incorrect. 3 is below the default limit.",
+      "c": "Incorrect. 10 exceeds the default limit.",
+      "d": "Incorrect. You can have more than 1."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: Amazon Kinesis Data Streams retains data for 24 hours by default, extendable up to 365 days.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Kinesis Data Streams default retention is 24 hours, extendable up to 365 days.",
+      "b": "Incorrect. The retention period is indeed 24 hours by default and can be extended to 365 days.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which EC2 purchasing option provides the highest discount (up to 72%) for a 1 or 3-year commitment?",
+    "opts": {
+      "a": "Reserved Instances",
+      "b": "On-Demand Instances",
+      "c": "Spot Instances",
+      "d": "Dedicated Hosts"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Reserved Instances provide up to 72% discount, but Spot Instances can provide up to 90% discount.",
+      "b": "Incorrect. On-Demand has no discount.",
+      "c": "Correct. Spot Instances can provide up to 90% discount compared to On-Demand, though they can be interrupted.",
+      "d": "Incorrect. Dedicated Hosts are the most expensive option."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the primary purpose of AWS Elastic Beanstalk?",
+    "opts": {
+      "a": "To quickly deploy and manage applications without worrying about infrastructure",
+      "b": "To create container images",
+      "c": "To manage DNS records",
+      "d": "To provide object storage"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Elastic Beanstalk is a PaaS that handles deployment, capacity provisioning, load balancing, and monitoring.",
+      "b": "Incorrect. Container images are created with Docker/ECR.",
+      "c": "Incorrect. DNS is managed by Route 53.",
+      "d": "Incorrect. Object storage is provided by S3."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Terraform backend is recommended for team collaboration and state locking?",
+    "opts": {
+      "a": "S3 with DynamoDB for locking",
+      "b": "Local file system",
+      "c": "Git repository",
+      "d": "FTP server"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 backend with DynamoDB for state locking is the recommended setup for AWS-based team collaboration.",
+      "b": "Incorrect. Local backend doesn't support team collaboration or locking.",
+      "c": "Incorrect. Git is not an appropriate backend for Terraform state.",
+      "d": "Incorrect. FTP is not a supported Terraform backend."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does the 'Shift Left' approach in testing mean?",
+    "opts": {
+      "a": "Moving testing activities earlier in the software development lifecycle",
+      "b": "Shifting deployment to the left region",
+      "c": "Moving code from development to production",
+      "d": "Shifting infrastructure to the cloud"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Shift Left means integrating testing earlier in the SDLC to catch defects sooner.",
+      "b": "Incorrect. It has nothing to do with regions.",
+      "c": "Incorrect. It's about testing, not deployment.",
+      "d": "Incorrect. It's about testing practices, not cloud migration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a fully managed service for running Apache Kafka?",
+    "opts": {
+      "a": "Amazon MSK (Managed Streaming for Apache Kafka)",
+      "b": "Amazon Kinesis",
+      "c": "Amazon SQS",
+      "d": "Amazon SNS"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon MSK is a fully managed service for running Apache Kafka.",
+      "b": "Incorrect. Kinesis is AWS's proprietary streaming service.",
+      "c": "Incorrect. SQS is a message queue service.",
+      "d": "Incorrect. SNS is a notification service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In the context of containers, what does a Dockerfile do?",
+    "opts": {
+      "a": "Defines the instructions to build a Docker container image",
+      "b": "Runs a container in production",
+      "c": "Connects containers to a network",
+      "d": "Monitors container health"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. A Dockerfile contains instructions for building a Docker image layer by layer.",
+      "b": "Incorrect. Running containers is done with 'docker run' or orchestrators.",
+      "c": "Incorrect. Networking is configured separately.",
+      "d": "Incorrect. Health monitoring uses health checks or monitoring tools."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of Read Replicas you can create for an Amazon RDS instance?",
+    "opts": {
+      "a": "5",
+      "b": "15",
+      "c": "3",
+      "d": "10"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. You can create up to 5 Read Replicas for most RDS engines (MySQL, PostgreSQL, MariaDB).",
+      "b": "Incorrect. 15 is the limit for Aurora, not standard RDS.",
+      "c": "Incorrect. 3 is below the actual limit.",
+      "d": "Incorrect. 10 exceeds the standard RDS limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a managed service for Red Hat OpenShift on AWS?",
+    "opts": {
+      "a": "ROSA (Red Hat OpenShift Service on AWS)",
+      "b": "Amazon EKS",
+      "c": "Amazon ECS",
+      "d": "AWS Fargate"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. ROSA is a jointly managed service by Red Hat and AWS for running OpenShift on AWS.",
+      "b": "Incorrect. EKS is AWS's managed Kubernetes service.",
+      "c": "Incorrect. ECS is AWS's proprietary container service.",
+      "d": "Incorrect. Fargate is a serverless compute engine."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: In Terraform, the 'terraform apply' command automatically runs 'terraform plan' first.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. When you run 'terraform apply' without a saved plan, it generates a plan and asks for confirmation.",
+      "b": "Incorrect. 'terraform apply' does include a planning step before applying.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the main advantage of using microservices architecture over monolithic?",
+    "opts": {
+      "a": "Independent deployment, scaling, and development of individual services",
+      "b": "Lower overall complexity",
+      "c": "Faster initial development time",
+      "d": "Less network communication needed"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Microservices allow each service to be deployed, scaled, and developed independently.",
+      "b": "Incorrect. Microservices often increase operational complexity.",
+      "c": "Incorrect. Monolithic can be faster for initial development.",
+      "d": "Incorrect. Microservices require more inter-service network communication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudFront feature allows you to run code at edge locations to customize content delivery?",
+    "opts": {
+      "a": "Lambda@Edge",
+      "b": "CloudFront Functions",
+      "c": "Origin Access Identity",
+      "d": "Field-Level Encryption"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Lambda@Edge allows you to run Lambda functions at CloudFront edge locations for request/response manipulation.",
+      "b": "Incorrect. CloudFront Functions is lightweight and limited compared to Lambda@Edge.",
+      "c": "Incorrect. OAI restricts S3 access to CloudFront only.",
+      "d": "Incorrect. Field-Level Encryption encrypts specific data fields."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What tool is commonly used for unit testing Terraform configurations?",
+    "opts": {
+      "a": "Terratest",
+      "b": "JUnit",
+      "c": "Pytest",
+      "d": "Mocha"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Terratest is a Go library that helps write automated tests for Terraform infrastructure code.",
+      "b": "Incorrect. JUnit is for Java testing.",
+      "c": "Incorrect. Pytest is for Python testing.",
+      "d": "Incorrect. Mocha is for JavaScript testing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides managed GraphQL APIs that automatically sync data between mobile/web apps and the cloud?",
+    "opts": {
+      "a": "AWS AppSync",
+      "b": "Amazon API Gateway",
+      "c": "AWS Amplify",
+      "d": "Amazon Cognito"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AppSync is a managed GraphQL service with real-time data synchronization capabilities.",
+      "b": "Incorrect. API Gateway handles REST APIs.",
+      "c": "Incorrect. Amplify is a framework for building apps but uses AppSync for GraphQL.",
+      "d": "Incorrect. Cognito handles authentication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the AWS Encryption SDK?",
+    "opts": {
+      "a": "To provide client-side encryption for applications using envelope encryption",
+      "b": "To manage IAM policies",
+      "c": "To create VPN connections",
+      "d": "To compress data before storage"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The AWS Encryption SDK provides client-side encryption using envelope encryption with data keys and master keys.",
+      "b": "Incorrect. IAM policies are managed through IAM.",
+      "c": "Incorrect. VPN connections use VPN Gateway.",
+      "d": "Incorrect. Data compression is not related to the Encryption SDK."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In Kubernetes, what is a Pod?",
+    "opts": {
+      "a": "The smallest deployable unit that can contain one or more containers",
+      "b": "A cluster of nodes",
+      "c": "A service discovery mechanism",
+      "d": "A storage volume"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. A Pod is the smallest deployable unit in Kubernetes and can host one or more containers sharing network and storage.",
+      "b": "Incorrect. A cluster contains nodes.",
+      "c": "Incorrect. Service discovery is handled by Services.",
+      "d": "Incorrect. Storage volumes are separate Kubernetes resources."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Agile ceremony is a short daily meeting where team members discuss progress and blockers?",
+    "opts": {
+      "a": "Daily Standup (Daily Scrum)",
+      "b": "Sprint Planning",
+      "c": "Sprint Retrospective",
+      "d": "Sprint Review"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The Daily Standup is a brief meeting (usually 15 minutes) for synchronization.",
+      "b": "Incorrect. Sprint Planning defines the sprint backlog.",
+      "c": "Incorrect. Retrospective reviews the process.",
+      "d": "Incorrect. Sprint Review demonstrates completed work."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of Aurora Read Replicas you can have?",
+    "opts": {
+      "a": "15",
+      "b": "5",
+      "c": "10",
+      "d": "3"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon Aurora supports up to 15 Read Replicas with low replication lag.",
+      "b": "Incorrect. 5 is the limit for standard RDS, not Aurora.",
+      "c": "Incorrect. 10 is below Aurora's actual limit.",
+      "d": "Incorrect. 3 is far below the actual limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which S3 feature allows you to host a static website?",
+    "opts": {
+      "a": "S3 Static Website Hosting",
+      "b": "S3 Transfer Acceleration",
+      "c": "S3 Intelligent-Tiering",
+      "d": "S3 Object Lock"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 can be configured to host static websites with an index document and error document.",
+      "b": "Incorrect. Transfer Acceleration speeds up uploads.",
+      "c": "Incorrect. Intelligent-Tiering automatically moves objects between access tiers.",
+      "d": "Incorrect. Object Lock prevents deletion or modification."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: AWS CloudFormation templates can be written in JSON or YAML format.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFormation supports both JSON and YAML template formats.",
+      "b": "Incorrect. CloudFormation does support both JSON and YAML.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs to process 100,000 messages per second with ordering guarantees. Which SQS queue type should they use?",
+    "opts": {
+      "a": "FIFO Queue",
+      "b": "Standard Queue",
+      "c": "Dead Letter Queue",
+      "d": "Priority Queue"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. FIFO queues guarantee ordering and exactly-once processing. They support up to 300 messages/second without batching or 3,000 with batching (or higher throughput mode).",
+      "b": "Incorrect. Standard queues offer nearly unlimited throughput but don't guarantee ordering.",
+      "c": "Incorrect. DLQ stores messages that fail processing.",
+      "d": "Incorrect. SQS doesn't have a Priority Queue type."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which service in AWS provides a managed NoSQL database with flexible schema?",
+    "opts": {
+      "a": "Amazon DynamoDB",
+      "b": "Amazon RDS",
+      "c": "Amazon Aurora",
+      "d": "Amazon Redshift"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. DynamoDB is a fully managed NoSQL database with flexible schema support.",
+      "b": "Incorrect. RDS is a relational database with fixed schema.",
+      "c": "Incorrect. Aurora is a relational database.",
+      "d": "Incorrect. Redshift is a data warehouse."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the CIDR block range for the largest VPC you can create in AWS?",
+    "opts": {
+      "a": "/16 (65,536 IP addresses)",
+      "b": "/24 (256 IP addresses)",
+      "c": "/8 (16 million IP addresses)",
+      "d": "/20 (4,096 IP addresses)"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The largest VPC CIDR block is /16, providing 65,536 IP addresses.",
+      "b": "Incorrect. /24 is the smallest allowed subnet.",
+      "c": "Incorrect. /8 is not allowed for VPCs.",
+      "d": "Incorrect. /20 is smaller than the maximum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides AI/ML model hosting and training capabilities?",
+    "opts": {
+      "a": "Amazon SageMaker",
+      "b": "AWS Lambda",
+      "c": "Amazon EC2",
+      "d": "AWS Batch"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. SageMaker is a fully managed service for building, training, and deploying ML models.",
+      "b": "Incorrect. Lambda is for serverless functions.",
+      "c": "Incorrect. EC2 provides compute but is not purpose-built for ML.",
+      "d": "Incorrect. Batch runs batch computing jobs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does the Terraform 'count' meta-argument do?",
+    "opts": {
+      "a": "Creates multiple instances of a resource based on a specified number",
+      "b": "Counts the number of existing resources",
+      "c": "Limits the number of API calls",
+      "d": "Defines the execution order"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The 'count' meta-argument creates multiple instances of a resource.",
+      "b": "Incorrect. It doesn't count existing resources.",
+      "c": "Incorrect. It doesn't limit API calls.",
+      "d": "Incorrect. 'depends_on' defines execution order."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which EBS volume type provides the highest performance for mission-critical applications?",
+    "opts": {
+      "a": "io2 Block Express (Provisioned IOPS SSD)",
+      "b": "gp3 (General Purpose SSD)",
+      "c": "st1 (Throughput Optimized HDD)",
+      "d": "sc1 (Cold HDD)"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. io2 Block Express provides up to 256,000 IOPS and is designed for critical workloads.",
+      "b": "Incorrect. gp3 provides up to 16,000 IOPS.",
+      "c": "Incorrect. st1 is optimized for throughput, not IOPS.",
+      "d": "Incorrect. sc1 is the lowest-cost option for infrequent access."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In the context of DevOps, what does 'Infrastructure as Code' (IaC) mean?",
+    "opts": {
+      "a": "Managing and provisioning infrastructure through machine-readable definition files",
+      "b": "Writing application code in the cloud",
+      "c": "Manually configuring servers through a console",
+      "d": "Using CLI commands to set up infrastructure"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. IaC means managing infrastructure through code files that can be versioned and reviewed.",
+      "b": "Incorrect. IaC is about infrastructure, not application code.",
+      "c": "Incorrect. Manual configuration is the opposite of IaC.",
+      "d": "Incorrect. CLI commands alone don't constitute IaC without being codified."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides generative AI foundation models through an API?",
+    "opts": {
+      "a": "Amazon Bedrock",
+      "b": "Amazon SageMaker",
+      "c": "AWS Lambda",
+      "d": "Amazon Comprehend"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon Bedrock provides access to foundation models from AI companies through a single API.",
+      "b": "Incorrect. SageMaker is for building/training custom models.",
+      "c": "Incorrect. Lambda is for serverless compute.",
+      "d": "Incorrect. Comprehend is for natural language processing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: In Terraform, the 'for_each' meta-argument can iterate over a map or set of strings.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 'for_each' accepts a map or set of strings to create multiple instances of a resource.",
+      "b": "Incorrect. 'for_each' does accept maps and sets.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudWatch feature allows you to create custom metrics based on log patterns?",
+    "opts": {
+      "a": "Metric Filters",
+      "b": "CloudWatch Alarms",
+      "c": "CloudWatch Dashboards",
+      "d": "CloudWatch Events"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Metric Filters extract metric observations from log events using filter patterns.",
+      "b": "Incorrect. Alarms monitor metrics and trigger actions.",
+      "c": "Incorrect. Dashboards visualize metrics.",
+      "d": "Incorrect. Events respond to changes in AWS resources."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of Lambda functions that can run concurrently per region by default?",
+    "opts": {
+      "a": "1000",
+      "b": "500",
+      "c": "10000",
+      "d": "100"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default concurrent execution limit for Lambda is 1000 per region.",
+      "b": "Incorrect. 500 is below the default limit.",
+      "c": "Incorrect. 10000 exceeds the default limit.",
+      "d": "Incorrect. 100 is far below the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a managed container orchestration service using AWS-native tooling?",
+    "opts": {
+      "a": "Amazon ECS",
+      "b": "Amazon EKS",
+      "c": "AWS Lambda",
+      "d": "AWS Batch"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon ECS (Elastic Container Service) is AWS's proprietary container orchestration service.",
+      "b": "Incorrect. EKS uses Kubernetes, not AWS-native tooling.",
+      "c": "Incorrect. Lambda is serverless functions, not container orchestration.",
+      "d": "Incorrect. Batch is for batch computing workloads."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the primary benefit of using Amazon CloudFront with an S3 origin?",
+    "opts": {
+      "a": "Reduced latency by caching content at edge locations worldwide",
+      "b": "Increased S3 storage capacity",
+      "c": "Automatic data encryption",
+      "d": "Reduced S3 storage costs"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront caches S3 content at 400+ edge locations for faster delivery to users worldwide.",
+      "b": "Incorrect. CloudFront doesn't increase S3 capacity.",
+      "c": "Incorrect. Encryption is managed separately.",
+      "d": "Incorrect. CloudFront reduces data transfer costs but not storage costs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In Jenkins, what is a 'stage' in a pipeline?",
+    "opts": {
+      "a": "A logical grouping of steps that represents a phase of the CI/CD process",
+      "b": "A single command execution",
+      "c": "A deployment target environment",
+      "d": "A branch in source control"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. A stage in Jenkins represents a phase like Build, Test, or Deploy containing multiple steps.",
+      "b": "Incorrect. A single command is a step, not a stage.",
+      "c": "Incorrect. An environment is where code runs, not a pipeline stage.",
+      "d": "Incorrect. Branches are source control concepts."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service allows you to connect your on-premises data center to your VPC via a dedicated private connection?",
+    "opts": {
+      "a": "AWS Direct Connect",
+      "b": "AWS VPN",
+      "c": "VPC Peering",
+      "d": "AWS Transit Gateway"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Direct Connect provides a dedicated private network connection from on-premises to AWS.",
+      "b": "Incorrect. VPN provides encrypted connection over the public internet.",
+      "c": "Incorrect. VPC Peering connects VPCs, not on-premises networks.",
+      "d": "Incorrect. Transit Gateway is a hub for connecting VPCs and on-premises networks."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What type of database is Amazon Redshift?",
+    "opts": {
+      "a": "Columnar data warehouse",
+      "b": "Document database",
+      "c": "Graph database",
+      "d": "Key-value store"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon Redshift is a fully managed petabyte-scale columnar data warehouse for analytics.",
+      "b": "Incorrect. DocumentDB is a document database.",
+      "c": "Incorrect. Neptune is a graph database.",
+      "d": "Incorrect. DynamoDB is a key-value store."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: AWS CodePipeline can integrate with third-party tools like Jenkins and GitHub.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodePipeline supports integration with third-party tools including Jenkins, GitHub, and Bitbucket.",
+      "b": "Incorrect. CodePipeline is designed to integrate with both AWS and third-party services.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Linux command is used to change file permissions?",
+    "opts": {
+      "a": "chmod",
+      "b": "chown",
+      "c": "chgrp",
+      "d": "chmod"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 'chmod' (change mode) modifies file access permissions in Linux.",
+      "b": "Incorrect. 'chown' changes file ownership.",
+      "c": "Incorrect. 'chgrp' changes group ownership.",
+      "d": "Incorrect. 'chmod' is a misspelling; the correct command is 'chmod'."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of Elastic IP addresses per AWS account per region by default?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "1"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default limit is 5 Elastic IP addresses per region per account.",
+      "b": "Incorrect. 10 exceeds the default limit.",
+      "c": "Incorrect. 20 is too many.",
+      "d": "Incorrect. 1 is below the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which API Gateway deployment type is best suited for low-latency regional API access?",
+    "opts": {
+      "a": "Regional endpoint",
+      "b": "Edge-optimized endpoint",
+      "c": "Private endpoint",
+      "d": "Global endpoint"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Regional endpoints are intended for clients in the same AWS region for reduced latency.",
+      "b": "Incorrect. Edge-optimized routes through CloudFront, adding some latency for same-region clients.",
+      "c": "Incorrect. Private endpoints are only accessible from within a VPC.",
+      "d": "Incorrect. Global endpoint is not a valid API Gateway type."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In DynamoDB, what is a Global Secondary Index (GSI)?",
+    "opts": {
+      "a": "An index with a partition key and optional sort key different from the base table",
+      "b": "An index that replicates data globally",
+      "c": "An index with the same partition key but different sort key",
+      "d": "A backup of the table"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. A GSI allows you to query the table using an alternate partition key and sort key.",
+      "b": "Incorrect. GSI doesn't relate to global replication; that's Global Tables.",
+      "c": "Incorrect. That describes a Local Secondary Index (LSI).",
+      "d": "Incorrect. A backup is different from an index."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Terraform command formats configuration files to a canonical format?",
+    "opts": {
+      "a": "terraform fmt",
+      "b": "terraform format",
+      "c": "terraform lint",
+      "d": "terraform style"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 'terraform fmt' reformats Terraform files to a consistent style.",
+      "b": "Incorrect. 'terraform format' is not a valid command.",
+      "c": "Incorrect. 'terraform lint' is not a valid command.",
+      "d": "Incorrect. 'terraform style' is not a valid command."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of AWS Config?",
+    "opts": {
+      "a": "To assess, audit, and evaluate the configurations of AWS resources",
+      "b": "To deploy infrastructure",
+      "c": "To manage encryption keys",
+      "d": "To monitor application performance"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Config continuously monitors and records AWS resource configurations for compliance auditing.",
+      "b": "Incorrect. Deployment is done by CloudFormation/CDK.",
+      "c": "Incorrect. KMS manages encryption keys.",
+      "d": "Incorrect. CloudWatch/X-Ray monitors performance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which type of Load Balancer operates at Layer 4 and can handle millions of requests per second with ultra-low latency?",
+    "opts": {
+      "a": "Network Load Balancer (NLB)",
+      "b": "Application Load Balancer (ALB)",
+      "c": "Classic Load Balancer (CLB)",
+      "d": "Gateway Load Balancer (GWLB)"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. NLB operates at Layer 4 (TCP/UDP) and handles millions of requests with ultra-low latency.",
+      "b": "Incorrect. ALB operates at Layer 7.",
+      "c": "Incorrect. CLB is legacy and doesn't offer the same performance.",
+      "d": "Incorrect. GWLB is for network appliances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does the acronym VPC stand for in AWS?",
+    "opts": {
+      "a": "Virtual Private Cloud",
+      "b": "Virtual Public Cloud",
+      "c": "Virtual Protected Cluster",
+      "d": "Virtual Private Container"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. VPC stands for Virtual Private Cloud.",
+      "b": "Incorrect. VPC is private, not public.",
+      "c": "Incorrect. VPC is not Virtual Protected Cluster.",
+      "d": "Incorrect. VPC is not Virtual Private Container."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: Terraform workspaces allow you to manage multiple environments (dev, staging, prod) with the same configuration.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Terraform workspaces create separate state files for each environment using the same configuration.",
+      "b": "Incorrect. Workspaces are specifically designed for managing multiple environments.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to store 8 KB items in DynamoDB with 50 eventually consistent reads per second. How many RCUs are needed?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "25",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50 RCUs would handle 50 strongly consistent reads of 8 KB items.",
+      "b": "Incorrect. 100 RCUs is double what's needed.",
+      "c": "Correct. 8 KB items need 2 RCUs each for strongly consistent reads. For eventually consistent: (50 × 2) / 2 = 50 RCUs / 2 = 25 RCUs (eventually consistent reads cost half).",
+      "d": "Incorrect. 200 is far too many."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a fully managed service for running serverless containers?",
+    "opts": {
+      "a": "AWS Fargate",
+      "b": "Amazon EC2",
+      "c": "AWS Lambda",
+      "d": "Amazon Lightsail"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Fargate is a serverless compute engine for containers that works with ECS and EKS.",
+      "b": "Incorrect. EC2 requires manual management of instances.",
+      "c": "Incorrect. Lambda runs functions, not containers directly (though it supports container images).",
+      "d": "Incorrect. Lightsail is simplified compute, not specifically for containers."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the primary purpose of AWS Cognito Sync?",
+    "opts": {
+      "a": "To synchronize user data across multiple devices",
+      "b": "To authenticate users",
+      "c": "To encrypt user data",
+      "d": "To manage user permissions"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Cognito Sync enables syncing user profile data across mobile devices and the web.",
+      "b": "Incorrect. Authentication is handled by Cognito User Pools.",
+      "c": "Incorrect. Encryption is handled by KMS.",
+      "d": "Incorrect. Permissions are managed by IAM/Identity Pools."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS Well-Architected pillar was added most recently?",
+    "opts": {
+      "a": "Sustainability",
+      "b": "Cost Optimization",
+      "c": "Security",
+      "d": "Reliability"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Sustainability was added as the 6th pillar in December 2021.",
+      "b": "Incorrect. Cost Optimization was one of the original pillars.",
+      "c": "Incorrect. Security was one of the original pillars.",
+      "d": "Incorrect. Reliability was one of the original pillars."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Terraform resource type is used to create an AWS EC2 instance?",
+    "opts": {
+      "a": "aws_instance",
+      "b": "aws_ec2",
+      "c": "aws_server",
+      "d": "aws_compute"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The resource type 'aws_instance' is used to create EC2 instances in Terraform.",
+      "b": "Incorrect. 'aws_ec2' is not a valid resource type.",
+      "c": "Incorrect. 'aws_server' is not a valid resource type.",
+      "d": "Incorrect. 'aws_compute' is not a valid resource type."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of an Origin Access Identity (OAI) in CloudFront?",
+    "opts": {
+      "a": "To restrict direct access to S3 objects so they can only be accessed through CloudFront",
+      "b": "To encrypt content at the edge",
+      "c": "To authenticate users",
+      "d": "To cache content longer"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. OAI (now OAC - Origin Access Control) restricts S3 access so content is served only through CloudFront.",
+      "b": "Incorrect. Encryption is handled separately.",
+      "c": "Incorrect. User authentication is not OAI's purpose.",
+      "d": "Incorrect. Caching TTL is configured separately."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Linux command displays the current working directory?",
+    "opts": {
+      "a": "pwd",
+      "b": "cd",
+      "c": "ls",
+      "d": "dir"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 'pwd' (print working directory) displays the full path of the current directory.",
+      "b": "Incorrect. 'cd' changes the directory.",
+      "c": "Incorrect. 'ls' lists directory contents.",
+      "d": "Incorrect. 'dir' is primarily a Windows command."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between SQS Standard and FIFO queues?",
+    "opts": {
+      "a": "Standard offers unlimited throughput with best-effort ordering; FIFO guarantees exact ordering with limited throughput",
+      "b": "Standard is more expensive; FIFO is cheaper",
+      "c": "Standard supports encryption; FIFO does not",
+      "d": "Standard is for small messages; FIFO is for large messages"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Standard queues offer nearly unlimited throughput but best-effort ordering; FIFO guarantees order but has throughput limits.",
+      "b": "Incorrect. FIFO is slightly more expensive than Standard.",
+      "c": "Incorrect. Both support encryption.",
+      "d": "Incorrect. Both have the same 256 KB message size limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: AWS Lambda can be triggered by over 200 AWS services and SaaS applications.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Lambda integrates with over 200 AWS services and SaaS applications as event sources.",
+      "b": "Incorrect. Lambda has extensive integration with AWS services.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a managed service for running Apache Spark and Hadoop for big data processing?",
+    "opts": {
+      "a": "Amazon EMR",
+      "b": "Amazon Redshift",
+      "c": "Amazon Athena",
+      "d": "AWS Glue"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon EMR (Elastic MapReduce) provides managed Hadoop/Spark clusters for big data processing.",
+      "b": "Incorrect. Redshift is a data warehouse.",
+      "c": "Incorrect. Athena is serverless SQL queries on S3.",
+      "d": "Incorrect. Glue is an ETL service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of a Dead Letter Queue (DLQ) in SQS?",
+    "opts": {
+      "a": "To store messages that failed to be processed after a specified number of attempts",
+      "b": "To prioritize important messages",
+      "c": "To encrypt messages at rest",
+      "d": "To compress messages"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. DLQ captures messages that couldn't be processed successfully after the maxReceiveCount is reached.",
+      "b": "Incorrect. SQS doesn't have message prioritization.",
+      "c": "Incorrect. Encryption is a separate feature.",
+      "d": "Incorrect. SQS doesn't compress messages."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which section of a CloudFormation template defines the AWS resources to be created?",
+    "opts": {
+      "a": "Resources",
+      "b": "Parameters",
+      "c": "Outputs",
+      "d": "Mappings"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The Resources section is the only required section and defines the AWS resources to create.",
+      "b": "Incorrect. Parameters define input values.",
+      "c": "Incorrect. Outputs define values to export.",
+      "d": "Incorrect. Mappings define static lookup tables."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of security group rules you can have per security group?",
+    "opts": {
+      "a": "60 inbound and 60 outbound rules",
+      "b": "50 inbound and 50 outbound rules",
+      "c": "100 inbound and 100 outbound rules",
+      "d": "25 inbound and 25 outbound rules"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default limit is 60 inbound and 60 outbound rules per security group.",
+      "b": "Incorrect. 50 is below the actual default limit.",
+      "c": "Incorrect. 100 exceeds the default limit.",
+      "d": "Incorrect. 25 is below the actual limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides identity federation allowing users to sign in with social identity providers like Google and Facebook?",
+    "opts": {
+      "a": "Amazon Cognito",
+      "b": "AWS IAM",
+      "c": "AWS STS",
+      "d": "AWS Directory Service"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Cognito supports federation with social identity providers (Google, Facebook, Apple) and SAML providers.",
+      "b": "Incorrect. IAM supports identity federation but not social providers directly for mobile/web apps.",
+      "c": "Incorrect. STS provides temporary credentials but doesn't handle social sign-in.",
+      "d": "Incorrect. Directory Service integrates with Microsoft Active Directory."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In Terraform, what is the purpose of the 'depends_on' argument?",
+    "opts": {
+      "a": "To explicitly define resource creation order when Terraform cannot automatically determine dependencies",
+      "b": "To count the number of resources",
+      "c": "To define variable types",
+      "d": "To import existing resources"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 'depends_on' explicitly sets resource dependencies when implicit dependencies aren't detected.",
+      "b": "Incorrect. 'count' is used for multiple instances.",
+      "c": "Incorrect. Variable types are defined in variable blocks.",
+      "d": "Incorrect. 'terraform import' imports existing resources."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which service is used to centrally manage multiple AWS accounts?",
+    "opts": {
+      "a": "AWS Organizations",
+      "b": "AWS IAM",
+      "c": "AWS Control Tower",
+      "d": "AWS Config"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Organizations enables central management of multiple AWS accounts with consolidated billing and service control policies.",
+      "b": "Incorrect. IAM manages users within a single account.",
+      "c": "Incorrect. Control Tower automates setting up a multi-account environment but uses Organizations.",
+      "d": "Incorrect. Config monitors resource configurations."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the primary use case for Amazon Kinesis Data Firehose?",
+    "opts": {
+      "a": "To load streaming data into data stores like S3, Redshift, and Elasticsearch",
+      "b": "To process streaming data in real-time with custom applications",
+      "c": "To analyze streaming video",
+      "d": "To send notifications"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Kinesis Data Firehose is the easiest way to reliably load streaming data into data stores.",
+      "b": "Incorrect. That's Kinesis Data Streams with custom consumers.",
+      "c": "Incorrect. That's Kinesis Video Streams.",
+      "d": "Incorrect. That's SNS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: An EBS volume is automatically replicated within its Availability Zone for durability.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. EBS volumes are automatically replicated within their AZ to protect against hardware failure.",
+      "b": "Incorrect. EBS does automatically replicate within the AZ.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service helps you discover, classify, and protect sensitive data in S3?",
+    "opts": {
+      "a": "Amazon Macie",
+      "b": "Amazon Inspector",
+      "c": "AWS Shield",
+      "d": "Amazon GuardDuty"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon Macie uses ML to discover, classify, and protect sensitive data like PII in S3.",
+      "b": "Incorrect. Inspector assesses EC2 instance vulnerabilities.",
+      "c": "Incorrect. Shield provides DDoS protection.",
+      "d": "Incorrect. GuardDuty is a threat detection service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the smallest subnet you can create in a VPC (CIDR notation)?",
+    "opts": {
+      "a": "/28 (16 IP addresses, 11 usable)",
+      "b": "/24 (256 IP addresses)",
+      "c": "/32 (1 IP address)",
+      "d": "/30 (4 IP addresses)"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The smallest subnet in a VPC is /28 providing 16 IP addresses (11 usable after AWS reserves 5).",
+      "b": "Incorrect. /24 is not the smallest.",
+      "c": "Incorrect. /32 is not allowed for subnets.",
+      "d": "Incorrect. /30 is not allowed; /28 is the minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a build specification file (buildspec.yml) to define build commands?",
+    "opts": {
+      "a": "AWS CodeBuild",
+      "b": "AWS CodeDeploy",
+      "c": "AWS CodePipeline",
+      "d": "AWS CodeCommit"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodeBuild uses buildspec.yml to define build phases, commands, and artifacts.",
+      "b": "Incorrect. CodeDeploy uses appspec.yml.",
+      "c": "Incorrect. CodePipeline uses pipeline configuration.",
+      "d": "Incorrect. CodeCommit doesn't use buildspec files."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In the context of AWS security, what is the principle of least privilege?",
+    "opts": {
+      "a": "Granting only the minimum permissions necessary to perform a task",
+      "b": "Giving all users administrator access",
+      "c": "Allowing all traffic by default",
+      "d": "Using the same credentials for all services"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Least privilege means giving users only the exact permissions they need, nothing more.",
+      "b": "Incorrect. Admin access violates least privilege.",
+      "c": "Incorrect. Default deny is the best practice.",
+      "d": "Incorrect. Shared credentials are a security risk."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default timeout for an API Gateway REST API request?",
+    "opts": {
+      "a": "29 seconds",
+      "b": "30 seconds",
+      "c": "60 seconds",
+      "d": "15 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. API Gateway has a maximum integration timeout of 29 seconds for REST APIs.",
+      "b": "Incorrect. The maximum is 29 seconds, not 30.",
+      "c": "Incorrect. 60 seconds exceeds the maximum timeout.",
+      "d": "Incorrect. 15 seconds is below the maximum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Terraform feature allows you to enforce policies and standards before infrastructure changes are applied?",
+    "opts": {
+      "a": "Sentinel",
+      "b": "Modules",
+      "c": "Workspaces",
+      "d": "Provisioners"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Sentinel is a policy-as-code framework in Terraform Cloud/Enterprise for enforcing governance rules.",
+      "b": "Incorrect. Modules are for reusable configurations.",
+      "c": "Incorrect. Workspaces manage multiple environments.",
+      "d": "Incorrect. Provisioners run scripts on resources."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service allows you to run SQL queries directly on data stored in S3 without an ETL process?",
+    "opts": {
+      "a": "S3 Select and Amazon Athena",
+      "b": "Amazon RDS",
+      "c": "Amazon DynamoDB",
+      "d": "Amazon EMR"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 Select retrieves subsets of data from objects, and Athena runs full SQL queries on S3 data.",
+      "b": "Incorrect. RDS requires data to be loaded into a database.",
+      "c": "Incorrect. DynamoDB is a NoSQL database.",
+      "d": "Incorrect. EMR requires cluster provisioning."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does the term 'eventual consistency' mean in the context of DynamoDB reads?",
+    "opts": {
+      "a": "The response might not reflect the most recent write but will become consistent shortly",
+      "b": "Data is always immediately consistent",
+      "c": "Data is never consistent",
+      "d": "Reads always fail first time"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Eventually consistent reads might not reflect the latest write but typically become consistent within a second.",
+      "b": "Incorrect. That describes strongly consistent reads.",
+      "c": "Incorrect. Data does become consistent eventually.",
+      "d": "Incorrect. Reads don't fail; they may return slightly stale data."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: AWS reserves 5 IP addresses in each subnet (first 4 and last 1).",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS reserves 5 IPs: network address, VPC router, DNS server, future use, and broadcast address.",
+      "b": "Incorrect. AWS does reserve exactly 5 IP addresses per subnet.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides a managed Terraform workflow in the cloud?",
+    "opts": {
+      "a": "Terraform Cloud (by HashiCorp, integrated with AWS)",
+      "b": "AWS CloudFormation",
+      "c": "AWS Service Catalog",
+      "d": "AWS OpsWorks"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Terraform Cloud provides managed runs, state management, and team collaboration for Terraform.",
+      "b": "Incorrect. CloudFormation is AWS's native IaC tool.",
+      "c": "Incorrect. Service Catalog manages approved IT services.",
+      "d": "Incorrect. OpsWorks is for Chef/Puppet automation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of a single PUT upload to S3 (without multipart)?",
+    "opts": {
+      "a": "5 GB",
+      "b": "5 TB",
+      "c": "100 MB",
+      "d": "1 GB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. A single PUT operation can upload a maximum of 5 GB. For larger objects, use multipart upload.",
+      "b": "Incorrect. 5 TB is the maximum object size, not the single PUT limit.",
+      "c": "Incorrect. AWS recommends multipart upload for objects over 100 MB, but the limit is 5 GB.",
+      "d": "Incorrect. 1 GB is below the actual limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature of DynamoDB provides change data capture for real-time processing?",
+    "opts": {
+      "a": "DynamoDB Streams",
+      "b": "DynamoDB DAX",
+      "c": "DynamoDB Global Tables",
+      "d": "DynamoDB TTL"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. DynamoDB Streams captures item-level changes in near real-time for processing by Lambda or other services.",
+      "b": "Incorrect. DAX is for caching.",
+      "c": "Incorrect. Global Tables provide multi-region replication.",
+      "d": "Incorrect. TTL automatically deletes expired items."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In Jenkins declarative pipeline syntax, which keyword defines the entire pipeline?",
+    "opts": {
+      "a": "pipeline",
+      "b": "node",
+      "c": "workflow",
+      "d": "build"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. In declarative syntax, 'pipeline' is the top-level block that defines the entire pipeline.",
+      "b": "Incorrect. 'node' is used in scripted pipeline syntax.",
+      "c": "Incorrect. 'workflow' is not a Jenkins keyword.",
+      "d": "Incorrect. 'build' is not the top-level keyword."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is a fully managed ETL (Extract, Transform, Load) service?",
+    "opts": {
+      "a": "AWS Glue",
+      "b": "Amazon EMR",
+      "c": "Amazon Athena",
+      "d": "Amazon Kinesis"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Glue is a serverless ETL service that prepares and transforms data for analytics.",
+      "b": "Incorrect. EMR provides managed Hadoop/Spark clusters.",
+      "c": "Incorrect. Athena is for querying data in S3.",
+      "d": "Incorrect. Kinesis is for real-time streaming."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of Route 53 health checks?",
+    "opts": {
+      "a": "To monitor the health of endpoints and route traffic only to healthy resources",
+      "b": "To encrypt DNS queries",
+      "c": "To cache DNS responses",
+      "d": "To register domain names"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Route 53 health checks monitor endpoint health and enable DNS failover to healthy resources.",
+      "b": "Incorrect. DNSSEC handles DNS security.",
+      "c": "Incorrect. DNS caching is handled by resolvers.",
+      "d": "Incorrect. Domain registration is a separate Route 53 feature."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which Terraform data type is an ordered collection of values?",
+    "opts": {
+      "a": "List",
+      "b": "Map",
+      "c": "Set",
+      "d": "Object"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. A List in Terraform is an ordered sequence of values accessed by index.",
+      "b": "Incorrect. Map is a collection of key-value pairs.",
+      "c": "Incorrect. Set is an unordered collection of unique values.",
+      "d": "Incorrect. Object is a structural type with named attributes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens to data on an instance store volume when the EC2 instance is stopped or terminated?",
+    "opts": {
+      "a": "Data is lost (ephemeral storage)",
+      "b": "Data is preserved",
+      "c": "Data is backed up to S3",
+      "d": "Data is moved to EBS"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Instance store volumes are ephemeral; data is lost when the instance stops, terminates, or the underlying hardware fails.",
+      "b": "Incorrect. Instance store data is not preserved.",
+      "c": "Incorrect. There is no automatic backup to S3.",
+      "d": "Incorrect. Data is not automatically moved to EBS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "True or False: Amazon Aurora Serverless automatically scales database capacity based on application demand.",
+    "opts": {
+      "a": "True",
+      "b": "False",
+      "c": "A",
+      "d": "A"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Serverless automatically adjusts capacity (ACUs) based on application needs.",
+      "b": "Incorrect. Aurora Serverless is specifically designed for automatic scaling.",
+      "c": "A",
+      "d": "A"
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides DDoS protection for AWS resources?",
+    "opts": {
+      "a": "AWS Shield",
+      "b": "AWS WAF",
+      "c": "Amazon GuardDuty",
+      "d": "AWS Firewall Manager"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Shield provides DDoS protection (Standard is free; Advanced is paid with additional features).",
+      "b": "Incorrect. WAF protects against web exploits like SQL injection, not DDoS specifically.",
+      "c": "Incorrect. GuardDuty detects threats through log analysis.",
+      "d": "Incorrect. Firewall Manager centrally manages security rules."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In Elastic Beanstalk, which file is used to configure the environment and application settings?",
+    "opts": {
+      "a": ".ebextensions configuration files",
+      "b": "Dockerfile",
+      "c": "appspec.yml",
+      "d": "buildspec.yml"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. .ebextensions (.config files in a .ebextensions folder) customize Elastic Beanstalk environments.",
+      "b": "Incorrect. Dockerfile is for Docker containers.",
+      "c": "Incorrect. appspec.yml is for CodeDeploy.",
+      "d": "Incorrect. buildspec.yml is for CodeBuild."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of S3 buckets you can create per AWS account by default?",
+    "opts": {
+      "a": "100",
+      "b": "50",
+      "c": "500",
+      "d": "unlimited"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default limit is 100 S3 buckets per AWS account (can be increased to 1000).",
+      "b": "Incorrect. 50 is below the actual limit.",
+      "c": "Incorrect. 500 exceeds the default limit.",
+      "d": "Incorrect. There is a limit on bucket count."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS CLI command lists all S3 buckets in your account?",
+    "opts": {
+      "a": "aws s3 ls",
+      "b": "aws s3 list",
+      "c": "aws s3 get-buckets",
+      "d": "aws s3 show"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 'aws s3 ls' lists all S3 buckets in the account.",
+      "b": "Incorrect. 'list' is not the correct subcommand.",
+      "c": "Incorrect. 'get-buckets' is not a valid command.",
+      "d": "Incorrect. 'show' is not a valid S3 CLI command."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which service provides a managed workflow for migrating and modernizing legacy applications to containers?",
+    "opts": {
+      "a": "AWS App2Container",
+      "b": "AWS Lambda",
+      "c": "Amazon ECS",
+      "d": "AWS Fargate"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS App2Container is a command-line tool for containerizing existing applications.",
+      "b": "Incorrect. Lambda is for serverless functions.",
+      "c": "Incorrect. ECS runs containers but doesn't migrate legacy apps.",
+      "d": "Incorrect. Fargate runs containers serverlessly."
+    }
+  }
+]

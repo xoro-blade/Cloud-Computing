@@ -1,0 +1,852 @@
+[
+  {
+    "type": "mcq",
+    "q": "A company uses CloudFront with an S3 origin and has enabled OAC. They also use SSE-KMS to encrypt their S3 objects. What additional configuration is required for CloudFront to serve these objects?",
+    "opts": {
+      "a": "No additional configuration is needed; OAC handles everything",
+      "b": "The KMS key policy must grant decrypt permissions to the CloudFront service principal",
+      "c": "You must disable SSE-KMS and use SSE-S3 instead",
+      "d": "Lambda@Edge must decrypt the objects before serving"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "OAC handles S3 bucket access, but KMS key access requires separate configuration.",
+      "b": "Correct. When using SSE-KMS with OAC, the KMS key policy must explicitly allow the CloudFront service principal (cloudfront.amazonaws.com) to perform kms:Decrypt so CloudFront can read the encrypted objects.",
+      "c": "SSE-KMS works with OAC; you don't need to switch to SSE-S3.",
+      "d": "Lambda@Edge doesn't handle KMS decryption for S3 origin objects; this is handled through key policies."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A multi-region application uses CloudFront with origin failover configured. The primary origin is an ALB in us-east-1 and the secondary is an ALB in eu-west-1. Which HTTP status codes trigger failover by default?",
+    "opts": {
+      "a": "Only 500 and 502",
+      "b": "500, 502, 503, and 504",
+      "c": "All 4xx and 5xx errors",
+      "d": "Only connection timeout errors"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "More status codes trigger failover than just 500 and 502.",
+      "b": "Correct. By default, CloudFront origin failover triggers on HTTP 500, 502, 503, and 504 errors from the primary origin. You can also configure failover on connection timeout or specific 4xx errors.",
+      "c": "Not all 4xx errors trigger failover by default; 4xx codes like 404 are configurable.",
+      "d": "Connection timeouts can trigger failover but are not the only trigger."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to implement A/B testing by routing 20% of users to a new version of the website. The routing should be sticky (same user always sees the same version). Which approach is best with CloudFront?",
+    "opts": {
+      "a": "Use CloudFront Continuous Deployment with weight-based traffic routing",
+      "b": "Use Lambda@Edge on viewer request to set a cookie and route based on it",
+      "c": "Use CloudFront Functions to randomly redirect users",
+      "d": "Create two separate CloudFront distributions and use Route 53 weighted routing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Continuous Deployment is limited to 15% traffic and is for testing CloudFront config changes, not application A/B testing.",
+      "b": "Correct. Lambda@Edge can check for an existing cookie (for stickiness) or set one for new users, then modify the origin request to route to different origin paths or origins based on the cookie value.",
+      "c": "CloudFront Functions can handle some logic but random redirects without stickiness don't meet the requirement.",
+      "d": "Two distributions with Route 53 weighted routing won't provide user-level stickiness."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When configuring CloudFront with an S3 static website endpoint as the origin (not the S3 REST API endpoint), which statement is true?",
+    "opts": {
+      "a": "You can use OAC to restrict access",
+      "b": "The S3 bucket must be configured for public access and OAC cannot be used",
+      "c": "HTTPS between CloudFront and origin is supported",
+      "d": "S3 Transfer Acceleration is automatically enabled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "OAC only works with S3 REST API endpoints, not S3 website endpoints.",
+      "b": "Correct. When using the S3 static website hosting endpoint as origin, the bucket must allow public access because OAC is not supported. CloudFront treats it as a custom origin.",
+      "c": "S3 website endpoints only support HTTP, not HTTPS, for the CloudFront-to-origin connection.",
+      "d": "Transfer Acceleration is unrelated to the website endpoint configuration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company notices their CloudFront cache hit ratio is only 30%. They forward all query strings to the origin. Many query strings are irrelevant for content selection (e.g., tracking parameters). How should they improve the cache hit ratio?",
+    "opts": {
+      "a": "Increase the TTL to maximum",
+      "b": "Configure a cache policy to only include relevant query strings in the cache key while still forwarding all to origin via origin request policy",
+      "c": "Disable query string forwarding entirely",
+      "d": "Enable Origin Shield"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Increasing TTL helps but doesn't address the root cause of cache fragmentation due to irrelevant query strings.",
+      "b": "Correct. By separating the cache key (cache policy) from what's forwarded to origin (origin request policy), you can include only content-relevant query strings in the cache key while still passing all parameters to the origin.",
+      "c": "Disabling all forwarding may break origin functionality that depends on query strings.",
+      "d": "Origin Shield reduces origin load but doesn't fix cache key fragmentation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the order of precedence when CloudFront evaluates cache behaviors for an incoming request?",
+    "opts": {
+      "a": "Alphabetical order of path patterns",
+      "b": "Most specific path pattern first, then default (*) behavior last",
+      "c": "The order in which cache behaviors are listed in the distribution (top to bottom), with default last",
+      "d": "Random order; first match wins"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Alphabetical order is not how CloudFront evaluates behaviors.",
+      "b": "CloudFront doesn't automatically prioritize by specificity; order matters.",
+      "c": "Correct. CloudFront evaluates cache behaviors in the order they are listed in the distribution configuration. The first matching path pattern is used. The default (*) behavior is always evaluated last.",
+      "d": "Evaluation is deterministic based on listed order, not random."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A CloudFront distribution serves both /api/* (dynamic, no caching) and /static/* (cached for 7 days). How should this be configured?",
+    "opts": {
+      "a": "Single cache behavior with conditional TTL based on path",
+      "b": "Two cache behaviors: /api/* with TTL=0 and min TTL=0, /static/* with TTL=604800",
+      "c": "Two separate CloudFront distributions",
+      "d": "Use Lambda@Edge to set different Cache-Control headers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "A single cache behavior cannot have conditional TTL based on path within it.",
+      "b": "Correct. You should create two cache behaviors with different path patterns and cache policies. /api/* behavior should have TTL=0 (no caching), and /static/* should have a TTL of 604800 seconds (7 days).",
+      "c": "Two distributions is unnecessary and adds complexity.",
+      "d": "Lambda@Edge could work but is over-engineered when cache behaviors and policies handle this natively."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when CloudFront receives a request with an Authorization header and the cache behavior is configured to forward it?",
+    "opts": {
+      "a": "CloudFront strips the header and caches normally",
+      "b": "CloudFront includes the Authorization header in the cache key, creating per-user cache entries",
+      "c": "CloudFront bypasses the cache entirely",
+      "d": "CloudFront returns a 401 error"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "CloudFront doesn't strip forwarded headers.",
+      "b": "Correct. When the Authorization header is included in the cache key, each unique authorization value creates a separate cache entry, effectively resulting in per-user caching which drastically reduces cache hit ratio.",
+      "c": "CloudFront doesn't bypass cache; it uses the header as part of the cache key.",
+      "d": "CloudFront doesn't authenticate; it only forwards the header."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to use CloudFront to serve content from an on-premises data center. What type of origin should they configure?",
+    "opts": {
+      "a": "S3 origin",
+      "b": "Custom origin with the public DNS name or IP of the on-premises server",
+      "c": "MediaStore origin",
+      "d": "This is not possible with CloudFront"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "S3 origin is for AWS S3 buckets only.",
+      "b": "Correct. Any publicly accessible HTTP/HTTPS server, including on-premises servers, can be configured as a custom origin using its public DNS name or IP address.",
+      "c": "MediaStore is a specific AWS media origin, not for on-premises.",
+      "d": "CloudFront fully supports custom origins including on-premises servers."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When using CloudFront with an S3 origin that has versioning enabled, and you upload a new version of an object, what must you do for CloudFront to serve the new version immediately?",
+    "opts": {
+      "a": "Nothing; CloudFront automatically detects new versions",
+      "b": "Create an invalidation for the object path, or use a versioned file name",
+      "c": "Delete the old version from S3",
+      "d": "Restart the CloudFront distribution"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "CloudFront doesn't detect new S3 versions automatically; it relies on TTL expiration.",
+      "b": "Correct. CloudFront serves cached content until TTL expires. To serve new content immediately, you must either invalidate the cached object or use a new file name/version in the URL (recommended best practice).",
+      "c": "Deleting old versions in S3 doesn't affect the CloudFront cache.",
+      "d": "You cannot restart a CloudFront distribution; and disabling/enabling takes time."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the 'Origin Connection Attempts' setting combined with 'Origin Connection Timeout' in CloudFront?",
+    "opts": {
+      "a": "To configure how many edge locations try to reach the origin",
+      "b": "To define how many times CloudFront attempts to connect to the origin within the timeout period before failing over",
+      "c": "To set the number of retries for viewer connections",
+      "d": "To configure TCP keep-alive settings"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Connection attempts are from a single edge location, not multiple.",
+      "b": "Correct. Origin Connection Attempts (1-3, default 3) and Origin Connection Timeout (1-10s, default 10s) work together. The total wait time = attempts × timeout. After all attempts fail, CloudFront either fails over or returns an error.",
+      "c": "These settings are for origin connections, not viewer connections.",
+      "d": "These are not TCP keep-alive settings."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A media company uses CloudFront to serve video content. They want to restrict access so that only viewers who have paid can watch. The content URLs should not change per user. What should they use?",
+    "opts": {
+      "a": "Signed URLs",
+      "b": "Signed Cookies",
+      "c": "Geo-restriction",
+      "d": "Origin Access Control"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Signed URLs would require different URLs per user, which conflicts with the requirement that URLs don't change.",
+      "b": "Correct. Signed cookies allow access control without changing the content URL. Authenticated users receive signed cookies that grant access to multiple resources, keeping URLs consistent.",
+      "c": "Geo-restriction is country-based, not user-based.",
+      "d": "OAC restricts S3 access to CloudFront, not end-user access."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the relationship between CloudFront and AWS Global Accelerator?",
+    "opts": {
+      "a": "They are the same service",
+      "b": "Global Accelerator replaces CloudFront",
+      "c": "Both use AWS edge locations but serve different purposes: CloudFront caches content, Global Accelerator routes TCP/UDP traffic to optimal endpoints",
+      "d": "Global Accelerator is required for CloudFront to function"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "They are different services with different purposes.",
+      "b": "Global Accelerator doesn't cache content and doesn't replace CloudFront.",
+      "c": "Correct. Both use AWS edge network, but CloudFront is a CDN that caches HTTP/HTTPS content, while Global Accelerator improves performance for TCP/UDP applications by routing traffic through the AWS global network to the optimal regional endpoint.",
+      "d": "They are independent services."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A CloudFront distribution has Origin Shield enabled in us-east-1. What is the request flow for a cache miss from an edge location in Europe?",
+    "opts": {
+      "a": "Edge → Origin",
+      "b": "Edge → Regional Edge Cache → Origin",
+      "c": "Edge → Regional Edge Cache → Origin Shield → Origin",
+      "d": "Edge → Origin Shield → Origin"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "This skips the intermediate caching layers.",
+      "b": "This skips Origin Shield.",
+      "c": "Correct. With Origin Shield enabled, the flow is: Edge Location → Regional Edge Cache (in Europe) → Origin Shield (in us-east-1) → Origin. Origin Shield adds a centralized caching layer.",
+      "d": "This skips the Regional Edge Cache."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the benefit of enabling Origin Shield for a multi-region viewer base?",
+    "opts": {
+      "a": "It reduces latency for all viewers equally",
+      "b": "It collapses multiple cache misses from different regional edge caches into a single request to the origin",
+      "c": "It eliminates the need for cache invalidation",
+      "d": "It provides DDoS protection at the origin"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Origin Shield may add latency for some regions since requests must pass through the shield region.",
+      "b": "Correct. Origin Shield acts as a single point of contact for the origin, coalescing requests from multiple regional edge caches. This dramatically reduces origin load and improves cache hit ratio.",
+      "c": "Invalidation is still needed when content changes.",
+      "d": "DDoS protection is provided by Shield, not Origin Shield."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses CloudFront with WAF to protect their application. They want to rate-limit requests to 2,000 per 5-minute window per IP. Where should this rule be configured?",
+    "opts": {
+      "a": "In the CloudFront cache behavior",
+      "b": "In an AWS WAF rate-based rule attached to the CloudFront distribution",
+      "c": "In the origin's security group",
+      "d": "In Lambda@Edge"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Cache behaviors don't have rate limiting capabilities.",
+      "b": "Correct. AWS WAF rate-based rules can be attached to CloudFront distributions to automatically block IPs that exceed a specified request threshold within a 5-minute evaluation window.",
+      "c": "Security groups don't support rate limiting.",
+      "d": "While possible with Lambda@Edge, WAF rate-based rules are the native and recommended approach."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum rate limit threshold for a WAF rate-based rule?",
+    "opts": {
+      "a": "10 requests per 5 minutes",
+      "b": "100 requests per 5 minutes",
+      "c": "500 requests per 5 minutes",
+      "d": "2,000 requests per 5 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 is below the minimum threshold.",
+      "b": "Correct. The minimum rate limit for AWS WAF rate-based rules is 100 requests per 5-minute period.",
+      "c": "500 is above the minimum.",
+      "d": "2,000 is the default example but not the minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer creates a Lambda@Edge function that modifies the Host header in the origin request. What is the potential impact?",
+    "opts": {
+      "a": "No impact; CloudFront ignores the Host header",
+      "b": "CloudFront will route the request to a different origin based on the modified Host header",
+      "c": "The origin server may serve different content or reject the request if it doesn't recognize the Host header",
+      "d": "CloudFront will return a 502 error"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "CloudFront does use the Host header for origin requests.",
+      "b": "CloudFront doesn't re-route based on Host header changes in Lambda@Edge; origin selection is already determined.",
+      "c": "Correct. Modifying the Host header affects what the origin server sees. If the origin is virtual-hosted, it may serve different content or return an error if the Host doesn't match a configured virtual host.",
+      "d": "A 502 is possible but not guaranteed; the impact depends on the origin's configuration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following correctly describes the caching behavior when CloudFront receives a response with 'Cache-Control: no-cache' from the origin?",
+    "opts": {
+      "a": "CloudFront will never cache the object",
+      "b": "CloudFront respects the minimum TTL in the cache policy; if min TTL > 0, it still caches",
+      "c": "CloudFront ignores all Cache-Control headers",
+      "d": "CloudFront caches it with the default 24-hour TTL"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "If the minimum TTL in the cache policy is > 0, CloudFront will cache regardless of no-cache.",
+      "b": "Correct. CloudFront's cache policy minimum TTL overrides origin cache-control headers. If min TTL is set to 0, CloudFront respects no-cache. If min TTL > 0, CloudFront caches for at least that duration.",
+      "c": "CloudFront considers both its cache policy and origin headers.",
+      "d": "The default TTL only applies if no Cache-Control header is present."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs to serve content that is personalized per user but wants to still benefit from CloudFront. What caching strategy should they use?",
+    "opts": {
+      "a": "Cache with cookies in the cache key",
+      "b": "Set TTL to 0 to leverage connection optimization without caching",
+      "c": "Use Lambda@Edge to assemble personalized pages from cached fragments",
+      "d": "All of the above are valid strategies depending on the use case"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Valid for content that varies by a limited set of cookie values (e.g., language preference).",
+      "b": "Valid for fully dynamic content that still benefits from CloudFront's network optimization.",
+      "c": "Valid for edge-side includes where page templates are cached and personalized elements are injected.",
+      "d": "Correct. All three are valid strategies depending on the level of personalization needed. Cookie-based caching works for limited variants, TTL=0 for dynamic content, and Lambda@Edge for edge assembly."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of query string parameters that can be included in the cache key using a CloudFront cache policy?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "50",
+      "d": "All query strings (no specific limit on count)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "5 is not the limit.",
+      "b": "Correct. When using a whitelist approach, you can include up to 10 query string parameters in the cache key via a cache policy.",
+      "c": "50 exceeds the limit.",
+      "d": "While you can select 'All' query strings, the whitelist is limited to 10."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A CloudFront distribution uses S3 as origin with OAC. The bucket has 'Block all public access' enabled. A developer accidentally adds a bucket policy allowing public access. What happens?",
+    "opts": {
+      "a": "The bucket policy takes precedence and objects become publicly accessible",
+      "b": "S3 Block Public Access overrides the bucket policy, maintaining restricted access",
+      "c": "CloudFront stops working because of conflicting policies",
+      "d": "Only CloudFront can access the objects because of OAC"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Block Public Access settings override public bucket policies.",
+      "b": "Correct. S3 Block Public Access is a safety mechanism that overrides any bucket policy that would grant public access. The OAC policy (which grants access to the CloudFront service principal) still works because it's not considered 'public' access.",
+      "c": "CloudFront continues to work as OAC access isn't blocked.",
+      "d": "While effectively true, the reason is Block Public Access, not just OAC."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of custom headers you can configure CloudFront to add to origin requests?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "25",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "5 is not the limit.",
+      "b": "Correct. You can add up to 10 custom headers per origin in CloudFront that are sent with every request to that origin.",
+      "c": "25 exceeds the limit.",
+      "d": "50 exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company's CloudFront distribution is receiving 502 Bad Gateway errors. What are the most common causes?",
+    "opts": {
+      "a": "SSL certificate mismatch between CloudFront and origin, or origin not responding",
+      "b": "TTL expired on cached content",
+      "c": "Too many edge locations selected",
+      "d": "Geo-restriction blocking the origin"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. 502 errors typically occur when CloudFront cannot establish a valid connection to the origin, commonly due to SSL/TLS certificate issues (expired, self-signed, or domain mismatch), or the origin not responding within the timeout.",
+      "b": "Expired TTL triggers a fetch from origin, not a 502.",
+      "c": "The number of edge locations doesn't cause 502 errors.",
+      "d": "Geo-restriction returns 403, not 502."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When using CloudFront with a custom origin that uses a self-signed SSL certificate, what must be configured?",
+    "opts": {
+      "a": "Nothing special; CloudFront accepts all certificates",
+      "b": "You must add the CA certificate to CloudFront's trust store",
+      "c": "CloudFront does not support self-signed certificates on custom origins; you must use a publicly trusted certificate",
+      "d": "You must disable HTTPS between CloudFront and the origin"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "CloudFront validates SSL certificates on custom origins.",
+      "b": "CloudFront doesn't allow custom CA certificates for custom origins.",
+      "c": "Correct. For custom origins, CloudFront requires the origin to use a certificate issued by a trusted Certificate Authority (CA). Self-signed certificates are not supported for HTTPS connections to custom origins.",
+      "d": "Disabling HTTPS would work but removes encryption in transit, which is not recommended."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A global company has users in 50 countries and wants to ensure the lowest possible latency. They use CloudFront with Price Class All. Some users report slow initial page loads. What CloudFront feature could help?",
+    "opts": {
+      "a": "Increasing the default TTL",
+      "b": "Enabling HTTP/3 (QUIC) for faster connection establishment",
+      "c": "Adding more cache behaviors",
+      "d": "Switching to Price Class 100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "TTL only affects cache freshness, not initial connection speed.",
+      "b": "Correct. HTTP/3 with QUIC reduces connection establishment time (0-RTT) which significantly improves first-page-load latency, especially on mobile networks with packet loss.",
+      "c": "More cache behaviors don't reduce latency.",
+      "d": "Price Class 100 would reduce coverage and increase latency for users outside North America and Europe."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the behavior of CloudFront when it receives a Range request (partial content) from a viewer?",
+    "opts": {
+      "a": "CloudFront ignores the Range header and returns the full object",
+      "b": "CloudFront forwards the Range request to the origin and caches the entire object for future requests",
+      "c": "CloudFront only caches the requested range",
+      "d": "CloudFront returns a 416 Range Not Satisfiable error"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "CloudFront handles Range requests properly.",
+      "b": "Correct. CloudFront forwards Range requests to the origin. If the complete object isn't already cached, CloudFront fetches and caches the complete object while returning only the requested range to the viewer.",
+      "c": "CloudFront caches the full object, not partial ranges.",
+      "d": "CloudFront doesn't return 416 unless the range is actually invalid."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to use CloudFront to serve content from multiple origins based on the viewer's geographic location (US users → us-east-1 ALB, EU users → eu-west-1 ALB). How can this be achieved?",
+    "opts": {
+      "a": "Use geo-restriction",
+      "b": "Use Lambda@Edge on origin request to modify the origin based on CloudFront-Viewer-Country header",
+      "c": "Create separate distributions per region",
+      "d": "Use Route 53 latency-based routing exclusively"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Geo-restriction blocks access; it doesn't route to different origins.",
+      "b": "Correct. Lambda@Edge on origin request can read the CloudFront-Viewer-Country header and dynamically change the origin to the appropriate regional ALB, implementing geographic-based origin selection.",
+      "c": "Separate distributions add complexity and are harder to manage.",
+      "d": "Route 53 alone doesn't provide the fine-grained control within a single CloudFront distribution."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the impact on CloudFront caching when you include the Accept-Language header in the cache key?",
+    "opts": {
+      "a": "No impact; language headers don't affect caching",
+      "b": "CloudFront creates separate cache entries for each language variant, reducing overall cache hit ratio",
+      "c": "CloudFront automatically translates content",
+      "d": "Content is only cached for English-language requests"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Any header in the cache key impacts caching behavior.",
+      "b": "Correct. Including Accept-Language in the cache key means CloudFront maintains separate cached copies for each language variant (en, fr, de, etc.), reducing the cache hit ratio proportionally to the number of language variants.",
+      "c": "CloudFront doesn't translate content.",
+      "d": "All language variants are cached equally."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company notices that their origin is receiving multiple simultaneous requests for the same uncached object when many users request it at the same time (thundering herd). Which CloudFront feature helps mitigate this?",
+    "opts": {
+      "a": "Origin Shield",
+      "b": "Cache behaviors",
+      "c": "Geo-restriction",
+      "d": "Signed URLs"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Origin Shield helps with request collapsing (coalescing). When multiple edge locations simultaneously have cache misses for the same object, Origin Shield collapses these into fewer requests to the origin.",
+      "b": "Cache behaviors define routing rules but don't address thundering herd.",
+      "c": "Geo-restriction is for access control.",
+      "d": "Signed URLs are for authentication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between CloudFront standard logs and real-time logs in terms of delivery latency?",
+    "opts": {
+      "a": "Standard logs: minutes to hours; Real-time logs: seconds",
+      "b": "Both deliver within seconds",
+      "c": "Standard logs: seconds; Real-time logs: minutes",
+      "d": "Standard logs: 24 hours; Real-time logs: 1 hour"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Standard access logs are delivered to S3 within minutes to hours (best effort, no SLA). Real-time logs are delivered to Kinesis Data Streams within seconds of the request.",
+      "b": "Standard logs have significantly higher latency than real-time logs.",
+      "c": "This is reversed.",
+      "d": "These timeframes are incorrect."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A developer needs to implement token-based authentication at the edge where tokens are validated against a database. Which should they choose?",
+    "opts": {
+      "a": "CloudFront Functions",
+      "b": "Lambda@Edge",
+      "c": "AWS WAF custom rules",
+      "d": "Origin Access Control"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "CloudFront Functions cannot make network calls to databases or external services.",
+      "b": "Correct. Lambda@Edge can make network calls to DynamoDB or other services to validate tokens, has longer execution time (5s for viewer events), and supports the network access needed for database queries.",
+      "c": "WAF can match patterns but cannot perform dynamic database lookups for token validation.",
+      "d": "OAC is for S3 access control, not token authentication."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of CloudFront distributions that can be associated with a single AWS WAF web ACL?",
+    "opts": {
+      "a": "1",
+      "b": "10",
+      "c": "100",
+      "d": "No limit (any number)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Multiple distributions can share a web ACL.",
+      "b": "10 is not the correct limit.",
+      "c": "Correct. A single AWS WAF web ACL can be associated with up to 100 CloudFront distributions.",
+      "d": "There is a limit of 100 distributions per web ACL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company is using CloudFront to serve a website. They want all HTTP requests to be automatically redirected to HTTPS at the edge, but between CloudFront and the origin they want to use HTTP (the origin doesn't support HTTPS). How should they configure this?",
+    "opts": {
+      "a": "Viewer Protocol Policy: Redirect HTTP to HTTPS; Origin Protocol Policy: HTTP Only",
+      "b": "Viewer Protocol Policy: HTTPS Only; Origin Protocol Policy: HTTPS Only",
+      "c": "Viewer Protocol Policy: HTTP and HTTPS; Origin Protocol Policy: Match Viewer",
+      "d": "This configuration is not possible"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Viewer Protocol Policy 'Redirect HTTP to HTTPS' handles the viewer-side redirect, while Origin Protocol Policy 'HTTP Only' allows communication with an HTTP-only origin. These are independently configurable.",
+      "b": "HTTPS Only on origin would fail if the origin doesn't support HTTPS.",
+      "c": "This wouldn't force HTTPS on the viewer side.",
+      "d": "This configuration is fully supported and common."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the CloudFront response when a viewer requests content that doesn't exist on the origin (origin returns 404)?",
+    "opts": {
+      "a": "CloudFront always returns 404 to the viewer",
+      "b": "CloudFront can be configured to cache the 404 response for a specified duration and optionally return a custom error page with a different status code",
+      "c": "CloudFront retries the request to the origin indefinitely",
+      "d": "CloudFront triggers origin failover"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "CloudFront can customize the response for 404 errors.",
+      "b": "Correct. CloudFront caches error responses (including 404) for a configurable error caching minimum TTL (default 5 minutes). You can also configure custom error pages to return a different page and/or status code.",
+      "c": "CloudFront doesn't retry indefinitely.",
+      "d": "404 errors don't trigger origin failover by default (failover is for 5xx errors)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default error caching minimum TTL for CloudFront when the origin returns an error?",
+    "opts": {
+      "a": "0 seconds",
+      "b": "10 seconds",
+      "c": "60 seconds",
+      "d": "5 minutes (300 seconds)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "0 seconds is not the default error caching TTL.",
+      "b": "Correct. The default error caching minimum TTL is 10 seconds. This prevents CloudFront from overwhelming the origin with requests for objects that are generating errors.",
+      "c": "60 seconds is not the default.",
+      "d": "5 minutes was the old default; it has been reduced to 10 seconds."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses CloudFront and wants to implement bot management. Which combination of services provides the best solution?",
+    "opts": {
+      "a": "CloudFront + AWS Shield Standard",
+      "b": "CloudFront + AWS WAF with Bot Control managed rule group",
+      "c": "CloudFront + Amazon GuardDuty",
+      "d": "CloudFront + AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Shield Standard provides DDoS protection but not bot management.",
+      "b": "Correct. AWS WAF Bot Control is a managed rule group that provides visibility and control over common and sophisticated bot traffic, and integrates directly with CloudFront.",
+      "c": "GuardDuty detects threats but doesn't actively block bots at CloudFront.",
+      "d": "AWS Config tracks configuration changes, not bot traffic."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum total size of all custom headers that CloudFront can send to the origin per request?",
+    "opts": {
+      "a": "4 KB",
+      "b": "8,192 bytes (8 KB)",
+      "c": "10,240 bytes (10 KB)",
+      "d": "16 KB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "4 KB is not the correct limit.",
+      "b": "8 KB is not the correct limit.",
+      "c": "Correct. The total size of all custom header names and values combined cannot exceed 10,240 bytes (10 KB) per origin.",
+      "d": "16 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to use CloudFront to cache API responses from API Gateway. The API responses vary based on the 'Accept' header (JSON vs XML). How should they configure CloudFront?",
+    "opts": {
+      "a": "Forward all headers to origin",
+      "b": "Include the Accept header in the cache key via cache policy, and forward it to origin via origin request policy",
+      "c": "Use Lambda@Edge to normalize the response format",
+      "d": "Disable caching for the API path"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Forwarding all headers eliminates caching benefits as every unique header combination is cached separately.",
+      "b": "Correct. Including only the Accept header in the cache key ensures CloudFront caches JSON and XML responses separately, while not fragmenting cache by other irrelevant headers.",
+      "c": "Normalizing defeats the purpose of serving different formats.",
+      "d": "Disabling caching wastes the opportunity to cache API responses."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when you update a CloudFront distribution's configuration (e.g., add a new cache behavior)?",
+    "opts": {
+      "a": "Changes take effect immediately at all edge locations",
+      "b": "Changes propagate globally and the distribution status shows 'InProgress' until deployment completes",
+      "c": "You must invalidate all content for changes to take effect",
+      "d": "A new distribution is created with the updated configuration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Changes are not instantaneous; they need to propagate.",
+      "b": "Correct. When you update a distribution, CloudFront propagates the configuration changes to all edge locations. The status changes to 'InProgress' and returns to 'Deployed' once complete (typically 5-10 minutes).",
+      "c": "Configuration changes don't require cache invalidation.",
+      "d": "The existing distribution is updated in place."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A security team wants to log all CloudFront API calls (like creating/updating distributions) for auditing. Which AWS service should they use?",
+    "opts": {
+      "a": "CloudFront access logs",
+      "b": "AWS CloudTrail",
+      "c": "Amazon CloudWatch Logs",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Access logs record viewer requests to content, not API management calls.",
+      "b": "Correct. AWS CloudTrail logs all AWS API calls, including CloudFront management operations like CreateDistribution, UpdateDistribution, and DeleteDistribution.",
+      "c": "CloudWatch Logs stores log data but doesn't capture API calls natively.",
+      "d": "AWS Config tracks configuration changes but CloudTrail captures the actual API call details."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of IP addresses (or IP ranges) that can be included in a single AWS WAF IP set used with CloudFront?",
+    "opts": {
+      "a": "100",
+      "b": "1,000",
+      "c": "10,000",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "100 is too low.",
+      "b": "1,000 is not the correct limit.",
+      "c": "Correct. A single WAF IP set can contain up to 10,000 IP addresses or IP address ranges (CIDR blocks).",
+      "d": "100,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses CloudFront to serve their website. During peak traffic, they notice the origin is being overwhelmed despite high cache hit ratios. What could cause origin overload even with effective caching?",
+    "opts": {
+      "a": "TTL expiration causing simultaneous revalidation requests from many edge locations",
+      "b": "CloudFront is not caching at all",
+      "c": "The viewers are bypassing CloudFront",
+      "d": "WAF is forwarding all requests to origin"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. When TTL expires simultaneously across many edge locations, all of them send revalidation requests to the origin at once (cache stampede). Origin Shield helps mitigate this by coalescing requests.",
+      "b": "High cache hit ratios indicate caching is working.",
+      "c": "If viewers bypass CloudFront, the hit ratio wouldn't appear high in CloudFront metrics.",
+      "d": "WAF operates at the edge and doesn't forward requests to origin."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudFront feature allows you to test new edge function code against real production traffic without affecting all users?",
+    "opts": {
+      "a": "CloudFront Functions test events in the console",
+      "b": "Lambda@Edge canary deployments",
+      "c": "CloudFront Functions with a DEVELOPMENT stage before promoting to LIVE",
+      "d": "CloudFront Continuous Deployment"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Console test events use synthetic data, not real production traffic.",
+      "b": "Lambda@Edge doesn't have built-in canary deployments.",
+      "c": "Correct. CloudFront Functions have a DEVELOPMENT stage where you can test with real requests using the test functionality, before promoting to the LIVE stage that affects all production traffic.",
+      "d": "Continuous Deployment tests distribution-level config changes, not specifically function code."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company needs CloudFront to add CORS headers (Access-Control-Allow-Origin) to responses. The origin doesn't send these headers. What is the best approach?",
+    "opts": {
+      "a": "Configure the origin to send CORS headers",
+      "b": "Use a CloudFront response headers policy to add CORS headers",
+      "c": "Use Lambda@Edge on viewer response",
+      "d": "Both B and C work, but B is recommended for simplicity"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "This is possible but the question states the origin doesn't send them.",
+      "b": "Response headers policies can add CORS headers without code.",
+      "c": "Lambda@Edge can add CORS headers but adds complexity.",
+      "d": "Correct. Both CloudFront response headers policies and Lambda@Edge can add CORS headers. However, the response headers policy is the recommended approach as it's simpler, cheaper, and doesn't require code."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of response headers that can be configured in a CloudFront response headers policy?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "25",
+      "d": "Varies by header type (security headers, custom headers, CORS)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "5 is not a blanket limit.",
+      "b": "10 is not a blanket limit.",
+      "c": "25 is not a blanket limit.",
+      "d": "Correct. Response headers policies have different limits per section: up to 10 custom headers, various security headers, CORS configuration, and server-timing header. The limits vary by header category."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A financial services company must ensure that data transferred between CloudFront and their origin is encrypted using TLS 1.2 or higher. How should they configure this?",
+    "opts": {
+      "a": "Set the Origin SSL Protocols to TLSv1.2 only in the origin settings",
+      "b": "Use Field-Level Encryption",
+      "c": "Enable FIPS endpoint on CloudFront",
+      "d": "Configure SSL in the cache policy"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. In the origin settings, you can specify which SSL/TLS protocols CloudFront uses when connecting to your origin. Selecting only TLSv1.2 ensures all origin connections use TLS 1.2 or higher.",
+      "b": "Field-Level Encryption encrypts specific fields, not the transport layer.",
+      "c": "FIPS endpoints are for specific compliance needs and are configured differently.",
+      "d": "SSL protocols are configured in origin settings, not cache policies."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between CloudFront 'Managed Cache Policies' and custom cache policies?",
+    "opts": {
+      "a": "Managed policies are created and maintained by AWS for common use cases; custom policies are created by users for specific needs",
+      "b": "Managed policies are free; custom policies cost extra",
+      "c": "Managed policies provide better performance",
+      "d": "There is no difference"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS provides managed cache policies (like CachingOptimized, CachingDisabled, etc.) for common scenarios. You can also create custom cache policies to meet specific requirements like particular TTL values or cache key configurations.",
+      "b": "Both are included at no additional cost.",
+      "c": "Performance depends on configuration, not whether the policy is managed or custom.",
+      "d": "There are clear differences in who manages them."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'CachingDisabled' managed cache policy used for?",
+    "opts": {
+      "a": "To cache content for the minimum time possible",
+      "b": "To completely bypass caching and forward all requests to the origin (proxy mode)",
+      "c": "To cache only images and CSS files",
+      "d": "To disable the CloudFront distribution"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "CachingDisabled means no caching at all, not minimum caching.",
+      "b": "Correct. The CachingDisabled managed policy sets min TTL, max TTL, and default TTL all to 0, effectively turning CloudFront into a proxy that forwards all requests to the origin without caching.",
+      "c": "CachingDisabled applies to all content in the cache behavior, not specific types.",
+      "d": "It doesn't disable the distribution; it disables caching for that behavior."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When CloudFront serves content, it adds an 'Age' header to the response. What does this header indicate?",
+    "opts": {
+      "a": "The time remaining before the object expires from cache",
+      "b": "The number of seconds the object has been in the CloudFront cache",
+      "c": "The age of the CloudFront distribution",
+      "d": "The time since the origin last updated the object"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "The Age header shows how long it's been cached, not how long until expiry.",
+      "b": "Correct. The Age header indicates how many seconds the object has been in the CloudFront cache since it was last fetched from the origin.",
+      "c": "It has nothing to do with the distribution's age.",
+      "d": "It measures time in cache, not time since origin update."
+    }
+  }
+]

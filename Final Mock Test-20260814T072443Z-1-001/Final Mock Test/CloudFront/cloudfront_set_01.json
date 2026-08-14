@@ -1,0 +1,1107 @@
+[
+  {
+    "type": "mcq",
+    "q": "What is Amazon CloudFront?",
+    "opts": {
+      "a": "A relational database service",
+      "b": "A Content Delivery Network (CDN) service",
+      "c": "A compute service for running containers",
+      "d": "A DNS management service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Amazon RDS is the relational database service, not CloudFront.",
+      "b": "Correct. Amazon CloudFront is a fast, secure, and programmable Content Delivery Network (CDN) that delivers data, videos, applications, and APIs globally with low latency and high transfer speeds.",
+      "c": "Amazon ECS/EKS are container services, not CloudFront.",
+      "d": "Amazon Route 53 is the DNS management service, not CloudFront."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many edge locations does Amazon CloudFront have globally (approximate as of 2024)?",
+    "opts": {
+      "a": "50+",
+      "b": "100+",
+      "c": "450+",
+      "d": "1000+"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "CloudFront has far more than 50 edge locations.",
+      "b": "CloudFront has far more than 100 edge locations.",
+      "c": "Correct. Amazon CloudFront has 450+ Points of Presence (PoPs) including edge locations and Regional Edge Caches across the globe.",
+      "d": "CloudFront does not have 1000+ edge locations currently."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default TTL (Time to Live) for CloudFront cached objects if no Cache-Control header is specified?",
+    "opts": {
+      "a": "1 hour",
+      "b": "24 hours",
+      "c": "48 hours",
+      "d": "7 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "The default TTL is not 1 hour.",
+      "b": "Correct. The default TTL for CloudFront is 24 hours (86,400 seconds) if no Cache-Control or Expires header is specified by the origin.",
+      "c": "48 hours is not the default TTL.",
+      "d": "7 days is not the default TTL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum file size that can be delivered through CloudFront using a single GET request?",
+    "opts": {
+      "a": "5 GB",
+      "b": "10 GB",
+      "c": "20 GB",
+      "d": "30 GB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "5 GB is the limit for S3 single PUT, not CloudFront delivery.",
+      "b": "10 GB is not the correct maximum file size for CloudFront.",
+      "c": "Correct. CloudFront can deliver files up to 20 GB in size using a single GET request.",
+      "d": "30 GB exceeds CloudFront's maximum file size for a single GET request."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following can be used as an origin for CloudFront?",
+    "opts": {
+      "a": "Amazon S3 bucket",
+      "b": "An HTTP server (EC2, on-premises)",
+      "c": "Application Load Balancer",
+      "d": "All of the above"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "S3 is a valid origin, but it's not the only one.",
+      "b": "HTTP servers are valid origins, but not the only option.",
+      "c": "ALB is a valid origin, but not the only option.",
+      "d": "Correct. CloudFront supports multiple origin types including S3 buckets, EC2 instances, ALB, and any custom HTTP/HTTPS server."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of CloudFront Origin Access Control (OAC)?",
+    "opts": {
+      "a": "To encrypt data at rest in S3",
+      "b": "To restrict direct access to S3 and allow access only through CloudFront",
+      "c": "To manage DNS routing",
+      "d": "To throttle API requests"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "S3 encryption is managed through S3 settings, not OAC.",
+      "b": "Correct. OAC ensures that users can only access S3 content through CloudFront, preventing direct access to the S3 bucket.",
+      "c": "DNS routing is managed by Route 53.",
+      "d": "API throttling is handled by API Gateway or WAF."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a CloudFront distribution?",
+    "opts": {
+      "a": "A physical server in an AWS data center",
+      "b": "The configuration that tells CloudFront where to get content and how to serve it",
+      "c": "A type of S3 bucket",
+      "d": "A VPC networking component"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "A distribution is a configuration, not a physical server.",
+      "b": "Correct. A CloudFront distribution is the configuration unit that specifies origins, cache behaviors, and delivery settings for your content.",
+      "c": "A distribution is not an S3 bucket.",
+      "d": "A distribution is not a VPC component."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which protocol does CloudFront support for communication between viewers and edge locations?",
+    "opts": {
+      "a": "HTTP only",
+      "b": "HTTPS only",
+      "c": "Both HTTP and HTTPS",
+      "d": "FTP and HTTP"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "CloudFront supports more than just HTTP.",
+      "b": "CloudFront can serve over HTTP as well, though HTTPS is recommended.",
+      "c": "Correct. CloudFront supports both HTTP and HTTPS for viewer connections. You can also configure it to redirect HTTP to HTTPS.",
+      "d": "CloudFront does not support FTP."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of alternate domain names (CNAMEs) you can associate with a single CloudFront distribution?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "10 is not the correct limit.",
+      "b": "25 is not the correct limit.",
+      "c": "Correct. You can associate up to 100 alternate domain names (CNAMEs) with a single CloudFront distribution.",
+      "d": "200 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is used to provision SSL/TLS certificates for use with CloudFront?",
+    "opts": {
+      "a": "AWS KMS",
+      "b": "AWS Certificate Manager (ACM)",
+      "c": "AWS Secrets Manager",
+      "d": "AWS IAM"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "AWS KMS is for encryption key management, not SSL/TLS certificates.",
+      "b": "Correct. AWS Certificate Manager (ACM) is used to provision, manage, and deploy SSL/TLS certificates for use with CloudFront. Certificates must be in the us-east-1 region.",
+      "c": "AWS Secrets Manager stores secrets, not SSL certificates for CloudFront.",
+      "d": "IAM manages access policies, not SSL certificates for CloudFront."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In which AWS region must an ACM certificate be created to be used with CloudFront?",
+    "opts": {
+      "a": "Any region",
+      "b": "us-west-2",
+      "c": "us-east-1",
+      "d": "eu-west-1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "CloudFront requires the certificate to be in a specific region.",
+      "b": "us-west-2 is not the required region for CloudFront certificates.",
+      "c": "Correct. SSL/TLS certificates for CloudFront must be created in the US East (N. Virginia) region (us-east-1).",
+      "d": "eu-west-1 is not the required region for CloudFront certificates."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a CloudFront cache behavior?",
+    "opts": {
+      "a": "A rule that defines how CloudFront handles requests based on URL path patterns",
+      "b": "A metric that measures cache hit ratio",
+      "c": "A type of edge location",
+      "d": "A billing configuration"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Cache behaviors define how CloudFront processes requests for different URL path patterns, including TTL, viewer protocol policy, and allowed HTTP methods.",
+      "b": "Cache hit ratio is a metric, not a cache behavior.",
+      "c": "An edge location is a physical infrastructure component.",
+      "d": "Billing configuration is separate from cache behaviors."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default minimum TTL that can be set for a CloudFront distribution?",
+    "opts": {
+      "a": "0 seconds",
+      "b": "60 seconds",
+      "c": "300 seconds",
+      "d": "3600 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The minimum TTL can be set to 0 seconds, which means CloudFront will always check with the origin if the content is up to date (using conditional requests like If-Modified-Since).",
+      "b": "60 seconds is not the minimum configurable TTL.",
+      "c": "300 seconds is not the minimum configurable TTL.",
+      "d": "3600 seconds is not the minimum configurable TTL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront geo-restriction used for?",
+    "opts": {
+      "a": "To restrict which edge locations are used",
+      "b": "To allow or block users in specific countries from accessing content",
+      "c": "To limit bandwidth per region",
+      "d": "To route traffic to the nearest region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Geo-restriction doesn't control which edge locations are used.",
+      "b": "Correct. Geo-restriction (geoblocking) allows you to whitelist or blacklist specific countries from accessing your CloudFront content.",
+      "c": "Bandwidth limiting is not a function of geo-restriction.",
+      "d": "Traffic routing is handled by Route 53, not geo-restriction."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront signed URL used for?",
+    "opts": {
+      "a": "To digitally sign API calls",
+      "b": "To provide time-limited access to specific content",
+      "c": "To encrypt content at rest",
+      "d": "To verify origin server identity"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "API call signing is handled by AWS Signature Version 4.",
+      "b": "Correct. CloudFront signed URLs provide time-limited and optionally IP-restricted access to specific files, commonly used for paid or private content.",
+      "c": "Encryption at rest is handled by S3 or KMS.",
+      "d": "Origin identity is verified through OAC or certificates."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the difference between CloudFront signed URLs and signed cookies?",
+    "opts": {
+      "a": "Signed URLs work for a single file; signed cookies work for multiple files",
+      "b": "Signed cookies are more secure than signed URLs",
+      "c": "Signed URLs expire faster than signed cookies",
+      "d": "There is no difference"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Signed URLs provide access to individual files, while signed cookies provide access to multiple restricted files (e.g., all files in a subscriber area) without requiring URL changes.",
+      "b": "Both signed URLs and cookies provide similar levels of security.",
+      "c": "Expiration time is configurable for both.",
+      "d": "There are clear functional differences between the two."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is a Regional Edge Cache in CloudFront?",
+    "opts": {
+      "a": "An edge location that serves a specific country",
+      "b": "A cache layer between the origin and edge locations that has larger cache capacity",
+      "c": "A cache in the origin's AWS region",
+      "d": "A backup edge location for disaster recovery"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Regional Edge Caches are not country-specific.",
+      "b": "Correct. Regional Edge Caches sit between edge locations and the origin, have larger cache capacity, and reduce the load on the origin by caching less popular content.",
+      "c": "Regional Edge Caches are separate from the origin's region.",
+      "d": "They are not backup locations for DR purposes."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Regional Edge Cache locations does CloudFront have (approximate)?",
+    "opts": {
+      "a": "5",
+      "b": "13",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "5 is too few for CloudFront's Regional Edge Caches.",
+      "b": "Correct. CloudFront has approximately 13 Regional Edge Cache locations globally that sit between the origin and the edge locations.",
+      "c": "50 is too many for Regional Edge Caches.",
+      "d": "100 is the number closer to edge locations, not Regional Edge Caches."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront invalidation?",
+    "opts": {
+      "a": "Deleting a CloudFront distribution",
+      "b": "Removing cached objects from edge locations before they expire",
+      "c": "Revoking SSL certificates",
+      "d": "Blocking malicious IP addresses"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Invalidation does not delete a distribution.",
+      "b": "Correct. Invalidation forces CloudFront to remove cached objects from edge locations before their TTL expires, so the next request fetches fresh content from the origin.",
+      "c": "Certificate revocation is separate from invalidation.",
+      "d": "Blocking IPs is done through WAF, not invalidation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many invalidation paths can you submit per month at no additional charge?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "10,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "100 is not the correct free tier for invalidation paths.",
+      "b": "500 is not the correct free tier for invalidation paths.",
+      "c": "Correct. CloudFront provides 1,000 invalidation paths per month at no additional charge. After that, each path costs $0.005.",
+      "d": "10,000 exceeds the free tier for invalidation paths."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudFront feature allows you to run code at edge locations to customize content delivery?",
+    "opts": {
+      "a": "CloudFront Functions",
+      "b": "Lambda@Edge",
+      "c": "Both A and B",
+      "d": "AWS Step Functions"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "CloudFront Functions is one option, but not the only one.",
+      "b": "Lambda@Edge is one option, but not the only one.",
+      "c": "Correct. Both CloudFront Functions and Lambda@Edge allow you to run code at edge locations to customize content delivery, though they differ in capabilities and scale.",
+      "d": "AWS Step Functions is a workflow orchestration service, not related to edge computing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum execution time for CloudFront Functions?",
+    "opts": {
+      "a": "Less than 1 millisecond",
+      "b": "5 milliseconds",
+      "c": "5 seconds",
+      "d": "30 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront Functions are designed to execute in sub-millisecond time (less than 1ms) and handle millions of requests per second for lightweight operations.",
+      "b": "5 milliseconds is longer than the CloudFront Functions execution limit.",
+      "c": "5 seconds is the limit for Lambda@Edge on viewer events.",
+      "d": "30 seconds is the limit for Lambda@Edge on origin events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum execution time for Lambda@Edge on origin-facing events (origin request/response)?",
+    "opts": {
+      "a": "5 seconds",
+      "b": "15 seconds",
+      "c": "30 seconds",
+      "d": "60 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "5 seconds is the limit for viewer-facing events, not origin events.",
+      "b": "15 seconds is not the correct limit.",
+      "c": "Correct. Lambda@Edge functions triggered by origin request or origin response events can run for up to 30 seconds.",
+      "d": "60 seconds exceeds the Lambda@Edge timeout for origin events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum execution time for Lambda@Edge on viewer-facing events (viewer request/response)?",
+    "opts": {
+      "a": "1 second",
+      "b": "5 seconds",
+      "c": "15 seconds",
+      "d": "30 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1 second is not the correct limit for viewer events.",
+      "b": "Correct. Lambda@Edge functions triggered by viewer request or viewer response events can run for up to 5 seconds.",
+      "c": "15 seconds is not the correct limit.",
+      "d": "30 seconds is the limit for origin events, not viewer events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum memory for Lambda@Edge functions?",
+    "opts": {
+      "a": "128 MB",
+      "b": "256 MB",
+      "c": "512 MB",
+      "d": "10,240 MB (10 GB)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "128 MB is the minimum memory, not maximum.",
+      "b": "256 MB is not the maximum.",
+      "c": "512 MB is not the maximum.",
+      "d": "Correct. Lambda@Edge functions can use up to 10,240 MB (10 GB) of memory for origin-facing events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum package size for CloudFront Functions?",
+    "opts": {
+      "a": "2 KB",
+      "b": "10 KB",
+      "c": "1 MB",
+      "d": "50 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "2 KB is too small for CloudFront Functions.",
+      "b": "Correct. CloudFront Functions have a maximum package size of 10 KB.",
+      "c": "1 MB is the limit for Lambda@Edge viewer events.",
+      "d": "50 MB is the limit for Lambda@Edge origin events."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "At which CloudFront event types can CloudFront Functions be triggered?",
+    "opts": {
+      "a": "Viewer request and viewer response only",
+      "b": "Origin request and origin response only",
+      "c": "All four event types",
+      "d": "Viewer request only"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront Functions can only be triggered on viewer request and viewer response events. For origin events, you must use Lambda@Edge.",
+      "b": "Origin events are only available for Lambda@Edge.",
+      "c": "CloudFront Functions cannot handle all four event types.",
+      "d": "CloudFront Functions handle both viewer request and viewer response."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which pricing class in CloudFront includes all edge locations worldwide?",
+    "opts": {
+      "a": "Price Class 100",
+      "b": "Price Class 200",
+      "c": "Price Class All",
+      "d": "Price Class Global"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Price Class 100 includes only North America and Europe.",
+      "b": "Price Class 200 includes North America, Europe, Asia, Middle East, and Africa.",
+      "c": "Correct. Price Class All includes all CloudFront edge locations worldwide for the broadest coverage.",
+      "d": "There is no 'Price Class Global' in CloudFront."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which regions are included in CloudFront Price Class 100?",
+    "opts": {
+      "a": "North America and Europe only",
+      "b": "All regions",
+      "c": "North America, Europe, and Asia",
+      "d": "United States only"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Price Class 100 includes only edge locations in North America and Europe, making it the least expensive option.",
+      "b": "All regions is Price Class All.",
+      "c": "North America, Europe, and Asia would be closer to Price Class 200.",
+      "d": "Price Class 100 is not limited to the United States."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the CloudFront free tier for data transfer out per month?",
+    "opts": {
+      "a": "1 TB",
+      "b": "50 GB",
+      "c": "10 GB",
+      "d": "100 GB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront offers 1 TB of data transfer out to the internet per month as part of the always-free tier (not limited to 12 months).",
+      "b": "50 GB is not the correct free tier amount.",
+      "c": "10 GB is not the correct free tier amount.",
+      "d": "100 GB is not the correct free tier amount."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many HTTP/HTTPS requests are included in the CloudFront free tier per month?",
+    "opts": {
+      "a": "1,000,000",
+      "b": "2,000,000",
+      "c": "10,000,000",
+      "d": "100,000,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1 million is not the correct free tier amount.",
+      "b": "2 million is not the correct free tier amount.",
+      "c": "Correct. CloudFront free tier includes 10,000,000 HTTP/HTTPS requests per month.",
+      "d": "100 million exceeds the free tier allowance."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is AWS WAF and how does it relate to CloudFront?",
+    "opts": {
+      "a": "A storage service that CloudFront uses for caching",
+      "b": "A web application firewall that can be attached to CloudFront to protect against web exploits",
+      "c": "A monitoring tool for CloudFront performance",
+      "d": "A DNS service for CloudFront routing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "WAF is not a storage service.",
+      "b": "Correct. AWS WAF (Web Application Firewall) can be associated with CloudFront distributions to filter malicious traffic, block specific IPs, and protect against common web exploits like SQL injection and XSS.",
+      "c": "CloudWatch is the monitoring tool, not WAF.",
+      "d": "Route 53 handles DNS, not WAF."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service is commonly used with CloudFront to route traffic to the distribution using a custom domain?",
+    "opts": {
+      "a": "Amazon VPC",
+      "b": "Amazon Route 53",
+      "c": "AWS Direct Connect",
+      "d": "Amazon SQS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "VPC is for networking within AWS, not DNS routing.",
+      "b": "Correct. Route 53 is used to create DNS records (like CNAME or Alias) that point custom domain names to your CloudFront distribution.",
+      "c": "Direct Connect is for dedicated network connections, not DNS.",
+      "d": "SQS is a messaging queue service, unrelated to DNS routing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What type of Route 53 record should you create to point your domain to a CloudFront distribution?",
+    "opts": {
+      "a": "MX record",
+      "b": "A record (Alias)",
+      "c": "TXT record",
+      "d": "SRV record"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "MX records are for email routing.",
+      "b": "Correct. An Alias A record in Route 53 can point directly to a CloudFront distribution, which is more efficient than a CNAME for the zone apex.",
+      "c": "TXT records are for text verification, not traffic routing.",
+      "d": "SRV records are for service discovery, not CDN routing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront Origin Shield?",
+    "opts": {
+      "a": "A DDoS protection layer",
+      "b": "An additional caching layer between regional edge caches and the origin to reduce origin load",
+      "c": "A firewall for the origin server",
+      "d": "An encryption feature for origin data"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DDoS protection is provided by AWS Shield, not Origin Shield specifically.",
+      "b": "Correct. Origin Shield adds a centralized caching layer that reduces the number of requests going to your origin, improving cache hit ratio and reducing origin load.",
+      "c": "Firewall functionality is provided by WAF or Security Groups.",
+      "d": "Encryption is handled by SSL/TLS or KMS."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which HTTP methods does CloudFront support?",
+    "opts": {
+      "a": "GET and HEAD only",
+      "b": "GET, HEAD, and OPTIONS only",
+      "c": "GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE",
+      "d": "Only GET"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "CloudFront supports more than just GET and HEAD.",
+      "b": "CloudFront supports more methods than GET, HEAD, and OPTIONS.",
+      "c": "Correct. CloudFront supports GET, HEAD, OPTIONS, PUT, POST, PATCH, and DELETE methods. You configure which methods are allowed per cache behavior.",
+      "d": "CloudFront supports far more than just GET."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of origins you can configure per CloudFront distribution?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 is not the default limit for origins.",
+      "b": "Correct. By default, you can have up to 25 origins per CloudFront distribution (can be increased via service quota request).",
+      "c": "50 is not the default limit.",
+      "d": "100 is not the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of cache behaviors per CloudFront distribution?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 is not the default limit.",
+      "b": "Correct. By default, you can have up to 25 cache behaviors per CloudFront distribution (can be increased).",
+      "c": "50 is not the default limit.",
+      "d": "100 is not the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront Origin Failover?",
+    "opts": {
+      "a": "Automatically switching to a secondary origin when the primary origin returns specific error codes",
+      "b": "Restarting the origin server",
+      "c": "Redirecting users to a different edge location",
+      "d": "Switching DNS records"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Origin Failover allows CloudFront to automatically route requests to a secondary origin when the primary origin returns specific HTTP error status codes (e.g., 500, 502, 503, 504).",
+      "b": "CloudFront does not restart origin servers.",
+      "c": "Origin failover is about origin switching, not edge location switching.",
+      "d": "DNS switching is handled by Route 53, not CloudFront failover."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is an Origin Group in CloudFront?",
+    "opts": {
+      "a": "A collection of edge locations",
+      "b": "A primary and secondary origin configured for failover",
+      "c": "A group of S3 buckets replicated together",
+      "d": "A set of cache behaviors"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Edge locations are not grouped as origin groups.",
+      "b": "Correct. An Origin Group consists of a primary origin and a secondary origin, enabling automatic failover when the primary origin fails.",
+      "c": "S3 replication is separate from CloudFront origin groups.",
+      "d": "Cache behaviors are different from origin groups."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service provides DDoS protection that is automatically enabled for CloudFront?",
+    "opts": {
+      "a": "AWS WAF",
+      "b": "AWS Shield Standard",
+      "c": "AWS Shield Advanced",
+      "d": "Amazon GuardDuty"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "WAF protects against application-layer attacks but must be explicitly configured.",
+      "b": "Correct. AWS Shield Standard is automatically enabled at no extra cost for all CloudFront distributions, providing protection against common DDoS attacks.",
+      "c": "Shield Advanced requires a paid subscription.",
+      "d": "GuardDuty is a threat detection service, not a DDoS mitigation service."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront Field-Level Encryption?",
+    "opts": {
+      "a": "Encrypting all traffic between edge and origin",
+      "b": "Encrypting specific sensitive data fields in POST requests at the edge before forwarding to origin",
+      "c": "Encrypting S3 bucket contents",
+      "d": "Encrypting DNS queries"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "HTTPS handles traffic encryption, not field-level encryption specifically.",
+      "b": "Correct. Field-Level Encryption allows CloudFront to encrypt specific form fields (like credit card numbers) at the edge using a public key, so only your application with the private key can decrypt them.",
+      "c": "S3 encryption is managed by S3 settings.",
+      "d": "DNS encryption is handled by DNSSEC or DoH."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of CloudFront real-time logs?",
+    "opts": {
+      "a": "To store access logs in S3 for later analysis",
+      "b": "To deliver detailed log data to Amazon Kinesis Data Streams in real time",
+      "c": "To send alerts via SNS",
+      "d": "To create billing reports"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Standard access logs go to S3, but real-time logs use Kinesis.",
+      "b": "Correct. CloudFront real-time logs deliver detailed request-level data to Amazon Kinesis Data Streams within seconds, enabling real-time monitoring and analysis.",
+      "c": "SNS alerts are triggered through CloudWatch Alarms, not real-time logs directly.",
+      "d": "Billing reports are separate from real-time logs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Where does CloudFront store standard access logs?",
+    "opts": {
+      "a": "Amazon DynamoDB",
+      "b": "Amazon S3",
+      "c": "Amazon RDS",
+      "d": "Amazon CloudWatch Logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "DynamoDB is not used for CloudFront standard access logs.",
+      "b": "Correct. CloudFront standard access logs are stored in an Amazon S3 bucket that you specify.",
+      "c": "RDS is not used for log storage.",
+      "d": "CloudWatch Logs can receive some metrics but standard access logs go to S3."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the viewer protocol policy 'Redirect HTTP to HTTPS' in CloudFront?",
+    "opts": {
+      "a": "Blocks all HTTP traffic",
+      "b": "Automatically redirects HTTP requests to HTTPS",
+      "c": "Serves content over both HTTP and HTTPS",
+      "d": "Only allows HTTPS and returns 403 for HTTP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Blocking HTTP is the 'HTTPS Only' policy behavior.",
+      "b": "Correct. The 'Redirect HTTP to HTTPS' policy automatically sends a 301 redirect to viewers who connect via HTTP, directing them to the HTTPS version.",
+      "c": "Serving both is the 'HTTP and HTTPS' policy.",
+      "d": "'HTTPS Only' returns 403 for HTTP requests."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront Functions' maximum memory allocation?",
+    "opts": {
+      "a": "2 MB",
+      "b": "10 MB",
+      "c": "128 MB",
+      "d": "256 MB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront Functions are allocated a maximum of 2 MB of memory, keeping them lightweight for high-scale operations.",
+      "b": "10 MB exceeds the CloudFront Functions memory limit.",
+      "c": "128 MB is the minimum for Lambda@Edge.",
+      "d": "256 MB exceeds CloudFront Functions limits."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which feature of CloudFront allows serving different content based on the device type (mobile, desktop, tablet)?",
+    "opts": {
+      "a": "Geo-restriction",
+      "b": "Cache behavior with CloudFront headers for device detection",
+      "c": "Origin Shield",
+      "d": "Field-Level Encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Geo-restriction is for country-based access control.",
+      "b": "Correct. CloudFront can detect the device type and add headers (CloudFront-Is-Mobile-Viewer, CloudFront-Is-Desktop-Viewer, etc.) that you can use to serve different content per device.",
+      "c": "Origin Shield is for caching optimization.",
+      "d": "Field-Level Encryption is for data protection."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of CloudFront distributions per AWS account (default limit)?",
+    "opts": {
+      "a": "25",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "25 is not the default limit for distributions.",
+      "b": "100 is not the default limit for distributions.",
+      "c": "Correct. The default limit is 200 CloudFront distributions per AWS account, which can be increased by requesting a service quota increase.",
+      "d": "500 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does CloudFront use to identify which cache behavior to apply to a request?",
+    "opts": {
+      "a": "HTTP method",
+      "b": "URL path pattern",
+      "c": "IP address of the viewer",
+      "d": "User-Agent header"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "HTTP method is configured within a cache behavior but doesn't select the behavior.",
+      "b": "Correct. CloudFront matches the request URL against path patterns defined in cache behaviors (e.g., /images/*, /api/*) to determine which behavior to apply.",
+      "c": "IP address is not used to select cache behaviors.",
+      "d": "User-Agent header doesn't determine which cache behavior is used."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is S3 Transfer Acceleration and how does it relate to CloudFront?",
+    "opts": {
+      "a": "It has no relation to CloudFront",
+      "b": "It uses CloudFront edge locations to accelerate uploads to S3",
+      "c": "It replaces CloudFront for S3 content delivery",
+      "d": "It is a feature within CloudFront"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "S3 Transfer Acceleration is related to CloudFront infrastructure.",
+      "b": "Correct. S3 Transfer Acceleration uses CloudFront's globally distributed edge locations to accelerate data uploads to S3 buckets over optimized network paths.",
+      "c": "It does not replace CloudFront; it leverages its infrastructure for uploads.",
+      "d": "It is an S3 feature that uses CloudFront infrastructure, not a CloudFront feature itself."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when a CloudFront edge location doesn't have the requested content (cache miss)?",
+    "opts": {
+      "a": "Returns a 404 error to the viewer",
+      "b": "Forwards the request to the Regional Edge Cache or origin to fetch the content",
+      "c": "Redirects the viewer to another edge location",
+      "d": "Retries the request after 5 seconds"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "A cache miss does not result in a 404; CloudFront fetches from origin.",
+      "b": "Correct. On a cache miss, CloudFront checks the Regional Edge Cache first, and if not found there, forwards the request to the configured origin server.",
+      "c": "CloudFront does not redirect to other edge locations.",
+      "d": "CloudFront does not wait to retry; it immediately forwards the request."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is NOT a valid CloudFront origin type?",
+    "opts": {
+      "a": "Amazon S3 bucket",
+      "b": "Amazon EC2 instance",
+      "c": "Amazon RDS database",
+      "d": "Elastic Load Balancer"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "S3 is a valid CloudFront origin.",
+      "b": "EC2 instances with public IPs are valid custom origins.",
+      "c": "Correct. Amazon RDS is a database service and cannot serve HTTP/HTTPS content directly, so it cannot be a CloudFront origin.",
+      "d": "ELB (ALB/NLB) is a valid custom origin."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the 'Origin Request Policy' in CloudFront?",
+    "opts": {
+      "a": "To define which headers, cookies, and query strings are forwarded to the origin",
+      "b": "To set the TTL for cached content",
+      "c": "To restrict origin access to CloudFront only",
+      "d": "To enable HTTPS between CloudFront and origin"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. An Origin Request Policy controls which headers, cookies, and query strings CloudFront includes when forwarding requests to the origin.",
+      "b": "TTL is defined in the Cache Policy.",
+      "c": "Origin access restriction is handled by OAC/OAI.",
+      "d": "HTTPS between CloudFront and origin is configured in the origin settings."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the purpose of the 'Cache Policy' in CloudFront?",
+    "opts": {
+      "a": "To determine which HTTP methods are allowed",
+      "b": "To define TTL settings and which values (headers, cookies, query strings) are used as cache keys",
+      "c": "To configure the origin server",
+      "d": "To set up geo-restrictions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Allowed HTTP methods are configured in the cache behavior settings.",
+      "b": "Correct. A Cache Policy defines minimum, maximum, and default TTL values, and specifies which headers, cookies, and query strings are included in the cache key.",
+      "c": "Origin configuration is separate from cache policies.",
+      "d": "Geo-restrictions are configured separately."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is CloudFront OAI (Origin Access Identity)?",
+    "opts": {
+      "a": "A legacy method to restrict S3 access to CloudFront only",
+      "b": "A type of SSL certificate",
+      "c": "A user authentication method",
+      "d": "A logging configuration"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. OAI is the legacy method (now replaced by OAC) that creates a special CloudFront identity to restrict S3 bucket access so content can only be accessed through CloudFront.",
+      "b": "OAI is not an SSL certificate.",
+      "c": "OAI is not a user authentication method.",
+      "d": "OAI has nothing to do with logging."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum TTL that can be set for a CloudFront cache behavior?",
+    "opts": {
+      "a": "24 hours",
+      "b": "7 days",
+      "c": "30 days",
+      "d": "365 days (31,536,000 seconds)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "24 hours is the default TTL, not the maximum.",
+      "b": "7 days is not the maximum TTL.",
+      "c": "30 days is not the maximum TTL.",
+      "d": "Correct. The maximum TTL for CloudFront can be set up to 365 days (31,536,000 seconds)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which CloudFront feature allows you to serve a custom error page when the origin returns an error?",
+    "opts": {
+      "a": "Error Pages (Custom Error Response)",
+      "b": "Origin Shield",
+      "c": "Cache Policy",
+      "d": "Origin Request Policy"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront Custom Error Response allows you to configure custom error pages (e.g., a friendly 404 page) and optionally change the error code and cache duration for error responses.",
+      "b": "Origin Shield is a caching layer, not an error handling feature.",
+      "c": "Cache Policy manages cache settings, not error responses.",
+      "d": "Origin Request Policy manages what is forwarded to the origin."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What are the two types of CloudFront distributions?",
+    "opts": {
+      "a": "Web and RTMP",
+      "b": "Static and Dynamic",
+      "c": "Public and Private",
+      "d": "Standard and Premium"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Historically, CloudFront had Web distributions (for HTTP/HTTPS content) and RTMP distributions (for streaming media). Note: RTMP distributions are no longer supported for new creation since December 2020.",
+      "b": "Static and Dynamic are not distribution types.",
+      "c": "Public and Private are not distribution types.",
+      "d": "Standard and Premium are not distribution types."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens if you configure CloudFront to use HTTPS between CloudFront and the origin (origin protocol policy: HTTPS Only)?",
+    "opts": {
+      "a": "CloudFront will only connect to the origin using HTTPS",
+      "b": "CloudFront will redirect origin requests from HTTP to HTTPS",
+      "c": "The origin doesn't need an SSL certificate",
+      "d": "Data between viewer and CloudFront will also be HTTPS"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. When set to HTTPS Only, CloudFront connects to the origin exclusively using HTTPS. The origin must have a valid SSL/TLS certificate.",
+      "b": "CloudFront doesn't redirect origin connections; it either uses HTTP or HTTPS.",
+      "c": "The origin needs a valid SSL certificate for HTTPS connections.",
+      "d": "Viewer-to-CloudFront protocol is configured separately via viewer protocol policy."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the function of CloudFront's 'Restrict Viewer Access' (using signed URLs or signed cookies)?",
+    "opts": {
+      "a": "To limit bandwidth per viewer",
+      "b": "To require authentication before accessing content",
+      "c": "To block specific countries",
+      "d": "To enforce HTTPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Bandwidth limiting is not a function of restrict viewer access.",
+      "b": "Correct. Restrict Viewer Access ensures that only viewers with valid signed URLs or signed cookies can access the content, providing content access control.",
+      "c": "Country blocking is handled by geo-restriction.",
+      "d": "HTTPS enforcement is handled by viewer protocol policy."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which of the following is a use case for CloudFront Functions?",
+    "opts": {
+      "a": "URL rewriting and redirects",
+      "b": "Image transformation and resizing",
+      "c": "Making network calls to external services",
+      "d": "Accessing file systems"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CloudFront Functions are ideal for lightweight operations like URL rewrites, header manipulation, redirects, and request/response transformations.",
+      "b": "Image transformation requires more compute and is better suited for Lambda@Edge.",
+      "c": "CloudFront Functions cannot make network calls; Lambda@Edge can.",
+      "d": "CloudFront Functions do not have file system access."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does CloudFront handle WebSocket connections?",
+    "opts": {
+      "a": "CloudFront does not support WebSocket",
+      "b": "CloudFront supports WebSocket protocol natively",
+      "c": "WebSocket requires Lambda@Edge to function",
+      "d": "WebSocket only works with RTMP distributions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "CloudFront does support WebSocket.",
+      "b": "Correct. CloudFront natively supports the WebSocket protocol, enabling real-time bidirectional communication between clients and servers.",
+      "c": "Lambda@Edge is not required for WebSocket support.",
+      "d": "RTMP distributions are deprecated and unrelated to WebSocket."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the CloudFront cache hit ratio?",
+    "opts": {
+      "a": "The percentage of requests served from the cache without going to the origin",
+      "b": "The ratio of HTTP to HTTPS requests",
+      "c": "The percentage of successful vs failed requests",
+      "d": "The ratio of GET to POST requests"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Cache hit ratio measures the percentage of viewer requests that are served directly from the CloudFront cache (edge or regional), without requiring a fetch from the origin.",
+      "b": "This is not what cache hit ratio measures.",
+      "c": "Success/failure ratio is different from cache hit ratio.",
+      "d": "Method ratio is different from cache hit ratio."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Which AWS service can you use to monitor CloudFront metrics like requests, bytes downloaded, and error rates?",
+    "opts": {
+      "a": "AWS CloudTrail",
+      "b": "Amazon CloudWatch",
+      "c": "AWS Config",
+      "d": "Amazon Inspector"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "CloudTrail logs API calls, not operational metrics.",
+      "b": "Correct. Amazon CloudWatch provides metrics for CloudFront including total requests, bytes downloaded/uploaded, error rates, and cache hit ratio.",
+      "c": "AWS Config tracks configuration changes, not operational metrics.",
+      "d": "Amazon Inspector is for security vulnerability assessment."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does CloudFront compress content with when compression is enabled?",
+    "opts": {
+      "a": "Only Gzip",
+      "b": "Only Brotli",
+      "c": "Both Gzip and Brotli",
+      "d": "ZIP format"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Gzip is one of the supported formats but not the only one.",
+      "b": "Brotli is one of the supported formats but not the only one.",
+      "c": "Correct. When compression is enabled, CloudFront can compress content using both Gzip and Brotli formats, depending on what the viewer's Accept-Encoding header supports.",
+      "d": "ZIP format is not used for HTTP content compression in CloudFront."
+    }
+  }
+]

@@ -1,0 +1,937 @@
+[
+  {
+    "type": "MCQ",
+    "q": "You need to ensure that an EC2 instance retains its public IP address even after being stopped and started. Which feature should you use?",
+    "opts": {
+      "a": "Auto-assigned public IP",
+      "b": "Elastic IP address",
+      "c": "Private IP address",
+      "d": "IPv6 address"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Auto-assigned public IPs change when an instance is stopped and started.",
+      "b": "Correct – Elastic IP provides a static public IPv4 address that persists across stop/start cycles.",
+      "c": "Incorrect – Private IPs are internal and not accessible from the internet.",
+      "d": "Incorrect – IPv6 addresses are persistent but this is not the standard solution for retaining a public IPv4."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "An application requires consistent low-latency performance and guaranteed IOPS. Which EBS volume type should you choose?",
+    "opts": {
+      "a": "gp2",
+      "b": "gp3",
+      "c": "io2",
+      "d": "st1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – gp2 IOPS scale with volume size and may not guarantee consistent performance.",
+      "b": "Incorrect – gp3 provides up to 16,000 IOPS but io2 provides higher guaranteed IOPS.",
+      "c": "Correct – io2 (Provisioned IOPS SSD) provides consistent, guaranteed IOPS up to 64,000 (or 256,000 with Block Express).",
+      "d": "Incorrect – st1 is throughput-optimized HDD, not suitable for low-latency IOPS workloads."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum ratio of provisioned IOPS to volume size (in GiB) for io1/io2 EBS volumes?",
+    "opts": {
+      "a": "10:1",
+      "b": "50:1",
+      "c": "500:1",
+      "d": "1000:1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The ratio for io1 is 50:1, not 10:1.",
+      "b": "Incorrect – 50:1 is the ratio for io1. io2 supports 500:1.",
+      "c": "Correct – io2 volumes support up to 500 IOPS per GiB of volume size.",
+      "d": "Incorrect – 1000:1 exceeds the maximum ratio."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which scaling policy type in Auto Scaling adjusts capacity based on a target value for a specific CloudWatch metric?",
+    "opts": {
+      "a": "Simple Scaling",
+      "b": "Step Scaling",
+      "c": "Target Tracking Scaling",
+      "d": "Scheduled Scaling"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Simple Scaling adds/removes a fixed number of instances based on a single alarm.",
+      "b": "Incorrect – Step Scaling adjusts capacity in steps based on alarm severity.",
+      "c": "Correct – Target Tracking Scaling automatically adjusts capacity to maintain a target value (e.g., CPU at 50%).",
+      "d": "Incorrect – Scheduled Scaling scales based on time/date, not a metric value."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You want your Auto Scaling Group to scale out when CPU utilization exceeds 70%. Which type of scaling policy should you configure?",
+    "opts": {
+      "a": "Scheduled Scaling",
+      "b": "Predictive Scaling",
+      "c": "Target Tracking Scaling",
+      "d": "Manual Scaling"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Scheduled Scaling is time-based, not metric-based.",
+      "b": "Incorrect – Predictive Scaling uses ML to forecast, not react to current CPU.",
+      "c": "Correct – Target Tracking Scaling can be set to maintain average CPU utilization at a target (e.g., 70%), scaling in/out automatically.",
+      "d": "Incorrect – Manual Scaling requires human intervention."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of security groups you can assign to a single EC2 instance (network interface)?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "16"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The default limit is 5.",
+      "b": "Correct – By default, you can assign up to 5 security groups per network interface.",
+      "c": "Incorrect – 10 exceeds the default.",
+      "d": "Incorrect – 16 exceeds the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default maximum number of rules per security group?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "60",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The default is 60 inbound and 60 outbound rules.",
+      "b": "Incorrect – The limit is 60, not 50.",
+      "c": "Correct – Each security group allows up to 60 inbound rules and 60 outbound rules by default.",
+      "d": "Incorrect – 100 exceeds the default limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "A company needs to run a workload that can tolerate interruptions and wants maximum cost savings. Which purchasing option is best?",
+    "opts": {
+      "a": "On-Demand Instances",
+      "b": "Reserved Instances",
+      "c": "Spot Instances",
+      "d": "Dedicated Hosts"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – On-Demand provides no discount.",
+      "b": "Incorrect – Reserved Instances require commitment and provide less discount than Spot.",
+      "c": "Correct – Spot Instances offer up to 90% discount and are ideal for fault-tolerant, interruptible workloads.",
+      "d": "Incorrect – Dedicated Hosts are the most expensive option."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which Spot Instance request type allows you to define the maximum number of instances, target capacity, and instance pools?",
+    "opts": {
+      "a": "Spot Block",
+      "b": "Spot Fleet",
+      "c": "One-time Spot Request",
+      "d": "Persistent Spot Request"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Spot Blocks reserve instances for a defined duration (1-6 hours) but are now deprecated.",
+      "b": "Correct – Spot Fleet allows you to request a fleet of Spot (and optionally On-Demand) instances, defining capacity targets across multiple pools.",
+      "c": "Incorrect – One-time requests are simple single-instance requests.",
+      "d": "Incorrect – Persistent requests relaunch if interrupted but don't define fleets."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which feature of EBS allows you to increase volume size, change volume type, or adjust IOPS without detaching the volume?",
+    "opts": {
+      "a": "EBS Snapshots",
+      "b": "EBS Elastic Volumes",
+      "c": "EBS Multi-Attach",
+      "d": "EBS Encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Snapshots are for backup, not for live modifications.",
+      "b": "Correct – EBS Elastic Volumes allows you to dynamically modify volume size, type, and IOPS while the volume is attached.",
+      "c": "Incorrect – Multi-Attach allows multiple instances to share a volume.",
+      "d": "Incorrect – Encryption secures data, it doesn't modify volume properties."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You have an EBS volume in us-east-1a and need to use it in us-east-1b. What should you do?",
+    "opts": {
+      "a": "Detach and attach directly to an instance in us-east-1b",
+      "b": "Create a snapshot and then create a new volume in us-east-1b from the snapshot",
+      "c": "Use EBS Multi-Attach",
+      "d": "Copy the volume directly using AWS CLI"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – EBS volumes are AZ-specific and cannot be moved directly between AZs.",
+      "b": "Correct – You must create a snapshot of the volume, then create a new volume from that snapshot in the desired AZ.",
+      "c": "Incorrect – Multi-Attach works within the same AZ only.",
+      "d": "Incorrect – There is no direct volume copy command between AZs."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EBS volume type is best suited for big data and data warehouse workloads requiring high throughput?",
+    "opts": {
+      "a": "gp3",
+      "b": "io2",
+      "c": "st1",
+      "d": "sc1"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – gp3 is general purpose SSD, not optimized for sequential throughput.",
+      "b": "Incorrect – io2 is for high IOPS workloads, not specifically throughput.",
+      "c": "Correct – st1 (Throughput Optimized HDD) provides up to 500 MiB/s throughput, ideal for big data and log processing.",
+      "d": "Incorrect – sc1 is Cold HDD for infrequent access with lower throughput."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum throughput for an st1 (Throughput Optimized HDD) EBS volume?",
+    "opts": {
+      "a": "250 MiB/s",
+      "b": "500 MiB/s",
+      "c": "750 MiB/s",
+      "d": "1,000 MiB/s"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – 250 MiB/s is the max for sc1.",
+      "b": "Correct – st1 supports a maximum throughput of 500 MiB/s.",
+      "c": "Incorrect – 750 MiB/s exceeds st1 limits.",
+      "d": "Incorrect – 1,000 MiB/s exceeds st1 limits."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which of the following EBS volume types CANNOT be used as a boot volume?",
+    "opts": {
+      "a": "gp2",
+      "b": "gp3",
+      "c": "io2",
+      "d": "st1"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – gp2 can be used as a boot volume.",
+      "b": "Incorrect – gp3 can be used as a boot volume.",
+      "c": "Incorrect – io2 can be used as a boot volume.",
+      "d": "Correct – st1 (HDD) and sc1 (HDD) cannot be used as boot volumes. Only SSD types (gp2, gp3, io1, io2) can be boot volumes."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How does EBS encryption work regarding snapshots?",
+    "opts": {
+      "a": "Encrypted volumes produce unencrypted snapshots",
+      "b": "Encrypted volumes produce encrypted snapshots automatically",
+      "c": "You must manually encrypt each snapshot",
+      "d": "Snapshots cannot be encrypted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Snapshots from encrypted volumes are always encrypted.",
+      "b": "Correct – If the source EBS volume is encrypted, all snapshots created from it are automatically encrypted.",
+      "c": "Incorrect – Encryption is automatic for snapshots of encrypted volumes.",
+      "d": "Incorrect – Snapshots can be encrypted."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "How can you encrypt an existing unencrypted EBS volume?",
+    "opts": {
+      "a": "Enable encryption on the existing volume directly",
+      "b": "Create a snapshot, copy the snapshot with encryption enabled, then create a new volume from the encrypted snapshot",
+      "c": "Use AWS KMS to encrypt in-place",
+      "d": "Detach the volume and it will auto-encrypt"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – You cannot enable encryption on an existing unencrypted volume directly.",
+      "b": "Correct – The process is: snapshot → copy snapshot with encryption → create encrypted volume from copied snapshot.",
+      "c": "Incorrect – KMS provides the keys but doesn't encrypt volumes in-place.",
+      "d": "Incorrect – Detaching does not trigger encryption."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of the DeleteOnTermination attribute for an EBS volume?",
+    "opts": {
+      "a": "Determines if the volume is deleted when detached",
+      "b": "Determines if the volume is deleted when the attached EC2 instance is terminated",
+      "c": "Determines if snapshots are deleted",
+      "d": "Determines if the instance is terminated when volume is deleted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – This attribute relates to instance termination, not detachment.",
+      "b": "Correct – DeleteOnTermination controls whether the EBS volume is automatically deleted when the EC2 instance it's attached to is terminated.",
+      "c": "Incorrect – This attribute does not affect snapshots.",
+      "d": "Incorrect – It's about the volume being deleted, not the instance."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "By default, what is the DeleteOnTermination setting for the root EBS volume?",
+    "opts": {
+      "a": "False (volume is retained)",
+      "b": "True (volume is deleted)",
+      "c": "Depends on instance type",
+      "d": "Depends on volume type"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – The root volume is deleted by default on termination.",
+      "b": "Correct – The root EBS volume has DeleteOnTermination set to true by default. Additional volumes default to false.",
+      "c": "Incorrect – It does not depend on instance type.",
+      "d": "Incorrect – It does not depend on volume type."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 Placement Group strategy is best for applications that need low network latency and high throughput between instances?",
+    "opts": {
+      "a": "Spread",
+      "b": "Cluster",
+      "c": "Partition",
+      "d": "Default"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Spread distributes instances across hardware for high availability.",
+      "b": "Correct – Cluster placement group packs instances close together within a single AZ for low-latency, high-throughput networking.",
+      "c": "Incorrect – Partition spreads instances across logical partitions.",
+      "d": "Incorrect – Default is not a placement group strategy."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which placement group strategy is commonly used for large distributed and replicated workloads like HDFS, HBase, and Cassandra?",
+    "opts": {
+      "a": "Cluster",
+      "b": "Spread",
+      "c": "Partition",
+      "d": "Dedicated"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Cluster is for low-latency within a single AZ, not distributed workloads.",
+      "b": "Incorrect – Spread limits to 7 instances per AZ, too few for large workloads.",
+      "c": "Correct – Partition placement groups divide instances into partitions on separate racks, ideal for distributed big data workloads.",
+      "d": "Incorrect – Dedicated is not a placement group type."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of partitions per Availability Zone in a Partition Placement Group?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "7",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The maximum is 7.",
+      "b": "Incorrect – The maximum is 7.",
+      "c": "Correct – You can have up to 7 partitions per AZ in a Partition Placement Group.",
+      "d": "Incorrect – 10 exceeds the limit."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which type of Load Balancer provides a static IP address per AZ?",
+    "opts": {
+      "a": "Application Load Balancer",
+      "b": "Network Load Balancer",
+      "c": "Classic Load Balancer",
+      "d": "Gateway Load Balancer"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – ALB does not provide a static IP; it uses DNS names.",
+      "b": "Correct – Network Load Balancer provides a static IP per AZ and also supports Elastic IP assignment.",
+      "c": "Incorrect – CLB does not provide static IPs.",
+      "d": "Incorrect – Gateway Load Balancer does not provide static IPs to clients."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of a Target Group in the context of an ALB?",
+    "opts": {
+      "a": "To define which ports to open on the firewall",
+      "b": "To group EC2 instances (or other targets) that receive traffic from the load balancer",
+      "c": "To set up DNS records",
+      "d": "To configure Auto Scaling policies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Firewalls are managed by Security Groups/NACLs.",
+      "b": "Correct – Target Groups define a set of targets (EC2, Lambda, IP addresses, etc.) that the ALB routes traffic to based on listener rules.",
+      "c": "Incorrect – DNS records are managed by Route 53.",
+      "d": "Incorrect – Auto Scaling policies are separate from Target Groups."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which health check types are available for instances in an Auto Scaling Group?",
+    "opts": {
+      "a": "EC2 only",
+      "b": "ELB only",
+      "c": "EC2 and ELB",
+      "d": "CloudWatch only"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – ASG supports both EC2 and ELB health checks.",
+      "b": "Incorrect – ELB health checks can be added but EC2 health checks are also available.",
+      "c": "Correct – Auto Scaling Groups support EC2 status checks (default) and ELB health checks (when attached to a load balancer).",
+      "d": "Incorrect – CloudWatch alarms can trigger scaling but are not a health check type for ASG."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default health check grace period for an Auto Scaling Group?",
+    "opts": {
+      "a": "60 seconds",
+      "b": "120 seconds",
+      "c": "300 seconds",
+      "d": "600 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 60 seconds is too short.",
+      "b": "Incorrect – 120 seconds is not the default.",
+      "c": "Correct – The default health check grace period is 300 seconds, allowing instances time to boot before being checked.",
+      "d": "Incorrect – 600 seconds is not the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which Auto Scaling termination policy is used by default?",
+    "opts": {
+      "a": "Oldest Instance",
+      "b": "Newest Instance",
+      "c": "Default (AZ balance → oldest launch configuration → closest to billing hour)",
+      "d": "Random"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Oldest Instance is a configurable policy but not the default.",
+      "b": "Incorrect – Newest Instance is not the default.",
+      "c": "Correct – The default termination policy first balances AZs, then selects instances with the oldest launch configuration, then closest to billing hour.",
+      "d": "Incorrect – Random is not the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is Connection Draining (or Deregistration Delay) in ELB?",
+    "opts": {
+      "a": "Time allowed for unhealthy instances to recover",
+      "b": "Time allowed to complete in-flight requests before deregistering an instance",
+      "c": "Time to establish a new connection",
+      "d": "Timeout for idle connections"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – This describes a health check grace period.",
+      "b": "Correct – Connection Draining (Deregistration Delay) gives in-flight requests time to complete before the instance is removed from the target group. Default is 300 seconds.",
+      "c": "Incorrect – Connection establishment time is not Connection Draining.",
+      "d": "Incorrect – Idle timeout is a different setting."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the default deregistration delay (connection draining) timeout for an ELB target group?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "60 seconds",
+      "c": "300 seconds",
+      "d": "600 seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – 30 seconds is not the default.",
+      "b": "Incorrect – 60 seconds is not the default.",
+      "c": "Correct – The default deregistration delay is 300 seconds (5 minutes).",
+      "d": "Incorrect – 600 seconds is not the default."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which ALB feature allows you to route requests to the same target based on cookies?",
+    "opts": {
+      "a": "Path-based routing",
+      "b": "Host-based routing",
+      "c": "Sticky Sessions (Session Affinity)",
+      "d": "Cross-zone load balancing"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Path-based routing directs traffic based on URL path.",
+      "b": "Incorrect – Host-based routing directs based on hostname.",
+      "c": "Correct – Sticky Sessions use cookies to ensure a user's requests are routed to the same target for the session duration.",
+      "d": "Incorrect – Cross-zone load balancing distributes traffic evenly across all AZs."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is Cross-Zone Load Balancing?",
+    "opts": {
+      "a": "Load balancing across different AWS regions",
+      "b": "Distributing traffic evenly across all registered instances in all enabled AZs",
+      "c": "Routing traffic only within the same AZ",
+      "d": "Balancing between public and private subnets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Cross-zone is across AZs within a region, not across regions.",
+      "b": "Correct – Cross-Zone Load Balancing distributes traffic evenly across all registered targets in all enabled Availability Zones.",
+      "c": "Incorrect – Without cross-zone, traffic stays within the same AZ.",
+      "d": "Incorrect – It's about AZ distribution, not subnet types."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Is Cross-Zone Load Balancing enabled by default for ALB?",
+    "opts": {
+      "a": "Yes, enabled by default and free",
+      "b": "No, must be enabled manually",
+      "c": "Yes, but charges apply",
+      "d": "Not supported for ALB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – For ALB, cross-zone load balancing is enabled by default at no additional charge.",
+      "b": "Incorrect – It is enabled by default for ALB (NLB requires manual enabling and charges apply).",
+      "c": "Incorrect – No additional charges for ALB cross-zone.",
+      "d": "Incorrect – ALB supports cross-zone load balancing."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 feature allows you to use software licenses that are bound to physical hardware (e.g., per-socket, per-core)?",
+    "opts": {
+      "a": "Reserved Instances",
+      "b": "Dedicated Hosts",
+      "c": "Spot Instances",
+      "d": "Placement Groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Reserved Instances don't give you visibility into physical hardware.",
+      "b": "Correct – Dedicated Hosts provide visibility into sockets and physical cores, allowing you to use existing server-bound licenses (BYOL).",
+      "c": "Incorrect – Spot Instances run on shared hardware.",
+      "d": "Incorrect – Placement Groups control placement but don't provide hardware-level licensing info."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is an EC2 Capacity Reservation?",
+    "opts": {
+      "a": "A discounted instance like Reserved Instances",
+      "b": "A reservation of compute capacity in a specific AZ regardless of usage",
+      "c": "A Spot Instance queue",
+      "d": "A placement group booking"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Capacity Reservations ensure capacity but do not provide billing discounts by themselves.",
+      "b": "Correct – EC2 Capacity Reservations reserve capacity in a specific AZ, ensuring you can launch instances when needed. No discount unless combined with Savings Plans/RIs.",
+      "c": "Incorrect – Spot Instances have no reservation queue.",
+      "d": "Incorrect – It's not related to placement groups."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between Convertible and Standard Reserved Instances?",
+    "opts": {
+      "a": "Convertible RIs can change instance family, OS, and tenancy; Standard cannot",
+      "b": "Standard RIs are cheaper but Convertible RIs last longer",
+      "c": "There is no difference",
+      "d": "Standard RIs can only be used in one AZ"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Convertible RIs allow you to change instance family, OS, scope, and tenancy. Standard RIs offer higher discount (~72%) but are less flexible.",
+      "b": "Incorrect – Both have 1 or 3-year terms.",
+      "c": "Incorrect – They differ in flexibility and discount levels.",
+      "d": "Incorrect – Both Regional and Zonal scopes are available for Standard RIs."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum discount offered by Convertible Reserved Instances?",
+    "opts": {
+      "a": "36%",
+      "b": "54%",
+      "c": "66%",
+      "d": "72%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Convertible RIs offer more than 36%.",
+      "b": "Incorrect – The maximum is approximately 66%.",
+      "c": "Correct – Convertible Reserved Instances offer up to approximately 66% discount (compared to 72% for Standard RIs).",
+      "d": "Incorrect – 72% is the maximum for Standard Reserved Instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Savings Plans alternative to Reserved Instances that offers flexibility across instance families?",
+    "opts": {
+      "a": "Compute Savings Plans",
+      "b": "EC2 Instance Savings Plans",
+      "c": "Storage Savings Plans",
+      "d": "Network Savings Plans"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Compute Savings Plans offer up to 66% discount and provide flexibility across instance families, regions, OS, and tenancy. They also apply to Fargate and Lambda.",
+      "b": "Incorrect – EC2 Instance Savings Plans are locked to a specific instance family in a region (up to 72% off).",
+      "c": "Incorrect – Storage Savings Plans do not exist.",
+      "d": "Incorrect – Network Savings Plans do not exist."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which lifecycle hook stages are available in an Auto Scaling Group?",
+    "opts": {
+      "a": "Pending:Wait and Terminating:Wait",
+      "b": "Starting:Wait and Stopping:Wait",
+      "c": "Launch:Pending and Terminate:Pending",
+      "d": "Init:Wait and Destroy:Wait"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Auto Scaling lifecycle hooks put instances in Pending:Wait (during launch) or Terminating:Wait (during termination) states.",
+      "b": "Incorrect – These are not valid lifecycle hook states.",
+      "c": "Incorrect – These are not the correct state names.",
+      "d": "Incorrect – These are not valid states."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum duration an instance can remain in a lifecycle hook wait state?",
+    "opts": {
+      "a": "1 hour",
+      "b": "2 hours",
+      "c": "24 hours",
+      "d": "48 hours"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect – The default is 1 hour but maximum is 48 hours.",
+      "b": "Incorrect – 2 hours is not the maximum.",
+      "c": "Incorrect – 24 hours is not the maximum.",
+      "d": "Correct – The maximum wait time for a lifecycle hook is 48 hours (or 100 times the heartbeat timeout, whichever is smaller)."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS service can be used with EC2 to run containers without managing the underlying infrastructure?",
+    "opts": {
+      "a": "AWS Fargate",
+      "b": "AWS Lambda",
+      "c": "AWS Batch",
+      "d": "AWS Step Functions"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – AWS Fargate is a serverless compute engine for containers (ECS/EKS) that eliminates the need to manage EC2 instances.",
+      "b": "Incorrect – Lambda runs functions, not containers.",
+      "c": "Incorrect – AWS Batch can use EC2 or Fargate but is for batch processing jobs.",
+      "d": "Incorrect – Step Functions orchestrate workflows, not containers."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What happens when you reboot an EC2 instance?",
+    "opts": {
+      "a": "The public IP changes and instance store data is lost",
+      "b": "The public IP remains the same and instance store data is preserved",
+      "c": "The instance moves to a new host",
+      "d": "EBS volumes are detached"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Rebooting does not change the public IP or lose instance store data.",
+      "b": "Correct – A reboot keeps the instance on the same host, preserving the public IP, private IP, instance store data, and EBS attachments.",
+      "c": "Incorrect – Reboot does not migrate the instance.",
+      "d": "Incorrect – EBS volumes remain attached."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 instance metadata category provides the IAM role credentials for the instance?",
+    "opts": {
+      "a": "http://169.254.169.254/latest/meta-data/ami-id",
+      "b": "http://169.254.169.254/latest/meta-data/iam/security-credentials/",
+      "c": "http://169.254.169.254/latest/user-data",
+      "d": "http://169.254.169.254/latest/meta-data/public-keys/"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – This returns the AMI ID.",
+      "b": "Correct – IAM role temporary credentials are available at /latest/meta-data/iam/security-credentials/<role-name>.",
+      "c": "Incorrect – This returns the user data script.",
+      "d": "Incorrect – This returns SSH public keys."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is IMDSv2 and why is it recommended?",
+    "opts": {
+      "a": "Version 2 of the Instance Metadata Service that requires session-based tokens for security",
+      "b": "A new EC2 instance type",
+      "c": "An updated EBS volume format",
+      "d": "A new VPC feature"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – IMDSv2 uses session-oriented requests with a token (PUT then GET), protecting against SSRF attacks.",
+      "b": "Incorrect – IMDS is the metadata service, not an instance type.",
+      "c": "Incorrect – IMDS is unrelated to EBS.",
+      "d": "Incorrect – IMDS is an EC2 feature, not a VPC feature."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS service allows you to automate the creation of AMIs on a schedule?",
+    "opts": {
+      "a": "AWS Backup",
+      "b": "EC2 Image Builder",
+      "c": "AWS CloudFormation",
+      "d": "Amazon Data Lifecycle Manager"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – AWS Backup handles backup plans for various services but EC2 Image Builder specifically builds/tests/distributes AMIs.",
+      "b": "Correct – EC2 Image Builder automates the creation, testing, and distribution of AMIs and container images on a schedule.",
+      "c": "Incorrect – CloudFormation is for infrastructure as code, not AMI building.",
+      "d": "Incorrect – Data Lifecycle Manager automates EBS snapshot lifecycle, not AMI creation."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is Amazon Data Lifecycle Manager (DLM) used for?",
+    "opts": {
+      "a": "Managing S3 object lifecycles",
+      "b": "Automating the creation, retention, and deletion of EBS snapshots",
+      "c": "Managing EC2 instance lifecycles",
+      "d": "Rotating IAM keys"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – S3 lifecycle policies handle S3 objects.",
+      "b": "Correct – DLM automates EBS snapshot creation, retention, and deletion based on policies.",
+      "c": "Incorrect – Auto Scaling manages instance lifecycles.",
+      "d": "Incorrect – IAM handles key rotation."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the purpose of an EC2 Status Check?",
+    "opts": {
+      "a": "To check billing status",
+      "b": "To monitor the health of the instance and underlying hardware",
+      "c": "To verify IAM permissions",
+      "d": "To check network bandwidth usage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Status Checks are not related to billing.",
+      "b": "Correct – EC2 Status Checks include System Status Check (AWS hardware/network issues) and Instance Status Check (software/OS issues).",
+      "c": "Incorrect – IAM permissions are separate.",
+      "d": "Incorrect – Bandwidth is monitored via CloudWatch metrics."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "If a System Status Check fails on your EC2 instance, what is the recommended action?",
+    "opts": {
+      "a": "Reboot the instance",
+      "b": "Stop and start the instance (to migrate to new hardware)",
+      "c": "Terminate and relaunch",
+      "d": "Contact AWS Support only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Rebooting keeps the instance on the same hardware; system issues are host-level.",
+      "b": "Correct – Stopping and starting migrates the instance to a new physical host, resolving hardware-related system status check failures.",
+      "c": "Incorrect – Termination is unnecessary; stop/start is sufficient.",
+      "d": "Incorrect – While you can contact support, stop/start is the immediate fix."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is Enhanced Networking on EC2?",
+    "opts": {
+      "a": "A feature that adds a firewall to the instance",
+      "b": "A feature that provides higher bandwidth, lower latency, and lower jitter using SR-IOV",
+      "c": "A feature that enables IPv6",
+      "d": "A paid add-on for network monitoring"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – Firewalls are managed by Security Groups.",
+      "b": "Correct – Enhanced Networking uses SR-IOV (Single Root I/O Virtualization) to provide higher PPS (packets per second), lower latency, and lower jitter at no extra cost.",
+      "c": "Incorrect – IPv6 is separate from Enhanced Networking.",
+      "d": "Incorrect – Enhanced Networking is available at no additional cost on supported instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum network bandwidth available on EC2 instances with ENA (Elastic Network Adapter)?",
+    "opts": {
+      "a": "10 Gbps",
+      "b": "25 Gbps",
+      "c": "100 Gbps",
+      "d": "400 Gbps"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – Many instance types support more than 10 Gbps.",
+      "b": "Incorrect – Some instances support up to 100 Gbps.",
+      "c": "Correct – With ENA, certain instance types (like C5n, P4d) support up to 100 Gbps network bandwidth.",
+      "d": "Incorrect – 400 Gbps is for EFA (Elastic Fabric Adapter) with specific HPC instances, but standard ENA maxes at 100 Gbps."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the Elastic Fabric Adapter (EFA)?",
+    "opts": {
+      "a": "A storage interface for EBS",
+      "b": "A network interface for high-performance computing (HPC) with OS-bypass capabilities",
+      "c": "A load balancer type",
+      "d": "A monitoring agent"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect – EFA is a network interface, not a storage interface.",
+      "b": "Correct – EFA is a network device for EC2 that provides high-throughput, low-latency networking with OS-bypass for HPC and ML workloads.",
+      "c": "Incorrect – EFA is not a load balancer.",
+      "d": "Incorrect – EFA is not a monitoring agent."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which EC2 Nitro feature provides hardware-based security for encryption keys?",
+    "opts": {
+      "a": "Nitro Enclaves",
+      "b": "Nitro Security Chip",
+      "c": "Nitro Cards",
+      "d": "Nitro Hypervisor"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Nitro Enclaves provide isolated compute environments for processing highly sensitive data like encryption keys, PII.",
+      "b": "Incorrect – Nitro Security Chip protects the hardware and firmware but doesn't provide application-level enclaves.",
+      "c": "Incorrect – Nitro Cards offload I/O functions.",
+      "d": "Incorrect – Nitro Hypervisor is lightweight but doesn't provide isolated enclaves."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of ENIs (Elastic Network Interfaces) you can attach to an EC2 instance?",
+    "opts": {
+      "a": "It depends on the instance type",
+      "b": "Always 5",
+      "c": "Always 10",
+      "d": "Unlimited"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – The number of ENIs you can attach depends on the instance type. For example, m5.large supports 3, while m5.24xlarge supports 15.",
+      "b": "Incorrect – The limit varies by instance type.",
+      "c": "Incorrect – The limit varies.",
+      "d": "Incorrect – There is always a limit based on instance type."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "You need to run a critical database that requires an EC2 instance to always be available in a specific AZ. Which option ensures capacity?",
+    "opts": {
+      "a": "On-Demand Instance",
+      "b": "Spot Instance",
+      "c": "On-Demand Capacity Reservation",
+      "d": "Scheduled Reserved Instance"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – On-Demand does not guarantee capacity; it may fail during capacity shortages.",
+      "b": "Incorrect – Spot Instances can be interrupted.",
+      "c": "Correct – On-Demand Capacity Reservations ensure you have EC2 capacity reserved in a specific AZ when needed.",
+      "d": "Incorrect – Scheduled Reserved Instances are being deprecated and have limited availability."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the difference between horizontal scaling and vertical scaling in EC2?",
+    "opts": {
+      "a": "Horizontal = adding more instances; Vertical = increasing instance size",
+      "b": "Horizontal = increasing instance size; Vertical = adding more instances",
+      "c": "Both are the same",
+      "d": "Horizontal = adding more storage; Vertical = adding more memory"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct – Horizontal scaling (scale out) adds more instances. Vertical scaling (scale up) increases the size/power of a single instance.",
+      "b": "Incorrect – This reverses the definitions.",
+      "c": "Incorrect – They are different scaling strategies.",
+      "d": "Incorrect – These are not accurate descriptions."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "Which AWS service can you use to schedule start/stop of EC2 instances to save costs?",
+    "opts": {
+      "a": "AWS Instance Scheduler",
+      "b": "Amazon EventBridge with Lambda",
+      "c": "Both A and B",
+      "d": "AWS Trusted Advisor"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – AWS Instance Scheduler is one solution but not the only one.",
+      "b": "Incorrect – EventBridge + Lambda is another valid approach.",
+      "c": "Correct – Both AWS Instance Scheduler (solution) and EventBridge + Lambda can be used to schedule EC2 start/stop for cost optimization.",
+      "d": "Incorrect – Trusted Advisor provides recommendations but doesn't schedule instances."
+    }
+  },
+  {
+    "type": "MCQ",
+    "q": "What is the maximum number of key pairs you can have per AWS region?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "5,000",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect – The limit is higher than 100.",
+      "b": "Incorrect – The limit is higher than 500.",
+      "c": "Correct – You can have up to 5,000 key pairs per AWS region.",
+      "d": "Incorrect – There is a limit of 5,000."
+    }
+  }
+]

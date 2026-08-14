@@ -1,0 +1,988 @@
+[
+  {
+    "type": "number-based",
+    "q": "What is the default metric resolution (standard) in Amazon CloudWatch?",
+    "opts": {
+      "a": "1 second",
+      "b": "10 seconds",
+      "c": "1 minute",
+      "d": "5 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1-second resolution is available with high-resolution custom metrics.",
+      "b": "Incorrect. 10-second resolution is for enhanced monitoring of RDS.",
+      "c": "Correct. Standard metric resolution in CloudWatch is 1 minute (60 seconds).",
+      "d": "Incorrect. 5 minutes is the basic monitoring interval for EC2 instances, not the standard resolution."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum resolution available for CloudWatch high-resolution custom metrics?",
+    "opts": {
+      "a": "1 second",
+      "b": "5 seconds",
+      "c": "10 seconds",
+      "d": "30 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. High-resolution custom metrics can have a minimum resolution of 1 second.",
+      "b": "Incorrect. The minimum is finer than 5 seconds.",
+      "c": "Incorrect. 10 seconds is for RDS enhanced monitoring.",
+      "d": "Incorrect. 30 seconds exceeds the minimum resolution."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How often does EC2 basic monitoring send metrics to CloudWatch?",
+    "opts": {
+      "a": "1 minute",
+      "b": "3 minutes",
+      "c": "5 minutes",
+      "d": "10 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1-minute intervals require detailed monitoring.",
+      "b": "Incorrect. 3 minutes is not a standard monitoring interval.",
+      "c": "Correct. EC2 basic monitoring sends metrics at 5-minute intervals at no additional cost.",
+      "d": "Incorrect. 10 minutes is longer than the basic monitoring interval."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How often does EC2 detailed monitoring send metrics to CloudWatch?",
+    "opts": {
+      "a": "10 seconds",
+      "b": "30 seconds",
+      "c": "1 minute",
+      "d": "5 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10-second intervals are for RDS enhanced monitoring.",
+      "b": "Incorrect. 30 seconds is not a monitoring interval for EC2.",
+      "c": "Correct. EC2 detailed monitoring sends metrics at 1-minute intervals (additional cost).",
+      "d": "Incorrect. 5 minutes is basic monitoring."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long are CloudWatch metrics with a period of less than 60 seconds retained?",
+    "opts": {
+      "a": "1 hour",
+      "b": "3 hours",
+      "c": "15 days",
+      "d": "63 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 hour is too short.",
+      "b": "Correct. High-resolution metrics (period < 60 seconds) are available for 3 hours.",
+      "c": "Incorrect. 15 days is for 1-minute period metrics.",
+      "d": "Incorrect. 63 days is for 5-minute period metrics."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long are CloudWatch metrics with a 1-minute period retained?",
+    "opts": {
+      "a": "3 hours",
+      "b": "15 days",
+      "c": "63 days",
+      "d": "455 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 3 hours is for high-resolution metrics.",
+      "b": "Correct. Metrics with a 60-second (1-minute) period are retained for 15 days.",
+      "c": "Incorrect. 63 days is for 5-minute metrics.",
+      "d": "Incorrect. 455 days is for 1-hour metrics."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long are CloudWatch metrics with a 5-minute period retained?",
+    "opts": {
+      "a": "15 days",
+      "b": "63 days",
+      "c": "455 days",
+      "d": "Indefinitely"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 15 days is for 1-minute metrics.",
+      "b": "Correct. Metrics with a 5-minute (300-second) period are retained for 63 days.",
+      "c": "Incorrect. 455 days is for 1-hour metrics.",
+      "d": "Incorrect. Metrics are not retained indefinitely."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long are CloudWatch metrics with a 1-hour period retained?",
+    "opts": {
+      "a": "63 days",
+      "b": "90 days",
+      "c": "365 days",
+      "d": "455 days"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 63 days is for 5-minute metrics.",
+      "b": "Incorrect. 90 days is not a standard retention period.",
+      "c": "Incorrect. 365 days is below the actual retention.",
+      "d": "Correct. Metrics with a 1-hour (3600-second) period are retained for 455 days (15 months)."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many CloudWatch Alarms can you create per account per Region by default?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "50,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 1,000.",
+      "b": "Correct. The default quota for CloudWatch alarms per account per Region is 5,000.",
+      "c": "Incorrect. 10,000 exceeds the default.",
+      "d": "Incorrect. 50,000 is far above the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many dimensions can a CloudWatch metric have?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "30"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 5.",
+      "b": "Incorrect. 10 was the old limit.",
+      "c": "Incorrect. 20 is below the actual limit.",
+      "d": "Correct. Each CloudWatch metric can have up to 30 dimensions."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of metrics per CloudWatch dashboard widget?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "2,500"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Correct. A single CloudWatch dashboard widget can display up to 500 metrics.",
+      "c": "Incorrect. 1,000 exceeds the per-widget limit.",
+      "d": "Incorrect. 2,500 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long does CloudTrail retain events in Event History for free?",
+    "opts": {
+      "a": "30 days",
+      "b": "60 days",
+      "c": "90 days",
+      "d": "365 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Retention is longer than 30 days.",
+      "b": "Incorrect. 60 days is below the actual retention.",
+      "c": "Correct. CloudTrail Event History retains management events for the past 90 days at no charge.",
+      "d": "Incorrect. 365 days exceeds the free Event History retention."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many trails can you create per Region in AWS CloudTrail?",
+    "opts": {
+      "a": "2",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More trails are allowed.",
+      "b": "Correct. You can create up to 5 trails per Region in AWS CloudTrail.",
+      "c": "Incorrect. 10 exceeds the default limit.",
+      "d": "Incorrect. 20 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long can CloudTrail Lake retain events?",
+    "opts": {
+      "a": "1 year",
+      "b": "3 years",
+      "c": "7 years",
+      "d": "10 years"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. CloudTrail Lake retains for longer than 1 year.",
+      "b": "Incorrect. 3 years is below the maximum.",
+      "c": "Correct. CloudTrail Lake can retain events for up to 7 years (2,557 days).",
+      "d": "Incorrect. 10 years exceeds the maximum retention."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many event data stores can you create per account in CloudTrail Lake?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "25"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More data stores are allowed.",
+      "b": "Correct. You can create up to 5 event data stores per account in CloudTrail Lake.",
+      "c": "Incorrect. 10 exceeds the default limit.",
+      "d": "Incorrect. 25 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How quickly does CloudTrail typically deliver events to S3 after an API call?",
+    "opts": {
+      "a": "Within 1 minute",
+      "b": "Within 5 minutes",
+      "c": "Within 15 minutes",
+      "d": "Within 1 hour"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Delivery is not guaranteed within 1 minute.",
+      "b": "Incorrect. 5 minutes is faster than typical delivery.",
+      "c": "Correct. CloudTrail typically delivers log files within 15 minutes of an API call.",
+      "d": "Incorrect. 1 hour is longer than the typical delivery time."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of rules per EventBridge event bus?",
+    "opts": {
+      "a": "100",
+      "b": "300",
+      "c": "500",
+      "d": "2,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Correct. The default maximum number of rules per event bus in Amazon EventBridge is 300.",
+      "c": "Incorrect. 500 exceeds the default limit.",
+      "d": "Incorrect. 2,000 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of targets per EventBridge rule?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "25"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More targets are allowed.",
+      "b": "Correct. Each EventBridge rule can have up to 5 targets.",
+      "c": "Incorrect. 10 exceeds the maximum.",
+      "d": "Incorrect. 25 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum event size in Amazon EventBridge?",
+    "opts": {
+      "a": "64 KB",
+      "b": "128 KB",
+      "c": "256 KB",
+      "d": "512 KB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is larger than 64 KB.",
+      "b": "Incorrect. 128 KB is below the actual limit.",
+      "c": "Correct. The maximum event size in EventBridge is 256 KB.",
+      "d": "Incorrect. 512 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many custom event buses can you create per account per Region in EventBridge?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "300"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 10.",
+      "b": "Incorrect. 50 is below the actual limit.",
+      "c": "Correct. You can create up to 100 custom event buses per account per Region in EventBridge.",
+      "d": "Incorrect. 300 is the rules per bus limit, not buses."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of AWS Config rules per account per Region?",
+    "opts": {
+      "a": "50",
+      "b": "150",
+      "c": "250",
+      "d": "400"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is much higher than 50.",
+      "b": "Incorrect. 150 was an older limit.",
+      "c": "Incorrect. 250 is below the current limit.",
+      "d": "Correct. AWS Config supports up to 400 rules per account per Region."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many conformance packs can you deploy per account per Region in AWS Config?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More conformance packs are allowed.",
+      "b": "Incorrect. 25 is below the limit.",
+      "c": "Correct. AWS Config allows up to 50 conformance packs per account per Region.",
+      "d": "Incorrect. 100 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long does AWS Config retain configuration history by default?",
+    "opts": {
+      "a": "30 days",
+      "b": "90 days",
+      "c": "7 years",
+      "d": "Indefinitely"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default retention is longer.",
+      "b": "Incorrect. 90 days is CloudTrail Event History.",
+      "c": "Correct. AWS Config retains configuration items for 7 years by default.",
+      "d": "Incorrect. The default is 7 years, not indefinite."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of X-Ray sampling rules per account?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More rules are allowed.",
+      "b": "Correct. AWS X-Ray allows up to 25 sampling rules per account.",
+      "c": "Incorrect. 50 exceeds the limit.",
+      "d": "Incorrect. 100 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum trace document size in AWS X-Ray?",
+    "opts": {
+      "a": "32 KB",
+      "b": "64 KB",
+      "c": "128 KB",
+      "d": "256 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is larger.",
+      "b": "Correct. The maximum trace document size in X-Ray is 64 KB.",
+      "c": "Incorrect. 128 KB exceeds the limit.",
+      "d": "Incorrect. 256 KB is the EventBridge event size."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long does AWS X-Ray retain trace data?",
+    "opts": {
+      "a": "7 days",
+      "b": "14 days",
+      "c": "30 days",
+      "d": "90 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Retention is longer than 7 days.",
+      "b": "Incorrect. 14 days is below the actual retention.",
+      "c": "Correct. AWS X-Ray retains trace data for 30 days.",
+      "d": "Incorrect. 90 days exceeds the actual retention."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default X-Ray sampling rule (reservoir + fixed rate)?",
+    "opts": {
+      "a": "1 request per second + 1% of additional requests",
+      "b": "1 request per second + 5% of additional requests",
+      "c": "5 requests per second + 10% of additional requests",
+      "d": "10 requests per second + 50% of additional requests"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The additional percentage is higher.",
+      "b": "Correct. The default X-Ray sampling rule traces the first request per second (reservoir=1) and 5% of additional requests (fixed_rate=0.05).",
+      "c": "Incorrect. The reservoir is 1, not 5.",
+      "d": "Incorrect. These values are too high."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of CloudWatch Logs subscription filters per log group?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 1 is allowed.",
+      "b": "Correct. Each CloudWatch Logs log group can have up to 2 subscription filters.",
+      "c": "Incorrect. 5 exceeds the limit.",
+      "d": "Incorrect. 10 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of metric filters per CloudWatch Logs log group?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 10.",
+      "b": "Incorrect. 50 is below the actual limit.",
+      "c": "Correct. Each log group can have up to 100 metric filters.",
+      "d": "Incorrect. 200 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of CloudWatch dashboards per account?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "5,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Correct. You can create up to 500 dashboards per account.",
+      "c": "Incorrect. 1,000 exceeds the limit.",
+      "d": "Incorrect. 5,000 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many widgets can a single CloudWatch dashboard contain?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 50.",
+      "b": "Incorrect. 100 is below the actual limit.",
+      "c": "Correct. Each CloudWatch dashboard can contain up to 500 widgets.",
+      "d": "Incorrect. 1,000 exceeds the widget limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the PutMetricData API throttle limit per second per account per Region?",
+    "opts": {
+      "a": "100 TPS",
+      "b": "500 TPS",
+      "c": "1,000 TPS",
+      "d": "5,000 TPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Correct. The PutMetricData API has a default throttle limit of 500 transactions per second (TPS) per account per Region.",
+      "c": "Incorrect. 1,000 exceeds the default limit.",
+      "d": "Incorrect. 5,000 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum payload size for CloudWatch PutMetricData API?",
+    "opts": {
+      "a": "8 KB",
+      "b": "40 KB",
+      "c": "256 KB",
+      "d": "1 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is larger than 8 KB.",
+      "b": "Correct. The maximum payload size for a PutMetricData API request is 40 KB.",
+      "c": "Incorrect. 256 KB is the EventBridge event size.",
+      "d": "Incorrect. 1 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many MetricDatum structures can you include in a single PutMetricData API call?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More are allowed.",
+      "b": "Correct. A single PutMetricData API call can include up to 20 MetricDatum structures.",
+      "c": "Incorrect. 50 exceeds the limit.",
+      "d": "Incorrect. 100 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of CloudWatch Logs log groups per account per Region?",
+    "opts": {
+      "a": "5,000",
+      "b": "10,000",
+      "c": "1,000,000",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is much higher.",
+      "b": "Incorrect. 10,000 is below the actual limit.",
+      "c": "Correct. The default quota for log groups per account per Region is 1,000,000 (1 million).",
+      "d": "Incorrect. There is a limit, though it's very high."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum batch size for CloudWatch Logs PutLogEvents API?",
+    "opts": {
+      "a": "100 events",
+      "b": "1,000 events",
+      "c": "10,000 events",
+      "d": "100,000 events"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More events are allowed per batch.",
+      "b": "Incorrect. 1,000 is below the limit.",
+      "c": "Correct. PutLogEvents accepts up to 10,000 log events per batch, with a maximum batch payload of 1 MB.",
+      "d": "Incorrect. 100,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum batch payload size for CloudWatch Logs PutLogEvents API?",
+    "opts": {
+      "a": "256 KB",
+      "b": "512 KB",
+      "c": "1 MB",
+      "d": "5 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is larger than 256 KB.",
+      "b": "Incorrect. 512 KB is below the actual limit.",
+      "c": "Correct. The maximum batch payload for PutLogEvents is 1,048,576 bytes (1 MB).",
+      "d": "Incorrect. 5 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum single log event size in CloudWatch Logs?",
+    "opts": {
+      "a": "64 KB",
+      "b": "256 KB",
+      "c": "1 MB",
+      "d": "5 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Individual events can be larger.",
+      "b": "Correct. The maximum size for a single log event is 256 KB.",
+      "c": "Incorrect. 1 MB is the batch size limit, not individual event.",
+      "d": "Incorrect. 5 MB exceeds both limits."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of CloudWatch metric streams per account per Region?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More streams are allowed.",
+      "b": "Correct. You can create up to 25 metric streams per account per Region.",
+      "c": "Incorrect. 50 exceeds the limit.",
+      "d": "Incorrect. 100 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of CloudWatch Synthetics canaries per account per Region?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 50.",
+      "b": "Incorrect. 100 is below the actual limit.",
+      "c": "Correct. The default quota for CloudWatch Synthetics canaries per account per Region is 200.",
+      "d": "Incorrect. 500 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum canary run frequency for CloudWatch Synthetics?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "1 minute",
+      "c": "5 minutes",
+      "d": "15 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The minimum is 1 minute.",
+      "b": "Correct. CloudWatch Synthetics canaries can run as frequently as once per minute.",
+      "c": "Incorrect. 5 minutes is a common interval but not the minimum.",
+      "d": "Incorrect. Canaries can run more frequently."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many concurrent CloudWatch Logs Insights queries can run per account?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "30",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More concurrent queries are allowed.",
+      "b": "Incorrect. 10 is below the limit.",
+      "c": "Correct. CloudWatch Logs Insights supports up to 30 concurrent queries per account.",
+      "d": "Incorrect. 100 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of log groups per CloudWatch Logs Insights query?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More log groups can be queried.",
+      "b": "Incorrect. 20 is below the limit.",
+      "c": "Correct. CloudWatch Logs Insights can query up to 50 log groups simultaneously.",
+      "d": "Incorrect. 100 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the CloudWatch Logs Insights query timeout?",
+    "opts": {
+      "a": "5 minutes",
+      "b": "15 minutes",
+      "c": "60 minutes",
+      "d": "No timeout"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The timeout is longer.",
+      "b": "Incorrect. 15 minutes is too short.",
+      "c": "Correct. CloudWatch Logs Insights queries have a maximum timeout of 60 minutes.",
+      "d": "Incorrect. There is a timeout limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of results per CloudWatch Logs Insights query?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More results are returned.",
+      "b": "Incorrect. 5,000 is below the limit.",
+      "c": "Correct. Logs Insights returns a maximum of 10,000 log events or 10,000 aggregated results per query.",
+      "d": "Incorrect. 100,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of CloudWatch Contributor Insights rules per account?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 50 is below the limit.",
+      "c": "Correct. CloudWatch Contributor Insights supports up to 100 rules per account.",
+      "d": "Incorrect. 200 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of top contributors returned by Contributor Insights?",
+    "opts": {
+      "a": "10",
+      "b": "100",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More contributors can be reported.",
+      "b": "Incorrect. 100 is below the maximum.",
+      "c": "Correct. Contributor Insights reports can show up to 500 top contributors per time period.",
+      "d": "Incorrect. 1,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of EventBridge connections per account per Region?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "3,000"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is much higher.",
+      "b": "Incorrect. 500 is below the actual limit.",
+      "c": "Incorrect. 1,000 is below the limit.",
+      "d": "Correct. EventBridge supports up to 3,000 connections per account per Region."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of API destinations per account per Region in EventBridge?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "3,000"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Incorrect. 500 is below the limit.",
+      "c": "Incorrect. 1,000 is below the limit.",
+      "d": "Correct. EventBridge supports up to 3,000 API destinations per account per Region."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default number of EventBridge Scheduler schedules per account per Region?",
+    "opts": {
+      "a": "10,000",
+      "b": "100,000",
+      "c": "1,000,000",
+      "d": "10,000,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is much higher.",
+      "b": "Incorrect. 100,000 is below the limit.",
+      "c": "Correct. EventBridge Scheduler supports up to 1,000,000 schedules per account per Region.",
+      "d": "Incorrect. 10 million exceeds the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of EventBridge Pipes per account per Region?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 25 is below the limit.",
+      "c": "Correct. The default quota for EventBridge Pipes per account per Region is 50.",
+      "d": "Incorrect. 100 exceeds the default limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long does EventBridge retry failed event delivery?",
+    "opts": {
+      "a": "1 hour",
+      "b": "6 hours",
+      "c": "24 hours",
+      "d": "7 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Retries last longer than 1 hour.",
+      "b": "Incorrect. 6 hours is below the actual duration.",
+      "c": "Correct. EventBridge retries delivery with exponential backoff for up to 24 hours (approximately 185 retry attempts).",
+      "d": "Incorrect. 7 days exceeds the retry duration."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of X-Ray groups per account?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More groups are allowed.",
+      "b": "Correct. X-Ray allows up to 25 groups per account (excluding the default group).",
+      "c": "Incorrect. 50 exceeds the limit.",
+      "d": "Incorrect. 100 is far above the limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the X-Ray GetTraceSummaries API maximum time range per query?",
+    "opts": {
+      "a": "1 hour",
+      "b": "6 hours",
+      "c": "24 hours",
+      "d": "7 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The range is larger than 1 hour.",
+      "b": "Correct. The GetTraceSummaries API can query a maximum time range of 6 hours per request.",
+      "c": "Incorrect. 24 hours exceeds the per-query limit.",
+      "d": "Incorrect. 7 days exceeds the per-query limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "On what UDP port does the X-Ray daemon listen for trace data?",
+    "opts": {
+      "a": "UDP 514",
+      "b": "UDP 2000",
+      "c": "UDP 8125",
+      "d": "UDP 9090"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. UDP 514 is for syslog.",
+      "b": "Correct. The X-Ray daemon listens on UDP port 2000 for segment data from instrumented applications.",
+      "c": "Incorrect. UDP 8125 is commonly used by StatsD.",
+      "d": "Incorrect. 9090 is commonly used by Prometheus."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the CloudWatch Logs ingestion cost in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.10 per GB",
+      "b": "$0.50 per GB",
+      "c": "$1.00 per GB",
+      "d": "$2.00 per GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cost is higher than $0.10.",
+      "b": "Correct. CloudWatch Logs ingestion costs $0.50 per GB in US East (N. Virginia).",
+      "c": "Incorrect. $1.00 exceeds the standard ingestion rate.",
+      "d": "Incorrect. $2.00 is far above the standard rate."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the CloudWatch Logs storage cost per GB per month?",
+    "opts": {
+      "a": "$0.01 per GB-month",
+      "b": "$0.03 per GB-month",
+      "c": "$0.10 per GB-month",
+      "d": "$0.50 per GB-month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cost is slightly higher.",
+      "b": "Correct. CloudWatch Logs storage costs $0.03 per GB per month for standard log class.",
+      "c": "Incorrect. $0.10 exceeds the storage rate.",
+      "d": "Incorrect. $0.50 is the ingestion rate, not storage."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long does it take for CloudWatch Logs export to S3 to complete?",
+    "opts": {
+      "a": "Within 1 minute",
+      "b": "Within 1 hour",
+      "c": "Up to 12 hours",
+      "d": "Up to 24 hours"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Export is not real-time.",
+      "b": "Incorrect. Export can take longer than 1 hour.",
+      "c": "Correct. CloudWatch Logs export to S3 is a batch operation that can take up to 12 hours to complete.",
+      "d": "Incorrect. 24 hours exceeds the typical maximum."
+    }
+  }
+]

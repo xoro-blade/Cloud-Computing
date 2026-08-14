@@ -1,0 +1,1328 @@
+[
+  {
+    "type": "factual",
+    "q": "What is the default concurrent executions quota for AWS Lambda per Region?",
+    "opts": {
+      "a": "500",
+      "b": "1,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 500 is not the default concurrent executions quota.",
+      "b": "Correct. The default concurrent executions quota for Lambda is 1,000 per Region, which can be increased to tens of thousands.",
+      "c": "Incorrect. 5,000 is not the default; it can be increased up to tens of thousands.",
+      "d": "Incorrect. 10,000 is not the default quota."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum execution time for a single AWS Lambda invocation?",
+    "opts": {
+      "a": "5 minutes",
+      "b": "10 minutes",
+      "c": "15 minutes",
+      "d": "30 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 5 minutes was the original limit but has been increased.",
+      "b": "Incorrect. 10 minutes is not the maximum timeout.",
+      "c": "Correct. Lambda functions can run for up to 15 minutes (900 seconds) in a single invocation.",
+      "d": "Incorrect. 30 minutes exceeds the maximum Lambda timeout."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum memory that a single AWS Lambda function can use?",
+    "opts": {
+      "a": "3,008 MB",
+      "b": "5,120 MB",
+      "c": "10,240 MB",
+      "d": "16,384 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3,008 MB was a previous limit.",
+      "b": "Incorrect. 5,120 MB is not the current maximum.",
+      "c": "Correct. A single Lambda function can use up to 10,240 MB (10 GB) of memory.",
+      "d": "Incorrect. 16,384 MB exceeds the current Lambda memory limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default storage quota for uploaded Lambda functions and layers using Lambda-managed storage (unzipped)?",
+    "opts": {
+      "a": "75 GB",
+      "b": "150 GB",
+      "c": "300 GB",
+      "d": "500 GB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 75 GB was a previous default limit.",
+      "b": "Incorrect. 150 GB is not the current default.",
+      "c": "Correct. The default storage quota for Lambda-managed storage is 300 GB (unzipped).",
+      "d": "Incorrect. 500 GB exceeds the default quota."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new feature did AWS Lambda announce in July 2026 to address code storage limits?",
+    "opts": {
+      "a": "Lambda Layers v2",
+      "b": "Self-managed code storage using your own S3 buckets",
+      "c": "Automatic code compression",
+      "d": "Lambda Code Cache"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda Layers v2 was not announced.",
+      "b": "Correct. AWS Lambda announced self-managed code storage, allowing you to reference source code directly from your own S3 buckets without Lambda creating intermediate copies.",
+      "c": "Incorrect. Automatic code compression was not the announced feature.",
+      "d": "Incorrect. Lambda Code Cache is not a real feature."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company deploys hundreds of Lambda functions and layers, consuming more than 75GB of code storage per Region. They frequently need to raise support tickets to increase quotas. What is the best solution as of 2026?",
+    "opts": {
+      "a": "Delete unused function versions regularly",
+      "b": "Use self-managed S3 code storage for Lambda functions and layers",
+      "c": "Move to containers instead of Lambda",
+      "d": "Split functions across multiple AWS accounts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While deleting unused versions helps, it doesn't solve the fundamental problem for large deployments.",
+      "b": "Correct. Self-managed S3 code storage eliminates code storage limits because Lambda references your code directly from your S3 buckets without copying it to Lambda-managed storage.",
+      "c": "Incorrect. Moving to containers is unnecessary when self-managed code storage solves the issue.",
+      "d": "Incorrect. Splitting across accounts adds unnecessary complexity."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What benefit does self-managed code storage provide besides eliminating storage limits?",
+    "opts": {
+      "a": "Reduces function cold start time",
+      "b": "Reduces function activation time after creates and updates by removing the copy step",
+      "c": "Increases maximum memory allocation",
+      "d": "Allows functions to run longer than 15 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It specifically reduces activation time, not cold start time.",
+      "b": "Correct. Self-managed code storage reduces function activation time after function creates and updates by removing the copy step.",
+      "c": "Incorrect. Memory allocation is unrelated to code storage.",
+      "d": "Incorrect. Timeout limits are separate from code storage features."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service is a fully managed workflow orchestration service for Apache Airflow?",
+    "opts": {
+      "a": "AWS Step Functions",
+      "b": "Amazon MWAA",
+      "c": "AWS Glue Workflows",
+      "d": "Amazon EventBridge Scheduler"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Step Functions is AWS's own workflow service, not Apache Airflow.",
+      "b": "Correct. Amazon Managed Workflows for Apache Airflow (MWAA) is the fully managed Apache Airflow service.",
+      "c": "Incorrect. Glue Workflows are specific to ETL jobs.",
+      "d": "Incorrect. EventBridge Scheduler is for scheduling events, not workflow orchestration."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "As of June 2026, what new integration does Amazon MWAA Serverless support?",
+    "opts": {
+      "a": "Direct integration with Amazon SQS",
+      "b": "Workflow and task state change events to Amazon EventBridge",
+      "c": "Native Kubernetes pod execution",
+      "d": "Direct integration with Amazon Kinesis"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS integration was not the new announcement.",
+      "b": "Correct. Amazon MWAA Serverless now supports workflow and task state change events to Amazon EventBridge, enabling event-driven automation.",
+      "c": "Incorrect. Kubernetes pod execution was not announced.",
+      "d": "Incorrect. Kinesis integration was not the new feature."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A data engineering team wants to automatically trigger downstream processes whenever an Apache Airflow workflow fails in their MWAA Serverless environment. What should they use?",
+    "opts": {
+      "a": "CloudWatch Alarms with SNS",
+      "b": "Amazon MWAA Serverless events to Amazon EventBridge",
+      "c": "Polling the Airflow API every minute",
+      "d": "Lambda scheduled functions checking task status"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While CloudWatch can monitor, EventBridge provides native workflow state change events.",
+      "b": "Correct. MWAA Serverless now supports workflow and task state change events to EventBridge, enabling event-driven automation for Airflow workflows.",
+      "c": "Incorrect. Polling is inefficient compared to event-driven approaches.",
+      "d": "Incorrect. Scheduled Lambda functions are inefficient for this use case."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which of the following is a serverless compute service in AWS?",
+    "opts": {
+      "a": "Amazon EC2",
+      "b": "AWS Lambda",
+      "c": "Amazon ECS with EC2 launch type",
+      "d": "Amazon Lightsail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 requires you to manage virtual servers.",
+      "b": "Correct. AWS Lambda is a serverless compute service that runs your code without requiring you to manage servers.",
+      "c": "Incorrect. ECS with EC2 launch type requires managing EC2 instances.",
+      "d": "Incorrect. Lightsail is a simplified VPS service, not serverless."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which of the following is a serverless container compute service?",
+    "opts": {
+      "a": "Amazon ECS with EC2 launch type",
+      "b": "AWS Fargate",
+      "c": "Amazon EKS with self-managed nodes",
+      "d": "Amazon EC2 Auto Scaling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 launch type requires managing EC2 instances.",
+      "b": "Correct. AWS Fargate is a serverless compute engine for containers that works with both ECS and EKS.",
+      "c": "Incorrect. Self-managed nodes require server management.",
+      "d": "Incorrect. EC2 Auto Scaling manages EC2 instances, not serverless."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless API management?",
+    "opts": {
+      "a": "Elastic Load Balancer",
+      "b": "Amazon API Gateway",
+      "c": "AWS App Mesh",
+      "d": "Amazon CloudFront"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ELB is for load balancing, not API management.",
+      "b": "Correct. Amazon API Gateway is a fully managed serverless service for creating, publishing, and managing APIs.",
+      "c": "Incorrect. App Mesh is a service mesh, not API management.",
+      "d": "Incorrect. CloudFront is a CDN, not API management."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service is a serverless event bus?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "Amazon SNS",
+      "c": "Amazon EventBridge",
+      "d": "Amazon Kinesis"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. SQS is a message queue service.",
+      "b": "Incorrect. SNS is a pub/sub notification service.",
+      "c": "Correct. Amazon EventBridge is a serverless event bus that connects applications using events from various sources.",
+      "d": "Incorrect. Kinesis is for real-time data streaming."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS database service is serverless and provides key-value and document storage?",
+    "opts": {
+      "a": "Amazon RDS",
+      "b": "Amazon DynamoDB",
+      "c": "Amazon ElastiCache",
+      "d": "Amazon Redshift"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS is a managed relational database but not fully serverless by default.",
+      "b": "Correct. Amazon DynamoDB is a fully serverless, key-value and document NoSQL database.",
+      "c": "Incorrect. ElastiCache requires choosing instance types (though it has a serverless option).",
+      "d": "Incorrect. Redshift is a data warehouse service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the serverless offering for Amazon Aurora?",
+    "opts": {
+      "a": "Aurora Global Database",
+      "b": "Aurora Serverless",
+      "c": "Aurora Multi-Master",
+      "d": "Aurora Parallel Query"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Global Database is for cross-region replication.",
+      "b": "Correct. Aurora Serverless automatically scales capacity up and down based on demand without managing database instances.",
+      "c": "Incorrect. Multi-Master allows multiple write nodes.",
+      "d": "Incorrect. Parallel Query is a query optimization feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless workflow orchestration using state machines?",
+    "opts": {
+      "a": "AWS Step Functions",
+      "b": "Amazon SWF",
+      "c": "AWS Batch",
+      "d": "Amazon MWAA"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Step Functions is a serverless orchestration service that lets you build workflows as state machines.",
+      "b": "Incorrect. SWF is an older workflow service that is not serverless.",
+      "c": "Incorrect. Batch is for batch computing jobs.",
+      "d": "Incorrect. MWAA is managed Apache Airflow."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the minimum memory allocation for an AWS Lambda function?",
+    "opts": {
+      "a": "64 MB",
+      "b": "128 MB",
+      "c": "256 MB",
+      "d": "512 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 64 MB is below the minimum allowed.",
+      "b": "Correct. The minimum memory allocation for a Lambda function is 128 MB.",
+      "c": "Incorrect. 256 MB is above the minimum.",
+      "d": "Incorrect. 512 MB is above the minimum."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In what increments can you allocate memory to an AWS Lambda function?",
+    "opts": {
+      "a": "1 MB",
+      "b": "32 MB",
+      "c": "64 MB",
+      "d": "128 MB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Lambda memory can be configured in 1 MB increments between 128 MB and 10,240 MB.",
+      "b": "Incorrect. 32 MB increments is not correct.",
+      "c": "Incorrect. 64 MB increments was a previous limitation.",
+      "d": "Incorrect. 128 MB increments is not correct."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum deployment package size for AWS Lambda (zipped, direct upload)?",
+    "opts": {
+      "a": "10 MB",
+      "b": "50 MB",
+      "c": "100 MB",
+      "d": "250 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 10 MB is not the limit for direct upload.",
+      "b": "Correct. The maximum deployment package size for direct upload (zipped) is 50 MB.",
+      "c": "Incorrect. 100 MB is not the zipped direct upload limit.",
+      "d": "Incorrect. 250 MB is the unzipped limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum unzipped deployment package size for AWS Lambda (including layers)?",
+    "opts": {
+      "a": "50 MB",
+      "b": "100 MB",
+      "c": "250 MB",
+      "d": "500 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50 MB is the zipped direct upload limit.",
+      "b": "Incorrect. 100 MB is not the unzipped limit.",
+      "c": "Correct. The maximum unzipped deployment package size (including layers) is 250 MB.",
+      "d": "Incorrect. 500 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which serverless service can be used for real-time file processing when a file is uploaded to S3?",
+    "opts": {
+      "a": "Amazon EC2",
+      "b": "AWS Lambda",
+      "c": "AWS Batch",
+      "d": "Amazon EMR"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 is not serverless.",
+      "b": "Correct. Lambda can be triggered by S3 events to process files in real-time.",
+      "c": "Incorrect. Batch is for batch processing, not real-time event-driven processing.",
+      "d": "Incorrect. EMR is for big data processing, not event-driven file processing."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless message queuing?",
+    "opts": {
+      "a": "Amazon Kinesis",
+      "b": "Amazon SQS",
+      "c": "Amazon MQ",
+      "d": "AWS IoT Core"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Kinesis is for real-time streaming data.",
+      "b": "Correct. Amazon SQS (Simple Queue Service) is a fully managed serverless message queuing service.",
+      "c": "Incorrect. Amazon MQ is a managed message broker (not serverless).",
+      "d": "Incorrect. IoT Core is for IoT device communication."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless pub/sub messaging?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "Amazon SNS",
+      "c": "Amazon Kinesis",
+      "d": "AWS AppSync"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS is a queue service, not pub/sub.",
+      "b": "Correct. Amazon SNS (Simple Notification Service) is a fully managed serverless pub/sub messaging service.",
+      "c": "Incorrect. Kinesis is for data streaming.",
+      "d": "Incorrect. AppSync is for GraphQL APIs."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless GraphQL and real-time APIs?",
+    "opts": {
+      "a": "Amazon API Gateway",
+      "b": "AWS AppSync",
+      "c": "AWS Amplify",
+      "d": "Amazon CloudFront"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway handles REST and WebSocket APIs but is not specifically for GraphQL.",
+      "b": "Correct. AWS AppSync is a serverless GraphQL and Pub/Sub API service.",
+      "c": "Incorrect. Amplify is a development framework, not specifically a GraphQL API service.",
+      "d": "Incorrect. CloudFront is a CDN."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A startup wants to build a REST API that triggers business logic without managing any servers. Which combination should they use?",
+    "opts": {
+      "a": "EC2 + Application Load Balancer",
+      "b": "API Gateway + AWS Lambda",
+      "c": "CloudFront + EC2",
+      "d": "Elastic Beanstalk + RDS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 requires server management.",
+      "b": "Correct. API Gateway + Lambda is the classic serverless pattern for building REST APIs without managing servers.",
+      "c": "Incorrect. EC2 requires server management.",
+      "d": "Incorrect. Elastic Beanstalk still manages EC2 instances under the hood."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What type of quotas in AWS services CANNOT be changed?",
+    "opts": {
+      "a": "Soft limits",
+      "b": "Hard limits",
+      "c": "Default limits",
+      "d": "Regional limits"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Soft limits can be increased by request.",
+      "b": "Correct. Hard limits cannot be changed, while soft limits can be increased by requesting a quota increase.",
+      "c": "Incorrect. Default limits are often soft limits that can be increased.",
+      "d": "Incorrect. Regional limits can often be increased."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Where can you view and request increases for AWS service quotas?",
+    "opts": {
+      "a": "AWS Billing Console",
+      "b": "Service Quotas dashboard",
+      "c": "CloudWatch Console",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Billing Console is for cost management.",
+      "b": "Correct. The Service Quotas dashboard allows you to view quotas, request increases, and view current utilization.",
+      "c": "Incorrect. CloudWatch is for monitoring.",
+      "d": "Incorrect. AWS Config is for resource compliance."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "AWS Lambda API rate limits are applied per what scope?",
+    "opts": {
+      "a": "Per function",
+      "b": "Per account, per Region",
+      "c": "Per VPC",
+      "d": "Globally across all Regions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Rate limits are not per function.",
+      "b": "Correct. Lambda API rate limits are per account, per Region.",
+      "c": "Incorrect. Rate limits are not per VPC.",
+      "d": "Incorrect. Rate limits are regional, not global."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What retry strategy is recommended for throttled Lambda API requests?",
+    "opts": {
+      "a": "Fixed interval retry",
+      "b": "Exponential backoff with jitter",
+      "c": "Immediate retry up to 3 times",
+      "d": "No retry, fail immediately"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Fixed interval retry can cause thundering herd problems.",
+      "b": "Correct. AWS recommends exponential backoff with jitter for retrying throttled requests.",
+      "c": "Incorrect. Immediate retry can worsen throttling.",
+      "d": "Incorrect. Retrying with proper backoff is recommended."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Lambda ENI (Elastic Network Interface) quotas apply per what scope?",
+    "opts": {
+      "a": "Per Region",
+      "b": "Per account",
+      "c": "Per VPC",
+      "d": "Per subnet"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. ENI quotas are not per Region.",
+      "b": "Incorrect. ENI quotas are not simply per account.",
+      "c": "Correct. Lambda ENI quotas apply per VPC, regardless of Region.",
+      "d": "Incorrect. ENI quotas are per VPC, not per subnet."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless data streaming?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "Amazon Kinesis Data Streams",
+      "c": "Amazon MQ",
+      "d": "AWS Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS is a message queue, not a streaming service.",
+      "b": "Correct. Amazon Kinesis Data Streams provides serverless real-time data streaming.",
+      "c": "Incorrect. Amazon MQ is a managed message broker.",
+      "d": "Incorrect. Direct Connect is a network service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which serverless AWS service is used for ETL (Extract, Transform, Load) jobs?",
+    "opts": {
+      "a": "AWS Glue",
+      "b": "AWS Data Pipeline",
+      "c": "Amazon EMR",
+      "d": "AWS Batch"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Glue is a serverless data integration service for ETL jobs.",
+      "b": "Incorrect. Data Pipeline is being deprecated in favor of other services.",
+      "c": "Incorrect. EMR requires cluster management.",
+      "d": "Incorrect. Batch is for batch computing, not specifically ETL."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to run a task that takes 30 minutes to complete. Can they use AWS Lambda?",
+    "opts": {
+      "a": "Yes, Lambda supports up to 60 minutes",
+      "b": "No, Lambda has a maximum timeout of 15 minutes",
+      "c": "Yes, if they use provisioned concurrency",
+      "d": "Yes, if they increase the memory to 10 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda does not support 60-minute execution.",
+      "b": "Correct. Lambda has a hard limit of 15 minutes per invocation. For 30-minute tasks, consider AWS Fargate or Step Functions with multiple Lambda functions.",
+      "c": "Incorrect. Provisioned concurrency doesn't extend timeout.",
+      "d": "Incorrect. Memory allocation doesn't affect the timeout limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless content delivery?",
+    "opts": {
+      "a": "Amazon S3",
+      "b": "Amazon CloudFront",
+      "c": "AWS Global Accelerator",
+      "d": "Amazon Route 53"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 is object storage, not a CDN.",
+      "b": "Correct. Amazon CloudFront is a serverless content delivery network (CDN) service.",
+      "c": "Incorrect. Global Accelerator improves availability, not content delivery.",
+      "d": "Incorrect. Route 53 is a DNS service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Lambda@Edge?",
+    "opts": {
+      "a": "Lambda functions running in IoT devices",
+      "b": "Lambda functions running at CloudFront edge locations",
+      "c": "Lambda functions running in on-premises servers",
+      "d": "Lambda functions with dedicated hardware"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. That would be AWS IoT Greengrass.",
+      "b": "Correct. Lambda@Edge allows you to run Lambda functions at CloudFront edge locations for lower latency.",
+      "c": "Incorrect. On-premises Lambda is not what Lambda@Edge provides.",
+      "d": "Incorrect. Lambda@Edge doesn't use dedicated hardware."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which serverless service would you use for user authentication and authorization?",
+    "opts": {
+      "a": "AWS IAM",
+      "b": "Amazon Cognito",
+      "c": "AWS KMS",
+      "d": "AWS Shield"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM is for AWS resource access management, not user authentication for applications.",
+      "b": "Correct. Amazon Cognito is a serverless service for user authentication, authorization, and user management for web/mobile apps.",
+      "c": "Incorrect. KMS is for key management.",
+      "d": "Incorrect. Shield is for DDoS protection."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of Lambda layers that can be attached to a single function?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can attach more than 3 layers.",
+      "b": "Correct. A Lambda function can use up to 5 layers at a time.",
+      "c": "Incorrect. 10 layers exceeds the limit.",
+      "d": "Incorrect. 15 layers exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the /tmp directory storage available in AWS Lambda?",
+    "opts": {
+      "a": "512 MB",
+      "b": "1,024 MB",
+      "c": "10,240 MB",
+      "d": "512 MB (expandable to 10,240 MB)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 512 MB is the default, but it can be expanded.",
+      "b": "Incorrect. 1,024 MB is not the correct value.",
+      "c": "Incorrect. 10,240 MB is the maximum, not the default.",
+      "d": "Correct. Lambda provides 512 MB of /tmp storage by default, which can be configured up to 10,240 MB (10 GB)."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer needs to process messages from an SQS queue without managing any servers. Which service should they use?",
+    "opts": {
+      "a": "EC2 instance polling the queue",
+      "b": "AWS Lambda with SQS event source mapping",
+      "c": "ECS with EC2 launch type",
+      "d": "AWS Batch"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 requires server management.",
+      "b": "Correct. Lambda can be configured with an SQS event source mapping to automatically process messages without managing servers.",
+      "c": "Incorrect. ECS with EC2 requires managing instances.",
+      "d": "Incorrect. Batch is for batch computing jobs."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless application hosting for web applications?",
+    "opts": {
+      "a": "AWS Elastic Beanstalk",
+      "b": "AWS Amplify Hosting",
+      "c": "Amazon EC2",
+      "d": "Amazon Lightsail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Elastic Beanstalk manages EC2 instances.",
+      "b": "Correct. AWS Amplify Hosting provides serverless web application hosting with CI/CD.",
+      "c": "Incorrect. EC2 requires server management.",
+      "d": "Incorrect. Lightsail is a VPS service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What pricing model does AWS Lambda use?",
+    "opts": {
+      "a": "Hourly billing",
+      "b": "Pay per request and compute duration",
+      "c": "Monthly flat fee",
+      "d": "Reserved capacity only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda doesn't bill hourly.",
+      "b": "Correct. Lambda charges based on the number of requests and the compute time (GB-seconds) consumed.",
+      "c": "Incorrect. There's no monthly flat fee.",
+      "d": "Incorrect. Lambda uses pay-as-you-go, not reserved capacity."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How many free requests per month does the AWS Lambda free tier include?",
+    "opts": {
+      "a": "500,000",
+      "b": "1,000,000",
+      "c": "5,000,000",
+      "d": "10,000,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The free tier includes more than 500,000 requests.",
+      "b": "Correct. The Lambda free tier includes 1 million free requests per month.",
+      "c": "Incorrect. 5 million exceeds the free tier.",
+      "d": "Incorrect. 10 million exceeds the free tier."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How many free GB-seconds does the AWS Lambda free tier include per month?",
+    "opts": {
+      "a": "100,000 GB-seconds",
+      "b": "200,000 GB-seconds",
+      "c": "400,000 GB-seconds",
+      "d": "1,000,000 GB-seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 100,000 is below the free tier allowance.",
+      "b": "Incorrect. 200,000 is below the free tier allowance.",
+      "c": "Correct. The Lambda free tier includes 400,000 GB-seconds of compute time per month.",
+      "d": "Incorrect. 1,000,000 exceeds the free tier allowance."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which serverless service is used for serverless data warehousing in AWS?",
+    "opts": {
+      "a": "Amazon RDS",
+      "b": "Amazon Redshift Serverless",
+      "c": "Amazon DynamoDB",
+      "d": "Amazon ElastiCache"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS is for relational databases, not data warehousing.",
+      "b": "Correct. Amazon Redshift Serverless provides serverless data warehousing without managing infrastructure.",
+      "c": "Incorrect. DynamoDB is a NoSQL database.",
+      "d": "Incorrect. ElastiCache is for caching."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to build a serverless application with a DynamoDB table, API Gateway, and Lambda. When the application experiences a sudden spike in traffic, which Lambda feature helps avoid cold starts?",
+    "opts": {
+      "a": "Reserved concurrency",
+      "b": "Provisioned concurrency",
+      "c": "Burst concurrency",
+      "d": "Maximum concurrency"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Reserved concurrency limits maximum concurrency but doesn't pre-warm instances.",
+      "b": "Correct. Provisioned concurrency keeps a specified number of Lambda instances initialized and ready to respond instantly, avoiding cold starts.",
+      "c": "Incorrect. Burst concurrency is automatic scaling but still has cold starts.",
+      "d": "Incorrect. Maximum concurrency is a limit, not a warm-up feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum size of an environment variable value in AWS Lambda?",
+    "opts": {
+      "a": "2 KB",
+      "b": "4 KB (total for all environment variables)",
+      "c": "8 KB",
+      "d": "16 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is for all environment variables combined.",
+      "b": "Correct. The total size of all environment variables cannot exceed 4 KB.",
+      "c": "Incorrect. 8 KB exceeds the limit.",
+      "d": "Incorrect. 16 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless search capability?",
+    "opts": {
+      "a": "Amazon ElasticSearch (OpenSearch) Serverless",
+      "b": "Amazon RDS",
+      "c": "Amazon DynamoDB",
+      "d": "AWS Glue"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon OpenSearch Serverless provides serverless search and analytics without managing clusters.",
+      "b": "Incorrect. RDS is a relational database.",
+      "c": "Incorrect. DynamoDB is NoSQL, not a search service.",
+      "d": "Incorrect. Glue is for ETL."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to schedule a Lambda function to run every day at 9 AM UTC. Which serverless service should they use?",
+    "opts": {
+      "a": "Amazon SQS with delay queues",
+      "b": "Amazon EventBridge Scheduler",
+      "c": "AWS Step Functions",
+      "d": "Amazon SNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS delay queues are for message delays, not scheduling.",
+      "b": "Correct. Amazon EventBridge Scheduler (or EventBridge rules with cron expressions) can schedule Lambda function executions.",
+      "c": "Incorrect. Step Functions orchestrate workflows but aren't schedulers.",
+      "d": "Incorrect. SNS is for notifications, not scheduling."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What happens to new AWS accounts regarding Lambda concurrency quotas?",
+    "opts": {
+      "a": "They get unlimited concurrency",
+      "b": "They get reduced concurrency and memory quotas that increase automatically based on usage",
+      "c": "They must request concurrency before using Lambda",
+      "d": "They get the same quotas as established accounts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. No account gets unlimited concurrency.",
+      "b": "Correct. New AWS accounts have reduced concurrency and memory quotas for Lambda that AWS raises automatically based on usage.",
+      "c": "Incorrect. Lambda works immediately, just with lower quotas.",
+      "d": "Incorrect. New accounts start with reduced quotas."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless file storage that can be used with Lambda?",
+    "opts": {
+      "a": "Amazon EBS",
+      "b": "Amazon EFS",
+      "c": "Amazon FSx",
+      "d": "AWS Storage Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EBS is block storage for EC2 instances.",
+      "b": "Correct. Amazon EFS (Elastic File System) can be mounted to Lambda functions for shared file storage.",
+      "c": "Incorrect. FSx is managed file system for specific workloads.",
+      "d": "Incorrect. Storage Gateway is for hybrid storage."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which programming languages are supported by AWS Lambda natively?",
+    "opts": {
+      "a": "Only Python and Node.js",
+      "b": "Python, Node.js, Java, C#, Go, Ruby, and custom runtimes",
+      "c": "Only Java and Python",
+      "d": "Only Node.js and Go"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda supports many more languages.",
+      "b": "Correct. Lambda natively supports Python, Node.js, Java, C#/.NET, Go, Ruby, and allows custom runtimes for other languages.",
+      "c": "Incorrect. Lambda supports many more languages.",
+      "d": "Incorrect. Lambda supports many more languages."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer wants to share common code libraries across multiple Lambda functions. What should they use?",
+    "opts": {
+      "a": "Lambda Extensions",
+      "b": "Lambda Layers",
+      "c": "Lambda Aliases",
+      "d": "Lambda Versions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Extensions are for monitoring and observability tools.",
+      "b": "Correct. Lambda Layers allow you to package shared libraries and dependencies that can be used across multiple functions.",
+      "c": "Incorrect. Aliases are pointers to function versions.",
+      "d": "Incorrect. Versions are immutable snapshots of function code."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which serverless service provides managed Kafka?",
+    "opts": {
+      "a": "Amazon Kinesis",
+      "b": "Amazon MSK Serverless",
+      "c": "Amazon SQS",
+      "d": "Amazon MQ"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Kinesis is AWS's own streaming service, not Kafka.",
+      "b": "Correct. Amazon MSK (Managed Streaming for Apache Kafka) Serverless provides serverless Kafka without managing brokers.",
+      "c": "Incorrect. SQS is a message queue.",
+      "d": "Incorrect. MQ supports RabbitMQ and ActiveMQ, not Kafka."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS SAM (Serverless Application Model)?",
+    "opts": {
+      "a": "A serverless database",
+      "b": "An open-source framework for building serverless applications on AWS",
+      "c": "A monitoring tool for Lambda",
+      "d": "A serverless compute service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SAM is not a database.",
+      "b": "Correct. AWS SAM is an open-source framework that extends CloudFormation to provide a simplified way of defining serverless applications.",
+      "c": "Incorrect. SAM is not a monitoring tool.",
+      "d": "Incorrect. SAM is a framework, not a compute service."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An application needs to process 10,000 concurrent requests using Lambda. The default quota is 1,000. What should the team do?",
+    "opts": {
+      "a": "Nothing, Lambda auto-scales infinitely",
+      "b": "Request a quota increase through the Service Quotas dashboard",
+      "c": "Deploy the function in 10 different Regions",
+      "d": "Use reserved concurrency of 10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda has concurrency limits that need to be increased.",
+      "b": "Correct. You can request a quota increase for concurrent executions through the Service Quotas dashboard. The limit can be increased to tens of thousands.",
+      "c": "Incorrect. Multi-region deployment is unnecessarily complex for this requirement.",
+      "d": "Incorrect. Reserved concurrency cannot exceed the account's total concurrent execution quota."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which service provides serverless caching in AWS?",
+    "opts": {
+      "a": "Amazon ElastiCache Serverless",
+      "b": "Amazon DynamoDB only",
+      "c": "Amazon RDS Proxy",
+      "d": "AWS CloudFront only"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon ElastiCache Serverless provides serverless caching with Redis or Memcached without managing nodes.",
+      "b": "Incorrect. DynamoDB is a database, though DAX provides caching for it.",
+      "c": "Incorrect. RDS Proxy is for database connection pooling.",
+      "d": "Incorrect. CloudFront caches at the edge but isn't a general-purpose cache."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of function versions you can have for a single Lambda function?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "No limit (but storage quota applies)",
+      "d": "1,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There's no 50-version limit.",
+      "b": "Incorrect. There's no 100-version limit.",
+      "c": "Correct. There's no hard limit on the number of function versions, but each version consumes storage that counts against your code storage quota.",
+      "d": "Incorrect. There's no 1,000-version limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless DNS?",
+    "opts": {
+      "a": "Amazon VPC",
+      "b": "Amazon Route 53",
+      "c": "AWS Direct Connect",
+      "d": "Amazon CloudFront"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC is a virtual network.",
+      "b": "Correct. Amazon Route 53 is a scalable serverless DNS web service.",
+      "c": "Incorrect. Direct Connect is a dedicated network connection.",
+      "d": "Incorrect. CloudFront is a CDN."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses Lambda functions that need to access resources in a VPC (like an RDS database). What must they configure?",
+    "opts": {
+      "a": "Lambda@Edge",
+      "b": "VPC configuration with subnets and security groups for the Lambda function",
+      "c": "AWS Direct Connect",
+      "d": "Internet Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda@Edge runs at CloudFront edge locations.",
+      "b": "Correct. To access VPC resources, Lambda functions must be configured with VPC settings including subnets and security groups.",
+      "c": "Incorrect. Direct Connect is for on-premises to AWS connectivity.",
+      "d": "Incorrect. Internet Gateway is for public internet access to VPC."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon S3 classified as in terms of server management?",
+    "opts": {
+      "a": "Managed service requiring server configuration",
+      "b": "Serverless object storage",
+      "c": "Block storage service",
+      "d": "File storage service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 doesn't require any server configuration.",
+      "b": "Correct. Amazon S3 is a serverless object storage service - you don't manage any servers.",
+      "c": "Incorrect. EBS is block storage; S3 is object storage.",
+      "d": "Incorrect. EFS is file storage; S3 is object storage."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which API type in API Gateway is optimized for serverless workloads and is cheaper?",
+    "opts": {
+      "a": "REST API",
+      "b": "HTTP API",
+      "c": "WebSocket API",
+      "d": "GraphQL API"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. REST API has more features but is more expensive.",
+      "b": "Correct. HTTP API is designed for serverless workloads, offers lower latency, and costs up to 71% less than REST APIs.",
+      "c": "Incorrect. WebSocket API is for real-time two-way communication.",
+      "d": "Incorrect. GraphQL API is provided by AppSync, not API Gateway."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team needs to coordinate multiple Lambda functions in sequence, with error handling and retry logic, for an order processing workflow. Which service should they use?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "AWS Step Functions",
+      "c": "Amazon EventBridge",
+      "d": "Amazon SNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS is for message queuing, not workflow orchestration.",
+      "b": "Correct. AWS Step Functions provides visual workflow orchestration with built-in error handling, retries, and state management for coordinating multiple Lambda functions.",
+      "c": "Incorrect. EventBridge is an event bus, not a workflow orchestrator.",
+      "d": "Incorrect. SNS is for notifications."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the two workflow types available in AWS Step Functions?",
+    "opts": {
+      "a": "Synchronous and Asynchronous",
+      "b": "Standard and Express",
+      "c": "Basic and Advanced",
+      "d": "Simple and Complex"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are invocation types, not Step Functions workflow types.",
+      "b": "Correct. Step Functions offers Standard workflows (long-running, up to 1 year) and Express workflows (high-volume, up to 5 minutes).",
+      "c": "Incorrect. These are not Step Functions workflow types.",
+      "d": "Incorrect. These are not Step Functions workflow types."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum execution duration for a Step Functions Standard workflow?",
+    "opts": {
+      "a": "24 hours",
+      "b": "30 days",
+      "c": "1 year",
+      "d": "No limit"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 24 hours is too short for Standard workflows.",
+      "b": "Incorrect. 30 days is not the limit.",
+      "c": "Correct. Standard workflows can run for up to 1 year (365 days).",
+      "d": "Incorrect. There is a limit of 1 year."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum execution duration for a Step Functions Express workflow?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "5 minutes",
+      "c": "15 minutes",
+      "d": "1 hour"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 30 seconds is too short.",
+      "b": "Correct. Express workflows can run for up to 5 minutes and are designed for high-volume, short-duration workloads.",
+      "c": "Incorrect. 15 minutes is the Lambda timeout.",
+      "d": "Incorrect. 1 hour exceeds Express workflow limits."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company stores sensitive data in DynamoDB and wants to implement fine-grained access control for a mobile app without managing servers. Which combination should they use?",
+    "opts": {
+      "a": "EC2 + IAM roles",
+      "b": "Amazon Cognito + DynamoDB fine-grained access control",
+      "c": "API Gateway + hardcoded credentials",
+      "d": "Lambda + shared API keys"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 requires server management.",
+      "b": "Correct. Cognito provides user authentication and can issue temporary credentials with fine-grained access control policies for DynamoDB.",
+      "c": "Incorrect. Hardcoded credentials are a security anti-pattern.",
+      "d": "Incorrect. Shared API keys don't provide per-user access control."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which service allows you to run Lambda functions in response to DynamoDB table changes?",
+    "opts": {
+      "a": "DynamoDB Accelerator (DAX)",
+      "b": "DynamoDB Streams",
+      "c": "DynamoDB Global Tables",
+      "d": "DynamoDB On-Demand"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DAX is a caching layer for DynamoDB.",
+      "b": "Correct. DynamoDB Streams captures item-level changes and can trigger Lambda functions for event-driven processing.",
+      "c": "Incorrect. Global Tables is for multi-region replication.",
+      "d": "Incorrect. On-Demand is a capacity mode."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are Lambda Destinations used for?",
+    "opts": {
+      "a": "Routing failed invocations to a different Region",
+      "b": "Sending invocation results (success/failure) to other AWS services without additional code",
+      "c": "Defining where Lambda code is stored",
+      "d": "Setting up VPC endpoints"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Destinations don't route to other Regions.",
+      "b": "Correct. Lambda Destinations route the result of asynchronous invocations to services like SQS, SNS, EventBridge, or another Lambda function based on success or failure.",
+      "c": "Incorrect. Code storage location is separate from destinations.",
+      "d": "Incorrect. VPC endpoints are for network access."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between reserved concurrency and provisioned concurrency in Lambda?",
+    "opts": {
+      "a": "They are the same thing",
+      "b": "Reserved guarantees maximum concurrent instances; Provisioned pre-initializes instances to avoid cold starts",
+      "c": "Reserved is free; Provisioned reduces timeout",
+      "d": "Reserved reduces cold starts; Provisioned limits concurrency"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They serve different purposes.",
+      "b": "Correct. Reserved concurrency guarantees a maximum number of concurrent instances for a function. Provisioned concurrency pre-initializes execution environments to eliminate cold starts.",
+      "c": "Incorrect. Both have cost implications.",
+      "d": "Incorrect. This reverses their actual functions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless application integration for building event-driven architectures?",
+    "opts": {
+      "a": "AWS CloudFormation",
+      "b": "Amazon EventBridge",
+      "c": "AWS Systems Manager",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudFormation is for infrastructure as code.",
+      "b": "Correct. Amazon EventBridge is the serverless event bus for building event-driven architectures, connecting applications with events from AWS services, SaaS, and custom sources.",
+      "c": "Incorrect. Systems Manager is for operations management.",
+      "d": "Incorrect. Config is for compliance and resource tracking."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A media company needs to automatically generate thumbnails whenever images are uploaded to an S3 bucket. Which serverless architecture is most appropriate?",
+    "opts": {
+      "a": "S3 → SNS → EC2",
+      "b": "S3 → Lambda (event trigger) → S3 (output)",
+      "c": "S3 → SQS → ECS",
+      "d": "CloudFront → Lambda@Edge → S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 requires server management.",
+      "b": "Correct. S3 event notifications trigger a Lambda function that processes the image and saves the thumbnail back to S3. Fully serverless.",
+      "c": "Incorrect. ECS adds unnecessary complexity for this use case.",
+      "d": "Incorrect. Lambda@Edge has stricter limits and is designed for request/response manipulation."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the invocation payload size limit for synchronous Lambda invocations?",
+    "opts": {
+      "a": "1 MB",
+      "b": "6 MB",
+      "c": "10 MB",
+      "d": "50 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 MB is too small.",
+      "b": "Correct. The synchronous invocation payload limit is 6 MB.",
+      "c": "Incorrect. 10 MB exceeds the synchronous payload limit.",
+      "d": "Incorrect. 50 MB is the deployment package size limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the invocation payload size limit for asynchronous Lambda invocations?",
+    "opts": {
+      "a": "128 KB",
+      "b": "256 KB",
+      "c": "512 KB",
+      "d": "1 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 128 KB is too small for async invocations.",
+      "b": "Correct. The asynchronous invocation payload limit is 256 KB.",
+      "c": "Incorrect. 512 KB exceeds the async payload limit.",
+      "d": "Incorrect. 1 MB exceeds the async payload limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service is a serverless, fully managed service for running containers without managing infrastructure?",
+    "opts": {
+      "a": "Amazon ECS with EC2",
+      "b": "Amazon EKS with managed node groups",
+      "c": "AWS Fargate",
+      "d": "AWS Batch with EC2"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. ECS with EC2 requires managing EC2 instances.",
+      "b": "Incorrect. Managed node groups still use EC2 instances.",
+      "c": "Correct. AWS Fargate is serverless - you don't need to provision or manage servers for your containers.",
+      "d": "Incorrect. Batch with EC2 requires EC2 instances."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's Lambda function needs to connect to an RDS database but is experiencing connection limit exhaustion during high traffic. What serverless solution should they implement?",
+    "opts": {
+      "a": "Increase RDS instance size",
+      "b": "Use Amazon RDS Proxy",
+      "c": "Add more Lambda layers",
+      "d": "Increase Lambda timeout"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Increasing instance size doesn't solve connection pooling issues.",
+      "b": "Correct. RDS Proxy is a serverless, fully managed database proxy that pools and shares database connections, solving the connection exhaustion problem common with Lambda.",
+      "c": "Incorrect. Layers are for shared code, not connection management.",
+      "d": "Incorrect. Increasing timeout would worsen the problem by holding connections longer."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "AWS Lambda is designed for what type of compute tasks?",
+    "opts": {
+      "a": "Long-running stateful applications",
+      "b": "Short-lived compute tasks that do not retain or rely upon state between invocations",
+      "c": "Persistent web servers",
+      "d": "Database hosting"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda is not designed for long-running stateful applications.",
+      "b": "Correct. Lambda is designed for short-lived compute tasks that do not retain or rely upon state between invocations.",
+      "c": "Incorrect. Lambda is not for persistent web servers.",
+      "d": "Incorrect. Lambda is not for hosting databases."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which service can be used to validate hands-on cloud skills in serverless through real-time assessment in a live AWS environment?",
+    "opts": {
+      "a": "AWS Certifications only",
+      "b": "AWS Microcredentials",
+      "c": "AWS Skill Builder quizzes",
+      "d": "AWS re:Post challenges"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Certifications validate broad knowledge but Microcredentials specifically test hands-on skills.",
+      "b": "Correct. AWS Microcredentials validate hands-on cloud skills through real-time assessment in a live AWS environment, including serverless topics.",
+      "c": "Incorrect. Skill Builder quizzes are knowledge-based, not live environment assessments.",
+      "d": "Incorrect. re:Post is a Q&A community."
+    }
+  }
+]

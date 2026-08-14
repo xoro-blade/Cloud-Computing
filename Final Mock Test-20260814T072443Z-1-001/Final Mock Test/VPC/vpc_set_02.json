@@ -1,0 +1,1022 @@
+[
+  {
+    "type": "scenario-based",
+    "q": "A company has an EC2 instance in a public subnet with a Security Group allowing all outbound traffic and a route to the IGW. The instance CANNOT access the internet. What is the most likely cause?",
+    "opts": {
+      "a": "The Internet Gateway is not attached to the VPC",
+      "b": "The instance does not have a public IP or Elastic IP",
+      "c": "The NACL is blocking outbound traffic",
+      "d": "The Security Group needs an inbound rule for HTTP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Possible but less likely since the route to IGW exists. If IGW wasn't attached, the route would show as blackhole.",
+      "b": "Correct! The IGW performs NAT between private and public IPs. Without a public IP or EIP, the IGW cannot translate the traffic and the instance cannot reach the internet.",
+      "c": "Possible but the default NACL allows all traffic. This would only be an issue with a custom NACL.",
+      "d": "Incorrect. Outbound access doesn't require inbound rules because Security Groups are stateful (return traffic is auto-allowed)."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A Solutions Architect needs private instances to download OS patches from the internet. The instances should NOT be reachable from the internet. What should they deploy?",
+    "opts": {
+      "a": "Internet Gateway attached to the private subnet",
+      "b": "NAT Gateway in the private subnet",
+      "c": "NAT Gateway in a public subnet",
+      "d": "Egress-Only Internet Gateway"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You don't attach IGW to subnets — it's VPC-level. Also, using IGW would make instances publicly reachable.",
+      "b": "Incorrect. NAT Gateway must be in a PUBLIC subnet (it needs IGW access to reach the internet).",
+      "c": "Correct! NAT GW goes in public subnet (with EIP + route to IGW). Private subnet route table points 0.0.0.0/0 → NAT GW. Instances can reach internet but are not reachable from it.",
+      "d": "Incorrect. Egress-Only IGW is for IPv6 traffic only, not IPv4."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A developer creates a custom NACL and associates it with a subnet. Immediately, all instances in the subnet lose connectivity. Why?",
+    "opts": {
+      "a": "Custom NACLs deny all inbound and outbound traffic by default",
+      "b": "The Security Groups were removed when NACL was applied",
+      "c": "NACLs override Security Groups",
+      "d": "Custom NACLs only allow ICMP traffic by default"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! A newly created custom NACL has only the default * DENY rule for both inbound and outbound. All traffic is denied until you add explicit ALLOW rules.",
+      "b": "Incorrect. NACLs and Security Groups are independent. Applying a NACL doesn't affect SGs.",
+      "c": "Incorrect. Both NACL and SG must allow traffic. NACL doesn't override SG — traffic must pass both.",
+      "d": "Incorrect. Custom NACLs deny ALL traffic by default, not just non-ICMP."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has VPC-A (10.0.0.0/16) peered with VPC-B (10.1.0.0/16), and VPC-B peered with VPC-C (10.2.0.0/16). An instance in VPC-A cannot reach VPC-C. What should the architect do?",
+    "opts": {
+      "a": "Update the route table in VPC-B to forward traffic",
+      "b": "Create a direct peering connection between VPC-A and VPC-C",
+      "c": "Enable transitive peering on VPC-B",
+      "d": "Add a NAT Gateway in VPC-B to forward traffic"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC Peering is non-transitive. Even with correct routes in VPC-B, traffic won't flow A→B→C.",
+      "b": "Correct! VPC Peering is non-transitive. Each VPC pair needs its own peering connection. Create a new peering between VPC-A and VPC-C directly.",
+      "c": "Incorrect. There is no 'transitive peering' option in AWS. Peering is always non-transitive by design.",
+      "d": "Incorrect. NAT Gateway provides internet access, not inter-VPC transitive routing."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company's application in a private subnet accesses S3 through a NAT Gateway. Monthly data transfer to S3 is 5 TB. The architect wants to reduce costs. What should they recommend?",
+    "opts": {
+      "a": "Use a smaller NAT Gateway",
+      "b": "Create a Gateway Endpoint for S3",
+      "c": "Use an Interface Endpoint for S3",
+      "d": "Move the application to a public subnet"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NAT Gateway auto-scales and cannot be sized. Also doesn't address the data processing cost.",
+      "b": "Correct! Gateway Endpoint for S3 is FREE (no hourly or per-GB charges). Current NAT GW cost: 5,000 GB × $0.045 = $225/month saved on data processing alone.",
+      "c": "Incorrect. Interface Endpoint charges per hour + per GB. Gateway Endpoint is free and better for this scenario.",
+      "d": "Incorrect. Moving to public subnet creates security risks and doesn't necessarily reduce costs."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "An on-premises server connected via Direct Connect needs to access an SQS queue without traffic going over the public internet. What should the architect configure?",
+    "opts": {
+      "a": "Gateway Endpoint for SQS",
+      "b": "Interface Endpoint for SQS",
+      "c": "Public VIF on Direct Connect",
+      "d": "NAT Gateway for the VPC"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Gateway Endpoints only support S3 and DynamoDB, not SQS.",
+      "b": "Correct! Interface Endpoint creates an ENI with private IP in the VPC. On-premises can reach this ENI via DX, accessing SQS privately without internet.",
+      "c": "Incorrect. Public VIF accesses AWS public endpoints (which technically goes to public IPs, not truly private). Interface Endpoint is the private solution.",
+      "d": "Incorrect. NAT Gateway routes traffic to internet, which contradicts the requirement of no public internet."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which of the following correctly describes how traffic is evaluated when both a Security Group and NACL are configured?",
+    "opts": {
+      "a": "Only Security Group is evaluated; NACL is optional",
+      "b": "Traffic must be allowed by BOTH the NACL and Security Group",
+      "c": "NACL overrides Security Group",
+      "d": "Security Group overrides NACL"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Both are always evaluated. NACL is not optional when configured.",
+      "b": "Correct! Traffic must pass BOTH layers. NACL is evaluated at subnet boundary (first), then Security Group at ENI level. If either denies, traffic is blocked.",
+      "c": "Incorrect. Neither overrides the other. Both must independently allow the traffic.",
+      "d": "Incorrect. Neither overrides the other."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "A Security Group has an inbound rule allowing TCP port 443 from 0.0.0.0/0. Do you need to add an outbound rule for the response traffic?",
+    "opts": {
+      "a": "Yes, you must add outbound rule for ephemeral ports",
+      "b": "Yes, you must add outbound rule for port 443",
+      "c": "No, Security Groups are stateful so return traffic is automatically allowed",
+      "d": "No, but only if the default outbound rule exists"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. That applies to NACLs (stateless), not Security Groups.",
+      "b": "Incorrect. Return traffic uses ephemeral ports, not 443. But regardless, SGs auto-allow returns.",
+      "c": "Correct! Security Groups are STATEFUL. If inbound is allowed, the response traffic is automatically allowed outbound regardless of outbound rules.",
+      "d": "Incorrect. Return traffic is allowed regardless of outbound rules because of statefulness."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "A NACL has an inbound rule allowing TCP port 80 from 0.0.0.0/0. Web clients cannot get responses. What's missing?",
+    "opts": {
+      "a": "An inbound rule for port 443",
+      "b": "An outbound rule allowing ephemeral ports (1024-65535)",
+      "c": "A Security Group rule",
+      "d": "An outbound rule for port 80"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Port 443 is HTTPS; the question is about port 80 (HTTP).",
+      "b": "Correct! NACLs are STATELESS. Return traffic must be explicitly allowed. Web server responses go out on ephemeral ports (1024-65535). You must add an outbound rule allowing these ports.",
+      "c": "Incorrect. SG might also need configuration, but the NACL issue (statelessness) is the specific problem described.",
+      "d": "Incorrect. Outbound port 80 would be for the server initiating HTTP connections, not for responses to inbound HTTP."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company wants to deploy a highly available NAT solution. They have instances in 3 AZs. What is the recommended architecture?",
+    "opts": {
+      "a": "One NAT Gateway in one AZ, shared by all AZs",
+      "b": "One NAT Gateway per AZ, each with its own route table",
+      "c": "One NAT Instance with Auto Scaling across AZs",
+      "d": "Three NAT Gateways in the same public subnet"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. If that single AZ fails, all instances lose internet access. Also incurs cross-AZ data transfer charges.",
+      "b": "Correct! Deploy one NAT GW per AZ. Each AZ's private subnet routes 0.0.0.0/0 to its local NAT GW. This ensures HA and avoids cross-AZ charges.",
+      "c": "Incorrect. NAT Instances are legacy and harder to manage. NAT Gateway is preferred and already HA within an AZ.",
+      "d": "Incorrect. Subnets are per-AZ, so three NAT GWs must be in three different subnets (one per AZ)."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has 25 VPCs that all need to communicate with each other AND with an on-premises network via Direct Connect. What is the BEST solution?",
+    "opts": {
+      "a": "Create VPC Peering between all VPCs and attach DX to each VPC",
+      "b": "Use Transit Gateway with VPC attachments and DX Gateway",
+      "c": "Use a single large VPC with 25 subnets",
+      "d": "Create VPN connections from each VPC to on-premises"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 25 VPCs fully meshed = 300 peering connections. Unmanageable. Plus DX can't attach to each VPC separately without 25 VGWs.",
+      "b": "Correct! TGW provides transitive routing (all 25 VPCs communicate via hub). DX Gateway + Transit VIF connects on-premises to TGW, reaching all VPCs.",
+      "c": "Incorrect. Merging 25 VPCs into one loses account/team isolation and is a major redesign.",
+      "d": "Incorrect. 25 separate VPN connections is complex, expensive, and doesn't solve VPC-to-VPC communication."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the primary advantage of using an Interface Endpoint over routing through a NAT Gateway to access AWS services?",
+    "opts": {
+      "a": "Interface Endpoints are always free",
+      "b": "Traffic stays on the AWS private network and never traverses the internet",
+      "c": "Interface Endpoints are faster than NAT Gateway",
+      "d": "Interface Endpoints don't require any VPC configuration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Interface Endpoints charge per hour and per GB. Gateway Endpoints are free.",
+      "b": "Correct! Interface Endpoints use AWS PrivateLink — traffic stays entirely on AWS's private network. It never touches the public internet, improving security and compliance.",
+      "c": "Incorrect. Speed depends on many factors. The key benefit is privacy/security, not speed.",
+      "d": "Incorrect. Interface Endpoints require specifying subnets, Security Groups, and optional Private DNS."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company's VPC has enableDnsSupport=true and enableDnsHostnames=false. They create a Route 53 Private Hosted Zone and associate it with the VPC. Instances cannot resolve the private zone records. Why?",
+    "opts": {
+      "a": "The VPC needs an Internet Gateway for DNS to work",
+      "b": "enableDnsHostnames must also be set to true",
+      "c": "Route 53 Private Hosted Zones don't work with VPCs",
+      "d": "Instances need public IPs for DNS resolution"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DNS resolution doesn't require an IGW.",
+      "b": "Correct! Both enableDnsSupport AND enableDnsHostnames must be TRUE for Private Hosted Zones to work. Setting enableDnsHostnames=true is the fix.",
+      "c": "Incorrect. Private Hosted Zones are specifically designed to work with VPCs.",
+      "d": "Incorrect. DNS resolution works with private IPs within VPC."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "An architect needs to allow on-premises DNS servers to resolve AWS private hosted zone records. What should they implement?",
+    "opts": {
+      "a": "Route 53 Resolver Outbound Endpoint",
+      "b": "Route 53 Resolver Inbound Endpoint",
+      "c": "A custom DNS server in the VPC",
+      "d": "Enable DNS propagation on the VGW"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Outbound Endpoint is for VPC instances resolving on-premises DNS names (AWS → on-premises).",
+      "b": "Correct! Inbound Endpoint creates ENIs that on-premises DNS servers can forward queries to. Route 53 Resolver then answers with private hosted zone records.",
+      "c": "Incorrect. While possible, it's not the AWS-native managed solution and adds operational overhead.",
+      "d": "Incorrect. DNS propagation is not a VGW feature. VGW propagates routes, not DNS."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which statement about VPC Flow Logs destinations is correct?",
+    "opts": {
+      "a": "Flow Logs can only be sent to CloudWatch Logs",
+      "b": "Flow Logs can be sent to CloudWatch Logs, S3, or Kinesis Data Firehose",
+      "c": "Flow Logs can only be sent to S3",
+      "d": "Flow Logs can be sent to CloudWatch Logs or DynamoDB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There are three possible destinations.",
+      "b": "Correct! VPC Flow Logs support three destinations: CloudWatch Logs (real-time analysis), S3 (cost-effective storage/Athena), and Kinesis Data Firehose (streaming to OpenSearch/Splunk).",
+      "c": "Incorrect. S3 is one of three options.",
+      "d": "Incorrect. DynamoDB is not a Flow Logs destination."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the key difference between a NAT Gateway and a NAT Instance regarding port forwarding?",
+    "opts": {
+      "a": "Both support port forwarding",
+      "b": "Neither supports port forwarding",
+      "c": "NAT Instance supports port forwarding; NAT Gateway does not",
+      "d": "NAT Gateway supports port forwarding; NAT Instance does not"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. NAT Gateway does NOT support port forwarding.",
+      "b": "Incorrect. NAT Instance DOES support port forwarding.",
+      "c": "Correct! NAT Instance (being a full EC2 instance) supports port forwarding via iptables/configuration. NAT Gateway is managed and does NOT support port forwarding.",
+      "d": "Incorrect. It's the opposite."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company needs encrypted connectivity to AWS with consistent latency and 10 Gbps bandwidth. The connection must be provisioned within 2 days. What should they use?",
+    "opts": {
+      "a": "AWS Direct Connect (10 Gbps dedicated)",
+      "b": "Site-to-Site VPN with ECMP on Transit Gateway",
+      "c": "AWS Direct Connect with MACsec encryption",
+      "d": "VPN over Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Direct Connect takes weeks-months to provision. Does not meet the 2-day requirement.",
+      "b": "Correct! VPN can be set up in minutes/hours. With TGW + ECMP using 4 VPN connections (8 tunnels × 1.25 Gbps = 10 Gbps). Encrypted and quick to provision.",
+      "c": "Incorrect. DX takes weeks-months. Cannot meet 2-day deadline.",
+      "d": "Incorrect. This requires DX to already be provisioned (weeks-months)."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a Direct Connect connection as primary and wants a backup connectivity option that can be set up quickly. What is the recommended backup?",
+    "opts": {
+      "a": "Another Direct Connect at same location",
+      "b": "Site-to-Site VPN over the internet",
+      "c": "VPC Peering with another region",
+      "d": "AWS Wavelength connection"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Another DX connection takes weeks-months and doesn't protect against location failure.",
+      "b": "Correct! Site-to-Site VPN can be provisioned quickly (minutes-hours), provides encrypted backup over internet. Use BGP to prefer DX over VPN (lower priority for VPN route).",
+      "c": "Incorrect. VPC Peering connects VPCs, not on-premises to AWS.",
+      "d": "Incorrect. Wavelength is for 5G edge computing, not backup connectivity."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "When using VPC Peering across regions (Inter-Region Peering), which of the following is TRUE?",
+    "opts": {
+      "a": "Traffic is not encrypted",
+      "b": "Security Groups can be cross-referenced",
+      "c": "Traffic is encrypted and uses AWS backbone",
+      "d": "Traffic goes over the public internet"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Inter-region peering traffic IS encrypted.",
+      "b": "Incorrect. SG cross-referencing is NOT supported for inter-region peering. Must use CIDR-based rules.",
+      "c": "Correct! Inter-region VPC peering traffic is encrypted (AES-256) and travels over the AWS global backbone network, never touching the public internet.",
+      "d": "Incorrect. All VPC Peering traffic (same-region and inter-region) uses AWS internal network."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A SaaS provider wants to expose their API service to 500 customer VPCs privately without VPC Peering. Customers may have overlapping CIDRs. What should they use?",
+    "opts": {
+      "a": "Transit Gateway shared via RAM",
+      "b": "AWS PrivateLink (VPC Endpoint Service)",
+      "c": "500 VPC Peering connections",
+      "d": "Public API Gateway with VPN"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. TGW doesn't work with overlapping CIDRs and exposes entire network, not just the service.",
+      "b": "Correct! PrivateLink works regardless of CIDR overlap, scales to thousands of consumers, exposes ONLY the specific service, and doesn't require peering or route tables.",
+      "c": "Incorrect. 500 peering connections exceeds limits (125 max). Also doesn't work with overlapping CIDRs.",
+      "d": "Incorrect. This goes over the internet (public), violating the 'privately' requirement."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What does AWS Network Firewall provide that Security Groups and NACLs cannot?",
+    "opts": {
+      "a": "Stateful packet inspection",
+      "b": "Domain name filtering and deep packet inspection (Layer 7)",
+      "c": "IP-based allow/deny rules",
+      "d": "Subnet-level traffic control"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security Groups already provide stateful inspection (Layer 3-4).",
+      "b": "Correct! Network Firewall provides Layer 3-7 inspection including domain filtering (block/allow specific URLs), IPS with Suricata rules, and deep packet inspection. SGs/NACLs only handle Layer 3-4.",
+      "c": "Incorrect. Both SGs and NACLs already provide IP-based rules.",
+      "d": "Incorrect. NACLs already provide subnet-level control."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "An instance in a private subnet can ping other instances in the same VPC but cannot reach the internet. The route table shows 0.0.0.0/0 → nat-gw-xxx. What should you check FIRST?",
+    "opts": {
+      "a": "Whether the NAT Gateway exists and is in a public subnet with an EIP",
+      "b": "Whether the Security Group allows ICMP",
+      "c": "Whether VPC Peering is configured",
+      "d": "Whether the instance has IPv6 enabled"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! Verify the NAT GW exists, is in a public subnet, has an EIP, and the public subnet's route table has 0.0.0.0/0 → IGW. A common issue is NAT GW in wrong subnet or without proper EIP/route.",
+      "b": "Incorrect. The instance can already ping within VPC (ICMP works). Issue is internet access, not ICMP.",
+      "c": "Incorrect. VPC Peering is for VPC-to-VPC, not internet access.",
+      "d": "Incorrect. IPv6 is not required for IPv4 internet access."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which of the following is a valid target for a route in a VPC route table?",
+    "opts": {
+      "a": "Another VPC's subnet directly",
+      "b": "A Security Group",
+      "c": "A Transit Gateway (tgw-xxx)",
+      "d": "A NACL"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You cannot route directly to another VPC's subnet. You route to a peering connection or TGW.",
+      "b": "Incorrect. Security Groups are not route targets.",
+      "c": "Correct! Valid route targets include: local, igw-xxx, nat-xxx, vgw-xxx, pcx-xxx, tgw-xxx, vpce-xxx, eni-xxx, eigw-xxx, gwlbe-xxx.",
+      "d": "Incorrect. NACLs are not route targets; they are associated with subnets."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A route table has these entries: 10.0.0.0/16 → local, 10.0.1.0/24 → eni-xxx, 0.0.0.0/0 → igw-xxx. Where does traffic to 10.0.1.50 go?",
+    "opts": {
+      "a": "Internet Gateway (igw-xxx)",
+      "b": "Local (within VPC)",
+      "c": "ENI (eni-xxx)",
+      "d": "It's dropped because of conflicting routes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 0.0.0.0/0 is the least specific route (/0 prefix).",
+      "b": "Incorrect. 10.0.0.0/16 matches but /16 is less specific than /24.",
+      "c": "Correct! Longest prefix match wins. 10.0.1.0/24 (/24 bits) is more specific than 10.0.0.0/16 (/16 bits). Traffic goes to eni-xxx.",
+      "d": "Incorrect. AWS uses longest prefix match to resolve route conflicts deterministically."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What happens if you try to peer two VPCs with overlapping CIDRs?",
+    "opts": {
+      "a": "AWS automatically resolves the conflict",
+      "b": "Peering works but only for non-overlapping IP ranges",
+      "c": "The peering connection request is rejected/fails",
+      "d": "You receive a warning but peering still works"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AWS cannot resolve CIDR conflicts automatically.",
+      "b": "Incorrect. Partial overlap is still rejected entirely.",
+      "c": "Correct! VPC Peering cannot be established if CIDRs overlap (even partially). The connection will fail. Use PrivateLink for overlapping CIDR scenarios.",
+      "d": "Incorrect. Overlapping CIDRs is a hard blocker for peering."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company needs to inspect all traffic flowing between their VPCs using third-party firewall appliances. What architecture should they use?",
+    "opts": {
+      "a": "VPC Peering with NACLs for inspection",
+      "b": "Transit Gateway with a centralized inspection VPC using Gateway Load Balancer",
+      "c": "Security Groups with logging enabled",
+      "d": "NAT Gateway with flow logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NACLs can't perform deep packet inspection. They only filter at Layer 3-4.",
+      "b": "Correct! Route all VPC traffic through TGW to a centralized inspection VPC with GWLB fronting firewall appliances. GWLB transparently inspects traffic inline.",
+      "c": "Incorrect. SGs don't inspect traffic content. They just allow/deny based on IP/port.",
+      "d": "Incorrect. NAT GW is for internet access, and Flow Logs only capture metadata."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "A DHCP Options Set has been created with incorrect DNS settings. How do you fix it?",
+    "opts": {
+      "a": "Modify the existing DHCP Options Set",
+      "b": "Delete and recreate it with the same name",
+      "c": "Create a new DHCP Options Set and associate it with the VPC",
+      "d": "Update the VPC DNS settings directly"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. DHCP Options Sets are IMMUTABLE — they cannot be modified after creation.",
+      "b": "Incorrect. You can delete it, but must create a NEW one (name doesn't matter) and explicitly associate it.",
+      "c": "Correct! DHCP Options Sets cannot be modified. Create a new one with correct settings, then associate it with the VPC. Old settings change on next DHCP lease renewal.",
+      "d": "Incorrect. DHCP options (like custom DNS servers) are configured through DHCP Options Sets, not VPC DNS settings."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A Lambda function deployed in a VPC private subnet cannot access DynamoDB. There is no NAT Gateway. What is the MOST cost-effective solution?",
+    "opts": {
+      "a": "Deploy a NAT Gateway in a public subnet",
+      "b": "Create an Interface Endpoint for DynamoDB",
+      "c": "Create a Gateway Endpoint for DynamoDB",
+      "d": "Move Lambda out of the VPC"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. NAT GW works but costs $0.045/hr + $0.045/GB. Not cost-effective.",
+      "b": "Incorrect. Interface Endpoint costs per hour + per GB. Gateway Endpoint is free for DynamoDB.",
+      "c": "Correct! Gateway Endpoint for DynamoDB is FREE (no hourly or data charges). Simply adds a route table entry. Most cost-effective solution.",
+      "d": "Incorrect. If Lambda needs VPC resources, moving it out isn't feasible."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the primary purpose of a Virtual Private Gateway (VGW)?",
+    "opts": {
+      "a": "Provide internet access to VPC instances",
+      "b": "Serve as the AWS-side endpoint for VPN and Direct Connect (Private VIF)",
+      "c": "Load balance traffic across AZs",
+      "d": "Provide DNS resolution for the VPC"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Internet access is provided by Internet Gateway, not VGW.",
+      "b": "Correct! VGW is the AWS-side VPN concentrator. It terminates Site-to-Site VPN tunnels and Direct Connect Private VIFs. Attached to one VPC.",
+      "c": "Incorrect. Load balancing is done by ELB/ALB/NLB.",
+      "d": "Incorrect. DNS resolution is handled by Route 53 Resolver (VPC base +2)."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company's security policy requires that database subnets have NO route to the internet and can only be accessed by application servers. What Security Group configuration should the database use?",
+    "opts": {
+      "a": "Allow all inbound from 0.0.0.0/0 on port 3306",
+      "b": "Allow inbound on port 3306 from the Application Server Security Group ID",
+      "c": "Allow inbound on all ports from the VPC CIDR",
+      "d": "Allow inbound on port 3306 from 10.0.0.0/8"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 0.0.0.0/0 allows the entire internet — major security risk for a database!",
+      "b": "Correct! Referencing the app server SG as source means ONLY instances with that SG can access the database. Most secure and scalable approach.",
+      "c": "Incorrect. Allowing all ports from VPC CIDR is overly permissive. Only port 3306 from app servers is needed.",
+      "d": "Incorrect. 10.0.0.0/8 is a very broad range. Too permissive for database access."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "An architect is designing a hybrid DNS solution. VPC instances need to resolve on-premises domain names (corp.internal). What should they configure?",
+    "opts": {
+      "a": "Route 53 Resolver Inbound Endpoint",
+      "b": "Route 53 Resolver Outbound Endpoint with forwarding rules",
+      "c": "Custom DHCP Options Set pointing to on-premises DNS",
+      "d": "Public Hosted Zone for corp.internal"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Inbound Endpoint is for on-premises resolving AWS names (opposite direction).",
+      "b": "Correct! Outbound Endpoint + Forwarding Rule: 'Forward corp.internal queries to on-premises DNS server IP.' VPC instances query Route 53 → Resolver sees rule → forwards to on-premises DNS.",
+      "c": "Incorrect. DHCP Options works but forces ALL DNS queries to on-premises (not just corp.internal). Less flexible than Resolver rules.",
+      "d": "Incorrect. Public Hosted Zone is internet-facing. corp.internal should be private and resolved on-premises."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which of the following statements about the primary ENI (eth0) of an EC2 instance is TRUE?",
+    "opts": {
+      "a": "It can be detached and moved to another instance",
+      "b": "It cannot be detached from the instance",
+      "c": "It doesn't support Security Groups",
+      "d": "It can only have one private IP address"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Only SECONDARY ENIs (eth1, eth2...) can be detached and moved.",
+      "b": "Correct! The primary ENI (eth0) is created with the instance and CANNOT be detached. It's deleted when the instance terminates.",
+      "c": "Incorrect. The primary ENI supports Security Groups just like any ENI.",
+      "d": "Incorrect. The primary ENI can have multiple secondary private IPs."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company wants to maintain the same IP address during instance failover without using Elastic IPs. How can they achieve this?",
+    "opts": {
+      "a": "Use DNS with low TTL",
+      "b": "Use a secondary ENI that can be moved between instances",
+      "c": "Use Auto Scaling Group",
+      "d": "Use VPC Peering"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DNS with low TTL changes the DNS record, not the IP. Also has propagation delays.",
+      "b": "Correct! A secondary ENI with a specific private IP can be detached from a failed instance and attached to a standby instance in the same AZ. The IP moves with the ENI.",
+      "c": "Incorrect. ASG launches new instances with new IPs (unless using ENI).",
+      "d": "Incorrect. VPC Peering connects VPCs; it doesn't help with IP failover."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "When is an Elastic IP (EIP) charged?",
+    "opts": {
+      "a": "Only when associated with a running instance",
+      "b": "Only when used for data transfer",
+      "c": "When NOT associated with a running instance (or associated with stopped instance)",
+      "d": "Elastic IPs are always free"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. First EIP on a running instance is free. You're charged when it's NOT associated or on a stopped instance.",
+      "b": "Incorrect. EIP charges are based on association status, not data transfer.",
+      "c": "Correct! You're charged when: EIP is not associated, associated with stopped instance, or is a 2nd+ EIP on a running instance. AWS charges to discourage IPv4 hoarding.",
+      "d": "Incorrect. EIPs are charged in certain scenarios."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company's Flow Logs show ACCEPT for inbound SSH traffic to an instance, but the administrator cannot SSH in. The Security Group allows SSH from their IP. What's the issue?",
+    "opts": {
+      "a": "The NACL is blocking return traffic on ephemeral ports",
+      "b": "Flow Logs are incorrect",
+      "c": "The Internet Gateway is down",
+      "d": "The route table doesn't have a local route"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! Flow Logs show ACCEPT at the ENI (inbound SSH arrived). But the NACL is STATELESS — if outbound ephemeral ports (1024-65535) aren't allowed in the NACL, the response can't get back to the admin.",
+      "b": "Incorrect. Flow Logs accurately show network-level accept/reject.",
+      "c": "Incorrect. If IGW was down, inbound SSH wouldn't reach the instance at all (no ACCEPT in Flow Logs).",
+      "d": "Incorrect. Local route cannot be deleted and is always present."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the default behavior of a newly created custom Security Group?",
+    "opts": {
+      "a": "Allows all inbound and outbound traffic",
+      "b": "Denies all inbound; allows all outbound",
+      "c": "Denies all inbound and outbound traffic",
+      "d": "Allows inbound from same SG; allows all outbound"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. That's neither the default SG nor custom SG behavior.",
+      "b": "Correct! A custom Security Group: Denies all inbound (no rules), Allows all outbound (default outbound rule 0.0.0.0/0). You must add inbound rules manually.",
+      "c": "Incorrect. Outbound is allowed by default in custom SGs.",
+      "d": "Incorrect. That's the DEFAULT Security Group behavior (self-referencing inbound + all outbound). Custom SGs don't have the self-referencing rule."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company uses Transit Gateway connecting 10 VPCs. They want Production VPCs to communicate with Shared Services VPC but NOT with Development VPCs. How?",
+    "opts": {
+      "a": "Use Security Groups to block Dev → Prod traffic",
+      "b": "Use multiple TGW route tables for network segmentation",
+      "c": "Remove the peering between Dev and Prod",
+      "d": "Use NACLs on production subnets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SGs would work but are hard to manage at scale across many VPCs and instances.",
+      "b": "Correct! Create separate TGW route tables (Prod RT, Dev RT, Shared RT). Prod RT has routes to Shared Services but NO route to Dev VPCs. Dev RT has routes to Shared but NOT to Prod. Clean network segmentation.",
+      "c": "Incorrect. TGW doesn't use 'peering' between VPCs. Segmentation is done via route tables.",
+      "d": "Incorrect. NACLs work at subnet level within a VPC, not for TGW-level segmentation."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which of the following can a VPC Endpoint Policy be attached to?",
+    "opts": {
+      "a": "Security Groups only",
+      "b": "Both Gateway Endpoints and Interface Endpoints",
+      "c": "Only Gateway Endpoints",
+      "d": "Only Interface Endpoints"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Endpoint Policies attach to VPC Endpoints, not Security Groups.",
+      "b": "Correct! VPC Endpoint Policies (JSON resource-based policies) can be attached to BOTH Gateway and Interface Endpoints to restrict which actions/resources are accessible through the endpoint.",
+      "c": "Incorrect. Interface Endpoints also support endpoint policies.",
+      "d": "Incorrect. Gateway Endpoints also support endpoint policies."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company wants to restrict an S3 bucket so it can ONLY be accessed through a specific VPC Endpoint. What should they configure?",
+    "opts": {
+      "a": "Security Group on the endpoint blocking other sources",
+      "b": "S3 Bucket Policy with condition aws:sourceVpce",
+      "c": "IAM Policy denying non-VPC access",
+      "d": "NACL blocking S3 traffic from other sources"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Gateway Endpoints don't have Security Groups. And this doesn't restrict the S3 bucket itself.",
+      "b": "Correct! Use S3 Bucket Policy with Deny + condition StringNotEquals aws:sourceVpce: vpce-xxx. This denies all access unless it comes through the specific VPC Endpoint.",
+      "c": "Incorrect. IAM can restrict access but aws:sourceVpce condition works better in bucket policies for VPC endpoint restriction.",
+      "d": "Incorrect. NACLs operate at subnet level and can't enforce conditions on S3 bucket access."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which type of Direct Connect Virtual Interface (VIF) should you use to connect to a Transit Gateway?",
+    "opts": {
+      "a": "Private VIF",
+      "b": "Public VIF",
+      "c": "Transit VIF",
+      "d": "Management VIF"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Private VIF connects to VGW (single VPC) or DX Gateway → VGW.",
+      "b": "Incorrect. Public VIF accesses AWS public service endpoints.",
+      "c": "Correct! Transit VIF connects to DX Gateway which then connects to Transit Gateway, enabling access to multiple VPCs via TGW.",
+      "d": "Incorrect. Management VIF doesn't exist."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "IPv6 instances in a private subnet need outbound internet access but should NOT be reachable from the internet. What should you use?",
+    "opts": {
+      "a": "NAT Gateway",
+      "b": "Internet Gateway with restrictive NACLs",
+      "c": "Egress-Only Internet Gateway",
+      "d": "NAT Instance configured for IPv6"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. NAT Gateway supports IPv4 ONLY. It cannot handle IPv6 traffic.",
+      "b": "Incorrect. IGW allows both inbound and outbound. NACLs add complexity and are error-prone for this use case.",
+      "c": "Correct! Egress-Only IGW is designed exactly for this: allows IPv6 outbound connections and blocks inbound-initiated IPv6 connections. It's stateful (responses are allowed back).",
+      "d": "Incorrect. NAT doesn't apply to IPv6 (all IPv6 addresses are public/routable)."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the relationship between subnets and Availability Zones?",
+    "opts": {
+      "a": "One subnet can span multiple AZs for high availability",
+      "b": "One subnet = one AZ, but one AZ can have multiple subnets",
+      "c": "One AZ can only have one subnet",
+      "d": "Subnets are region-level resources"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A subnet CANNOT span multiple AZs. It's restricted to exactly one.",
+      "b": "Correct! A subnet exists in exactly one AZ. But you can create multiple subnets within the same AZ (e.g., public subnet + private subnet in AZ-a).",
+      "c": "Incorrect. You can have many subnets in one AZ.",
+      "d": "Incorrect. Subnets are AZ-level resources, not region-level."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company needs SSH access to instances in private subnets without managing bastion hosts or SSH keys. What AWS service should they use?",
+    "opts": {
+      "a": "VPC Peering to a management VPC",
+      "b": "AWS Systems Manager Session Manager",
+      "c": "AWS Direct Connect",
+      "d": "Client VPN with SSH tunnel"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC Peering provides connectivity but still requires bastion/SSH keys.",
+      "b": "Correct! Session Manager provides browser/CLI-based shell access without bastion hosts, SSH keys, or port 22 open. Requires SSM Agent + IAM role + Interface Endpoints (if no internet).",
+      "c": "Incorrect. DX provides connectivity from on-premises but doesn't eliminate bastion/SSH key needs.",
+      "d": "Incorrect. Client VPN provides connectivity but still needs SSH keys for actual shell access."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company has a VPC with CIDR 10.0.0.0/16. They've used all IP addresses. What should they do to add more IPs?",
+    "opts": {
+      "a": "Delete and recreate the VPC with a larger CIDR",
+      "b": "Modify the existing CIDR to /8",
+      "c": "Add a secondary CIDR block to the VPC",
+      "d": "Convert to IPv6 only"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Deleting VPC destroys all resources inside. Extremely disruptive.",
+      "b": "Incorrect. You cannot modify an existing VPC CIDR. Also /8 exceeds the /16 maximum.",
+      "c": "Correct! Add a secondary CIDR (e.g., 10.1.0.0/16) to the VPC. You can add up to 4 secondary CIDRs. Then create new subnets in the secondary CIDR range.",
+      "d": "Incorrect. You cannot disable IPv4. Dual-stack is required in VPCs."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What does the enableDnsSupport setting control in a VPC?",
+    "opts": {
+      "a": "Whether instances get public DNS hostnames",
+      "b": "Whether the Amazon Route 53 Resolver (VPC base+2) provides DNS resolution",
+      "c": "Whether DNS queries are logged",
+      "d": "Whether Route 53 health checks work"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. That's enableDnsHostnames, not enableDnsSupport.",
+      "b": "Correct! enableDnsSupport controls whether AWS's DNS server (at VPC CIDR + 2, e.g., 10.0.0.2) provides DNS resolution for instances in the VPC. Default: true.",
+      "c": "Incorrect. DNS query logging is a Route 53 feature, not a VPC setting.",
+      "d": "Incorrect. Route 53 health checks are independent of VPC DNS settings."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A NACL has these inbound rules: Rule 100: ALLOW TCP 80 from 0.0.0.0/0, Rule 50: DENY TCP 80 from 192.168.1.100/32, Rule *: DENY ALL. Can 192.168.1.100 access port 80?",
+    "opts": {
+      "a": "Yes, because Rule 100 allows it",
+      "b": "No, because Rule 50 denies it before Rule 100 is reached",
+      "c": "Yes, because ALLOW rules always override DENY",
+      "d": "It depends on the Security Group"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Rule 50 is evaluated BEFORE Rule 100 (lower number = higher priority).",
+      "b": "Correct! NACLs evaluate rules in ascending order. Rule 50 (DENY from 192.168.1.100) is evaluated first and blocks traffic. Rule 100 is never reached for this IP.",
+      "c": "Incorrect. In NACLs, first match wins regardless of ALLOW or DENY.",
+      "d": "Incorrect. NACL denies the traffic before it ever reaches the Security Group."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is VPC Sharing (via AWS RAM) and what exactly is shared?",
+    "opts": {
+      "a": "The entire VPC including all Security Groups",
+      "b": "Only subnets are shared; participants manage their own resources",
+      "c": "Route tables and NACLs are shared",
+      "d": "Internet Gateways and NAT Gateways are shared"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The VPC itself is NOT shared — only subnets.",
+      "b": "Correct! VPC owner shares SUBNETS via RAM. Participants launch their own EC2, RDS, etc. in shared subnets with their own Security Groups. Owner manages VPC/subnets/routes/NACLs.",
+      "c": "Incorrect. Route tables and NACLs are managed by the VPC owner, not shared for modification.",
+      "d": "Incorrect. Gateways are managed by the VPC owner. Participants just use the network."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company's Direct Connect connection is working but they need to encrypt the traffic. What is the recommended approach?",
+    "opts": {
+      "a": "Enable TLS on Direct Connect",
+      "b": "Create a Site-to-Site VPN over the Direct Connect Public VIF",
+      "c": "Use Security Groups to encrypt traffic",
+      "d": "Enable flow logs for encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DX doesn't have a 'TLS toggle'. It operates at Layer 2.",
+      "b": "Correct! Create an IPSec VPN connection that routes over the DX Public VIF. This gives you both dedicated bandwidth (DX) AND encryption (VPN). Alternative: MACsec for 10/100 Gbps connections.",
+      "c": "Incorrect. Security Groups filter traffic, they don't encrypt it.",
+      "d": "Incorrect. Flow Logs capture metadata for monitoring, they don't encrypt traffic."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the main benefit of using Private DNS with an Interface Endpoint?",
+    "opts": {
+      "a": "It makes the endpoint free of charge",
+      "b": "Applications use the standard service URL which resolves to the private endpoint IP — no code changes needed",
+      "c": "It automatically creates DNS records in Route 53",
+      "d": "It encrypts DNS queries"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Private DNS doesn't affect pricing.",
+      "b": "Correct! With Private DNS enabled, the public service URL (e.g., sqs.us-east-1.amazonaws.com) resolves to the PRIVATE ENI IP of the endpoint. Applications don't need code changes to use the endpoint.",
+      "c": "Incorrect. It overrides DNS resolution within the VPC, not creating records in your hosted zones.",
+      "d": "Incorrect. Private DNS controls resolution, not encryption."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company wants to use AWS Managed Microsoft AD for their VPC. The AD requires subnets in at least how many Availability Zones?",
+    "opts": {
+      "a": "1 AZ",
+      "b": "2 AZs",
+      "c": "3 AZs",
+      "d": "All AZs in the region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS Managed AD requires at least 2 AZs for high availability.",
+      "b": "Correct! AWS Managed Microsoft AD deploys directory controllers in at least 2 AZs for high availability. You must specify subnets in 2 different AZs.",
+      "c": "Incorrect. Minimum is 2 AZs, not 3.",
+      "d": "Incorrect. Only 2 AZs are required minimum."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Cross-AZ data transfer using private IPs costs approximately:",
+    "opts": {
+      "a": "Free ($0.00/GB)",
+      "b": "$0.01/GB each direction",
+      "c": "$0.05/GB each direction",
+      "d": "$0.09/GB each direction"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Same-AZ is free. Cross-AZ is charged.",
+      "b": "Correct! Cross-AZ traffic with private IPs costs $0.01/GB in each direction ($0.02 total round-trip). This is why deploying NAT GW per AZ saves money.",
+      "c": "Incorrect. $0.05 is not the standard cross-AZ rate.",
+      "d": "Incorrect. $0.09/GB is typical internet egress cost, not cross-AZ."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which of the following is TRUE about Transit Gateway peering across regions?",
+    "opts": {
+      "a": "Dynamic route propagation is supported between peered TGWs",
+      "b": "Only static routes can be configured between peered TGWs",
+      "c": "Cross-region TGW peering is not supported",
+      "d": "Traffic between peered TGWs goes over public internet"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Dynamic route propagation is NOT supported between peered TGWs.",
+      "b": "Correct! Between peered Transit Gateways, only STATIC routes can be configured. No BGP or dynamic route propagation across TGW peering connections.",
+      "c": "Incorrect. Cross-region TGW peering IS supported.",
+      "d": "Incorrect. Traffic between peered TGWs travels over AWS backbone (encrypted), not public internet."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company's compliance requires that their RDS instance is NEVER accessible from the internet. Which combination ensures this? (Choose the BEST answer)",
+    "opts": {
+      "a": "Place in private subnet + set Publicly Accessible=No",
+      "b": "Place in public subnet + restrict Security Group",
+      "c": "Place in any subnet + use NACL deny rules",
+      "d": "Place in private subnet + attach to Internet Gateway"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct! Private subnet (no route to IGW) + Publicly Accessible=No ensures the RDS instance never gets a public endpoint. Defense in depth: add restrictive SG (only allow app server SG).",
+      "b": "Incorrect. Public subnet means a route to IGW exists. With Publicly Accessible=Yes (or misconfiguration), it could be exposed.",
+      "c": "Incorrect. NACLs can be misconfigured. Better to architecturally prevent access with private subnet.",
+      "d": "Incorrect. IGW doesn't attach to subnets. If subnet has route to IGW + instance has public IP, it would be reachable."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "With Transit Gateway and ECMP, how much total VPN bandwidth do you get with 3 VPN connections?",
+    "opts": {
+      "a": "3.75 Gbps",
+      "b": "5 Gbps",
+      "c": "7.5 Gbps",
+      "d": "10 Gbps"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3 VPN connections × 2 tunnels × 1.25 Gbps = 7.5 Gbps.",
+      "b": "Incorrect. 5 Gbps would be 2 VPN connections with ECMP.",
+      "c": "Correct! 3 VPN connections = 6 tunnels. With ECMP: 6 × 1.25 Gbps = 7.5 Gbps total aggregate bandwidth.",
+      "d": "Incorrect. 10 Gbps would require 4 VPN connections (8 tunnels × 1.25 = 10)."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default number of NACL rules allowed per direction (inbound or outbound)?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "40",
+      "d": "60"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Default is 20 rules per direction.",
+      "b": "Correct! Default limit is 20 rules per direction (20 inbound + 20 outbound). Can be increased up to 40 per direction.",
+      "c": "Incorrect. 40 is the maximum after increase, not default.",
+      "d": "Incorrect. 60 is the Security Group rules limit, not NACL."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Security Groups allowed per VPC by default?",
+    "opts": {
+      "a": "500",
+      "b": "1,000",
+      "c": "2,500",
+      "d": "5,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Default is 2,500 per VPC.",
+      "b": "Incorrect. Default is 2,500.",
+      "c": "Correct! Default limit is 2,500 Security Groups per VPC. Can be increased up to 10,000.",
+      "d": "Incorrect. 5,000 is the ENIs per region limit, not SGs per VPC."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company needs to connect their VPC to 4 different AWS services privately: S3, DynamoDB, SQS, and CloudWatch Logs. What is the MOST cost-effective endpoint configuration?",
+    "opts": {
+      "a": "4 Interface Endpoints (one per service)",
+      "b": "2 Gateway Endpoints (S3, DynamoDB) + 2 Interface Endpoints (SQS, CloudWatch Logs)",
+      "c": "1 NAT Gateway for all 4 services",
+      "d": "4 Gateway Endpoints"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Using Interface Endpoints for S3 and DynamoDB costs money when Gateway Endpoints are free.",
+      "b": "Correct! Gateway Endpoints for S3 and DynamoDB (FREE) + Interface Endpoints for SQS and CloudWatch Logs (paid but no NAT GW needed). Most cost-effective combination.",
+      "c": "Incorrect. NAT GW costs $0.045/hr + $0.045/GB. More expensive than the endpoint approach for these services.",
+      "d": "Incorrect. Gateway Endpoints ONLY support S3 and DynamoDB. SQS and CloudWatch need Interface Endpoints."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "What is the purpose of enabling 'Route Propagation' on a VPC route table?",
+    "opts": {
+      "a": "Automatically copies routes to all subnets",
+      "b": "Automatically adds BGP-learned routes from VGW to the route table",
+      "c": "Propagates Security Group rules to NACLs",
+      "d": "Shares route tables across accounts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Route propagation doesn't copy routes between route tables.",
+      "b": "Correct! When using VGW with dynamic routing (BGP), enabling route propagation automatically adds on-premises routes learned via BGP into the VPC route table. No manual static routes needed.",
+      "c": "Incorrect. SG rules and NACLs are independent and don't propagate to each other.",
+      "d": "Incorrect. Route table sharing is done via RAM for VPC sharing, not propagation."
+    }
+  },
+  {
+    "type": "scenario-based",
+    "q": "A company needs to deploy EC2 instances with ultra-low latency for 5G mobile users. Which AWS infrastructure extension should they use?",
+    "opts": {
+      "a": "AWS Local Zones",
+      "b": "AWS Wavelength",
+      "c": "AWS Outposts",
+      "d": "AWS Global Accelerator"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Local Zones provide city-level latency for general users, not specifically 5G.",
+      "b": "Correct! AWS Wavelength embeds compute at telecom 5G network edges. Traffic from 5G devices reaches AWS compute without leaving the carrier network, achieving single-digit millisecond latency.",
+      "c": "Incorrect. Outposts are for on-premises data centers, not 5G edge.",
+      "d": "Incorrect. Global Accelerator improves internet routing but doesn't provide 5G edge compute."
+    }
+  },
+  {
+    "type": "conceptual",
+    "q": "Which statement about VPC Lattice is correct?",
+    "opts": {
+      "a": "It operates at the network layer (Layer 3-4) like VPC Peering",
+      "b": "It requires Transit Gateway for cross-VPC communication",
+      "c": "It operates at the application layer (Layer 7) and provides service-to-service connectivity without VPC peering or route tables",
+      "d": "It only works within a single VPC"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. VPC Lattice operates at Layer 7 (application layer), not Layer 3-4.",
+      "b": "Incorrect. VPC Lattice doesn't require TGW, peering, or any network-level connectivity setup.",
+      "c": "Correct! VPC Lattice provides application-layer (Layer 7) service-to-service connectivity across VPCs and accounts without needing VPC peering, Transit Gateway, or route table changes.",
+      "d": "Incorrect. VPC Lattice works across multiple VPCs and accounts."
+    }
+  }
+]

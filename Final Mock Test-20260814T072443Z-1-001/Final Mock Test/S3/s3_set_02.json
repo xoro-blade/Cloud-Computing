@@ -1,0 +1,1124 @@
+[
+  {
+    "type": "moderate",
+    "q": "What happens to existing objects when you enable S3 Replication (CRR/SRR) on a bucket?",
+    "opts": {
+      "a": "All existing objects are automatically replicated",
+      "b": "Only new objects uploaded after enabling replication are replicated",
+      "c": "Only objects larger than 5 MB are replicated",
+      "d": "All objects including delete markers are replicated immediately"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Existing objects are NOT automatically replicated. You must use S3 Batch Replication for existing objects.",
+      "b": "Correct. By default, only new objects uploaded after enabling replication are replicated. Use S3 Batch Replication for existing objects.",
+      "c": "Incorrect. Object size does not determine eligibility for replication.",
+      "d": "Incorrect. Delete markers are not replicated by default (optional setting), and existing objects are not replicated."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "In S3 Replication, are delete markers replicated by default?",
+    "opts": {
+      "a": "Yes, always",
+      "b": "No, but you can optionally enable delete marker replication",
+      "c": "Only in Cross-Region Replication",
+      "d": "Only if MFA Delete is enabled"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Delete markers are NOT replicated by default.",
+      "b": "Correct. Delete marker replication is disabled by default but can be optionally enabled in the replication configuration.",
+      "c": "Incorrect. This setting applies to both CRR and SRR.",
+      "d": "Incorrect. MFA Delete is unrelated to delete marker replication."
+    }
+  },
+  {
+    "type": "high",
+    "q": "In S3 Replication, are deletions with a specific version ID replicated to the destination bucket?",
+    "opts": {
+      "a": "Yes, permanent deletions are always replicated",
+      "b": "No, permanent deletions (with version ID) are never replicated to prevent malicious deletes",
+      "c": "Only if the bucket policy allows it",
+      "d": "Only in Compliance mode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Permanent deletions specifying a version ID are never replicated.",
+      "b": "Correct. Deletions with a specific version ID are NOT replicated. This is by design to protect against malicious or accidental permanent deletions propagating.",
+      "c": "Incorrect. This behavior is hardcoded and cannot be changed via bucket policy.",
+      "d": "Incorrect. Compliance mode is related to Object Lock, not replication of deletions."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is S3 Replication Time Control (RTC)?",
+    "opts": {
+      "a": "A feature that schedules replication to occur only at night",
+      "b": "A feature that guarantees 99.99% of objects are replicated within 15 minutes",
+      "c": "A feature that delays replication by a configurable time",
+      "d": "A feature that replicates only during off-peak hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RTC does not schedule replication for specific times.",
+      "b": "Correct. S3 Replication Time Control (RTC) provides an SLA that 99.99% of new objects are replicated within 15 minutes.",
+      "c": "Incorrect. RTC ensures faster replication, not delayed replication.",
+      "d": "Incorrect. RTC aims for continuous fast replication, not off-peak only."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Can S3 Replication be chained (bucket A → bucket B → bucket C)?",
+    "opts": {
+      "a": "Yes, replication is automatically chained",
+      "b": "No, there is no chaining. Objects replicated to B are not automatically replicated to C",
+      "c": "Only with S3 Batch Replication",
+      "d": "Only in the same AWS Region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 does not support automatic replication chaining.",
+      "b": "Correct. S3 Replication does NOT support chaining. If A replicates to B, and B replicates to C, objects that arrive at B via replication will NOT automatically replicate to C.",
+      "c": "Incorrect. Batch Replication handles existing objects, not chaining.",
+      "d": "Incorrect. Chaining is not supported regardless of region."
+    }
+  },
+  {
+    "type": "high",
+    "q": "Which S3 feature can be used to require that all objects uploaded to a bucket are encrypted with a specific encryption method?",
+    "opts": {
+      "a": "Bucket ACL",
+      "b": "Default encryption setting combined with a bucket policy denying unencrypted uploads",
+      "c": "S3 Versioning",
+      "d": "S3 Transfer Acceleration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ACLs manage access permissions, not encryption enforcement.",
+      "b": "Correct. You can set a default encryption and create a bucket policy with a Condition that denies PutObject requests lacking the required encryption header (e.g., x-amz-server-side-encryption).",
+      "c": "Incorrect. Versioning manages object versions, not encryption.",
+      "d": "Incorrect. Transfer Acceleration speeds up uploads, not encryption enforcement."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the maximum number of tags that can be assigned to a single S3 object?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "50",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can assign more than 5 tags.",
+      "b": "Correct. Each S3 object can have up to 10 user-defined tags.",
+      "c": "Incorrect. 50 tags is the limit for many other AWS resources, but S3 objects have a limit of 10.",
+      "d": "Incorrect. There is a hard limit of 10 tags per S3 object."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the maximum size of an S3 object tag key?",
+    "opts": {
+      "a": "64 Unicode characters",
+      "b": "128 Unicode characters",
+      "c": "256 Unicode characters",
+      "d": "512 Unicode characters"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The maximum key length is larger than 64 characters.",
+      "b": "Correct. S3 object tag keys can be up to 128 Unicode characters.",
+      "c": "Incorrect. 256 characters is the maximum for tag values, not keys.",
+      "d": "Incorrect. 512 exceeds the limit for both keys and values."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the maximum size of an S3 object tag value?",
+    "opts": {
+      "a": "128 Unicode characters",
+      "b": "256 Unicode characters",
+      "c": "512 Unicode characters",
+      "d": "1024 Unicode characters"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 128 characters is the maximum for tag keys.",
+      "b": "Correct. S3 object tag values can be up to 256 Unicode characters.",
+      "c": "Incorrect. The limit is 256, not 512.",
+      "d": "Incorrect. The limit is 256, not 1024."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the minimum part size for S3 Multipart Upload (except the last part)?",
+    "opts": {
+      "a": "1 MB",
+      "b": "5 MB",
+      "c": "10 MB",
+      "d": "16 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The minimum is 5 MB, not 1 MB.",
+      "b": "Correct. The minimum part size for multipart upload is 5 MB (except the last part which can be smaller).",
+      "c": "Incorrect. 10 MB is above the minimum.",
+      "d": "Incorrect. 16 MB exceeds the minimum requirement."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the maximum part size for S3 Multipart Upload?",
+    "opts": {
+      "a": "100 MB",
+      "b": "512 MB",
+      "c": "5 GB",
+      "d": "5 TB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Parts can be larger than 100 MB.",
+      "b": "Incorrect. Parts can be larger than 512 MB.",
+      "c": "Correct. Each part in a multipart upload can be up to 5 GB.",
+      "d": "Incorrect. 5 TB is the maximum object size, not part size."
+    }
+  },
+  {
+    "type": "high",
+    "q": "When using SSE-KMS with S3, which KMS limit might you encounter with high request volumes?",
+    "opts": {
+      "a": "S3 storage limit",
+      "b": "KMS request quota (GenerateDataKey/Decrypt API calls throttling)",
+      "c": "IAM policy size limit",
+      "d": "CloudTrail log size limit"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 storage is virtually unlimited.",
+      "b": "Correct. Each S3 GET/PUT with SSE-KMS calls KMS APIs (GenerateDataKey for upload, Decrypt for download). KMS has request quotas (5,500-30,000 per second depending on region) that can be a bottleneck at high volumes.",
+      "c": "Incorrect. IAM policy size is unrelated to KMS throttling.",
+      "d": "Incorrect. CloudTrail log size does not affect S3/KMS operations."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the default KMS request quota per second in most AWS regions?",
+    "opts": {
+      "a": "1,000 requests/second",
+      "b": "5,500 requests/second",
+      "c": "10,000 requests/second",
+      "d": "100,000 requests/second"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 1,000.",
+      "b": "Correct. The default KMS request quota is 5,500 requests per second in most regions (some regions support up to 30,000).",
+      "c": "Incorrect. 10,000 is not the default for most regions.",
+      "d": "Incorrect. 100,000 far exceeds the KMS quota."
+    }
+  },
+  {
+    "type": "high",
+    "q": "Which S3 feature allows you to restrict access so that objects can only be accessed through CloudFront and not directly from the S3 URL?",
+    "opts": {
+      "a": "S3 Bucket Policy with IP restriction",
+      "b": "Origin Access Control (OAC) / Origin Access Identity (OAI)",
+      "c": "S3 CORS configuration",
+      "d": "S3 Block Public Access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IP restriction in bucket policy could work partially but is not the recommended method.",
+      "b": "Correct. Origin Access Control (OAC) or the legacy Origin Access Identity (OAI) restricts direct S3 access and ensures users can only access content through CloudFront.",
+      "c": "Incorrect. CORS handles cross-origin browser requests, not access restriction.",
+      "d": "Incorrect. Block Public Access prevents public access but doesn't specifically enforce CloudFront-only access."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the difference between Origin Access Identity (OAI) and Origin Access Control (OAC) for CloudFront with S3?",
+    "opts": {
+      "a": "OAI is newer and supports SSE-KMS; OAC is legacy",
+      "b": "OAC is the newer recommended approach that supports SSE-KMS, S3 in all regions, and fine-grained permissions; OAI is legacy",
+      "c": "They are identical in functionality",
+      "d": "OAC only works with S3 website endpoints"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. OAI is legacy; OAC is newer.",
+      "b": "Correct. OAC is the newer, recommended method that supports SSE-KMS encryption, all S3 regions, and provides more granular security. OAI is legacy.",
+      "c": "Incorrect. OAC has more features and is recommended over OAI.",
+      "d": "Incorrect. OAC works with S3 REST API endpoints, not website endpoints."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is S3 Glacier Vault Lock?",
+    "opts": {
+      "a": "A feature to lock S3 Glacier vaults from being deleted for cost savings",
+      "b": "A WORM compliance feature that allows you to lock a vault policy to enforce regulatory retention controls that cannot be changed",
+      "c": "A feature to encrypt Glacier archives with customer keys",
+      "d": "A feature to prevent unauthorized vault creation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Vault Lock is about policy enforcement, not just deletion prevention.",
+      "b": "Correct. Glacier Vault Lock allows you to enforce compliance controls by locking a vault policy (WORM). Once locked, the policy can never be changed or deleted.",
+      "c": "Incorrect. Encryption is separate from Vault Lock.",
+      "d": "Incorrect. Vault Lock applies to existing vaults, not vault creation."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the maximum metadata size (user-defined + system metadata) that can be attached to an S3 object?",
+    "opts": {
+      "a": "2 KB",
+      "b": "8 KB",
+      "c": "16 KB",
+      "d": "64 KB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The total size of user-defined metadata (all key-value pairs in the x-amz-meta- headers) cannot exceed 2 KB.",
+      "b": "Incorrect. 8 KB exceeds the metadata size limit.",
+      "c": "Incorrect. 16 KB exceeds the metadata size limit.",
+      "d": "Incorrect. 64 KB far exceeds the metadata size limit."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the maximum length of an S3 object key (object name)?",
+    "opts": {
+      "a": "256 characters",
+      "b": "512 characters",
+      "c": "1,024 bytes",
+      "d": "1,024 UTF-8 encoded characters"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is measured in bytes, not just characters.",
+      "b": "Incorrect. The limit is 1,024 bytes.",
+      "c": "Correct. An S3 object key can be up to 1,024 bytes in length (UTF-8 encoded).",
+      "d": "Incorrect. It's 1,024 bytes, not 1,024 characters (multi-byte UTF-8 characters count as more than 1 byte)."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What happens when you enable S3 Intelligent-Tiering and an object is not accessed for 30 consecutive days?",
+    "opts": {
+      "a": "The object is deleted",
+      "b": "The object is moved to the Infrequent Access tier automatically",
+      "c": "The object is moved to Glacier",
+      "d": "A notification is sent to the bucket owner"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Intelligent-Tiering does not delete objects.",
+      "b": "Correct. After 30 consecutive days without access, objects are automatically moved from the Frequent Access tier to the Infrequent Access tier.",
+      "c": "Incorrect. Objects move to the optional Archive Access tier after 90 days (if configured), not after 30 days.",
+      "d": "Incorrect. No notification is sent; the transition happens automatically."
+    }
+  },
+  {
+    "type": "high",
+    "q": "In S3 Intelligent-Tiering, after how many days of no access are objects moved to the Archive Instant Access tier?",
+    "opts": {
+      "a": "30 days",
+      "b": "60 days",
+      "c": "90 days",
+      "d": "180 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 30 days triggers movement to the Infrequent Access tier.",
+      "b": "Incorrect. There is no 60-day tier in Intelligent-Tiering.",
+      "c": "Correct. After 90 consecutive days without access, objects are moved to the Archive Instant Access tier.",
+      "d": "Incorrect. 180 days is for the optional Deep Archive Access tier."
+    }
+  },
+  {
+    "type": "high",
+    "q": "Does S3 Intelligent-Tiering charge retrieval fees?",
+    "opts": {
+      "a": "Yes, for all tier transitions",
+      "b": "No, there are no retrieval fees but there is a small monthly monitoring and automation fee per object",
+      "c": "Yes, same as Glacier retrieval fees",
+      "d": "No fees of any kind beyond standard storage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There are no retrieval fees in Intelligent-Tiering.",
+      "b": "Correct. S3 Intelligent-Tiering has no retrieval fees. It charges a small monthly monitoring and automation fee per object (per 1,000 objects).",
+      "c": "Incorrect. Intelligent-Tiering does not charge Glacier-style retrieval fees.",
+      "d": "Incorrect. There is a small monitoring/automation fee in addition to storage costs."
+    }
+  },
+  {
+    "type": "high",
+    "q": "Which condition key in an S3 bucket policy can be used to restrict uploads to only SSE-KMS encrypted objects?",
+    "opts": {
+      "a": "s3:x-amz-acl",
+      "b": "s3:x-amz-server-side-encryption: aws:kms",
+      "c": "s3:x-amz-copy-source",
+      "d": "s3:x-amz-storage-class"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. x-amz-acl is for specifying ACL permissions on upload.",
+      "b": "Correct. Using the condition key s3:x-amz-server-side-encryption with the value aws:kms in a Deny statement enforces that only SSE-KMS encrypted uploads are allowed.",
+      "c": "Incorrect. x-amz-copy-source specifies the source for copy operations.",
+      "d": "Incorrect. x-amz-storage-class specifies the storage class, not encryption."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is S3 Bucket Key and what problem does it solve?",
+    "opts": {
+      "a": "A master key stored in the bucket for SSE-S3 encryption",
+      "b": "A bucket-level key that reduces the number of KMS API calls (and cost) when using SSE-KMS",
+      "c": "A key used to lock bucket configurations",
+      "d": "A unique identifier for bucket policies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SSE-S3 keys are managed by S3 automatically, not via Bucket Key.",
+      "b": "Correct. S3 Bucket Keys reduce the number of requests to AWS KMS by generating a bucket-level key that creates data keys locally, reducing KMS costs by up to 99%.",
+      "c": "Incorrect. Bucket Key is about encryption cost optimization.",
+      "d": "Incorrect. Bucket Key is unrelated to policy identifiers."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which S3 Lifecycle action can you NOT perform?",
+    "opts": {
+      "a": "Transition objects from Standard to Standard-IA",
+      "b": "Transition objects from Standard-IA to S3 Standard",
+      "c": "Transition objects from Standard to Glacier",
+      "d": "Expire (delete) objects after a certain number of days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You CAN transition from Standard to Standard-IA.",
+      "b": "Correct. Lifecycle rules can only transition objects to lower-cost tiers (waterfall model). You cannot transition from Standard-IA back to Standard using lifecycle rules.",
+      "c": "Incorrect. You CAN transition from Standard to Glacier.",
+      "d": "Incorrect. You CAN expire objects using lifecycle rules."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the minimum number of days an object must be in S3 Standard before it can be transitioned to S3 Standard-IA via a lifecycle rule?",
+    "opts": {
+      "a": "0 days",
+      "b": "7 days",
+      "c": "30 days",
+      "d": "90 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is a minimum duration constraint.",
+      "b": "Incorrect. 7 days is not the minimum.",
+      "c": "Correct. Objects must remain in S3 Standard for at least 30 days before being transitioned to Standard-IA or One Zone-IA via lifecycle rules.",
+      "d": "Incorrect. 90 days is the minimum duration for Glacier Flexible Retrieval, not the transition constraint from Standard."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the S3 Lifecycle constraint for transitioning objects from Standard-IA to Glacier classes?",
+    "opts": {
+      "a": "No minimum duration required",
+      "b": "Objects must be in Standard-IA for at least 30 days",
+      "c": "Objects must be in Standard-IA for at least 90 days",
+      "d": "Objects must be in Standard-IA for at least 180 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There is a minimum duration constraint for IA classes.",
+      "b": "Correct. Objects must remain in Standard-IA for at least 30 days (matching the minimum storage duration charge) before transitioning to a Glacier class.",
+      "c": "Incorrect. 90 days is not the constraint for this transition.",
+      "d": "Incorrect. 180 days is the minimum storage for Glacier Deep Archive, not this transition."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the purpose of S3 Access Analyzer for S3?",
+    "opts": {
+      "a": "To analyze storage costs and recommend savings",
+      "b": "To identify S3 buckets that are shared with external entities (outside your account/organization)",
+      "c": "To compress objects for better performance",
+      "d": "To encrypt objects that are unencrypted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cost analysis is done by S3 Storage Lens or Cost Explorer.",
+      "b": "Correct. IAM Access Analyzer for S3 monitors bucket policies and ACLs to identify buckets accessible by external entities outside your account or AWS Organization.",
+      "c": "Incorrect. Access Analyzer does not compress objects.",
+      "d": "Incorrect. Access Analyzer does not encrypt objects."
+    }
+  },
+  {
+    "type": "high",
+    "q": "Which S3 notification delivery mechanism provides the most flexibility for routing events to multiple targets?",
+    "opts": {
+      "a": "SNS Topic",
+      "b": "SQS Queue",
+      "c": "Lambda Function",
+      "d": "Amazon EventBridge"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. SNS can fan out to multiple subscribers but has fewer built-in integrations than EventBridge.",
+      "b": "Incorrect. SQS is a single queue destination.",
+      "c": "Incorrect. Lambda is a single function destination.",
+      "d": "Correct. Amazon EventBridge provides the most flexibility with 18+ AWS service targets, advanced filtering, multiple destinations, archiving, replay, and integration with third-party SaaS."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the S3 Multi-Region Access Point?",
+    "opts": {
+      "a": "A feature to access S3 from multiple VPCs in the same region",
+      "b": "A global endpoint that routes S3 requests to the closest bucket replica based on latency for active-active replication",
+      "c": "A feature that creates multiple copies of a bucket in the same region",
+      "d": "A DNS alias for a single S3 bucket"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC access is handled by VPC endpoints.",
+      "b": "Correct. S3 Multi-Region Access Points provide a global endpoint that routes requests to the nearest replicated bucket based on network latency, enabling active-active architectures.",
+      "c": "Incorrect. Multi-Region implies multiple regions, not same region copies.",
+      "d": "Incorrect. It routes to multiple buckets across regions, not just a DNS alias for one bucket."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What failover capability does S3 Multi-Region Access Point provide?",
+    "opts": {
+      "a": "No failover support",
+      "b": "Automatic failover only",
+      "c": "Active-active routing with the ability to control failover (active-passive) between regions",
+      "d": "Failover only during AWS outages"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Multi-Region Access Points support failover.",
+      "b": "Incorrect. You can manually control failover routing, not just automatic.",
+      "c": "Correct. S3 Multi-Region Access Points support both active-active routing and manual failover control to shift traffic between regions.",
+      "d": "Incorrect. You can control failover at any time, not just during outages."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the key difference between S3 Access Points and S3 Multi-Region Access Points?",
+    "opts": {
+      "a": "Access Points are for encryption; Multi-Region Access Points are for replication",
+      "b": "Access Points simplify per-application access to a single bucket; Multi-Region Access Points route requests across multiple buckets in different regions",
+      "c": "They are the same feature with different names",
+      "d": "Access Points are only for VPC access; Multi-Region Access Points are for internet access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Neither is specifically for encryption or replication alone.",
+      "b": "Correct. Access Points create named endpoints with unique policies for a single bucket. Multi-Region Access Points create a global endpoint routing to multiple replicated buckets across regions.",
+      "c": "Incorrect. They are different features with different purposes.",
+      "d": "Incorrect. Access Points can be internet-facing or VPC-restricted. Multi-Region Access Points route globally."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the maximum number of S3 Access Points per AWS account per region by default?",
+    "opts": {
+      "a": "100",
+      "b": "1,000",
+      "c": "10,000",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The default limit is much higher.",
+      "b": "Incorrect. 1,000 is the limit for buckets, not access points.",
+      "c": "Correct. By default, you can create up to 10,000 Access Points per AWS account per region.",
+      "d": "Incorrect. There is a default limit of 10,000."
+    }
+  },
+  {
+    "type": "high",
+    "q": "When using S3 Object Lock with a Legal Hold, what is required to remove the hold?",
+    "opts": {
+      "a": "Root account access",
+      "b": "The s3:PutObjectLegalHold permission",
+      "c": "MFA authentication",
+      "d": "The retention period must expire first"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Root access is not specifically required; any user with the right permission can remove it.",
+      "b": "Correct. A user with the s3:PutObjectLegalHold permission can place or remove a Legal Hold at any time, regardless of retention settings.",
+      "c": "Incorrect. MFA is not required to remove Legal Hold (MFA Delete is a different feature).",
+      "d": "Incorrect. Legal Hold is independent of retention periods and can be removed anytime by authorized users."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the S3 Storage Class for data that can be easily recreated and requires the lowest cost?",
+    "opts": {
+      "a": "S3 Standard-IA",
+      "b": "S3 One Zone-IA",
+      "c": "S3 Glacier Deep Archive",
+      "d": "S3 Reduced Redundancy Storage (RRS) - deprecated, so S3 One Zone-IA"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard-IA replicates across 3+ AZs and costs more than One Zone-IA.",
+      "b": "Correct. S3 One Zone-IA is ideal for data that can be recreated because it stores data in a single AZ at lower cost. If the AZ is destroyed, the data is lost.",
+      "c": "Incorrect. Glacier Deep Archive is for data that cannot be easily recreated and needs long-term retention.",
+      "d": "Incorrect. RRS is deprecated; One Zone-IA is the appropriate choice for re-creatable data."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the availability SLA for S3 One Zone-IA?",
+    "opts": {
+      "a": "99.99%",
+      "b": "99.9%",
+      "c": "99.5%",
+      "d": "99%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 99.99% is for S3 Standard.",
+      "b": "Incorrect. 99.9% is for S3 Standard-IA.",
+      "c": "Correct. S3 One Zone-IA has an availability SLA of 99.5% since data is in a single AZ.",
+      "d": "Incorrect. 99% is lower than the actual SLA for One Zone-IA."
+    }
+  },
+  {
+    "type": "high",
+    "q": "Which S3 feature allows you to create a point-in-time snapshot of your bucket for compliance purposes?",
+    "opts": {
+      "a": "S3 Versioning with Lifecycle rules",
+      "b": "S3 Inventory combined with S3 Batch Operations",
+      "c": "S3 Replication with versioning",
+      "d": "S3 does not support native point-in-time snapshots; you use versioning for object-level recovery"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Versioning keeps versions but is not a point-in-time snapshot.",
+      "b": "Incorrect. Inventory reports contents but doesn't create a restorable snapshot.",
+      "c": "Incorrect. Replication copies objects to another bucket but is not a snapshot.",
+      "d": "Correct. S3 does not have a native point-in-time snapshot feature like EBS. Versioning provides object-level version history for recovery."
+    }
+  },
+  {
+    "type": "high",
+    "q": "How does S3 handle concurrent PUT requests to the same object key?",
+    "opts": {
+      "a": "It queues them and processes sequentially",
+      "b": "The last write wins (last writer wins semantics)",
+      "c": "It returns an error for the second PUT",
+      "d": "It creates multiple versions automatically even without versioning"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 does not queue concurrent writes.",
+      "b": "Correct. With concurrent PUTs to the same key (without versioning), S3 uses last-writer-wins semantics based on the timestamp received by S3.",
+      "c": "Incorrect. Both PUTs succeed but the last one wins.",
+      "d": "Incorrect. Without versioning enabled, only one version exists and the last write overwrites."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is S3 Byte-Range Fetches?",
+    "opts": {
+      "a": "A feature to upload objects in byte ranges",
+      "b": "The ability to GET specific byte ranges of an object using the Range HTTP header for parallel downloads or partial retrieval",
+      "c": "A feature to delete specific bytes from an object",
+      "d": "A feature to encrypt only specific bytes of an object"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Byte-range fetches are for downloads, not uploads (multipart is for uploads).",
+      "b": "Correct. S3 supports byte-range fetches using the Range HTTP header, allowing parallel downloads of different parts of an object or retrieval of only specific portions.",
+      "c": "Incorrect. You cannot delete specific bytes; S3 objects are immutable.",
+      "d": "Incorrect. Encryption applies to the entire object."
+    }
+  },
+  {
+    "type": "high",
+    "q": "Which S3 feature provides automatic cost optimization by analyzing incomplete multipart uploads?",
+    "opts": {
+      "a": "S3 Storage Lens",
+      "b": "S3 Lifecycle rule to abort incomplete multipart uploads",
+      "c": "S3 Intelligent-Tiering",
+      "d": "S3 Analytics"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Storage Lens provides metrics but doesn't automatically clean up.",
+      "b": "Correct. You can configure a lifecycle rule to automatically abort incomplete multipart uploads after a specified number of days, preventing storage charges for orphaned parts.",
+      "c": "Incorrect. Intelligent-Tiering manages storage classes, not incomplete uploads.",
+      "d": "Incorrect. Analytics provides access pattern analysis, not cleanup of incomplete uploads."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which AWS service can be used to migrate large datasets from on-premises to S3 offline?",
+    "opts": {
+      "a": "AWS DataSync",
+      "b": "AWS Snow Family (Snowball/Snowmobile)",
+      "c": "S3 Transfer Acceleration",
+      "d": "AWS Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DataSync transfers data over the network (online), not offline.",
+      "b": "Correct. AWS Snow Family (Snowball Edge, Snowcone, Snowmobile) enables offline/physical data migration of large datasets to S3.",
+      "c": "Incorrect. Transfer Acceleration speeds up online transfers, not offline.",
+      "d": "Incorrect. Direct Connect is a dedicated network connection (online)."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the storage capacity of a single AWS Snowball Edge Storage Optimized device?",
+    "opts": {
+      "a": "8 TB",
+      "b": "42 TB",
+      "c": "80 TB",
+      "d": "100 PB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 8 TB is the capacity of Snowcone.",
+      "b": "Incorrect. 42 TB was for the older Snowball (now deprecated).",
+      "c": "Correct. Snowball Edge Storage Optimized provides 80 TB of usable storage.",
+      "d": "Incorrect. 100 PB is the capacity of Snowmobile."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the purpose of S3 Inventory reports in the context of replication?",
+    "opts": {
+      "a": "To replace replication entirely",
+      "b": "To audit and identify objects that failed to replicate, enabling S3 Batch Replication to fix them",
+      "c": "To accelerate replication speed",
+      "d": "To encrypt replicated objects"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Inventory does not replace replication.",
+      "b": "Correct. S3 Inventory can include replication status, helping identify objects that failed replication. You can then use S3 Batch Replication to replicate those failed objects.",
+      "c": "Incorrect. Inventory reports do not speed up replication.",
+      "d": "Incorrect. Inventory does not handle encryption."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the maximum number of lifecycle rules per S3 bucket?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can have more than 100 lifecycle rules.",
+      "b": "Incorrect. The limit is higher than 500.",
+      "c": "Correct. You can configure up to 1,000 lifecycle rules per S3 bucket.",
+      "d": "Incorrect. There is a limit of 1,000 lifecycle rules."
+    }
+  },
+  {
+    "type": "high",
+    "q": "When using S3 Select with a CSV file, which of the following SQL operations is NOT supported?",
+    "opts": {
+      "a": "SELECT with WHERE clause",
+      "b": "JOIN between two objects",
+      "c": "LIMIT clause",
+      "d": "Aggregate functions (SUM, COUNT, AVG)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SELECT with WHERE is supported in S3 Select.",
+      "b": "Correct. S3 Select does not support JOIN operations. It can only query a single object at a time.",
+      "c": "Incorrect. LIMIT is supported in S3 Select.",
+      "d": "Incorrect. Aggregate functions are supported in S3 Select."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What file formats does S3 Select support?",
+    "opts": {
+      "a": "CSV, JSON, and Apache Parquet",
+      "b": "Only CSV and JSON",
+      "c": "CSV, JSON, Parquet, and ORC",
+      "d": "All file formats"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 Select supports CSV, JSON, and Apache Parquet file formats.",
+      "b": "Incorrect. Apache Parquet is also supported.",
+      "c": "Incorrect. ORC is supported by Athena but not by S3 Select.",
+      "d": "Incorrect. Only CSV, JSON, and Parquet are supported."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the difference between S3 Select and Amazon Athena?",
+    "opts": {
+      "a": "S3 Select is for querying a single object; Athena can query across multiple objects/files with full SQL support",
+      "b": "They are identical services",
+      "c": "Athena can only query Parquet files; S3 Select supports all formats",
+      "d": "S3 Select requires a database schema; Athena is schema-less"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 Select performs simple SQL on a single object. Athena is a serverless query engine supporting full ANSI SQL across multiple objects, partitions, and formats.",
+      "b": "Incorrect. They are different services with different capabilities.",
+      "c": "Incorrect. Athena supports many formats including CSV, JSON, Parquet, ORC, Avro.",
+      "d": "Incorrect. Athena requires schema definition in the Glue Data Catalog; S3 Select is simpler."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is S3 Object Ownership and what change was made in April 2023?",
+    "opts": {
+      "a": "A feature to transfer bucket ownership; no changes were made",
+      "b": "A setting that controls whether ACLs are enabled; as of April 2023 new buckets have ACLs disabled by default (BucketOwnerEnforced)",
+      "c": "A feature that allows multiple accounts to own the same object",
+      "d": "A feature that encrypts objects with owner-specific keys"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Object Ownership doesn't transfer bucket ownership.",
+      "b": "Correct. S3 Object Ownership controls ACL behavior. Since April 2023, new buckets default to BucketOwnerEnforced (ACLs disabled), making the bucket owner the automatic owner of all objects.",
+      "c": "Incorrect. Each object has a single owner.",
+      "d": "Incorrect. Object Ownership is about access control, not encryption."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "What is the S3 pricing model for data transfer?",
+    "opts": {
+      "a": "Data transfer IN and OUT are both free",
+      "b": "Data transfer IN is free; data transfer OUT to the internet is charged per GB",
+      "c": "Data transfer IN is charged; OUT is free",
+      "d": "Both IN and OUT are charged per GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Data transfer OUT is not free.",
+      "b": "Correct. Data transfer INTO S3 from the internet is free. Data transfer OUT from S3 to the internet is charged per GB (with the first 100 GB/month free for all AWS services combined since Dec 2021).",
+      "c": "Incorrect. Data transfer IN is free.",
+      "d": "Incorrect. Only data transfer OUT is charged."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the free tier for S3 data transfer OUT to the internet per month?",
+    "opts": {
+      "a": "1 GB",
+      "b": "15 GB",
+      "c": "100 GB",
+      "d": "1 TB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The free tier was expanded from 1 GB.",
+      "b": "Incorrect. 15 GB is not the current free tier for data transfer out.",
+      "c": "Correct. As of December 2021, AWS provides 100 GB of free data transfer out per month (shared across all AWS services).",
+      "d": "Incorrect. 1 TB exceeds the free tier."
+    }
+  },
+  {
+    "type": "high",
+    "q": "Which S3 feature can prevent accidental bucket deletion?",
+    "opts": {
+      "a": "Bucket versioning",
+      "b": "S3 Object Lock",
+      "c": "A bucket policy that denies s3:DeleteBucket or using an SCP (Service Control Policy)",
+      "d": "S3 Transfer Acceleration"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Versioning protects objects, not the bucket itself from deletion.",
+      "b": "Incorrect. Object Lock protects objects from deletion, not the bucket.",
+      "c": "Correct. A bucket policy denying s3:DeleteBucket or an SCP in AWS Organizations can prevent accidental bucket deletion. Note: a bucket must be empty to be deleted.",
+      "d": "Incorrect. Transfer Acceleration is for upload speed, not deletion protection."
+    }
+  },
+  {
+    "type": "high",
+    "q": "Can you change the region of an existing S3 bucket?",
+    "opts": {
+      "a": "Yes, using the AWS CLI migrate command",
+      "b": "Yes, by updating the bucket configuration",
+      "c": "No, you must create a new bucket in the desired region and copy/replicate data",
+      "d": "Yes, by contacting AWS Support"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is no migrate command to change a bucket's region.",
+      "b": "Incorrect. The region of a bucket cannot be changed after creation.",
+      "c": "Correct. Once a bucket is created in a region, it cannot be moved. You must create a new bucket in the target region and use CRR, DataSync, or CLI copy to transfer data.",
+      "d": "Incorrect. Even AWS Support cannot change a bucket's region."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the purpose of S3 Access Grants?",
+    "opts": {
+      "a": "To grant temporary access to S3 via presigned URLs",
+      "b": "To map identities from corporate directories to S3 dataset permissions at scale, integrating with IAM Identity Center",
+      "c": "To create public access grants for open datasets",
+      "d": "To grant cross-account access only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Presigned URLs are different from Access Grants.",
+      "b": "Correct. S3 Access Grants provide a simplified way to grant access to S3 data at scale by mapping corporate identities (from IAM Identity Center/directory) to dataset-level permissions.",
+      "c": "Incorrect. Access Grants are not for making data public.",
+      "d": "Incorrect. Access Grants work beyond just cross-account scenarios."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which AWS service can trigger a Lambda function when a new object is uploaded to S3 for image processing?",
+    "opts": {
+      "a": "Amazon CloudWatch",
+      "b": "S3 Event Notifications",
+      "c": "AWS Step Functions",
+      "d": "AWS Batch"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch monitors metrics/logs but doesn't directly trigger Lambda from S3 uploads.",
+      "b": "Correct. S3 Event Notifications can directly invoke a Lambda function on s3:ObjectCreated events for real-time processing like image resizing.",
+      "c": "Incorrect. Step Functions orchestrate workflows but need to be triggered; they don't natively listen to S3 events directly (EventBridge can bridge this).",
+      "d": "Incorrect. AWS Batch is for batch computing jobs, not event-driven S3 processing."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the S3 notification delivery guarantee when using EventBridge vs. traditional S3 event notifications (SNS/SQS/Lambda)?",
+    "opts": {
+      "a": "Both guarantee exactly-once delivery",
+      "b": "EventBridge provides at-least-once delivery with better reliability; traditional notifications deliver at-least-once but may miss events in rare cases",
+      "c": "Traditional notifications are more reliable than EventBridge",
+      "d": "Neither provides any delivery guarantee"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Neither guarantees exactly-once delivery.",
+      "b": "Correct. EventBridge provides at-least-once delivery with better reliability and doesn't require manual configuration of permissions on the target. Traditional S3 notifications also provide at-least-once but EventBridge offers more advanced capabilities.",
+      "c": "Incorrect. EventBridge is generally more reliable and feature-rich.",
+      "d": "Incorrect. Both provide at-least-once delivery guarantees."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is S3 Storage Class Analysis and how long does it take to provide actionable recommendations?",
+    "opts": {
+      "a": "Provides recommendations immediately after enabling",
+      "b": "Observes access patterns for 24-48 hours before recommending",
+      "c": "Observes access patterns for 30 days or more before providing transition recommendations",
+      "d": "Only available via AWS Support request"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. It needs time to observe access patterns.",
+      "b": "Incorrect. 24-48 hours is insufficient for meaningful analysis.",
+      "c": "Correct. S3 Storage Class Analysis observes access patterns for 30 days or more before providing recommendations on when to transition objects to IA storage classes.",
+      "d": "Incorrect. It's a self-service feature enabled in the S3 console."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the maximum size of a bucket policy in Amazon S3?",
+    "opts": {
+      "a": "2 KB",
+      "b": "10 KB",
+      "c": "20 KB",
+      "d": "64 KB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 2 KB is too small for most bucket policies.",
+      "b": "Incorrect. The limit is larger than 10 KB.",
+      "c": "Correct. An S3 bucket policy can be up to 20 KB in size.",
+      "d": "Incorrect. 64 KB exceeds the bucket policy size limit."
+    }
+  },
+  {
+    "type": "high",
+    "q": "When configuring S3 Cross-Region Replication, which IAM entity does S3 assume to perform replication?",
+    "opts": {
+      "a": "The bucket owner's IAM user",
+      "b": "An IAM Role with permissions to read from source and write to destination",
+      "c": "The root account",
+      "d": "An S3 service-linked role that is automatically created"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 does not use IAM user credentials for replication.",
+      "b": "Correct. You must create an IAM Role that S3 assumes to replicate objects. This role needs GetObject/GetObjectVersion on source and PutObject/ReplicateObject on destination.",
+      "c": "Incorrect. Root account is not used for service operations.",
+      "d": "Incorrect. The replication role is not automatically created; you must create and configure it."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the purpose of S3 Batch Replication?",
+    "opts": {
+      "a": "To replicate new objects faster",
+      "b": "To replicate existing objects that were uploaded before replication was enabled, or objects that previously failed to replicate",
+      "c": "To replicate objects in batch every 24 hours",
+      "d": "To replicate delete markers in bulk"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Batch Replication is not about speed for new objects.",
+      "b": "Correct. S3 Batch Replication is used to replicate existing objects, objects that failed replication, or objects replicated under a prior rule.",
+      "c": "Incorrect. Batch Replication is on-demand, not scheduled every 24 hours.",
+      "d": "Incorrect. Batch Replication handles objects, not specifically delete markers."
+    }
+  },
+  {
+    "type": "moderate",
+    "q": "Which S3 feature helps comply with data residency requirements by ensuring data stays within a specific AWS Region?",
+    "opts": {
+      "a": "S3 Cross-Region Replication",
+      "b": "S3 bucket region selection at creation time",
+      "c": "S3 Transfer Acceleration",
+      "d": "S3 Intelligent-Tiering"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CRR explicitly moves data to another region, which would violate data residency.",
+      "b": "Correct. When you create an S3 bucket, you choose a specific AWS Region. Data never leaves that region unless you explicitly configure replication or transfer it.",
+      "c": "Incorrect. Transfer Acceleration routes through edge locations but data is still stored in the bucket's region.",
+      "d": "Incorrect. Intelligent-Tiering manages storage classes within the same region."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is S3 Express One Zone storage class designed for?",
+    "opts": {
+      "a": "Long-term archival storage",
+      "b": "Single-digit millisecond latency for performance-intensive applications with data in a single Availability Zone",
+      "c": "Multi-region active-active storage",
+      "d": "Cost-optimized infrequent access storage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Express One Zone is for high-performance, not archival.",
+      "b": "Correct. S3 Express One Zone is designed for single-digit millisecond latency, up to 10x faster than S3 Standard, for latency-sensitive workloads with data stored in a single AZ.",
+      "c": "Incorrect. It's single-zone, not multi-region.",
+      "d": "Incorrect. It's a performance-optimized class, not a cost-optimized IA class."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What type of bucket does S3 Express One Zone use?",
+    "opts": {
+      "a": "General purpose bucket",
+      "b": "Directory bucket",
+      "c": "Archive bucket",
+      "d": "Standard bucket with special configuration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. General purpose buckets are for all other S3 storage classes.",
+      "b": "Correct. S3 Express One Zone uses a new bucket type called Directory Buckets, which have a different naming convention and API behavior.",
+      "c": "Incorrect. There is no archive bucket type.",
+      "d": "Incorrect. It requires a completely new directory bucket type."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the ListObjectsV2 pagination limit for the maximum number of keys returned per request?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "10,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The default/max per page is higher than 100.",
+      "b": "Incorrect. The maximum is 1,000, not 500.",
+      "c": "Correct. ListObjectsV2 returns up to 1,000 keys per request. For more keys, you must paginate using the ContinuationToken.",
+      "d": "Incorrect. 10,000 exceeds the single-request limit."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What happens to S3 storage costs when versioning is enabled and objects are frequently updated?",
+    "opts": {
+      "a": "Costs remain the same since only the latest version is stored",
+      "b": "Costs increase because all versions are stored and you pay for the total storage of all versions",
+      "c": "Costs decrease because older versions are compressed",
+      "d": "Only the last 5 versions are retained"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. All versions are stored, not just the latest.",
+      "b": "Correct. With versioning enabled, every version of every object is retained and you are charged for the storage of ALL versions. This can significantly increase costs for frequently updated objects.",
+      "c": "Incorrect. Older versions are not compressed; they are stored as full objects.",
+      "d": "Incorrect. All versions are retained unless explicitly deleted or managed by lifecycle rules."
+    }
+  },
+  {
+    "type": "high",
+    "q": "How can you reduce costs when using versioning by removing old versions?",
+    "opts": {
+      "a": "Disable versioning to delete all old versions",
+      "b": "Use a lifecycle rule with NoncurrentVersionExpiration to delete noncurrent versions after a specified number of days",
+      "c": "Old versions are automatically deleted after 30 days",
+      "d": "Contact AWS Support to purge old versions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Disabling (suspending) versioning does not delete existing old versions.",
+      "b": "Correct. A lifecycle rule with NoncurrentVersionExpiration automatically deletes noncurrent object versions after a configured number of days.",
+      "c": "Incorrect. Old versions are never automatically deleted without an explicit lifecycle rule.",
+      "d": "Incorrect. This is self-service via lifecycle rules."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the NoncurrentVersionTransition action in S3 Lifecycle rules?",
+    "opts": {
+      "a": "Transitioning current versions to a cheaper class",
+      "b": "Transitioning noncurrent (old) versions to a cheaper storage class like Glacier before eventually expiring them",
+      "c": "Deleting noncurrent versions immediately",
+      "d": "Moving noncurrent versions to another bucket"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Current version transitions use the Transition action, not NoncurrentVersionTransition.",
+      "b": "Correct. NoncurrentVersionTransition moves noncurrent versions to cheaper storage classes (e.g., Standard-IA, Glacier) after a specified number of days since becoming noncurrent.",
+      "c": "Incorrect. Deletion is handled by NoncurrentVersionExpiration.",
+      "d": "Incorrect. Lifecycle rules don't move objects to another bucket."
+    }
+  },
+  {
+    "type": "high",
+    "q": "What is the S3 feature that enables you to enforce specific conditions before allowing cross-account access to a bucket?",
+    "opts": {
+      "a": "S3 ACLs",
+      "b": "Bucket Policy with Principal and Condition elements",
+      "c": "S3 Versioning",
+      "d": "S3 Storage Lens"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ACLs provide basic permissions but lack fine-grained conditions.",
+      "b": "Correct. Bucket policies support Principal (to specify the external account/role) and Condition elements (to enforce MFA, IP range, VPC endpoint, encryption, etc.) for cross-account access control.",
+      "c": "Incorrect. Versioning manages object versions, not access control.",
+      "d": "Incorrect. Storage Lens provides metrics, not access control."
+    }
+  }
+]

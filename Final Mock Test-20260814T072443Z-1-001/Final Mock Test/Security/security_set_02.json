@@ -1,0 +1,1226 @@
+[
+  {
+    "type": "scenario",
+    "q": "A company has 50 AWS accounts in AWS Organizations. They want to enforce that no one (including root users in member accounts) can disable CloudTrail logging. Which feature should they implement?",
+    "opts": {
+      "a": "IAM policies in each account",
+      "b": "Service Control Policies (SCPs)",
+      "c": "AWS Config remediation",
+      "d": "CloudTrail log file integrity validation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM policies per account don't restrict root users and are not centrally manageable.",
+      "b": "Correct. SCPs provide organization-wide guardrails that restrict actions even for root users in member accounts. An SCP denying cloudtrail:StopLogging prevents anyone from disabling CloudTrail.",
+      "c": "Incorrect. Config remediation reacts after the fact, not prevents.",
+      "d": "Incorrect. Log file integrity validates logs but doesn't prevent disabling."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer's application running on EC2 needs to access an S3 bucket. What is the MOST secure way to grant access?",
+    "opts": {
+      "a": "Store access keys in the application code",
+      "b": "Store access keys in environment variables",
+      "c": "Attach an IAM role to the EC2 instance",
+      "d": "Store access keys in a configuration file on the instance"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Hardcoding keys is a security anti-pattern.",
+      "b": "Incorrect. Environment variables can be exposed through OS-level access.",
+      "c": "Correct. IAM roles provide temporary credentials that are automatically rotated by AWS. No long-term credentials are stored anywhere.",
+      "d": "Incorrect. Configuration files with keys can be compromised."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What happens when you attach an IAM role to an EC2 instance?",
+    "opts": {
+      "a": "Permanent access keys are embedded in the instance",
+      "b": "Temporary credentials are delivered via the Instance Metadata Service (IMDS) and auto-rotated",
+      "c": "A new IAM user is created for the instance",
+      "d": "The instance gets root access to all services"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. No permanent keys are used.",
+      "b": "Correct. When a role is attached, AWS STS provides temporary credentials via IMDS that are automatically rotated before expiration.",
+      "c": "Incorrect. No IAM user is created.",
+      "d": "Incorrect. Access is limited to the role's permissions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the two versions of Instance Metadata Service (IMDS)?",
+    "opts": {
+      "a": "IMDSv1 (request/response) and IMDSv2 (session-oriented with token)",
+      "b": "IMDS-Basic and IMDS-Advanced",
+      "c": "IMDS-HTTP and IMDS-HTTPS",
+      "d": "IMDS-Open and IMDS-Secure"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. IMDSv1 uses simple HTTP GET requests. IMDSv2 requires a session token obtained via a PUT request, providing protection against SSRF attacks. AWS recommends IMDSv2.",
+      "b": "Incorrect. These are not the official names.",
+      "c": "Incorrect. Both versions use HTTP, not HTTPS.",
+      "d": "Incorrect. These are not the official names."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A security team wants to protect against Server-Side Request Forgery (SSRF) attacks that steal EC2 instance credentials. What should they enforce?",
+    "opts": {
+      "a": "Disable IMDS entirely",
+      "b": "Enforce IMDSv2 (require token-based session authentication)",
+      "c": "Use longer access key rotation periods",
+      "d": "Add more security group rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Disabling IMDS breaks many applications that need instance metadata.",
+      "b": "Correct. IMDSv2 requires a PUT request with a hop limit of 1 to get a session token before accessing metadata, which prevents simple SSRF attacks from retrieving credentials.",
+      "c": "Incorrect. Key rotation doesn't prevent SSRF.",
+      "d": "Incorrect. Security groups don't protect against SSRF."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default hop limit for IMDSv2 tokens?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default hop limit for IMDSv2 tokens is 1, which means requests cannot be forwarded through intermediate hosts (preventing SSRF). It can be increased to 2 for container environments.",
+      "b": "Incorrect. 2 is the recommended setting for containers, not the default.",
+      "c": "Incorrect. 5 exceeds the default.",
+      "d": "Incorrect. 10 exceeds the default."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses AWS KMS to encrypt S3 data. They need to allow a partner account to decrypt objects. How should they configure this?",
+    "opts": {
+      "a": "Share the KMS key's raw material with the partner",
+      "b": "Grant the partner account permission in the KMS key policy and the S3 bucket policy",
+      "c": "Give the partner the root account credentials",
+      "d": "Disable encryption for shared objects"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS key material should never be exported or shared directly.",
+      "b": "Correct. Cross-account access requires BOTH: the KMS key policy granting the external account access AND the S3 bucket policy allowing the external account to access objects.",
+      "c": "Incorrect. Never share root credentials.",
+      "d": "Incorrect. Disabling encryption violates security best practices."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the three server-side encryption options for Amazon S3?",
+    "opts": {
+      "a": "SSE-S3, SSE-KMS, SSE-C",
+      "b": "AES-128, AES-256, AES-512",
+      "c": "SSE-IAM, SSE-STS, SSE-EC2",
+      "d": "TLS 1.0, TLS 1.1, TLS 1.2"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. S3 supports SSE-S3 (S3 managed keys, default), SSE-KMS (KMS managed keys), and SSE-C (Customer provided keys).",
+      "b": "Incorrect. These are encryption algorithms, not S3 options.",
+      "c": "Incorrect. These are not real S3 encryption options.",
+      "d": "Incorrect. TLS is for encryption in transit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the key difference between SSE-KMS and SSE-S3?",
+    "opts": {
+      "a": "SSE-KMS is free; SSE-S3 costs money",
+      "b": "SSE-KMS provides audit trail of key usage via CloudTrail, separate key permissions, and key rotation control; SSE-S3 is simpler with no audit trail",
+      "c": "SSE-S3 is more secure than SSE-KMS",
+      "d": "SSE-KMS only works with EC2"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SSE-KMS has additional costs; SSE-S3 is free.",
+      "b": "Correct. SSE-KMS provides CloudTrail audit of key usage, ability to control access to the key separately from the data, and configurable automatic key rotation.",
+      "c": "Incorrect. Both provide strong encryption; KMS offers more control.",
+      "d": "Incorrect. SSE-KMS works with S3."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the KMS API request limit (symmetric encrypt/decrypt) per second per Region?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,500 (shared)",
+      "c": "10,000",
+      "d": "50,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher.",
+      "b": "Correct. The shared KMS request quota for cryptographic operations is approximately 5,500 requests per second per Region (varies by Region, can be increased).",
+      "c": "Incorrect. 10,000 exceeds the default shared quota.",
+      "d": "Incorrect. 50,000 exceeds the default."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A high-traffic application using S3 with SSE-KMS is getting ThrottlingException errors. What is the likely cause and solution?",
+    "opts": {
+      "a": "S3 rate limits; increase S3 request rate",
+      "b": "KMS API rate limits being exceeded; request a KMS quota increase or use S3 Bucket Keys",
+      "c": "IAM policy too restrictive; add more permissions",
+      "d": "Lambda concurrency limits; increase Lambda concurrency"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 doesn't typically cause ThrottlingException.",
+      "b": "Correct. Each S3 GET/PUT with SSE-KMS calls KMS, hitting the ~5,500 req/sec quota. S3 Bucket Keys reduce KMS calls by 99% by using a derived bucket-level key.",
+      "c": "Incorrect. IAM restrictions cause AccessDenied, not Throttling.",
+      "d": "Incorrect. Lambda is not involved in S3 encryption."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is an S3 Bucket Key and how does it help with SSE-KMS?",
+    "opts": {
+      "a": "A key stored in the bucket metadata for client-side encryption",
+      "b": "A short-lived key derived from KMS that generates data keys within S3, reducing KMS API calls by up to 99%",
+      "c": "A master key that replaces KMS entirely",
+      "d": "A key used for S3 replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Bucket keys are not for client-side encryption.",
+      "b": "Correct. S3 Bucket Keys work with SSE-KMS by generating a short-lived bucket-level key that creates data keys within S3, reducing KMS requests by up to 99% and saving costs.",
+      "c": "Incorrect. It doesn't replace KMS; it reduces calls to KMS.",
+      "d": "Incorrect. Bucket keys are for encryption, not replication."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between IAM policies and resource-based policies?",
+    "opts": {
+      "a": "They are the same thing",
+      "b": "IAM policies are attached to users/roles/groups; resource-based policies are attached directly to resources (like S3 buckets, KMS keys)",
+      "c": "Resource-based policies are more restrictive",
+      "d": "IAM policies only work within a single account"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They are different types of policies.",
+      "b": "Correct. IAM policies (identity-based) are attached to principals. Resource-based policies are attached to resources and specify who can access them. Resource-based policies enable cross-account access.",
+      "c": "Incorrect. Neither is inherently more restrictive.",
+      "d": "Incorrect. IAM policies work cross-account with assume-role."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is an IAM policy condition key used for?",
+    "opts": {
+      "a": "Setting the password policy",
+      "b": "Adding additional requirements that must be met for a policy statement to apply (e.g., source IP, MFA, time of day)",
+      "c": "Encrypting the policy document",
+      "d": "Logging policy changes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Password policies are separate.",
+      "b": "Correct. Condition keys add context-based restrictions like aws:SourceIp (limit by IP), aws:MultiFactorAuthPresent (require MFA), aws:RequestedRegion (limit by Region), etc.",
+      "c": "Incorrect. Policies are not encrypted with conditions.",
+      "d": "Incorrect. Logging is done by CloudTrail."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to ensure that API calls to delete production resources can only be made after MFA authentication. Which IAM feature should they use?",
+    "opts": {
+      "a": "IAM permission boundary",
+      "b": "IAM policy with aws:MultiFactorAuthPresent condition key",
+      "c": "Service Control Policy",
+      "d": "Resource-based policy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Permission boundaries limit maximum permissions but don't enforce MFA.",
+      "b": "Correct. Using the condition key aws:MultiFactorAuthPresent: true ensures that the action (like resource deletion) is only allowed when MFA has been used for authentication.",
+      "c": "Incorrect. SCPs are for organization-wide restrictions, not MFA enforcement on specific actions.",
+      "d": "Incorrect. Resource-based policies don't enforce MFA directly."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is an IAM permission boundary?",
+    "opts": {
+      "a": "A firewall rule for IAM",
+      "b": "A managed policy that sets the maximum permissions an IAM entity can have, regardless of identity-based policies",
+      "c": "A way to grant additional permissions",
+      "d": "A VPC security feature"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Permission boundaries are not firewall rules.",
+      "b": "Correct. Permission boundaries define the maximum permissions that an IAM entity (user or role) can have. The effective permissions are the intersection of identity-based policies AND the permission boundary.",
+      "c": "Incorrect. Boundaries limit, not grant permissions.",
+      "d": "Incorrect. They are not VPC-related."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the evaluation order for IAM policies when both permission boundary and identity policies exist?",
+    "opts": {
+      "a": "Permission boundary overrides all",
+      "b": "Effective permissions = Intersection of identity policy AND permission boundary (both must allow)",
+      "c": "Identity policy always wins",
+      "d": "The most recent policy wins"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's an intersection, not a complete override.",
+      "b": "Correct. The effective permissions are the intersection — an action must be allowed by BOTH the identity-based policy AND the permission boundary to be permitted.",
+      "c": "Incorrect. Identity policy alone is not sufficient.",
+      "d": "Incorrect. Recency doesn't determine evaluation."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A junior developer needs to create IAM users for their team but should NOT be able to grant admin permissions. What feature should the admin use?",
+    "opts": {
+      "a": "Deny policy on iam:CreateUser",
+      "b": "Permission boundary that limits what permissions the created users can have",
+      "c": "Service Control Policy",
+      "d": "Disable IAM console access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This would block user creation entirely.",
+      "b": "Correct. By requiring a permission boundary on all users created by the developer (using iam:PermissionsBoundary condition), you ensure created users can never exceed the boundary's permissions.",
+      "c": "Incorrect. SCPs are too broad for this use case.",
+      "d": "Incorrect. Disabling console access is too restrictive."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the types of IAM policies in AWS?",
+    "opts": {
+      "a": "Only managed and inline policies",
+      "b": "Identity-based, Resource-based, Permission boundaries, Organizations SCPs, Session policies, and ACLs",
+      "c": "Only allow and deny policies",
+      "d": "Only managed policies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There are many more policy types.",
+      "b": "Correct. AWS IAM supports identity-based policies, resource-based policies, permission boundaries, SCPs, session policies, and access control lists (ACLs).",
+      "c": "Incorrect. Allow/Deny are effects within policies, not policy types.",
+      "d": "Incorrect. Managed policies are one type among many."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS STS (Security Token Service)?",
+    "opts": {
+      "a": "A certificate management service",
+      "b": "A service that creates temporary, limited-privilege credentials for IAM users or federated users",
+      "c": "A DDoS protection service",
+      "d": "A logging service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Certificates are managed by ACM.",
+      "b": "Correct. AWS STS enables you to request temporary security credentials (access key, secret key, session token) with a defined expiration for federated users, assumed roles, or cross-account access.",
+      "c": "Incorrect. DDoS protection is Shield.",
+      "d": "Incorrect. Logging is CloudTrail."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default duration of temporary credentials issued by AWS STS (AssumeRole)?",
+    "opts": {
+      "a": "15 minutes",
+      "b": "1 hour",
+      "c": "4 hours",
+      "d": "12 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 15 minutes is below the default.",
+      "b": "Correct. The default duration for STS temporary credentials via AssumeRole is 1 hour (3,600 seconds). It can be configured from 15 minutes to 12 hours maximum.",
+      "c": "Incorrect. 4 hours exceeds the default.",
+      "d": "Incorrect. 12 hours is the maximum, not the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum and maximum duration range for STS temporary credentials?",
+    "opts": {
+      "a": "5 minutes to 6 hours",
+      "b": "15 minutes to 12 hours",
+      "c": "30 minutes to 24 hours",
+      "d": "1 hour to 36 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 5 minutes is below the minimum.",
+      "b": "Correct. STS credentials can be configured from 15 minutes (900 seconds) minimum to 12 hours (43,200 seconds) maximum for AssumeRole.",
+      "c": "Incorrect. The minimum is 15 minutes, not 30.",
+      "d": "Incorrect. 36 hours exceeds the maximum."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's security team notices GuardDuty findings showing cryptocurrency mining activity on an EC2 instance. What should they do FIRST?",
+    "opts": {
+      "a": "Delete the instance immediately",
+      "b": "Isolate the instance by changing its security group to deny all traffic, then investigate",
+      "c": "Ignore it as a false positive",
+      "d": "Restart the instance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deleting destroys evidence for investigation.",
+      "b": "Correct. Best practice is to isolate the compromised instance by applying a restrictive security group (denying all traffic), then investigate using forensic analysis. This preserves evidence.",
+      "c": "Incorrect. Crypto-mining findings should be investigated.",
+      "d": "Incorrect. Restarting doesn't solve the compromise."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which GuardDuty protection plan monitors for threats in Amazon EKS clusters?",
+    "opts": {
+      "a": "GuardDuty S3 Protection",
+      "b": "GuardDuty EKS Protection (EKS Audit Log Monitoring and EKS Runtime Monitoring)",
+      "c": "GuardDuty EC2 Protection",
+      "d": "GuardDuty Lambda Protection"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 Protection monitors S3 data plane events.",
+      "b": "Correct. GuardDuty EKS Protection includes EKS Audit Log Monitoring (for suspicious Kubernetes API activity) and EKS Runtime Monitoring (for container-level threats).",
+      "c": "Incorrect. EC2 Protection covers EC2 instances.",
+      "d": "Incorrect. Lambda Protection monitors Lambda function network activity."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new GuardDuty protection feature monitors runtime behavior of workloads?",
+    "opts": {
+      "a": "GuardDuty Threat Intelligence",
+      "b": "GuardDuty Runtime Monitoring",
+      "c": "GuardDuty DNS Analysis",
+      "d": "GuardDuty VPC Flow Analysis"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Threat Intelligence is a data source, not runtime monitoring.",
+      "b": "Correct. GuardDuty Runtime Monitoring provides OS-level visibility into runtime behavior of EC2 instances, EKS containers, ECS/Fargate tasks to detect threats like file manipulation, privilege escalation, and suspicious processes.",
+      "c": "Incorrect. DNS Analysis is one data source.",
+      "d": "Incorrect. VPC Flow Analysis is one data source."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company stores customer PII (names, SSNs, credit card numbers) in S3. They need to automatically discover and classify this data for GDPR compliance. Which service should they use?",
+    "opts": {
+      "a": "Amazon Inspector",
+      "b": "Amazon Macie",
+      "c": "AWS Config",
+      "d": "Amazon GuardDuty"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Inspector finds software vulnerabilities, not sensitive data.",
+      "b": "Correct. Amazon Macie uses ML and pattern matching to automatically discover, classify, and protect sensitive data like PII in S3 buckets. It provides dashboards showing where sensitive data is stored.",
+      "c": "Incorrect. Config evaluates resource configurations, not data content.",
+      "d": "Incorrect. GuardDuty detects threats, not sensitive data."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between Amazon Inspector and Amazon GuardDuty?",
+    "opts": {
+      "a": "They do the same thing",
+      "b": "Inspector scans for software vulnerabilities and network exposure; GuardDuty detects malicious activity and unauthorized behavior using threat intelligence and ML",
+      "c": "GuardDuty is free; Inspector is paid",
+      "d": "Inspector works only on containers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They serve different purposes.",
+      "b": "Correct. Inspector is a vulnerability management tool (CVE scanning, network reachability). GuardDuty is a threat detection service (analyzing logs for malicious patterns using ML and threat intel).",
+      "c": "Incorrect. Both have associated costs.",
+      "d": "Incorrect. Inspector works on EC2, ECR, and Lambda."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What resources can Amazon Inspector scan?",
+    "opts": {
+      "a": "Only EC2 instances",
+      "b": "EC2 instances, container images in ECR, and Lambda functions",
+      "c": "Only S3 buckets",
+      "d": "Only EKS clusters"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Inspector scans more than EC2.",
+      "b": "Correct. Amazon Inspector automatically scans EC2 instances (for OS/software vulnerabilities), container images in ECR (for package vulnerabilities), and Lambda functions (for code/dependency vulnerabilities).",
+      "c": "Incorrect. S3 is covered by Macie.",
+      "d": "Incorrect. EKS containers in ECR are covered."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A security team receives hundreds of findings from GuardDuty, Inspector, and Macie across 20 accounts. They need a single dashboard to view and prioritize all findings. Which service should they use?",
+    "opts": {
+      "a": "Amazon CloudWatch",
+      "b": "AWS Security Hub",
+      "c": "Amazon Detective",
+      "d": "AWS CloudTrail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch monitors metrics, not security findings.",
+      "b": "Correct. AWS Security Hub aggregates findings from GuardDuty, Inspector, Macie, Firewall Manager, IAM Access Analyzer, and third-party tools into a single prioritized dashboard with automated compliance checks.",
+      "c": "Incorrect. Detective investigates individual findings, not aggregate.",
+      "d": "Incorrect. CloudTrail provides audit logs."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What security standards does AWS Security Hub support for automated compliance checks?",
+    "opts": {
+      "a": "Only PCI-DSS",
+      "b": "AWS Foundational Security Best Practices, CIS Benchmarks, PCI-DSS, NIST 800-53, and more",
+      "c": "Only ISO 27001",
+      "d": "Only SOC 2"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security Hub supports many standards.",
+      "b": "Correct. Security Hub runs automated checks against multiple standards including AWS Foundational Security Best Practices, CIS AWS Foundations Benchmark, PCI-DSS, and NIST 800-53.",
+      "c": "Incorrect. ISO 27001 is available but not the only standard.",
+      "d": "Incorrect. SOC 2 compliance reports are in Artifact."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A GuardDuty finding indicates that an IAM access key is being used from an unusual geographic location. The security team needs to trace all actions performed with this key. Which service helps?",
+    "opts": {
+      "a": "AWS Config",
+      "b": "Amazon Detective",
+      "c": "Amazon Macie",
+      "d": "AWS Shield"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Config shows resource configurations, not activity traces.",
+      "b": "Correct. Amazon Detective automatically collects and organizes data from CloudTrail, VPC Flow Logs, and GuardDuty to create visualizations showing all activity associated with a compromised key.",
+      "c": "Incorrect. Macie is for sensitive data discovery.",
+      "d": "Incorrect. Shield is for DDoS protection."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does AWS Security Hub's security score represent?",
+    "opts": {
+      "a": "The number of active threats",
+      "b": "The percentage of controls that pass (0-100%) representing overall security posture",
+      "c": "The cost of security services",
+      "d": "The number of IAM users"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The score is not about active threats.",
+      "b": "Correct. Security Hub provides a security score (0-100%) based on the percentage of passed controls vs. total controls evaluated, representing your overall security posture.",
+      "c": "Incorrect. It's not a cost metric.",
+      "d": "Incorrect. User count is not the score basis."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the AWS Shared Responsibility Model?",
+    "opts": {
+      "a": "AWS is responsible for all security",
+      "b": "AWS secures the infrastructure (security OF the cloud); customers secure their configurations, data, and access (security IN the cloud)",
+      "c": "Customers are responsible for all security",
+      "d": "Security is handled by a third party"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security is shared.",
+      "b": "Correct. AWS manages security OF the cloud (physical facilities, hardware, hypervisor, managed service infrastructure). Customers manage security IN the cloud (OS patching, firewall config, IAM, data encryption, network config).",
+      "c": "Incorrect. AWS handles infrastructure security.",
+      "d": "Incorrect. AWS and customers share responsibility."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Under the Shared Responsibility Model, who is responsible for patching the guest operating system on an EC2 instance?",
+    "opts": {
+      "a": "AWS",
+      "b": "The customer",
+      "c": "Both equally",
+      "d": "The OS vendor"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS manages the host OS/hypervisor, not guest OS.",
+      "b": "Correct. The customer is responsible for patching the guest operating system on EC2 instances. AWS manages the underlying infrastructure and hypervisor.",
+      "c": "Incorrect. It's clearly the customer's responsibility.",
+      "d": "Incorrect. While vendors provide patches, applying them is the customer's responsibility."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Under the Shared Responsibility Model, who is responsible for physical security of the data center?",
+    "opts": {
+      "a": "The customer",
+      "b": "AWS",
+      "c": "Both equally",
+      "d": "A third-party contractor"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Customers cannot access AWS data centers.",
+      "b": "Correct. AWS is responsible for the physical security of data centers, including biometric access, 24/7 surveillance, environmental controls, and hardware decommissioning.",
+      "c": "Incorrect. Only AWS handles physical security.",
+      "d": "Incorrect. AWS manages this directly."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between CloudTrail management events and data events?",
+    "opts": {
+      "a": "Management events are free; data events cost money",
+      "b": "Management events log control plane operations (Create/Delete/Modify resources); data events log data plane operations (S3 object access, Lambda invocations)",
+      "c": "Data events are more important than management events",
+      "d": "Management events are encrypted; data events are not"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While the first copy of management events is free, the distinction is about what they log.",
+      "b": "Correct. Management events (also called control plane events) capture operations like CreateBucket, RunInstances. Data events capture resource-level operations like GetObject, PutObject, InvokeFunction.",
+      "c": "Incorrect. Both are important for different purposes.",
+      "d": "Incorrect. Both can be encrypted."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does CloudTrail log file integrity validation work?",
+    "opts": {
+      "a": "It encrypts all log files",
+      "b": "It creates a digitally signed digest file every hour that can be used to verify log files have not been modified or deleted",
+      "c": "It prevents anyone from accessing logs",
+      "d": "It automatically deletes tampered files"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption is separate from integrity validation.",
+      "b": "Correct. CloudTrail produces a hash-signed digest file every hour. You can use the digest to verify that log files were not modified, deleted, or forged after delivery.",
+      "c": "Incorrect. Access control is separate.",
+      "d": "Incorrect. It detects tampering but doesn't auto-delete."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS Organizations Trail (organization trail)?",
+    "opts": {
+      "a": "A trail that only works for the management account",
+      "b": "A single CloudTrail trail that logs events for all accounts in the organization to one S3 bucket",
+      "c": "A billing trail",
+      "d": "A trail for AWS support cases"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Organization trails log all accounts.",
+      "b": "Correct. An organization trail created in the management account automatically applies to all member accounts, delivering logs to a centralized S3 bucket.",
+      "c": "Incorrect. It's not a billing feature.",
+      "d": "Incorrect. It's not for support cases."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to detect if any S3 bucket is made publicly accessible. They need both detection AND automatic remediation. Which combination should they use?",
+    "opts": {
+      "a": "IAM Access Analyzer + manual fix",
+      "b": "AWS Config rule + Auto Remediation (using SSM Automation or Lambda)",
+      "c": "Amazon Macie + GuardDuty",
+      "d": "CloudTrail + CloudWatch Alarms"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Access Analyzer detects but doesn't auto-remediate.",
+      "b": "Correct. AWS Config with the 's3-bucket-public-read-prohibited' rule detects non-compliance, and Auto Remediation can automatically fix it by applying private ACLs or blocking public access.",
+      "c": "Incorrect. Macie finds sensitive data; GuardDuty detects threats.",
+      "d": "Incorrect. CloudTrail logs events but doesn't remediate."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS Config Conformance Pack?",
+    "opts": {
+      "a": "A backup solution",
+      "b": "A collection of Config rules and remediation actions that can be deployed as a single entity across accounts and Regions",
+      "c": "A network configuration template",
+      "d": "A cost management tool"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Conformance Packs are not for backups.",
+      "b": "Correct. Conformance Packs bundle multiple AWS Config rules and remediation actions into a single deployable entity, useful for compliance frameworks like HIPAA, NIST, PCI-DSS.",
+      "c": "Incorrect. They're for compliance rules, not network config.",
+      "d": "Incorrect. They're for compliance, not costs."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What encryption algorithm does AWS KMS use for symmetric keys?",
+    "opts": {
+      "a": "RSA-2048",
+      "b": "AES-256-GCM",
+      "c": "Triple DES",
+      "d": "Blowfish"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RSA is used for asymmetric keys.",
+      "b": "Correct. KMS symmetric keys use AES-256-GCM (Advanced Encryption Standard with 256-bit key in Galois/Counter Mode).",
+      "c": "Incorrect. Triple DES is outdated and not used.",
+      "d": "Incorrect. Blowfish is not used by KMS."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is envelope encryption in AWS KMS?",
+    "opts": {
+      "a": "Encrypting data with one key only",
+      "b": "Using a CMK to encrypt a data key, then using the data key to encrypt the actual data",
+      "c": "Encrypting emails",
+      "d": "Double-encrypting with the same key"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Envelope encryption uses multiple keys.",
+      "b": "Correct. Envelope encryption uses a hierarchy: the CMK encrypts a data key (which is stored alongside the ciphertext), and the data key encrypts the actual data. This allows encrypting large amounts of data without sending it all to KMS.",
+      "c": "Incorrect. It's not email-related.",
+      "d": "Incorrect. It uses different keys at different levels."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to encrypt 10 GB of data using KMS. Why shouldn't they send all 10 GB directly to the KMS API?",
+    "opts": {
+      "a": "KMS doesn't support encryption",
+      "b": "KMS has a 4 KB limit on direct encryption; envelope encryption should be used for larger data",
+      "c": "KMS is too slow",
+      "d": "KMS doesn't work with large files"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. KMS does support encryption.",
+      "b": "Correct. KMS can only directly encrypt data up to 4 KB. For larger data, you use envelope encryption: KMS generates a data key, you encrypt the data locally with the data key, and store the encrypted data key with the ciphertext.",
+      "c": "Incorrect. Speed is not the primary issue.",
+      "d": "Incorrect. KMS works with large files via envelope encryption."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum data size that can be directly encrypted by a single KMS API call?",
+    "opts": {
+      "a": "1 KB",
+      "b": "4 KB",
+      "c": "16 KB",
+      "d": "64 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 KB is below the limit.",
+      "b": "Correct. KMS can directly encrypt up to 4 KB (4,096 bytes) of data per API call. For larger data, use envelope encryption.",
+      "c": "Incorrect. 16 KB exceeds the limit.",
+      "d": "Incorrect. 64 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is a KMS key policy?",
+    "opts": {
+      "a": "An IAM policy attached to users",
+      "b": "A resource-based policy attached directly to the KMS key that defines who can use and manage the key",
+      "c": "A network policy",
+      "d": "A billing policy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Key policies are attached to keys, not users.",
+      "b": "Correct. Every KMS key has a key policy (resource-based policy) that is the primary way to control access. Unlike most AWS resources, you MUST use a key policy for KMS keys; IAM policies alone are not sufficient unless the key policy allows it.",
+      "c": "Incorrect. It's not a network policy.",
+      "d": "Incorrect. It's not a billing policy."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is a KMS grant?",
+    "opts": {
+      "a": "A funding mechanism for encryption",
+      "b": "A mechanism to delegate access to a KMS key without modifying the key policy, commonly used by AWS services",
+      "c": "A type of KMS key",
+      "d": "A CloudFormation resource"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Grants are not financial.",
+      "b": "Correct. KMS grants provide temporary, programmatic access to a KMS key without modifying the key policy. AWS services often use grants internally when encrypting resources on your behalf.",
+      "c": "Incorrect. Grants are access mechanisms, not key types.",
+      "d": "Incorrect. Grants are a KMS feature."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to manage firewall rules (WAF, Shield, Security Groups, Network Firewall) consistently across 100 AWS accounts. Which single service should they use?",
+    "opts": {
+      "a": "AWS Organizations",
+      "b": "AWS Firewall Manager",
+      "c": "AWS Security Hub",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Organizations manages accounts, not firewall rules directly.",
+      "b": "Correct. AWS Firewall Manager centrally configures and manages firewall rules (WAF, Shield Advanced, Security Groups, Network Firewall, DNS Firewall) across all accounts in an AWS Organization.",
+      "c": "Incorrect. Security Hub aggregates findings, not manages rules.",
+      "d": "Incorrect. Config evaluates compliance, not manages rules."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What prerequisite does AWS Firewall Manager require?",
+    "opts": {
+      "a": "CloudTrail must be enabled",
+      "b": "AWS Organizations with all features enabled and AWS Config enabled in all accounts",
+      "c": "GuardDuty must be active",
+      "d": "VPN connections to all accounts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudTrail is recommended but not a prerequisite for Firewall Manager specifically.",
+      "b": "Correct. Firewall Manager requires AWS Organizations with all features enabled, and AWS Config must be enabled in all accounts/Regions where you want to manage rules.",
+      "c": "Incorrect. GuardDuty is not a prerequisite.",
+      "d": "Incorrect. VPN connections are not required."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS Network Firewall?",
+    "opts": {
+      "a": "A CDN protection service",
+      "b": "A managed stateful network firewall and intrusion prevention system for VPCs",
+      "c": "An application layer firewall",
+      "d": "A DNS service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CDN protection is through WAF + CloudFront.",
+      "b": "Correct. AWS Network Firewall provides stateful inspection, intrusion detection/prevention (IDS/IPS), and web filtering for VPC traffic at Layers 3-7.",
+      "c": "Incorrect. While it can inspect L7, it's primarily a network-level firewall (WAF is the application firewall).",
+      "d": "Incorrect. DNS is Route 53."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Where is AWS Network Firewall deployed architecturally?",
+    "opts": {
+      "a": "In front of CloudFront",
+      "b": "In a dedicated firewall subnet within the VPC, inspecting traffic between subnets or VPC boundaries",
+      "c": "On each EC2 instance",
+      "d": "In the management account only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. WAF sits in front of CloudFront.",
+      "b": "Correct. Network Firewall is deployed in a firewall subnet and uses VPC route tables to direct traffic through it. It inspects traffic between subnets, to/from the internet, or to/from other VPCs.",
+      "c": "Incorrect. It's not deployed per instance.",
+      "d": "Incorrect. It's deployed in each VPC that needs protection."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to prevent data exfiltration from their VPC by blocking outbound traffic to unauthorized domains. Which service should they use?",
+    "opts": {
+      "a": "Security Groups (outbound rules)",
+      "b": "AWS Network Firewall with domain-based rules or Route 53 Resolver DNS Firewall",
+      "c": "AWS WAF",
+      "d": "IAM policies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security Groups work with IPs, not domain names.",
+      "b": "Correct. Network Firewall supports domain-based filtering (allow/deny specific domains for outbound HTTPS). DNS Firewall can block DNS resolution for unauthorized domains. Both prevent data exfiltration.",
+      "c": "Incorrect. WAF protects inbound web traffic.",
+      "d": "Incorrect. IAM doesn't control network traffic."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS Verified Access?",
+    "opts": {
+      "a": "A service for verifying SSL certificates",
+      "b": "A zero-trust service that provides secure access to corporate applications without a VPN",
+      "c": "A code verification tool",
+      "d": "An identity verification service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Certificate verification is ACM's role.",
+      "b": "Correct. AWS Verified Access provides secure, zero-trust access to corporate applications based on identity and device posture, eliminating the need for traditional VPNs.",
+      "c": "Incorrect. Code verification is not its purpose.",
+      "d": "Incorrect. While it verifies identity, it's broader than just identity verification."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to replace their VPN for remote employee access to internal web applications, implementing zero-trust principles. Which AWS service should they use?",
+    "opts": {
+      "a": "AWS Client VPN",
+      "b": "AWS Verified Access",
+      "c": "AWS Direct Connect",
+      "d": "AWS PrivateLink"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Client VPN is still a VPN; the requirement is to replace VPN.",
+      "b": "Correct. Verified Access provides VPN-less, zero-trust access to applications, evaluating each request against security policies based on user identity and device security posture.",
+      "c": "Incorrect. Direct Connect is for dedicated network connections.",
+      "d": "Incorrect. PrivateLink provides private connectivity to services, not remote access."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between AWS Secrets Manager and AWS Systems Manager Parameter Store for storing secrets?",
+    "opts": {
+      "a": "They are identical in functionality",
+      "b": "Secrets Manager has native automatic rotation, cross-account access, and costs $0.40/secret/month; Parameter Store (standard) is free but lacks native automatic rotation",
+      "c": "Parameter Store is more expensive",
+      "d": "Secrets Manager only stores database credentials"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They have significant differences.",
+      "b": "Correct. Secrets Manager provides native automatic rotation (with Lambda), costs $0.40/secret/month, and supports cross-account access. Parameter Store (standard tier) is free for up to 10,000 parameters but requires custom Lambda for rotation.",
+      "c": "Incorrect. Parameter Store standard is free.",
+      "d": "Incorrect. Secrets Manager stores any type of secret."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the cost per secret per month in AWS Secrets Manager?",
+    "opts": {
+      "a": "$0.05",
+      "b": "$0.40",
+      "c": "$1.00",
+      "d": "$5.00"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. $0.05 is below the cost.",
+      "b": "Correct. AWS Secrets Manager charges $0.40 per secret per month, plus $0.05 per 10,000 API calls.",
+      "c": "Incorrect. $1.00 exceeds the cost.",
+      "d": "Incorrect. $5.00 exceeds the cost."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of parameters in AWS Systems Manager Parameter Store (standard tier)?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Standard tier supports more.",
+      "b": "Incorrect. 5,000 is below the limit.",
+      "c": "Correct. Standard tier allows up to 10,000 parameters per Region per account at no cost.",
+      "d": "Incorrect. 100,000 is the advanced tier limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In July 2026, AWS Secrets Manager added native EventBridge events. What was previously required to detect secret value changes?",
+    "opts": {
+      "a": "Simple SNS notifications",
+      "b": "Parsing multiple CloudTrail API events (PutSecretValue, UpdateSecretValue, rotation success) through EventBridge",
+      "c": "CloudWatch Logs filtering",
+      "d": "AWS Config rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SNS didn't provide this capability directly.",
+      "b": "Correct. Before July 2026, detecting secret value changes required parsing multiple CloudTrail events through EventBridge and correlating them. Now Secrets Manager publishes a single native event.",
+      "c": "Incorrect. CloudWatch Logs filtering was not the recommended approach.",
+      "d": "Incorrect. Config rules don't detect secret value changes."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to implement VPC-level traffic inspection for compliance, including deep packet inspection and IDS/IPS. Which service should they deploy?",
+    "opts": {
+      "a": "AWS WAF",
+      "b": "AWS Network Firewall",
+      "c": "NACLs with all ports blocked",
+      "d": "Security Groups with strict rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. WAF is for web application traffic only.",
+      "b": "Correct. AWS Network Firewall provides deep packet inspection, IDS/IPS (Intrusion Detection/Prevention), and Suricata-compatible rule support for comprehensive VPC traffic inspection.",
+      "c": "Incorrect. NACLs don't provide deep packet inspection.",
+      "d": "Incorrect. Security Groups don't provide IDS/IPS."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS PrivateLink used for in security?",
+    "opts": {
+      "a": "Encrypting S3 data",
+      "b": "Providing private connectivity to AWS services and customer services without traversing the public internet",
+      "c": "Managing IAM policies",
+      "d": "DDoS protection"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 encryption is handled by SSE/KMS.",
+      "b": "Correct. AWS PrivateLink establishes private connections between VPCs and AWS services (or customer services) through interface VPC endpoints, ensuring traffic never traverses the public internet.",
+      "c": "Incorrect. IAM policies are separate.",
+      "d": "Incorrect. DDoS protection is Shield."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between a VPC Gateway Endpoint and an Interface Endpoint (PrivateLink)?",
+    "opts": {
+      "a": "They are the same thing",
+      "b": "Gateway endpoints are free (for S3 and DynamoDB only, route table entry); Interface endpoints cost money (for most services, use ENI with private IP)",
+      "c": "Interface endpoints are free; Gateway endpoints cost money",
+      "d": "Gateway endpoints work for all services"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They are different architecturally.",
+      "b": "Correct. Gateway endpoints are free and only support S3 and DynamoDB (added to route tables). Interface endpoints (PrivateLink) use ENIs, support most AWS services, and have hourly + data processing charges.",
+      "c": "Incorrect. Gateway endpoints are free; Interface endpoints cost.",
+      "d": "Incorrect. Gateway endpoints only support S3 and DynamoDB."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's Lambda functions need to access S3 without traffic going over the internet. The functions are in a VPC. What should they configure?",
+    "opts": {
+      "a": "NAT Gateway",
+      "b": "VPC Gateway Endpoint for S3",
+      "c": "Internet Gateway",
+      "d": "AWS Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NAT Gateway routes through the internet (and costs more).",
+      "b": "Correct. A VPC Gateway Endpoint for S3 provides private access to S3 from within the VPC without internet access. It's free and uses route table entries.",
+      "c": "Incorrect. Internet Gateway would expose traffic to the internet.",
+      "d": "Incorrect. Direct Connect is for on-premises connectivity."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon Cognito's role in security?",
+    "opts": {
+      "a": "Encrypting databases",
+      "b": "Providing user sign-up, sign-in, and access control for web/mobile applications with support for social/enterprise federation",
+      "c": "Managing VPC security",
+      "d": "Scanning for vulnerabilities"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Database encryption uses KMS/RDS.",
+      "b": "Correct. Amazon Cognito provides authentication (user pools for sign-up/sign-in) and authorization (identity pools for temporary AWS credentials), supporting social IdPs (Google, Facebook) and enterprise SAML/OIDC.",
+      "c": "Incorrect. VPC security uses Security Groups/NACLs.",
+      "d": "Incorrect. Vulnerability scanning is Inspector."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between Cognito User Pools and Identity Pools?",
+    "opts": {
+      "a": "They are the same thing",
+      "b": "User Pools handle authentication (sign-up/sign-in, returning JWT tokens); Identity Pools handle authorization (exchanging tokens for temporary AWS credentials)",
+      "c": "User Pools are for mobile; Identity Pools are for web",
+      "d": "Identity Pools are deprecated"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They serve different purposes.",
+      "b": "Correct. User Pools are identity providers for authentication (returning ID/Access/Refresh tokens). Identity Pools (Federated Identities) exchange tokens from User Pools or other IdPs for temporary AWS credentials.",
+      "c": "Incorrect. Both work for mobile and web.",
+      "d": "Incorrect. Identity Pools are not deprecated."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A mobile app needs to let users sign in with Google and then access S3 to upload photos. Which Cognito components are needed?",
+    "opts": {
+      "a": "Only User Pool",
+      "b": "Only Identity Pool",
+      "c": "User Pool (federation with Google) + Identity Pool (to get temporary AWS credentials for S3)",
+      "d": "Neither; use IAM users directly"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. User Pool alone doesn't provide AWS credentials.",
+      "b": "Incorrect. Identity Pool can work with Google directly, but User Pool adds centralized user management.",
+      "c": "Correct. User Pool federates with Google for authentication. Identity Pool exchanges the User Pool token for temporary AWS credentials that allow S3 access with fine-grained permissions.",
+      "d": "Incorrect. IAM users don't scale for mobile app users."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of custom attributes per Cognito User Pool?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "75",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 25 custom attributes are allowed.",
+      "b": "Correct. You can add up to 50 custom attributes to a Cognito User Pool (prefixed with 'custom:').",
+      "c": "Incorrect. 75 exceeds the limit.",
+      "d": "Incorrect. 100 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the AWS Nitro System's role in security?",
+    "opts": {
+      "a": "A DDoS protection system",
+      "b": "The underlying platform for EC2 that provides hardware-based security boundaries, preventing AWS operators from accessing customer data",
+      "c": "A firewall service",
+      "d": "An encryption key manager"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DDoS protection is Shield.",
+      "b": "Correct. AWS Nitro System provides a security model where the hypervisor and all management functions run on dedicated hardware and software. No AWS operator can access customer data on Nitro instances, providing strong isolation.",
+      "c": "Incorrect. Firewalls are separate services.",
+      "d": "Incorrect. Key management is KMS."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS Nitro Enclaves?",
+    "opts": {
+      "a": "A type of EC2 instance",
+      "b": "Isolated compute environments within EC2 instances for processing highly sensitive data with no external network access, no persistent storage, and no operator access",
+      "c": "A container runtime",
+      "d": "A VPN service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Enclaves run within EC2 instances.",
+      "b": "Correct. Nitro Enclaves creates an isolated virtual machine within your EC2 instance with no network connectivity, no persistent storage, and no interactive access — ideal for processing sensitive data like PII, healthcare, or financial data.",
+      "c": "Incorrect. It's not a container runtime.",
+      "d": "Incorrect. It's not a VPN."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A healthcare company processes sensitive patient data and needs to ensure that even EC2 administrators cannot access the data during processing. Which AWS feature should they use?",
+    "opts": {
+      "a": "VPC with strict security groups",
+      "b": "AWS Nitro Enclaves",
+      "c": "AWS KMS encryption",
+      "d": "IAM policies restricting access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security groups don't prevent admin access.",
+      "b": "Correct. Nitro Enclaves provides cryptographic attestation and complete isolation — no one (including root users on the host instance) can SSH into or access the enclave's memory or data.",
+      "c": "Incorrect. KMS encrypts data but doesn't prevent admins from decrypting if they have permissions.",
+      "d": "Incorrect. IAM can be overridden by admins."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS Security Token Service (STS) endpoint availability?",
+    "opts": {
+      "a": "Only available in us-east-1",
+      "b": "Available as a global endpoint and regional endpoints in all Regions",
+      "c": "Only available in 3 Regions",
+      "d": "Requires VPN access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. STS is available in all Regions.",
+      "b": "Correct. AWS STS is available as a global endpoint (sts.amazonaws.com) and regional endpoints (sts.us-east-1.amazonaws.com, etc.) in all AWS Regions. AWS recommends using regional endpoints for reduced latency.",
+      "c": "Incorrect. STS is available in all Regions.",
+      "d": "Incorrect. No VPN is required."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the purpose of AWS IAM Access Analyzer's external access findings?",
+    "opts": {
+      "a": "Finding unused IAM users",
+      "b": "Identifying resources (S3, IAM roles, KMS keys, Lambda, SQS, Secrets Manager) shared with entities outside your account or organization",
+      "c": "Detecting DDoS attacks",
+      "d": "Monitoring API call rates"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Unused IAM users is a different feature (unused access findings).",
+      "b": "Correct. Access Analyzer's external access analyzer identifies resources with policies that grant access to external principals (outside your account or organization), helping prevent unintended access.",
+      "c": "Incorrect. DDoS detection is Shield/GuardDuty.",
+      "d": "Incorrect. API rate monitoring is CloudWatch/CloudTrail."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are IAM Access Analyzer's unused access findings?",
+    "opts": {
+      "a": "Findings about deleted resources",
+      "b": "Findings identifying unused roles, unused access keys, unused passwords, and unused permissions that could be removed for least privilege",
+      "c": "Findings about billing anomalies",
+      "d": "Findings about network access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deleted resources are not tracked this way.",
+      "b": "Correct. Unused access findings help identify IAM roles, access keys, passwords, and specific permissions that haven't been used within a specified period, helping achieve least privilege.",
+      "c": "Incorrect. Billing is separate.",
+      "d": "Incorrect. Network access is not what unused access tracks."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "IAM Access Analyzer can analyze access activity for how many days to generate least-privilege policies?",
+    "opts": {
+      "a": "Up to 30 days",
+      "b": "Up to 90 days",
+      "c": "Up to 180 days",
+      "d": "Up to 365 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It can analyze more than 30 days.",
+      "b": "Correct. IAM Access Analyzer uses up to 90 days of CloudTrail activity to generate least-privilege policy recommendations.",
+      "c": "Incorrect. 180 days exceeds the analysis period.",
+      "d": "Incorrect. 365 days exceeds the analysis period."
+    }
+  }
+]

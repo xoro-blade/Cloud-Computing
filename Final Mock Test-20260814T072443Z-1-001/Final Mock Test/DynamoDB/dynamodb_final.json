@@ -1,0 +1,835 @@
+[
+  {
+    "type": "mcq",
+    "q": "What is the maximum item size in DynamoDB?",
+    "opts": {
+      "a": "256 KB",
+      "b": "400 KB",
+      "c": "1 MB",
+      "d": "64 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "256 KB is not the correct maximum item size for DynamoDB.",
+      "b": "The maximum item size in DynamoDB is 400 KB, including attribute names and values.",
+      "c": "1 MB exceeds DynamoDB's maximum item size limit.",
+      "d": "64 KB is too small; DynamoDB allows items up to 400 KB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Local Secondary Indexes (LSIs) can you create per DynamoDB table?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "3 is incorrect; DynamoDB allows more LSIs per table.",
+      "b": "You can create a maximum of 5 Local Secondary Indexes per DynamoDB table.",
+      "c": "10 is incorrect; the limit is 5 LSIs per table.",
+      "d": "20 is the limit for Global Secondary Indexes, not LSIs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Global Secondary Indexes (GSIs) can you create per DynamoDB table by default?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "5 is the limit for Local Secondary Indexes, not GSIs.",
+      "b": "10 is incorrect; DynamoDB allows more GSIs.",
+      "c": "You can create up to 20 Global Secondary Indexes per DynamoDB table by default.",
+      "d": "GSIs are not unlimited; the default limit is 20 per table."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does one Read Capacity Unit (RCU) represent for strongly consistent reads in DynamoDB?",
+    "opts": {
+      "a": "One read per second for items up to 2 KB",
+      "b": "One read per second for items up to 4 KB",
+      "c": "Two reads per second for items up to 4 KB",
+      "d": "One read per second for items up to 8 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "2 KB is incorrect; one RCU covers items up to 4 KB for strongly consistent reads.",
+      "b": "One RCU provides one strongly consistent read per second for items up to 4 KB in size.",
+      "c": "Two reads per second for 4 KB items describes eventually consistent reads (1 RCU = 2 eventually consistent reads).",
+      "d": "8 KB is incorrect; one RCU handles items up to 4 KB for strongly consistent reads."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What does one Write Capacity Unit (WCU) represent in DynamoDB?",
+    "opts": {
+      "a": "One write per second for items up to 1 KB",
+      "b": "One write per second for items up to 2 KB",
+      "c": "One write per second for items up to 4 KB",
+      "d": "Two writes per second for items up to 1 KB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "One WCU provides one write per second for items up to 1 KB in size.",
+      "b": "2 KB is incorrect; one WCU handles writes up to 1 KB.",
+      "c": "4 KB applies to read capacity units, not write capacity units.",
+      "d": "One WCU provides only one write per second, not two."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many eventually consistent reads per second does one RCU provide for items up to 4 KB?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "4",
+      "d": "8"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1 read per second is for strongly consistent reads, not eventually consistent.",
+      "b": "One RCU provides 2 eventually consistent reads per second for items up to 4 KB.",
+      "c": "4 is incorrect; the correct number is 2 eventually consistent reads per RCU.",
+      "d": "8 is incorrect; one RCU supports only 2 eventually consistent reads per second."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum length of a DynamoDB partition key value?",
+    "opts": {
+      "a": "256 bytes",
+      "b": "1024 bytes",
+      "c": "2048 bytes",
+      "d": "4096 bytes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "256 bytes is too small; DynamoDB allows larger partition key values.",
+      "b": "1024 bytes is the maximum for sort key values, not partition key values.",
+      "c": "The maximum length of a partition key value in DynamoDB is 2048 bytes.",
+      "d": "4096 bytes exceeds the DynamoDB partition key value limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum length of a DynamoDB sort key value?",
+    "opts": {
+      "a": "256 bytes",
+      "b": "1024 bytes",
+      "c": "2048 bytes",
+      "d": "4096 bytes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "256 bytes is too small for the sort key value limit.",
+      "b": "The maximum length of a sort key value in DynamoDB is 1024 bytes.",
+      "c": "2048 bytes is the limit for partition key values, not sort key values.",
+      "d": "4096 bytes exceeds the DynamoDB sort key value limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How long are DynamoDB Streams records retained?",
+    "opts": {
+      "a": "12 hours",
+      "b": "24 hours",
+      "c": "48 hours",
+      "d": "7 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "12 hours is too short; DynamoDB Streams retains records longer.",
+      "b": "DynamoDB Streams records are retained for 24 hours.",
+      "c": "48 hours exceeds the retention period for DynamoDB Streams.",
+      "d": "7 days is the retention for Kinesis Data Streams (default), not DynamoDB Streams."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many days of backup history does DynamoDB Point-in-Time Recovery (PITR) provide?",
+    "opts": {
+      "a": "7 days",
+      "b": "14 days",
+      "c": "30 days",
+      "d": "35 days"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "7 days is incorrect; PITR provides a longer recovery window.",
+      "b": "14 days is incorrect; PITR provides more than 14 days.",
+      "c": "30 days is incorrect; the correct duration is 35 days.",
+      "d": "DynamoDB PITR allows you to restore your table to any point in time within the last 35 days."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum data stored per partition in DynamoDB?",
+    "opts": {
+      "a": "5 GB",
+      "b": "10 GB",
+      "c": "20 GB",
+      "d": "50 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "5 GB is incorrect; DynamoDB allows more data per partition.",
+      "b": "Each partition in DynamoDB can hold up to 10 GB of data.",
+      "c": "20 GB exceeds the per-partition storage limit.",
+      "d": "50 GB exceeds the per-partition storage limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum throughput per partition in DynamoDB?",
+    "opts": {
+      "a": "1000 RCU and 500 WCU",
+      "b": "3000 RCU and 1000 WCU",
+      "c": "5000 RCU and 2000 WCU",
+      "d": "10000 RCU and 5000 WCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1000 RCU and 500 WCU is incorrect; partitions support higher throughput.",
+      "b": "Each DynamoDB partition supports up to 3000 RCU and 1000 WCU.",
+      "c": "5000 RCU and 2000 WCU exceeds the per-partition limit.",
+      "d": "10000 RCU and 5000 WCU far exceeds the per-partition limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many items can you retrieve in a single BatchGetItem request?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "100",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "25 is the limit for BatchWriteItem, not BatchGetItem.",
+      "b": "50 is incorrect; BatchGetItem allows more items.",
+      "c": "A single BatchGetItem request can retrieve up to 100 items across multiple tables, up to 16 MB total.",
+      "d": "500 exceeds the BatchGetItem limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many items can you write in a single BatchWriteItem request?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "10 is incorrect; BatchWriteItem supports more items.",
+      "b": "A single BatchWriteItem request can write (put or delete) up to 25 items across multiple tables, up to 16 MB total.",
+      "c": "50 exceeds the BatchWriteItem limit.",
+      "d": "100 is the limit for BatchGetItem, not BatchWriteItem."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many items can a single DynamoDB transaction include?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "10 is incorrect; DynamoDB transactions can include more items.",
+      "b": "25 is the limit for BatchWriteItem, not transactions.",
+      "c": "50 is incorrect; transactions support up to 100 items.",
+      "d": "A single DynamoDB transaction can include up to 100 unique items or up to 4 MB of data."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How much additional capacity do DynamoDB transactional reads consume compared to standard reads?",
+    "opts": {
+      "a": "Same as standard reads",
+      "b": "2x the capacity of standard reads",
+      "c": "3x the capacity of standard reads",
+      "d": "4x the capacity of standard reads"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Transactional reads consume more capacity than standard reads.",
+      "b": "Transactional reads consume 2x the read capacity of a standard strongly consistent read.",
+      "c": "3x is incorrect; transactional reads consume 2x capacity.",
+      "d": "4x is incorrect; transactional reads consume 2x capacity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How much additional capacity do DynamoDB transactional writes consume compared to standard writes?",
+    "opts": {
+      "a": "Same as standard writes",
+      "b": "2x the capacity of standard writes",
+      "c": "3x the capacity of standard writes",
+      "d": "4x the capacity of standard writes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Transactional writes consume more capacity than standard writes.",
+      "b": "Transactional writes consume 2x the write capacity of a standard write.",
+      "c": "3x is incorrect; transactional writes consume 2x capacity.",
+      "d": "4x is incorrect; transactional writes consume 2x capacity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of tables you can create per AWS account per region by default?",
+    "opts": {
+      "a": "25",
+      "b": "256",
+      "c": "2500",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "25 is incorrect; DynamoDB allows many more tables per region.",
+      "b": "256 is the initial default in some older documentation, but the current default is 2500.",
+      "c": "The default limit is 2500 tables per AWS account per region (can be increased via support request).",
+      "d": "There is a limit, though it can be increased by contacting AWS support."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the SLA uptime commitment for DynamoDB single-region tables?",
+    "opts": {
+      "a": "99.9%",
+      "b": "99.95%",
+      "c": "99.99%",
+      "d": "99.999%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "99.9% is lower than DynamoDB's SLA commitment.",
+      "b": "99.95% is lower than DynamoDB's SLA.",
+      "c": "DynamoDB offers 99.99% availability SLA for single-region tables.",
+      "d": "99.999% applies to DynamoDB Global Tables, not standard single-region tables."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What SLA does DynamoDB Global Tables provide?",
+    "opts": {
+      "a": "99.9%",
+      "b": "99.99%",
+      "c": "99.999%",
+      "d": "100%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "99.9% is too low for Global Tables SLA.",
+      "b": "99.99% is the SLA for single-region DynamoDB tables.",
+      "c": "DynamoDB Global Tables provides a 99.999% (five nines) availability SLA.",
+      "d": "No AWS service guarantees 100% availability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "If you need to read an item of 10 KB with strong consistency, how many RCUs are consumed?",
+    "opts": {
+      "a": "2 RCU",
+      "b": "3 RCU",
+      "c": "4 RCU",
+      "d": "10 RCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "2 RCU would only cover 8 KB for strongly consistent reads (2 × 4 KB).",
+      "b": "10 KB / 4 KB = 2.5, rounded up to 3 RCUs for a strongly consistent read.",
+      "c": "4 RCU would be more than needed; 10 KB needs only 3 RCUs.",
+      "d": "10 RCU is far more than needed for a 10 KB item."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "If you need to write an item of 3 KB, how many WCUs are consumed?",
+    "opts": {
+      "a": "1 WCU",
+      "b": "2 WCU",
+      "c": "3 WCU",
+      "d": "4 WCU"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1 WCU only covers 1 KB of write data.",
+      "b": "2 WCU only covers 2 KB of write data.",
+      "c": "3 KB / 1 KB = 3 WCUs consumed for writing a 3 KB item.",
+      "d": "4 WCU is more than needed for a 3 KB item."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "If you need to read an item of 8 KB with eventual consistency, how many RCUs are consumed?",
+    "opts": {
+      "a": "0.5 RCU",
+      "b": "1 RCU",
+      "c": "2 RCU",
+      "d": "4 RCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "0.5 RCU is not a valid RCU consumption value in this context.",
+      "b": "8 KB / 4 KB = 2 (for strongly consistent), but eventually consistent reads use half the capacity, so 2 / 2 = 1 RCU.",
+      "c": "2 RCU would be needed for strongly consistent reads of 8 KB, not eventually consistent.",
+      "d": "4 RCU is far more than needed for an 8 KB eventually consistent read."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of nodes in a DynamoDB DAX cluster?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "11",
+      "d": "15"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "5 nodes is below the maximum DAX cluster size.",
+      "b": "10 nodes is below the maximum DAX cluster size.",
+      "c": "A DynamoDB DAX cluster can have a maximum of 11 nodes (1 primary + 10 read replicas).",
+      "d": "15 exceeds the maximum DAX cluster node count."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default TTL for items in the DAX item cache?",
+    "opts": {
+      "a": "1 minute",
+      "b": "5 minutes",
+      "c": "10 minutes",
+      "d": "30 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1 minute is not the default DAX item cache TTL.",
+      "b": "The default TTL for the DAX item cache is 5 minutes.",
+      "c": "10 minutes is not the default DAX item cache TTL.",
+      "d": "30 minutes is not the default DAX item cache TTL."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many DynamoDB Streams view types are available?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "4",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "2 is incorrect; there are more view types available.",
+      "b": "3 is incorrect; there are 4 stream view types.",
+      "c": "There are 4 stream view types: KEYS_ONLY, NEW_IMAGE, OLD_IMAGE, and NEW_AND_OLD_IMAGES.",
+      "d": "5 is incorrect; DynamoDB Streams has exactly 4 view types."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How much storage cost savings does DynamoDB Standard-IA provide compared to Standard?",
+    "opts": {
+      "a": "Up to 30%",
+      "b": "Up to 60%",
+      "c": "Up to 80%",
+      "d": "Up to 90%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "30% is less than the actual savings offered by Standard-IA.",
+      "b": "DynamoDB Standard-IA offers up to 60% lower storage costs compared to the Standard table class.",
+      "c": "80% exceeds the actual savings offered by Standard-IA.",
+      "d": "90% exceeds the actual savings offered by Standard-IA."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of projected attributes in a DynamoDB secondary index (INCLUDE type)?",
+    "opts": {
+      "a": "10",
+      "b": "20",
+      "c": "100",
+      "d": "No limit"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "10 is incorrect; more attributes can be projected.",
+      "b": "20 is the number of GSIs allowed, not projected attributes.",
+      "c": "You can project up to 100 non-key attributes into a secondary index when using INCLUDE projection type.",
+      "d": "There is a limit of 100 non-key projected attributes (when using INCLUDE)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum size of data returned by a single BatchGetItem call?",
+    "opts": {
+      "a": "1 MB",
+      "b": "4 MB",
+      "c": "16 MB",
+      "d": "64 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "1 MB is the limit for a single Query or Scan call, not BatchGetItem.",
+      "b": "4 MB is the size limit for transactions, not BatchGetItem.",
+      "c": "A single BatchGetItem call can return up to 16 MB of data.",
+      "d": "64 MB exceeds the BatchGetItem data limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum total data size for a DynamoDB transaction (TransactWriteItems or TransactGetItems)?",
+    "opts": {
+      "a": "1 MB",
+      "b": "4 MB",
+      "c": "16 MB",
+      "d": "25 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1 MB is the limit for Query/Scan results, not transactions.",
+      "b": "DynamoDB transactions are limited to 4 MB of data in total across all items in the transaction.",
+      "c": "16 MB is the limit for BatchGetItem, not transactions.",
+      "d": "25 MB is not a DynamoDB limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How often can you switch between DynamoDB provisioned and on-demand capacity modes?",
+    "opts": {
+      "a": "Once per day",
+      "b": "Once per 24 hours",
+      "c": "Unlimited times",
+      "d": "Once per week"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Once per day is close but not the precise AWS term.",
+      "b": "You can switch between provisioned and on-demand capacity modes once every 24 hours.",
+      "c": "Switching is not unlimited; there is a 24-hour cooldown.",
+      "d": "Once per week is incorrect; you can switch every 24 hours."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum discount available with DynamoDB reserved capacity (3-year term)?",
+    "opts": {
+      "a": "50%",
+      "b": "60%",
+      "c": "77%",
+      "d": "90%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "50% is less than the maximum available discount.",
+      "b": "60% is less than the maximum available discount.",
+      "c": "DynamoDB reserved capacity offers up to 77% savings with a 3-year term compared to on-demand pricing.",
+      "d": "90% exceeds the maximum discount available for DynamoDB reserved capacity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum retention period when using Kinesis Data Streams for DynamoDB?",
+    "opts": {
+      "a": "24 hours",
+      "b": "7 days",
+      "c": "30 days",
+      "d": "365 days"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "24 hours is the DynamoDB Streams retention, not Kinesis Data Streams.",
+      "b": "7 days is the default Kinesis retention, but extended retention is available.",
+      "c": "30 days is less than the maximum available retention.",
+      "d": "Kinesis Data Streams supports up to 365 days of data retention."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of attributes that can be defined as key schema elements for a DynamoDB table?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "5"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1 attribute is for a simple primary key (partition key only), but composite keys use 2.",
+      "b": "A DynamoDB table key schema can have at most 2 attributes: one partition key and one optional sort key.",
+      "c": "DynamoDB does not support 3 key attributes in the table schema.",
+      "d": "5 attributes cannot be part of the table's key schema."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum nesting depth for DynamoDB document types (Maps and Lists)?",
+    "opts": {
+      "a": "8 levels",
+      "b": "16 levels",
+      "c": "32 levels",
+      "d": "64 levels"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "8 levels is below the actual maximum nesting depth.",
+      "b": "16 levels is below the actual maximum nesting depth.",
+      "c": "DynamoDB supports a maximum nesting depth of 32 levels for document type attributes.",
+      "d": "64 levels exceeds the DynamoDB nesting limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of concurrent DynamoDB Streams consumers for a single shard?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "Unlimited"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "More than 1 consumer can read from a DynamoDB stream shard simultaneously.",
+      "b": "A DynamoDB stream shard supports a maximum of 2 simultaneous readers/consumers to avoid throttling.",
+      "c": "5 simultaneous readers would exceed the shard read capacity.",
+      "d": "There is a limit of 2 concurrent readers per shard."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum batch size (number of records) that Lambda can receive from DynamoDB Streams in a single invocation?",
+    "opts": {
+      "a": "100",
+      "b": "1,000",
+      "c": "10,000",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "100 is the default batch size, but not the maximum.",
+      "b": "1,000 is below the maximum configurable batch size.",
+      "c": "The maximum batch size for Lambda reading from DynamoDB Streams is 10,000 records per invocation.",
+      "d": "100,000 exceeds the maximum batch size limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has a DynamoDB table with provisioned capacity of 100 RCUs. They need to perform 100 strongly consistent reads per second on items that are 8 KB each. What will happen?",
+    "opts": {
+      "a": "All reads will succeed without throttling",
+      "b": "Reads will be throttled because 200 RCUs are needed",
+      "c": "Reads will be throttled because 400 RCUs are needed",
+      "d": "DynamoDB will automatically increase capacity"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "100 RCUs is insufficient for 8 KB strongly consistent reads at 100 per second.",
+      "b": "8 KB / 4 KB = 2 RCUs per read. 100 reads × 2 RCUs = 200 RCUs needed. With only 100 provisioned, requests will be throttled.",
+      "c": "400 RCUs would be needed for 4 RCUs per read, which is not the case for 8 KB items.",
+      "d": "In provisioned mode without Auto Scaling enabled, DynamoDB does not automatically increase capacity."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An application performs 500 eventually consistent reads per second on items of 3.5 KB each. How many RCUs should be provisioned?",
+    "opts": {
+      "a": "125 RCU",
+      "b": "250 RCU",
+      "c": "500 RCU",
+      "d": "1000 RCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "125 RCU is half of what's needed.",
+      "b": "3.5 KB rounds up to 4 KB = 1 RCU per strongly consistent read. Eventually consistent reads cost half: 0.5 RCU per read. 500 × 0.5 = 250 RCUs.",
+      "c": "500 RCU would be for strongly consistent reads of 4 KB items.",
+      "d": "1000 RCU is far more than needed for this scenario."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to calculate the RCUs required for 50 strongly consistent reads per second, with each item being 6 KB. How many RCUs do you need?",
+    "opts": {
+      "a": "50 RCU",
+      "b": "75 RCU",
+      "c": "100 RCU",
+      "d": "150 RCU"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "50 RCU would only cover items up to 4 KB each.",
+      "b": "75 RCU is incorrect; the calculation yields a different result.",
+      "c": "6 KB / 4 KB = 1.5, rounded up to 2 RCUs per read. 50 reads × 2 RCU = 100 RCUs.",
+      "d": "150 RCU is more than needed for this scenario."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need 80 eventually consistent reads per second for items of 12 KB each. How many RCUs are required?",
+    "opts": {
+      "a": "80 RCU",
+      "b": "120 RCU",
+      "c": "160 RCU",
+      "d": "240 RCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "80 RCU does not account for the item size exceeding 4 KB.",
+      "b": "12 KB / 4 KB = 3 RCUs for strongly consistent. For eventually consistent: 3 / 2 = 1.5 RCU per read. 80 × 1.5 = 120 RCUs.",
+      "c": "160 RCU would be for strongly consistent reads, not eventually consistent.",
+      "d": "240 RCU is double what is needed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need 100 writes per second for items of 2.5 KB each. How many WCUs are required?",
+    "opts": {
+      "a": "100 WCU",
+      "b": "200 WCU",
+      "c": "250 WCU",
+      "d": "300 WCU"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "100 WCU only covers 1 KB items.",
+      "b": "200 WCU is insufficient for 2.5 KB items.",
+      "c": "250 WCU is incorrect; 2.5 KB rounds up to 3 KB.",
+      "d": "2.5 KB rounds up to 3 KB. 3 KB / 1 KB = 3 WCUs per write. 100 × 3 = 300 WCUs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need 200 transactional writes per second for items of 2 KB each. How many WCUs are required?",
+    "opts": {
+      "a": "200 WCU",
+      "b": "400 WCU",
+      "c": "600 WCU",
+      "d": "800 WCU"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "200 WCU does not account for item size or transactional overhead.",
+      "b": "400 WCU only accounts for item size (2 WCU per item) but not transactional overhead.",
+      "c": "600 WCU is incorrect.",
+      "d": "2 KB / 1 KB = 2 WCUs per write. Transactional writes cost 2x, so 2 × 2 = 4 WCUs per transactional write. 200 × 4 = 800 WCUs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the WCU cost of a transactional write for a 1.5 KB item?",
+    "opts": {
+      "a": "1 WCU",
+      "b": "2 WCU",
+      "c": "3 WCU",
+      "d": "4 WCU"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "1 WCU doesn't account for rounding up or transactional overhead.",
+      "b": "2 WCU accounts for item size (1.5 rounds to 2) but not transactional overhead.",
+      "c": "3 WCU is incorrect.",
+      "d": "1.5 KB rounds up to 2 KB = 2 WCUs. Transactional writes cost 2x, so 2 × 2 = 4 WCUs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the RCU cost of a transactional read for a 6 KB item?",
+    "opts": {
+      "a": "2 RCU",
+      "b": "3 RCU",
+      "c": "4 RCU",
+      "d": "6 RCU"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "2 RCU is the cost for a strongly consistent read of 6 KB, not transactional.",
+      "b": "3 RCU is incorrect.",
+      "c": "6 KB / 4 KB = 1.5, rounded up to 2 RCUs for strongly consistent. Transactional reads cost 2x, so 2 × 2 = 4 RCUs.",
+      "d": "6 RCU is more than needed for a transactional read of 6 KB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to perform 30 transactional reads per second on items of 8 KB each. How many RCUs are required?",
+    "opts": {
+      "a": "60 RCU",
+      "b": "120 RCU",
+      "c": "240 RCU",
+      "d": "480 RCU"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "60 RCU doesn't account for the transactional overhead.",
+      "b": "8 KB / 4 KB = 2 RCUs per strongly consistent read. Transactional = 2 × 2 = 4 RCUs per read. 30 × 4 = 120 RCUs.",
+      "c": "240 RCU would be for 60 transactional reads, not 30.",
+      "d": "480 RCU is far more than needed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A DynamoDB table uses On-Demand capacity. What is the initial throughput for a newly created table?",
+    "opts": {
+      "a": "Unlimited from the start",
+      "b": "Up to 40,000 RCUs and 40,000 WCUs",
+      "c": "4,000 RCUs and 4,000 WCUs",
+      "d": "100 RCUs and 100 WCUs"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "On-demand is not unlimited from the start; it has initial limits that scale up.",
+      "b": "40,000 is the account-level default limit, not the initial table throughput.",
+      "c": "A new on-demand table can handle up to 4,000 RCUs and 4,000 WCUs immediately. It scales up as traffic increases.",
+      "d": "100 is too low; newly created on-demand tables support higher initial throughput."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum previous peak that DynamoDB On-Demand mode can instantly accommodate?",
+    "opts": {
+      "a": "Equal to the previous peak",
+      "b": "Up to double the previous peak",
+      "c": "Up to 5x the previous peak",
+      "d": "Up to 10x the previous peak"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "On-demand can handle more than just the previous peak.",
+      "b": "DynamoDB On-Demand can instantly accommodate up to double (2x) the previous peak traffic. Beyond that, throttling may occur until capacity scales further.",
+      "c": "5x exceeds the instant scaling capability.",
+      "d": "10x exceeds the instant scaling capability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How long does DynamoDB retain burst capacity from unused provisioned throughput?",
+    "opts": {
+      "a": "1 minute",
+      "b": "5 minutes",
+      "c": "30 minutes",
+      "d": "1 hour"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "1 minute is too short for burst capacity retention.",
+      "b": "DynamoDB retains up to 5 minutes (300 seconds) of unused provisioned capacity for occasional traffic bursts.",
+      "c": "30 minutes exceeds the burst capacity retention period.",
+      "d": "1 hour exceeds the burst capacity retention period."
+    }
+  }
+]

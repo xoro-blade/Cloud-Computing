@@ -1,0 +1,1294 @@
+[
+  {
+    "type": "factual",
+    "q": "What is the maximum execution time for a single AWS Lambda invocation?",
+    "opts": {
+      "a": "5 minutes",
+      "b": "10 minutes",
+      "c": "15 minutes",
+      "d": "30 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 5 minutes was the original limit but has been increased.",
+      "b": "Incorrect. 10 minutes is not the maximum timeout.",
+      "c": "Correct. Lambda functions can run for up to 15 minutes (900 seconds) in a single invocation.",
+      "d": "Incorrect. 30 minutes exceeds the maximum Lambda timeout."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "AWS Lambda announced self-managed code storage in July 2026. What does this feature allow?",
+    "opts": {
+      "a": "Storing code in DynamoDB tables",
+      "b": "Referencing source code directly from your own S3 buckets without Lambda creating intermediate copies",
+      "c": "Automatic code compression and optimization",
+      "d": "Storing Lambda functions in EFS volumes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DynamoDB is not used for Lambda code storage.",
+      "b": "Correct. AWS Lambda self-managed code storage allows you to reference source code directly from your own S3 buckets, eliminating storage quota limitations and reducing activation time [4].",
+      "c": "Incorrect. Automatic code compression was not the announced feature.",
+      "d": "Incorrect. EFS can be mounted but is not the self-managed code storage feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new integration did Amazon MWAA Serverless announce in June 2026?",
+    "opts": {
+      "a": "Direct integration with Amazon SQS",
+      "b": "Workflow and task state change events to Amazon EventBridge",
+      "c": "Native Kubernetes pod execution",
+      "d": "Direct integration with Amazon Kinesis"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS integration was not the new announcement.",
+      "b": "Correct. Amazon MWAA Serverless now supports workflow and task state change events to Amazon EventBridge, enabling event-driven automation for Apache Airflow workflows [2].",
+      "c": "Incorrect. Kubernetes pod execution was not announced.",
+      "d": "Incorrect. Kinesis integration was not the new feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In March 2026, how many new service integrations did AWS Step Functions add?",
+    "opts": {
+      "a": "7",
+      "b": "15",
+      "c": "28",
+      "d": "50"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 7 SDK integrations were added in 2023, not 2026.",
+      "b": "Incorrect. 15 is not the correct number.",
+      "c": "Correct. AWS Step Functions added 28 new service integrations in March 2026, including Amazon Bedrock AgentCore [3].",
+      "d": "Incorrect. 50 exceeds the number of integrations added."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum memory that a single AWS Lambda function can use?",
+    "opts": {
+      "a": "3,008 MB",
+      "b": "5,120 MB",
+      "c": "10,240 MB",
+      "d": "16,384 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 3,008 MB was a previous limit.",
+      "b": "Incorrect. 5,120 MB is not the current maximum.",
+      "c": "Correct. A single Lambda function can use up to 10,240 MB (10 GB) of memory.",
+      "d": "Incorrect. 16,384 MB exceeds the current Lambda memory limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A data engineering team wants to automatically trigger downstream processes whenever an Apache Airflow workflow fails in their MWAA Serverless environment. What should they use?",
+    "opts": {
+      "a": "CloudWatch Alarms with SNS",
+      "b": "Amazon MWAA Serverless events to Amazon EventBridge",
+      "c": "Polling the Airflow API every minute",
+      "d": "Lambda scheduled functions checking task status"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While CloudWatch can monitor, EventBridge provides native workflow state change events.",
+      "b": "Correct. MWAA Serverless now supports workflow and task state change events to EventBridge, enabling event-driven automation for Airflow workflows [2].",
+      "c": "Incorrect. Polling is inefficient compared to event-driven approaches.",
+      "d": "Incorrect. Scheduled Lambda functions are inefficient for this use case."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless workflow orchestration using state machines?",
+    "opts": {
+      "a": "AWS Step Functions",
+      "b": "Amazon SWF",
+      "c": "AWS Batch",
+      "d": "Amazon MWAA"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Step Functions is a serverless orchestration service that lets you build workflows as state machines [3].",
+      "b": "Incorrect. SWF is an older workflow service that is not serverless.",
+      "c": "Incorrect. Batch is for batch computing jobs.",
+      "d": "Incorrect. MWAA is managed Apache Airflow."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the minimum memory allocation for an AWS Lambda function?",
+    "opts": {
+      "a": "64 MB",
+      "b": "128 MB",
+      "c": "256 MB",
+      "d": "512 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 64 MB is below the minimum allowed.",
+      "b": "Correct. The minimum memory allocation for a Lambda function is 128 MB.",
+      "c": "Incorrect. 256 MB is above the minimum.",
+      "d": "Incorrect. 512 MB is above the minimum."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default concurrent executions quota for AWS Lambda per Region?",
+    "opts": {
+      "a": "500",
+      "b": "1,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 500 is not the default concurrent executions quota.",
+      "b": "Correct. The default concurrent executions quota for Lambda is 1,000 per Region, which can be increased.",
+      "c": "Incorrect. 5,000 is not the default.",
+      "d": "Incorrect. 10,000 is not the default quota."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which of the following is a fully serverless compute service in AWS?",
+    "opts": {
+      "a": "Amazon EC2",
+      "b": "AWS Lambda",
+      "c": "Amazon ECS with EC2 launch type",
+      "d": "Amazon Lightsail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 requires you to manage virtual servers.",
+      "b": "Correct. AWS Lambda is a serverless compute service that runs your code without requiring you to manage servers.",
+      "c": "Incorrect. ECS with EC2 launch type requires managing EC2 instances.",
+      "d": "Incorrect. Lightsail is a simplified VPS service, not serverless."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In July 2026, AWS Secrets Manager announced a new capability. What is it?",
+    "opts": {
+      "a": "Automatic secret rotation every hour",
+      "b": "Automatic publishing of events to Amazon EventBridge whenever secret values change",
+      "c": "Integration with AWS KMS for encryption",
+      "d": "Support for multi-region secrets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Hourly rotation was not announced.",
+      "b": "Correct. AWS Secrets Manager now automatically publishes events to Amazon EventBridge whenever secret values change, enabling real-time event-driven workflows [8].",
+      "c": "Incorrect. KMS integration existed before this announcement.",
+      "d": "Incorrect. Multi-region secrets was not the new announcement."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Previously, to detect when a secret value changed in Secrets Manager, what approach was required?",
+    "opts": {
+      "a": "Using Amazon SNS topics",
+      "b": "Parsing AWS CloudTrail events into EventBridge and matching multiple API events",
+      "c": "Polling Secrets Manager every second",
+      "d": "Using AWS Config rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SNS was not the primary method.",
+      "b": "Correct. Previously, you had to rely on AWS CloudTrail events parsed into EventBridge and match multiple API events such as rotation success, PutSecretValue, and UpdateSecretValue [8].",
+      "c": "Incorrect. Polling was not the recommended approach.",
+      "d": "Incorrect. Config rules were not the method for detecting secret changes."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the latest Linux platform version for AWS Fargate?",
+    "opts": {
+      "a": "1.2.0",
+      "b": "1.3.0",
+      "c": "1.4.0",
+      "d": "2.0.0"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1.2.0 is an older version.",
+      "b": "Incorrect. 1.3.0 is not the latest.",
+      "c": "Correct. The LATEST Linux platform version for Fargate is 1.4.0 [12].",
+      "d": "Incorrect. 2.0.0 does not exist."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which serverless container compute engine works with both Amazon ECS and EKS?",
+    "opts": {
+      "a": "Amazon EC2 Auto Scaling",
+      "b": "AWS Fargate",
+      "c": "AWS App Runner",
+      "d": "Amazon Lightsail Containers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 Auto Scaling manages EC2 instances.",
+      "b": "Correct. AWS Fargate is a serverless compute engine for containers that works with both ECS and EKS [12].",
+      "c": "Incorrect. App Runner is a separate service for web apps.",
+      "d": "Incorrect. Lightsail Containers is a simplified container service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless API management?",
+    "opts": {
+      "a": "Elastic Load Balancer",
+      "b": "Amazon API Gateway",
+      "c": "AWS App Mesh",
+      "d": "Amazon CloudFront"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ELB is for load balancing, not API management.",
+      "b": "Correct. Amazon API Gateway is a fully managed serverless service for creating, publishing, and managing APIs [7].",
+      "c": "Incorrect. App Mesh is a service mesh.",
+      "d": "Incorrect. CloudFront is a CDN."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service is a serverless event bus for building event-driven architectures?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "Amazon SNS",
+      "c": "Amazon EventBridge",
+      "d": "Amazon Kinesis"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. SQS is a message queue service.",
+      "b": "Incorrect. SNS is a pub/sub notification service.",
+      "c": "Correct. Amazon EventBridge is a serverless event bus that connects applications using events from various sources [2][8].",
+      "d": "Incorrect. Kinesis is for real-time data streaming."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS database service is fully serverless and provides key-value and document storage?",
+    "opts": {
+      "a": "Amazon RDS",
+      "b": "Amazon DynamoDB",
+      "c": "Amazon ElastiCache",
+      "d": "Amazon Redshift"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS is a managed relational database but not fully serverless by default.",
+      "b": "Correct. Amazon DynamoDB is a fully serverless, key-value and document NoSQL database.",
+      "c": "Incorrect. ElastiCache requires choosing instance types (though it has a serverless option).",
+      "d": "Incorrect. Redshift is a data warehouse service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum deployment package size for AWS Lambda (zipped, direct upload)?",
+    "opts": {
+      "a": "10 MB",
+      "b": "50 MB",
+      "c": "100 MB",
+      "d": "250 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 10 MB is not the limit for direct upload.",
+      "b": "Correct. The maximum deployment package size for direct upload (zipped) is 50 MB.",
+      "c": "Incorrect. 100 MB exceeds the zipped direct upload limit.",
+      "d": "Incorrect. 250 MB is the unzipped limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum unzipped deployment package size for AWS Lambda (including layers)?",
+    "opts": {
+      "a": "50 MB",
+      "b": "100 MB",
+      "c": "250 MB",
+      "d": "500 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50 MB is the zipped direct upload limit.",
+      "b": "Incorrect. 100 MB is not the unzipped limit.",
+      "c": "Correct. The maximum unzipped deployment package size (including layers) is 250 MB.",
+      "d": "Incorrect. 500 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which Node.js runtime version for Lambda reached its deprecation date on April 30, 2026?",
+    "opts": {
+      "a": "Node.js 16",
+      "b": "Node.js 18",
+      "c": "Node.js 20",
+      "d": "Node.js 22"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Node.js 16 was deprecated earlier.",
+      "b": "Incorrect. Node.js 18 deprecation date was September 1, 2025.",
+      "c": "Correct. Node.js 20 (nodejs20.x) reached its deprecation date on April 30, 2026 [9].",
+      "d": "Incorrect. Node.js 22 is not yet deprecated."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When a Lambda runtime is deprecated, what happens to creating functions using it in the Lambda console?",
+    "opts": {
+      "a": "Functions can still be created normally",
+      "b": "You can no longer create or update functions using the deprecated runtime in the Lambda console, but can via CLI, SAM, or CloudFormation",
+      "c": "All existing functions immediately stop working",
+      "d": "Functions are automatically migrated to the latest runtime"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The console blocks creation with deprecated runtimes.",
+      "b": "Correct. After deprecation, you can no longer create or update functions using the deprecated runtime in the Lambda console, but you can continue through AWS CLI, AWS SAM, or CloudFormation [9].",
+      "c": "Incorrect. Existing functions continue to run.",
+      "d": "Incorrect. Functions are not automatically migrated."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has Lambda functions running on Node.js 20. Given its deprecation date of April 30, 2026, what should they plan for?",
+    "opts": {
+      "a": "No action needed; functions will run forever",
+      "b": "Migrate to a newer runtime before block-function-create and block-function-update dates",
+      "c": "Move all functions to EC2",
+      "d": "Switch to Python immediately"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deprecated runtimes may no longer receive security updates.",
+      "b": "Correct. After deprecation, Lambda blocks function creation (Feb 1, 2027) and updates (Mar 3, 2027) on deprecated runtimes. Teams should migrate to a supported runtime [9].",
+      "c": "Incorrect. EC2 migration is unnecessary.",
+      "d": "Incorrect. Switching language is not required; upgrading the Node.js version is sufficient."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the block-function-create date for Node.js 20 Lambda runtime?",
+    "opts": {
+      "a": "April 30, 2026",
+      "b": "February 1, 2027",
+      "c": "March 3, 2027",
+      "d": "December 31, 2026"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. April 30, 2026 is the deprecation date.",
+      "b": "Correct. The block-function-create date for Node.js 20 is February 1, 2027 [9].",
+      "c": "Incorrect. March 3, 2027 is the block-function-update date.",
+      "d": "Incorrect. December 31, 2026 is not a relevant date."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the block-function-update date for Node.js 20 Lambda runtime?",
+    "opts": {
+      "a": "February 1, 2027",
+      "b": "March 3, 2027",
+      "c": "April 30, 2027",
+      "d": "January 1, 2027"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. February 1, 2027 is the block-function-create date.",
+      "b": "Correct. The block-function-update date for Node.js 20 is March 3, 2027 [9].",
+      "c": "Incorrect. April 30, 2027 is not a relevant date.",
+      "d": "Incorrect. January 1, 2027 is not a relevant date."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Amazon EMR Serverless announced a new capability in June 2026. What does it allow?",
+    "opts": {
+      "a": "Running Spark jobs on GPU instances",
+      "b": "Updating key application configurations without stopping and restarting the application",
+      "c": "Auto-scaling to unlimited capacity",
+      "d": "Running EMR on Lambda functions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GPU support was not the announcement.",
+      "b": "Correct. Amazon EMR Serverless now supports updates to key application configurations such as maximum capacity and custom image settings without stopping and restarting the application [1].",
+      "c": "Incorrect. Unlimited capacity was not announced.",
+      "d": "Incorrect. EMR on Lambda is not a real service."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An EMR Serverless application needs its maximum capacity changed. Previously, what was required?",
+    "opts": {
+      "a": "Simply changing the configuration while running",
+      "b": "Stopping the application, updating configuration, then restarting it",
+      "c": "Creating a new application from scratch",
+      "d": "Contacting AWS Support"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Previously this wasn't possible without stopping.",
+      "b": "Correct. Before the June 2026 update, you had to stop and restart the application to update configurations. Now new workloads submitted after the update automatically use new settings while existing workloads continue uninterrupted [1].",
+      "c": "Incorrect. A new application wasn't always necessary.",
+      "d": "Incorrect. AWS Support wasn't required for configuration changes."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What pricing model does AWS Lambda use?",
+    "opts": {
+      "a": "Hourly billing",
+      "b": "Pay per request and compute duration (GB-seconds)",
+      "c": "Monthly flat fee",
+      "d": "Reserved capacity only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda doesn't bill hourly.",
+      "b": "Correct. Lambda charges based on the number of requests and the compute time (GB-seconds) consumed.",
+      "c": "Incorrect. There's no monthly flat fee.",
+      "d": "Incorrect. Lambda uses pay-as-you-go."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How many free requests per month does the AWS Lambda free tier include?",
+    "opts": {
+      "a": "500,000",
+      "b": "1,000,000",
+      "c": "5,000,000",
+      "d": "10,000,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The free tier includes more than 500,000 requests.",
+      "b": "Correct. The Lambda free tier includes 1 million free requests per month.",
+      "c": "Incorrect. 5 million exceeds the free tier.",
+      "d": "Incorrect. 10 million exceeds the free tier."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How many free GB-seconds does the AWS Lambda free tier include per month?",
+    "opts": {
+      "a": "100,000 GB-seconds",
+      "b": "200,000 GB-seconds",
+      "c": "400,000 GB-seconds",
+      "d": "1,000,000 GB-seconds"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 100,000 is below the free tier allowance.",
+      "b": "Incorrect. 200,000 is below the free tier allowance.",
+      "c": "Correct. The Lambda free tier includes 400,000 GB-seconds of compute time per month.",
+      "d": "Incorrect. 1,000,000 exceeds the free tier allowance."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS Step Functions feature launched in November 2024 simplifies developer experience?",
+    "opts": {
+      "a": "Distributed Map state",
+      "b": "Variables and JSONata support",
+      "c": "TestState API",
+      "d": "Redrive capability"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Distributed Map state was released in December 2022.",
+      "b": "Correct. In November 2024, AWS Step Functions simplified the developer experience with variables and JSONata [3].",
+      "c": "Incorrect. TestState API was released in November 2023.",
+      "d": "Incorrect. Redrive was released in November 2023."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the two workflow types available in AWS Step Functions?",
+    "opts": {
+      "a": "Synchronous and Asynchronous",
+      "b": "Standard and Express",
+      "c": "Basic and Advanced",
+      "d": "Simple and Complex"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are invocation types, not Step Functions workflow types.",
+      "b": "Correct. Step Functions offers Standard workflows (long-running, up to 1 year) and Express workflows (high-volume, up to 5 minutes).",
+      "c": "Incorrect. These are not Step Functions workflow types.",
+      "d": "Incorrect. These are not Step Functions workflow types."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum execution duration for a Step Functions Standard workflow?",
+    "opts": {
+      "a": "24 hours",
+      "b": "30 days",
+      "c": "1 year",
+      "d": "No limit"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 24 hours is too short for Standard workflows.",
+      "b": "Incorrect. 30 days is not the limit.",
+      "c": "Correct. Standard workflows can run for up to 1 year (365 days).",
+      "d": "Incorrect. There is a limit of 1 year."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum execution duration for a Step Functions Express workflow?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "5 minutes",
+      "c": "15 minutes",
+      "d": "1 hour"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 30 seconds is too short.",
+      "b": "Correct. Express workflows can run for up to 5 minutes and are designed for high-volume, short-duration workloads.",
+      "c": "Incorrect. 15 minutes is the Lambda timeout.",
+      "d": "Incorrect. 1 hour exceeds Express workflow limits."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which Step Functions feature allows restarting failed state machine executions without starting from the beginning?",
+    "opts": {
+      "a": "Retry policy",
+      "b": "Redrive",
+      "c": "Catch block",
+      "d": "Error handler"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Retry policy retries individual states, not entire executions.",
+      "b": "Correct. Redrive, launched in November 2023, allows restarting state machine executions from the point of failure [3].",
+      "c": "Incorrect. Catch blocks handle errors within the workflow.",
+      "d": "Incorrect. Error handler is a generic term, not a specific feature."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A startup wants to build a REST API that triggers business logic without managing any servers. Which combination should they use?",
+    "opts": {
+      "a": "EC2 + Application Load Balancer",
+      "b": "API Gateway + AWS Lambda",
+      "c": "CloudFront + EC2",
+      "d": "Elastic Beanstalk + RDS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 requires server management.",
+      "b": "Correct. API Gateway + Lambda is the classic serverless pattern for building REST APIs without managing servers [7].",
+      "c": "Incorrect. EC2 requires server management.",
+      "d": "Incorrect. Elastic Beanstalk still manages EC2 instances under the hood."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless message queuing?",
+    "opts": {
+      "a": "Amazon Kinesis",
+      "b": "Amazon SQS",
+      "c": "Amazon MQ",
+      "d": "AWS IoT Core"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Kinesis is for real-time streaming data.",
+      "b": "Correct. Amazon SQS (Simple Queue Service) is a fully managed serverless message queuing service.",
+      "c": "Incorrect. Amazon MQ is a managed message broker (not fully serverless).",
+      "d": "Incorrect. IoT Core is for IoT device communication."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless pub/sub messaging?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "Amazon SNS",
+      "c": "Amazon Kinesis",
+      "d": "AWS AppSync"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS is a queue service, not pub/sub.",
+      "b": "Correct. Amazon SNS (Simple Notification Service) is a fully managed serverless pub/sub messaging service.",
+      "c": "Incorrect. Kinesis is for data streaming.",
+      "d": "Incorrect. AppSync is for GraphQL APIs."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless GraphQL and real-time APIs?",
+    "opts": {
+      "a": "Amazon API Gateway",
+      "b": "AWS AppSync",
+      "c": "AWS Amplify",
+      "d": "Amazon CloudFront"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. API Gateway handles REST and WebSocket APIs.",
+      "b": "Correct. AWS AppSync is a serverless GraphQL and Pub/Sub API service.",
+      "c": "Incorrect. Amplify is a development framework.",
+      "d": "Incorrect. CloudFront is a CDN."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of Lambda layers that can be attached to a single function?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can attach more than 3 layers.",
+      "b": "Correct. A Lambda function can use up to 5 layers at a time.",
+      "c": "Incorrect. 10 layers exceeds the limit.",
+      "d": "Incorrect. 15 layers exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the /tmp directory storage available in AWS Lambda?",
+    "opts": {
+      "a": "512 MB only",
+      "b": "1,024 MB only",
+      "c": "10,240 MB only",
+      "d": "512 MB by default, expandable up to 10,240 MB"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 512 MB is the default, but it can be expanded.",
+      "b": "Incorrect. 1,024 MB is not the default or maximum.",
+      "c": "Incorrect. 10,240 MB is the maximum, not the default.",
+      "d": "Correct. Lambda provides 512 MB of /tmp storage by default, which can be configured up to 10,240 MB (10 GB)."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to run a task that takes 30 minutes to complete. Can they use AWS Lambda?",
+    "opts": {
+      "a": "Yes, Lambda supports up to 60 minutes",
+      "b": "No, Lambda has a maximum timeout of 15 minutes",
+      "c": "Yes, if they use provisioned concurrency",
+      "d": "Yes, if they increase the memory to 10 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda does not support 60-minute execution.",
+      "b": "Correct. Lambda has a hard limit of 15 minutes per invocation. For 30-minute tasks, consider AWS Fargate or Step Functions with multiple Lambda invocations.",
+      "c": "Incorrect. Provisioned concurrency doesn't extend timeout.",
+      "d": "Incorrect. Memory allocation doesn't affect the timeout limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless content delivery?",
+    "opts": {
+      "a": "Amazon S3",
+      "b": "Amazon CloudFront",
+      "c": "AWS Global Accelerator",
+      "d": "Amazon Route 53"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 is object storage, not a CDN.",
+      "b": "Correct. Amazon CloudFront is a serverless content delivery network (CDN) service.",
+      "c": "Incorrect. Global Accelerator improves availability and performance.",
+      "d": "Incorrect. Route 53 is a DNS service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Lambda@Edge?",
+    "opts": {
+      "a": "Lambda functions running in IoT devices",
+      "b": "Lambda functions running at CloudFront edge locations",
+      "c": "Lambda functions running in on-premises servers",
+      "d": "Lambda functions with dedicated hardware"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. That would be AWS IoT Greengrass.",
+      "b": "Correct. Lambda@Edge allows you to run Lambda functions at CloudFront edge locations for lower latency.",
+      "c": "Incorrect. On-premises Lambda is not what Lambda@Edge provides.",
+      "d": "Incorrect. Lambda@Edge doesn't use dedicated hardware."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which serverless service would you use for user authentication and authorization in web/mobile apps?",
+    "opts": {
+      "a": "AWS IAM",
+      "b": "Amazon Cognito",
+      "c": "AWS KMS",
+      "d": "AWS Shield"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM is for AWS resource access management.",
+      "b": "Correct. Amazon Cognito is a serverless service for user authentication, authorization, and user management for web/mobile apps.",
+      "c": "Incorrect. KMS is for key management.",
+      "d": "Incorrect. Shield is for DDoS protection."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which serverless AWS service is used for ETL (Extract, Transform, Load) jobs?",
+    "opts": {
+      "a": "AWS Glue",
+      "b": "AWS Data Pipeline",
+      "c": "Amazon EMR (provisioned)",
+      "d": "AWS Batch"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Glue is a serverless data integration service for ETL jobs.",
+      "b": "Incorrect. Data Pipeline is deprecated.",
+      "c": "Incorrect. EMR provisioned requires cluster management.",
+      "d": "Incorrect. Batch is for batch computing, not specifically ETL."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer needs to process messages from an SQS queue without managing any servers. Which service should they use?",
+    "opts": {
+      "a": "EC2 instance polling the queue",
+      "b": "AWS Lambda with SQS event source mapping",
+      "c": "ECS with EC2 launch type",
+      "d": "AWS Batch"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 requires server management.",
+      "b": "Correct. Lambda can be configured with an SQS event source mapping to automatically process messages without managing servers.",
+      "c": "Incorrect. ECS with EC2 requires managing instances.",
+      "d": "Incorrect. Batch is for batch computing jobs."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless web application hosting with CI/CD?",
+    "opts": {
+      "a": "AWS Elastic Beanstalk",
+      "b": "AWS Amplify Hosting",
+      "c": "Amazon EC2",
+      "d": "Amazon Lightsail"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Elastic Beanstalk manages EC2 instances.",
+      "b": "Correct. AWS Amplify Hosting provides serverless web application hosting with built-in CI/CD.",
+      "c": "Incorrect. EC2 requires server management.",
+      "d": "Incorrect. Lightsail is a VPS service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the serverless offering for Amazon Aurora?",
+    "opts": {
+      "a": "Aurora Global Database",
+      "b": "Aurora Serverless",
+      "c": "Aurora Multi-Master",
+      "d": "Aurora Parallel Query"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Global Database is for cross-region replication.",
+      "b": "Correct. Aurora Serverless automatically scales capacity up and down based on demand without managing database instances.",
+      "c": "Incorrect. Multi-Master allows multiple write nodes.",
+      "d": "Incorrect. Parallel Query is a query optimization feature."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's serverless application experiences sudden spikes in traffic. Which Lambda feature helps avoid cold starts?",
+    "opts": {
+      "a": "Reserved concurrency",
+      "b": "Provisioned concurrency",
+      "c": "Burst concurrency",
+      "d": "Maximum concurrency"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Reserved concurrency limits maximum concurrency but doesn't pre-warm instances.",
+      "b": "Correct. Provisioned concurrency keeps a specified number of Lambda instances initialized and ready to respond instantly, avoiding cold starts.",
+      "c": "Incorrect. Burst concurrency is automatic scaling but still has cold starts.",
+      "d": "Incorrect. Maximum concurrency is a limit, not a warm-up feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the total maximum size for all environment variables in a Lambda function?",
+    "opts": {
+      "a": "2 KB",
+      "b": "4 KB",
+      "c": "8 KB",
+      "d": "16 KB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 2 KB is below the limit.",
+      "b": "Correct. The total size of all environment variables cannot exceed 4 KB.",
+      "c": "Incorrect. 8 KB exceeds the limit.",
+      "d": "Incorrect. 16 KB exceeds the limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to schedule a Lambda function to run every day at 9 AM UTC. Which serverless service should they use?",
+    "opts": {
+      "a": "Amazon SQS with delay queues",
+      "b": "Amazon EventBridge Scheduler",
+      "c": "AWS Step Functions",
+      "d": "Amazon SNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS delay queues are for message delays, not scheduling.",
+      "b": "Correct. Amazon EventBridge Scheduler (or EventBridge rules with cron expressions) can schedule Lambda function executions.",
+      "c": "Incorrect. Step Functions orchestrate workflows but aren't primarily schedulers.",
+      "d": "Incorrect. SNS is for notifications, not scheduling."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless data streaming?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "Amazon Kinesis Data Streams",
+      "c": "Amazon MQ",
+      "d": "AWS Direct Connect"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS is a message queue, not a streaming service.",
+      "b": "Correct. Amazon Kinesis Data Streams provides serverless real-time data streaming.",
+      "c": "Incorrect. Amazon MQ is a managed message broker.",
+      "d": "Incorrect. Direct Connect is a network service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which serverless service provides managed Apache Kafka?",
+    "opts": {
+      "a": "Amazon Kinesis",
+      "b": "Amazon MSK Serverless",
+      "c": "Amazon SQS",
+      "d": "Amazon MQ"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Kinesis is AWS's own streaming service.",
+      "b": "Correct. Amazon MSK (Managed Streaming for Apache Kafka) Serverless provides serverless Kafka without managing brokers.",
+      "c": "Incorrect. SQS is a message queue.",
+      "d": "Incorrect. MQ supports RabbitMQ and ActiveMQ, not Kafka."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the invocation payload size limit for synchronous Lambda invocations?",
+    "opts": {
+      "a": "1 MB",
+      "b": "6 MB",
+      "c": "10 MB",
+      "d": "50 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 MB is too small.",
+      "b": "Correct. The synchronous invocation payload limit is 6 MB.",
+      "c": "Incorrect. 10 MB exceeds the synchronous payload limit.",
+      "d": "Incorrect. 50 MB is the deployment package size limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the invocation payload size limit for asynchronous Lambda invocations?",
+    "opts": {
+      "a": "128 KB",
+      "b": "256 KB",
+      "c": "512 KB",
+      "d": "1 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 128 KB is below the async limit.",
+      "b": "Correct. The asynchronous invocation payload limit is 256 KB.",
+      "c": "Incorrect. 512 KB exceeds the async payload limit.",
+      "d": "Incorrect. 1 MB exceeds the async payload limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In what increments can you allocate memory to an AWS Lambda function?",
+    "opts": {
+      "a": "1 MB",
+      "b": "32 MB",
+      "c": "64 MB",
+      "d": "128 MB"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Lambda memory can be configured in 1 MB increments between 128 MB and 10,240 MB.",
+      "b": "Incorrect. 32 MB increments is not correct.",
+      "c": "Incorrect. 64 MB increments was a previous limitation.",
+      "d": "Incorrect. 128 MB increments is not correct."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless data warehousing?",
+    "opts": {
+      "a": "Amazon RDS",
+      "b": "Amazon Redshift Serverless",
+      "c": "Amazon DynamoDB",
+      "d": "Amazon ElastiCache"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS is for relational databases.",
+      "b": "Correct. Amazon Redshift Serverless provides serverless data warehousing without managing infrastructure.",
+      "c": "Incorrect. DynamoDB is a NoSQL database.",
+      "d": "Incorrect. ElastiCache is for caching."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's Lambda function connects to RDS but experiences connection limit exhaustion during high traffic. What serverless solution should they implement?",
+    "opts": {
+      "a": "Increase RDS instance size",
+      "b": "Use Amazon RDS Proxy",
+      "c": "Add more Lambda layers",
+      "d": "Increase Lambda timeout"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Increasing instance size doesn't solve connection pooling issues.",
+      "b": "Correct. RDS Proxy is a fully managed database proxy that pools and shares database connections, solving the connection exhaustion problem common with Lambda.",
+      "c": "Incorrect. Layers are for shared code.",
+      "d": "Incorrect. Increasing timeout would worsen the problem."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service can be triggered by DynamoDB table changes to invoke Lambda functions?",
+    "opts": {
+      "a": "DynamoDB Accelerator (DAX)",
+      "b": "DynamoDB Streams",
+      "c": "DynamoDB Global Tables",
+      "d": "DynamoDB On-Demand"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DAX is a caching layer.",
+      "b": "Correct. DynamoDB Streams captures item-level changes and can trigger Lambda functions for event-driven processing.",
+      "c": "Incorrect. Global Tables is for multi-region replication.",
+      "d": "Incorrect. On-Demand is a capacity mode."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A media company needs to automatically generate thumbnails whenever images are uploaded to an S3 bucket. Which serverless architecture is most appropriate?",
+    "opts": {
+      "a": "S3 → SNS → EC2",
+      "b": "S3 → Lambda (event trigger) → S3 (output)",
+      "c": "S3 → SQS → ECS",
+      "d": "CloudFront → Lambda@Edge → S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2 requires server management.",
+      "b": "Correct. S3 event notifications trigger a Lambda function that processes the image and saves the thumbnail back to S3. Fully serverless.",
+      "c": "Incorrect. ECS adds unnecessary complexity.",
+      "d": "Incorrect. Lambda@Edge has stricter limits for this use case."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is AWS SAM (Serverless Application Model)?",
+    "opts": {
+      "a": "A serverless database",
+      "b": "An open-source framework for building serverless applications extending CloudFormation",
+      "c": "A monitoring tool for Lambda",
+      "d": "A serverless compute service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SAM is not a database.",
+      "b": "Correct. AWS SAM is an open-source framework that extends CloudFormation to provide a simplified way of defining serverless applications [3].",
+      "c": "Incorrect. SAM is not a monitoring tool.",
+      "d": "Incorrect. SAM is a framework, not a compute service."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which Python runtime version for Lambda reached its deprecation date on December 15, 2025?",
+    "opts": {
+      "a": "Python 3.7",
+      "b": "Python 3.8",
+      "c": "Python 3.9",
+      "d": "Python 3.10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Python 3.7 was deprecated earlier.",
+      "b": "Incorrect. Python 3.8 was deprecated earlier.",
+      "c": "Correct. Python 3.9 (python3.9) reached its deprecation date on December 15, 2025 [9].",
+      "d": "Incorrect. Python 3.10 is not yet deprecated."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What feature did AWS Step Functions add in November 2024 for IaC (Infrastructure as Code)?",
+    "opts": {
+      "a": "Distributed Map state",
+      "b": "IaC exports to AWS SAM templates, CloudFormation templates, and Infrastructure Composer",
+      "c": "TestState API",
+      "d": "KMS encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Distributed Map was released in 2022.",
+      "b": "Correct. In November 2024, Step Functions added IaC exports to AWS SAM templates, CloudFormation templates, and to Infrastructure Composer [3].",
+      "c": "Incorrect. TestState API was released in November 2023.",
+      "d": "Incorrect. KMS encryption was added in June 2024."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did AWS Step Functions add the ability to encrypt workflows, logs, and activities with AWS KMS customer managed keys?",
+    "opts": {
+      "a": "November 2023",
+      "b": "June 2024",
+      "c": "March 2026",
+      "d": "November 2024"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. November 2023 was for HTTPS endpoints and TestState API.",
+      "b": "Correct. In June 2024, Step Functions added the ability to encrypt workflows, logs, and activities with AWS KMS customer managed keys [3].",
+      "c": "Incorrect. March 2026 was for 28 new service integrations.",
+      "d": "Incorrect. November 2024 was for variables and JSONata."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team needs to coordinate multiple Lambda functions in sequence with error handling for an order processing workflow. Which service should they use?",
+    "opts": {
+      "a": "Amazon SQS",
+      "b": "AWS Step Functions",
+      "c": "Amazon EventBridge",
+      "d": "Amazon SNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SQS is for message queuing, not workflow orchestration.",
+      "b": "Correct. AWS Step Functions provides visual workflow orchestration with built-in error handling, retries, and state management for coordinating multiple Lambda functions [3].",
+      "c": "Incorrect. EventBridge is an event bus.",
+      "d": "Incorrect. SNS is for notifications."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which Ruby runtime version for Lambda reached its deprecation date on March 31, 2026?",
+    "opts": {
+      "a": "Ruby 2.7",
+      "b": "Ruby 3.0",
+      "c": "Ruby 3.2",
+      "d": "Ruby 3.3"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Ruby 2.7 was deprecated much earlier.",
+      "b": "Incorrect. Ruby 3.0 was deprecated earlier.",
+      "c": "Correct. Ruby 3.2 (ruby3.2) reached its deprecation date on March 31, 2026 [9].",
+      "d": "Incorrect. Ruby 3.3 is not yet deprecated."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What OS-only Lambda runtime reached its deprecation date on July 31, 2026?",
+    "opts": {
+      "a": "provided.al2023",
+      "b": "provided.al2",
+      "c": "provided.al1",
+      "d": "custom.al2"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. provided.al2023 (Amazon Linux 2023) is the current OS-only runtime.",
+      "b": "Correct. The provided.al2 (Amazon Linux 2) OS-only runtime reached its deprecation date on July 31, 2026 [9].",
+      "c": "Incorrect. provided.al1 is not a valid runtime identifier.",
+      "d": "Incorrect. custom.al2 is not a valid runtime identifier."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses Java-based Lambda functions on older runtimes. AWS recommends upgrading to Java 21 or Java 25. What tool can assist with Java upgrades?",
+    "opts": {
+      "a": "AWS CodeDeploy",
+      "b": "AWS Transform custom",
+      "c": "AWS CodePipeline",
+      "d": "AWS Migration Hub"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeDeploy is for deployment automation.",
+      "b": "Correct. For customers upgrading to Java 21 or Java 25, AWS Transform custom can assist with these upgrades [9].",
+      "c": "Incorrect. CodePipeline is for CI/CD pipelines.",
+      "d": "Incorrect. Migration Hub is for cloud migrations."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "For customers unable to upgrade their Java version on Lambda, what does AWS provide?",
+    "opts": {
+      "a": "Extended support for Amazon Linux 2 indefinitely",
+      "b": "Amazon Linux 2023-based runtimes for Java 8, Java 11, and Java 17",
+      "c": "Automatic runtime migration",
+      "d": "Free migration consulting"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AL2 support is not indefinite.",
+      "b": "Correct. AWS provides Amazon Linux 2023-based runtimes for Java 8, Java 11, and Java 17 that follow the AL2023 deprecation schedule [9].",
+      "c": "Incorrect. Automatic migration is not provided.",
+      "d": "Incorrect. Free consulting is not provided."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new feature did AWS announce for Lambda regarding S3 in April 2026?",
+    "opts": {
+      "a": "Lambda S3 Files",
+      "b": "Lambda S3 Triggers v2",
+      "c": "Lambda S3 Direct Access",
+      "d": "Lambda S3 Cache"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. AWS Lambda S3 Files was announced in the April 27, 2026 AWS Weekly Roundup [6].",
+      "b": "Incorrect. S3 Triggers v2 was not the announcement.",
+      "c": "Incorrect. S3 Direct Access was not the specific name.",
+      "d": "Incorrect. Lambda S3 Cache was not announced."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless search capability?",
+    "opts": {
+      "a": "Amazon OpenSearch Serverless",
+      "b": "Amazon RDS",
+      "c": "Amazon DynamoDB",
+      "d": "AWS Glue"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon OpenSearch Serverless provides serverless search and analytics without managing clusters.",
+      "b": "Incorrect. RDS is a relational database.",
+      "c": "Incorrect. DynamoDB is NoSQL, not a dedicated search service.",
+      "d": "Incorrect. Glue is for ETL."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which API type in API Gateway is optimized for serverless workloads and costs up to 71% less than REST APIs?",
+    "opts": {
+      "a": "REST API",
+      "b": "HTTP API",
+      "c": "WebSocket API",
+      "d": "Private API"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. REST API has more features but is more expensive.",
+      "b": "Correct. HTTP API is designed for serverless workloads, offers lower latency, and costs up to 71% less than REST APIs.",
+      "c": "Incorrect. WebSocket API is for real-time two-way communication.",
+      "d": "Incorrect. Private API is for internal access within VPC."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between reserved concurrency and provisioned concurrency in Lambda?",
+    "opts": {
+      "a": "They are the same thing",
+      "b": "Reserved guarantees maximum concurrent instances; Provisioned pre-initializes instances to avoid cold starts",
+      "c": "Reserved is free; Provisioned reduces timeout",
+      "d": "Reserved reduces cold starts; Provisioned limits concurrency"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They serve different purposes.",
+      "b": "Correct. Reserved concurrency guarantees and limits maximum concurrent instances for a function. Provisioned concurrency pre-initializes execution environments to eliminate cold starts.",
+      "c": "Incorrect. Both have cost implications.",
+      "d": "Incorrect. This reverses their actual functions."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A DevOps team wants to be notified in real-time whenever a secret used by their Lambda functions is rotated. What is the best approach as of July 2026?",
+    "opts": {
+      "a": "Poll Secrets Manager API every 5 minutes",
+      "b": "Use CloudTrail logs with manual parsing",
+      "c": "Use Secrets Manager's native EventBridge events for secret value changes",
+      "d": "Set up a cron job to check secret versions"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Polling is inefficient.",
+      "b": "Incorrect. CloudTrail parsing was the old approach that required matching multiple API events.",
+      "c": "Correct. As of July 2026, Secrets Manager now automatically publishes events to EventBridge whenever secret values change, including during rotation [8].",
+      "d": "Incorrect. Cron jobs are inefficient for this use case."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Amazon S3 classified as in terms of server management?",
+    "opts": {
+      "a": "Managed service requiring server configuration",
+      "b": "Serverless object storage",
+      "c": "Block storage service",
+      "d": "File storage service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 doesn't require any server configuration.",
+      "b": "Correct. Amazon S3 is a serverless object storage service - you don't manage any servers.",
+      "c": "Incorrect. EBS is block storage; S3 is object storage.",
+      "d": "Incorrect. EFS is file storage; S3 is object storage."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service provides serverless DNS?",
+    "opts": {
+      "a": "Amazon VPC",
+      "b": "Amazon Route 53",
+      "c": "AWS Direct Connect",
+      "d": "Amazon CloudFront"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC is a virtual network.",
+      "b": "Correct. Amazon Route 53 is a scalable serverless DNS web service.",
+      "c": "Incorrect. Direct Connect is a dedicated network connection.",
+      "d": "Incorrect. CloudFront is a CDN."
+    }
+  }
+]

@@ -1,0 +1,1141 @@
+[
+  {
+    "type": "factual",
+    "q": "Which AWS service is a fully managed continuous integration service that compiles source code, runs tests, and produces software packages?",
+    "opts": {
+      "a": "AWS CodeCommit",
+      "b": "AWS CodeBuild",
+      "c": "AWS CodeDeploy",
+      "d": "AWS CodePipeline"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeCommit is a source control service, not a build service.",
+      "b": "Correct. AWS CodeBuild is a fully managed CI service that compiles source code, runs tests, and produces deployable artifacts.",
+      "c": "Incorrect. CodeDeploy handles deployments, not building.",
+      "d": "Incorrect. CodePipeline orchestrates the workflow but doesn't build code."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the primary function of AWS CodePipeline?",
+    "opts": {
+      "a": "Store source code",
+      "b": "Build and test applications",
+      "c": "Orchestrate and automate release pipelines",
+      "d": "Deploy applications to EC2"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Storing source code is CodeCommit's role.",
+      "b": "Incorrect. Building and testing is CodeBuild's role.",
+      "c": "Correct. CodePipeline automates the steps required to release software changes by orchestrating build, test, and deploy phases.",
+      "d": "Incorrect. Deploying to EC2 is CodeDeploy's role."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What type of compute targets does CodeDeploy support for deployment?",
+    "opts": {
+      "a": "EC2 instances only",
+      "b": "EC2 instances, on-premises servers, Lambda functions, and ECS services",
+      "c": "Lambda functions only",
+      "d": "ECS services and S3 buckets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeDeploy supports more than just EC2.",
+      "b": "Correct. CodeDeploy supports deployment to EC2 instances, on-premises servers, AWS Lambda functions, and Amazon ECS services.",
+      "c": "Incorrect. Lambda is only one of several supported targets.",
+      "d": "Incorrect. S3 is not a CodeDeploy deployment target."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which file does CodeBuild use to define build instructions?",
+    "opts": {
+      "a": "appspec.yml",
+      "b": "Dockerfile",
+      "c": "buildspec.yml",
+      "d": "template.yaml"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. appspec.yml is used by CodeDeploy.",
+      "b": "Incorrect. Dockerfile is for building container images.",
+      "c": "Correct. buildspec.yml defines the build phases, environment variables, artifacts, and reports for CodeBuild.",
+      "d": "Incorrect. template.yaml is typically used for CloudFormation/SAM templates."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the minimum number of stages required in a CodePipeline?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "4"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A single stage is not enough for a valid pipeline.",
+      "b": "Correct. A CodePipeline requires a minimum of 2 stages (e.g., Source and Build, or Source and Deploy).",
+      "c": "Incorrect. While common, 3 stages is not the minimum requirement.",
+      "d": "Incorrect. 4 stages exceed the minimum requirement."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer wants to store their company's application code in AWS with version control and without managing any servers. Which service should they use?",
+    "opts": {
+      "a": "Amazon S3 with versioning",
+      "b": "AWS CodeCommit",
+      "c": "Amazon EBS",
+      "d": "AWS Storage Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 versioning tracks file versions but doesn't provide Git-based source control.",
+      "b": "Correct. CodeCommit is a fully managed, serverless Git repository service ideal for storing application code with version control.",
+      "c": "Incorrect. EBS is block storage for EC2 instances.",
+      "d": "Incorrect. Storage Gateway is for hybrid storage, not source control."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does the 'Source' stage in CodePipeline do?",
+    "opts": {
+      "a": "Compiles the source code",
+      "b": "Deploys the application",
+      "c": "Detects changes in the source repository and retrieves the latest code",
+      "d": "Runs unit tests"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Compilation happens in the Build stage.",
+      "b": "Incorrect. Deployment happens in the Deploy stage.",
+      "c": "Correct. The Source stage detects changes in the configured source provider (CodeCommit, GitHub, S3, etc.) and retrieves the source code for subsequent stages.",
+      "d": "Incorrect. Testing typically occurs in a Build or Test stage."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AWS service is used to automate code deployments to any instance, including EC2 and on-premises servers?",
+    "opts": {
+      "a": "AWS CloudFormation",
+      "b": "AWS CodeDeploy",
+      "c": "AWS Elastic Beanstalk",
+      "d": "AWS OpsWorks"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudFormation provisions infrastructure, not application deployments.",
+      "b": "Correct. CodeDeploy automates code deployments to EC2 instances, on-premises instances, Lambda, and ECS.",
+      "c": "Incorrect. Elastic Beanstalk is a PaaS that handles deployment but with less granular control.",
+      "d": "Incorrect. OpsWorks uses Chef/Puppet for configuration management."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In CodeDeploy, what is an 'application'?",
+    "opts": {
+      "a": "The software you want to deploy",
+      "b": "A name that uniquely identifies the application to be deployed, acting as a container for deployment groups and revisions",
+      "c": "An EC2 instance running the application",
+      "d": "A build output from CodeBuild"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While related, the application in CodeDeploy is a logical container, not the software itself.",
+      "b": "Correct. A CodeDeploy application is a logical name that serves as a container for deployment groups, revisions, and deployment configurations.",
+      "c": "Incorrect. EC2 instances are targets, not applications.",
+      "d": "Incorrect. Build outputs are revisions, not applications."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is a 'deployment group' in CodeDeploy?",
+    "opts": {
+      "a": "A group of IAM users who can perform deployments",
+      "b": "A set of instances or Lambda functions targeted for deployment, along with deployment settings",
+      "c": "A collection of deployment scripts",
+      "d": "A team of developers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deployment groups contain target instances, not IAM users.",
+      "b": "Correct. A deployment group defines the target instances (identified by tags or Auto Scaling groups), deployment configuration, load balancer info, and rollback settings.",
+      "c": "Incorrect. Scripts are part of the revision, not the deployment group.",
+      "d": "Incorrect. Deployment groups are technical configurations, not team structures."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to automatically build their Java application whenever code is pushed to the main branch. They don't want to manage any build servers. Which service should they use?",
+    "opts": {
+      "a": "Jenkins on EC2",
+      "b": "AWS CodeBuild",
+      "c": "AWS Lambda",
+      "d": "Amazon EC2 with Maven installed"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Jenkins on EC2 requires managing build servers.",
+      "b": "Correct. CodeBuild is fully managed—no servers to provision, patch, or scale. It automatically scales to meet build demands.",
+      "c": "Incorrect. Lambda has time and size limits making it unsuitable for full application builds.",
+      "d": "Incorrect. EC2 with Maven requires server management."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which section of buildspec.yml defines the commands to run during the build?",
+    "opts": {
+      "a": "env",
+      "b": "phases",
+      "c": "artifacts",
+      "d": "reports"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The env section defines environment variables.",
+      "b": "Correct. The phases section contains install, pre_build, build, and post_build phases where you define commands to execute.",
+      "c": "Incorrect. The artifacts section defines output files.",
+      "d": "Incorrect. The reports section defines test report configurations."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A startup wants to set up a complete CI/CD pipeline on AWS. Their workflow is: pull code from GitHub → build and test → deploy to EC2. Which services should they use?",
+    "opts": {
+      "a": "CodePipeline (orchestration) + CodeBuild (build) + CodeDeploy (deploy)",
+      "b": "CodeCommit + Lambda + CloudFormation",
+      "c": "S3 + EC2 + Route 53",
+      "d": "Elastic Beanstalk only"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. CodePipeline orchestrates the flow with GitHub as the source, CodeBuild handles building and testing, and CodeDeploy deploys to EC2 instances.",
+      "b": "Incorrect. CodeCommit is unnecessary if using GitHub; Lambda isn't a build service.",
+      "c": "Incorrect. These services don't form a CI/CD pipeline.",
+      "d": "Incorrect. Elastic Beanstalk is a PaaS and doesn't provide the same granular CI/CD control."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does CodeDeploy use to identify which EC2 instances belong to a deployment group?",
+    "opts": {
+      "a": "Instance IDs only",
+      "b": "Tags or Auto Scaling groups",
+      "c": "IP addresses",
+      "d": "Security groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Instance IDs are not the primary identification method.",
+      "b": "Correct. CodeDeploy identifies target instances using EC2 tags (key-value pairs) or Auto Scaling group names.",
+      "c": "Incorrect. IP addresses are not used to identify deployment targets.",
+      "d": "Incorrect. Security groups define network access, not deployment targeting."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does CodeBuild charge you?",
+    "opts": {
+      "a": "Per repository",
+      "b": "Per build minute based on compute type",
+      "c": "Flat monthly fee",
+      "d": "Per line of code built"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Per-repository pricing is for CodeCommit.",
+      "b": "Correct. CodeBuild charges per minute of build time, and the rate varies based on the compute type (small, medium, large, 2xlarge).",
+      "c": "Incorrect. There's no flat monthly fee for CodeBuild.",
+      "d": "Incorrect. Lines of code is not a billing metric."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Is there a charge for CodeDeploy when deploying to EC2 or on-premises instances?",
+    "opts": {
+      "a": "Yes, $0.02 per deployment",
+      "b": "No, deployments to EC2/on-premises are free; charges only apply for Lambda and ECS deployments",
+      "c": "Yes, based on number of instances",
+      "d": "No, CodeDeploy is completely free for all targets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EC2/on-premises deployments are not charged per deployment.",
+      "b": "Correct. There is no additional charge for CodeDeploy deployments to EC2 or on-premises instances. However, deployments to Lambda or ECS are charged per deployment.",
+      "c": "Incorrect. There's no per-instance charge for EC2 deployments.",
+      "d": "Incorrect. Lambda and ECS deployments do incur charges."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to prevent direct pushes to the 'main' branch in CodeCommit and require all changes through pull requests. How can they achieve this?",
+    "opts": {
+      "a": "Delete the main branch",
+      "b": "Use IAM policies with conditions to deny push actions on the main branch",
+      "c": "Create a separate repository for the main branch",
+      "d": "Configure HTTPS-only access"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deleting main branch eliminates the production code.",
+      "b": "Correct. IAM policies with conditions (using codecommit:References) can deny direct push/merge to specific branches while allowing pull request merges.",
+      "c": "Incorrect. Separate repositories don't solve the branch protection problem.",
+      "d": "Incorrect. HTTPS vs SSH doesn't control branch permissions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What happens if a CodeBuild build exceeds its configured timeout?",
+    "opts": {
+      "a": "The build continues until complete",
+      "b": "The build is marked as failed and stopped",
+      "c": "The build is paused and can be resumed",
+      "d": "An additional hour is automatically added"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Builds are stopped when they exceed the timeout.",
+      "b": "Correct. When a build exceeds the configured timeout, CodeBuild stops the build and marks it as TIMED_OUT (failed).",
+      "c": "Incorrect. Builds cannot be paused and resumed.",
+      "d": "Incorrect. No additional time is automatically granted."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default build timeout for a CodeBuild project?",
+    "opts": {
+      "a": "30 minutes",
+      "b": "60 minutes",
+      "c": "120 minutes",
+      "d": "480 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 30 minutes is below the default.",
+      "b": "Correct. The default build timeout for CodeBuild is 60 minutes (1 hour).",
+      "c": "Incorrect. 120 minutes exceeds the default.",
+      "d": "Incorrect. 480 minutes is the maximum, not the default."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team deployed a new version using CodeDeploy but the application is crashing. They need to quickly revert to the previous version. What should they do?",
+    "opts": {
+      "a": "Manually copy old files back to the server",
+      "b": "Use CodeDeploy's rollback feature which deploys the last known good revision",
+      "c": "Restore from an EC2 snapshot",
+      "d": "Terminate the instance and launch a new one"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual file copying is error-prone and not automated.",
+      "b": "Correct. CodeDeploy supports rollback by deploying the last known good revision. This can be triggered manually or configured for automatic rollback on failure.",
+      "c": "Incorrect. EC2 snapshots are a heavier solution and may not contain the latest data.",
+      "d": "Incorrect. Terminating instances is disruptive and unnecessary."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which CodeDeploy deployment configuration sends traffic to all instances at once?",
+    "opts": {
+      "a": "OneAtATime",
+      "b": "HalfAtATime",
+      "c": "AllAtOnce",
+      "d": "Linear"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. OneAtATime deploys to instances sequentially.",
+      "b": "Incorrect. HalfAtATime deploys to half the fleet at a time.",
+      "c": "Correct. AllAtOnce attempts to deploy to all instances simultaneously, making it the fastest but riskiest option.",
+      "d": "Incorrect. Linear is for gradual Lambda/ECS traffic shifting."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What IAM entity does CodeBuild use to access AWS resources during a build?",
+    "opts": {
+      "a": "IAM user",
+      "b": "IAM service role",
+      "c": "Root account",
+      "d": "Access keys stored in buildspec.yml"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. IAM users are not recommended for service access.",
+      "b": "Correct. CodeBuild uses an IAM service role (trust policy allows codebuild.amazonaws.com) to access AWS resources like S3, ECR, Secrets Manager, etc.",
+      "c": "Incorrect. Root account should never be used for service operations.",
+      "d": "Incorrect. Storing access keys in buildspec.yml is a security anti-pattern."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team notices that their CodePipeline stops at the Deploy stage showing 'Action execution failed'. The error mentions a missing IAM permission. What should they check?",
+    "opts": {
+      "a": "The CodeCommit repository permissions",
+      "b": "The CodePipeline service role permissions for the deploy action",
+      "c": "The developer's personal IAM permissions",
+      "d": "The VPC security group rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Repository permissions affect the Source stage, not Deploy.",
+      "b": "Correct. The CodePipeline service role must have permissions to interact with the deployment service (e.g., codedeploy:CreateDeployment). Missing permissions in this role cause deploy action failures.",
+      "c": "Incorrect. Pipeline actions use the service role, not individual developer permissions.",
+      "d": "Incorrect. Security groups affect network access, not IAM permissions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Can CodeCommit repositories be replicated across AWS regions?",
+    "opts": {
+      "a": "Yes, automatically by AWS",
+      "b": "No, but you can set up cross-region replication manually using triggers and Lambda",
+      "c": "Yes, using S3 Cross-Region Replication",
+      "d": "No, it is not possible"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AWS doesn't automatically replicate CodeCommit repositories.",
+      "b": "Correct. CodeCommit doesn't have built-in cross-region replication, but you can implement it using CodeCommit triggers, Lambda functions, or EventBridge rules to push changes to a repository in another region.",
+      "c": "Incorrect. S3 CRR doesn't apply to CodeCommit repositories.",
+      "d": "Incorrect. It is possible with custom automation."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is a CodeDeploy 'revision'?",
+    "opts": {
+      "a": "A version of the deployment configuration",
+      "b": "A version of the content (source code, scripts, config files) to be deployed along with the appspec.yml file",
+      "c": "A Git commit hash",
+      "d": "A version of the CodeDeploy agent"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deployment configurations are separate from revisions.",
+      "b": "Correct. A revision includes the application source code, deployment scripts, configuration files, and the appspec.yml file—everything needed to deploy the application.",
+      "c": "Incorrect. While a Git commit may be the source, the revision is the deployable bundle.",
+      "d": "Incorrect. Agent versions are not revisions."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodeBuild project needs to access an npm private registry using an authentication token. Where should you securely store this token?",
+    "opts": {
+      "a": "Hardcode it in buildspec.yml",
+      "b": "Store in AWS Secrets Manager or Systems Manager Parameter Store (SecureString) and reference it in buildspec.yml env section",
+      "c": "Store it in a public S3 bucket",
+      "d": "Pass it as a Git commit message"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Hardcoding secrets in buildspec.yml is a security risk as it's stored in source control.",
+      "b": "Correct. Use Secrets Manager or Parameter Store SecureString for secure storage. Reference them in the buildspec.yml env/secrets-manager or env/parameter-store section.",
+      "c": "Incorrect. Public S3 buckets expose secrets to everyone.",
+      "d": "Incorrect. Commit messages are visible in Git history."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What triggers a CodePipeline execution when using CodeCommit as a source?",
+    "opts": {
+      "a": "Manual trigger only",
+      "b": "Amazon EventBridge rule detecting repository changes",
+      "c": "Cron schedule only",
+      "d": "CloudWatch metric alarm"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While manual triggers work, automatic triggers are the primary mechanism.",
+      "b": "Correct. When CodeCommit is the source, an Amazon EventBridge rule detects push events to the configured branch and automatically triggers the pipeline execution.",
+      "c": "Incorrect. Cron schedules are possible but not the default trigger mechanism.",
+      "d": "Incorrect. CloudWatch metric alarms don't trigger pipeline executions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What CodePipeline stage type requires human intervention before proceeding?",
+    "opts": {
+      "a": "Source",
+      "b": "Build",
+      "c": "Manual Approval",
+      "d": "Deploy"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Source stages are automatic.",
+      "b": "Incorrect. Build stages run automatically.",
+      "c": "Correct. Manual Approval actions pause the pipeline and require a human to approve or reject before the pipeline continues to the next stage.",
+      "d": "Incorrect. Deploy stages execute automatically unless preceded by an approval."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team has 5 EC2 instances running their application. They want to deploy with minimal downtime, deploying to half the fleet at a time. Which CodeDeploy configuration should they use?",
+    "opts": {
+      "a": "CodeDeployDefault.AllAtOnce",
+      "b": "CodeDeployDefault.HalfAtATime",
+      "c": "CodeDeployDefault.OneAtATime",
+      "d": "CodeDeployDefault.Linear50Percent"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. AllAtOnce deploys to all instances simultaneously, causing maximum downtime.",
+      "b": "Correct. HalfAtATime deploys to half the instances while the other half continues serving traffic, then deploys to the remaining half, reducing downtime.",
+      "c": "Incorrect. OneAtATime is the safest but slowest option.",
+      "d": "Incorrect. Linear50Percent is not a standard EC2 deployment configuration name."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What happens to a CodePipeline if the source action fails?",
+    "opts": {
+      "a": "The pipeline skips to the deploy stage",
+      "b": "The entire pipeline execution fails and no subsequent stages run",
+      "c": "The pipeline retries automatically 5 times",
+      "d": "The pipeline uses the last successful source"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Stages cannot be skipped when a preceding stage fails.",
+      "b": "Correct. If the source action fails, the pipeline execution is marked as failed and no downstream stages execute.",
+      "c": "Incorrect. Automatic retries are not the default behavior for source actions.",
+      "d": "Incorrect. Each execution must successfully retrieve source code."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which of the following is NOT a valid phase in CodeBuild's buildspec.yml?",
+    "opts": {
+      "a": "install",
+      "b": "pre_build",
+      "c": "compile",
+      "d": "post_build"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. install is a valid phase for installing dependencies.",
+      "b": "Incorrect. pre_build is a valid phase for pre-build commands.",
+      "c": "Correct. 'compile' is NOT a valid buildspec phase. The valid phases are: install, pre_build, build, and post_build.",
+      "d": "Incorrect. post_build is a valid phase for post-build commands."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to see build status directly on their GitHub repository README. Which CodeBuild feature enables this?",
+    "opts": {
+      "a": "Build notifications via SNS",
+      "b": "Build badges",
+      "c": "CloudWatch dashboards",
+      "d": "Build reports"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SNS notifications alert users but don't display on GitHub.",
+      "b": "Correct. CodeBuild build badges provide an embeddable URL that displays the latest build status (passing/failing) which can be embedded in a GitHub README.",
+      "c": "Incorrect. CloudWatch dashboards are for AWS Console viewing.",
+      "d": "Incorrect. Build reports show test details, not embeddable status badges."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the purpose of the 'artifacts' section in buildspec.yml?",
+    "opts": {
+      "a": "To specify input source files",
+      "b": "To define which output files should be uploaded to S3 after the build completes",
+      "c": "To configure environment variables",
+      "d": "To specify Docker images"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Input files come from the source, not the artifacts section.",
+      "b": "Correct. The artifacts section specifies which files from the build should be uploaded to the S3 output bucket, including file paths, base-directory, and naming.",
+      "c": "Incorrect. Environment variables are in the env section.",
+      "d": "Incorrect. Docker images are specified in the project environment configuration."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer notices that CodeBuild logs are not appearing in CloudWatch Logs. What is the most likely issue?",
+    "opts": {
+      "a": "CloudWatch Logs is not supported by CodeBuild",
+      "b": "The CodeBuild service role is missing the logs:CreateLogGroup, logs:CreateLogStream, and logs:PutLogEvents permissions",
+      "c": "CloudWatch Logs must be in the same VPC as CodeBuild",
+      "d": "Logs are only available in S3"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeBuild supports CloudWatch Logs integration.",
+      "b": "Correct. The CodeBuild service role needs CloudWatch Logs permissions (logs:CreateLogGroup, logs:CreateLogStream, logs:PutLogEvents) to write build logs.",
+      "c": "Incorrect. CloudWatch Logs doesn't require VPC configuration.",
+      "d": "Incorrect. Logs can go to CloudWatch Logs, S3, or both."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "CodeCommit repositories can trigger notifications to which AWS service when events occur (like push, pull request creation)?",
+    "opts": {
+      "a": "Amazon SES only",
+      "b": "Amazon SNS via notification rules or EventBridge",
+      "c": "AWS Config",
+      "d": "Amazon Kinesis"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. SES is not directly integrated for CodeCommit notifications.",
+      "b": "Correct. CodeCommit can send notifications through notification rules (which use SNS topics) or trigger EventBridge rules for events like pushes, pull request creation, and comments.",
+      "c": "Incorrect. Config tracks resource configuration, not repository events.",
+      "d": "Incorrect. Kinesis is for streaming data, not repository notifications."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the relationship between CodePipeline and other AWS services like CodeBuild and CodeDeploy?",
+    "opts": {
+      "a": "CodePipeline replaces CodeBuild and CodeDeploy",
+      "b": "CodePipeline orchestrates CodeBuild and CodeDeploy as action providers within pipeline stages",
+      "c": "They are completely independent services with no integration",
+      "d": "CodeBuild and CodeDeploy are components inside CodePipeline"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodePipeline doesn't replace them; it coordinates them.",
+      "b": "Correct. CodePipeline acts as the orchestrator, using CodeBuild as a Build/Test action provider and CodeDeploy as a Deploy action provider within its stages.",
+      "c": "Incorrect. They are deeply integrated.",
+      "d": "Incorrect. They are separate services that integrate with CodePipeline, not internal components."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants their pipeline to deploy to a staging environment first, require approval, and then deploy to production. How many stages should they configure (minimum)?",
+    "opts": {
+      "a": "2 stages",
+      "b": "3 stages",
+      "c": "4 stages (Source, Deploy-Staging, Approval, Deploy-Production)",
+      "d": "5 stages"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 2 stages are insufficient for this workflow.",
+      "b": "Incorrect. 3 stages don't cover all requirements (source + staging + approval + production).",
+      "c": "Correct. You need Source (get code), Deploy-Staging (deploy to staging), Approval (manual gate), and Deploy-Production (deploy to prod). Note: you may also include a Build stage, making it 5, but the minimum for this workflow is 4.",
+      "d": "Incorrect. While 5 stages (with Build) is common, 4 is the minimum for the described workflow."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which of the following is a valid CodeDeploy deployment type for Lambda functions?",
+    "opts": {
+      "a": "In-place",
+      "b": "Blue/Green",
+      "c": "Rolling",
+      "d": "Canary"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. In-place deployment is only for EC2/on-premises.",
+      "b": "Correct. Lambda deployments use the Blue/Green deployment type, with traffic shifting options like Canary, Linear, or AllAtOnce.",
+      "c": "Incorrect. Rolling is not a CodeDeploy deployment type.",
+      "d": "Incorrect. Canary is a traffic routing configuration within Blue/Green, not a deployment type itself."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team is deploying a containerized application to Amazon ECS using CodeDeploy. Which deployment type does CodeDeploy use for ECS?",
+    "opts": {
+      "a": "In-place",
+      "b": "Blue/Green",
+      "c": "Rolling update",
+      "d": "Immutable"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. In-place is not available for ECS deployments via CodeDeploy.",
+      "b": "Correct. CodeDeploy uses Blue/Green deployment for ECS, creating a new task set (green) alongside the original (blue) and shifting traffic between them.",
+      "c": "Incorrect. Rolling update is an ECS native deployment type, not CodeDeploy's approach.",
+      "d": "Incorrect. Immutable is an Elastic Beanstalk concept."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Where can CodeBuild build logs be stored?",
+    "opts": {
+      "a": "Only in Amazon S3",
+      "b": "Amazon CloudWatch Logs and/or Amazon S3",
+      "c": "Only in CloudWatch Logs",
+      "d": "Amazon DynamoDB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 is one option, but not the only one.",
+      "b": "Correct. CodeBuild can send build logs to CloudWatch Logs, S3, or both. You configure this in the project's logs configuration.",
+      "c": "Incorrect. S3 is also a valid destination.",
+      "d": "Incorrect. DynamoDB is not used for build logs."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What protocol does CodeCommit use for Git operations over the network?",
+    "opts": {
+      "a": "FTP",
+      "b": "SSH and HTTPS",
+      "c": "SFTP only",
+      "d": "Git protocol (port 9418)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. FTP is not used for Git operations.",
+      "b": "Correct. CodeCommit supports both SSH (port 22) and HTTPS (port 443) for Git operations.",
+      "c": "Incorrect. SFTP is not used for CodeCommit.",
+      "d": "Incorrect. The native Git protocol is not supported by CodeCommit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodeBuild project needs to run Docker commands to build container images. The build fails saying 'Cannot connect to the Docker daemon'. What setting must be enabled?",
+    "opts": {
+      "a": "VPC mode",
+      "b": "Privileged mode",
+      "c": "Batch mode",
+      "d": "Debug mode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. VPC mode is for accessing private network resources.",
+      "b": "Correct. Privileged mode must be enabled for CodeBuild to access the Docker daemon. This is required when building Docker images.",
+      "c": "Incorrect. Batch mode is for running multiple builds.",
+      "d": "Incorrect. Debug mode doesn't enable Docker access."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the CodeDeploy agent?",
+    "opts": {
+      "a": "A web console for managing deployments",
+      "b": "A software package that runs on EC2/on-premises instances enabling them to be used as deployment targets",
+      "c": "An AWS CLI plugin",
+      "d": "A Lambda function that processes deployments"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The agent is not a web console.",
+      "b": "Correct. The CodeDeploy agent is a software package installed on EC2/on-premises instances that communicates with CodeDeploy to execute deployments, run lifecycle hook scripts, and report status.",
+      "c": "Incorrect. It's a standalone agent, not a CLI plugin.",
+      "d": "Incorrect. It's an agent running on instances, not a Lambda function."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to use CodeCommit but their developers are already familiar with Git commands. Do they need to learn new commands?",
+    "opts": {
+      "a": "Yes, CodeCommit uses proprietary commands",
+      "b": "No, CodeCommit is Git-based and supports all standard Git commands (push, pull, clone, branch, etc.)",
+      "c": "Only AWS CLI commands work with CodeCommit",
+      "d": "They need to use the AWS Console only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeCommit uses standard Git, not proprietary commands.",
+      "b": "Correct. CodeCommit is a Git-based repository service. Developers use standard Git commands and any Git client (command line, IDE plugins, etc.) to interact with it.",
+      "c": "Incorrect. Standard Git commands work; AWS CLI is optional for administrative tasks.",
+      "d": "Incorrect. While the Console works, Git CLI and other tools are fully supported."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which CodeDeploy hook is the last to run and is typically used to verify the deployment was successful?",
+    "opts": {
+      "a": "AfterInstall",
+      "b": "ApplicationStart",
+      "c": "ValidateService",
+      "d": "BeforeInstall"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. AfterInstall runs after installation but before application start.",
+      "b": "Incorrect. ApplicationStart runs before ValidateService.",
+      "c": "Correct. ValidateService is the last lifecycle hook in an in-place deployment, used to verify the deployment completed successfully (e.g., checking health endpoints).",
+      "d": "Incorrect. BeforeInstall is one of the first hooks to run."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to run automated security scanning as part of their pipeline after the build stage but before deployment. Where should they add this in CodePipeline?",
+    "opts": {
+      "a": "In the Source stage",
+      "b": "As a Test stage between Build and Deploy using CodeBuild or a third-party tool",
+      "c": "In the Deploy stage after deployment",
+      "d": "As a post-deployment Lambda function"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Source stage only retrieves code.",
+      "b": "Correct. A Test stage (using CodeBuild or third-party integrations like Snyk or Checkmarx) between Build and Deploy ensures security issues are caught before deployment.",
+      "c": "Incorrect. Running security scans after deployment doesn't prevent deploying vulnerable code.",
+      "d": "Incorrect. Post-deployment scanning is reactive, not preventive."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Can CodeBuild run builds on ARM-based processors?",
+    "opts": {
+      "a": "No, only x86 processors are supported",
+      "b": "Yes, CodeBuild supports both x86 and ARM (Graviton) processors",
+      "c": "Only for Lambda deployments",
+      "d": "Only with custom Docker images"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeBuild supports ARM processors.",
+      "b": "Correct. CodeBuild supports ARM-based builds using AWS Graviton processors, which can provide cost savings for compatible workloads.",
+      "c": "Incorrect. ARM support is for the build environment, not limited to Lambda.",
+      "d": "Incorrect. AWS provides managed ARM-based images."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer accidentally deleted a branch in CodeCommit. Can it be recovered?",
+    "opts": {
+      "a": "No, deleted branches are permanently lost",
+      "b": "Yes, using the AWS CLI or Console if you know the commit ID; the commits still exist in the repository",
+      "c": "Only if there was a backup to S3",
+      "d": "Only by contacting AWS Support"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The branch pointer is deleted but commits remain.",
+      "b": "Correct. In Git (and CodeCommit), deleting a branch only removes the branch pointer. The commits still exist and a branch can be recreated pointing to the same commit ID using create-branch.",
+      "c": "Incorrect. S3 backups are not required for branch recovery.",
+      "d": "Incorrect. Recovery can be done by the user without AWS Support."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What encryption does CodePipeline use for artifacts stored in S3?",
+    "opts": {
+      "a": "No encryption",
+      "b": "Server-side encryption using AWS KMS (SSE-KMS) with either AWS managed key or customer managed key",
+      "c": "Client-side encryption only",
+      "d": "SSL/TLS only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodePipeline always encrypts artifacts.",
+      "b": "Correct. CodePipeline encrypts artifacts in S3 using AWS KMS. By default it uses the AWS managed key (aws/s3), but you can specify a customer managed CMK.",
+      "c": "Incorrect. Encryption is server-side in S3.",
+      "d": "Incorrect. SSL/TLS protects data in transit; S3 encryption protects data at rest."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team uses CodePipeline with GitHub as the source. They want the pipeline to trigger only on tags (not every push). Which pipeline type supports this?",
+    "opts": {
+      "a": "V1 type pipeline",
+      "b": "V2 type pipeline with trigger filters for tags",
+      "c": "Neither V1 nor V2 supports tag-based triggers",
+      "d": "Both V1 and V2 support tag-based triggers"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. V1 type doesn't support tag-based trigger filtering.",
+      "b": "Correct. V2 type pipelines support trigger filters that can be configured to trigger only on specific Git tags, branches, or file paths.",
+      "c": "Incorrect. V2 does support tag-based triggers.",
+      "d": "Incorrect. Only V2 supports this feature."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How does CodeDeploy determine the order of lifecycle hooks for an in-place deployment?",
+    "opts": {
+      "a": "Alphabetical order",
+      "b": "Fixed predefined order: ApplicationStop → DownloadBundle → BeforeInstall → Install → AfterInstall → ApplicationStart → ValidateService",
+      "c": "User-defined order in appspec.yml",
+      "d": "Random order"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The order is not alphabetical.",
+      "b": "Correct. CodeDeploy follows a strict predefined lifecycle event order. You cannot change the order of hooks.",
+      "c": "Incorrect. The order is fixed by CodeDeploy, not customizable.",
+      "d": "Incorrect. The order is deterministic, not random."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team is using CodeBuild and wants to test their application against multiple versions of Node.js (14, 16, 18) simultaneously. What feature should they use?",
+    "opts": {
+      "a": "Multiple buildspec files",
+      "b": "CodeBuild batch builds with build-matrix using different environment variables for each Node.js version",
+      "c": "Three separate CodeBuild projects",
+      "d": "Parallel phases in a single build"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple buildspec files don't enable parallel testing.",
+      "b": "Correct. Batch builds with build-matrix allow you to define a matrix of environment variables (e.g., NODE_VERSION: [14, 16, 18]) that spawn parallel builds with different configurations.",
+      "c": "Incorrect. While possible, separate projects add management overhead; batch builds are more elegant.",
+      "d": "Incorrect. Phases run sequentially within a build; they can't parallelize different environments."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of CodePipeline action executions that can run in parallel within a single stage?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "50",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 5.",
+      "b": "Incorrect. 10 is below the actual limit.",
+      "c": "Correct. A stage can contain up to 50 actions, and actions with the same run order execute in parallel.",
+      "d": "Incorrect. There is a 50-action per stage limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's CodeDeploy deployment to EC2 keeps failing at the AfterInstall hook. The hook script checks if the application started correctly. What should the team investigate?",
+    "opts": {
+      "a": "The CodeDeploy agent version",
+      "b": "The hook script logic, permissions, and the application's startup behavior at that point in the lifecycle",
+      "c": "The S3 bucket permissions",
+      "d": "The CodePipeline service role"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Agent version is rarely the cause of hook-specific failures.",
+      "b": "Correct. AfterInstall hook failures indicate issues with the script itself (permissions, logic errors) or that the application hasn't fully started yet at that lifecycle stage. ApplicationStart comes after AfterInstall.",
+      "c": "Incorrect. S3 permissions affect artifact download, which happens before AfterInstall.",
+      "d": "Incorrect. CodePipeline service role isn't involved in hook execution on instances."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What CodeBuild feature allows you to interact with a running build session for debugging purposes?",
+    "opts": {
+      "a": "Build logs",
+      "b": "Session Manager integration (AWS CodeBuild local debugging)",
+      "c": "CloudWatch debugging",
+      "d": "SSH into the build container"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Logs provide passive information, not interactive debugging.",
+      "b": "Correct. CodeBuild supports Session Manager integration that allows you to pause a build and open an interactive session to the build environment for debugging.",
+      "c": "Incorrect. CloudWatch provides metrics and logs but not interactive debugging.",
+      "d": "Incorrect. Direct SSH is not supported; Session Manager provides this capability."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team notices that their CodePipeline artifact S3 bucket is growing very large over time. What should they do?",
+    "opts": {
+      "a": "Manually delete old artifacts regularly",
+      "b": "Configure S3 lifecycle rules to automatically expire old pipeline artifacts after a specified period",
+      "c": "Increase the S3 bucket size limit",
+      "d": "Move to a different region with more storage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual deletion is not scalable or reliable.",
+      "b": "Correct. S3 lifecycle policies can automatically delete or transition old pipeline artifacts to cheaper storage tiers after a specified number of days.",
+      "c": "Incorrect. S3 doesn't have a bucket size limit.",
+      "d": "Incorrect. Changing regions doesn't address storage growth."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Can CodePipeline invoke an AWS Lambda function as an action?",
+    "opts": {
+      "a": "No, Lambda cannot be used in CodePipeline",
+      "b": "Yes, Lambda can be used as an Invoke action for custom logic",
+      "c": "Only as a source action",
+      "d": "Only as a deploy action"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda is a supported action provider.",
+      "b": "Correct. CodePipeline supports Lambda as an Invoke action, allowing you to run custom code (validation, notifications, resource manipulation) as part of the pipeline.",
+      "c": "Incorrect. Lambda is not a source action.",
+      "d": "Incorrect. Lambda is categorized as an Invoke action, not a deploy action."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team's CodeBuild project is in a VPC and needs to pull Docker base images from Docker Hub. The build times out trying to download images. What is the solution?",
+    "opts": {
+      "a": "Use only ECR images",
+      "b": "Ensure the VPC subnet has a route to a NAT Gateway for internet access",
+      "c": "Disable VPC configuration",
+      "d": "Increase the build timeout"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While ECR is recommended, Docker Hub should still be accessible with proper networking.",
+      "b": "Correct. When CodeBuild is in a VPC, it needs a route to the internet (via NAT Gateway) to access external resources like Docker Hub.",
+      "c": "Incorrect. Disabling VPC might break other connectivity requirements.",
+      "d": "Incorrect. Increasing timeout doesn't solve the network connectivity issue."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the purpose of CodeDeploy's 'minimum healthy hosts' setting?",
+    "opts": {
+      "a": "It defines the minimum EC2 instance size",
+      "b": "It specifies the minimum number or percentage of instances that must remain healthy during deployment",
+      "c": "It sets the health check interval",
+      "d": "It defines the minimum memory for the application"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Instance size is not related to minimum healthy hosts.",
+      "b": "Correct. Minimum healthy hosts defines how many instances must remain in a healthy state during deployment. If the number drops below this threshold, the deployment fails.",
+      "c": "Incorrect. Health check intervals are configured elsewhere.",
+      "d": "Incorrect. Application memory is not related to this setting."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Your CodePipeline has a Build stage using CodeBuild that produces a .zip artifact. The Deploy stage uses CodeDeploy but reports 'artifact not found'. What could be wrong?",
+    "opts": {
+      "a": "CodeDeploy doesn't support .zip files",
+      "b": "The output artifact name in the Build stage doesn't match the input artifact name configured in the Deploy stage",
+      "c": "The pipeline is in the wrong region",
+      "d": "CodeDeploy requires .tar files"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeDeploy supports .zip artifacts.",
+      "b": "Correct. CodePipeline requires output artifact names from one stage to match input artifact names in the consuming stage. A mismatch causes 'artifact not found' errors.",
+      "c": "Incorrect. Region mismatch would cause different errors.",
+      "d": "Incorrect. Both .zip and .tar are supported."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How many active users are included in the CodeCommit free tier?",
+    "opts": {
+      "a": "1",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The free tier includes more than 1 user.",
+      "b": "Incorrect. 3 is below the actual free tier allowance.",
+      "c": "Correct. The CodeCommit free tier includes 5 active users per month with 50 GB storage and 10,000 Git requests.",
+      "d": "Incorrect. 10 exceeds the free tier allowance."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to deploy the same application revision to both their staging and production deployment groups. Can they do this in CodeDeploy?",
+    "opts": {
+      "a": "No, each deployment group requires a unique revision",
+      "b": "Yes, the same revision can be deployed to multiple deployment groups within the same application",
+      "c": "Only if the instances are in the same Auto Scaling group",
+      "d": "Only using separate CodeDeploy applications"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Revisions can be reused across deployment groups.",
+      "b": "Correct. A single application revision can be deployed to multiple deployment groups (e.g., staging and production) within the same CodeDeploy application.",
+      "c": "Incorrect. Deployment groups can target different instances or ASGs.",
+      "d": "Incorrect. Multiple deployment groups within one application can share revisions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the free tier for CodeBuild?",
+    "opts": {
+      "a": "No free tier",
+      "b": "100 build minutes per month for general1.small instance",
+      "c": "1,000 build minutes per month",
+      "d": "50 builds per month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeBuild does have a free tier.",
+      "b": "Correct. The CodeBuild free tier includes 100 build minutes per month for the general1.small compute type.",
+      "c": "Incorrect. 1,000 minutes exceeds the free tier.",
+      "d": "Incorrect. The free tier is time-based, not build-count-based."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A new team member cannot clone a CodeCommit repository. They can access the AWS Console. What is the most likely issue?",
+    "opts": {
+      "a": "The repository is full",
+      "b": "They haven't set up Git credentials (SSH key or HTTPS credentials) in their IAM user settings",
+      "c": "CodeCommit is down",
+      "d": "The repository doesn't exist"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Repository capacity wouldn't prevent cloning.",
+      "b": "Correct. To clone via command line, users need either SSH keys uploaded to IAM, HTTPS Git credentials generated in IAM, or the credential helper configured with their AWS credentials.",
+      "c": "Incorrect. If they can access the Console, CodeCommit is likely available.",
+      "d": "Incorrect. If it were nonexistent, they wouldn't see it in the Console."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Can CodePipeline deploy to AWS Elastic Beanstalk?",
+    "opts": {
+      "a": "No, Elastic Beanstalk has its own deployment mechanism",
+      "b": "Yes, Elastic Beanstalk is a supported deploy action provider in CodePipeline",
+      "c": "Only through CloudFormation",
+      "d": "Only through CodeDeploy"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Elastic Beanstalk integrates directly with CodePipeline.",
+      "b": "Correct. AWS Elastic Beanstalk is a supported deploy action provider in CodePipeline, allowing direct deployment to Beanstalk environments.",
+      "c": "Incorrect. Direct Elastic Beanstalk integration exists.",
+      "d": "Incorrect. CodeDeploy is a separate deployment path."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A CodeBuild build succeeds but the post_build phase shows warnings. Does the build still count as successful?",
+    "opts": {
+      "a": "No, any warnings cause the build to fail",
+      "b": "Yes, the build status depends on the exit codes of commands in the build phase; post_build runs regardless of the build phase result",
+      "c": "Only if all warnings are suppressed",
+      "d": "It depends on the compute type"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Warnings don't automatically fail a build.",
+      "b": "Correct. The build phase's exit code determines success or failure. The post_build phase runs regardless (even if build phase fails) and warnings in post_build don't change the overall build status unless commands return non-zero exit codes.",
+      "c": "Incorrect. Warning suppression isn't required.",
+      "d": "Incorrect. Compute type doesn't affect build status determination."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the free tier for CodePipeline V1 type?",
+    "opts": {
+      "a": "No free tier",
+      "b": "1 free active pipeline per month forever",
+      "c": "5 free pipelines per month",
+      "d": "Free for 12 months only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodePipeline V1 does have a free tier.",
+      "b": "Correct. AWS offers 1 free active V1 type pipeline per month. Additional pipelines are charged at $1 per active pipeline per month.",
+      "c": "Incorrect. Only 1 pipeline is free.",
+      "d": "Incorrect. The free tier for CodePipeline is perpetual, not limited to 12 months."
+    }
+  }
+]

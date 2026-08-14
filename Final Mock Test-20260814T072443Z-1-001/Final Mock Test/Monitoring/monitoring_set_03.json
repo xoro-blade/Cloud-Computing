@@ -1,0 +1,1158 @@
+[
+  {
+    "type": "scenario",
+    "q": "A company's CloudWatch alarm keeps flapping between OK and ALARM states every few minutes due to brief CPU spikes. How should they reduce alarm noise without missing real issues?",
+    "opts": {
+      "a": "Delete the alarm",
+      "b": "Configure the alarm to require M out of N evaluation periods (e.g., 3 out of 5) before transitioning to ALARM state",
+      "c": "Increase the threshold to 100%",
+      "d": "Switch to basic monitoring"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deleting removes the monitoring entirely.",
+      "b": "Correct. The 'M out of N' configuration (e.g., 3 out of 5 consecutive datapoints must breach) prevents brief spikes from triggering the alarm while still catching sustained issues. [1]",
+      "c": "Incorrect. 100% threshold would never trigger.",
+      "d": "Incorrect. Basic monitoring reduces frequency but doesn't solve flapping."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team notices their CloudWatch Logs Insights query is timing out when searching across 50 log groups. What are the query limitations they should know?",
+    "opts": {
+      "a": "Logs Insights has no limits",
+      "b": "Queries can scan up to 50 log groups maximum, have a 60-minute timeout, and return a maximum of 10,000 results per query",
+      "c": "Queries can only search one log group",
+      "d": "Queries are limited to 100 results"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Logs Insights has several limits.",
+      "b": "Correct. CloudWatch Logs Insights can query up to 50 log groups simultaneously, has a 60-minute query timeout, and returns a maximum of 10,000 log events or 10,000 aggregated results. [1]",
+      "c": "Incorrect. Multiple log groups can be queried.",
+      "d": "Incorrect. The result limit is 10,000, not 100."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to monitor Lambda function errors and correlate them with downstream DynamoDB throttling. Which approach provides the best unified view?",
+    "opts": {
+      "a": "Separate CloudWatch dashboards for each service",
+      "b": "CloudWatch ServiceLens combining metrics, logs, and X-Ray traces in a single view with service map",
+      "c": "CloudTrail log analysis",
+      "d": "EventBridge event monitoring"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Separate dashboards don't correlate issues across services.",
+      "b": "Correct. ServiceLens integrates CloudWatch metrics (Lambda errors, DynamoDB throttling), logs, and X-Ray traces to show how issues in one service affect others through the service map. [1]",
+      "c": "Incorrect. CloudTrail doesn't provide performance correlation.",
+      "d": "Incorrect. EventBridge routes events but doesn't correlate performance."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team has enabled CloudTrail but discovers that S3 GetObject and PutObject calls are not being logged. What is the issue?",
+    "opts": {
+      "a": "CloudTrail doesn't support S3",
+      "b": "Data events (like S3 object-level operations) must be explicitly enabled and are not included by default; only management events are logged by default",
+      "c": "The trail is misconfigured",
+      "d": "S3 logging must be enabled separately in S3 console"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudTrail does support S3.",
+      "b": "Correct. By default, CloudTrail only logs management events (CreateBucket, DeleteBucket). Data events like GetObject and PutObject must be explicitly enabled in the trail configuration and incur additional charges. [2]",
+      "c": "Incorrect. The trail is working correctly for management events.",
+      "d": "Incorrect. S3 server access logging is a separate feature from CloudTrail data events."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A security team wants to detect when CloudTrail logging is disabled in any account. What is the best approach?",
+    "opts": {
+      "a": "Check manually every day",
+      "b": "Use EventBridge rule to detect the StopLogging API call from CloudTrail, triggering an SNS alert and Lambda to re-enable logging",
+      "c": "Use CloudWatch CPU alarm",
+      "d": "Use AWS Config only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual checks aren't real-time.",
+      "b": "Correct. EventBridge can detect the CloudTrail StopLogging event in near real-time. A rule matching this event can trigger SNS for alerting and Lambda to automatically re-enable the trail. [2][3]",
+      "c": "Incorrect. CPU alarms don't detect CloudTrail changes.",
+      "d": "Incorrect. While Config can detect CloudTrail configuration changes, EventBridge provides faster detection and remediation."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's X-Ray traces show high latency in a specific Lambda function, but the function's CloudWatch Duration metric shows normal values. What might explain this discrepancy?",
+    "opts": {
+      "a": "X-Ray is inaccurate",
+      "b": "The X-Ray trace includes cold start initialization time, API Gateway latency, and downstream service calls that are outside the Lambda Duration metric (which only measures handler execution)",
+      "c": "CloudWatch is inaccurate",
+      "d": "The function has a bug"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. X-Ray provides accurate end-to-end timing.",
+      "b": "Correct. Lambda Duration metric only measures handler execution time. X-Ray traces capture the full request lifecycle including: API Gateway processing, cold start initialization, handler execution, and downstream calls. The total trace latency includes all of these. [5]",
+      "c": "Incorrect. CloudWatch Duration is accurate for what it measures.",
+      "d": "Incorrect. The discrepancy is due to different measurement scopes."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team uses EventBridge to trigger a Lambda function when an S3 object is uploaded. The Lambda function occasionally fails. How should they handle failed event deliveries?",
+    "opts": {
+      "a": "Ignore failures",
+      "b": "Configure a Dead Letter Queue (DLQ) on the EventBridge rule to capture failed events for later reprocessing",
+      "c": "Increase Lambda timeout only",
+      "d": "Delete and recreate the rule"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Ignoring failures loses data.",
+      "b": "Correct. Configuring a DLQ (SQS queue) on the EventBridge rule captures events that fail to deliver to the target. You can then reprocess these events or investigate failures. [3]",
+      "c": "Incorrect. Timeout increase helps if Lambda is timing out but doesn't handle all failure types.",
+      "d": "Incorrect. Recreating doesn't solve the underlying delivery issue."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to detect unusual API activity patterns (like a sudden spike in EC2 RunInstances calls) without creating manual rules. Which feature should they use?",
+    "opts": {
+      "a": "CloudWatch Anomaly Detection",
+      "b": "CloudTrail Insights",
+      "c": "AWS Config rules",
+      "d": "EventBridge pattern matching"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch Anomaly Detection works on metrics, not API call patterns.",
+      "b": "Correct. CloudTrail Insights automatically detects unusual patterns in write management events by establishing a baseline of normal API call volumes and alerting on significant deviations (spikes or drops). [2]",
+      "c": "Incorrect. Config evaluates resource configuration, not API patterns.",
+      "d": "Incorrect. EventBridge requires you to define patterns manually."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team is troubleshooting intermittent 500 errors from their API Gateway. They need to find which specific requests failed and what happened downstream. How should they instrument this?",
+    "opts": {
+      "a": "Enable CloudWatch Logs on API Gateway only",
+      "b": "Enable X-Ray tracing on API Gateway with active tracing on downstream Lambda/services; use X-Ray filter expressions to find traces with HTTP status 500",
+      "c": "Check CloudTrail for API Gateway events",
+      "d": "Use EventBridge to capture 500 errors"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Logs show errors but don't trace the full request path.",
+      "b": "Correct. X-Ray tracing on API Gateway captures end-to-end request flow. Filter expressions like 'responsestatus = 500' isolate failed requests, and subsegments show exactly where the failure occurred downstream. [5]",
+      "c": "Incorrect. CloudTrail logs API Gateway management events, not individual request errors.",
+      "d": "Incorrect. EventBridge doesn't capture individual HTTP errors from API Gateway."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company runs 200 microservices and wants to set SLO targets (e.g., 99.9% availability, P99 latency < 200ms) with automatic alerting when SLOs are at risk. Which CloudWatch feature should they use?",
+    "opts": {
+      "a": "Standard CloudWatch Alarms",
+      "b": "CloudWatch Application Signals with SLO tracking",
+      "c": "CloudWatch Contributor Insights",
+      "d": "X-Ray groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard alarms don't provide SLO-specific tracking with burn rate alerts.",
+      "b": "Correct. CloudWatch Application Signals auto-instruments applications and enables you to define and track SLOs. It alerts when your error budget is burning too fast (before you actually breach the SLO). [1]",
+      "c": "Incorrect. Contributor Insights shows top-N patterns, not SLO tracking.",
+      "d": "Incorrect. X-Ray groups organize traces but don't track SLOs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to forward CloudWatch Logs to both a real-time analytics platform AND S3 for long-term storage. The log group already has 2 subscription filters. How can they add another destination?",
+    "opts": {
+      "a": "Request a subscription filter increase",
+      "b": "Use one subscription filter to send to Kinesis Data Firehose, which can deliver to both the analytics platform AND S3 simultaneously",
+      "c": "Create another log group",
+      "d": "It's not possible"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The 2 subscription filter limit cannot be increased.",
+      "b": "Correct. Kinesis Data Firehose supports multiple destinations. Route one subscription filter to Firehose configured with your analytics platform as the primary destination and S3 as the backup/additional destination. [1]",
+      "c": "Incorrect. Creating another log group doesn't solve the destination problem.",
+      "d": "Incorrect. It is possible with the Firehose fan-out approach."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team has deployed an X-Ray instrumented application but notices only 1% of traces are being captured. What is most likely happening?",
+    "opts": {
+      "a": "X-Ray is broken",
+      "b": "The default sampling rule (1 request/second + 5% of additional) is too restrictive for their high-traffic application; they should create a custom sampling rule with higher rates",
+      "c": "The X-Ray daemon is not running",
+      "d": "They need to enable enhanced monitoring"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. X-Ray is working as configured.",
+      "b": "Correct. With very high traffic (e.g., 10,000 requests/second), the default rule (1/sec + 5%) captures about 501 traces out of 10,000 (~5%). For higher sampling, create a custom rule with larger reservoir size and fixed_rate. [5]",
+      "c": "Incorrect. If the daemon weren't running, NO traces would appear.",
+      "d": "Incorrect. Enhanced monitoring is a CloudWatch/RDS concept."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A compliance team needs to prove that no one has accessed certain sensitive DynamoDB tables in the last 90 days. Which service provides this audit evidence?",
+    "opts": {
+      "a": "CloudWatch metrics",
+      "b": "CloudTrail with data events enabled for DynamoDB, queried via CloudTrail Lake or Athena",
+      "c": "AWS Config",
+      "d": "DynamoDB Streams"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch shows aggregate metrics but not individual access records.",
+      "b": "Correct. CloudTrail data events capture every GetItem, Query, Scan, PutItem on DynamoDB tables. Querying CloudTrail Lake or Athena for these events over 90 days provides the audit evidence. [2]",
+      "c": "Incorrect. Config tracks configuration, not data access.",
+      "d": "Incorrect. DynamoDB Streams capture data changes, not read access."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to automatically tag non-compliant resources detected by AWS Config. What is the recommended approach?",
+    "opts": {
+      "a": "Manual tagging",
+      "b": "AWS Config rule with automatic remediation using an SSM Automation document that applies the tag",
+      "c": "CloudWatch alarm with EC2 action",
+      "d": "EventBridge with SNS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual tagging doesn't scale.",
+      "b": "Correct. Configure a Config rule to detect non-compliant resources, then attach an auto-remediation action that runs an SSM Automation document (e.g., AWS-AddTags) to automatically apply the required tag. [4]",
+      "c": "Incorrect. CloudWatch alarms don't manage tags.",
+      "d": "Incorrect. EventBridge can trigger tagging but Config's built-in remediation is more integrated."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team publishes high-resolution custom metrics (1-second) to CloudWatch. They discover that querying data from 2 weeks ago returns no results. Why?",
+    "opts": {
+      "a": "CloudWatch deleted the data",
+      "b": "High-resolution metrics (< 60 second period) are only retained for 3 hours; after that they're rolled up to 1-minute resolution (retained 15 days)",
+      "c": "The data was never stored",
+      "d": "The API is broken"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch doesn't arbitrarily delete data.",
+      "b": "Correct. High-resolution data (<60s) is retained for only 3 hours at full resolution. It's then rolled up to 1-minute aggregated datapoints (retained 15 days), then to 5-minute (63 days), then to 1-hour (455 days). Querying 2-week-old data requires using a period of 60 seconds or more. [1]",
+      "c": "Incorrect. The data was stored but rolled up.",
+      "d": "Incorrect. The API works correctly with proper period settings."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company uses EventBridge to process events from their SaaS partner. The events are larger than 256 KB. How should they handle this?",
+    "opts": {
+      "a": "Compress the events",
+      "b": "Store the full payload in S3 and send only a reference (S3 URI) in the EventBridge event; the consumer retrieves the full payload from S3",
+      "c": "Split the event into multiple parts",
+      "d": "Increase the EventBridge event size limit"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EventBridge doesn't support compressed events natively.",
+      "b": "Correct. The claim check pattern stores the large payload in S3 and passes only the S3 object reference in the EventBridge event (within 256 KB). The consumer retrieves the full payload from S3. [3]",
+      "c": "Incorrect. Splitting events adds complexity and ordering issues.",
+      "d": "Incorrect. The 256 KB limit cannot be increased."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to know the exact configuration of an EC2 instance from 6 months ago (security groups, instance type, tags at that time). Which service provides this?",
+    "opts": {
+      "a": "CloudWatch historical metrics",
+      "b": "AWS Config configuration timeline showing the historical configuration item for that instance at any point in time",
+      "c": "CloudTrail event history",
+      "d": "EC2 describe-instances API"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch shows metrics, not configuration state.",
+      "b": "Correct. AWS Config records configuration items every time a resource changes. The configuration timeline shows the exact state of any resource at any historical point (up to 7 years). [4]",
+      "c": "Incorrect. CloudTrail shows who made changes but not the full resource state at a point in time.",
+      "d": "Incorrect. describe-instances only shows current state, not historical."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team has 500 CloudWatch alarms but receives too many notifications. They want a single alarm that only fires when multiple related services are all unhealthy simultaneously. What should they use?",
+    "opts": {
+      "a": "Delete alarms and use EventBridge",
+      "b": "Create a composite alarm that uses AND logic to combine child alarms, only triggering when multiple services are in ALARM state simultaneously",
+      "c": "Increase all thresholds",
+      "d": "Use a single alarm with metric math"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deleting alarms removes monitoring.",
+      "b": "Correct. Composite alarms combine multiple child alarms with Boolean logic (AND, OR, NOT). An AND composite alarm only fires when ALL specified child alarms are in ALARM state, dramatically reducing noise from individual service issues. [1]",
+      "c": "Incorrect. Higher thresholds might miss real issues.",
+      "d": "Incorrect. A single metric alarm can't monitor multiple unrelated services."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to monitor the health of third-party SaaS API endpoints their application depends on. The SaaS provider doesn't expose CloudWatch metrics. What should they use?",
+    "opts": {
+      "a": "X-Ray only",
+      "b": "CloudWatch Synthetics canaries that periodically call the SaaS APIs and report availability/latency metrics",
+      "c": "CloudTrail",
+      "d": "AWS Config"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. X-Ray traces actual user requests but doesn't proactively test external endpoints.",
+      "b": "Correct. Synthetics canaries can be configured to call external SaaS APIs on a schedule (e.g., every 5 minutes), measuring availability and response time. If the canary fails, it creates CloudWatch metrics and alarms. [1]",
+      "c": "Incorrect. CloudTrail doesn't monitor external SaaS APIs.",
+      "d": "Incorrect. Config evaluates AWS resource compliance, not external APIs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer is trying to filter X-Ray traces to find requests where a specific customer ID experienced errors. They stored the customer ID as metadata. Why can't they filter on it?",
+    "opts": {
+      "a": "X-Ray doesn't support filtering",
+      "b": "Metadata is NOT indexed and cannot be used in filter expressions; the developer should have used annotations (which are indexed and searchable)",
+      "c": "The customer ID is too long",
+      "d": "They need to use CloudWatch Logs instead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. X-Ray does support filtering via filter expressions.",
+      "b": "Correct. X-Ray metadata is NOT indexed — it's visible when viewing a trace but cannot be searched. Annotations ARE indexed and can be used in filter expressions (e.g., annotation.customer_id = '12345'). The developer should store the customer ID as an annotation. [5]",
+      "c": "Incorrect. String length is not the issue.",
+      "d": "Incorrect. Logs can complement but don't replace X-Ray's trace filtering."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team's EventBridge rule has 5 targets (the maximum). They need to add a 6th target. What is the recommended solution?",
+    "opts": {
+      "a": "Request a limit increase",
+      "b": "Use one of the 5 targets as a fan-out mechanism: target an SNS topic or Step Functions state machine that distributes to additional consumers",
+      "c": "Create a duplicate rule",
+      "d": "Use Lambda to forward events"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The 5 targets per rule limit cannot be increased.",
+      "b": "Correct. Use one target slot for SNS (which can fan out to unlimited subscribers) or Step Functions (which can invoke multiple services). This effectively provides unlimited targets from a single rule. [3]",
+      "c": "Incorrect. While creating another rule works, the fan-out approach is more elegant.",
+      "d": "Incorrect. Lambda forwarding works but adds latency; SNS fan-out is more efficient."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to correlate a specific CloudTrail event with its effect on CloudWatch metrics. For example, when someone scales an Auto Scaling group, they want to see the corresponding change in EC2 instance count. How should they approach this?",
+    "opts": {
+      "a": "Query each service separately",
+      "b": "Use CloudWatch dashboards with annotation markers showing CloudTrail events overlaid on metric graphs, or use CloudWatch Application Signals for correlated views",
+      "c": "Use AWS Config only",
+      "d": "Use EventBridge"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Querying separately doesn't provide correlation.",
+      "b": "Correct. CloudWatch dashboards support annotation overlay showing when CloudTrail events occurred alongside metric graphs. This visually correlates API actions with metric changes. Application Signals and ServiceLens also provide correlated views. [1]",
+      "c": "Incorrect. Config tracks configuration but doesn't overlay on metric graphs.",
+      "d": "Incorrect. EventBridge routes events but doesn't provide visualization."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's AWS Config evaluations are showing all resources as compliant, but they suspect the rules aren't evaluating correctly. How can they troubleshoot?",
+    "opts": {
+      "a": "Delete and recreate all rules",
+      "b": "Check: (1) Are the correct resource types in scope? (2) Is Config recording enabled for those resources? (3) Test the rule with specific resource IDs. (4) Check CloudWatch Logs for Lambda-based custom rules",
+      "c": "Wait 24 hours",
+      "d": "Restart the AWS Config service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Recreating rules without investigation wastes time.",
+      "b": "Correct. Common issues include: wrong resource types in scope, Config recording not enabled for the target resource types, custom rule Lambda errors visible in CloudWatch Logs, or rule evaluation not triggered yet. [4]",
+      "c": "Incorrect. Waiting doesn't help identify the root cause.",
+      "d": "Incorrect. Config is a managed service that can't be restarted."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to implement a real-time security alerting pipeline: detect unauthorized access attempts → enrich with context → notify security team → create incident ticket. Which architecture is best?",
+    "opts": {
+      "a": "CloudWatch Logs → Lambda → SNS",
+      "b": "CloudTrail → EventBridge rule (detecting specific events) → EventBridge Pipe (enrichment via Lambda) → Step Functions (parallel: SNS notification + Jira API destination)",
+      "c": "CloudTrail → S3 → Athena",
+      "d": "CloudWatch Alarm → Auto Scaling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This skips CloudTrail and lacks enrichment/orchestration.",
+      "b": "Correct. CloudTrail events flow to EventBridge in near real-time. An EventBridge rule detects specific patterns. A Pipe enriches the event (adding context). Step Functions orchestrates parallel actions: sending SNS notifications and creating a Jira ticket via API destination. [2][3]",
+      "c": "Incorrect. Athena is batch/ad-hoc, not real-time.",
+      "d": "Incorrect. Auto Scaling doesn't create incident tickets."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of CloudWatch Logs log groups per account per Region?",
+    "opts": {
+      "a": "5,000",
+      "b": "10,000",
+      "c": "1,000,000",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is much higher.",
+      "b": "Incorrect. 10,000 is below the actual limit.",
+      "c": "Correct. The default quota for log groups per account per Region is 1,000,000 (1 million). [1]",
+      "d": "Incorrect. There is a limit, though it's very high."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum batch size for CloudWatch Logs PutLogEvents API?",
+    "opts": {
+      "a": "100 events",
+      "b": "1,000 events",
+      "c": "10,000 events",
+      "d": "100,000 events"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More events are allowed per batch.",
+      "b": "Incorrect. 1,000 is below the limit.",
+      "c": "Correct. PutLogEvents accepts up to 10,000 log events per batch, with a maximum batch payload of 1 MB. [1]",
+      "d": "Incorrect. 100,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum batch payload size for CloudWatch Logs PutLogEvents API?",
+    "opts": {
+      "a": "256 KB",
+      "b": "512 KB",
+      "c": "1 MB",
+      "d": "5 MB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is larger than 256 KB.",
+      "b": "Incorrect. 512 KB is below the actual limit.",
+      "c": "Correct. The maximum batch payload for PutLogEvents is 1,048,576 bytes (1 MB). [1]",
+      "d": "Incorrect. 5 MB exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of CloudWatch metric streams per account per Region?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More streams are allowed.",
+      "b": "Correct. You can create up to 25 metric streams per account per Region. [1]",
+      "c": "Incorrect. 50 exceeds the limit.",
+      "d": "Incorrect. 100 is far above the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is a CloudWatch Metric Stream used for?",
+    "opts": {
+      "a": "Streaming video metrics",
+      "b": "Continuously streaming CloudWatch metrics to destinations like Kinesis Data Firehose for real-time delivery to third-party providers or data lakes",
+      "c": "Creating animated dashboard visualizations",
+      "d": "Streaming audio metrics"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's not for video.",
+      "b": "Correct. Metric Streams continuously stream CloudWatch metrics in near real-time to destinations like Kinesis Data Firehose, enabling delivery to third-party monitoring tools (Datadog, Splunk, etc.) or data lakes. [1]",
+      "c": "Incorrect. It's not about animations.",
+      "d": "Incorrect. It's not about audio."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of CloudWatch Canaries (Synthetics) per account per Region?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 50.",
+      "b": "Incorrect. 100 is below the actual limit.",
+      "c": "Correct. The default quota for CloudWatch Synthetics canaries per account per Region is 200. [1]",
+      "d": "Incorrect. 500 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the minimum canary run frequency for CloudWatch Synthetics?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "1 minute",
+      "c": "5 minutes",
+      "d": "15 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The minimum is 1 minute.",
+      "b": "Correct. CloudWatch Synthetics canaries can run as frequently as once per minute. [1]",
+      "c": "Incorrect. 5 minutes is a common interval but not the minimum.",
+      "d": "Incorrect. Canaries can run more frequently."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the difference between EventBridge Scheduler and EventBridge Rules with schedule expressions?",
+    "opts": {
+      "a": "They are identical",
+      "b": "Scheduler is a dedicated scheduling service supporting millions of schedules with one-time and recurring schedules, flexible time windows, and automatic retry; Rules with schedules have lower limits and fewer features",
+      "c": "Rules are newer than Scheduler",
+      "d": "Scheduler only works with Lambda"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. They have significant differences.",
+      "b": "Correct. EventBridge Scheduler supports up to 1 million schedules, one-time schedules, flexible time windows (distributing invocations), built-in retry with exponential backoff, and dead-letter queues. Rules with schedules are simpler but more limited. [3]",
+      "c": "Incorrect. Scheduler is the newer feature.",
+      "d": "Incorrect. Scheduler supports over 270 AWS services as targets."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is CloudWatch Cross-Account Observability and how does it work?",
+    "opts": {
+      "a": "Copying metrics between accounts",
+      "b": "A feature where source accounts share observability data (metrics, logs, traces) with a monitoring account using OAM (Observability Access Manager) links",
+      "c": "A VPN connection between accounts",
+      "d": "A shared S3 bucket for logs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's not about copying.",
+      "b": "Correct. Cross-Account Observability uses Observability Access Manager (OAM) to create links between source accounts and a central monitoring account. The monitoring account can view metrics, logs, and traces from all linked source accounts in a single view. [1]",
+      "c": "Incorrect. It's not a VPN.",
+      "d": "Incorrect. It's not about shared S3 buckets."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What types of rules does AWS Config support?",
+    "opts": {
+      "a": "Only AWS managed rules",
+      "b": "AWS managed rules, custom rules (Lambda-based), and custom rules (CloudFormation Guard policy-as-code)",
+      "c": "Only custom Lambda rules",
+      "d": "Only third-party rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Custom rules are also supported.",
+      "b": "Correct. AWS Config supports: (1) AWS managed rules (pre-built by AWS), (2) Custom rules using Lambda functions, and (3) Custom rules using CloudFormation Guard for policy-as-code without needing Lambda. [4]",
+      "c": "Incorrect. Managed rules and Guard-based rules are also available.",
+      "d": "Incorrect. AWS provides many built-in managed rules."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What evaluation triggers does AWS Config support for rules?",
+    "opts": {
+      "a": "Only periodic evaluation",
+      "b": "Configuration change triggered (when a resource changes) and periodic evaluation (every 1, 3, 6, 12, or 24 hours)",
+      "c": "Only real-time evaluation",
+      "d": "Manual evaluation only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Change-triggered evaluation is also supported.",
+      "b": "Correct. Config rules can be triggered by configuration changes (reactive — evaluates when the resource changes) or on a periodic schedule (proactive — evaluates at regular intervals). [4]",
+      "c": "Incorrect. Periodic evaluation is also available.",
+      "d": "Incorrect. Both automatic triggers are supported."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum log event size in CloudWatch Logs?",
+    "opts": {
+      "a": "64 KB",
+      "b": "256 KB",
+      "c": "1 MB",
+      "d": "5 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Individual events can be larger.",
+      "b": "Correct. The maximum size for a single log event is 256 KB. [1]",
+      "c": "Incorrect. 1 MB is the batch size limit, not individual event.",
+      "d": "Incorrect. 5 MB exceeds both limits."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of X-Ray groups per account?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More groups are allowed.",
+      "b": "Correct. X-Ray allows up to 25 groups per account (excluding the default group). [5]",
+      "c": "Incorrect. 50 exceeds the limit.",
+      "d": "Incorrect. 100 is far above the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the X-Ray GetTraceSummaries API maximum time range per query?",
+    "opts": {
+      "a": "1 hour",
+      "b": "6 hours",
+      "c": "24 hours",
+      "d": "7 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The range is larger than 1 hour.",
+      "b": "Correct. The GetTraceSummaries API can query a maximum time range of 6 hours per request. [5]",
+      "c": "Incorrect. 24 hours exceeds the per-query limit.",
+      "d": "Incorrect. 7 days exceeds the per-query limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to detect cost anomalies in their AWS spending and be alerted automatically. Which service should they use?",
+    "opts": {
+      "a": "CloudWatch Anomaly Detection",
+      "b": "AWS Cost Anomaly Detection (part of AWS Cost Management)",
+      "c": "CloudTrail Insights",
+      "d": "AWS Config cost rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch Anomaly Detection works on performance metrics, not cost.",
+      "b": "Correct. AWS Cost Anomaly Detection uses machine learning to identify unusual spending patterns and sends alerts via SNS or email. It's specifically designed for cost monitoring. [1]",
+      "c": "Incorrect. CloudTrail Insights detects unusual API patterns, not cost anomalies.",
+      "d": "Incorrect. Config doesn't have built-in cost rules."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to monitor their multi-account AWS Organization with a single pane of glass for compliance. They have 50 accounts. What architecture should they implement?",
+    "opts": {
+      "a": "Config rules in each account, checked manually",
+      "b": "Organization-wide Config rules deployed via organization conformance packs, with an Aggregator in the management account providing a centralized compliance view",
+      "c": "A single Config rule in the management account",
+      "d": "CloudTrail organization trail only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Manual checking doesn't scale.",
+      "b": "Correct. Organization conformance packs deploy Config rules to all member accounts. The Aggregator in the management (or delegated admin) account provides a centralized view of compliance status across all 50 accounts. [4]",
+      "c": "Incorrect. A single rule in management doesn't evaluate resources in member accounts.",
+      "d": "Incorrect. CloudTrail provides audit trails but not compliance evaluation."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team needs to debug a production issue where requests are sporadically failing. They need to increase X-Ray sampling to 100% temporarily for a specific URL path. How should they do this?",
+    "opts": {
+      "a": "Modify the application code",
+      "b": "Create a custom X-Ray sampling rule with a high-priority targeting the specific URL path with FixedRate=1.0 (100%), which takes effect without redeploying",
+      "c": "Restart all services",
+      "d": "Enable CloudWatch detailed monitoring"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Code changes require redeployment.",
+      "b": "Correct. X-Ray sampling rules are dynamically applied. Create a rule with high priority, matching the specific URL path (http_method and url_path), with FixedRate=1.0 and a high reservoir. Changes take effect within seconds without redeployment. [5]",
+      "c": "Incorrect. Restarting doesn't change sampling.",
+      "d": "Incorrect. Detailed monitoring is a CloudWatch EC2 feature."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company stores sensitive data and needs to ensure that CloudWatch Logs containing PII are encrypted and only accessible by the security team. What should they configure?",
+    "opts": {
+      "a": "S3 encryption for exported logs",
+      "b": "Associate a customer-managed KMS key with the log group and use IAM policies with conditions restricting access to the security team's role",
+      "c": "Enable VPC endpoints only",
+      "d": "Use CloudTrail encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 encryption only applies to exported logs, not CloudWatch Logs storage.",
+      "b": "Correct. CloudWatch Logs can be encrypted with a customer-managed CMK. Combine this with IAM policies restricting logs:GetLogEvents and logs:FilterLogEvents to specific IAM roles/users (the security team). KMS key policy controls decryption access. [1]",
+      "c": "Incorrect. VPC endpoints control network path but not data access.",
+      "d": "Incorrect. CloudTrail encryption doesn't encrypt CloudWatch Logs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to create a CloudWatch alarm that triggers when the RATE OF CHANGE of a metric exceeds a threshold (e.g., request count growing faster than 50% per minute). How should they implement this?",
+    "opts": {
+      "a": "Use a standard threshold alarm",
+      "b": "Use CloudWatch Metric Math with the RATE() or DIFF() function to calculate the rate of change, then create an alarm on the math expression",
+      "c": "Use EventBridge",
+      "d": "Use CloudTrail Insights"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard alarms watch absolute values, not rate of change.",
+      "b": "Correct. Metric Math functions like RATE() compute the rate of change of a metric over time. Create a math expression (e.g., RATE(m1) > 0.5) and alarm on it. This alerts on rapid changes regardless of absolute value. [1]",
+      "c": "Incorrect. EventBridge matches discrete events, not metric rates.",
+      "d": "Incorrect. CloudTrail Insights detects API patterns, not metric rate of change."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company migrating to AWS wants to send CloudWatch metrics to their existing Datadog monitoring platform in real-time. What is the most efficient approach?",
+    "opts": {
+      "a": "Lambda polling CloudWatch every minute",
+      "b": "CloudWatch Metric Stream to Kinesis Data Firehose with Datadog as the HTTP endpoint destination",
+      "c": "Export metrics to S3 and have Datadog poll S3",
+      "d": "Install Datadog agent on every instance"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Polling with Lambda is inefficient and costly at scale.",
+      "b": "Correct. Metric Streams continuously deliver metrics in near real-time to Kinesis Data Firehose, which can forward to HTTP endpoint destinations like Datadog, Splunk, or Sumo Logic. This is the most efficient, managed approach. [1]",
+      "c": "Incorrect. S3 export is batch and adds delay.",
+      "d": "Incorrect. Datadog agent collects host metrics but doesn't forward all CloudWatch service metrics."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team deploys an EventBridge rule but events aren't reaching the target Lambda function. What should they check first?",
+    "opts": {
+      "a": "Lambda function code",
+      "b": "The EventBridge rule's resource-based policy on the Lambda function (Lambda must grant permission to EventBridge to invoke it)",
+      "c": "CloudTrail logs only",
+      "d": "The Lambda timeout"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. If Lambda isn't being invoked, the code isn't the issue.",
+      "b": "Correct. For EventBridge to invoke a Lambda target, the Lambda function's resource-based policy must include a permission allowing events.amazonaws.com to invoke it. Missing permissions is the most common cause of event delivery failure. [3]",
+      "c": "Incorrect. CloudTrail can help debug but the likely fix is permissions.",
+      "d": "Incorrect. Timeout is irrelevant if Lambda isn't being invoked."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to implement automated incident response: when a CloudWatch alarm fires, they want to automatically run an SSM Automation document to restart a service. What is the architecture?",
+    "opts": {
+      "a": "CloudWatch Alarm → SNS → email to ops team → manual restart",
+      "b": "CloudWatch Alarm → EventBridge (alarm state change event) → SSM Automation as target, OR CloudWatch Alarm → SNS → Lambda → SSM StartAutomationExecution",
+      "c": "CloudWatch Alarm → direct SSM integration",
+      "d": "CloudTrail → EventBridge → SSM"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This requires manual intervention.",
+      "b": "Correct. Two approaches: (1) CloudWatch alarm state changes emit events to EventBridge, which can target SSM Automation. (2) Alarm triggers SNS → Lambda → SSM StartAutomationExecution API. Both achieve automated remediation. [1][3]",
+      "c": "Incorrect. CloudWatch Alarms don't directly trigger SSM.",
+      "d": "Incorrect. CloudTrail captures API calls, not metric threshold breaches."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to use CloudWatch Anomaly Detection but notices it takes 2 weeks to produce accurate anomaly bands. What determines the model training period?",
+    "opts": {
+      "a": "It always takes exactly 2 weeks",
+      "b": "The model requires at least 2 weeks of metric data to identify patterns (hourly, daily, weekly seasonality); accuracy improves over time as more historical data is analyzed",
+      "c": "Training is instantaneous",
+      "d": "It depends on the number of alarms"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The time varies based on data availability and patterns.",
+      "b": "Correct. Anomaly Detection needs sufficient historical data to identify patterns. It typically needs at least 2 weeks to detect daily patterns and even longer for weekly seasonality. The model continuously improves as more data accumulates. [1]",
+      "c": "Incorrect. Training requires historical data analysis.",
+      "d": "Incorrect. The number of alarms doesn't affect model training."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company has an EventBridge rule that processes 1,000 events per second. They notice some events are being lost. What are the possible causes?",
+    "opts": {
+      "a": "EventBridge can't handle 1,000 events/second",
+      "b": "The target (e.g., Lambda) is being throttled; configure a DLQ on the rule and monitor InvocationAttempts and FailedInvocations metrics",
+      "c": "The rule pattern is wrong",
+      "d": "The event bus is full"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EventBridge can handle much higher throughput.",
+      "b": "Correct. EventBridge can deliver events at high rates, but if the target service (Lambda, SQS, etc.) is throttled or returning errors, events may be lost. Configure a DLQ to capture failed deliveries and monitor the FailedInvocations metric. [3]",
+      "c": "Incorrect. If the pattern were wrong, NO events would match.",
+      "d": "Incorrect. Event buses don't have a storage capacity limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team wants to create a CloudWatch dashboard that automatically discovers and displays all EC2 instances in a specific Region, including new instances launched in the future. What feature enables this?",
+    "opts": {
+      "a": "Static widget configuration",
+      "b": "CloudWatch automatic dashboards or dashboard widgets using search expressions (e.g., SEARCH('{AWS/EC2,InstanceId} MetricName=\"CPUUtilization\"', 'Average', 300))",
+      "c": "Manual updates every time a new instance launches",
+      "d": "EventBridge rule to update dashboard"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Static widgets don't auto-discover new instances.",
+      "b": "Correct. Search expressions in dashboard widgets dynamically discover metrics matching a pattern. New instances automatically appear on the dashboard when they start publishing metrics. Automatic dashboards also provide pre-built views. [1]",
+      "c": "Incorrect. Manual updates don't scale.",
+      "d": "Incorrect. EventBridge can update dashboards but search expressions are simpler."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of EventBridge Pipes per account per Region?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "250",
+      "d": "1,000"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default quota for EventBridge Pipes per account per Region is 50. [3]",
+      "b": "Incorrect. 100 exceeds the default limit.",
+      "c": "Incorrect. 250 is far above the limit.",
+      "d": "Incorrect. 1,000 is not the correct limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What sources does EventBridge Pipes support?",
+    "opts": {
+      "a": "Only SQS",
+      "b": "Amazon SQS, Amazon Kinesis, Amazon DynamoDB Streams, Amazon MSK, self-managed Kafka, and Amazon MQ",
+      "c": "Only Lambda",
+      "d": "Any AWS service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple sources are supported.",
+      "b": "Correct. EventBridge Pipes supports these event sources: SQS, Kinesis Data Streams, DynamoDB Streams, Amazon MSK, self-managed Apache Kafka, and Amazon MQ (ActiveMQ and RabbitMQ). [3]",
+      "c": "Incorrect. Lambda is not a Pipe source.",
+      "d": "Incorrect. Only specific streaming/queue sources are supported."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of CloudWatch Insights rules per account?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher.",
+      "b": "Incorrect. 50 is below the limit.",
+      "c": "Correct. CloudWatch Contributor Insights supports up to 100 rules per account. [1]",
+      "d": "Incorrect. 200 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What retention option did CloudWatch Logs Insights queries have for saved queries?",
+    "opts": {
+      "a": "No saved queries available",
+      "b": "Saved queries are retained indefinitely until manually deleted",
+      "c": "Saved queries expire after 30 days",
+      "d": "Only 10 queries can be saved"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can save queries.",
+      "b": "Correct. Saved queries in CloudWatch Logs Insights are retained indefinitely until you choose to delete them. [1]",
+      "c": "Incorrect. They don't auto-expire.",
+      "d": "Incorrect. You can save more than 10 queries."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How many concurrent CloudWatch Logs Insights queries can run per account?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "30",
+      "d": "100"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More concurrent queries are allowed.",
+      "b": "Incorrect. 10 is below the limit.",
+      "c": "Correct. CloudWatch Logs Insights supports up to 30 concurrent queries per account. [1]",
+      "d": "Incorrect. 100 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of CloudWatch Contributor Insights report results returned?",
+    "opts": {
+      "a": "10 contributors",
+      "b": "100 contributors",
+      "c": "500 contributors",
+      "d": "1,000 contributors"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More contributors can be reported.",
+      "b": "Incorrect. 100 is below the maximum.",
+      "c": "Correct. Contributor Insights reports can show up to 500 top contributors per time period. [1]",
+      "d": "Incorrect. 1,000 exceeds the limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants EventBridge to retry failed deliveries to a target. What retry behavior does EventBridge provide?",
+    "opts": {
+      "a": "No retries — events are delivered once only",
+      "b": "EventBridge retries for up to 24 hours with exponential backoff (185 retries); after exhaustion, events go to the DLQ if configured",
+      "c": "Exactly 3 retries",
+      "d": "Infinite retries"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EventBridge does retry failed deliveries.",
+      "b": "Correct. EventBridge retries delivery with exponential backoff for up to 24 hours (approximately 185 retry attempts). If all retries are exhausted, the event is sent to the configured Dead Letter Queue. [3]",
+      "c": "Incorrect. EventBridge retries many more than 3 times.",
+      "d": "Incorrect. Retries are limited to 24 hours."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team's CloudWatch alarm is in INSUFFICIENT_DATA state and never transitions to OK or ALARM. What are the most common causes?",
+    "opts": {
+      "a": "The alarm is broken",
+      "b": "The metric doesn't exist yet (resource not publishing), the dimension values are incorrect, or the metric period doesn't match available data granularity",
+      "c": "CloudWatch is down",
+      "d": "The alarm needs to be recreated"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The alarm may be configured correctly but receiving no data.",
+      "b": "Correct. INSUFFICIENT_DATA means no datapoints exist for evaluation. Common causes: (1) resource not yet publishing metrics, (2) incorrect dimension names/values (case-sensitive), (3) period set to 1 minute but resource uses basic monitoring (5-minute), (4) namespace spelling error. [1]",
+      "c": "Incorrect. CloudWatch downtime would affect many services.",
+      "d": "Incorrect. Recreating doesn't fix configuration issues."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to implement the 'three pillars of observability' (metrics, logs, traces) for their AWS application. Which combination of services provides this?",
+    "opts": {
+      "a": "CloudTrail, Config, EventBridge",
+      "b": "CloudWatch Metrics + CloudWatch Logs + AWS X-Ray (or CloudWatch Application Signals which unifies all three)",
+      "c": "S3, DynamoDB, Lambda",
+      "d": "SNS, SQS, EventBridge"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are governance/compliance tools, not observability.",
+      "b": "Correct. The three pillars: Metrics (CloudWatch), Logs (CloudWatch Logs), Traces (X-Ray). CloudWatch Application Signals combines all three with SLO tracking. [1][5]",
+      "c": "Incorrect. These are storage/compute services.",
+      "d": "Incorrect. These are messaging/eventing services."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team needs to monitor an on-premises application and send metrics to CloudWatch. The servers don't have internet access but have a VPN to AWS. How should they send metrics?",
+    "opts": {
+      "a": "Install the CloudWatch agent and configure it to use a CloudWatch VPC interface endpoint via the VPN connection",
+      "b": "Use an internet gateway",
+      "c": "Use CloudTrail",
+      "d": "Use X-Ray daemon"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Install the CloudWatch agent on on-premises servers. Configure it to use a CloudWatch VPC interface endpoint (PrivateLink). Traffic flows through the VPN to the VPC endpoint without needing internet access. [1]",
+      "b": "Incorrect. The servers don't have internet access.",
+      "c": "Incorrect. CloudTrail is for API auditing, not custom metrics.",
+      "d": "Incorrect. X-Ray daemon is for tracing, not general metrics."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team is investigating a spike in DynamoDB ThrottledRequests. They need to identify which partition keys are being hot. Which CloudWatch feature helps with this?",
+    "opts": {
+      "a": "Standard DynamoDB metrics",
+      "b": "CloudWatch Contributor Insights for DynamoDB, which shows the most accessed partition keys contributing to throttling",
+      "c": "X-Ray traces",
+      "d": "CloudTrail data events"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard metrics show aggregate throttling but not which keys are hot.",
+      "b": "Correct. DynamoDB integrates with CloudWatch Contributor Insights to identify the most frequently accessed and throttled partition keys (top contributors), helping pinpoint hot partition issues. [1]",
+      "c": "Incorrect. X-Ray shows request latency but not partition-level access patterns.",
+      "d": "Incorrect. CloudTrail data events log individual operations but don't aggregate hot key analysis."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company needs to monitor their application but wants to avoid vendor lock-in. They want to use open-source observability tools. What AWS service supports OpenTelemetry?",
+    "opts": {
+      "a": "CloudWatch only supports proprietary agents",
+      "b": "AWS Distro for OpenTelemetry (ADOT) — an AWS-supported distribution that can send metrics, logs, and traces to CloudWatch, X-Ray, and third-party backends",
+      "c": "Only X-Ray supports open standards",
+      "d": "AWS doesn't support OpenTelemetry"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudWatch supports OpenTelemetry via ADOT.",
+      "b": "Correct. AWS Distro for OpenTelemetry (ADOT) is a production-ready, AWS-supported distribution of OpenTelemetry that can collect metrics, traces, and logs and send them to CloudWatch, X-Ray, Prometheus, and third-party backends. [1][5]",
+      "c": "Incorrect. CloudWatch also supports OTLP.",
+      "d": "Incorrect. AWS actively supports OpenTelemetry."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of cross-account EventBridge event buses that can send events to a single target bus?",
+    "opts": {
+      "a": "10",
+      "b": "50",
+      "c": "100",
+      "d": "Unlimited (governed by IAM policies)"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. There's no fixed limit on source buses.",
+      "b": "Incorrect. The limit is not fixed at 50.",
+      "c": "Incorrect. 100 is not the limit.",
+      "d": "Correct. Any number of accounts can send events to a target bus, governed by the event bus resource-based policy (IAM). The limit is the rule capacity on the receiving bus, not the number of senders. [3]"
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the CloudWatch Logs ingestion cost in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.10 per GB",
+      "b": "$0.50 per GB",
+      "c": "$1.00 per GB",
+      "d": "$2.00 per GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cost is higher than $0.10.",
+      "b": "Correct. CloudWatch Logs ingestion costs $0.50 per GB in US East (N. Virginia). This is often the largest component of CloudWatch costs. [1]",
+      "c": "Incorrect. $1.00 exceeds the standard ingestion rate.",
+      "d": "Incorrect. $2.00 is far above the standard rate."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the CloudWatch Logs storage cost per GB per month?",
+    "opts": {
+      "a": "$0.01 per GB-month",
+      "b": "$0.03 per GB-month",
+      "c": "$0.10 per GB-month",
+      "d": "$0.50 per GB-month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cost is slightly higher.",
+      "b": "Correct. CloudWatch Logs storage costs $0.03 per GB per month for standard log class. With indefinite default retention, this accumulates over time. [1]",
+      "c": "Incorrect. $0.10 exceeds the storage rate.",
+      "d": "Incorrect. $0.50 is the ingestion rate, not storage."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the two CloudWatch Logs storage classes?",
+    "opts": {
+      "a": "Standard and Glacier",
+      "b": "Standard and Infrequent Access",
+      "c": "Hot and Cold",
+      "d": "Real-time and Archive"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Glacier is S3, not CloudWatch Logs.",
+      "b": "Correct. CloudWatch Logs offers Standard (full features, $0.50 ingestion) and Infrequent Access (reduced features, lower ingestion cost around $0.25/GB) log classes. [1]",
+      "c": "Incorrect. Hot/Cold are not the official names.",
+      "d": "Incorrect. These are not the official class names."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does AWS Config proactive compliance feature do?",
+    "opts": {
+      "a": "Fix issues before they occur",
+      "b": "Evaluate resource configurations BEFORE provisioning (e.g., in CloudFormation templates) to prevent non-compliant resources from being created",
+      "c": "Predict future compliance violations",
+      "d": "Automatically update Config rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It doesn't fix issues but prevents non-compliant provisioning.",
+      "b": "Correct. Proactive compliance evaluates resource configurations before they are provisioned (shift-left). For example, it can check a CloudFormation template's resource properties against Config rules before deployment. [4]",
+      "c": "Incorrect. It's not prediction-based.",
+      "d": "Incorrect. It doesn't auto-update rules."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team is trying to reduce their overall AWS monitoring costs. Their current spend: CloudWatch Logs (60%), CloudWatch Metrics (20%), X-Ray (10%), Other (10%). What should they prioritize?",
+    "opts": {
+      "a": "Reduce X-Ray sampling",
+      "b": "Focus on log optimization: set retention policies, use Infrequent Access log class for non-critical logs, reduce verbose logging levels, and use log filters to reduce ingestion volume",
+      "c": "Delete all dashboards",
+      "d": "Disable all alarms"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. X-Ray is only 10% of spend.",
+      "b": "Correct. At 60% of monitoring spend, logs are the biggest cost driver. Effective strategies: (1) Set retention policies (stop indefinite storage), (2) Use IA log class for non-critical logs, (3) Reduce log verbosity in production, (4) Filter out unnecessary logs before ingestion. [1]",
+      "c": "Incorrect. Dashboards are a minor cost.",
+      "d": "Incorrect. Alarms are low cost and critical for operations."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to implement 'golden signals' monitoring (latency, traffic, errors, saturation) for their microservices. Which CloudWatch metrics should they track for an ALB-fronted ECS service?",
+    "opts": {
+      "a": "Only CPUUtilization",
+      "b": "Latency: TargetResponseTime; Traffic: RequestCount; Errors: HTTPCode_ELB_5XX_Count + HTTPCode_Target_5XX_Count; Saturation: CPUUtilization + MemoryUtilization",
+      "c": "Only DiskReadOps",
+      "d": "Only NetworkBytesIn"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CPU alone doesn't cover all golden signals.",
+      "b": "Correct. The four golden signals mapped to AWS metrics: Latency (ALB TargetResponseTime), Traffic (RequestCount), Errors (5XX counts from ALB and targets), Saturation (ECS CPUUtilization and MemoryUtilization showing resource exhaustion). [1]",
+      "c": "Incorrect. DiskReadOps is only one metric.",
+      "d": "Incorrect. Network bytes is only traffic volume, missing other signals."
+    }
+  }
+]

@@ -1,0 +1,1022 @@
+[
+  {
+    "type": "number-based",
+    "q": "What is the latest Kubernetes version supported by Amazon EKS as of June 2026?",
+    "opts": {
+      "a": "1.34",
+      "b": "1.35",
+      "c": "1.36",
+      "d": "1.37"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1.34 is an older version.",
+      "b": "Incorrect. 1.35 was released in January 2026 but is not the latest.",
+      "c": "Correct. Amazon EKS now supports Kubernetes version 1.36, released on Amazon EKS on June 2, 2026.",
+      "d": "Incorrect. 1.37 is not yet available on EKS."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long does Amazon EKS standard support last for a Kubernetes version?",
+    "opts": {
+      "a": "12 months after release",
+      "b": "14 months after release",
+      "c": "18 months after release",
+      "d": "24 months after release"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard support is longer than 12 months.",
+      "b": "Correct. Standard support for a Kubernetes version in Amazon EKS begins when a version is released and ends 14 months after the release date.",
+      "c": "Incorrect. 18 months exceeds the standard support period.",
+      "d": "Incorrect. 24 months is too long for standard support alone."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long does Amazon EKS extended support last after standard support ends?",
+    "opts": {
+      "a": "6 months",
+      "b": "12 months",
+      "c": "14 months",
+      "d": "18 months"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Extended support is longer than 6 months.",
+      "b": "Correct. Extended support begins immediately after standard support ends and lasts for 12 months.",
+      "c": "Incorrect. 14 months is the standard support duration.",
+      "d": "Incorrect. 18 months exceeds the extended support period."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How many days do you have to rollback a Kubernetes version on Amazon EKS after an upgrade?",
+    "opts": {
+      "a": "3 days",
+      "b": "5 days",
+      "c": "7 days",
+      "d": "14 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The rollback window is longer than 3 days.",
+      "b": "Incorrect. 5 days is not the correct window.",
+      "c": "Correct. Amazon EKS allows you to rollback to the previous Kubernetes minor version within 7 days after an upgrade.",
+      "d": "Incorrect. 14 days exceeds the rollback window."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of containers per task definition in Amazon ECS?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 5.",
+      "b": "Correct. Amazon ECS allows a maximum of 10 container definitions within a task definition. This is a hard limit that cannot be changed. [6]",
+      "c": "Incorrect. 20 exceeds the actual limit.",
+      "d": "Incorrect. 50 is far above the actual limit of 10."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of container instances per ECS cluster?",
+    "opts": {
+      "a": "1,000",
+      "b": "2,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 1,000.",
+      "b": "Incorrect. 2,000 is below the actual limit.",
+      "c": "Correct. Amazon ECS supports up to 5,000 container instances per cluster.",
+      "d": "Incorrect. 10,000 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of container instances that can be specified in a StartTask API action in ECS?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can specify more than 5.",
+      "b": "Correct. The maximum number of container instances specified in a StartTask API action is 10.",
+      "c": "Incorrect. 20 exceeds the limit.",
+      "d": "Incorrect. 50 is far above the allowed limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of ECS Exec sessions per container?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "5,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Incorrect. 500 is below the actual limit.",
+      "c": "Correct. Amazon ECS allows a maximum of 1,000 ECS Exec sessions per container.",
+      "d": "Incorrect. 5,000 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the rate of tasks launched by an ECS service on AWS Fargate in major regions like us-east-1?",
+    "opts": {
+      "a": "100",
+      "b": "250",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The rate is higher than 100 in major regions.",
+      "b": "Incorrect. 250 is not the correct rate for major regions.",
+      "c": "Correct. The rate of tasks launched by a service on AWS Fargate is 500 in major regions like us-east-1, us-west-2, eu-west-1. [10]",
+      "d": "Incorrect. 1,000 exceeds the actual rate limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the Fargate task launch rate in smaller/other supported regions?",
+    "opts": {
+      "a": "50",
+      "b": "125",
+      "c": "250",
+      "d": "500"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The rate is higher than 50.",
+      "b": "Correct. In other supported regions not listed as major, the rate of Fargate tasks launched by a service is 125.",
+      "c": "Incorrect. 250 exceeds the rate for smaller regions.",
+      "d": "Incorrect. 500 is the rate for major regions, not other regions."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the limit for ECS services configured with AWS Cloud Map service discovery?",
+    "opts": {
+      "a": "500 tasks per service",
+      "b": "1,000 tasks per service",
+      "c": "5,000 tasks per service",
+      "d": "No limit"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 500.",
+      "b": "Correct. Services configured to use Amazon ECS service discovery have a limit of 1,000 tasks per service due to the AWS Cloud Map service quota.",
+      "c": "Incorrect. 5,000 exceeds the Cloud Map limit.",
+      "d": "Incorrect. There is a hard limit imposed by AWS Cloud Map."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default nofile soft limit for Amazon ECS tasks hosted on Fargate?",
+    "opts": {
+      "a": "1,024",
+      "b": "4,096",
+      "c": "65,535",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,024 is the default for many Linux systems but not Fargate.",
+      "b": "Incorrect. 4,096 is not the Fargate nofile limit.",
+      "c": "Correct. On Fargate, the default nofile soft limit is 65,535.",
+      "d": "Incorrect. 100,000 exceeds the actual nofile soft limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of images per ECR repository?",
+    "opts": {
+      "a": "1,000",
+      "b": "10,000",
+      "c": "20,000",
+      "d": "50,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is much higher than 1,000.",
+      "b": "Incorrect. 10,000 is below the actual limit.",
+      "c": "Correct. Amazon ECR allows up to 20,000 images per repository. [15]",
+      "d": "Incorrect. 50,000 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much free storage does Amazon ECR provide for private repositories in the AWS Free Tier?",
+    "opts": {
+      "a": "100 MB per month",
+      "b": "500 MB per month",
+      "c": "1 GB per month",
+      "d": "5 GB per month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The free tier provides more than 100 MB.",
+      "b": "Correct. Amazon ECR provides 500 MB per month of storage for private repositories for the first 12 months as part of the AWS Free Tier.",
+      "c": "Incorrect. 1 GB exceeds the free tier amount.",
+      "d": "Incorrect. 5 GB is far above the free tier storage."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much free storage does Amazon ECR provide for public repositories?",
+    "opts": {
+      "a": "5 GB per month",
+      "b": "10 GB per month",
+      "c": "50 GB per month",
+      "d": "100 GB per month"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The free tier for public repos is much higher.",
+      "b": "Incorrect. 10 GB is below the actual free tier.",
+      "c": "Correct. Amazon ECR provides 50 GB of storage per month for public repositories, always free.",
+      "d": "Incorrect. 100 GB exceeds the free tier amount."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much anonymous data transfer to the internet is free per month from ECR Public?",
+    "opts": {
+      "a": "100 GB",
+      "b": "500 GB",
+      "c": "1 TB",
+      "d": "5 TB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The free anonymous transfer is higher than 100 GB.",
+      "b": "Correct. ECR Public offers 500 GB/month free data transfer to the internet for anonymous pulls.",
+      "c": "Incorrect. 1 TB is the not the anonymous pull limit.",
+      "d": "Incorrect. 5 TB is the authenticated pull limit, not anonymous."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much authenticated data transfer to the internet is free per month from ECR Public?",
+    "opts": {
+      "a": "500 GB",
+      "b": "1 TB",
+      "c": "5 TB",
+      "d": "10 TB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 500 GB is the anonymous pull free tier.",
+      "b": "Incorrect. 1 TB is below the authenticated free tier.",
+      "c": "Correct. ECR Public offers 5 TB/month free data transfer if you authenticate with an AWS account.",
+      "d": "Incorrect. 10 TB exceeds the free tier allowance."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the storage cost per GB-month for Amazon ECR private and public repositories?",
+    "opts": {
+      "a": "$0.05",
+      "b": "$0.10",
+      "c": "$0.15",
+      "d": "$0.20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cost is higher than $0.05.",
+      "b": "Correct. Amazon ECR charges $0.10 per GB-month for image storage in both private and public repositories.",
+      "c": "Incorrect. $0.15 exceeds the actual cost.",
+      "d": "Incorrect. $0.20 is above the actual pricing."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default number of VPCs per Region?",
+    "opts": {
+      "a": "2",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 2.",
+      "b": "Correct. The default quota for VPCs per Region is 5, which can limit the number of EKS clusters per account. [4][2]",
+      "c": "Incorrect. 10 exceeds the default quota.",
+      "d": "Incorrect. 20 is far above the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default limit for security groups per network interface in a VPC?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 3.",
+      "b": "Correct. The default limit for security groups per network interface is 5.",
+      "c": "Incorrect. 10 exceeds the default limit.",
+      "d": "Incorrect. 15 is far above the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default limit for network interfaces per Region?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "50,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 1,000.",
+      "b": "Correct. The default limit for network interfaces per Region is 5,000, which can limit the number of EKS worker nodes. [12]",
+      "c": "Incorrect. 10,000 exceeds the default limit.",
+      "d": "Incorrect. 50,000 is far above the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default limit for inbound or outbound rules per security group?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 20.",
+      "b": "Correct. The default limit for inbound or outbound rules per security group is 50.",
+      "c": "Incorrect. 100 exceeds the default limit.",
+      "d": "Incorrect. 200 is far above the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the Network Address Usage quota per VPC?",
+    "opts": {
+      "a": "16,000",
+      "b": "32,000",
+      "c": "64,000",
+      "d": "128,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The quota is higher than 16,000.",
+      "b": "Incorrect. 32,000 is below the actual quota.",
+      "c": "Correct. The Network Address Usage quota per VPC is 64,000.",
+      "d": "Incorrect. 128,000 exceeds the actual quota."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default limit for active VPC peering connections per VPC?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "100",
+      "d": "125"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 25.",
+      "b": "Correct. The default limit for active VPC peering connections per VPC is 50.",
+      "c": "Incorrect. 100 exceeds the default limit.",
+      "d": "Incorrect. 125 is above the default limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default routes per route table quota?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The quota is higher than 25.",
+      "b": "Correct. The default quota for routes per route table is 50.",
+      "c": "Incorrect. 100 exceeds the default quota.",
+      "d": "Incorrect. 200 is far above the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default EBS Snapshots per Region quota?",
+    "opts": {
+      "a": "10,000",
+      "b": "50,000",
+      "c": "100,000",
+      "d": "500,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The quota is higher than 10,000.",
+      "b": "Incorrect. 50,000 is below the actual quota.",
+      "c": "Correct. The default EBS Snapshots per Region quota is 100,000.",
+      "d": "Incorrect. 500,000 exceeds the default quota."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default Secrets Manager secrets per Region quota?",
+    "opts": {
+      "a": "10,000",
+      "b": "100,000",
+      "c": "500,000",
+      "d": "1,000,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The quota is much higher than 10,000.",
+      "b": "Incorrect. 100,000 is below the actual quota.",
+      "c": "Correct. The Secrets Manager secrets per Region quota is 500,000.",
+      "d": "Incorrect. 1,000,000 exceeds the actual quota."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default Internet Gateways per Region quota?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 3.",
+      "b": "Correct. The default limit for Internet Gateways per Region is 5, directly tied to the VPCs per Region quota. [5][2]",
+      "c": "Incorrect. 10 exceeds the default quota.",
+      "d": "Incorrect. 20 is far above the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default Elastic IP addresses per Region quota?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 3.",
+      "b": "Correct. The default quota for Elastic IP addresses per Region is 5. [5]",
+      "c": "Incorrect. 10 exceeds the default.",
+      "d": "Incorrect. 20 is far above the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of Elastic IP addresses per public NAT gateway?",
+    "opts": {
+      "a": "2 (can be increased to 8)",
+      "b": "5",
+      "c": "8",
+      "d": "16"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The default is 2 Elastic IP addresses per public NAT gateway, with a maximum increase to 8. [5]",
+      "b": "Incorrect. The default is 2, not 5.",
+      "c": "Incorrect. 8 is the maximum after requesting increase, not the default.",
+      "d": "Incorrect. 16 exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default Subnets per VPC quota?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "500"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 50.",
+      "b": "Incorrect. 100 is below the actual limit.",
+      "c": "Correct. The default Subnets per VPC quota is 200. [5]",
+      "d": "Incorrect. 500 exceeds the default quota."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default IPv4 CIDR blocks per VPC quota?",
+    "opts": {
+      "a": "2",
+      "b": "5 (can be increased to 50)",
+      "c": "10",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 2.",
+      "b": "Correct. The default IPv4 CIDR blocks per VPC is 5, adjustable up to 50. [5]",
+      "c": "Incorrect. 10 is not the default.",
+      "d": "Incorrect. 50 is the maximum after increase, not the default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default VPC security groups per Region quota?",
+    "opts": {
+      "a": "500",
+      "b": "1,000",
+      "c": "2,500",
+      "d": "5,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 500.",
+      "b": "Incorrect. 1,000 is below the actual limit.",
+      "c": "Correct. The default VPC security groups per Region quota is 2,500. [4]",
+      "d": "Incorrect. 5,000 exceeds the default quota."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "By what percentage were EKS Auto Mode G-series GPU management fees reduced starting July 1, 2026?",
+    "opts": {
+      "a": "20%",
+      "b": "35%",
+      "c": "50%",
+      "d": "60%"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The reduction was larger than 20%.",
+      "b": "Correct. Beginning July 1, 2026, G-series Auto Mode management fees were reduced by 35%. [1]",
+      "c": "Incorrect. 50% is not the correct reduction for G-series.",
+      "d": "Incorrect. 60% is the reduction for P-series and Trainium, not G-series."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "By what percentage were EKS Auto Mode P-series and AWS Trainium management fees reduced starting July 1, 2026?",
+    "opts": {
+      "a": "35%",
+      "b": "40%",
+      "c": "50%",
+      "d": "60%"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 35% is the reduction for G-series, not P-series/Trainium.",
+      "b": "Incorrect. The reduction is larger than 40%.",
+      "c": "Incorrect. The reduction exceeds 50%.",
+      "d": "Correct. P-series and AWS Trainium fees were reduced by 60% beginning July 1, 2026. [1]"
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the default Fargate vCPU quota for new AWS accounts?",
+    "opts": {
+      "a": "2 concurrent vCPUs",
+      "b": "6 concurrent vCPUs",
+      "c": "20 concurrent vCPUs",
+      "d": "100 concurrent vCPUs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 2.",
+      "b": "Correct. New AWS accounts have a default quota of 6 concurrent Fargate vCPUs per region. [3]",
+      "c": "Incorrect. 20 exceeds the initial default.",
+      "d": "Incorrect. 100 is far above the initial default."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the cost per hour for a public IPv4 address attached to a Fargate task ENI?",
+    "opts": {
+      "a": "$0.001/hr",
+      "b": "$0.005/hr",
+      "c": "$0.01/hr",
+      "d": "$0.05/hr"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cost is higher than $0.001.",
+      "b": "Correct. Each Fargate task with a public IP pays $0.005/hr per public IPv4 address. [3]",
+      "c": "Incorrect. $0.01 exceeds the actual rate.",
+      "d": "Incorrect. $0.05 is far above the actual rate."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of replication rules allowed per ECR registry?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "25",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 5 rules are allowed.",
+      "b": "Correct. A replication configuration may contain up to 10 rules.",
+      "c": "Incorrect. 25 is the maximum destinations, not rules.",
+      "d": "Incorrect. 50 exceeds the maximum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of unique destinations allowed across all ECR replication rules?",
+    "opts": {
+      "a": "10",
+      "b": "15",
+      "c": "25",
+      "d": "50"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 10 is the maximum number of rules, not destinations.",
+      "b": "Incorrect. 15 is below the actual limit.",
+      "c": "Correct. A replication configuration supports up to 25 unique destinations across all rules.",
+      "d": "Incorrect. 50 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of filters per ECR replication rule?",
+    "opts": {
+      "a": "10",
+      "b": "25",
+      "c": "50",
+      "d": "100"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The limit is much higher than 10.",
+      "b": "Incorrect. 25 is the destination limit, not filter limit.",
+      "c": "Incorrect. 50 is below the actual limit.",
+      "d": "Correct. Each replication rule supports up to 100 filters."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of characters in an ECR lifecycle policy?",
+    "opts": {
+      "a": "10,240",
+      "b": "20,480",
+      "c": "30,720",
+      "d": "51,200"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 10,240.",
+      "b": "Incorrect. 20,480 is below the actual limit.",
+      "c": "Correct. The maximum number of characters in an ECR lifecycle policy is 30,720.",
+      "d": "Incorrect. 51,200 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum number of layer parts for multipart uploads in Amazon ECR?",
+    "opts": {
+      "a": "1,000",
+      "b": "2,100",
+      "c": "4,200",
+      "d": "10,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 1,000.",
+      "b": "Incorrect. 2,100 is below the actual limit.",
+      "c": "Correct. The maximum number of layer parts in each supported region is 4,200.",
+      "d": "Incorrect. 10,000 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum layer part size in Amazon ECR?",
+    "opts": {
+      "a": "5 MB",
+      "b": "10 MB",
+      "c": "50 MB",
+      "d": "100 MB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The maximum is larger than 5 MB.",
+      "b": "Correct. The maximum layer part size in each supported region is 10 MB.",
+      "c": "Incorrect. 50 MB exceeds the actual limit.",
+      "d": "Incorrect. 100 MB is far above the actual limit."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the maximum node lifetime in EKS Auto Mode before intervention might be required?",
+    "opts": {
+      "a": "7 days",
+      "b": "14 days",
+      "c": "21 days",
+      "d": "30 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The maximum is longer than 7 days.",
+      "b": "Incorrect. 14 days is below the maximum.",
+      "c": "Correct. EKS Auto Mode respects PDBs and NDBs, but up to the 21-day maximum lifetime, intervention might be required if blocking PDBs prevent updates.",
+      "d": "Incorrect. 30 days exceeds the maximum lifetime."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What minimum storage period does the Amazon ECR Archive tier require?",
+    "opts": {
+      "a": "30 days",
+      "b": "60 days",
+      "c": "90 days",
+      "d": "180 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The minimum is longer than 30 days.",
+      "b": "Incorrect. 60 days is below the minimum.",
+      "c": "Correct. The ECR Archive tier offers lower rates with a 90-day minimum storage period and retrieval fees.",
+      "d": "Incorrect. 180 days exceeds the minimum requirement."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "Starting July 15, 2025, how much in AWS Free Tier credits do new customers receive?",
+    "opts": {
+      "a": "$50",
+      "b": "$100",
+      "c": "$200",
+      "d": "$300"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The credit amount is higher than $50.",
+      "b": "Incorrect. $100 is below the actual credit amount.",
+      "c": "Correct. Starting July 15, 2025, new AWS customers receive up to $200 in AWS Free Tier credits.",
+      "d": "Incorrect. $300 exceeds the credit amount."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How long is the free plan available for new AWS customers?",
+    "opts": {
+      "a": "3 months",
+      "b": "6 months",
+      "c": "12 months",
+      "d": "24 months"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The free plan lasts longer than 3 months.",
+      "b": "Correct. The free plan is available for 6 months after account creation.",
+      "c": "Incorrect. 12 months is the total credit usage window, not the free plan duration.",
+      "d": "Incorrect. 24 months exceeds the free plan period."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "Within how many months must all Free Tier credits be used?",
+    "opts": {
+      "a": "6 months",
+      "b": "12 months",
+      "c": "18 months",
+      "d": "24 months"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Credits last longer than 6 months.",
+      "b": "Correct. All Free Tier credits must be used within 12 months of account creation.",
+      "c": "Incorrect. 18 months exceeds the credit validity period.",
+      "d": "Incorrect. 24 months is beyond the allowed timeframe."
+    }
+  },
+  {
+    "type": "instance-based",
+    "q": "What is the CPU cost per vCPU second for Fargate with Linux/ARM (Graviton2) in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.0000089944",
+      "b": "$0.0000125000",
+      "c": "$0.0000045000",
+      "d": "$0.0000200000"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The CPU cost for Linux/ARM (Graviton2) in US East (N. Virginia) is $0.0000089944 per vCPU second. [3][7]",
+      "b": "Incorrect. This is not the correct rate.",
+      "c": "Incorrect. This is below the actual rate.",
+      "d": "Incorrect. This exceeds the actual rate."
+    }
+  },
+  {
+    "type": "instance-based",
+    "q": "What is the memory cost per GB per second for Fargate with Linux/ARM (Graviton2) in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.0000020000",
+      "b": "$0.0000009889",
+      "c": "$0.0000005000",
+      "d": "$0.0000015000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This exceeds the actual rate.",
+      "b": "Correct. The memory cost for Linux/ARM (Graviton2) in US East (N. Virginia) is $0.0000009889 per GB per second. [3][7]",
+      "c": "Incorrect. This is below the actual rate.",
+      "d": "Incorrect. This is not the correct rate."
+    }
+  },
+  {
+    "type": "instance-based",
+    "q": "What is the ephemeral storage cost per GB per second for Fargate in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.0000000308",
+      "b": "$0.0000001000",
+      "c": "$0.0000000100",
+      "d": "$0.0000000500"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The ephemeral storage cost is $0.0000000308 per GB per second. [3][7]",
+      "b": "Incorrect. This exceeds the actual rate.",
+      "c": "Incorrect. This is below the actual rate.",
+      "d": "Incorrect. This is not the correct rate."
+    }
+  },
+  {
+    "type": "instance-based",
+    "q": "What is the per-second vCPU rate for Linux x86 On-Demand Fargate in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.0000089944",
+      "b": "$0.000011244",
+      "c": "$0.000015000",
+      "d": "$0.000020000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is the ARM/Graviton rate, not x86.",
+      "b": "Correct. The Linux x86 On-Demand vCPU rate is $0.000011244 per second ($0.04048 per hour). [3]",
+      "c": "Incorrect. This exceeds the actual rate.",
+      "d": "Incorrect. This is far above the actual rate."
+    }
+  },
+  {
+    "type": "instance-based",
+    "q": "What is the per-second memory rate for Linux x86 On-Demand Fargate in US East (N. Virginia)?",
+    "opts": {
+      "a": "$0.0000009889",
+      "b": "$0.000001235",
+      "c": "$0.000002000",
+      "d": "$0.000005000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is the ARM/Graviton memory rate.",
+      "b": "Correct. The Linux x86 On-Demand memory rate is $0.000001235 per GB per second ($0.004446 per hour). [3]",
+      "c": "Incorrect. This exceeds the actual rate.",
+      "d": "Incorrect. This is far above the actual rate."
+    }
+  },
+  {
+    "type": "instance-based",
+    "q": "How much cheaper is Fargate ARM (Graviton2) compared to Linux x86 for vCPU and memory?",
+    "opts": {
+      "a": "10% cheaper",
+      "b": "20% cheaper",
+      "c": "30% cheaper",
+      "d": "40% cheaper"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The savings are larger than 10%.",
+      "b": "Correct. Fargate powered by AWS Graviton2 processors rates are approximately 20% lower across both vCPU and memory dimensions compared to Linux x86. [3]",
+      "c": "Incorrect. 30% exceeds the actual savings.",
+      "d": "Incorrect. 40% is not the correct savings."
+    }
+  },
+  {
+    "type": "instance-based",
+    "q": "Is Fargate ARM (Graviton2) available for both ECS and EKS?",
+    "opts": {
+      "a": "Yes, for both ECS and EKS",
+      "b": "No, it is available for ECS only, not EKS",
+      "c": "No, it is available for EKS only",
+      "d": "Only in us-east-1"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ARM/Graviton on Fargate is not available for EKS.",
+      "b": "Correct. Fargate powered by AWS Graviton2 processors is available for ECS — not EKS. [3]",
+      "c": "Incorrect. It is for ECS, not EKS.",
+      "d": "Incorrect. The limitation is service-based, not region-based."
+    }
+  },
+  {
+    "type": "instance-based",
+    "q": "Which CPU architectures does AWS Fargate support for ECS?",
+    "opts": {
+      "a": "x86 only",
+      "b": "ARM only",
+      "c": "Both x86 and ARM",
+      "d": "x86, ARM, and RISC-V"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Fargate supports ARM as well.",
+      "b": "Incorrect. x86 is also supported.",
+      "c": "Correct. AWS Fargate supports both x86 and ARM CPU Architecture for Amazon ECS. [11]",
+      "d": "Incorrect. RISC-V is not supported on Fargate."
+    }
+  },
+  {
+    "type": "instance-based",
+    "q": "Is Windows OS with ARM architecture supported on AWS Fargate?",
+    "opts": {
+      "a": "Yes, for both ECS and EKS",
+      "b": "Windows OS and ARM Architecture are currently only available for Amazon ECS (not combined)",
+      "c": "Yes, but only in us-east-1",
+      "d": "Yes, for EKS only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. There are limitations on the combination.",
+      "b": "Correct. Windows Operating System and ARM CPU Architecture are currently only available for Amazon ECS. This means Windows is x86 only, and ARM is Linux only. [11]",
+      "c": "Incorrect. The limitation is not region-specific.",
+      "d": "Incorrect. EKS doesn't support Windows on Fargate."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum billing duration for Linux Fargate tasks?",
+    "opts": {
+      "a": "30 seconds",
+      "b": "1 minute",
+      "c": "5 minutes",
+      "d": "15 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The minimum is longer than 30 seconds.",
+      "b": "Correct. Linux tasks have a 1-minute minimum billing duration. [3]",
+      "c": "Incorrect. 5 minutes is the Windows minimum, not Linux.",
+      "d": "Incorrect. 15 minutes is far above the minimum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "What is the minimum billing duration for Windows Fargate tasks?",
+    "opts": {
+      "a": "1 minute",
+      "b": "3 minutes",
+      "c": "5 minutes",
+      "d": "15 minutes"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 minute is the Linux minimum, not Windows.",
+      "b": "Incorrect. 3 minutes is not the correct minimum.",
+      "c": "Correct. Windows tasks have a 5-minute minimum billing duration. [3]",
+      "d": "Incorrect. 15 minutes exceeds the minimum."
+    }
+  },
+  {
+    "type": "number-based",
+    "q": "How much ephemeral storage is included free per Fargate task (before additional charges apply)?",
+    "opts": {
+      "a": "10 GB",
+      "b": "20 GB",
+      "c": "50 GB",
+      "d": "100 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More storage is included free.",
+      "b": "Correct. The first 20 GB of ephemeral storage is included free. Charges apply only for storage above 20 GB. [3]",
+      "c": "Incorrect. 50 GB exceeds the free amount.",
+      "d": "Incorrect. 100 GB is far above the free amount."
+    }
+  }
+]

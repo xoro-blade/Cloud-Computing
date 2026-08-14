@@ -1,0 +1,818 @@
+[
+  {
+    "type": "mcq",
+    "q": "An ALB has 3 target groups: TG-A (weight 50), TG-B (weight 30), TG-C (weight 20). Target group stickiness is enabled with a duration of 1 hour. A user's first request is routed to TG-B. For the next 1 hour, what percentage of that user's requests go to TG-B?",
+    "opts": {
+      "a": "30%",
+      "b": "50%",
+      "c": "100%",
+      "d": "It depends on the cookie expiration"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Once target group stickiness is established, the user is bound to that target group.",
+      "b": "Incorrect. Weight ratios no longer apply for this sticky user.",
+      "c": "Correct. With target group stickiness enabled, once a user is routed to TG-B, ALL subsequent requests from that user go to TG-B for the duration of the stickiness (1 hour), regardless of weights.",
+      "d": "Incorrect. The duration is specified as 1 hour, so the behavior is deterministic."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG has instances spread across 3 AZs: AZ-A (4 instances), AZ-B (3 instances), AZ-C (3 instances). A scale-in event needs to terminate 2 instances. Assuming default termination policy with oldest launch template, which AZ will be selected first?",
+    "opts": {
+      "a": "AZ-B because it has fewer instances",
+      "b": "AZ-A because it has the most instances",
+      "c": "AZ-C because it was added last",
+      "d": "Random selection among all AZs"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default policy selects the AZ with the MOST instances first.",
+      "b": "Correct. The default termination policy first identifies the AZ with the most instances (AZ-A with 4) to maintain balance. Then within that AZ, it selects the instance with the oldest launch template/configuration, and finally the one closest to the next billing hour.",
+      "c": "Incorrect. The order AZs were added is not a factor.",
+      "d": "Incorrect. AZ selection is deterministic based on instance count."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has an NLB with a TLS listener. They enable mutual TLS (mTLS) authentication. What does this require?",
+    "opts": {
+      "a": "Only a server certificate on the NLB",
+      "b": "A server certificate on NLB and client certificates verified by the NLB using a trust store",
+      "c": "mTLS is only supported on ALB, not NLB",
+      "d": "Client certificates stored in AWS Secrets Manager"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Standard TLS only requires a server certificate, but mTLS requires both.",
+      "b": "Incorrect. While this describes mTLS correctly, NLB does not support mTLS.",
+      "c": "Correct. Mutual TLS (mTLS) authentication is supported on ALB, not NLB. ALB can verify client certificates using a trust store configured with CA certificates.",
+      "d": "Incorrect. Client certificates for mTLS are verified using a trust store on the ALB, not Secrets Manager."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB listener has the following rules in order: Rule 1 (priority 10): path=/api/* → TG-API, Rule 2 (priority 20): host=admin.example.com → TG-Admin, Default: → TG-Default. A request arrives for admin.example.com/api/users. Which target group receives it?",
+    "opts": {
+      "a": "TG-Admin",
+      "b": "TG-API",
+      "c": "TG-Default",
+      "d": "Both TG-API and TG-Admin"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Rule 2 has lower priority (higher number) and is evaluated after Rule 1.",
+      "b": "Correct. Rules are evaluated in priority order (lowest number first). Rule 1 (priority 10) matches path=/api/* which matches /api/users. Since it matches first, the request goes to TG-API regardless of the host header.",
+      "c": "Incorrect. The request matches Rule 1 before reaching the default.",
+      "d": "Incorrect. Only one rule can match; the first matching rule is applied."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company runs a gaming application that requires persistent TCP connections lasting hours. They use NLB. What happens if the NLB idle timeout (350s) is exceeded without traffic?",
+    "opts": {
+      "a": "The connection remains open indefinitely",
+      "b": "NLB sends a TCP RST to both client and target",
+      "c": "NLB sends a TCP FIN to gracefully close the connection",
+      "d": "The connection is silently dropped without notification"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NLB enforces the idle timeout.",
+      "b": "Correct. When the 350-second idle timeout is exceeded, NLB sends a TCP RST (reset) packet to both the client and the target, forcefully closing the connection.",
+      "c": "Incorrect. NLB does not gracefully close with FIN; it uses RST.",
+      "d": "Incorrect. NLB does send RST packets to notify both parties."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "To work around NLB's fixed 350s idle timeout for long-lived connections, what is the recommended approach?",
+    "opts": {
+      "a": "Contact AWS to increase the timeout",
+      "b": "Implement TCP keepalive on the client or target with an interval less than 350 seconds",
+      "c": "Use ALB instead of NLB",
+      "d": "Enable cross-zone load balancing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The NLB idle timeout is fixed and cannot be changed even by AWS support.",
+      "b": "Correct. By enabling TCP keepalive with an interval shorter than 350 seconds (e.g., 60-300 seconds), the connection remains active and the idle timeout is never triggered.",
+      "c": "Incorrect. ALB has a maximum of 4000s idle timeout but doesn't support raw TCP.",
+      "d": "Incorrect. Cross-zone load balancing doesn't affect idle timeouts."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG uses a step scaling policy: add 1 instance when 50% < CPU ≤ 70%, add 3 instances when 70% < CPU ≤ 90%, add 5 instances when CPU > 90%. Current desired=4, max=15. CPU suddenly hits 85%. How many instances are added?",
+    "opts": {
+      "a": "1",
+      "b": "3",
+      "c": "5",
+      "d": "4"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 1 instance is for the 50-70% range.",
+      "b": "Correct. CPU at 85% falls in the 70-90% range, which triggers adding 3 instances. New desired = 4 + 3 = 7, which is within the max of 15.",
+      "c": "Incorrect. 5 instances are for CPU > 90%.",
+      "d": "Incorrect. 4 is the current desired capacity, not the adjustment."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In the same scenario, if the CPU then jumps from 85% to 95% while the previous 3 instances are still launching, what happens with step scaling?",
+    "opts": {
+      "a": "Nothing; step scaling waits for cooldown like simple scaling",
+      "b": "Step scaling evaluates the new alarm and adds the difference (5-3=2 more instances)",
+      "c": "Step scaling adds 5 more instances on top of the 3",
+      "d": "Step scaling cancels the previous action and adds 5 instances instead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Step scaling does NOT wait for cooldown; it continuously evaluates.",
+      "b": "Correct. Step scaling uses the 'difference' approach. The 95% breach requires 5 instances total adjustment, but 3 are already being added. So ASG adds 2 more instances (5-3=2) to reach the correct adjustment.",
+      "c": "Incorrect. Step scaling does not stack adjustments; it calculates the difference.",
+      "d": "Incorrect. It doesn't cancel; it adds the incremental difference."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses ALB with authentication (OIDC). The authentication token expires. What does ALB do?",
+    "opts": {
+      "a": "Returns 401 Unauthorized directly to the client",
+      "b": "Redirects the user to the IdP for re-authentication based on the configured behavior (authenticate or deny)",
+      "c": "Passes the request to the target without authentication",
+      "d": "Terminates the connection"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB doesn't simply return 401; it depends on the on-unauthenticated-request setting.",
+      "b": "Correct. ALB authentication supports three behaviors for expired/missing tokens: 'authenticate' (redirect to IdP), 'allow' (pass through), or 'deny' (return 401). The default for authenticated rules is to redirect for re-authentication.",
+      "c": "Incorrect. This would only happen if on-unauthenticated-request is set to 'allow'.",
+      "d": "Incorrect. ALB doesn't terminate the connection for expired tokens."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What are the three possible values for 'OnUnauthenticatedRequest' in ALB authentication rules?",
+    "opts": {
+      "a": "allow, block, redirect",
+      "b": "authenticate, allow, deny",
+      "c": "permit, reject, challenge",
+      "d": "pass, fail, retry"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not the correct values.",
+      "b": "Correct. The three values are: 'authenticate' (redirect to IdP for authentication), 'allow' (allow the request without authentication), and 'deny' (return HTTP 401 Unauthorized).",
+      "c": "Incorrect. These are not the correct values.",
+      "d": "Incorrect. These are not valid ALB authentication settings."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG has instance refresh running with minimum healthy percentage = 90% and desired capacity = 10. How many instances can be replaced simultaneously?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "9"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. With 90% minimum healthy, at least 9 out of 10 instances must remain in service at all times. This means only 1 instance (10 - 9 = 1) can be replaced at a time.",
+      "b": "Incorrect. 2 simultaneous replacements would leave only 8 healthy (80%), violating the 90% threshold.",
+      "c": "Incorrect. 5 would leave only 50% healthy.",
+      "d": "Incorrect. 9 simultaneous replacements would leave only 1 healthy (10%)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "If the same ASG instance refresh has minimum healthy percentage = 50% and desired capacity = 10, how many instances can be replaced simultaneously?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 50% of 10 = 5 must remain healthy, so up to 5 can be replaced.",
+      "b": "Incorrect. More than 3 can be replaced with a 50% threshold.",
+      "c": "Correct. With 50% minimum healthy percentage, at least 5 instances must remain in service. So up to 5 instances (10 - 5 = 5) can be replaced simultaneously.",
+      "d": "Incorrect. Replacing all 10 would leave 0% healthy, violating the 50% threshold."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A GWLB is deployed in a security VPC. Traffic from the application VPC needs to be inspected. What is the correct traffic flow?",
+    "opts": {
+      "a": "Application VPC → Internet Gateway → GWLB → Appliance → Internet",
+      "b": "Application VPC → GWLBe (in app VPC) → GWLB (in security VPC) → Appliance → GWLB → GWLBe → Application VPC routing",
+      "c": "Application VPC → Transit Gateway → GWLB → Appliance → Application",
+      "d": "Application VPC → VPC Peering → GWLB → Appliance → Response"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Traffic doesn't flow from IGW directly to GWLB.",
+      "b": "Correct. Traffic flows: Source → GWLBe (VPC endpoint in the application VPC) → GWLB (in the security/appliance VPC) → Security Appliance (inspection) → GWLB → GWLBe → continues to destination. GENEVE encapsulation preserves the original packet.",
+      "c": "Incorrect. Transit Gateway is not required for GWLB integration.",
+      "d": "Incorrect. VPC Peering is not used with GWLB; PrivateLink (GWLBe) is used."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Why does GWLB use GENEVE encapsulation instead of simply forwarding packets?",
+    "opts": {
+      "a": "GENEVE is faster than direct forwarding",
+      "b": "GENEVE preserves the original packet (all layers) and adds metadata, allowing appliances to inspect and return the unmodified packet",
+      "c": "GENEVE provides encryption for the traffic",
+      "d": "AWS only supports GENEVE protocol"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GENEVE adds overhead; it's used for preservation, not speed.",
+      "b": "Correct. GENEVE encapsulation wraps the entire original packet (including source/destination IPs, ports, etc.) and can include metadata (TLVs). This allows security appliances to inspect the original packet and return it unchanged for proper routing.",
+      "c": "Incorrect. GENEVE does not provide encryption.",
+      "d": "Incorrect. AWS supports multiple protocols; GENEVE was chosen for its extensibility and metadata support."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB has connection idle timeout set to 60 seconds, but the backend application takes 90 seconds to process certain requests. What will happen?",
+    "opts": {
+      "a": "ALB waits for the full 90 seconds",
+      "b": "ALB closes the connection after 60 seconds and returns HTTP 504 Gateway Timeout",
+      "c": "ALB returns HTTP 502 Bad Gateway",
+      "d": "ALB retries the request on another target"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB enforces the idle timeout strictly.",
+      "b": "Correct. If the target doesn't respond within the idle timeout period (60s), ALB closes the connection and returns HTTP 504 Gateway Timeout to the client. The solution is to increase the ALB idle timeout to exceed the longest expected response time.",
+      "c": "Incorrect. 502 indicates the target responded with an invalid response, not a timeout.",
+      "d": "Incorrect. ALB does not retry on timeout for standard HTTP requests."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the relationship between ALB idle timeout and target's keep-alive timeout?",
+    "opts": {
+      "a": "They should be equal",
+      "b": "Target keep-alive timeout should be greater than ALB idle timeout",
+      "c": "Target keep-alive timeout should be less than ALB idle timeout",
+      "d": "They are unrelated"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Equal values can cause race conditions.",
+      "b": "Correct. The target's HTTP keep-alive timeout should be GREATER than the ALB's idle timeout. If the target closes the connection before ALB does, ALB may try to send a request on a closed connection, resulting in a 502 error.",
+      "c": "Incorrect. If target timeout is less, the target closes the connection first, causing 502 errors.",
+      "d": "Incorrect. They are closely related and must be coordinated."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses ASG with multiple instance types in a mixed instances policy. The allocation strategy is 'capacity-optimized' for Spot instances. What does this mean?",
+    "opts": {
+      "a": "It selects the cheapest Spot instance types",
+      "b": "It selects Spot instance pools with the most available capacity, reducing interruption risk",
+      "c": "It optimizes for the highest CPU capacity",
+      "d": "It distributes evenly across all instance types"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. That would be the 'lowest-price' strategy.",
+      "b": "Correct. The capacity-optimized allocation strategy launches Spot instances from pools that have the most available capacity at the time of launch, which reduces the likelihood of Spot interruptions.",
+      "c": "Incorrect. It optimizes for capacity availability, not CPU.",
+      "d": "Incorrect. Even distribution is the 'diversified' strategy (for On-Demand) or not a Spot strategy."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What Spot allocation strategies are available for ASG mixed instances policy?",
+    "opts": {
+      "a": "lowest-price only",
+      "b": "capacity-optimized and lowest-price",
+      "c": "capacity-optimized, capacity-optimized-prioritized, lowest-price, and price-capacity-optimized",
+      "d": "on-demand-priority and spot-priority"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Multiple strategies are available.",
+      "b": "Incorrect. There are more than 2 strategies.",
+      "c": "Correct. ASG supports four Spot allocation strategies: capacity-optimized (most capacity), capacity-optimized-prioritized (capacity with instance type priority), lowest-price (cheapest pools), and price-capacity-optimized (balance of price and capacity - recommended).",
+      "d": "Incorrect. These are not valid Spot allocation strategy names."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB target group has 5 instances. Slow start duration is set to 120 seconds. A 6th instance is registered. After 60 seconds, what proportion of traffic does the new instance approximately receive compared to established instances?",
+    "opts": {
+      "a": "Equal (1/6) share immediately",
+      "b": "Approximately half of what established instances receive (linear ramp-up)",
+      "c": "Zero traffic until 120 seconds completes",
+      "d": "100% of traffic to warm it up faster"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Slow start prevents immediate equal distribution.",
+      "b": "Correct. With slow start, traffic to the new target increases linearly over the duration. At 60 seconds (50% of the 120-second duration), the new instance receives approximately 50% of what it would normally get at full capacity.",
+      "c": "Incorrect. Slow start gradually increases traffic from the beginning, not zero until completion.",
+      "d": "Incorrect. Slow start gradually increases traffic, not sends all traffic."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has an ALB with WAF integrated. The WAF rule blocks requests with SQL injection patterns. At which point in the request flow does WAF evaluation occur?",
+    "opts": {
+      "a": "After the request reaches the target instance",
+      "b": "Before the ALB evaluates listener rules (at the ALB edge)",
+      "c": "After the ALB routes to the target group but before reaching the instance",
+      "d": "At the CloudFront edge location"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. WAF blocks requests before they reach targets.",
+      "b": "Correct. AWS WAF evaluates requests at the ALB level before listener rules are processed. If WAF blocks a request, it never reaches any target group or instance.",
+      "c": "Incorrect. WAF evaluation happens before routing decisions.",
+      "d": "Incorrect. WAF on ALB evaluates at the ALB, not CloudFront (unless WAF is separately attached to CloudFront)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of web ACLs that can be associated with a single ALB?",
+    "opts": {
+      "a": "1",
+      "b": "3",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Only ONE web ACL can be associated with an ALB at a time. However, a single web ACL can contain multiple rules and rule groups.",
+      "b": "Incorrect. The limit is 1 web ACL per ALB.",
+      "c": "Incorrect. You cannot associate multiple web ACLs with one ALB.",
+      "d": "Incorrect. Only 1 web ACL per ALB is allowed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ASG has lifecycle hook on EC2_INSTANCE_LAUNCHING with a heartbeat timeout of 3600 seconds. The instance initialization script takes 30 minutes. What should the script do upon completion?",
+    "opts": {
+      "a": "Nothing; ASG automatically detects completion",
+      "b": "Call complete-lifecycle-action API with CONTINUE result",
+      "c": "Terminate itself",
+      "d": "Send an SNS notification"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ASG waits for explicit completion or timeout.",
+      "b": "Correct. The script should call the complete-lifecycle-action API with result 'CONTINUE' to signal that initialization is complete and the instance should proceed to InService state. If not called, ASG waits until the heartbeat timeout expires.",
+      "c": "Incorrect. Terminating would defeat the purpose of launching.",
+      "d": "Incorrect. SNS notification alone doesn't signal lifecycle completion to ASG."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens if a lifecycle hook times out without receiving a complete-lifecycle-action call?",
+    "opts": {
+      "a": "The instance is always terminated",
+      "b": "The default result (CONTINUE or ABANDON) configured for the hook is applied",
+      "c": "ASG extends the timeout automatically",
+      "d": "The instance remains in Pending:Wait state indefinitely"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Termination only happens if the default result is ABANDON.",
+      "b": "Correct. Each lifecycle hook has a default result: CONTINUE (proceed to next state) or ABANDON (for launching: terminate instance; for terminating: keep instance). If the timeout expires without a response, the default result is applied.",
+      "c": "Incorrect. The timeout is not automatically extended (though you can extend it programmatically using record-lifecycle-action-heartbeat).",
+      "d": "Incorrect. The instance does not remain in wait state indefinitely; the timeout resolves it."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How can you extend a lifecycle hook timeout before it expires?",
+    "opts": {
+      "a": "Modify the ASG settings",
+      "b": "Call record-lifecycle-action-heartbeat API to reset the timeout",
+      "c": "It cannot be extended once started",
+      "d": "Send a CloudWatch alarm"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Modifying ASG settings doesn't extend an active hook.",
+      "b": "Correct. Calling record-lifecycle-action-heartbeat resets the heartbeat timer, giving additional time. You can extend up to a maximum of 48 hours (or 100 times the heartbeat timeout, whichever is smaller).",
+      "c": "Incorrect. The timeout can be extended using the heartbeat API.",
+      "d": "Incorrect. CloudWatch alarms cannot extend lifecycle hook timeouts."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses NLB with target group type 'IP' for targets in a peered VPC. They notice the targets see the NLB's private IP as the source instead of the client IP. Why?",
+    "opts": {
+      "a": "This is a bug in NLB",
+      "b": "When using IP target type with targets outside the NLB's VPC, client IP preservation is automatically disabled",
+      "c": "Cross-zone load balancing is disabled",
+      "d": "The security group is blocking the original IP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This is expected behavior.",
+      "b": "Correct. When NLB uses IP target type for targets in a different VPC (peered VPC), client IP preservation is not supported. NLB performs SNAT (Source NAT), and targets see the NLB node's private IP. Use Proxy Protocol v2 to pass client IP information.",
+      "c": "Incorrect. Cross-zone load balancing doesn't affect client IP preservation.",
+      "d": "Incorrect. Security groups don't modify source IPs."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB is configured with HTTP/2. What is the maximum number of concurrent streams per HTTP/2 connection that ALB supports?",
+    "opts": {
+      "a": "64",
+      "b": "128",
+      "c": "256",
+      "d": "512"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB supports more than 64 concurrent streams.",
+      "b": "Correct. ALB supports up to 128 concurrent streams (requests) per HTTP/2 connection from the client. However, ALB converts HTTP/2 front-end connections to HTTP/1.1 when communicating with targets (unless gRPC is used).",
+      "c": "Incorrect. 256 exceeds the ALB limit.",
+      "d": "Incorrect. 512 exceeds the ALB limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How does ALB handle HTTP/2 connections to backend targets?",
+    "opts": {
+      "a": "ALB maintains HTTP/2 end-to-end",
+      "b": "ALB converts HTTP/2 from clients to HTTP/1.1 for targets (except for gRPC which uses HTTP/2)",
+      "c": "ALB drops HTTP/2 connections and forces HTTP/1.0",
+      "d": "ALB requires targets to support HTTP/2"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB does not maintain HTTP/2 end-to-end for standard HTTP traffic.",
+      "b": "Correct. ALB accepts HTTP/2 from clients but communicates with targets using HTTP/1.1. The exception is gRPC targets, where ALB maintains HTTP/2 for the backend connection since gRPC requires HTTP/2.",
+      "c": "Incorrect. ALB doesn't downgrade to HTTP/1.0.",
+      "d": "Incorrect. Targets typically receive HTTP/1.1 from ALB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has an ASG with desired=5. They enable a warm pool with max prepared capacity=3 and pool state=Stopped. How many total instances exist (InService + warm pool)?",
+    "opts": {
+      "a": "5",
+      "b": "8",
+      "c": "3",
+      "d": "It depends on the max capacity of the ASG"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The warm pool instances are in addition to the InService instances.",
+      "b": "Correct. 5 instances are InService (handling traffic) + 3 instances are in the warm pool (Stopped state, ready to be activated). Total = 8 instances exist. Note: Stopped instances incur EBS costs but no compute costs.",
+      "c": "Incorrect. 3 is only the warm pool count.",
+      "d": "Incorrect. With these specific settings, the answer is deterministic: 5 + 3 = 8."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "When an ASG with a warm pool needs to scale out by 2 instances, what happens?",
+    "opts": {
+      "a": "2 new instances are launched from scratch",
+      "b": "2 instances from the warm pool are moved to InService state (started if stopped), and 2 new instances are added to the warm pool",
+      "c": "2 instances from the warm pool are moved to InService, and the warm pool is not replenished until scale-in",
+      "d": "The warm pool is ignored during scale-out"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The warm pool exists specifically to avoid launching from scratch.",
+      "b": "Correct. During scale-out, instances are drawn from the warm pool (started if in Stopped state) and placed InService. ASG then replenishes the warm pool by launching new instances into it to maintain the prepared capacity.",
+      "c": "Incorrect. The warm pool is replenished to maintain the max prepared capacity.",
+      "d": "Incorrect. The warm pool is the primary source for scale-out instances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB is receiving 10,000 new connections per second, 100,000 active connections, 5 GB of processed data per hour, and 50 rule evaluations per request. Which dimension determines the LCU charge?",
+    "opts": {
+      "a": "New connections (10,000/sec = 10 LCUs at 25 new conn/sec per LCU... wait this is wrong — let me recalculate: 10,000/25 = 400 LCUs)",
+      "b": "The highest of: new connections (400 LCUs), active connections (100,000/3000 = 33.3 LCUs), processed bytes (5GB/hr ≈ 1.4 GB/hr per LCU = 3.6 LCUs), rule evaluations (10,000 * 50 rules... computed per LCU)",
+      "c": "All dimensions are summed together",
+      "d": "Only processed bytes are used for billing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. While new connections contribute to LCU, billing is based on the highest dimension.",
+      "b": "Correct. ALB LCU billing is based on the HIGHEST of four dimensions: new connections/sec (25 per LCU), active connections/min (3000 per LCU), processed bytes (1 GB/hr per LCU), and rule evaluations (1000 per LCU). You pay for whichever dimension yields the most LCUs.",
+      "c": "Incorrect. Dimensions are not summed; the highest is used.",
+      "d": "Incorrect. All four dimensions are evaluated; the highest is billed."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What are the four dimensions used to calculate ALB LCU (Load Balancer Capacity Units)?",
+    "opts": {
+      "a": "CPU, Memory, Network, Storage",
+      "b": "New connections, Active connections, Processed bytes, Rule evaluations",
+      "c": "Requests/sec, Bandwidth, Latency, Error rate",
+      "d": "Instances, Target groups, Listeners, Rules"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are EC2 instance metrics, not ALB LCU dimensions.",
+      "b": "Correct. ALB LCU dimensions are: New connections per second (25/LCU), Active connections per minute (3000/LCU), Processed bytes per hour (1 GB/LCU for EC2 targets), and Rule evaluations per second (1000/LCU).",
+      "c": "Incorrect. These are not the LCU dimensions.",
+      "d": "Incorrect. These are ALB configuration elements, not billing dimensions."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company wants to do blue/green deployment using ALB weighted target groups. They have Blue-TG (weight=100) and Green-TG (weight=0). To shift 10% of traffic to green, what weights should they set?",
+    "opts": {
+      "a": "Blue=100, Green=10",
+      "b": "Blue=90, Green=10",
+      "c": "Blue=9, Green=1",
+      "d": "Both B and C are correct"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 100+10=110 total, Green gets 10/110 ≈ 9.09%, not exactly 10%.",
+      "b": "Correct. 90+10=100 total, Green gets 10/100 = 10%.",
+      "c": "Correct. 9+1=10 total, Green gets 1/10 = 10%.",
+      "d": "Correct. Both B and C result in 10% traffic to Green. Weights are relative, so 90:10 and 9:1 produce the same distribution."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum combined weight value across all target groups in an ALB forward action?",
+    "opts": {
+      "a": "100",
+      "b": "999",
+      "c": "Each target group weight can be 0-999; combined is not limited but each individual is capped at 999",
+      "d": "1000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is no 100 combined limit.",
+      "b": "Incorrect. 999 is the per-target-group limit, not combined.",
+      "c": "Correct. Each target group in a weighted forward action can have a weight between 0 and 999. The total combined weight is not explicitly capped (it's the sum of individual weights). Traffic is distributed proportionally based on relative weights.",
+      "d": "Incorrect. 1000 is not a specific limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An NLB with cross-zone load balancing DISABLED has targets: AZ-A (2 healthy, 1 unhealthy), AZ-B (1 healthy, 2 unhealthy). The NLB has nodes in both AZs. What happens to traffic destined for AZ-B's node?",
+    "opts": {
+      "a": "All AZ-B traffic goes to the 1 healthy target in AZ-B",
+      "b": "Traffic is redistributed to AZ-A",
+      "c": "NLB returns errors for AZ-B traffic",
+      "d": "NLB enables cross-zone automatically when targets are unhealthy"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Without cross-zone load balancing, the NLB node in AZ-B only routes to targets in AZ-B. Since 1 target is healthy, all traffic arriving at the AZ-B node goes to that single healthy target (which may become overloaded).",
+      "b": "Incorrect. Without cross-zone LB, traffic stays within the same AZ.",
+      "c": "Incorrect. As long as at least one target is healthy, NLB routes to it.",
+      "d": "Incorrect. NLB does not automatically enable cross-zone based on target health."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'zonal shift' feature related to ELB?",
+    "opts": {
+      "a": "Moving an ELB from one region to another",
+      "b": "Shifting traffic away from an AZ to recover from infrastructure issues, supported by Route 53 ARC (Application Recovery Controller)",
+      "c": "Rebalancing instances across zones in ASG",
+      "d": "Migrating from CLB to ALB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ELBs cannot be moved between regions.",
+      "b": "Correct. Zonal shift (part of Route 53 Application Recovery Controller) allows you to shift ELB traffic away from an Availability Zone. This is useful when an AZ is experiencing issues, even if AWS hasn't declared an outage.",
+      "c": "Incorrect. Instance rebalancing is the AZRebalance process in ASG.",
+      "d": "Incorrect. CLB to ALB migration is a different process."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB has a gRPC target group. What protocol version must be used?",
+    "opts": {
+      "a": "HTTP/1.1",
+      "b": "HTTP/2 (gRPC)",
+      "c": "TCP",
+      "d": "WebSocket"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. gRPC requires HTTP/2 and cannot work over HTTP/1.1.",
+      "b": "Correct. gRPC requires HTTP/2. ALB supports gRPC traffic by maintaining HTTP/2 connections to gRPC targets. The target group protocol version must be set to gRPC.",
+      "c": "Incorrect. TCP is a Layer 4 protocol; gRPC needs Layer 7 HTTP/2.",
+      "d": "Incorrect. WebSocket is a different protocol from gRPC."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What health check does ALB use for gRPC target groups?",
+    "opts": {
+      "a": "Standard HTTP GET request",
+      "b": "TCP connection check",
+      "c": "gRPC health check (using grpc.health.v1.Health/Check RPC)",
+      "d": "ICMP ping"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Standard HTTP GET doesn't work for gRPC health verification.",
+      "b": "Incorrect. TCP checks only verify port connectivity, not application health.",
+      "c": "Correct. For gRPC target groups, ALB uses the gRPC health checking protocol (grpc.health.v1.Health/Check). The target must implement this standard gRPC health check service.",
+      "d": "Incorrect. ICMP is not supported for ELB health checks."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company has an ASG that uses predictive scaling AND target tracking scaling simultaneously. How do they interact?",
+    "opts": {
+      "a": "Only predictive scaling is used; target tracking is ignored",
+      "b": "Only target tracking is used; predictive is ignored",
+      "c": "ASG uses the HIGHER of the two recommended capacities at any given time",
+      "d": "They alternate based on time of day"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Both policies are active simultaneously.",
+      "b": "Incorrect. Both policies contribute to scaling decisions.",
+      "c": "Correct. When both predictive and target tracking scaling are configured, ASG uses the maximum (higher) capacity recommended by either policy. Predictive handles forecasted demand, while target tracking handles real-time unexpected spikes.",
+      "d": "Incorrect. They don't alternate; the higher value is always used."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the 'max instance lifetime' setting in ASG?",
+    "opts": {
+      "a": "Maximum time an instance type is supported by AWS",
+      "b": "Maximum time an instance can live in the ASG before it is terminated and replaced",
+      "c": "Maximum uptime before an instance is rebooted",
+      "d": "Maximum time before a Spot instance is interrupted"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Instance type support is not what this setting controls.",
+      "b": "Correct. Max instance lifetime defines the maximum amount of time (in seconds) an instance can remain in service within an ASG. Once reached, ASG terminates and replaces the instance. Minimum value is 86400 seconds (1 day). This ensures instances are periodically refreshed.",
+      "c": "Incorrect. This terminates and replaces, not reboots.",
+      "d": "Incorrect. Spot interruptions are controlled by AWS, not this setting."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum value for 'max instance lifetime' in ASG?",
+    "opts": {
+      "a": "3600 seconds (1 hour)",
+      "b": "7200 seconds (2 hours)",
+      "c": "86400 seconds (1 day)",
+      "d": "604800 seconds (7 days)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1 hour is too short and would cause excessive churn.",
+      "b": "Incorrect. 2 hours is below the minimum.",
+      "c": "Correct. The minimum max instance lifetime is 86400 seconds (24 hours / 1 day). There is no maximum limit. Setting it to 0 disables the feature.",
+      "d": "Incorrect. 7 days is a common setting but not the minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB has 100 rules configured on a listener. A request arrives that matches rule 50. How many rule evaluations does this count as for LCU billing?",
+    "opts": {
+      "a": "1 (only the matched rule counts)",
+      "b": "50 (all rules evaluated before the match)",
+      "c": "100 (all rules are always evaluated)",
+      "d": "The first 10 rules are free; rules 11-50 = 40 evaluated rules"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. LCU billing counts evaluated rules, not just matched rules.",
+      "b": "Incorrect. The first 10 processed rules are free per request.",
+      "c": "Incorrect. Evaluation stops at the first match (rule 50).",
+      "d": "Correct. ALB evaluates rules in priority order until a match is found (50 rules evaluated). The first 10 processed rules per request are free. So billed rule evaluations = 50 - 10 = 40. This affects the rule evaluation dimension of LCU billing."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company configures an ASG with On-Demand base capacity of 2 and On-Demand percentage above base of 25%. If the ASG scales to 10 total instances, how many are On-Demand?",
+    "opts": {
+      "a": "2",
+      "b": "3",
+      "c": "4",
+      "d": "5"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 2 is only the base; additional On-Demand instances are added above base.",
+      "b": "Incorrect. The calculation requires both base and percentage above base.",
+      "c": "Correct. Base On-Demand = 2. Instances above base = 10 - 2 = 8. On-Demand above base = 8 × 25% = 2. Total On-Demand = 2 + 2 = 4. Total Spot = 8 - 2 = 6.",
+      "d": "Incorrect. 5 would require a higher percentage above base."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "In the previous scenario (10 instances, On-Demand base=2, On-Demand % above base=25%), how many Spot instances are running?",
+    "opts": {
+      "a": "4",
+      "b": "6",
+      "c": "8",
+      "d": "7"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 4 is the number of On-Demand instances.",
+      "b": "Correct. Total instances = 10. On-Demand = 4 (as calculated: 2 base + 2 above base). Spot = 10 - 4 = 6 instances.",
+      "c": "Incorrect. 8 would mean only 2 On-Demand (just the base).",
+      "d": "Incorrect. 7 is not the correct calculation."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "An ALB is integrated with AWS Global Accelerator. What benefit does this provide over using ALB alone?",
+    "opts": {
+      "a": "It allows ALB to serve traffic from multiple regions",
+      "b": "It provides static anycast IP addresses and routes traffic over the AWS global network for improved performance and availability",
+      "c": "It reduces ALB cost",
+      "d": "It eliminates the need for health checks"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ALB remains regional; Global Accelerator provides a global entry point.",
+      "b": "Correct. AWS Global Accelerator provides 2 static anycast IP addresses that route traffic through AWS's global network (instead of public internet) to the nearest healthy ALB endpoint, reducing latency and improving availability across regions.",
+      "c": "Incorrect. Global Accelerator has its own charges.",
+      "d": "Incorrect. Health checks are still used; Global Accelerator uses them for endpoint health."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What happens when an ASG detects an AZ imbalance (e.g., AZ-A has 5 instances, AZ-B has 3 instances) due to a previous AZ outage recovery?",
+    "opts": {
+      "a": "ASG immediately terminates 1 instance in AZ-A",
+      "b": "ASG first launches a new instance in AZ-B, then terminates one in AZ-A (launch before terminate)",
+      "c": "ASG terminates in AZ-A first, then launches in AZ-B",
+      "d": "ASG does nothing; manual rebalancing is required"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ASG doesn't terminate first during rebalancing.",
+      "b": "Correct. During AZRebalance, ASG uses a 'launch before terminate' approach — it first launches a new instance in the under-represented AZ, waits for it to pass health checks, and THEN terminates an instance in the over-represented AZ. This temporarily exceeds desired capacity by 1 (up to max + 10%).",
+      "c": "Incorrect. Terminate-first would temporarily reduce capacity.",
+      "d": "Incorrect. AZRebalance is automatic."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "During AZRebalance, ASG may temporarily exceed the maximum capacity. By how much can it exceed?",
+    "opts": {
+      "a": "By 1 instance only",
+      "b": "By 10% of the group's max capacity (minimum 1 instance)",
+      "c": "By 50% of desired capacity",
+      "d": "It never exceeds maximum capacity"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The overshoot can be more than 1 for larger ASGs.",
+      "b": "Correct. During AZRebalance, ASG can temporarily launch instances that cause the group to exceed its maximum capacity by up to 10% (or by 1 instance, whichever is greater). This allows launch-before-terminate behavior without dropping below desired capacity.",
+      "c": "Incorrect. 50% would be excessive.",
+      "d": "Incorrect. AZRebalance specifically allows temporary maximum capacity overshoot."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "A company uses NLB with UDP protocol for their DNS service. What is unique about UDP health checks on NLB?",
+    "opts": {
+      "a": "NLB uses UDP health checks by default",
+      "b": "UDP targets require TCP, HTTP, or HTTPS health checks because UDP is connectionless and doesn't have a reliable health check mechanism",
+      "c": "UDP health checks use ICMP ping",
+      "d": "UDP targets don't need health checks"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. NLB cannot perform UDP health checks.",
+      "b": "Correct. Because UDP is connectionless, NLB cannot reliably determine target health via UDP alone. For UDP target groups, you must configure health checks using TCP, HTTP, or HTTPS protocols on a separate port where the target responds.",
+      "c": "Incorrect. ICMP is not used for NLB health checks.",
+      "d": "Incorrect. Health checks are still required for UDP targets."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the significance of the 'deregistration delay' timer when an ASG terminates an instance that is registered with an ALB target group?",
+    "opts": {
+      "a": "ASG waits for the deregistration delay before launching a replacement",
+      "b": "The target group drains in-flight connections during this period; ASG waits for draining to complete before terminating the instance",
+      "c": "ASG immediately terminates the instance regardless of deregistration delay",
+      "d": "Deregistration delay only applies to manually deregistered targets"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ASG may launch a replacement immediately; it's the termination that's delayed.",
+      "b": "Correct. When ASG initiates instance termination, the target enters 'draining' state in the target group. The ALB stops sending new requests and waits for in-flight requests to complete (up to the deregistration delay). Only after draining completes is the instance terminated.",
+      "c": "Incorrect. ASG respects the ELB connection draining process.",
+      "d": "Incorrect. It applies to any deregistration, including ASG-initiated terminations."
+    }
+  }
+]

@@ -1,0 +1,682 @@
+[
+  {
+    "type": "mcq",
+    "q": "What is the maximum storage capacity supported by Amazon RDS for most database engines?",
+    "opts": {
+      "a": "16 TB",
+      "b": "32 TB",
+      "c": "64 TB",
+      "d": "128 TB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 16 TB is not the maximum for most engines.",
+      "b": "Incorrect. 32 TB is not the maximum for most engines.",
+      "c": "Correct. Amazon RDS supports up to 64 TB of storage for most database engines (MySQL, PostgreSQL, MariaDB, Oracle, SQL Server).",
+      "d": "Incorrect. 128 TB exceeds the RDS storage limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default backup retention period for Amazon RDS?",
+    "opts": {
+      "a": "0 days",
+      "b": "7 days",
+      "c": "14 days",
+      "d": "35 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 0 days means backups are disabled, which is not the default.",
+      "b": "Correct. The default backup retention period for RDS is 7 days.",
+      "c": "Incorrect. 14 days is not the default, though it can be configured.",
+      "d": "Incorrect. 35 days is the maximum retention period, not the default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum backup retention period for Amazon RDS automated backups?",
+    "opts": {
+      "a": "7 days",
+      "b": "14 days",
+      "c": "30 days",
+      "d": "35 days"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 7 days is the default, not the maximum.",
+      "b": "Incorrect. 14 days is not the maximum.",
+      "c": "Incorrect. 30 days is not the maximum.",
+      "d": "Correct. The maximum backup retention period for RDS automated backups is 35 days."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Read Replicas can you create for an Amazon RDS instance?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can create more than 3 read replicas.",
+      "b": "Correct. Amazon RDS supports up to 5 Read Replicas per source DB instance (for MySQL, MariaDB, PostgreSQL, Oracle).",
+      "c": "Incorrect. The limit is 5, not 10.",
+      "d": "Incorrect. The limit is 5, not 15. However, Aurora supports up to 15 read replicas."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Read Replicas does Amazon Aurora support?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "15",
+      "d": "20"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 5 is the limit for standard RDS read replicas.",
+      "b": "Incorrect. Aurora supports more than 10.",
+      "c": "Correct. Amazon Aurora supports up to 15 Read Replicas with very low replication lag.",
+      "d": "Incorrect. The maximum is 15, not 20."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the port number used by MySQL in Amazon RDS by default?",
+    "opts": {
+      "a": "1433",
+      "b": "3306",
+      "c": "5432",
+      "d": "1521"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Port 1433 is used by Microsoft SQL Server.",
+      "b": "Correct. MySQL uses port 3306 by default.",
+      "c": "Incorrect. Port 5432 is used by PostgreSQL.",
+      "d": "Incorrect. Port 1521 is used by Oracle."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default port number for PostgreSQL in Amazon RDS?",
+    "opts": {
+      "a": "3306",
+      "b": "5432",
+      "c": "1521",
+      "d": "1433"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Port 3306 is for MySQL.",
+      "b": "Correct. PostgreSQL uses port 5432 by default.",
+      "c": "Incorrect. Port 1521 is for Oracle.",
+      "d": "Incorrect. Port 1433 is for SQL Server."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default port number for Oracle database in Amazon RDS?",
+    "opts": {
+      "a": "3306",
+      "b": "5432",
+      "c": "1521",
+      "d": "1433"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Port 3306 is for MySQL.",
+      "b": "Incorrect. Port 5432 is for PostgreSQL.",
+      "c": "Correct. Oracle database uses port 1521 by default.",
+      "d": "Incorrect. Port 1433 is for SQL Server."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the default port number for Microsoft SQL Server in Amazon RDS?",
+    "opts": {
+      "a": "3306",
+      "b": "5432",
+      "c": "1521",
+      "d": "1433"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. Port 3306 is for MySQL.",
+      "b": "Incorrect. Port 5432 is for PostgreSQL.",
+      "c": "Incorrect. Port 1521 is for Oracle.",
+      "d": "Correct. Microsoft SQL Server uses port 1433 by default."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum Provisioned IOPS you can configure for an Amazon RDS instance using io1 storage?",
+    "opts": {
+      "a": "20,000 IOPS",
+      "b": "40,000 IOPS",
+      "c": "64,000 IOPS",
+      "d": "80,000 IOPS"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. 20,000 IOPS is below the maximum.",
+      "b": "Incorrect. 40,000 IOPS is below the maximum.",
+      "c": "Incorrect. 64,000 IOPS is below the maximum.",
+      "d": "Correct. Amazon RDS supports up to 80,000 Provisioned IOPS for io1 storage (depending on the engine and instance type)."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How long can an Amazon RDS instance remain in a stopped state before it is automatically restarted?",
+    "opts": {
+      "a": "1 day",
+      "b": "3 days",
+      "c": "7 days",
+      "d": "14 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is longer than 1 day.",
+      "b": "Incorrect. The limit is longer than 3 days.",
+      "c": "Correct. An RDS instance can be stopped for a maximum of 7 days, after which AWS automatically restarts it.",
+      "d": "Incorrect. 14 days exceeds the allowed stop duration."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many copies of your data does Amazon Aurora maintain across Availability Zones?",
+    "opts": {
+      "a": "2 copies across 2 AZs",
+      "b": "4 copies across 2 AZs",
+      "c": "6 copies across 3 AZs",
+      "d": "9 copies across 3 AZs"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora maintains more than 2 copies.",
+      "b": "Incorrect. Aurora maintains more than 4 copies.",
+      "c": "Correct. Amazon Aurora replicates 6 copies of your data across 3 Availability Zones for high durability.",
+      "d": "Incorrect. Aurora maintains 6 copies, not 9."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Amazon Aurora can tolerate the loss of how many copies of data without affecting write availability?",
+    "opts": {
+      "a": "1 copy",
+      "b": "2 copies",
+      "c": "3 copies",
+      "d": "4 copies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora can tolerate more than 1 copy loss for writes.",
+      "b": "Correct. Aurora can tolerate the loss of up to 2 copies without affecting write availability (needs 4 out of 6 for writes).",
+      "c": "Incorrect. Losing 3 copies would affect write availability.",
+      "d": "Incorrect. Losing 4 copies would certainly affect availability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Amazon Aurora can tolerate the loss of how many copies of data without affecting read availability?",
+    "opts": {
+      "a": "1 copy",
+      "b": "2 copies",
+      "c": "3 copies",
+      "d": "4 copies"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora can tolerate more than 1 copy loss for reads.",
+      "b": "Incorrect. Aurora can tolerate more than 2 copies lost for reads.",
+      "c": "Correct. Aurora can tolerate the loss of up to 3 copies without affecting read availability (needs 3 out of 6 for reads).",
+      "d": "Incorrect. Losing 4 copies would affect read availability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum granularity for Enhanced Monitoring in Amazon RDS?",
+    "opts": {
+      "a": "1 second",
+      "b": "5 seconds",
+      "c": "10 seconds",
+      "d": "60 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Enhanced Monitoring can collect metrics at intervals as low as 1 second.",
+      "b": "Incorrect. 5 seconds is not the minimum granularity.",
+      "c": "Incorrect. 10 seconds is not the minimum.",
+      "d": "Incorrect. 60 seconds is the default CloudWatch metric interval, not Enhanced Monitoring minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "How many Availability Zones must a DB Subnet Group span for a Multi-AZ deployment?",
+    "opts": {
+      "a": "At least 1 AZ",
+      "b": "At least 2 AZs",
+      "c": "At least 3 AZs",
+      "d": "All AZs in the region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. A Multi-AZ deployment requires subnets in more than 1 AZ.",
+      "b": "Correct. A DB Subnet Group for Multi-AZ must include subnets in at least 2 Availability Zones.",
+      "c": "Incorrect. 2 AZs is sufficient for Multi-AZ.",
+      "d": "Incorrect. You don't need all AZs, just at least 2."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the duration of the Amazon RDS maintenance window?",
+    "opts": {
+      "a": "15 minutes",
+      "b": "30 minutes",
+      "c": "1 hour",
+      "d": "2 hours"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The minimum maintenance window is 30 minutes.",
+      "b": "Correct. The RDS maintenance window is a minimum of 30 minutes.",
+      "c": "Incorrect. The minimum is 30 minutes, not 1 hour.",
+      "d": "Incorrect. The minimum is 30 minutes, not 2 hours."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum storage size for Amazon Aurora?",
+    "opts": {
+      "a": "32 TB",
+      "b": "64 TB",
+      "c": "128 TB",
+      "d": "256 TB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 32 TB is below Aurora's maximum.",
+      "b": "Incorrect. 64 TB is the maximum for standard RDS engines, not Aurora.",
+      "c": "Correct. Amazon Aurora supports up to 128 TB of storage, automatically scaling in 10 GB increments.",
+      "d": "Incorrect. 256 TB exceeds Aurora's storage limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical replication lag for Amazon Aurora Global Database?",
+    "opts": {
+      "a": "Under 1 second",
+      "b": "Under 5 seconds",
+      "c": "Under 30 seconds",
+      "d": "Under 1 minute"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Global Database typically achieves replication lag of less than 1 second across regions.",
+      "b": "Incorrect. The lag is typically much less than 5 seconds.",
+      "c": "Incorrect. 30 seconds is far too high for Aurora Global Database.",
+      "d": "Incorrect. 1 minute would be unacceptably high."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What discount can you get with Amazon RDS Reserved Instances compared to On-Demand pricing?",
+    "opts": {
+      "a": "Up to 30%",
+      "b": "Up to 50%",
+      "c": "Up to 72%",
+      "d": "Up to 90%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The discount is higher than 30%.",
+      "b": "Incorrect. The discount can be higher than 50%.",
+      "c": "Correct. RDS Reserved Instances can provide up to approximately 72% discount compared to On-Demand pricing depending on the term and payment option.",
+      "d": "Incorrect. 90% discount is not achievable with RDS Reserved Instances."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Amazon Aurora claims to be how many times faster than standard MySQL?",
+    "opts": {
+      "a": "2x",
+      "b": "3x",
+      "c": "5x",
+      "d": "10x"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Aurora is faster than 2x MySQL performance.",
+      "b": "Incorrect. Aurora is faster than 3x MySQL performance.",
+      "c": "Correct. AWS claims Aurora is up to 5x faster than standard MySQL and 3x faster than standard PostgreSQL.",
+      "d": "Incorrect. The claimed performance improvement is 5x, not 10x."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "Amazon Aurora claims to be how many times faster than standard PostgreSQL?",
+    "opts": {
+      "a": "2x",
+      "b": "3x",
+      "c": "5x",
+      "d": "10x"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Aurora is faster than 2x PostgreSQL performance.",
+      "b": "Correct. AWS claims Aurora is up to 3x faster than standard PostgreSQL.",
+      "c": "Incorrect. 5x is the claim for MySQL, not PostgreSQL.",
+      "d": "Incorrect. 10x is not the claimed improvement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the Aurora Serverless v2 minimum capacity unit?",
+    "opts": {
+      "a": "0.5 ACU",
+      "b": "1 ACU",
+      "c": "2 ACU",
+      "d": "4 ACU"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Serverless v2 can scale down to a minimum of 0.5 ACU (Aurora Capacity Units).",
+      "b": "Incorrect. The minimum is 0.5 ACU, not 1.",
+      "c": "Incorrect. 2 ACU is not the minimum.",
+      "d": "Incorrect. 4 ACU is not the minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of RDS instances you can have per AWS account per region by default?",
+    "opts": {
+      "a": "20",
+      "b": "40",
+      "c": "80",
+      "d": "100"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default limit is higher than 20.",
+      "b": "Correct. The default limit is 40 RDS DB instances per account per region (with a maximum of 10 for Oracle/SQL Server under License Included).",
+      "c": "Incorrect. 80 is not the default limit.",
+      "d": "Incorrect. 100 exceeds the default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of databases you can create on a single Amazon RDS SQL Server instance?",
+    "opts": {
+      "a": "10",
+      "b": "30",
+      "c": "100",
+      "d": "Unlimited"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. You can create more than 10 databases.",
+      "b": "Incorrect. You can create more than 30 databases.",
+      "c": "Correct. Amazon RDS SQL Server supports up to 100 databases per instance.",
+      "d": "Incorrect. There is a limit of 100 databases."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical failover time for Amazon RDS Multi-AZ?",
+    "opts": {
+      "a": "Under 10 seconds",
+      "b": "1-2 minutes",
+      "c": "5 minutes",
+      "d": "10 minutes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard RDS Multi-AZ failover typically takes longer than 10 seconds.",
+      "b": "Correct. RDS Multi-AZ failover typically completes within 1-2 minutes (60-120 seconds).",
+      "c": "Incorrect. Failover is typically faster than 5 minutes.",
+      "d": "Incorrect. 10 minutes would be too long for Multi-AZ failover."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical failover time for Amazon Aurora?",
+    "opts": {
+      "a": "Under 30 seconds",
+      "b": "1-2 minutes",
+      "c": "5 minutes",
+      "d": "10 minutes"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Amazon Aurora typically completes failover in under 30 seconds when a read replica is available.",
+      "b": "Incorrect. Aurora failover is faster than standard RDS.",
+      "c": "Incorrect. 5 minutes is too long for Aurora failover.",
+      "d": "Incorrect. 10 minutes would be unacceptably long."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical failover time for an RDS Multi-AZ DB Cluster deployment?",
+    "opts": {
+      "a": "Under 35 seconds",
+      "b": "1-2 minutes",
+      "c": "3-5 minutes",
+      "d": "Under 10 seconds"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. The Multi-AZ DB Cluster deployment typically achieves failover in under 35 seconds, faster than the traditional Multi-AZ instance deployment.",
+      "b": "Incorrect. 1-2 minutes is typical for the traditional Multi-AZ single standby.",
+      "c": "Incorrect. 3-5 minutes is too long.",
+      "d": "Incorrect. While fast, under 10 seconds is typically achieved only by Aurora with replicas."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of Aurora DB clusters that can be part of an Aurora Global Database?",
+    "opts": {
+      "a": "2 (1 primary + 1 secondary)",
+      "b": "3 (1 primary + 2 secondary)",
+      "c": "6 (1 primary + 5 secondary)",
+      "d": "10 (1 primary + 9 secondary)"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. More than 2 clusters are supported.",
+      "b": "Incorrect. More than 3 clusters are supported.",
+      "c": "Correct. An Aurora Global Database can have 1 primary cluster and up to 5 secondary clusters in different regions.",
+      "d": "Incorrect. The maximum is 6 total clusters."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the IOPS-to-storage ratio requirement for RDS Provisioned IOPS (io1) storage?",
+    "opts": {
+      "a": "Maximum 10:1 ratio (IOPS to GB)",
+      "b": "Maximum 50:1 ratio (IOPS to GB)",
+      "c": "Maximum 100:1 ratio (IOPS to GB)",
+      "d": "There is no ratio requirement"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The ratio is higher than 10:1.",
+      "b": "Correct. For Provisioned IOPS storage, you can provision up to a 50:1 ratio of IOPS to allocated storage (in GB).",
+      "c": "Incorrect. 100:1 exceeds the allowed ratio.",
+      "d": "Incorrect. There is a specific ratio requirement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the burst performance baseline for RDS General Purpose SSD (gp2) storage?",
+    "opts": {
+      "a": "1 IOPS per GB with burst up to 1,000 IOPS",
+      "b": "3 IOPS per GB with burst up to 3,000 IOPS",
+      "c": "10 IOPS per GB with burst up to 10,000 IOPS",
+      "d": "100 IOPS per GB with no burst"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The baseline is higher than 1 IOPS per GB.",
+      "b": "Correct. gp2 provides a baseline of 3 IOPS per GB with the ability to burst up to 3,000 IOPS for volumes under 1,000 GB.",
+      "c": "Incorrect. 10 IOPS per GB is not the gp2 baseline.",
+      "d": "Incorrect. gp2 does support burst capability."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical replication lag for Aurora Read Replicas within the same region?",
+    "opts": {
+      "a": "Less than 10 milliseconds",
+      "b": "Less than 1 second",
+      "c": "1-5 seconds",
+      "d": "Less than 1 minute"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. Aurora Read Replicas share the same storage volume, so replication lag is typically less than 10 milliseconds.",
+      "b": "Incorrect. While under 1 second is true, the typical lag is much less (under 10ms).",
+      "c": "Incorrect. 1-5 seconds is too high for Aurora replicas.",
+      "d": "Incorrect. Lag is far less than 1 minute."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum backtrack window for Amazon Aurora MySQL?",
+    "opts": {
+      "a": "12 hours",
+      "b": "24 hours",
+      "c": "48 hours",
+      "d": "72 hours"
+    },
+    "ans": "d",
+    "exp": {
+      "a": "Incorrect. The maximum window is longer than 12 hours.",
+      "b": "Incorrect. The maximum window is longer than 24 hours.",
+      "c": "Incorrect. The maximum window is longer than 48 hours.",
+      "d": "Correct. Aurora Backtrack supports a maximum backtrack window of 72 hours."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum storage allocation for an Amazon RDS MySQL instance?",
+    "opts": {
+      "a": "5 GB",
+      "b": "10 GB",
+      "c": "20 GB",
+      "d": "100 GB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 5 GB is below the minimum for gp2/gp3 storage.",
+      "b": "Incorrect. 10 GB is not the minimum for MySQL on gp2/gp3.",
+      "c": "Correct. For RDS MySQL with gp2/gp3 storage, the minimum allocation is 20 GB.",
+      "d": "Incorrect. 100 GB is not the minimum requirement."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the minimum backup retention period to enable point-in-time recovery for an RDS instance?",
+    "opts": {
+      "a": "0 days",
+      "b": "1 day",
+      "c": "7 days",
+      "d": "14 days"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 0 days means automated backups are disabled, which also disables point-in-time recovery.",
+      "b": "Correct. You need a minimum backup retention period of 1 day to enable point-in-time recovery.",
+      "c": "Incorrect. 7 days is the default, not the minimum required.",
+      "d": "Incorrect. 14 days is not the minimum."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the maximum number of manual snapshots you can have per AWS account per region for RDS?",
+    "opts": {
+      "a": "50",
+      "b": "100",
+      "c": "200",
+      "d": "Unlimited (subject to account-level snapshot storage limits)"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 50.",
+      "b": "Correct. The default limit is 100 manual DB snapshots per region per account. This can be increased by requesting a limit increase.",
+      "c": "Incorrect. The default limit is 100.",
+      "d": "Incorrect. There is a specific default limit."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You have an RDS instance with 100 GB gp2 storage. What is the baseline IOPS performance?",
+    "opts": {
+      "a": "100 IOPS",
+      "b": "300 IOPS",
+      "c": "1000 IOPS",
+      "d": "3000 IOPS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The baseline is 3 IOPS per GB.",
+      "b": "Correct. gp2 provides 3 IOPS per GB baseline. For 100 GB: 100 × 3 = 300 IOPS baseline (with burst up to 3,000 IOPS).",
+      "c": "Incorrect. 1000 IOPS would require approximately 333 GB.",
+      "d": "Incorrect. 3000 IOPS is the burst capability, not the baseline for 100 GB."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "At what gp2 storage size does the baseline IOPS equal the burst IOPS (eliminating the need for burst credits)?",
+    "opts": {
+      "a": "500 GB",
+      "b": "1000 GB (1 TB)",
+      "c": "2000 GB",
+      "d": "3000 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 500 GB × 3 = 1,500 IOPS baseline, still below 3,000 burst.",
+      "b": "Correct. At 1,000 GB, the baseline is 1,000 × 3 = 3,000 IOPS, which equals the burst maximum. Beyond this size, burst is no longer needed.",
+      "c": "Incorrect. At 2,000 GB the baseline would be 6,000 IOPS, already beyond burst.",
+      "d": "Incorrect. 3,000 GB would give 9,000 IOPS baseline."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "You need to create an RDS instance that supports 80,000 IOPS. The minimum storage for io1 with a 50:1 ratio to support 80,000 IOPS is:",
+    "opts": {
+      "a": "800 GB",
+      "b": "1,600 GB",
+      "c": "2,000 GB",
+      "d": "4,000 GB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 800 GB × 50 = 40,000 IOPS maximum, insufficient.",
+      "b": "Correct. 80,000 IOPS ÷ 50 (ratio) = 1,600 GB minimum storage required to provision 80,000 IOPS with io1.",
+      "c": "Incorrect. 2,000 GB would allow up to 100,000 IOPS, which is more than needed.",
+      "d": "Incorrect. 4,000 GB is far more than the minimum required."
+    }
+  },
+  {
+    "type": "mcq",
+    "q": "What is the typical switchover time for an RDS Blue/Green Deployment?",
+    "opts": {
+      "a": "Under 1 minute",
+      "b": "5-10 minutes",
+      "c": "30 minutes",
+      "d": "1 hour"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. RDS Blue/Green Deployment switchover typically completes in under 1 minute, during which writes are briefly blocked.",
+      "b": "Incorrect. The switchover is faster than 5 minutes.",
+      "c": "Incorrect. 30 minutes is too long for a switchover.",
+      "d": "Incorrect. 1 hour would be unacceptable downtime for this feature."
+    }
+  }
+]

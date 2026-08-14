@@ -1,0 +1,1090 @@
+[
+  {
+    "type": "factual",
+    "q": "What is the latest Kubernetes version supported by Amazon EKS as of June 2026?",
+    "opts": {
+      "a": "1.34",
+      "b": "1.35",
+      "c": "1.36",
+      "d": "1.37"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1.34 is an older version.",
+      "b": "Incorrect. 1.35 was released in January 2026 but is not the latest.",
+      "c": "Correct. Amazon EKS now supports Kubernetes version 1.36, released on Amazon EKS on June 2, 2026.",
+      "d": "Incorrect. 1.37 is not yet available on EKS."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was Kubernetes version 1.36 released on Amazon EKS?",
+    "opts": {
+      "a": "April 22, 2026",
+      "b": "June 2, 2026",
+      "c": "January 27, 2026",
+      "d": "August 2, 2027"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. April 22, 2026 was the upstream Kubernetes release date.",
+      "b": "Correct. Kubernetes version 1.36 was released on Amazon EKS on June 2, 2026.",
+      "c": "Incorrect. January 27, 2026 was the EKS release date for version 1.35.",
+      "d": "Incorrect. August 2, 2027 is the end of standard support for version 1.36."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When does standard support for Kubernetes version 1.36 end on Amazon EKS?",
+    "opts": {
+      "a": "June 2, 2027",
+      "b": "August 2, 2027",
+      "c": "December 2, 2027",
+      "d": "August 2, 2028"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard support doesn't end in June 2027.",
+      "b": "Correct. Standard support for Kubernetes 1.36 on EKS ends on August 2, 2027.",
+      "c": "Incorrect. December 2027 is not the correct date.",
+      "d": "Incorrect. August 2, 2028 is the end of extended support, not standard support."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When does extended support for Kubernetes version 1.36 end on Amazon EKS?",
+    "opts": {
+      "a": "August 2, 2027",
+      "b": "June 2, 2028",
+      "c": "August 2, 2028",
+      "d": "December 2, 2028"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. August 2, 2027 is the end of standard support.",
+      "b": "Incorrect. June 2028 is not the correct date.",
+      "c": "Correct. Extended support for Kubernetes 1.36 on EKS ends on August 2, 2028.",
+      "d": "Incorrect. December 2028 is not the correct end date."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How long does Amazon EKS standard support last for a Kubernetes version?",
+    "opts": {
+      "a": "12 months after release",
+      "b": "14 months after release",
+      "c": "18 months after release",
+      "d": "24 months after release"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard support is longer than 12 months.",
+      "b": "Correct. Standard support for a Kubernetes version in Amazon EKS begins when a version is released and ends 14 months after the release date.",
+      "c": "Incorrect. 18 months exceeds the standard support period.",
+      "d": "Incorrect. 24 months is too long for standard support alone."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How long does Amazon EKS extended support last after standard support ends?",
+    "opts": {
+      "a": "6 months",
+      "b": "12 months",
+      "c": "14 months",
+      "d": "18 months"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Extended support is longer than 6 months.",
+      "b": "Correct. Extended support begins immediately after standard support ends and lasts for 12 months.",
+      "c": "Incorrect. 14 months is the standard support duration.",
+      "d": "Incorrect. 18 months exceeds the extended support period."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new feature did Amazon EKS announce in July 2026?",
+    "opts": {
+      "a": "Auto-scaling support",
+      "b": "Kubernetes version rollback",
+      "c": "Multi-cluster management",
+      "d": "Serverless nodes"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Auto-scaling was already available.",
+      "b": "Correct. Amazon EKS announced Kubernetes version rollback on July 1, 2026, enabling you to revert to the previous Kubernetes minor version within 7 days if issues arise after an upgrade.",
+      "c": "Incorrect. Multi-cluster management was not the July 2026 announcement.",
+      "d": "Incorrect. Serverless nodes (Fargate) were already available."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How many days do you have to rollback a Kubernetes version on Amazon EKS after an upgrade?",
+    "opts": {
+      "a": "3 days",
+      "b": "5 days",
+      "c": "7 days",
+      "d": "14 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The rollback window is longer than 3 days.",
+      "b": "Incorrect. 5 days is not the correct window.",
+      "c": "Correct. Amazon EKS allows you to rollback to the previous Kubernetes minor version within 7 days after an upgrade.",
+      "d": "Incorrect. 14 days exceeds the rollback window."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of containers per task definition in Amazon ECS?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 5.",
+      "b": "Correct. Amazon ECS allows a maximum of 10 container definitions within a task definition.",
+      "c": "Incorrect. 20 exceeds the actual limit.",
+      "d": "Incorrect. 50 is far above the actual limit of 10."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of container instances per ECS cluster?",
+    "opts": {
+      "a": "1,000",
+      "b": "2,000",
+      "c": "5,000",
+      "d": "10,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 1,000.",
+      "b": "Incorrect. 2,000 is below the actual limit.",
+      "c": "Correct. Amazon ECS supports up to 5,000 container instances per cluster.",
+      "d": "Incorrect. 10,000 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of container instances that can be specified in a StartTask API action in ECS?",
+    "opts": {
+      "a": "5",
+      "b": "10",
+      "c": "20",
+      "d": "50"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can specify more than 5.",
+      "b": "Correct. The maximum number of container instances specified in a StartTask API action is 10.",
+      "c": "Incorrect. 20 exceeds the limit.",
+      "d": "Incorrect. 50 is far above the allowed limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of ECS Exec sessions per container?",
+    "opts": {
+      "a": "100",
+      "b": "500",
+      "c": "1,000",
+      "d": "5,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 100.",
+      "b": "Incorrect. 500 is below the actual limit.",
+      "c": "Correct. Amazon ECS allows a maximum of 1,000 ECS Exec sessions per container.",
+      "d": "Incorrect. 5,000 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the rate of tasks launched by an ECS service on AWS Fargate in major regions like us-east-1?",
+    "opts": {
+      "a": "100",
+      "b": "250",
+      "c": "500",
+      "d": "1,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The rate is higher than 100 in major regions.",
+      "b": "Incorrect. 250 is not the correct rate for major regions.",
+      "c": "Correct. The rate of tasks launched by a service on AWS Fargate is 500 in major regions like us-east-1, us-west-2, eu-west-1, etc.",
+      "d": "Incorrect. 1,000 exceeds the actual rate limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the Fargate task launch rate in smaller/other supported regions?",
+    "opts": {
+      "a": "50",
+      "b": "125",
+      "c": "250",
+      "d": "500"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The rate is higher than 50.",
+      "b": "Correct. In other supported regions not listed as major, the rate of Fargate tasks launched by a service is 125.",
+      "c": "Incorrect. 250 exceeds the rate for smaller regions.",
+      "d": "Incorrect. 500 is the rate for major regions, not other regions."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the limit for ECS services configured with AWS Cloud Map service discovery?",
+    "opts": {
+      "a": "500 tasks per service",
+      "b": "1,000 tasks per service",
+      "c": "5,000 tasks per service",
+      "d": "No limit"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 500.",
+      "b": "Correct. Services configured to use Amazon ECS service discovery have a limit of 1,000 tasks per service due to the AWS Cloud Map service quota.",
+      "c": "Incorrect. 5,000 exceeds the Cloud Map limit.",
+      "d": "Incorrect. There is a limit imposed by AWS Cloud Map."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default nofile soft limit for Amazon ECS tasks hosted on Fargate?",
+    "opts": {
+      "a": "1,024",
+      "b": "4,096",
+      "c": "65,535",
+      "d": "100,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 1,024 is the default for many Linux systems but not Fargate.",
+      "b": "Incorrect. 4,096 is not the Fargate nofile limit.",
+      "c": "Correct. On Fargate, the default nofile soft limit is 65,535.",
+      "d": "Incorrect. 100,000 exceeds the actual nofile soft limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of images per ECR repository?",
+    "opts": {
+      "a": "1,000",
+      "b": "10,000",
+      "c": "20,000",
+      "d": "50,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The limit is much higher than 1,000.",
+      "b": "Incorrect. 10,000 is below the actual limit.",
+      "c": "Correct. Amazon ECR allows up to 20,000 images per repository.",
+      "d": "Incorrect. 50,000 exceeds the actual limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How much free storage does Amazon ECR provide for private repositories in the AWS Free Tier?",
+    "opts": {
+      "a": "100 MB per month",
+      "b": "500 MB per month",
+      "c": "1 GB per month",
+      "d": "5 GB per month"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The free tier provides more than 100 MB.",
+      "b": "Correct. Amazon ECR provides 500 MB per month of storage for private repositories for the first 12 months as part of the AWS Free Tier.",
+      "c": "Incorrect. 1 GB exceeds the free tier amount.",
+      "d": "Incorrect. 5 GB is far above the free tier storage."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How much free storage does Amazon ECR provide for public repositories?",
+    "opts": {
+      "a": "5 GB per month",
+      "b": "10 GB per month",
+      "c": "50 GB per month",
+      "d": "100 GB per month"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The free tier for public repos is much higher.",
+      "b": "Incorrect. 10 GB is below the actual free tier.",
+      "c": "Correct. Amazon ECR provides 50 GB of storage per month for public repositories, always free.",
+      "d": "Incorrect. 100 GB exceeds the free tier amount."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How much anonymous data transfer to the internet is free per month from ECR Public?",
+    "opts": {
+      "a": "100 GB",
+      "b": "500 GB",
+      "c": "1 TB",
+      "d": "5 TB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The free anonymous transfer is higher than 100 GB.",
+      "b": "Correct. ECR Public offers 500 GB/month free data transfer to the internet for anonymous pulls.",
+      "c": "Incorrect. 1 TB is not the anonymous pull limit.",
+      "d": "Incorrect. 5 TB is the authenticated pull limit, not anonymous."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How much authenticated data transfer to the internet is free per month from ECR Public?",
+    "opts": {
+      "a": "500 GB",
+      "b": "1 TB",
+      "c": "5 TB",
+      "d": "10 TB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 500 GB is the anonymous pull free tier.",
+      "b": "Incorrect. 1 TB is below the authenticated free tier.",
+      "c": "Correct. ECR Public offers 5 TB/month free data transfer if you authenticate with an AWS account.",
+      "d": "Incorrect. 10 TB exceeds the free tier allowance."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the storage cost per GB-month for Amazon ECR private and public repositories?",
+    "opts": {
+      "a": "$0.05",
+      "b": "$0.10",
+      "c": "$0.15",
+      "d": "$0.20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The cost is higher than $0.05.",
+      "b": "Correct. Amazon ECR charges $0.10 per GB-month for image storage in both private and public repositories.",
+      "c": "Incorrect. $0.15 exceeds the actual cost.",
+      "d": "Incorrect. $0.20 is above the actual pricing."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Is there a data transfer cost when pulling images from ECR to AWS compute services (ECS, EKS, Fargate, Lambda) within the same region?",
+    "opts": {
+      "a": "Yes, $0.01 per GB",
+      "b": "Yes, $0.09 per GB",
+      "c": "No, it is free",
+      "d": "Only free for the first 10 GB"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. There is no charge for same-region transfers.",
+      "b": "Incorrect. This pricing applies to internet transfers, not same-region AWS services.",
+      "c": "Correct. Data transferred between ECR and AWS compute services (ECS, EKS, Fargate, Lambda, App Runner) in the same Region is free.",
+      "d": "Incorrect. It is completely free regardless of volume."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Starting July 15, 2025, how much in AWS Free Tier credits do new customers receive?",
+    "opts": {
+      "a": "$50",
+      "b": "$100",
+      "c": "$200",
+      "d": "$300"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The credit amount is higher than $50.",
+      "b": "Incorrect. $100 is below the actual credit amount.",
+      "c": "Correct. Starting July 15, 2025, new AWS customers receive up to $200 in AWS Free Tier credits applicable to eligible services including ECR.",
+      "d": "Incorrect. $300 exceeds the credit amount."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How long is the free plan available for new AWS customers after the July 2025 pricing change?",
+    "opts": {
+      "a": "3 months",
+      "b": "6 months",
+      "c": "12 months",
+      "d": "24 months"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The free plan lasts longer than 3 months.",
+      "b": "Correct. The free plan is available for 6 months after account creation.",
+      "c": "Incorrect. 12 months is the total credit usage window, not the free plan duration.",
+      "d": "Incorrect. 24 months exceeds the free plan period."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Within how many months must all Free Tier credits be used?",
+    "opts": {
+      "a": "6 months",
+      "b": "12 months",
+      "c": "18 months",
+      "d": "24 months"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Credits last longer than 6 months.",
+      "b": "Correct. All Free Tier credits must be used within 12 months of account creation.",
+      "c": "Incorrect. 18 months exceeds the credit validity period.",
+      "d": "Incorrect. 24 months is beyond the allowed timeframe."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What encryption does Amazon ECR use for images at rest?",
+    "opts": {
+      "a": "No encryption at rest",
+      "b": "Amazon S3 server-side encryption or AWS KMS",
+      "c": "Client-side encryption only",
+      "d": "AES-128 encryption"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ECR encrypts all images at rest.",
+      "b": "Correct. ECR images are encrypted at rest using Amazon S3 server-side encryption or Amazon KMS.",
+      "c": "Incorrect. Encryption is server-side, not client-side only.",
+      "d": "Incorrect. ECR uses S3 SSE or KMS, not standalone AES-128."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What protocol do all Amazon ECR data transfers use?",
+    "opts": {
+      "a": "HTTP",
+      "b": "HTTPS",
+      "c": "SSH",
+      "d": "FTP"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. HTTP is not secure and not used by ECR.",
+      "b": "Correct. All transfers to and from Amazon ECR use HTTPS.",
+      "c": "Incorrect. SSH is not used for ECR transfers.",
+      "d": "Incorrect. FTP is not used by ECR."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What service does Amazon ECR enhanced scanning integrate with for vulnerability detection?",
+    "opts": {
+      "a": "AWS GuardDuty",
+      "b": "Amazon Inspector",
+      "c": "AWS Security Hub",
+      "d": "Amazon Macie"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. GuardDuty is for threat detection in accounts, not container scanning.",
+      "b": "Correct. Amazon ECR enhanced scanning integrates with Amazon Inspector to provide automated, continual scanning of repositories for vulnerabilities.",
+      "c": "Incorrect. Security Hub aggregates findings but doesn't perform scanning.",
+      "d": "Incorrect. Macie is for sensitive data discovery in S3."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What types of vulnerabilities does Amazon ECR enhanced scanning detect?",
+    "opts": {
+      "a": "Operating system vulnerabilities only",
+      "b": "Programming language package vulnerabilities only",
+      "c": "Both operating system and programming language package vulnerabilities",
+      "d": "Network vulnerabilities only"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Enhanced scanning covers more than just OS vulnerabilities.",
+      "b": "Incorrect. It covers more than just language packages.",
+      "c": "Correct. Amazon ECR enhanced scanning detects both operating system and programming language package vulnerabilities.",
+      "d": "Incorrect. Network vulnerabilities are not part of ECR scanning."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Is there an additional cost from Amazon ECR for using enhanced scanning?",
+    "opts": {
+      "a": "Yes, $0.01 per scan",
+      "b": "Yes, $0.10 per image",
+      "c": "No additional cost from ECR, but Amazon Inspector charges apply",
+      "d": "Completely free with no charges"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. ECR doesn't charge per scan.",
+      "b": "Incorrect. ECR doesn't charge per image for scanning.",
+      "c": "Correct. There is no additional cost from Amazon ECR for enhanced scanning, however there is a cost from Amazon Inspector to scan your images.",
+      "d": "Incorrect. While ECR doesn't charge, Amazon Inspector does."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What scanning modes does Amazon ECR support?",
+    "opts": {
+      "a": "Manual scanning only",
+      "b": "Scan-on-push and continuous scanning",
+      "c": "Scheduled weekly scans only",
+      "d": "On-demand CLI scans only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ECR supports automated scanning modes.",
+      "b": "Correct. Amazon ECR supports scan-on-push and continuous (automatic) scanning for container images.",
+      "c": "Incorrect. Scanning is not limited to weekly schedules.",
+      "d": "Incorrect. ECR supports automated scanning, not just CLI-based."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new capability does Amazon ECR enhanced scanning provide regarding running containers?",
+    "opts": {
+      "a": "It can stop vulnerable containers automatically",
+      "b": "It shows how images are used on EKS and ECS, when last used, and how many clusters use each image",
+      "c": "It patches vulnerabilities automatically",
+      "d": "It rebuilds images with updated packages"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ECR doesn't stop containers automatically.",
+      "b": "Correct. ECR enhanced scanning maps images to running containers, showing when images were last used and how many clusters use each image, helping prioritize vulnerability remediation.",
+      "c": "Incorrect. ECR doesn't auto-patch vulnerabilities.",
+      "d": "Incorrect. ECR doesn't rebuild images automatically."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In which AWS regions is Amazon EKS version 1.36 available?",
+    "opts": {
+      "a": "Only US regions",
+      "b": "Only commercial regions",
+      "c": "All AWS regions where EKS is available, including GovCloud (US)",
+      "d": "Only regions with 3 or more Availability Zones"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. EKS 1.36 is available globally, not just US regions.",
+      "b": "Incorrect. It also includes GovCloud regions.",
+      "c": "Correct. EKS supports Kubernetes version 1.36 in all AWS Regions where EKS is available, including the AWS GovCloud (US) Regions.",
+      "d": "Incorrect. The availability is not based on AZ count."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default number of VPCs per Region (which can limit EKS clusters)?",
+    "opts": {
+      "a": "2",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 2.",
+      "b": "Correct. The default quota for VPCs per Region is 5, which can limit the number of EKS clusters per account.",
+      "c": "Incorrect. 10 exceeds the default quota.",
+      "d": "Incorrect. 20 is far above the default."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default limit for security groups per network interface in a VPC?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 3.",
+      "b": "Correct. The default limit for security groups per network interface is 5.",
+      "c": "Incorrect. 10 exceeds the default limit.",
+      "d": "Incorrect. 15 is far above the default."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default limit for network interfaces per Region?",
+    "opts": {
+      "a": "1,000",
+      "b": "5,000",
+      "c": "10,000",
+      "d": "50,000"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 1,000.",
+      "b": "Correct. The default limit for network interfaces per Region is 5,000, which can limit the number of EKS worker nodes.",
+      "c": "Incorrect. 10,000 exceeds the default limit.",
+      "d": "Incorrect. 50,000 is far above the default."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default limit for inbound or outbound rules per security group?",
+    "opts": {
+      "a": "20",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 20.",
+      "b": "Correct. The default limit for inbound or outbound rules per security group is 50.",
+      "c": "Incorrect. 100 exceeds the default limit.",
+      "d": "Incorrect. 200 is far above the default."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the Network Address Usage quota per VPC?",
+    "opts": {
+      "a": "16,000",
+      "b": "32,000",
+      "c": "64,000",
+      "d": "128,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The quota is higher than 16,000.",
+      "b": "Incorrect. 32,000 is below the actual quota.",
+      "c": "Correct. The Network Address Usage quota per VPC is 64,000.",
+      "d": "Incorrect. 128,000 exceeds the actual quota."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default limit for active VPC peering connections per VPC?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "100",
+      "d": "125"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The limit is higher than 25.",
+      "b": "Correct. The default limit for active VPC peering connections per VPC is 50.",
+      "c": "Incorrect. 100 exceeds the default limit.",
+      "d": "Incorrect. 125 is above the default limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default routes per route table quota?",
+    "opts": {
+      "a": "25",
+      "b": "50",
+      "c": "100",
+      "d": "200"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The quota is higher than 25.",
+      "b": "Correct. The default quota for routes per route table is 50.",
+      "c": "Incorrect. 100 exceeds the default quota.",
+      "d": "Incorrect. 200 is far above the default."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company is running ECS tasks on Fargate and needs to scale up quickly during peak hours. In us-east-1, what is the maximum rate at which new Fargate tasks can be launched by a service?",
+    "opts": {
+      "a": "100 tasks per minute",
+      "b": "250 tasks per minute",
+      "c": "500 tasks per minute",
+      "d": "1,000 tasks per minute"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The rate is higher in us-east-1.",
+      "b": "Incorrect. 250 is below the actual rate for major regions.",
+      "c": "Correct. In us-east-1 and other major regions, the rate of tasks launched by an ECS service on Fargate is 500.",
+      "d": "Incorrect. 1,000 exceeds the actual rate limit."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team upgraded their EKS cluster to Kubernetes 1.36 but discovered application compatibility issues. They want to revert. What should they do?",
+    "opts": {
+      "a": "Delete the cluster and recreate it with the old version",
+      "b": "Use the EKS Kubernetes version rollback feature within 7 days of the upgrade",
+      "c": "Submit an AWS support ticket to downgrade",
+      "d": "Wait for the cluster to auto-downgrade"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Deleting and recreating is disruptive and unnecessary.",
+      "b": "Correct. Amazon EKS now supports Kubernetes version rollback, allowing you to revert to the previous minor version within 7 days if issues arise after an upgrade.",
+      "c": "Incorrect. AWS support tickets are not needed; the feature is self-service.",
+      "d": "Incorrect. Clusters don't auto-downgrade."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer wants to define an ECS task with 12 containers for their microservice architecture. What will happen?",
+    "opts": {
+      "a": "The task definition will be created successfully",
+      "b": "The task definition will fail because the maximum is 10 containers per task definition",
+      "c": "Only the first 10 containers will be registered",
+      "d": "AWS will automatically split it into two task definitions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. 12 containers exceeds the maximum limit.",
+      "b": "Correct. The maximum number of containers per task definition is 10, so defining 12 will fail.",
+      "c": "Incorrect. ECS doesn't partially register task definitions.",
+      "d": "Incorrect. ECS doesn't automatically split task definitions."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to scan their container images for vulnerabilities continuously without additional cost from ECR. Is this possible?",
+    "opts": {
+      "a": "No, ECR charges for all scanning",
+      "b": "Yes, ECR enhanced scanning has no additional ECR cost, but Amazon Inspector charges apply",
+      "c": "Yes, it is completely free including Inspector",
+      "d": "Only basic scanning is available for free"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. ECR doesn't charge for the scanning feature itself.",
+      "b": "Correct. There is no additional cost from Amazon ECR for enhanced scanning; however, Amazon Inspector charges apply for the vulnerability assessment.",
+      "c": "Incorrect. Amazon Inspector does charge for scanning.",
+      "d": "Incorrect. Both basic and enhanced scanning are available; enhanced has Inspector costs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to pull container images from ECR to their ECS service in the same region. Will they incur data transfer charges?",
+    "opts": {
+      "a": "Yes, standard data transfer rates apply",
+      "b": "Yes, but at a reduced rate",
+      "c": "No, data transfer between ECR and ECS in the same region is free",
+      "d": "Free only for the first 1 GB per month"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Same-region transfers to compute services are free.",
+      "b": "Incorrect. There is no reduced rate—it's completely free.",
+      "c": "Correct. Data transferred between ECR and AWS compute services (ECS, EKS, Fargate, Lambda, App Runner) in the same Region is free.",
+      "d": "Incorrect. It's free regardless of volume."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team needs their ECS service discovery-enabled service to scale beyond 1,000 tasks. What should they do?",
+    "opts": {
+      "a": "Request a service quota increase for Cloud Map",
+      "b": "Split the workload across multiple services, as the 1,000 task limit per service with Cloud Map is a hard limit",
+      "c": "Disable service discovery to remove the limit",
+      "d": "Use a different region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The 1,000 task limit with Cloud Map is a hard limit and cannot be increased.",
+      "b": "Correct. The 1,000 tasks per service limit with Cloud Map-based service discovery is a hard limit. The recommended strategy is to shard workloads across multiple services.",
+      "c": "Incorrect. Disabling service discovery removes the limit but also removes the discovery capability.",
+      "d": "Incorrect. The limit applies in all regions."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A security team wants to prioritize vulnerability remediation for container images. They need to know which images are actively running in production. Which AWS feature helps with this?",
+    "opts": {
+      "a": "AWS CloudTrail image access logs",
+      "b": "Amazon ECR enhanced scanning that maps images to running containers on EKS and ECS",
+      "c": "Amazon CloudWatch container metrics",
+      "d": "AWS Config resource tracking"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudTrail logs API calls but doesn't map images to running containers.",
+      "b": "Correct. Amazon ECR enhanced scanning shows how images are used on EKS and ECS, when they were last used, and how many clusters use each image, helping prioritize remediation for actively used images.",
+      "c": "Incorrect. CloudWatch metrics don't track image vulnerability mapping.",
+      "d": "Incorrect. AWS Config tracks resource configuration, not image-to-container mapping."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company is hitting the network interfaces per Region quota when scaling their EKS worker nodes. What is the default limit and what should they do?",
+    "opts": {
+      "a": "Default is 1,000; request quota increase",
+      "b": "Default is 5,000; request quota increase through Service Quotas",
+      "c": "Default is 10,000; cannot be increased",
+      "d": "Default is 5,000; move to another region"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is 5,000, not 1,000.",
+      "b": "Correct. The default network interfaces per Region is 5,000. This can limit EKS worker nodes and can be increased via Service Quotas.",
+      "c": "Incorrect. The limit can be increased.",
+      "d": "Incorrect. Moving regions is unnecessary when you can request a quota increase."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which AMI types does Amazon EKS provide support for during Extended Support?",
+    "opts": {
+      "a": "Amazon Linux only",
+      "b": "Amazon Linux, Bottlerocket, and Windows",
+      "c": "Ubuntu and Debian",
+      "d": "Red Hat Enterprise Linux"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. EKS supports more than just Amazon Linux.",
+      "b": "Correct. During Extended Support, Amazon EKS provides support for AWS-published EKS optimized AMIs for Amazon Linux, Bottlerocket, and Windows.",
+      "c": "Incorrect. Ubuntu and Debian are not the officially published EKS optimized AMIs.",
+      "d": "Incorrect. RHEL is not an AWS-published EKS optimized AMI."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What components does Amazon EKS continue to patch during Extended Support?",
+    "opts": {
+      "a": "Only the Kubernetes control plane",
+      "b": "Control plane, Amazon VPC CNI, kube-proxy, CoreDNS, and AWS-published AMIs",
+      "c": "Only worker node operating systems",
+      "d": "Only third-party add-ons"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Extended Support covers more than just the control plane.",
+      "b": "Correct. During Extended Support, EKS patches the Kubernetes control plane, Amazon VPC CNI, kube-proxy, CoreDNS add-ons, and AWS-published EKS optimized AMIs and Fargate nodes.",
+      "c": "Incorrect. Worker node OS patches are included but not the only component.",
+      "d": "Incorrect. Third-party add-ons are not patched by AWS."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to enable enhanced scanning in Amazon ECR. Where do they configure this?",
+    "opts": {
+      "a": "In the individual repository settings",
+      "b": "In the Private registry settings under Scanning configuration in the ECR console",
+      "c": "In the Amazon Inspector console only",
+      "d": "Using the AWS CLI only"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Enhanced scanning is configured at the registry level.",
+      "b": "Correct. Enhanced scanning is configured in the ECR console under Private registry → Settings → Scanning configuration, where you select Enhanced scanning.",
+      "c": "Incorrect. Configuration is done through the ECR console (Inspector is integrated automatically).",
+      "d": "Incorrect. It can be configured via both the console and CLI."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When Enhanced scanning is selected in ECR, what is the default scanning behavior?",
+    "opts": {
+      "a": "Only newly pushed images are scanned once",
+      "b": "All repositories are continuously scanned by default",
+      "c": "No repositories are scanned until manually configured",
+      "d": "Only tagged images are scanned"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is continuous scanning for all repos.",
+      "b": "Correct. By default, when Enhanced scanning is selected, all repositories are continuously scanned.",
+      "c": "Incorrect. The default includes all repositories.",
+      "d": "Incorrect. Both tagged and untagged images are scanned."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default number of IPv4 CIDR blocks per VPC?",
+    "opts": {
+      "a": "2",
+      "b": "5",
+      "c": "10",
+      "d": "15"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 2.",
+      "b": "Correct. The default limit for IPv4 CIDR blocks per VPC is 5, which can limit the number of EKS worker nodes.",
+      "c": "Incorrect. 10 exceeds the default.",
+      "d": "Incorrect. 15 is above the default limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default Internet Gateways per Region quota?",
+    "opts": {
+      "a": "3",
+      "b": "5",
+      "c": "10",
+      "d": "20"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The default is higher than 3.",
+      "b": "Correct. The default limit for Internet Gateways per Region is 5, which can limit the number of clusters per account.",
+      "c": "Incorrect. 10 exceeds the default quota.",
+      "d": "Incorrect. 20 is far above the default."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to run an EKS cluster but is getting errors about quota limits when creating node groups. What should they check first?",
+    "opts": {
+      "a": "Check EKS-specific quotas only",
+      "b": "Check related service quotas including EC2 instance limits, VPC limits, and EBS quotas that can affect EKS node group creation",
+      "c": "Only check IAM permissions",
+      "d": "Restart the EKS cluster"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Node group issues often stem from related service quotas, not just EKS.",
+      "b": "Correct. EKS node group creation depends on multiple service quotas including EC2 On-Demand/Spot instance limits, VPC quotas, EBS quotas, and more. Request quota increases through Service Quotas.",
+      "c": "Incorrect. While IAM matters, quota issues are the most common cause.",
+      "d": "Incorrect. Restarting doesn't resolve quota issues."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default EBS Snapshots per Region quota?",
+    "opts": {
+      "a": "10,000",
+      "b": "50,000",
+      "c": "100,000",
+      "d": "500,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The quota is higher than 10,000.",
+      "b": "Incorrect. 50,000 is below the actual quota.",
+      "c": "Correct. The default EBS Snapshots per Region quota is 100,000, which can limit backup strategies for stateful workloads.",
+      "d": "Incorrect. 500,000 exceeds the default quota."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the default Secrets Manager secrets per Region quota?",
+    "opts": {
+      "a": "10,000",
+      "b": "100,000",
+      "c": "500,000",
+      "d": "1,000,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The quota is much higher than 10,000.",
+      "b": "Incorrect. 100,000 is below the actual quota.",
+      "c": "Correct. The Secrets Manager secrets per Region quota is 500,000, which can limit workloads in EKS clusters that rely on secrets.",
+      "d": "Incorrect. 1,000,000 exceeds the actual quota."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company is deciding between ECR basic scanning and enhanced scanning. What is the key difference?",
+    "opts": {
+      "a": "Basic scanning is faster",
+      "b": "Enhanced scanning provides continuous scanning with OS and language package vulnerability detection via Amazon Inspector, while basic scanning checks only OS vulnerabilities on push",
+      "c": "Basic scanning covers more vulnerability types",
+      "d": "Enhanced scanning only works with EKS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Speed isn't the primary differentiator.",
+      "b": "Correct. Enhanced scanning integrates with Amazon Inspector for continuous, automated scanning of both OS and programming language vulnerabilities. Basic scanning only checks OS vulnerabilities when triggered.",
+      "c": "Incorrect. Enhanced scanning covers more vulnerability types.",
+      "d": "Incorrect. Enhanced scanning works with any ECR repository regardless of target platform."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A startup wants to host public container images on ECR Public. What storage do they get for free?",
+    "opts": {
+      "a": "500 MB per month",
+      "b": "10 GB per month",
+      "c": "50 GB per month, always free",
+      "d": "100 GB per month for 12 months"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 500 MB is the private repository free tier.",
+      "b": "Incorrect. 10 GB is below the public repo free tier.",
+      "c": "Correct. ECR Public repositories get 50 GB of storage per month, always free (not limited to 12 months).",
+      "d": "Incorrect. 100 GB is not the correct amount, and it's always free, not time-limited."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What minimum storage period does the Amazon ECR Archive tier require?",
+    "opts": {
+      "a": "30 days",
+      "b": "60 days",
+      "c": "90 days",
+      "d": "180 days"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The minimum is longer than 30 days.",
+      "b": "Incorrect. 60 days is below the minimum.",
+      "c": "Correct. The ECR Archive tier offers lower rates with a 90-day minimum storage period and retrieval fees.",
+      "d": "Incorrect. 180 days exceeds the minimum requirement."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An organization is planning their EKS cluster upgrade strategy. Their cluster is running Kubernetes 1.35 (released January 2026). When does standard support end?",
+    "opts": {
+      "a": "January 2027",
+      "b": "March 2027",
+      "c": "July 2027",
+      "d": "January 2028"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Standard support lasts 14 months, not 12.",
+      "b": "Incorrect. March 2027 is not the correct end date.",
+      "c": "Correct. Version 1.35 was released on EKS in January 2026. Standard support lasts 14 months, ending approximately July 2027 (the context shows July 23, 2025 for earlier versions following the 14-month pattern).",
+      "d": "Incorrect. January 2028 would be approximately when extended support ends."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which tools can be used to create new EKS clusters with Kubernetes 1.36?",
+    "opts": {
+      "a": "Only the AWS Console",
+      "b": "EKS console, eksctl CLI, or infrastructure-as-code tools",
+      "c": "Only eksctl",
+      "d": "Only CloudFormation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple tools are supported.",
+      "b": "Correct. You can create new EKS clusters using version 1.36 via the EKS console, the eksctl command line interface, or through infrastructure-as-code tools.",
+      "c": "Incorrect. eksctl is one of several options.",
+      "d": "Incorrect. CloudFormation is one IaC option but not the only tool."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team is configuring ECR enhanced scanning and wants to limit which repositories are continuously scanned. Is this possible?",
+    "opts": {
+      "a": "No, all repositories must be scanned",
+      "b": "Yes, you can set scan filters to choose which repositories are configured for automatic continuous scanning and which use scan on push",
+      "c": "Only public repositories can be filtered",
+      "d": "Filtering requires a separate Amazon Inspector configuration"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. You can configure which repositories are scanned.",
+      "b": "Correct. With enhanced scanning, you can choose which repositories are configured for automatic, continuous scanning and which are configured for scan on push by setting scan filters.",
+      "c": "Incorrect. Filtering applies to private repositories.",
+      "d": "Incorrect. Filtering is configured directly in ECR."
+    }
+  }
+]

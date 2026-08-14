@@ -1,0 +1,1039 @@
+[
+  {
+    "type": "factual",
+    "q": "What is the default throttle limit for API Gateway and how does it compare to Lambda's default concurrency?",
+    "opts": {
+      "a": "API Gateway: 5,000 RPS, Lambda: 500 concurrent executions",
+      "b": "API Gateway: 10,000 RPS, Lambda: 1,000 concurrent executions",
+      "c": "API Gateway: 10,000 RPS, Lambda: 10,000 concurrent executions",
+      "d": "API Gateway: 1,000 RPS, Lambda: 1,000 concurrent executions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not the correct default values.",
+      "b": "Correct. API Gateway has a default throttle limit of 10,000 requests per second, whereas Lambda has a default concurrency limit of 1,000. This mismatch can cause throttling issues [1].",
+      "c": "Incorrect. Lambda's default concurrency is 1,000, not 10,000.",
+      "d": "Incorrect. API Gateway's default is 10,000, not 1,000."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team deployed an application using API Gateway and Lambda. Under heavy load, Lambda functions start getting throttled while API Gateway continues accepting requests. What causes this issue?",
+    "opts": {
+      "a": "API Gateway timeout is too short",
+      "b": "Mismatch between API Gateway's 10,000 RPS throttle limit and Lambda's 1,000 concurrent execution default",
+      "c": "Lambda memory is insufficient",
+      "d": "API Gateway payload size is too large"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Timeout doesn't cause throttling.",
+      "b": "Correct. API Gateway's default throttle limit of 10,000 RPS can overwhelm Lambda's default 1,000 concurrent execution limit, causing throttling [1].",
+      "c": "Incorrect. Memory doesn't affect concurrency limits.",
+      "d": "Incorrect. Payload size is unrelated to throttling."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new serverless compute primitive did AWS introduce on June 22, 2026?",
+    "opts": {
+      "a": "Lambda Containers",
+      "b": "Lambda MicroVMs",
+      "c": "Lambda Pods",
+      "d": "Lambda Instances"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda Containers is not the new primitive.",
+      "b": "Correct. AWS introduced Lambda MicroVMs on June 22, 2026 — a serverless compute primitive providing VM-level isolation, near-instant launch and resume speeds, and state preservation for executing user or AI-generated code [13].",
+      "c": "Incorrect. Lambda Pods is not a real AWS service.",
+      "d": "Incorrect. Lambda Instances is not the correct name."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What three capabilities do Lambda MicroVMs provide that were previously difficult to achieve simultaneously?",
+    "opts": {
+      "a": "Cost, speed, and durability",
+      "b": "Isolation, speed, and state preservation",
+      "c": "Scaling, monitoring, and logging",
+      "d": "Encryption, networking, and storage"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not the three capabilities highlighted.",
+      "b": "Correct. Lambda MicroVMs provide VM-level isolation, near-instant launch/resume speeds, and state preservation — previously you had to choose between these [13].",
+      "c": "Incorrect. These are general capabilities, not specific to MicroVMs.",
+      "d": "Incorrect. These are not the distinguishing features of MicroVMs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company wants to give each user or AI job their own secure compute environment without managing virtualization infrastructure. Which 2026 AWS service should they use?",
+    "opts": {
+      "a": "AWS Fargate",
+      "b": "Lambda MicroVMs",
+      "c": "Amazon EC2 Dedicated Hosts",
+      "d": "AWS Outposts"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Fargate is for containers, not per-user isolated VMs.",
+      "b": "Correct. Lambda MicroVMs allow you to give each user or job their own compute environment to securely run code without managing virtualization infrastructure [13].",
+      "c": "Incorrect. Dedicated Hosts require manual management.",
+      "d": "Incorrect. Outposts are for on-premises AWS infrastructure."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "As of June 2026, what is the maximum vCPU configuration supported by AWS Fargate?",
+    "opts": {
+      "a": "8 vCPU",
+      "b": "16 vCPU",
+      "c": "32 vCPU",
+      "d": "64 vCPU"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. 8 vCPU was a previous maximum.",
+      "b": "Incorrect. 16 vCPU was a previous maximum.",
+      "c": "Correct. As of June 5, 2026, Amazon ECS with AWS Fargate now supports 32vCPU compute configurations [12].",
+      "d": "Incorrect. 64 vCPU is not supported."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What memory configurations are available with the new Fargate 32vCPU tasks?",
+    "opts": {
+      "a": "16 GiB, 32 GiB, or 64 GiB",
+      "b": "60 GiB, 120 GiB, or 244 GiB",
+      "c": "64 GiB, 128 GiB, or 256 GiB",
+      "d": "30 GiB, 60 GiB, or 120 GiB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These are not the available configurations.",
+      "b": "Correct. AWS Fargate 32vCPU tasks are available with 60 GiB, 120 GiB, or 244 GiB of memory, for both x86 and ARM-based workloads on Linux [12].",
+      "c": "Incorrect. These are not the correct memory configurations.",
+      "d": "Incorrect. These are not the available configurations."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A data processing team needs to run a compute-intensive AI inference workload in a serverless container environment. The workload requires 32 vCPUs and 244 GiB of memory. Which service supports this as of June 2026?",
+    "opts": {
+      "a": "AWS Lambda with maximum memory",
+      "b": "Amazon ECS with AWS Fargate 32vCPU configuration",
+      "c": "AWS Batch with EC2 launch type",
+      "d": "Amazon EKS with managed node groups"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda maximum memory is 10 GB, far below 244 GiB.",
+      "b": "Correct. Fargate now supports 32vCPU with up to 244 GiB memory, designed for AI inference, large-scale data processing, and compute-intensive workloads [12].",
+      "c": "Incorrect. Batch with EC2 is not serverless.",
+      "d": "Incorrect. Managed node groups are not fully serverless."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What does the new Fargate 32vCPU support in terms of processor architectures?",
+    "opts": {
+      "a": "x86 only",
+      "b": "ARM only",
+      "c": "Both x86-based and ARM-based workloads on Linux",
+      "d": "x86 and Windows only"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Both architectures are supported.",
+      "b": "Incorrect. Both architectures are supported.",
+      "c": "Correct. Fargate 32vCPU tasks support both x86-based and ARM-based workloads on Linux [12].",
+      "d": "Incorrect. Windows support is not mentioned for 32vCPU tasks."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "On March 26, 2026, AWS Step Functions expanded SDK integrations. How many new API actions were added?",
+    "opts": {
+      "a": "Over 200",
+      "b": "Over 500",
+      "c": "Over 1,100",
+      "d": "Over 2,000"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Far more API actions were added.",
+      "b": "Incorrect. The number is higher than 500.",
+      "c": "Correct. Step Functions added over 1,100 new API actions across 28 additional services [5].",
+      "d": "Incorrect. 2,000 exceeds the announced number."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Which two notable services were included in the March 2026 Step Functions SDK integration expansion?",
+    "opts": {
+      "a": "Amazon RDS and Amazon ElastiCache",
+      "b": "Amazon Bedrock AgentCore and Amazon S3 Vectors",
+      "c": "Amazon DynamoDB and Amazon SQS",
+      "d": "AWS Lambda and Amazon API Gateway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. RDS and ElastiCache were not highlighted.",
+      "b": "Correct. The expansion includes Amazon Bedrock AgentCore and Amazon S3 Vectors among the 28 new service integrations [5].",
+      "c": "Incorrect. DynamoDB and SQS were already integrated.",
+      "d": "Incorrect. Lambda and API Gateway were already integrated."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What capability does the Amazon Bedrock AgentCore integration provide within Step Functions?",
+    "opts": {
+      "a": "Training machine learning models",
+      "b": "Invoking AI agent runtimes with built-in retries, running multiple agents in parallel, and automating agent provisioning workflows",
+      "c": "Creating vector databases",
+      "d": "Fine-tuning foundation models"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Model training is not the primary capability.",
+      "b": "Correct. The AgentCore integration allows invoking AI agent runtimes with built-in retries, running multiple agents in parallel using Map states, and automating agent provisioning workflows [5].",
+      "c": "Incorrect. Vector databases are provided by S3 Vectors.",
+      "d": "Incorrect. Fine-tuning is not the described capability."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "On June 3, 2026, AWS Step Functions added what new feature?",
+    "opts": {
+      "a": "Distributed Map state v2",
+      "b": "AgentCore-powered agentic reasoning step",
+      "c": "Variables and JSONata v2",
+      "d": "New metrics dashboard v2"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Distributed Map v2 was not announced.",
+      "b": "Correct. On June 3, 2026, Step Functions added an AgentCore-powered agentic reasoning step, allowing AI agent reasoning to be embedded directly inside a workflow as a native step type [4].",
+      "c": "Incorrect. Variables and JSONata were from November 2024.",
+      "d": "Incorrect. Metrics dashboard was from October 2025."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team building an AI-powered workflow needs deterministic steps (branching, retries, timeouts) combined with flexible AI reasoning for certain decisions. Which Step Functions feature launched in June 2026 addresses this?",
+    "opts": {
+      "a": "Distributed Map state",
+      "b": "AgentCore-powered agentic reasoning step",
+      "c": "Express workflows",
+      "d": "TestState API"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Distributed Map is for parallel data processing.",
+      "b": "Correct. The agentic reasoning step bridges structured orchestration (branching, retries, timeouts, parallel execution) with autonomous agent behavior — the workflow handles deterministic parts while the agentic step handles flexible reasoning [7].",
+      "c": "Incorrect. Express workflows are for high-volume, short-duration workloads.",
+      "d": "Incorrect. TestState API is for testing individual states."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How many AWS services can AWS Step Functions now orchestrate as of 2026?",
+    "opts": {
+      "a": "Over 100",
+      "b": "Over 150",
+      "c": "Over 220",
+      "d": "Over 300"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Step Functions orchestrates more than 100 services.",
+      "b": "Incorrect. The number exceeds 150.",
+      "c": "Correct. AWS Step Functions is capable of orchestrating over 220 AWS services [5].",
+      "d": "Incorrect. 300 exceeds the current number."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What happened on July 22, 2026 with AWS Secrets Manager?",
+    "opts": {
+      "a": "Secrets Manager started supporting multi-region secrets",
+      "b": "Secrets Manager now automatically publishes events to EventBridge whenever secret values change",
+      "c": "Secrets Manager added support for binary secrets",
+      "d": "Secrets Manager integrated with AWS KMS"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multi-region secrets was not the July 2026 announcement.",
+      "b": "Correct. AWS Secrets Manager now automatically publishes events to Amazon EventBridge whenever your secret values change, enabling event-driven workflows that respond in real time to secret updates [8].",
+      "c": "Incorrect. Binary secret support was not the announcement.",
+      "d": "Incorrect. KMS integration existed previously."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "Before July 2026, a team wanted to detect when a secret was rotated. What complex approach was required?",
+    "opts": {
+      "a": "Setting up SNS notifications directly from Secrets Manager",
+      "b": "Relying on CloudTrail events parsed into EventBridge and matching multiple API events (rotation success, PutSecretValue, UpdateSecretValue)",
+      "c": "Using CloudWatch Logs Insights queries",
+      "d": "Polling the Secrets Manager DescribeSecret API"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Direct SNS notifications were not available for value changes.",
+      "b": "Correct. Previously, you had to rely on AWS CloudTrail events parsed into EventBridge and match multiple API events such as rotation success, PutSecretValue, and UpdateSecretValue [8].",
+      "c": "Incorrect. CloudWatch Logs Insights was not the recommended approach.",
+      "d": "Incorrect. Polling was inefficient and not the recommended approach."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "After the July 2026 Secrets Manager update, a team wants to automatically refresh cached credentials in their application when a secret rotates. What architecture should they use?",
+    "opts": {
+      "a": "CloudTrail → Manual parsing → Lambda",
+      "b": "Secrets Manager → EventBridge rule → Lambda/SNS/SQS/Step Functions",
+      "c": "Secrets Manager → CloudWatch Alarm → Lambda",
+      "d": "Secrets Manager → Direct Lambda invocation"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. This was the old complex approach.",
+      "b": "Correct. Secrets Manager now publishes events directly into EventBridge, and you can use EventBridge rules to route notifications to Lambda, SNS, SQS, or Step Functions to refresh cached credentials [8].",
+      "c": "Incorrect. CloudWatch Alarms are not the correct mechanism.",
+      "d": "Incorrect. Secrets Manager doesn't directly invoke Lambda for this."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What are the typical use cases enabled by Secrets Manager's new EventBridge integration?",
+    "opts": {
+      "a": "Encrypting secrets and managing IAM policies",
+      "b": "Proactively refreshing cached credentials, restarting dependent services, and updating compliance reports for secret rotation",
+      "c": "Creating new secrets automatically and deleting old ones",
+      "d": "Rotating secrets every hour"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Encryption and IAM are separate features.",
+      "b": "Correct. The integration enables proactively refreshing cached credentials, restarting dependent services, and updating compliance reports for secret rotation [8].",
+      "c": "Incorrect. These are not the described use cases.",
+      "d": "Incorrect. Hourly rotation is not the use case."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Amazon MWAA Serverless announced EventBridge support on June 11, 2026. What specific events does it publish?",
+    "opts": {
+      "a": "DAG creation and deletion events",
+      "b": "Workflow and task state change events",
+      "c": "Resource utilization events",
+      "d": "Login and authentication events"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. DAG lifecycle events were not specifically mentioned.",
+      "b": "Correct. MWAA Serverless now supports workflow and task state change events to Amazon EventBridge [11].",
+      "c": "Incorrect. Resource utilization events were not announced.",
+      "d": "Incorrect. Authentication events were not the focus."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Who is the target audience for the MWAA Serverless EventBridge integration?",
+    "opts": {
+      "a": "Security teams and compliance officers",
+      "b": "Data engineering and platform teams",
+      "c": "Frontend developers",
+      "d": "Database administrators"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Security teams are not the primary audience.",
+      "b": "Correct. The feature enables data engineering and platform teams to build event-driven automation for their Apache Airflow workflows [11].",
+      "c": "Incorrect. Frontend developers are not the target.",
+      "d": "Incorrect. DBAs are not the primary audience."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the next generation of Amazon OpenSearch Serverless designed for?",
+    "opts": {
+      "a": "Traditional relational database workloads",
+      "b": "Customers building agents",
+      "c": "Video streaming applications",
+      "d": "IoT data ingestion"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. OpenSearch is not for relational workloads.",
+      "b": "Correct. The next generation of Amazon OpenSearch Serverless (GA on May 28, 2026) is designed for customers building agents [10].",
+      "c": "Incorrect. Video streaming is not the primary use case.",
+      "d": "Incorrect. IoT is not the primary target."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "How much faster does the next generation of OpenSearch Serverless auto-scale compared to its predecessor?",
+    "opts": {
+      "a": "5x faster",
+      "b": "10x faster",
+      "c": "20x faster",
+      "d": "50x faster"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. The improvement is greater than 5x.",
+      "b": "Incorrect. The improvement is greater than 10x.",
+      "c": "Correct. The next generation auto-scales 20x faster than its predecessor and provisions resources in seconds [10].",
+      "d": "Incorrect. 50x is greater than the actual improvement."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What cost savings does the next generation of OpenSearch Serverless offer with scale-to-zero and pay-per-usage pricing?",
+    "opts": {
+      "a": "Up to 30%",
+      "b": "Up to 40%",
+      "c": "Up to 60%",
+      "d": "Up to 80%"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Savings are higher than 30%.",
+      "b": "Incorrect. Savings are higher than 40%.",
+      "c": "Correct. Customers can save up to 60% compared to the cost of provisioning with scale-to-zero and pay-per-usage pricing [10].",
+      "d": "Incorrect. 80% exceeds the stated savings."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When was the next generation of Amazon OpenSearch Serverless made generally available?",
+    "opts": {
+      "a": "March 15, 2026",
+      "b": "April 22, 2026",
+      "c": "May 28, 2026",
+      "d": "June 10, 2026"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. March 2026 was for Step Functions updates.",
+      "b": "Incorrect. April 2026 is not the correct date.",
+      "c": "Correct. The next generation of Amazon OpenSearch Serverless became generally available on May 28, 2026 [10].",
+      "d": "Incorrect. June 2026 was for other announcements."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "New AWS accounts have different Lambda quotas than established accounts. What happens with these quotas over time?",
+    "opts": {
+      "a": "They remain permanently reduced",
+      "b": "AWS raises them automatically based on usage",
+      "c": "Users must manually request increases every month",
+      "d": "They increase after 90 days automatically"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. The quotas are not permanently reduced.",
+      "b": "Correct. New AWS accounts have reduced concurrency and memory quotas for Lambda, and AWS raises these quotas automatically based on your usage [1].",
+      "c": "Incorrect. AWS raises them automatically, no manual request needed.",
+      "d": "Incorrect. It's based on usage, not a fixed time period."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A developer on a new AWS account tries to configure a Lambda function with 4096 MB memory but the account only allows up to 3008 MB. What should they do?",
+    "opts": {
+      "a": "It's a bug; contact AWS immediately",
+      "b": "Request a quota increase through Service Quotas or Support, as new accounts have reduced memory quotas",
+      "c": "Create a new AWS account",
+      "d": "Use multiple Lambda functions instead"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. It's not a bug; it's expected behavior for new accounts.",
+      "b": "Correct. New accounts have reduced memory quotas. Users can request increases through Service Quotas or AWS Support. AWS also raises these automatically based on usage [1][2].",
+      "c": "Incorrect. A new account would have the same limitations.",
+      "d": "Incorrect. Multiple functions don't solve the memory per-function limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Lambda API rate limits are applied at what scope?",
+    "opts": {
+      "a": "Per function, per Region",
+      "b": "Per account, per Region",
+      "c": "Per VPC",
+      "d": "Globally across all Regions"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Rate limits are not per function.",
+      "b": "Correct. Lambda API rate limits are per account, per Region [1].",
+      "c": "Incorrect. Rate limits are not per VPC (ENI quotas are per VPC).",
+      "d": "Incorrect. Rate limits are regional, not global."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What retry strategy does AWS recommend for throttled Lambda API requests?",
+    "opts": {
+      "a": "Immediate retry with no delay",
+      "b": "Fixed 5-second delay between retries",
+      "c": "Exponential backoff with jitter",
+      "d": "Linear backoff with 1-second increments"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. Immediate retry can worsen throttling.",
+      "b": "Incorrect. Fixed delay is not the recommended strategy.",
+      "c": "Correct. AWS recommends retrying throttled requests using exponential backoff with jitter [1].",
+      "d": "Incorrect. Linear backoff is not the recommended approach."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Lambda ENI (Elastic Network Interface) quotas apply per what scope?",
+    "opts": {
+      "a": "Per Region",
+      "b": "Per account",
+      "c": "Per VPC, regardless of Region",
+      "d": "Per subnet"
+    },
+    "ans": "c",
+    "exp": {
+      "a": "Incorrect. ENI quotas are not simply per Region.",
+      "b": "Incorrect. ENI quotas are not simply per account.",
+      "c": "Correct. Elastic network interface (ENI) quotas apply per virtual private cloud (VPC), regardless of Region [1].",
+      "d": "Incorrect. ENI quotas are per VPC, not per subnet."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Where can you view current Lambda quotas, request increases, and see current utilization?",
+    "opts": {
+      "a": "AWS Billing Console",
+      "b": "Service Quotas dashboard",
+      "c": "CloudWatch Console",
+      "d": "AWS Trusted Advisor"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Billing Console is for cost management.",
+      "b": "Correct. The Service Quotas dashboard allows you to view service quotas, request quota increases, and view current utilization [1].",
+      "c": "Incorrect. CloudWatch is for monitoring metrics.",
+      "d": "Incorrect. Trusted Advisor provides best practice recommendations."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is Lambda designed for in terms of compute tasks?",
+    "opts": {
+      "a": "Long-running stateful applications",
+      "b": "Short-lived compute tasks that do not retain or rely upon state between invocations",
+      "c": "Persistent web servers",
+      "d": "Database hosting"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda is not designed for long-running stateful applications.",
+      "b": "Correct. Lambda is designed for short-lived compute tasks that do not retain or rely upon state between invocations [1].",
+      "c": "Incorrect. Lambda is not for persistent web servers.",
+      "d": "Incorrect. Lambda is not for hosting databases."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What feature did Amazon EventBridge Scheduler add in the Q1 2026 timeframe?",
+    "opts": {
+      "a": "Support for cron expressions",
+      "b": "619 new SDK API actions as targets, including Lambda Managed Instances operations",
+      "c": "Integration with Step Functions",
+      "d": "Support for rate-based scheduling"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Cron expressions were already supported.",
+      "b": "Correct. Amazon EventBridge Scheduler added 619 new SDK API actions as targets, including Lambda Managed Instances operations, allowing scheduling calls to a broader set of AWS APIs without writing a Lambda function [7].",
+      "c": "Incorrect. Step Functions integration existed before.",
+      "d": "Incorrect. Rate-based scheduling was already available."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team previously wrote Lambda functions to call AWS APIs on a schedule via EventBridge. After the 2026 update, how can they simplify this?",
+    "opts": {
+      "a": "Use Step Functions instead",
+      "b": "Use EventBridge Scheduler's 619 new SDK API action targets directly, without writing a Lambda function",
+      "c": "Use SQS with delayed messages",
+      "d": "Use CloudWatch Events"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Step Functions adds complexity for simple scheduled API calls.",
+      "b": "Correct. EventBridge Scheduler now supports 619 new SDK API actions as targets, meaning you can schedule calls to a broader set of AWS APIs without writing a Lambda function [7].",
+      "c": "Incorrect. SQS with delays is not a scheduling solution.",
+      "d": "Incorrect. CloudWatch Events is being superseded by EventBridge."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What was announced regarding Lambda + S3 workloads in the April-May 2026 timeframe?",
+    "opts": {
+      "a": "S3 event notifications v2",
+      "b": "Amazon S3 Files for modernizing Lambda + S3 workloads",
+      "c": "S3 Intelligent-Tiering for Lambda",
+      "d": "S3 Express One Zone for Lambda"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. S3 event notifications v2 was not announced.",
+      "b": "Correct. AWS announced modernizing Lambda + S3 workloads with Amazon S3 Files [7].",
+      "c": "Incorrect. Intelligent-Tiering for Lambda was not announced.",
+      "d": "Incorrect. S3 Express One Zone for Lambda was not the specific announcement."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new Lambda feature was announced for fault tolerance with AI workloads?",
+    "opts": {
+      "a": "Lambda Reserved Concurrency v2",
+      "b": "AWS Lambda durable functions",
+      "c": "Lambda Auto-Recovery",
+      "d": "Lambda Checkpointing"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Reserved Concurrency v2 was not announced.",
+      "b": "Correct. AWS Lambda durable functions were announced for building fault-tolerant multi-agent AI workflows and reliable voice analytics workflows [7].",
+      "c": "Incorrect. Lambda Auto-Recovery is not a real feature name.",
+      "d": "Incorrect. Lambda Checkpointing is not the announced feature name."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What tool does AWS provide for upgrading Lambda function runtimes at scale?",
+    "opts": {
+      "a": "AWS CodeDeploy",
+      "b": "AWS Transform custom",
+      "c": "AWS Migration Hub",
+      "d": "AWS Application Migration Service"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CodeDeploy is for application deployment.",
+      "b": "Correct. AWS Transform custom is used for automating Lambda runtime upgrades at scale [7].",
+      "c": "Incorrect. Migration Hub is for cloud migrations.",
+      "d": "Incorrect. Application Migration Service is for server migrations."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new Lambda runtimes were announced at AWS re:Invent 2025?",
+    "opts": {
+      "a": "Node.js 20, Python 3.12, Java 21",
+      "b": "Node.js 24, Python 3.14, Java 25",
+      "c": "Node.js 22, Python 3.13, Java 23",
+      "d": "Node.js 26, Python 3.15, Java 27"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. These were earlier runtime releases.",
+      "b": "Correct. At AWS re:Invent 2025, Node.js 24, Python 3.14, and Java 25 runtimes were announced for Lambda [6].",
+      "c": "Incorrect. These were 2024 releases.",
+      "d": "Incorrect. These runtimes don't exist yet."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What did Step Functions add in November 2024 to simplify developer experience?",
+    "opts": {
+      "a": "Distributed Map state enhancements",
+      "b": "Variables and JSONata support",
+      "c": "KMS encryption",
+      "d": "HTTPS endpoints"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Distributed Map enhancements were in other releases.",
+      "b": "Correct. In November 2024, Step Functions simplified developer experience with variables and JSONata [4].",
+      "c": "Incorrect. KMS encryption was added in June 2024.",
+      "d": "Incorrect. HTTPS endpoints were added in November 2023."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did Step Functions add the ability to encrypt workflows, logs, and activities with AWS KMS customer managed keys?",
+    "opts": {
+      "a": "November 2023",
+      "b": "June 2024",
+      "c": "November 2024",
+      "d": "March 2026"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. November 2023 was for HTTPS endpoints and TestState API.",
+      "b": "Correct. In June 2024 (specifically June 25, 2024), Step Functions added encryption with AWS KMS customer managed keys [4].",
+      "c": "Incorrect. November 2024 was for variables and JSONata.",
+      "d": "Incorrect. March 2026 was for 28 new service integrations."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did Step Functions add the Redrive capability for restarting failed executions?",
+    "opts": {
+      "a": "June 2023",
+      "b": "November 2023",
+      "c": "June 2024",
+      "d": "November 2024"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. June 2023 was for versions and aliases.",
+      "b": "Correct. Restarting state machine executions with redrive was released in November 2023 [4].",
+      "c": "Incorrect. June 2024 was for KMS encryption.",
+      "d": "Incorrect. November 2024 was for variables and JSONata."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What IaC export capabilities did Step Functions add in November 2024?",
+    "opts": {
+      "a": "Terraform and Pulumi exports",
+      "b": "AWS SAM templates, CloudFormation templates, and Infrastructure Composer exports",
+      "c": "CDK exports only",
+      "d": "Ansible playbook exports"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Terraform and Pulumi exports were not mentioned.",
+      "b": "Correct. Step Functions added IaC exports to AWS SAM templates, CloudFormation templates, and to Infrastructure Composer [4].",
+      "c": "Incorrect. CDK exports alone were not the announcement.",
+      "d": "Incorrect. Ansible exports were not added."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did Step Functions add the Distributed Map state for large-scale parallel workflows?",
+    "opts": {
+      "a": "June 2022",
+      "b": "December 2022",
+      "c": "June 2023",
+      "d": "November 2023"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. June 2022 is not the correct date.",
+      "b": "Correct. The Distributed Map state for orchestrating large-scale parallel workflows for data processing was released in December 2022 [4].",
+      "c": "Incorrect. June 2023 was for versions and aliases.",
+      "d": "Incorrect. November 2023 was for redrive and HTTPS endpoints."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What is the maximum number of simultaneous readers on a single DynamoDB Streams shard?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "5",
+      "d": "10"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. More than 1 reader is allowed.",
+      "b": "Correct. A maximum of 2 simultaneous processes can read from the same DynamoDB Streams shard at the same time. Exceeding this results in request throttling [15].",
+      "c": "Incorrect. 5 exceeds the limit.",
+      "d": "Incorrect. 10 exceeds the limit."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "For DynamoDB global tables using Streams, what is the recommended number of simultaneous readers to avoid throttling?",
+    "opts": {
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "5"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. For global tables, AWS recommends limiting the number of simultaneous readers to one to avoid request throttling [15].",
+      "b": "Incorrect. While 2 is the maximum, 1 is recommended for global tables.",
+      "c": "Incorrect. 3 exceeds the maximum.",
+      "d": "Incorrect. 5 exceeds the maximum."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team using DynamoDB Global Tables with Streams is experiencing throttling. They have 3 Lambda functions reading from the same shard. What should they do?",
+    "opts": {
+      "a": "Increase the read capacity units",
+      "b": "Reduce to 1 simultaneous reader as recommended for global tables",
+      "c": "Enable DynamoDB Accelerator (DAX)",
+      "d": "Switch to provisioned mode"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Read capacity units don't affect stream reader limits.",
+      "b": "Correct. The maximum is 2 simultaneous readers per shard, and for global tables, AWS recommends limiting to 1 to avoid throttling [15].",
+      "c": "Incorrect. DAX is for read caching, not stream reading.",
+      "d": "Incorrect. Provisioned mode doesn't affect stream reader limits."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What feature does Lambda tenant isolation mode provide when integrated with Event Source Mappings?",
+    "opts": {
+      "a": "Separate VPCs for each tenant",
+      "b": "Integration of Event Source Mappings with tenant isolation capabilities",
+      "c": "Separate AWS accounts for each tenant",
+      "d": "Dedicated hardware for each tenant"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Separate VPCs are not what tenant isolation mode provides.",
+      "b": "Correct. AWS announced integrating Event Source Mappings with AWS Lambda tenant isolation mode for multi-tenant serverless architectures [7].",
+      "c": "Incorrect. Separate accounts are not part of this feature.",
+      "d": "Incorrect. Dedicated hardware is not involved."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "An architect needs to design a multi-Region event-driven failover architecture. Based on 2026 announcements, which services should they combine?",
+    "opts": {
+      "a": "Lambda + CloudFront",
+      "b": "Amazon EventBridge + Route 53",
+      "c": "API Gateway + Global Accelerator",
+      "d": "Step Functions + S3 Cross-Region Replication"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Lambda + CloudFront doesn't provide multi-region failover architecture.",
+      "b": "Correct. AWS published guidance on multi-Region event-driven failover architecture using Amazon EventBridge and Route 53 [7].",
+      "c": "Incorrect. This combination doesn't address event-driven failover.",
+      "d": "Incorrect. This is not the recommended pattern."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did Step Functions add versions and aliases support?",
+    "opts": {
+      "a": "December 2022",
+      "b": "June 2023",
+      "c": "November 2023",
+      "d": "June 2024"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. December 2022 was for Distributed Map state.",
+      "b": "Correct. Step Functions added versions and aliases in June 2023 [4].",
+      "c": "Incorrect. November 2023 was for redrive.",
+      "d": "Incorrect. June 2024 was for KMS encryption."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What Step Functions feature was added in September 2025?",
+    "opts": {
+      "a": "Variables and JSONata",
+      "b": "Expanded data source options including Athena manifests and Parquet files with improved observability for Distributed Map",
+      "c": "28 new service integrations",
+      "d": "AgentCore-powered reasoning step"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Variables and JSONata were November 2024.",
+      "b": "Correct. In September 2025, Step Functions expanded data source options to include Athena manifests and Parquet files, and improved observability for Distributed Map [4].",
+      "c": "Incorrect. 28 integrations were March 2026.",
+      "d": "Incorrect. AgentCore reasoning was June 2026."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What Step Functions feature launched in October 2025?",
+    "opts": {
+      "a": "New metrics dashboard",
+      "b": "Distributed Map state v2",
+      "c": "Express workflow enhancements",
+      "d": "Service integration expansion"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. In October 2025, AWS Step Functions announced a new metrics dashboard [4].",
+      "b": "Incorrect. Distributed Map v2 was not announced.",
+      "c": "Incorrect. Express workflow enhancements were not announced in October 2025.",
+      "d": "Incorrect. Service integration expansion was March 2026."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company manages many Lambda functions across multiple services. They want a centralized view of all quotas and their current utilization. Which AWS service should they use?",
+    "opts": {
+      "a": "AWS CloudTrail",
+      "b": "Service Quotas dashboard",
+      "c": "AWS Cost Explorer",
+      "d": "AWS Trusted Advisor"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. CloudTrail is for API auditing.",
+      "b": "Correct. The Service Quotas dashboard allows viewing quotas, requesting increases, and viewing current utilization across services [1].",
+      "c": "Incorrect. Cost Explorer is for cost analysis.",
+      "d": "Incorrect. Trusted Advisor gives recommendations but isn't the primary quota management tool."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "Quotas from which services can impact Lambda functions indirectly?",
+    "opts": {
+      "a": "Only API Gateway",
+      "b": "IAM, Amazon CloudFront (Lambda@Edge), and Amazon VPC",
+      "c": "Only S3",
+      "d": "Only DynamoDB"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Multiple services affect Lambda.",
+      "b": "Correct. Quotas for IAM, Amazon CloudFront (Lambda@Edge), and Amazon VPC can impact Lambda functions [1].",
+      "c": "Incorrect. S3 is not the only service that affects Lambda.",
+      "d": "Incorrect. DynamoDB is not the only service that affects Lambda."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A company's Lambda functions in a VPC are failing to create new ENIs. The functions work in other VPCs. What is likely the issue?",
+    "opts": {
+      "a": "Lambda concurrency limit reached",
+      "b": "ENI quota exhausted for that specific VPC",
+      "c": "Lambda memory limit reached",
+      "d": "API rate limit exceeded"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Concurrency limits apply per Region, not per VPC.",
+      "b": "Correct. ENI quotas apply per VPC, regardless of Region. If the quota is exhausted in one VPC, Lambda cannot create new network interfaces [1].",
+      "c": "Incorrect. Memory limits are per function, not per VPC.",
+      "d": "Incorrect. API rate limits would affect all VPCs."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team is building an AI workflow that needs to: 1) Retrieve documents from S3, 2) Use AI reasoning to decide next steps, 3) Execute parallel API calls, 4) Handle retries deterministically. Which 2026 Step Functions architecture best fits?",
+    "opts": {
+      "a": "Standard workflow with all Lambda functions",
+      "b": "Standard workflow combining regular states for deterministic steps and an AgentCore-powered agentic reasoning step for AI decisions",
+      "c": "Express workflow with Lambda functions",
+      "d": "Multiple Step Functions workflows chained together"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. All Lambda functions miss the AI reasoning capability.",
+      "b": "Correct. The agentic reasoning step handles AI decisions while the workflow handles deterministic parts (branching, retries, timeouts, parallel execution) [7].",
+      "c": "Incorrect. Express workflows have a 5-minute limit and don't offer the agentic step.",
+      "d": "Incorrect. Chaining workflows adds unnecessary complexity."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What specific enhancement did Step Functions add for Distributed Map in February 2025?",
+    "opts": {
+      "a": "Expanded data source and output options",
+      "b": "KMS encryption support",
+      "c": "Variables support",
+      "d": "Metrics dashboard integration"
+    },
+    "ans": "a",
+    "exp": {
+      "a": "Correct. In February 2025, Step Functions expanded data source and output options for Distributed Map [4].",
+      "b": "Incorrect. KMS encryption was June 2024.",
+      "c": "Incorrect. Variables were November 2024.",
+      "d": "Incorrect. Metrics dashboard was October 2025."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "In the Step Functions TestState API (November 2023), what can you do?",
+    "opts": {
+      "a": "Test entire workflows end-to-end",
+      "b": "Invoke HTTPS endpoints and test individual states",
+      "c": "Load test with thousands of executions",
+      "d": "Test IAM policies"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. TestState tests individual states, not entire workflows.",
+      "b": "Correct. November 2023 brought the ability to invoke HTTPS endpoints and test states with the TestState API [4].",
+      "c": "Incorrect. Load testing is not what TestState provides.",
+      "d": "Incorrect. IAM policy testing is not the purpose."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "When did Step Functions add enhanced error handling capabilities?",
+    "opts": {
+      "a": "June 2023",
+      "b": "September 2023",
+      "c": "November 2023",
+      "d": "June 2024"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. June 2023 was for versions and aliases.",
+      "b": "Correct. Step Functions enhanced error handling in September 2023 [4].",
+      "c": "Incorrect. November 2023 was for redrive and TestState.",
+      "d": "Incorrect. June 2024 was for KMS encryption."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A team needs to process 10 million records stored in S3 using Step Functions. They need parallel processing at scale. Which Step Functions feature should they use?",
+    "opts": {
+      "a": "Standard Map state",
+      "b": "Distributed Map state",
+      "c": "Parallel state",
+      "d": "Choice state with multiple branches"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Standard Map has limitations for millions of records.",
+      "b": "Correct. Distributed Map state (December 2022) is designed for orchestrating large-scale parallel workflows for data processing [4].",
+      "c": "Incorrect. Parallel state runs fixed number of branches, not suitable for millions of records.",
+      "d": "Incorrect. Choice state is for conditional branching."
+    }
+  },
+  {
+    "type": "factual",
+    "q": "What new AWS Region was announced for Lambda support around re:Invent 2025?",
+    "opts": {
+      "a": "South Africa",
+      "b": "New Zealand",
+      "c": "Mexico",
+      "d": "Norway"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. South Africa was not the new region mentioned.",
+      "b": "Correct. New Zealand was announced as a new region for Lambda support [6].",
+      "c": "Incorrect. Mexico was not mentioned.",
+      "d": "Incorrect. Norway was not the new region."
+    }
+  },
+  {
+    "type": "scenario",
+    "q": "A platform team manages DynamoDB tables with Streams enabled using provisioned capacity. They notice write throttling. What quota should they investigate?",
+    "opts": {
+      "a": "Read capacity units quota",
+      "b": "Maximum write capacity for tables with DynamoDB Streams enabled",
+      "c": "Item size quota",
+      "d": "Global secondary index quota"
+    },
+    "ans": "b",
+    "exp": {
+      "a": "Incorrect. Read capacity doesn't affect write throttling.",
+      "b": "Correct. AWS places default quotas on write capacity for DynamoDB tables with Streams enabled, applicable for tables in provisioned mode [15].",
+      "c": "Incorrect. Item size is per-item, not a throughput quota.",
+      "d": "Incorrect. GSI quota is unrelated to write throttling with Streams."
+    }
+  }
+]
